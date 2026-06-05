@@ -193,6 +193,16 @@
     #claim-btn { background: #4caf50; color: #fff; border: none; border-radius: 8px;
       padding: 9px 20px; font-size: .88rem; font-weight: bold; cursor: pointer; }
 
+    /* ── Demo banner ── */
+    #demo-banner {
+      background: linear-gradient(135deg, #2a1a00, #3a2800);
+      border: 1px solid #f7d046;
+      border-radius: 10px; padding: 12px 16px;
+      margin-bottom: 20px; text-align: center;
+    }
+    #demo-banner strong { color: #f7d046; }
+    #demo-banner p { font-size: .82rem; color: #ccc; margin-top: 4px; }
+
     .hidden { display: none !important; }
     .spin { display: inline-block; animation: spin .8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -216,6 +226,12 @@
       <span id="usdc-balance" class="hidden"></span>
     </div>
     <button id="connect-btn" class="btn btn-gold">Connect Wallet</button>
+  </div>
+
+  <!-- ── Demo banner (hidden when live) ── -->
+  <div id="demo-banner" class="hidden">
+    <strong>DEMO MODE</strong> — No wallet needed
+    <p>Contracts not yet deployed. Explore the UI with sample races below. Bets are simulated only.</p>
   </div>
 
   <!-- ── Race picker ── -->
@@ -346,6 +362,15 @@ const S = {
 // Wallet connection
 // ─────────────────────────────────────────────────────────────────────────────
 async function connect() {
+  if (!isConfigured()) {
+    // Demo mode: fake a wallet connection
+    S.wallet = '0xDEMO000000000000000000000000000000001234';
+    renderWalletBar();
+    clearStatus();
+    loadDemoMarkets();
+    return;
+  }
+
   if (!window.ethereum) {
     return setStatus('MetaMask is not installed. <a href="https://metamask.io" target="_blank">Get MetaMask →</a>', 'error');
   }
@@ -426,15 +451,51 @@ async function updateBalance() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Demo data
+// ─────────────────────────────────────────────────────────────────────────────
+const DEMO_MARKETS = [
+  {
+    id: 0n, raceId: 'RACE-001',
+    horseA: 'Relámpago', horseB: 'Viento Rojo',
+    closingTime: Math.floor(Date.now() / 1000) + 3600,
+    poolA: 4200_000000n, poolB: 5800_000000n,
+    oddsA: 4200, oddsB: 5800,
+    result: 0, resolved: false, cancelled: false,
+  },
+  {
+    id: 1n, raceId: 'RACE-002',
+    horseA: 'Tormenta Azul', horseB: 'Estrella Dorada',
+    closingTime: Math.floor(Date.now() / 1000) + 7200,
+    poolA: 6100_000000n, poolB: 3900_000000n,
+    oddsA: 6100, oddsB: 3900,
+    result: 0, resolved: false, cancelled: false,
+  },
+  {
+    id: 2n, raceId: 'RACE-003',
+    horseA: 'Cielo Libre', horseB: 'Fuego Negro',
+    closingTime: Math.floor(Date.now() / 1000) - 600,
+    poolA: 7500_000000n, poolB: 2500_000000n,
+    oddsA: 7500, oddsB: 2500,
+    result: 1, resolved: true, cancelled: false,
+  },
+];
+
+function loadDemoMarkets() {
+  document.getElementById('demo-banner').classList.remove('hidden');
+  S.markets = DEMO_MARKETS;
+  S.balance = 250_000000n; // pretend the user has 250 demo USDC
+  document.getElementById('balance-display').textContent = '250.00 USDC';
+  renderMarkets();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Load markets from contract
 // ─────────────────────────────────────────────────────────────────────────────
 async function loadMarkets() {
   const grid = document.getElementById('markets-grid');
 
   if (!isConfigured()) {
-    grid.innerHTML = `<div id="markets-empty">
-      Contract not configured yet — fill in CONFIG.MARKET_ADDRESS and CONFIG.USDC_ADDRESS in index.html after deploying.
-    </div>`;
+    loadDemoMarkets();
     return;
   }
 
@@ -673,6 +734,25 @@ async function placeBet() {
   const btn = document.getElementById('place-bet-btn');
   btn.disabled = true;
 
+  // Demo mode: simulate the transaction flow
+  if (!isConfigured()) {
+    const m = S.markets.find(x => x.id === S.marketId);
+    setStatus('<span class="spin">⟳</span> Simulating approval…', 'info');
+    await new Promise(r => setTimeout(r, 800));
+    setStatus('<span class="spin">⟳</span> Simulating bet transaction…', 'info');
+    await new Promise(r => setTimeout(r, 1000));
+    const horseName = S.outcome === 1 ? m.horseA : m.horseB;
+    S.balance -= rawAmount;
+    setStatus(`✓ Demo bet placed! ${S.amount} USDC on <strong>${horseName}</strong>. (No real transaction — demo mode)`, 'success');
+    S.outcome = null;
+    S.amount  = '';
+    document.getElementById('amount-input').value = '';
+    document.getElementById('balance-display').textContent = formatUSDC(S.balance) + ' USDC';
+    renderBetPanel();
+    btn.disabled = false;
+    return;
+  }
+
   try {
     // 1. Check allowance
     const allowance = await S.usdcContract.allowance(S.wallet, CONFIG.MARKET_ADDRESS);
@@ -783,8 +863,13 @@ function bpsToPercent(bps) {
 // ─────────────────────────────────────────────────────────────────────────────
 document.getElementById('connect-btn').addEventListener('click', connect);
 
-// Auto-reconnect if MetaMask is already authorized
+// On load: show demo races immediately if not configured; otherwise auto-reconnect
 window.addEventListener('load', async () => {
+  if (!isConfigured()) {
+    loadDemoMarkets();
+    document.getElementById('markets-empty') && (document.getElementById('markets-empty').remove());
+    return;
+  }
   if (!window.ethereum) return;
   try {
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
