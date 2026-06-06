@@ -316,7 +316,8 @@ function burst(x, y, n) {
 
 for (let i = 0; i < 90; i++) pts.push(new P());
 
-/* ── speed-line state ── */
+/* ── shared state (must live before frame() runs) ── */
+let cur = -1, t0 = null, paused = false, running = false;
 let spdAlpha = 0, flashA = 0;
 
 function frame() {
@@ -363,7 +364,7 @@ function frame() {
 
   requestAnimationFrame(frame);
 }
-frame();
+requestAnimationFrame(frame);
 
 /* ── audio ── */
 let aud = null, droneG = null, muted = false;
@@ -408,16 +409,16 @@ function chime() {
 }
 
 /* ── scene helpers ── */
-function anim(el, kf, delay=0, fill='both') {
+function anim(el, kf, delay=0) {
   if(!el) return;
-  el.style.cssText += ';opacity:0;animation:none';
+  el.style.opacity='0'; el.style.animation='none';
   setTimeout(()=>{
     el.style.opacity='';
-    el.style.animation=`${kf} .65s cubic-bezier(.34,1.5,.64,1) ${fill} forwards`;
+    el.style.animation=`${kf} .65s cubic-bezier(.34,1.5,.64,1) forwards`;
   }, delay);
 }
-function fadeUp(el,delay=0){ if(!el)return; el.style.cssText+=';opacity:0;animation:none'; setTimeout(()=>{ el.style.opacity=''; el.style.animation=`fadeUp .6s ease forwards`; },delay); }
-function fadeIn(el,delay=0){ if(!el)return; el.style.cssText+=';opacity:0;animation:none'; setTimeout(()=>{ el.style.opacity=''; el.style.animation=`fadeIn .55s ease forwards`; },delay); }
+function fadeUp(el,delay=0){ if(!el)return; el.style.opacity='0'; el.style.animation='none'; setTimeout(()=>{ el.style.opacity=''; el.style.animation='fadeUp .6s ease forwards'; },delay); }
+function fadeIn(el,delay=0){ if(!el)return; el.style.opacity='0'; el.style.animation='none'; setTimeout(()=>{ el.style.opacity=''; el.style.animation='fadeIn .55s ease forwards'; },delay); }
 
 function countUp(id, target, ms=1500) {
   const el = document.getElementById(id);
@@ -504,8 +505,6 @@ const SCENES=[
   {id:'s4',dur:5000},{id:'s5',dur:4000},{id:'s6',dur:3800},{id:'s7',dur:6200},
 ];
 const TOTAL = SCENES.reduce((a,s)=>a+s.dur,0);
-
-let cur=-1, t0=null, paused=false, running=false;
 
 function setScene(i) {
   if(i===cur) return;
