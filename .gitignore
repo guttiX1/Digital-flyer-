@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+races.db
+output/*.json
+output/*.html
+output/*.txt
