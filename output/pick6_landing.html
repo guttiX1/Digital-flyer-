@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pick 6 — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#0a0a0a;color:#fff}
+/* hero */
+.hero{background:linear-gradient(160deg,#0a0a0a 0%,#1a1200 40%,#2d1f00 100%);min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(247,208,70,.08) 0%,transparent 70%)}
+.hero-eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#f7d046;opacity:.8;margin-bottom:14px;position:relative}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:5rem;letter-spacing:.04em;line-height:.95;position:relative}
+.hero-h1 span{color:#f7d046}
+.hero-sub{font-size:1.2rem;color:rgba(255,255,255,.7);margin-top:16px;max-width:500px;line-height:1.5;position:relative}
+.hero-date{font-size:.95rem;color:#f7d046;margin-top:14px;position:relative;font-weight:600}
+.hero-cta{margin-top:32px;display:inline-block;background:#f7d046;color:#1a1a1a;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;padding:16px 40px;border-radius:100px;text-decoration:none;position:relative;transition:transform .2s}
+.hero-cta:hover{transform:scale(1.04)}
+/* ad slots */
+.ad{background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;height:90px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin:0 auto;max-width:800px}
+/* how it works */
+.how{background:#111;padding:60px 20px}
+.section-container{max-width:800px;margin:0 auto}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.04em;text-align:center;margin-bottom:36px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:600px){.steps{grid-template-columns:1fr}}
+.step-box{text-align:center;padding:24px 16px}
+.step-icon{font-size:2.4rem;margin-bottom:12px}
+.step-h{font-weight:700;font-size:1.1rem;margin-bottom:6px;letter-spacing:.04em}
+.step-p{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.5}
+/* picks form */
+.picks-section{background:#0a0a0a;padding:60px 20px}
+.form-box{background:#111;border:1.5px solid rgba(247,208,70,.2);border-radius:24px;padding:40px;max-width:700px;margin:0 auto}
+.form-box h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;margin-bottom:6px}
+.form-box p{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:28px}
+.pick-field{margin-bottom:16px}
+.pick-label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f7d046;margin-bottom:6px}
+.race-n-name{color:rgba(255,255,255,.4);font-size:.75rem;font-weight:400;letter-spacing:.04em;text-transform:none}
+.pick-select{width:100%;padding:12px 16px;background:#1a1a1a;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;outline:none;cursor:pointer;transition:border-color .2s}
+.pick-select:focus{border-color:#f7d046}
+.form-divider{height:1px;background:rgba(255,255,255,.08);margin:24px 0}
+.fan-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:500px){.fan-row{grid-template-columns:1fr}}
+.fan-input{width:100%;padding:12px 16px;background:#1a1a1a;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;outline:none;transition:border-color .2s}
+.fan-input:focus{border-color:#f7d046}
+.fan-input::placeholder{color:rgba(255,255,255,.3)}
+.submit-btn{width:100%;padding:18px;background:#f7d046;color:#1a1a1a;border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;cursor:pointer;margin-top:10px;transition:transform .2s}
+.submit-btn:hover{transform:scale(1.02)}
+/* qr section */
+.qr-section{background:#111;padding:50px 20px;text-align:center}
+.qr-img{width:160px;height:160px;border-radius:16px;border:3px solid #f7d046;background:#fff;margin:0 auto 16px}
+.qr-label{color:rgba(255,255,255,.5);font-size:.9rem}
+footer{background:#0a0a0a;text-align:center;padding:32px 20px;color:rgba(255,255,255,.3);font-size:.8rem}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Official Pick 6 Card</div>
+  <h1 class="hero-h1">PICK <span>6</span></h1>
+  <div class="hero-sub">Select one winner from each of the 6 featured races. Cards verified on race day.</div>
+  <div class="hero-date">Sábado 14 de Junio, 2026 · Hipódromo de las Américas · Ciudad de México</div>
+  <a href="#picks-form" class="hero-cta">FILL OUT YOUR CARD</a>
+</div>
+
+<!-- AD SLOT 1 -->
+<div style="padding:16px 20px;background:#0a0a0a">
+  <div class="ad">Advertisement · 728×90</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how">
+  <div class="section-container">
+    <div class="section-title">HOW IT WORKS</div>
+    <div class="steps">
+      <div class="step-box">
+        <div class="step-icon">🎫</div>
+        <div class="step-h">Fill Your Card</div>
+        <div class="step-p">Pick one horse to win in each of the 6 designated races below.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-icon">🏇</div>
+        <div class="step-h">Watch the Races</div>
+        <div class="step-p">Cheer on your picks live on race day. No changes after the first post.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-icon">🏆</div>
+        <div class="step-h">Check Results</div>
+        <div class="step-p">Most winners takes it. Verify your card number at https://yourdomain.com/pick6.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PICKS FORM -->
+<div class="picks-section" id="picks-form">
+  <div class="form-box">
+    <h2>YOUR PICK 6 CARD</h2>
+    <p>Choose one horse per race. Your card number is assigned automatically after submission.</p>
+    <form onsubmit="handlePick6(event)">
+      
+      <div class="pick-field">
+        <label class="pick-label">Race 1 <span class="race-n-name">Copa de Apertura</span></label>
+        <select name="race_1" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="TRUENO VELOZ">TRUENO VELOZ</option><option value="VIENTO DEL NORTE">VIENTO DEL NORTE</option><option value="SOL BRILLANTE">SOL BRILLANTE</option><option value="REY DEL CAMPO">REY DEL CAMPO</option>
+        </select>
+      </div>
+      <div class="pick-field">
+        <label class="pick-label">Race 2 <span class="race-n-name">Clásico Primavera</span></label>
+        <select name="race_2" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="FLECHA DE ORO">FLECHA DE ORO</option><option value="CAMPEÓN ETERNO">CAMPEÓN ETERNO</option><option value="ESTRELLA DEL SUR">ESTRELLA DEL SUR</option><option value="RAYO IMPERIAL">RAYO IMPERIAL</option>
+        </select>
+      </div>
+      <div class="pick-field">
+        <label class="pick-label">Race 3 <span class="race-n-name">Race 3</span></label>
+        <select name="race_3" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="NOBLE CORCEL">NOBLE CORCEL</option><option value="TORMENTA AZUL">TORMENTA AZUL</option><option value="GRAN CONQUISTADOR">GRAN CONQUISTADOR</option>
+        </select>
+      </div>
+      <div class="pick-field">
+        <label class="pick-label">Race 4 <span class="race-n-name">Premio Especial</span></label>
+        <select name="race_4" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="LEYENDA VIVA">LEYENDA VIVA</option><option value="GUARDIÁN DEL ALBA">GUARDIÁN DEL ALBA</option><option value="ESPÍRITU LIBRE">ESPÍRITU LIBRE</option>
+        </select>
+      </div>
+      <div class="pick-field">
+        <label class="pick-label">Race 5 <span class="race-n-name">Race 5</span></label>
+        <select name="race_5" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="NOCHE DE GALA">NOCHE DE GALA</option><option value="DESTINO REAL">DESTINO REAL</option><option value="MÍSTICO PODER">MÍSTICO PODER</option><option value="VOLCÁN DORADO">VOLCÁN DORADO</option>
+        </select>
+      </div>
+      <div class="pick-field">
+        <label class="pick-label">Race 6 <span class="race-n-name">Copa de Cierre</span></label>
+        <select name="race_6" class="pick-select" required>
+          <option value="" disabled selected>Select your horse</option>
+          <option value="PRÍNCIPE AZTECA">PRÍNCIPE AZTECA</option><option value="CABALLERO IMPERIAL">CABALLERO IMPERIAL</option><option value="AURORA TRIUNFAL">AURORA TRIUNFAL</option>
+        </select>
+      </div>
+      <div class="form-divider"></div>
+      <div class="fan-row">
+        <input class="fan-input" type="text" id="p6-name" placeholder="Your Name" required>
+        <input class="fan-input" type="email" id="p6-email" placeholder="Email Address" required>
+      </div>
+      <input class="fan-input" type="tel" id="p6-phone" placeholder="Phone (optional)" style="margin-bottom:0">
+      <button class="submit-btn" type="submit">SUBMIT MY PICKS →</button>
+    </form>
+  </div>
+</div>
+
+<!-- AD SLOT 2 -->
+<div style="padding:16px 20px;background:#0a0a0a">
+  <div class="ad">Advertisement · 300×250</div>
+</div>
+
+<!-- QR SECTION -->
+<div class="qr-section">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://yourdomain.com/pick6_landing.html" alt="QR Code" class="qr-img">
+  <div class="qr-label">Scan to fill out your Pick 6 card on mobile</div>
+</div>
+
+<footer>Pick 6 for entertainment purposes only. Must be 18+ to participate. https://yourdomain.com/pick6</footer>
+
+<script>
+function handlePick6(e) {
+  e.preventDefault();
+  const form = e.target;
+  const picks = {};
+  form.querySelectorAll('select').forEach(s => {
+    picks[s.name] = s.value;
+  });
+  const payload = {
+    name: document.getElementById('p6-name').value,
+    email: document.getElementById('p6-email').value,
+    phone: document.getElementById('p6-phone').value,
+    picks,
+    source: 'pick6'
+  };
+  fetch('/api/pick6', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+    .catch(()=>{});
+  form.closest('.form-box').innerHTML =
+    '<h2>Card Submitted!</h2><p style="color:#f7d046;font-size:1.1rem;margin-top:12px">Your Pick 6 card has been recorded. Check your email for your card number. Good luck! 🏇</p>';
+}
+</script>
+</body>
+</html>

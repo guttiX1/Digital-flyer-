@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prediction Contest — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#f5f5f7;color:#1d1d1f}
+.container{max-width:860px;margin:0 auto;padding:20px}
+header{text-align:center;padding:50px 20px 30px;background:#fff;border-radius:20px;margin-bottom:32px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.04em}
+header h2{color:#f7d046;font-size:1.1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-top:8px}
+header p{color:#6e6e73;margin-top:10px;font-size:.95rem}
+.badge{display:inline-block;background:#f7d046;color:#1d1d1f;font-size:.75rem;font-weight:800;letter-spacing:.1em;padding:4px 14px;border-radius:100px;text-transform:uppercase;margin-bottom:12px}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+@media(max-width:700px){.tiers{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.tiers{grid-template-columns:1fr}}
+.tier-card{background:#fff;border-radius:20px;padding:28px 18px;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,.07);transition:transform .2s}
+.tier-card:hover{transform:translateY(-4px)}
+.tier-badge{display:inline-block;padding:6px 18px;border-radius:100px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.08em;margin-bottom:16px}
+.tier-entry{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.02em;color:#1d1d1f}
+.tier-prize{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#22c55e;margin-top:4px}
+.tier-label{font-size:.8rem;color:#8e8e93;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.tier-perks{font-size:.9rem;color:#3c3c43;margin-bottom:20px;line-height:1.4}
+.tier-btn{width:100%;padding:12px;border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;cursor:pointer;transition:opacity .2s}
+.tier-btn:hover{opacity:.85}
+.how-box{background:#fff;border-radius:20px;padding:36px;margin-bottom:32px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.how-box h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;margin-bottom:20px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:500px){.steps{grid-template-columns:1fr}}
+.step{text-align:center}
+.step-num{width:44px;height:44px;background:#f7d046;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;margin:0 auto 10px}
+.step h4{font-weight:700;margin-bottom:4px}
+.step p{font-size:.85rem;color:#6e6e73}
+.rules{background:#fff;border-radius:20px;padding:30px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.rules h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:12px}
+.rules ul{padding-left:20px;color:#6e6e73;font-size:.9rem;line-height:2}
+footer{text-align:center;color:#8e8e93;font-size:.8rem;padding:40px 20px}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="badge">Prediction Contest</div>
+    <h1>Gran Premio Carreras de Caballos</h1>
+    <h2>Pick Your Winners · Win Real Prizes</h2>
+    <p>Sábado 14 de Junio, 2026 · Hipódromo de las Américas</p>
+  </header>
+
+  <div class="tiers">
+        <div class="tier-card">
+          <div class="tier-badge" style="background:#cd7f32;color:#1d1d1f">BRONZE</div>
+          <div class="tier-entry">$5</div>
+          <div class="tier-prize">$250</div>
+          <div class="tier-label">Prize Pool</div>
+          <div class="tier-perks">3 picks per race</div>
+          <button class="tier-btn" style="background:#cd7f32;color:#1d1d1f">Enter BRONZE</button>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge" style="background:#a8a9ad;color:#fff">SILVER</div>
+          <div class="tier-entry">$15</div>
+          <div class="tier-prize">$1,000</div>
+          <div class="tier-label">Prize Pool</div>
+          <div class="tier-perks">5 picks per race + early access</div>
+          <button class="tier-btn" style="background:#a8a9ad;color:#fff">Enter SILVER</button>
+        </div>
+        <div class="tier-card" style="transform:scale(1.04);box-shadow:0 8px 40px rgba(247,208,70,.3)">
+          <div class="tier-badge" style="background:#f7d046;color:#1d1d1f">GOLD</div>
+          <div class="tier-entry">$30</div>
+          <div class="tier-prize">$3,500</div>
+          <div class="tier-label">Prize Pool</div>
+          <div class="tier-perks">All picks + 2x multiplier</div>
+          <button class="tier-btn" style="background:#f7d046;color:#1d1d1f">Enter GOLD</button>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge" style="background:#e5e4e2;color:#fff">PLATINUM</div>
+          <div class="tier-entry">$50</div>
+          <div class="tier-prize">$10,000</div>
+          <div class="tier-label">Prize Pool</div>
+          <div class="tier-perks">All picks + 3x + VIP lounge</div>
+          <button class="tier-btn" style="background:#e5e4e2;color:#fff">Enter PLATINUM</button>
+        </div>
+  </div>
+
+  <div class="how-box">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Choose Your Tier</h4>
+        <p>Select an entry level that matches your budget and prize goal.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Make Your Picks</h4>
+        <p>Select winning horses for each race on the card.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Win Prizes</h4>
+        <p>Most correct picks wins. Ties split the prize pool equally.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rules">
+    <h3>Contest Rules</h3>
+    <ul>
+      <li>One entry per person per tier. Multiple tiers allowed.</li>
+      <li>Picks lock at post time of Race 1. No changes after lock.</li>
+      <li>Official finishing order used for scoring. Disqualifications apply.</li>
+      <li>Prize pools guaranteed. Payouts within 48 hours of final race.</li>
+      <li>Must be 18+ and in an eligible jurisdiction to enter.</li>
+    </ul>
+  </div>
+
+  <footer>Contest for entertainment purposes. See full terms at https://yourdomain.com/terms</footer>
+</div>
+</body>
+</html>

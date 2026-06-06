@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ad — Markets</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Barlow Condensed',sans-serif}
+.ad-frame{width:400px;height:400px;background:linear-gradient(135deg,#00071a 0%,#001133 50%,#00071a 100%);border:2px solid #4d94ff;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 0 60px rgba(77,148,255,.3)}
+.glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(77,148,255,.1) 0%,transparent 70%);pointer-events:none}
+.content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:28px;text-align:center}
+.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#4d94ff;opacity:.8;margin-bottom:8px}
+.event-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;letter-spacing:.04em;margin-bottom:20px}
+.matchup{display:flex;align-items:center;gap:10px;width:100%;margin-bottom:16px}
+.horse-col{flex:1;text-align:center}
+.h-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.04em;line-height:1.2;margin-bottom:6px}
+.h-bar-wrap{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.h-bar{height:100%;border-radius:4px;transition:width 1s ease}
+.h-pct{font-size:1.4rem;font-weight:800;}
+.vs{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#4d94ff;flex-shrink:0}
+.fee-note{font-size:.8rem;color:#93c5fd;letter-spacing:.06em;margin-bottom:12px}
+.cta{font-size:1rem;color:#fff;font-weight:700;letter-spacing:.06em}
+.qr-img{width:96px;height:96px;margin-top:12px;border-radius:10px;border:2px solid #4d94ff;background:#fff}
+.corner{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.08em;color:#4d94ff;opacity:.6}
+.corner.tl{top:12px;left:16px}
+.corner.br{bottom:12px;right:16px}
+</style>
+</head>
+<body>
+<div class="ad-frame">
+  <div class="glow"></div>
+  <div class="corner tl">MARKETS</div>
+  <div class="corner br">TRADE NOW</div>
+  <div class="content">
+    <div class="eyebrow">Featured Matchup · Race 1</div>
+    <div class="event-name">Gran Premio Carreras de Caballos</div>
+    <div class="matchup">
+      <div class="horse-col">
+        <div class="h-name">TRUENO VELOZ</div>
+        <div class="h-bar-wrap"><div class="h-bar" id="bar1" style="width:0%;background:#4d94ff"></div></div>
+        <div class="h-pct" style="color:#4d94ff" id="pct1">0%</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="horse-col">
+        <div class="h-name">VIENTO DEL NORTE</div>
+        <div class="h-bar-wrap"><div class="h-bar" id="bar2" style="width:0%;background:#f7d046"></div></div>
+        <div class="h-pct" style="color:#f7d046" id="pct2">0%</div>
+      </div>
+    </div>
+    <div class="fee-note">8% platform fee · Live markets for all 6 races</div>
+    <div class="cta">SCAN TO TRADE · Sábado 14 de Junio, 2026</div>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://yourdomain.com/markets_site.html" alt="QR" class="qr-img">
+  </div>
+</div>
+<script>
+(function(){
+  let p1 = 0, p2 = 0;
+  const iv = setInterval(() => {
+    if (p1 < 58) p1++;
+    if (p2 < 42) p2++;
+    document.getElementById('bar1').style.width = p1 + '%';
+    document.getElementById('bar2').style.width = p2 + '%';
+    document.getElementById('pct1').textContent = p1 + '%';
+    document.getElementById('pct2').textContent = p2 + '%';
+    if (p1 >= 58 && p2 >= 42) clearInterval(iv);
+  }, 20);
+})();
+</script>
+</body>
+</html>

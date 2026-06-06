@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markets Flyer — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#fff;color:#1d1d1f;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.flyer{width:600px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 4px 60px rgba(0,0,0,.12)}
+.flyer-hero{background:linear-gradient(160deg,#00071a 0%,#001333 60%,#00236b 100%);padding:48px 40px 36px;text-align:center;position:relative}
+.flyer-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:#fff;border-radius:28px 28px 0 0}
+.hero-eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#93c5fd;margin-bottom:10px}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:#fff;letter-spacing:.04em;line-height:1}
+.hero-h2{font-size:1.1rem;color:#4d94ff;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+.matchup-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:18px}
+.h-pill{background:rgba(77,148,255,.15);border:1.5px solid #4d94ff;border-radius:100px;padding:7px 18px;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#fff;letter-spacing:.04em}
+.vs-pill{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#4d94ff}
+.body{padding:32px 40px 40px}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2563eb;margin-bottom:16px}
+.step{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.step-n{width:32px;height:32px;background:#eff6ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#2563eb;flex-shrink:0}
+.step-title{font-weight:700;font-size:1rem;letter-spacing:.02em}
+.step-desc{font-size:.85rem;color:#6e6e73;margin-top:2px}
+.fee-chip{display:inline-flex;align-items:center;gap:6px;background:#eff6ff;border:1.5px solid #4d94ff;color:#2563eb;padding:7px 16px;border-radius:100px;font-weight:700;font-size:.88rem;margin:20px 0 0}
+.divider{height:1px;background:#e5e7eb;margin:24px 0}
+.footer-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-badge{background:#eff6ff;border:2px solid #4d94ff;border-radius:100px;padding:8px 20px;font-weight:700;color:#1d4ed8;font-size:.9rem}
+@media print{body{background:#fff}.flyer{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="flyer-hero">
+    <div class="hero-eyebrow">Prediction Markets</div>
+    <div class="hero-h1">Gran Premio Carreras de Caballos</div>
+    <div class="hero-h2">Trade the Outcomes · 6 Races</div>
+    <div class="matchup-row">
+      <div class="h-pill">TRUENO VELOZ</div>
+      <div class="vs-pill">VS</div>
+      <div class="h-pill">VIENTO DEL NORTE</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="section-label">How It Works</div>
+    
+      <div class="step">
+        <div class="step-n">1</div>
+        <div>
+          <div class="step-title">Choose a Race</div>
+          <div class="step-desc">Browse all open markets for today's card</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div>
+          <div class="step-title">Buy Shares</div>
+          <div class="step-desc">Buy shares in the horse you think will win</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div>
+          <div class="step-title">Cash Out</div>
+          <div class="step-desc">Sell before race or collect your payout after</div>
+        </div>
+      </div>
+    <div class="fee-chip">⚡ Only 8% platform fee on winning payouts</div>
+    <div class="divider"></div>
+    <div class="footer-row">
+      <div class="footer-badge">📈 Trade Now</div>
+      <div style="color:#6e6e73;font-size:.85rem">Sábado 14 de Junio, 2026 · Hipódromo de las Américas</div>
+    </div>
+    <div style="margin-top:12px;text-align:center;color:#9ca3af;font-size:.78rem">https://yourdomain.com/markets · 8% fee · 18+</div>
+  </div>
+</div>
+</body>
+</html>

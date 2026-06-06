@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prediction Markets — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#f5f5f7;color:#1d1d1f}
+.container{max-width:860px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 24px;background:#fff;border-radius:20px;margin-bottom:28px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.04em}
+header h2{color:#4d94ff;font-size:1.05rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-top:8px}
+header p{color:#6e6e73;margin-top:8px;font-size:.9rem}
+.fee-badge{display:inline-flex;align-items:center;gap:8px;background:#eff6ff;border:1.5px solid #4d94ff;color:#2563eb;padding:8px 18px;border-radius:100px;font-weight:700;font-size:.9rem;margin-bottom:20px}
+.market-card{background:#fff;border-radius:16px;margin-bottom:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.market-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:#f0f6ff;flex-wrap:wrap}
+.mkt-label{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#4d94ff;letter-spacing:.06em}
+.mkt-meta{color:#6e6e73;font-size:.85rem}
+.mkt-pool{margin-left:auto;font-weight:700;color:#1d1d1f;font-size:.95rem}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:#6e6e73;border-bottom:1px solid #e5e5ea}
+td{padding:10px 14px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.h-num{color:#6e6e73;font-size:.9rem;width:30px}
+.h-name{font-weight:700;letter-spacing:.02em}
+.jock{display:block;font-size:.78rem;color:#8e8e93;font-weight:400;margin-top:2px}
+.h-share{color:#22c55e;font-weight:700}
+.h-implied{font-weight:700}
+.h-vol{color:#6e6e73}
+.buy-btn,.sell-btn{padding:5px 12px;border:none;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:opacity .2s;margin-right:4px}
+.buy-btn{background:#4d94ff;color:#fff}
+.sell-btn{background:#e5e7eb;color:#374151}
+.buy-btn:hover,.sell-btn:hover{opacity:.8}
+.info-box{background:#fff;border-radius:20px;padding:28px;margin-bottom:28px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.info-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;margin-bottom:12px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:500px){.info-grid{grid-template-columns:1fr}}
+.info-item{background:#f5f5f7;border-radius:12px;padding:16px;text-align:center}
+.info-item strong{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#4d94ff}
+.info-item p{font-size:.82rem;color:#6e6e73;margin-top:4px}
+.toast{position:fixed;bottom:24px;right:24px;background:#1d1d1f;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;transform:translateY(100px);transition:transform .3s;z-index:999}
+.toast.show{transform:translateY(0)}
+footer{text-align:center;color:#8e8e93;font-size:.8rem;padding:40px 20px}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="fee-badge">⚡ 8% Platform Fee on Winning Payouts</div>
+    <h1>Gran Premio Carreras de Caballos</h1>
+    <h2>Live Prediction Markets</h2>
+    <p>Sábado 14 de Junio, 2026 · Hipódromo de las Américas</p>
+  </header>
+
+  <div class="info-box">
+    <h3>Market Overview</h3>
+    <div class="info-grid">
+      <div class="info-item"><strong>6</strong><p>Active Markets</p></div>
+      <div class="info-item"><strong>8%</strong><p>Platform Fee</p></div>
+      <div class="info-item"><strong>LIVE</strong><p>Market Status</p></div>
+    </div>
+  </div>
+
+  
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 1</span>
+          <span class="mkt-meta">6 furlongs · Dirt</span>
+          <span class="mkt-pool">Pool: $4,009</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">TRUENO VELOZ
+              <span class="jock">G. Ramírez</span>
+            </td>
+            <td class="h-share">58%</td>
+            <td class="h-implied">1.7x</td>
+            <td class="h-vol">$110</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','TRUENO VELOZ')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','TRUENO VELOZ')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">VIENTO DEL NORTE
+              <span class="jock">A. Cárdenas</span>
+            </td>
+            <td class="h-share">21%</td>
+            <td class="h-implied">4.8x</td>
+            <td class="h-vol">$194</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','VIENTO DEL NORTE')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','VIENTO DEL NORTE')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">SOL BRILLANTE
+              <span class="jock">M. Fuentes</span>
+            </td>
+            <td class="h-share">12%</td>
+            <td class="h-implied">8.3x</td>
+            <td class="h-vol">$25</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','SOL BRILLANTE')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','SOL BRILLANTE')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">4</td>
+            <td class="h-name">REY DEL CAMPO
+              <span class="jock">P. Morales</span>
+            </td>
+            <td class="h-share">9%</td>
+            <td class="h-implied">11.1x</td>
+            <td class="h-vol">$137</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','REY DEL CAMPO')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','REY DEL CAMPO')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 2</span>
+          <span class="mkt-meta">1 mile · Turf</span>
+          <span class="mkt-pool">Pool: $1,575</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">FLECHA DE ORO
+              <span class="jock">B. Castillo</span>
+            </td>
+            <td class="h-share">8%</td>
+            <td class="h-implied">12.5x</td>
+            <td class="h-vol">$111</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','FLECHA DE ORO')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','FLECHA DE ORO')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">CAMPEÓN ETERNO
+              <span class="jock">F. Méndez</span>
+            </td>
+            <td class="h-share">6%</td>
+            <td class="h-implied">16.7x</td>
+            <td class="h-vol">$200</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','CAMPEÓN ETERNO')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','CAMPEÓN ETERNO')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">ESTRELLA DEL SUR
+              <span class="jock">D. Aguilar</span>
+            </td>
+            <td class="h-share">40%</td>
+            <td class="h-implied">2.5x</td>
+            <td class="h-vol">$98</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','ESTRELLA DEL SUR')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','ESTRELLA DEL SUR')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">4</td>
+            <td class="h-name">RAYO IMPERIAL
+              <span class="jock">S. Vargas</span>
+            </td>
+            <td class="h-share">46%</td>
+            <td class="h-implied">2.2x</td>
+            <td class="h-vol">$68</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','RAYO IMPERIAL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','RAYO IMPERIAL')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 3</span>
+          <span class="mkt-meta">7 furlongs · Dirt</span>
+          <span class="mkt-pool">Pool: $4,613</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">NOBLE CORCEL
+              <span class="jock">L. Ríos</span>
+            </td>
+            <td class="h-share">13%</td>
+            <td class="h-implied">7.7x</td>
+            <td class="h-vol">$138</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','NOBLE CORCEL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','NOBLE CORCEL')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">TORMENTA AZUL
+              <span class="jock">K. Soto</span>
+            </td>
+            <td class="h-share">15%</td>
+            <td class="h-implied">6.7x</td>
+            <td class="h-vol">$68</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','TORMENTA AZUL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','TORMENTA AZUL')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">GRAN CONQUISTADOR
+              <span class="jock">O. Luna</span>
+            </td>
+            <td class="h-share">72%</td>
+            <td class="h-implied">1.4x</td>
+            <td class="h-vol">$191</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','GRAN CONQUISTADOR')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','GRAN CONQUISTADOR')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 4</span>
+          <span class="mkt-meta">1.25 miles · Turf</span>
+          <span class="mkt-pool">Pool: $1,195</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">LEYENDA VIVA
+              <span class="jock">T. Peña</span>
+            </td>
+            <td class="h-share">26%</td>
+            <td class="h-implied">3.8x</td>
+            <td class="h-vol">$121</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','LEYENDA VIVA')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','LEYENDA VIVA')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">GUARDIÁN DEL ALBA
+              <span class="jock">X. Díaz</span>
+            </td>
+            <td class="h-share">32%</td>
+            <td class="h-implied">3.1x</td>
+            <td class="h-vol">$45</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','GUARDIÁN DEL ALBA')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','GUARDIÁN DEL ALBA')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">ESPÍRITU LIBRE
+              <span class="jock">Y. Delgado</span>
+            </td>
+            <td class="h-share">42%</td>
+            <td class="h-implied">2.4x</td>
+            <td class="h-vol">$34</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','ESPÍRITU LIBRE')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','ESPÍRITU LIBRE')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 5</span>
+          <span class="mkt-meta">6.5 furlongs · Dirt</span>
+          <span class="mkt-pool">Pool: $3,300</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">NOCHE DE GALA
+              <span class="jock">Z. Contreras</span>
+            </td>
+            <td class="h-share">29%</td>
+            <td class="h-implied">3.4x</td>
+            <td class="h-vol">$23</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','NOCHE DE GALA')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','NOCHE DE GALA')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">DESTINO REAL
+              <span class="jock">A. Navarro</span>
+            </td>
+            <td class="h-share">22%</td>
+            <td class="h-implied">4.5x</td>
+            <td class="h-vol">$114</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','DESTINO REAL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','DESTINO REAL')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">MÍSTICO PODER
+              <span class="jock">C. Guerrero</span>
+            </td>
+            <td class="h-share">22%</td>
+            <td class="h-implied">4.5x</td>
+            <td class="h-vol">$116</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','MÍSTICO PODER')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','MÍSTICO PODER')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">4</td>
+            <td class="h-name">VOLCÁN DORADO
+              <span class="jock">E. Moreno</span>
+            </td>
+            <td class="h-share">27%</td>
+            <td class="h-implied">3.7x</td>
+            <td class="h-vol">$154</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','VOLCÁN DORADO')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','VOLCÁN DORADO')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="market-card">
+        <div class="market-header">
+          <span class="mkt-label">RACE 6</span>
+          <span class="mkt-meta">1.5 miles · Turf</span>
+          <span class="mkt-pool">Pool: $1,973</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Horse</th><th>Share</th><th>Odds</th><th>Volume</th><th>Trade</th></tr></thead>
+            <tbody>
+          <tr>
+            <td class="h-num">1</td>
+            <td class="h-name">PRÍNCIPE AZTECA
+              <span class="jock">H. Torres</span>
+            </td>
+            <td class="h-share">44%</td>
+            <td class="h-implied">2.3x</td>
+            <td class="h-vol">$73</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','PRÍNCIPE AZTECA')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','PRÍNCIPE AZTECA')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">2</td>
+            <td class="h-name">CABALLERO IMPERIAL
+              <span class="jock">J. Rueda</span>
+            </td>
+            <td class="h-share">16%</td>
+            <td class="h-implied">6.2x</td>
+            <td class="h-vol">$45</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','CABALLERO IMPERIAL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','CABALLERO IMPERIAL')">SELL</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-num">3</td>
+            <td class="h-name">AURORA TRIUNFAL
+              <span class="jock">L. Mendoza</span>
+            </td>
+            <td class="h-share">40%</td>
+            <td class="h-implied">2.5x</td>
+            <td class="h-vol">$42</td>
+            <td>
+              <button class="buy-btn" onclick="trade(this,'buy','AURORA TRIUNFAL')">BUY</button>
+              <button class="sell-btn" onclick="trade(this,'sell','AURORA TRIUNFAL')">SELL</button>
+            </td>
+          </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  <footer>Prediction markets close at post time. 8% fee deducted from winnings. Must be 18+.</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+function trade(btn, action, horse) {
+  const toast = document.getElementById('toast');
+  toast.textContent = action === 'buy'
+    ? `✅ Bought shares in ${horse}`
+    : `✅ Sold shares in ${horse}`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>

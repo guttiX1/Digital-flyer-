@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Picks — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#f5f5f7;color:#1d1d1f;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:20px}
+/* ad slots */
+.ad{background:#e8e8ed;border:2px dashed #c7c7cc;border-radius:12px;height:90px;display:flex;align-items:center;justify-content:center;color:#8e8e93;font-size:13px;letter-spacing:.05em;margin:16px 0;text-transform:uppercase}
+/* header */
+header{text-align:center;padding:40px 20px 20px;background:#fff;border-radius:20px;margin-bottom:24px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#1d1d1f;letter-spacing:.04em}
+header h2{font-size:1.2rem;color:#22c55e;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+header p{color:#6e6e73;font-size:.95rem;margin-top:8px}
+.badge{display:inline-block;background:#22c55e;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:100px;text-transform:uppercase;margin-top:10px}
+/* fan capture */
+.fan-box{background:#fff;border-radius:20px;padding:32px;margin-bottom:24px;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.fan-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#1d1d1f;margin-bottom:6px}
+.fan-box p{color:#6e6e73;font-size:.9rem;margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+input{width:100%;padding:12px 16px;border:1.5px solid #d2d2d7;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;outline:none;transition:border-color .2s}
+input:focus{border-color:#22c55e}
+.btn{width:100%;padding:16px;background:#22c55e;color:#fff;border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em;cursor:pointer;margin-top:8px;transition:background .2s}
+.btn:hover{background:#16a34a}
+/* races */
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#1d1d1f;margin:28px 0 16px;letter-spacing:.04em}
+.race-card{background:#fff;border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.race-header{padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#fafafa}
+.race-label{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#22c55e;letter-spacing:.06em}
+.race-name{font-weight:700;color:#1d1d1f;font-size:1rem}
+.race-meta{color:#6e6e73;font-size:.85rem;margin-left:auto}
+.horse-list{padding:8px 18px 14px}
+.horse-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f0f0f0}
+.horse-row:last-child{border-bottom:none}
+.horse-num{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem;flex-shrink:0}
+.horse-name{flex:1;font-weight:700;font-size:1rem;letter-spacing:.02em}
+.horse-odds{font-size:.9rem;color:#6e6e73;font-weight:600}
+footer{text-align:center;color:#8e8e93;font-size:.8rem;padding:40px 20px;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- AD SLOT 1 — TOP -->
+  <div class="ad">Advertisement · 728×90</div>
+
+  <header>
+    <div class="badge">Free Picks</div>
+    <h1>Gran Premio Carreras de Caballos</h1>
+    <h2>Expert Race Selections</h2>
+    <p>Sábado 14 de Junio, 2026 · Hipódromo de las Américas · Ciudad de México</p>
+  </header>
+
+  <!-- Fan capture -->
+  <div class="fan-box">
+    <h3>Get Your Free Picks</h3>
+    <p>Enter your info to unlock expert selections for every race — no credit card required.</p>
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="text" id="fan-name" placeholder="Full Name" required>
+        <input type="email" id="fan-email" placeholder="Email Address" required>
+      </div>
+      <input type="tel" id="fan-phone" placeholder="Phone (optional)" style="margin-bottom:0">
+      <button class="btn" type="submit">UNLOCK FREE PICKS →</button>
+    </form>
+  </div>
+
+  <div class="section-title">Race Card — 6 Races</div>
+
+  
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 1</span>
+            <span class="race-name">Copa de Apertura</span>
+            <span class="race-meta">6 furlongs · Dirt · $80,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">TRUENO VELOZ</span>
+              <span class="horse-odds">5-2</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">VIENTO DEL NORTE</span>
+              <span class="horse-odds">3-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">SOL BRILLANTE</span>
+              <span class="horse-odds">4-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">4</span>
+              <span class="horse-name">REY DEL CAMPO</span>
+              <span class="horse-odds">6-1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 2</span>
+            <span class="race-name">Clásico Primavera</span>
+            <span class="race-meta">1 mile · Turf · $120,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">FLECHA DE ORO</span>
+              <span class="horse-odds">7-2</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">CAMPEÓN ETERNO</span>
+              <span class="horse-odds">5-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">ESTRELLA DEL SUR</span>
+              <span class="horse-odds">4-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">4</span>
+              <span class="horse-name">RAYO IMPERIAL</span>
+              <span class="horse-odds">2-1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 3</span>
+            <span class="race-name">Race 3</span>
+            <span class="race-meta">7 furlongs · Dirt · $60,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">NOBLE CORCEL</span>
+              <span class="horse-odds">3-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">TORMENTA AZUL</span>
+              <span class="horse-odds">5-2</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">GRAN CONQUISTADOR</span>
+              <span class="horse-odds">6-1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 4</span>
+            <span class="race-name">Premio Especial</span>
+            <span class="race-meta">1.25 miles · Turf · $200,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">LEYENDA VIVA</span>
+              <span class="horse-odds">4-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">GUARDIÁN DEL ALBA</span>
+              <span class="horse-odds">3-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">ESPÍRITU LIBRE</span>
+              <span class="horse-odds">7-2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 5</span>
+            <span class="race-name">Race 5</span>
+            <span class="race-meta">6.5 furlongs · Dirt · $75,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">NOCHE DE GALA</span>
+              <span class="horse-odds">5-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">DESTINO REAL</span>
+              <span class="horse-odds">4-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">MÍSTICO PODER</span>
+              <span class="horse-odds">3-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">4</span>
+              <span class="horse-name">VOLCÁN DORADO</span>
+              <span class="horse-odds">6-1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="race-card">
+          <div class="race-header" style="border-left:4px solid #22c55e">
+            <span class="race-label">RACE 6</span>
+            <span class="race-name">Copa de Cierre</span>
+            <span class="race-meta">1.5 miles · Turf · $350,000</span>
+          </div>
+          <div class="horse-list">
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">1</span>
+              <span class="horse-name">PRÍNCIPE AZTECA</span>
+              <span class="horse-odds">5-2</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">2</span>
+              <span class="horse-name">CABALLERO IMPERIAL</span>
+              <span class="horse-odds">4-1</span>
+            </div>
+            <div class="horse-row">
+              <span class="horse-num" style="background:#22c55e">3</span>
+              <span class="horse-name">AURORA TRIUNFAL</span>
+              <span class="horse-odds">3-1</span>
+            </div>
+          </div>
+        </div>
+
+  <!-- AD SLOT 2 — MIDDLE -->
+  <div class="ad">Advertisement · 300×250</div>
+
+  <!-- AD SLOT 3 — BOTTOM -->
+  <div class="ad" style="margin-top:8px">Advertisement · 728×90</div>
+
+  <footer>Free picks for entertainment purposes only. Must be 18+ to participate in wagering.</footer>
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('fan-name').value;
+  const email = document.getElementById('fan-email').value;
+  const phone = document.getElementById('fan-phone').value;
+  // POST to your backend endpoint
+  fetch('/api/fans', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name, email, phone, source: 'picks'})
+  }).catch(() => {});
+  document.querySelector('.fan-box').innerHTML =
+    '<h3>You\'re in!</h3><p style="color:#22c55e;font-size:1.1rem;margin-top:8px">Your picks are unlocked. Good luck! 🏇</p>';
+}
+</script>
+</body>
+</html>

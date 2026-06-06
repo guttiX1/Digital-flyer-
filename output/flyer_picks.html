@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Picks Flyer — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#fff;color:#1d1d1f;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.flyer{width:600px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 4px 60px rgba(0,0,0,.12)}
+.flyer-hero{background:linear-gradient(160deg,#052e16 0%,#14532d 60%,#166534 100%);padding:48px 40px 36px;text-align:center;position:relative}
+.flyer-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:#fff;border-radius:28px 28px 0 0}
+.hero-eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#86efac;margin-bottom:10px}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:#fff;letter-spacing:.04em;line-height:1}
+.hero-h2{font-size:1.1rem;color:#86efac;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+.hero-date{color:rgba(255,255,255,.7);font-size:.9rem;margin-top:12px}
+.body{padding:32px 40px 40px;position:relative}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#22c55e;margin-bottom:14px}
+.picks-grid{margin-bottom:32px}
+.pick-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.pick-row:last-child{border-bottom:none}
+.pick-race{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#22c55e;letter-spacing:.06em;width:32px}
+.pick-arrow{color:#d1d5db;font-size:1.1rem}
+.pick-horse{font-weight:700;font-size:1.05rem;letter-spacing:.03em;flex:1}
+.divider{height:1px;background:#f0f0f0;margin:24px 0}
+.footer-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-badge{background:#f0fdf4;border:2px solid #22c55e;border-radius:100px;padding:8px 20px;font-weight:700;color:#16a34a;font-size:.9rem;letter-spacing:.04em}
+.footer-url{color:#6e6e73;font-size:.85rem}
+.watermark{position:absolute;top:40px;right:40px;font-family:'Bebas Neue',sans-serif;font-size:.8rem;color:#e5e7eb;letter-spacing:.1em}
+@media print{body{background:#fff}.flyer{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="flyer-hero">
+    <div class="hero-eyebrow">Expert Selections</div>
+    <div class="hero-h1">Gran Premio Carreras de Caballos</div>
+    <div class="hero-h2">Free Race Picks</div>
+    <div class="hero-date">Sábado 14 de Junio, 2026 · Hipódromo de las Américas · Ciudad de México</div>
+  </div>
+  <div class="body">
+    <div class="watermark">FREE</div>
+    <div class="section-label">Today's Top Picks</div>
+    <div class="picks-grid">
+      <div class="pick-row">
+        <span class="pick-race">R1</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">TRUENO VELOZ</span>
+      </div>
+      <div class="pick-row">
+        <span class="pick-race">R2</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">FLECHA DE ORO</span>
+      </div>
+      <div class="pick-row">
+        <span class="pick-race">R3</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">NOBLE CORCEL</span>
+      </div>
+      <div class="pick-row">
+        <span class="pick-race">R4</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">LEYENDA VIVA</span>
+      </div>
+      <div class="pick-row">
+        <span class="pick-race">R5</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">NOCHE DE GALA</span>
+      </div>
+      <div class="pick-row">
+        <span class="pick-race">R6</span>
+        <span class="pick-arrow">→</span>
+        <span class="pick-horse">PRÍNCIPE AZTECA</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="footer-row">
+      <div class="footer-badge">✓ FREE · No Signup</div>
+      <div class="footer-url">https://yourdomain.com/picks</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

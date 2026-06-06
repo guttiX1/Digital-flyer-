@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ad — Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Barlow Condensed',sans-serif}
+.ad-frame{width:400px;height:400px;background:linear-gradient(135deg,#0d1a0d 0%,#0a2010 50%,#051005 100%);border:2px solid #22c55e;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 0 60px rgba(34,197,94,.3)}
+.slides-wrap{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;opacity:0;animation:fadeSlide 20s linear infinite;.slide:nth-child(1){animation-delay:0s}.slide:nth-child(2){animation-delay:4s}.slide:nth-child(3){animation-delay:8s}.slide:nth-child(4){animation-delay:12s}.slide:nth-child(5){animation-delay:16s}}
+.slide:nth-child(1){animation-delay:0s}
+.slide:nth-child(2){animation-delay:4s}
+.slide:nth-child(3){animation-delay:8s}
+.slide:nth-child(4){animation-delay:12s}
+.slide:nth-child(5){animation-delay:16s}
+
+@keyframes fadeSlide{
+  0%{opacity:0;transform:translateY(20px)}
+  5%{opacity:1;transform:translateY(0)}
+  18%{opacity:1;transform:translateY(0)}
+  23%{opacity:0;transform:translateY(-20px)}
+  100%{opacity:0}
+}
+.slide:nth-child(1){animation-delay:0s}
+.slide:nth-child(2){animation-delay:4s}
+.slide:nth-child(3){animation-delay:8s}
+.slide:nth-child(4){animation-delay:12s}
+.slide:nth-child(5){animation-delay:16s}
+.icon{font-size:3rem;margin-bottom:10px}
+.big{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:#22c55e;letter-spacing:.06em;line-height:1}
+.med{font-size:1.4rem;color:#fff;font-weight:700;margin:8px 0 6px;letter-spacing:.02em}
+.small{font-size:.95rem;color:#86efac;letter-spacing:.02em}
+.qr-img{width:110px;height:110px;margin-top:16px;border-radius:12px;border:3px solid #22c55e;background:#fff}
+.glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(34,197,94,.08) 0%,transparent 70%);pointer-events:none}
+.corner{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.08em;color:#22c55e;opacity:.6}
+.corner.tl{top:12px;left:16px}
+.corner.br{bottom:12px;right:16px}
+</style>
+</head>
+<body>
+<div class="ad-frame">
+  <div class="glow"></div>
+  <div class="corner tl">FREE PICKS</div>
+  <div class="corner br">SCAN TO JOIN</div>
+  <div class="slides-wrap">
+    
+    <div class="slide">
+      <div class="icon">🏇</div>
+      <div class="big">FREE PICKS</div>
+      <div class="med">Gran Premio Carreras de Caballos</div>
+      <div class="small">Expert selections for every race</div>
+      
+    </div>
+    <div class="slide">
+      <div class="icon">📊</div>
+      <div class="big">6 RACES</div>
+      <div class="med">Full Race Card</div>
+      <div class="small">Sábado 14 de Junio, 2026 · Hipódromo de las Américas</div>
+      
+    </div>
+    <div class="slide">
+      <div class="icon">⭐</div>
+      <div class="big">TOP PICK</div>
+      <div class="med">TRUENO VELOZ</div>
+      <div class="small">Our analysts' strongest selection</div>
+      
+    </div>
+    <div class="slide">
+      <div class="icon">👥</div>
+      <div class="big">JOIN 1,000+</div>
+      <div class="med">Racing Fans</div>
+      <div class="small">Who trust our free picks every race day</div>
+      
+    </div>
+    <div class="slide">
+      <div class="icon">📲</div>
+      <div class="big">SCAN TO PICK</div>
+      <div class="med">Get Your Free Picks</div>
+      <div class="small">No signup required</div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://yourdomain.com/picks_site.html" alt="QR" class="qr-img">
+    </div>
+  </div>
+</div>
+</body>
+</html>

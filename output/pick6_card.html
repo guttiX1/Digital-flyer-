@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pick 6 Card — Gran Premio Carreras de Caballos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow Condensed',sans-serif;background:#1a1a1a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card-wrap{width:400px}
+.card{background:linear-gradient(160deg,#1a1a2e 0%,#16213e 100%);border:2px solid #f7d046;border-radius:24px;overflow:hidden;position:relative}
+.card-header{background:linear-gradient(135deg,#f7d046 0%,#fbbf24 100%);padding:20px 24px;text-align:center}
+.card-header h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#1a1a1a;letter-spacing:.06em}
+.card-header h2{font-size:.85rem;font-weight:700;color:#92400e;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.card-num{font-size:.7rem;color:#78350f;letter-spacing:.08em;margin-top:6px;opacity:.8}
+.scratch-zone{position:relative;padding:20px 24px}
+.card-race{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:8px;border:1px solid rgba(247,208,70,.15)}
+.card-race-num{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#f7d046;letter-spacing:.06em}
+.card-horse{font-weight:700;font-size:1rem;letter-spacing:.04em}
+canvas#scratch{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:0;cursor:crosshair;touch-action:none}
+.card-footer{padding:16px 24px;text-align:center;border-top:1px solid rgba(247,208,70,.2)}
+.card-footer p{font-size:.8rem;color:#9ca3af;line-height:1.5}
+.card-footer strong{color:#f7d046}
+.scratch-hint{text-align:center;margin-top:12px;font-size:.8rem;color:#9ca3af;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="card-wrap">
+  <div class="card">
+    <div class="card-header">
+      <h1>PICK 6</h1>
+      <h2>Gran Premio Carreras de Caballos</h2>
+      <div class="card-num">CARD #PICK6-XBM0JJD7 · Sábado 14 de Junio, 2026</div>
+    </div>
+    <div class="scratch-zone" id="scratch-zone">
+      
+      <div class="card-race">
+        <span class="card-race-num">RACE 1</span>
+        <span class="card-horse" id="pick-0">TRUENO VELOZ</span>
+      </div>
+      <div class="card-race">
+        <span class="card-race-num">RACE 2</span>
+        <span class="card-horse" id="pick-1">FLECHA DE ORO</span>
+      </div>
+      <div class="card-race">
+        <span class="card-race-num">RACE 3</span>
+        <span class="card-horse" id="pick-2">NOBLE CORCEL</span>
+      </div>
+      <div class="card-race">
+        <span class="card-race-num">RACE 4</span>
+        <span class="card-horse" id="pick-3">LEYENDA VIVA</span>
+      </div>
+      <div class="card-race">
+        <span class="card-race-num">RACE 5</span>
+        <span class="card-horse" id="pick-4">NOCHE DE GALA</span>
+      </div>
+      <div class="card-race">
+        <span class="card-race-num">RACE 6</span>
+        <span class="card-horse" id="pick-5">PRÍNCIPE AZTECA</span>
+      </div>
+      <canvas id="scratch"></canvas>
+    </div>
+    <div class="card-footer">
+      <p>Keep this card. Results announced after Race 6.<br>
+      Card <strong>#PICK6-XBM0JJD7</strong> · Visit <strong>https://yourdomain.com/pick6</strong> to verify.</p>
+    </div>
+  </div>
+  <div class="scratch-hint">✦ Scratch to reveal your picks ✦</div>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('scratch');
+  const zone = document.getElementById('scratch-zone');
+  const rect = zone.getBoundingClientRect();
+  canvas.width = zone.offsetWidth;
+  canvas.height = zone.offsetHeight;
+  const ctx = canvas.getContext('2d');
+
+  // Fill with gold scratch surface
+  ctx.fillStyle = '#b45309';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Texture
+  ctx.fillStyle = 'rgba(0,0,0,.15)';
+  for(let i=0;i<canvas.width;i+=4){
+    for(let j=0;j<canvas.height;j+=4){
+      if(Math.random()>.5) ctx.fillRect(i,j,2,2);
+    }
+  }
+  ctx.fillStyle = '#f7d046';
+  ctx.font = 'bold 13px Barlow Condensed, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦ SCRATCH HERE ✦', canvas.width/2, canvas.height/2-8);
+  ctx.fillStyle = 'rgba(247,208,70,.7)';
+  ctx.font = '11px sans-serif';
+  ctx.fillText('Scratch to reveal your picks', canvas.width/2, canvas.height/2+12);
+
+  let drawing = false;
+  ctx.globalCompositeOperation = 'destination-out';
+
+  function getPos(e){
+    const r = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return [src.clientX - r.left, src.clientY - r.top];
+  }
+
+  function scratch(e){
+    if(!drawing) return;
+    e.preventDefault();
+    const [x,y] = getPos(e);
+    ctx.beginPath();
+    ctx.arc(x, y, 22, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  canvas.addEventListener('mousedown', e=>{ drawing=true; scratch(e); });
+  canvas.addEventListener('mousemove', scratch);
+  canvas.addEventListener('mouseup', ()=> drawing=false);
+  canvas.addEventListener('touchstart', e=>{ drawing=true; scratch(e); }, {passive:false});
+  canvas.addEventListener('touchmove', scratch, {passive:false});
+  canvas.addEventListener('touchend', ()=> drawing=false);
+})();
+</script>
+</body>
+</html>
