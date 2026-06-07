@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video Ad · Carril Agua Caliente · 07 Jun 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F0C040;
+  --gold2:#C9973A;
+  --red:#C0392B;
+  --white:#FFFFFF;
+  --dark:#05101E;
+}
+html,body{width:100%;height:100%;background:#000;font-family:'Arial Black',Arial,sans-serif;overflow:hidden;user-select:none}
+
+/* ── STAGE ── */
+#stage{position:relative;width:100vw;height:100vh;overflow:hidden;cursor:pointer}
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;will-change:opacity}
+.scene.active{opacity:1;pointer-events:auto}
+
+/* ── SCENE BG PHOTOS ── */
+.bg-photo{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform}
+.bg-dark{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+.bg-grad-bottom{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.98) 0%,rgba(5,16,30,.4) 60%,transparent 100%)}
+.bg-grad-left{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,16,30,.85) 0%,rgba(5,16,30,.3) 60%,transparent 100%)}
+.bg-grad-right{position:absolute;inset:0;background:linear-gradient(to left,rgba(5,16,30,.85) 0%,rgba(5,16,30,.3) 60%,transparent 100%)}
+
+/* ── PLAY OVERLAY ── */
+#play-overlay{position:fixed;inset:0;background:#000;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;cursor:pointer;transition:opacity .5s}
+#play-overlay.hide{opacity:0;pointer-events:none}
+.play-btn{width:80px;height:80px;border:3px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.play-btn:hover{background:rgba(240,192,64,.15);transform:scale(1.08)}
+.play-icon{width:0;height:0;border-top:18px solid transparent;border-bottom:18px solid transparent;border-left:28px solid var(--gold);margin-left:6px}
+.play-label{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.play-title{font-size:clamp(18px,3vw,26px);font-weight:900;letter-spacing:2px;color:var(--white);text-align:center}
+.play-sub{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{position:fixed;bottom:0;left:0;right:0;z-index:500;height:3px;background:rgba(255,255,255,.1)}
+#progress-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));width:0%;transition:width .1s linear}
+#time-label{position:fixed;bottom:10px;right:16px;z-index:500;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;font-family:monospace}
+
+/* ── SCENE 1: INTRO ── */
+#s1{background:var(--dark)}
+.s1-line{position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transform-origin:center}
+.s1-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.s1-logo-main{font-size:clamp(18px,4vw,42px);font-weight:900;letter-spacing:6px;text-transform:uppercase;color:var(--white);opacity:0;transform:translateY(20px)}
+.s1-logo-sub{font-size:clamp(11px,1.5vw,15px);font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:10px}
+.s1-dust{position:absolute;inset:0;overflow:hidden}
+.s1-dust span{position:absolute;width:2px;height:2px;background:rgba(240,192,64,.5);border-radius:50%;animation:dustFloat linear infinite}
+@keyframes dustFloat{0%{transform:translateY(100vh) translateX(0);opacity:0}20%{opacity:1}100%{transform:translateY(-20px) translateX(var(--dx,20px));opacity:0}}
+
+/* ── SCENE 2: DATE ── */
+#s2{background:#000}
+.s2-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1600&q=80&auto=format&fit=crop');background-size:cover;background-position:center 40%;filter:brightness(.25)}
+.s2-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.s2-pre{font-size:clamp(11px,2vw,16px);font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(-16px);margin-bottom:16px}
+.s2-date{font-size:clamp(56px,14vw,160px);font-weight:900;line-height:.85;text-align:center;text-transform:uppercase;opacity:0;transform:scale(.9)}
+.s2-date .d-day{display:block;color:var(--white);letter-spacing:-4px}
+.s2-date .d-month{display:block;color:var(--gold);letter-spacing:2px;font-size:clamp(28px,7vw,80px)}
+.s2-date .d-year{display:block;color:rgba(255,255,255,.25);font-size:clamp(20px,4vw,48px);letter-spacing:12px}
+.s2-location{font-size:clamp(13px,2vw,18px);font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold2);opacity:0;margin-top:24px}
+/* horse silhouette running */
+.horse-run{position:absolute;bottom:80px;font-size:clamp(36px,7vw,72px);opacity:.18;transform:translateX(-20%);white-space:nowrap}
+
+/* ── SCENE 3: EL JUDIO ── */
+#s3 .bg-photo{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&auto=format&fit=crop');filter:brightness(.55)}
+.s3-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8% 10%}
+.fighter-pre{font-size:clamp(10px,1.5vw,14px);font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-30px);margin-bottom:8px}
+.fighter-name{font-size:clamp(52px,12vw,130px);font-weight:900;line-height:.88;text-transform:uppercase;color:var(--white);opacity:0;transform:translateX(-60px);letter-spacing:-2px;text-shadow:0 0 80px rgba(240,192,64,.2)}
+.fighter-ranch{font-size:clamp(13px,2vw,20px);font-weight:700;letter-spacing:3px;color:var(--gold2);opacity:0;transform:translateX(-20px);margin-top:12px}
+.fighter-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--gold2);border-radius:4px;font-size:clamp(11px,1.5vw,14px);font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#000;opacity:0;margin-top:16px}
+
+/* ── SCENE 4: VS CLASH ── */
+#s4{background:#000;display:flex;align-items:stretch}
+.vs-half{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.vs-half-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.35)}
+.vs-half.left .vs-half-bg{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop')}
+.vs-half.right .vs-half-bg{background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80&auto=format&fit=crop&crop=right')}
+.vs-half-content{position:relative;z-index:2;text-align:center;padding:20px}
+.vs-horse-name{font-size:clamp(20px,4vw,48px);font-weight:900;text-transform:uppercase;color:var(--white);letter-spacing:1px;opacity:0}
+.vs-horse-sub{font-size:clamp(10px,1.5vw,14px);color:var(--gold);letter-spacing:3px;opacity:0;margin-top:6px}
+.vs-center-col{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10}
+.vs-circle{width:clamp(80px,12vw,140px);height:clamp(80px,12vw,140px);background:#000;border:3px solid var(--gold);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(.5)}
+.vs-word{font-size:clamp(22px,4vw,44px);font-weight:900;color:var(--gold);letter-spacing:2px}
+.vs-yards{font-size:clamp(8px,1.2vw,12px);font-weight:700;color:var(--gold2);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+/* flash overlay */
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:50;pointer-events:none}
+
+/* ── SCENE 5: EL NVO. MECANICO ── */
+#s5 .bg-photo{background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1400&q=80&auto=format&fit=crop');filter:brightness(.5)}
+.s5-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8% 10%;align-items:flex-end;text-align:right}
+
+/* ── SCENE 6: DETAILS ── */
+#s6{background:var(--dark)}
+.s6-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1449497524933-d5e3e4b73c7b?w=1400&q=80&auto=format&fit=crop');background-size:cover;background-position:center;filter:brightness(.18)}
+.s6-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:40px}
+.s6-headline{font-size:clamp(22px,5vw,56px);font-weight:900;letter-spacing:4px;text-transform:uppercase;text-align:center;color:var(--white);opacity:0;transform:translateY(-20px);margin-bottom:clamp(20px,4vh,48px)}
+.s6-headline span{color:var(--gold)}
+.detail-rows{display:flex;flex-direction:column;gap:clamp(8px,1.5vh,18px);width:100%;max-width:560px}
+.dr{display:flex;align-items:center;gap:16px;opacity:0;transform:translateX(-30px);padding:clamp(10px,2vh,18px) clamp(16px,3vw,28px);border-left:3px solid var(--gold);background:rgba(255,255,255,.04)}
+.dr-icon{font-size:clamp(18px,3vw,28px);flex-shrink:0}
+.dr-text{flex:1}
+.dr-label{font-size:clamp(9px,1.2vw,12px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);margin-bottom:2px}
+.dr-val{font-size:clamp(14px,2vw,20px);font-weight:700;color:var(--white);letter-spacing:.5px}
+
+/* ── SCENE 7: OUTRO ── */
+#s7{background:#000}
+.s7-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1600&q=80&auto=format&fit=crop');background-size:cover;background-position:center 35%;filter:brightness(.3)}
+.s7-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.97) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.8) 100%)}
+.s7-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,2vh,20px);text-align:center;padding:40px}
+.s7-pre{font-size:clamp(10px,1.5vw,13px);font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(10px)}
+.s7-cta{font-size:clamp(38px,10vw,100px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:.9;letter-spacing:-2px;opacity:0;transform:scale(.95)}
+.s7-cta span{color:var(--gold)}
+.s7-divider{width:60px;height:2px;background:var(--gold2);opacity:0;margin:8px 0}
+.s7-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,2vw,24px);width:100%;max-width:640px;margin-top:8px}
+.s7-info-cell{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;transform:translateY(14px)}
+.s7-cell-val{font-size:clamp(13px,2.5vw,22px);font-weight:900;color:var(--white);letter-spacing:1px}
+.s7-cell-key{font-size:clamp(8px,1.2vw,11px);font-weight:700;letter-spacing:2px;color:var(--gold2);text-transform:uppercase}
+.s7-url{font-size:clamp(11px,1.5vw,14px);color:rgba(255,255,255,.35);letter-spacing:3px;text-transform:uppercase;opacity:0;margin-top:8px}
+.s7-music{display:flex;align-items:center;gap:10px;padding:clamp(8px,1.5vh,14px) clamp(16px,3vw,28px);border:1px solid rgba(240,192,64,.3);border-radius:4px;opacity:0}
+.s7-music-text{font-size:clamp(11px,1.8vw,15px);font-weight:700;color:var(--white);letter-spacing:1px}
+.s7-music-sub{font-size:clamp(9px,1.2vw,11px);color:var(--gold2);letter-spacing:2px;text-transform:uppercase}
+.music-bars{display:flex;align-items:flex-end;gap:2px;height:16px}
+.music-bars span{display:block;width:3px;background:var(--red);border-radius:2px}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+@keyframes lineExpand{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+@keyframes scaleDate{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+@keyframes bgZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes horseSilhouette{0%{transform:translateX(-20%) scaleX(1)}100%{transform:translateX(120vw) scaleX(1)}}
+@keyframes flashIn{0%{opacity:0}50%{opacity:.85}100%{opacity:0}}
+@keyframes musicBar1{0%,100%{height:6px}50%{height:14px}}
+@keyframes musicBar2{0%,100%{height:12px}50%{height:18px}}
+@keyframes musicBar3{0%,100%{height:18px}50%{height:8px}}
+@keyframes musicBar4{0%,100%{height:10px}50%{height:16px}}
+@keyframes musicBar5{0%,100%{height:14px}50%{height:6px}}
+.music-bars span:nth-child(1){height:6px;animation:musicBar1 .7s ease infinite}
+.music-bars span:nth-child(2){height:12px;animation:musicBar2 .7s ease .15s infinite}
+.music-bars span:nth-child(3){height:18px;animation:musicBar3 .7s ease .3s infinite}
+.music-bars span:nth-child(4){height:10px;animation:musicBar4 .7s ease .1s infinite}
+.music-bars span:nth-child(5){height:14px;animation:musicBar5 .7s ease .2s infinite}
+</style>
+</head>
+<body>
+
+<!-- PLAY OVERLAY -->
+<div id="play-overlay">
+  <div class="play-title">CARRIL AGUA CALIENTE</div>
+  <div class="play-sub">07 de Junio · Imuris, Sonora</div>
+  <div class="play-btn"><div class="play-icon"></div></div>
+  <div class="play-label">Reproducir Anuncio</div>
+</div>
+
+<!-- PROGRESS -->
+<div id="progress-bar"><div id="progress-fill"></div></div>
+<div id="time-label">0:00 / 0:30</div>
+
+<!-- STAGE -->
+<div id="stage">
+
+  <!-- SCENE 1: INTRO 0-4s -->
+  <div class="scene" id="s1">
+    <div class="s1-dust" id="dust"></div>
+    <div class="s1-line" id="s1-line"></div>
+    <div class="s1-logo">
+      <div class="s1-logo-main" id="s1-main">CARRIL AGUA CALIENTE</div>
+      <div class="s1-logo-sub" id="s1-sub">IMURIS, SONORA</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: DATE 4-8s -->
+  <div class="scene" id="s2">
+    <div class="s2-bg"></div>
+    <div class="bg-dark" style="background:rgba(0,0,0,.75)"></div>
+    <div class="s2-content">
+      <div class="s2-pre" id="s2-pre">Carreras de Caballos · Cuarto de Milla</div>
+      <div class="s2-date" id="s2-date">
+        <span class="d-day">07</span>
+        <span class="d-month">DE JUNIO</span>
+        <span class="d-year">2026</span>
+      </div>
+      <div class="s2-location" id="s2-loc">Imuris, Sonora · 7 Carreras</div>
+    </div>
+    <div class="horse-run" id="horse-run">🐎</div>
+  </div>
+
+  <!-- SCENE 3: EL JUDIO 8-13s -->
+  <div class="scene" id="s3">
+    <div class="bg-photo"></div>
+    <div class="bg-grad-left"></div>
+    <div class="bg-grad-bottom"></div>
+    <div class="s3-content">
+      <div class="fighter-pre" id="s3-pre">Carrera Estelar #7 · C. San Judas</div>
+      <div class="fighter-name" id="s3-name">EL<br>JUDIO</div>
+      <div class="fighter-ranch" id="s3-ranch">Cuadra San Judas</div>
+      <div class="fighter-badge" id="s3-badge">⭐ Favorito</div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: VS 13-17s -->
+  <div class="scene" id="s4">
+    <div class="flash" id="flash"></div>
+    <div class="vs-half left">
+      <div class="vs-half-bg"></div>
+      <div class="bg-dark" style="background:rgba(0,0,0,.55)"></div>
+      <div class="bg-grad-right"></div>
+      <div class="vs-half-content">
+        <div class="vs-horse-name" id="vs-n1">EL JUDIO</div>
+        <div class="vs-horse-sub" id="vs-s1">C. SAN JUDAS</div>
+      </div>
+    </div>
+    <div class="vs-center-col">
+      <div class="vs-circle" id="vs-circle">
+        <div class="vs-word">VS</div>
+        <div class="vs-yards">300 VARAS</div>
+      </div>
+    </div>
+    <div class="vs-half right">
+      <div class="vs-half-bg"></div>
+      <div class="bg-dark" style="background:rgba(0,0,0,.55)"></div>
+      <div class="bg-grad-left"></div>
+      <div class="vs-half-content">
+        <div class="vs-horse-name" id="vs-n2">EL NVO.<br>MECANICO</div>
+        <div class="vs-horse-sub" id="vs-s2">C. 2 HERMANOS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: EL NVO. MECANICO 17-22s -->
+  <div class="scene" id="s5">
+    <div class="bg-photo"></div>
+    <div class="bg-grad-right"></div>
+    <div class="bg-grad-bottom"></div>
+    <div class="s5-content">
+      <div class="fighter-pre" id="s5-pre">Carrera Estelar #7 · C. 2 Hermanos</div>
+      <div class="fighter-name" id="s5-name">EL NVO.<br>MECANICO</div>
+      <div class="fighter-ranch" id="s5-ranch">Cuadra 2 Hermanos</div>
+      <div class="fighter-badge" id="s5-badge">⚡ Retador</div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: DETAILS 22-27s -->
+  <div class="scene" id="s6">
+    <div class="s6-bg"></div>
+    <div class="s6-content">
+      <div class="s6-headline" id="s6-title">EL EVENTO <span>DEL AÑO</span></div>
+      <div class="detail-rows">
+        <div class="dr" id="dr1"><div class="dr-icon">📅</div><div class="dr-text"><div class="dr-label">Fecha</div><div class="dr-val">Domingo 07 de Junio, 2026</div></div></div>
+        <div class="dr" id="dr2"><div class="dr-icon">📍</div><div class="dr-text"><div class="dr-label">Lugar</div><div class="dr-val">Carril Agua Caliente · Imuris, Sonora</div></div></div>
+        <div class="dr" id="dr3"><div class="dr-icon">⏰</div><div class="dr-text"><div class="dr-label">Primera Carrera</div><div class="dr-val">2:30 PM · 7 Carreras Programadas</div></div></div>
+        <div class="dr" id="dr4"><div class="dr-icon">🎵</div><div class="dr-text"><div class="dr-label">Música en Vivo</div><div class="dr-val">Código Kontra</div></div></div>
+        <div class="dr" id="dr5"><div class="dr-icon">🎟</div><div class="dr-text"><div class="dr-label">Entrada General</div><div class="dr-val">$250.00 · Hieleras Libres</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: OUTRO 27-30s -->
+  <div class="scene" id="s7">
+    <div class="s7-bg"></div>
+    <div class="s7-overlay"></div>
+    <div class="s7-content">
+      <div class="s7-pre" id="s7-pre">Carril Agua Caliente Presenta</div>
+      <div class="s7-cta" id="s7-cta">TE<br><span>ESPERAMOS</span></div>
+      <div class="s7-divider" id="s7-div"></div>
+      <div class="s7-info-grid">
+        <div class="s7-info-cell" id="sg1"><div class="s7-cell-val">07 JUN</div><div class="s7-cell-key">Fecha</div></div>
+        <div class="s7-info-cell" id="sg2"><div class="s7-cell-val">2:30 PM</div><div class="s7-cell-key">Inicio</div></div>
+        <div class="s7-info-cell" id="sg3"><div class="s7-cell-val">$250</div><div class="s7-cell-key">Entrada</div></div>
+      </div>
+      <div class="s7-music" id="s7-music">
+        <div class="music-bars"><span></span><span></span><span></span><span></span><span></span></div>
+        <div><div class="s7-music-text">CÓDIGO KONTRA</div><div class="s7-music-sub">Música en Vivo</div></div>
+      </div>
+      <div class="s7-url" id="s7-url">IMURIS, SONORA · 07.06.2026</div>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+
+<script>
+/* ── DUST PARTICLES ── */
+var dust = document.getElementById('dust');
+for(var i=0;i<40;i++){
+  var s=document.createElement('span');
+  var left=Math.random()*100;
+  var delay=Math.random()*4;
+  var dur=3+Math.random()*4;
+  var dx=(Math.random()-0.5)*60+'px';
+  s.style.cssText='left:'+left+'%;bottom:-4px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;--dx:'+dx;
+  dust.appendChild(s);
+}
+
+/* ── TIMELINE ── */
+var TOTAL = 30000; // 30 seconds
+var startTime = null;
+var raf = null;
+var playing = false;
+
+// All animation steps: [timeMs, fn]
+var steps = [];
+var fired = {};
+
+function at(ms, fn){ steps.push([ms, fn]); }
+function anim(el, css, delay){ el.style.cssText+=';animation:'+css+' forwards'; if(delay){ el.style.animationDelay=delay+'ms'; } }
+
+// ── scene transitions ──
+function showScene(id, dur){
+  var el=document.getElementById(id);
+  el.classList.add('active');
+  el.style.animation='fadeIn '+Math.min(dur||500,600)+'ms ease forwards';
+}
+function hideScene(id){
+  var el=document.getElementById(id);
+  el.style.animation='fadeOut 400ms ease forwards';
+  setTimeout(function(){ el.classList.remove('active'); el.style.animation=''; }, 420);
+}
+
+// S1: 0-4s
+at(0, function(){
+  showScene('s1');
+  var line=document.getElementById('s1-line');
+  setTimeout(function(){ line.style.animation='lineExpand .8s ease forwards'; },300);
+  setTimeout(function(){
+    var m=document.getElementById('s1-main');
+    m.style.animation='slideUp .6s ease forwards';
+  },600);
+  setTimeout(function(){
+    var s=document.getElementById('s1-sub');
+    s.style.animation='slideUp .5s ease forwards';
+  },900);
+});
+at(3800, function(){ hideScene('s1'); });
+
+// S2: 4-8s
+at(4000, function(){
+  showScene('s2');
+  document.getElementById('horse-run').style.animation='horseSilhouette 3.8s linear forwards';
+  setTimeout(function(){
+    document.getElementById('s2-pre').style.animation='slideUp .5s ease forwards';
+  },200);
+  setTimeout(function(){
+    document.getElementById('s2-date').style.animation='scaleDate .7s ease forwards';
+  },500);
+  setTimeout(function(){
+    document.getElementById('s2-loc').style.animation='slideUp .5s ease forwards';
+  },1000);
+});
+at(7800, function(){ hideScene('s2'); });
+
+// S3: 8-13s
+at(8000, function(){
+  showScene('s3');
+  document.querySelector('#s3 .bg-photo').style.animation='bgZoom 5s ease-out forwards';
+  setTimeout(function(){ document.getElementById('s3-pre').style.animation='slideLeft .5s ease forwards'; },150);
+  setTimeout(function(){ document.getElementById('s3-name').style.animation='slideLeft .6s ease forwards'; },350);
+  setTimeout(function(){ document.getElementById('s3-ranch').style.animation='slideLeft .5s ease forwards'; },650);
+  setTimeout(function(){ document.getElementById('s3-badge').style.animation='slideLeft .45s ease forwards'; },900);
+});
+at(12800, function(){ hideScene('s3'); });
+
+// S4: 13-17s
+at(13000, function(){
+  showScene('s4');
+  var fl=document.getElementById('flash');
+  fl.style.animation='flashIn .4s ease forwards';
+  setTimeout(function(){
+    document.getElementById('vs-n1').style.animation='slideLeft .5s ease forwards';
+    document.getElementById('vs-s1').style.animation='slideLeft .45s ease .1s forwards';
+    document.getElementById('vs-n2').style.animation='slideRight .5s ease forwards';
+    document.getElementById('vs-s2').style.animation='slideRight .45s ease .1s forwards';
+  },200);
+  setTimeout(function(){
+    document.getElementById('vs-circle').style.animation='scaleIn .5s cubic-bezier(.34,1.56,.64,1) forwards';
+  },500);
+});
+at(16800, function(){ hideScene('s4'); });
+
+// S5: 17-22s
+at(17000, function(){
+  showScene('s5');
+  document.querySelector('#s5 .bg-photo').style.animation='bgZoom 5s ease-out forwards';
+  setTimeout(function(){ document.getElementById('s5-pre').style.animation='slideRight .5s ease forwards'; },150);
+  setTimeout(function(){ document.getElementById('s5-name').style.animation='slideRight .6s ease forwards'; },350);
+  setTimeout(function(){ document.getElementById('s5-ranch').style.animation='slideRight .5s ease forwards'; },650);
+  setTimeout(function(){ document.getElementById('s5-badge').style.animation='slideRight .45s ease forwards'; },900);
+});
+at(21800, function(){ hideScene('s5'); });
+
+// S6: 22-27s
+at(22000, function(){
+  showScene('s6');
+  setTimeout(function(){ document.getElementById('s6-title').style.animation='slideUp .6s ease forwards'; },200);
+  [['dr1',400],['dr2',600],['dr3',800],['dr4',1000],['dr5',1200]].forEach(function(x){
+    setTimeout(function(){ document.getElementById(x[0]).style.animation='slideLeft .5s ease forwards'; }, x[1]);
+  });
+});
+at(26800, function(){ hideScene('s6'); });
+
+// S7: 27-30s
+at(27000, function(){
+  showScene('s7');
+  setTimeout(function(){ document.getElementById('s7-pre').style.animation='slideUp .5s ease forwards'; },200);
+  setTimeout(function(){ document.getElementById('s7-cta').style.animation='scaleDate .6s ease forwards'; },400);
+  setTimeout(function(){ document.getElementById('s7-div').style.animation='fadeIn .4s ease forwards'; },800);
+  setTimeout(function(){
+    ['sg1','sg2','sg3'].forEach(function(id,i){
+      setTimeout(function(){ document.getElementById(id).style.animation='slideUp .45s ease forwards'; }, i*120);
+    });
+  },900);
+  setTimeout(function(){ document.getElementById('s7-music').style.animation='fadeIn .5s ease forwards'; },1200);
+  setTimeout(function(){ document.getElementById('s7-url').style.animation='slideUp .4s ease forwards'; },1500);
+});
+
+/* ── TICKER ── */
+function tick(ts){
+  if(!startTime) startTime=ts;
+  var elapsed=ts-startTime;
+  var pct=Math.min(elapsed/TOTAL,1);
+  document.getElementById('progress-fill').style.width=(pct*100)+'%';
+  var secs=Math.floor(elapsed/1000);
+  document.getElementById('time-label').textContent='0:'+String(secs).padStart(2,'0')+' / 0:30';
+
+  steps.forEach(function(s,i){
+    if(!fired[i] && elapsed>=s[0]){ fired[i]=true; s[1](); }
+  });
+
+  if(elapsed<TOTAL) raf=requestAnimationFrame(tick);
+  else{ document.getElementById('time-label').textContent='0:30 / 0:30'; }
+}
+
+/* ── PLAY ── */
+document.getElementById('play-overlay').addEventListener('click',function(){
+  this.classList.add('hide');
+  playing=true;
+  fired={};
+  startTime=null;
+  raf=requestAnimationFrame(tick);
+});
+
+/* ── CLICK STAGE TO RESTART ── */
+document.getElementById('stage').addEventListener('click',function(){
+  if(!playing) return;
+  cancelAnimationFrame(raf);
+  // reset all scenes
+  document.querySelectorAll('.scene').forEach(function(el){
+    el.classList.remove('active');
+    el.style.animation='';
+    el.querySelectorAll('*').forEach(function(c){ c.style.animation=''; });
+  });
+  // reset dust
+  document.querySelector('.s1-line').style.animation='';
+  fired={};
+  startTime=null;
+  document.getElementById('progress-fill').style.width='0%';
+  raf=requestAnimationFrame(tick);
+});
+</script>
+</body>
+</html>
