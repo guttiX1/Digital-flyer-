@@ -155,6 +155,51 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,16,30,.92)
 .si-num{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:var(--white);line-height:1}
 .si-label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
 
+/* ── ANIMATIONS ── */
+@keyframes fu{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fl{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fr{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes kb{from{transform:scale(1) translateY(0)}to{transform:scale(1.07) translateY(-1.5%)}}
+@keyframes cdfl{0%,100%{color:var(--white);text-shadow:none}45%{color:var(--goldb);text-shadow:0 0 28px rgba(240,192,64,.65)}}
+@keyframes rowglow{0%,100%{background:linear-gradient(90deg,rgba(201,151,58,.07),transparent)}55%{background:linear-gradient(90deg,rgba(201,151,58,.18),rgba(201,151,58,.04))}}
+
+/* hero on-load stagger */
+.hero-tag{opacity:0;animation:fu .65s ease .1s forwards}
+.hero-title .t-white{display:block;opacity:0;animation:fu .65s ease .3s forwards}
+.hero-title .t-gold{display:block;opacity:0;animation:fu .65s ease .5s forwards}
+.hero-tagline{opacity:0;animation:fu .6s ease .7s forwards}
+.hero-countdown{opacity:0;animation:fu .6s ease .9s forwards}
+.hero-details{opacity:0;animation:fu .55s ease 1.1s forwards}
+
+/* hero bg ken burns + parallax */
+.hero-bg{animation:kb 22s ease-out forwards;will-change:transform}
+
+/* horse card hover scale */
+.hc-bg{transform-origin:center;transition:filter .4s ease,transform .65s ease}
+.hc:hover .hc-bg{filter:brightness(.72);transform:scale(1.06)}
+.hc-content{transition:transform .3s ease}
+.hc:hover .hc-content{transform:translateY(-4px)}
+
+/* estelar row pulse */
+.race-table tbody tr.estelar{animation:rowglow 3.5s ease infinite}
+
+/* scroll reveal classes */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-46px);transition:opacity .7s ease,transform .7s ease}
+.rv-l.in{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(46px);transition:opacity .7s ease,transform .7s ease}
+.rv-r.in{opacity:1;transform:none}
+
+/* section header line sweep */
+.sh-line{transform:scaleX(0);transform-origin:left center;transition:transform .9s ease}
+.section-header.in .sh-line{transform:scaleX(1)}
+
+/* nav scroll shadow */
+nav{transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.5)}
+
 /* ── FOOTER ── */
 footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32px 32px}
 .footer-inner{max-width:900px;margin:0 auto}
@@ -401,18 +446,108 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
 </footer>
 
 <script>
+/* ── countdown with flash ── */
+var cdPrev = {};
+function flash(el){
+  el.style.animation='none';
+  el.offsetHeight; // reflow
+  el.style.animation='cdfl .55s ease';
+}
 (function tick(){
   var ms = new Date('2026-06-06T15:15:00') - new Date();
-  if(ms > 0){
-    document.getElementById('cd-d').textContent = String(Math.floor(ms/86400000)).padStart(2,'0');
-    document.getElementById('cd-h').textContent = String(Math.floor(ms%86400000/3600000)).padStart(2,'0');
-    document.getElementById('cd-m').textContent = String(Math.floor(ms%3600000/60000)).padStart(2,'0');
-    document.getElementById('cd-s').textContent = String(Math.floor(ms%60000/1000)).padStart(2,'0');
-  } else {
-    ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ document.getElementById(id).textContent='00'; });
-  }
+  var vals = {
+    'd': ms>0 ? String(Math.floor(ms/86400000)).padStart(2,'0') : '00',
+    'h': ms>0 ? String(Math.floor(ms%86400000/3600000)).padStart(2,'0') : '00',
+    'm': ms>0 ? String(Math.floor(ms%3600000/60000)).padStart(2,'0') : '00',
+    's': ms>0 ? String(Math.floor(ms%60000/1000)).padStart(2,'0') : '00'
+  };
+  ['d','h','m','s'].forEach(function(k){
+    var el = document.getElementById('cd-'+k);
+    if(el.textContent !== vals[k]){ el.textContent = vals[k]; if(k==='s') flash(el); }
+  });
   setTimeout(tick, 1000);
 })();
+
+/* ── scroll reveal via IntersectionObserver ── */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+
+/* section-level reveals */
+['.section-header','.matchup-wrap','.mf','.rc-header','.venue-wrap','.stats-inner'].forEach(function(sel){
+  document.querySelectorAll(sel).forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+});
+/* horse cards slide in from sides */
+document.querySelectorAll('.hc.left').forEach(function(el){ el.classList.add('rv-l'); io.observe(el); });
+document.querySelectorAll('.hc.right').forEach(function(el){ el.classList.add('rv-r'); io.observe(el); });
+document.querySelectorAll('.vs-center').forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+
+/* race rows stagger */
+var ioRow = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none'; ioRow.unobserve(e.target); }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.race-table tbody tr').forEach(function(el,i){
+  el.style.cssText += 'opacity:0;transform:translateY(18px);transition:opacity .5s ease '+(i*80)+'ms,transform .5s ease '+(i*80)+'ms';
+  ioRow.observe(el);
+});
+
+/* venue info rows stagger */
+var ioVi = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.vi-row').forEach(function(r,i){
+        r.style.transition='opacity .4s ease '+(i*60)+'ms,transform .4s ease '+(i*60)+'ms';
+        r.style.opacity='1'; r.style.transform='none';
+      });
+      ioVi.unobserve(e.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.vi-rows').forEach(function(el){
+  el.querySelectorAll('.vi-row').forEach(function(r){ r.style.cssText+='opacity:0;transform:translateX(-14px)'; });
+  ioVi.observe(el);
+});
+
+/* venue photo */
+document.querySelectorAll('.venue-photo').forEach(function(el){ el.classList.add('rv-l'); io.observe(el); });
+document.querySelectorAll('.venue-info').forEach(function(el){ el.classList.add('rv-r'); io.observe(el); });
+
+/* rc-header reveal */
+document.querySelectorAll('.race-table').forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+
+/* ── hero parallax on scroll ── */
+var heroBg = document.querySelector('.hero-bg');
+var heroH = document.getElementById('hero').offsetHeight;
+window.addEventListener('scroll', function(){
+  var y = window.scrollY;
+  if(y < heroH){ heroBg.style.transform = 'translateY('+Math.round(y*0.28)+'px) scale(1.07)'; }
+  document.querySelector('nav').classList.toggle('scrolled', y > 30);
+},{passive:true});
+
+/* ── stats count-up ── */
+var counted = false;
+var ioStats = new IntersectionObserver(function(entries){
+  if(!entries[0].isIntersecting || counted) return;
+  counted = true;
+  var nums = document.querySelectorAll('.si-num');
+  var ends = [6, 350, 2, 1];
+  var dur  = [900, 1300, 700, 500];
+  nums.forEach(function(el, i){
+    var start = null, from = 0, to = ends[i], d = dur[i];
+    requestAnimationFrame(function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/d, 1);
+      el.textContent = Math.round(from + (to-from) * (1 - Math.pow(1-p, 3)));
+      if(p < 1) requestAnimationFrame(step);
+    });
+  });
+  ioStats.disconnect();
+},{threshold:0.5});
+ioStats.observe(document.getElementById('stats'));
 </script>
 </body>
 </html>
