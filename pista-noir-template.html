@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  PISTA NOIR  ·  Event Poster Template  ·  v1.0                  ║
+║                                                                  ║
+║  A premium dark event poster design system.                      ║
+║  Pure black · Gold accent · Apple-grade typography               ║
+║                                                                  ║
+║  HOW TO USE                                                      ║
+║  1. Edit the CONFIG block below (all your event data goes here)  ║
+║  2. Replace LEFT_IMAGE and RIGHT_IMAGE with your image files     ║
+║  3. Open in browser — done                                       ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><!-- CONFIG: page title --></title>
+
+<!-- ═══════════════════════════════════════════════════════
+     PISTA NOIR — DESIGN TOKENS
+     Change these variables to re-skin the entire template
+═══════════════════════════════════════════════════════ -->
+<style>
+:root{
+  /* Background & surfaces */
+  --bg:           #000000;
+  --surface:      rgba(255,255,255,.04);
+  --border:       rgba(255,255,255,.07);
+  --border-hi:    rgba(255,255,255,.13);
+
+  /* Text */
+  --text:         #ffffff;
+  --text-dim:     rgba(255,255,255,.50);
+  --text-muted:   rgba(255,255,255,.25);
+
+  /* Accent — swap this one variable to change the whole vibe */
+  --accent:       #F5C518;           /* gold  */
+  /* --accent:    #0A84FF;  */       /* blue  */
+  /* --accent:    #FF3B30;  */       /* red   */
+  /* --accent:    #34C759;  */       /* green */
+
+  /* Typography */
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+          'Helvetica Neue', Arial, sans-serif;
+
+  /* Motion */
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════
+     PISTA NOIR — COMPONENT STYLES (do not edit)
+═══════════════════════════════════════════════════════ -->
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── particles canvas ── */
+#pn-sparks{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── flash intro ── */
+#pn-flash{position:fixed;inset:0;background:#fff;z-index:999;
+  animation:pnFlash .5s ease .05s forwards}
+@keyframes pnFlash{to{opacity:0;pointer-events:none;visibility:hidden}}
+
+/* ── ambient glow ── */
+.pn-amb{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.pn-amb-l,.pn-amb-r{position:absolute;width:50%;height:60%;top:15%;
+  background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 65%);
+  filter:blur(90px)}
+.pn-amb-l{left:-5%}
+.pn-amb-r{right:-5%;background:radial-gradient(ellipse,rgba(245,197,24,.06) 0%,transparent 65%)}
+
+/* ── nav ── */
+.pn-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:50px;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--border);
+}
+.pn-nav-loc{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase}
+.pn-nav-chip{
+  padding:4px 14px;border-radius:100px;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);color:var(--accent);
+  animation:pnChip 3s ease infinite;
+}
+@keyframes pnChip{0%,100%{box-shadow:none}50%{box-shadow:0 0 16px rgba(245,197,24,.2)}}
+.pn-nav-date{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--text-muted)}
+
+/* ── main ── */
+main{position:relative;z-index:10;padding-top:50px}
+
+/* ── hero copy ── */
+.pn-hero{
+  text-align:center;
+  padding:clamp(48px,7vh,88px) 24px clamp(32px,5vh,56px);
+  animation:pnUp .8s var(--ease) .1s both;
+}
+.pn-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:18px;
+}
+.pn-h1{
+  font-size:clamp(2.2rem,6vw,5.5rem);
+  font-weight:700;letter-spacing:-.035em;line-height:1.02;
+  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.62) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.pn-sub{
+  margin-top:16px;
+  font-size:clamp(14px,2vw,17px);font-weight:400;
+  color:var(--text-dim);letter-spacing:-.01em;
+}
+@keyframes pnUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ── social pill ── */
+.pn-social{position:relative;z-index:10;text-align:center}
+.pn-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:100px;
+  font-size:12px;font-weight:600;letter-spacing:.05em;
+  color:var(--accent);
+  background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.18);
+}
+
+/* ── duel layout ── */
+.pn-duel{
+  position:relative;z-index:10;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:start;
+  max-width:1000px;margin:0 auto;
+  padding:0 clamp(16px,3vw,40px);
+  gap:0;
+}
+
+/* horse column */
+.pn-horse{
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(14px,2.5vh,24px);
+}
+.pn-horse.pn-left{animation:pnLeft .9s var(--ease) .3s both}
+.pn-horse.pn-right{animation:pnRight .9s var(--ease) .45s both}
+@keyframes pnLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes pnRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+
+/* full image — no height constraints, no overflow:hidden */
+.pn-img{
+  width:100%;height:auto;display:block;
+  border-radius:18px;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,.85),
+             0 1px 0 rgba(255,255,255,.05) inset;
+  transition:transform .5s var(--ease),box-shadow .5s;
+}
+.pn-img:hover{
+  transform:translateY(-5px) scale(1.008);
+  box-shadow:0 56px 100px -20px rgba(0,0,0,.9),
+             0 0 60px -10px rgba(245,197,24,.15),
+             0 1px 0 rgba(255,255,255,.06) inset;
+}
+.pn-img.pn-flip{transform:scaleX(-1)}
+.pn-img.pn-flip:hover{transform:scaleX(-1) translateY(-5px) scale(1.008)}
+
+/* name / labels */
+.pn-name{
+  font-size:clamp(1.2rem,3vw,2rem);font-weight:700;letter-spacing:-.02em;
+  text-align:center;animation:pnGlitch 9s ease 4s infinite;
+}
+@keyframes pnGlitch{
+  0%,85%,100%{clip-path:none;transform:none}
+  87%{clip-path:inset(15% 0 55% 0);transform:translateX(-4px) skewX(4deg)}
+  89%{clip-path:inset(60% 0 5% 0);transform:translateX(4px) skewX(-3deg)}
+  91%{clip-path:none;transform:none}
+  93%{clip-path:inset(35% 0 35% 0);transform:translateX(2px)}
+  95%{clip-path:none;transform:none}
+}
+.pn-stable{
+  font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);
+  padding:4px 14px;border-radius:100px;
+  background:var(--surface);border:1px solid var(--border);
+}
+.pn-tag{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 14px;border-radius:100px;
+  background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);color:var(--accent);
+}
+
+/* vs column */
+.pn-vs{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;flex-shrink:0;
+  padding:clamp(40px,8vh,80px) clamp(12px,2vw,24px) 0;
+  animation:pnUp .8s var(--ease) .5s both;
+}
+.pn-bolt{font-size:clamp(20px,3vw,30px);animation:pnBolt 1.5s ease infinite}
+@keyframes pnBolt{0%,100%{opacity:.18}42%{opacity:1;filter:drop-shadow(0 0 10px var(--accent))}58%{opacity:.35}}
+.pn-vs-text{
+  font-size:clamp(2.2rem,5vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;
+  background:linear-gradient(180deg,#fff 0%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:pnVS 2.8s ease infinite;
+}
+@keyframes pnVS{0%,100%{filter:none}50%{filter:drop-shadow(0 0 18px rgba(245,197,24,.7))}}
+.pn-vs-label{
+  font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-muted);text-align:center;line-height:1.55;
+}
+.pn-vs-pill{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;
+  background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.18);color:var(--accent);
+}
+
+/* ── countdown ── */
+.pn-cd{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:clamp(44px,7vh,80px) 24px clamp(32px,5vh,56px);
+}
+.pn-cd-eye{
+  font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:28px;
+}
+.pn-cd-row{display:inline-flex;align-items:flex-start;gap:6px}
+.pn-cd-unit{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pn-cd-n{
+  font-size:clamp(38px,8vw,74px);font-weight:700;letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums;
+  min-width:clamp(76px,12vw,112px);text-align:center;
+  padding:10px 6px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-top-color:rgba(255,255,255,.12);
+  border-radius:16px;color:#fff;
+  transition:box-shadow .35s,border-color .35s;
+}
+.pn-cd-n.pn-lit{
+  border-color:rgba(245,197,24,.35);
+  box-shadow:0 0 30px rgba(245,197,24,.18),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.pn-cd-l{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.pn-cd-dot{font-size:clamp(30px,6vw,56px);font-weight:300;color:rgba(255,255,255,.15);padding-top:10px}
+.pn-cd-urg{
+  margin-top:22px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);animation:pnUrg 3.5s ease infinite;
+}
+@keyframes pnUrg{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── info grid ── */
+.pn-info{
+  position:relative;z-index:10;
+  max-width:720px;margin:0 auto;
+  padding:0 24px clamp(44px,6vh,72px);
+}
+.pn-rule{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border-hi),transparent);
+  margin-bottom:clamp(28px,4vh,48px);
+}
+.pn-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.pn-cell{
+  padding:18px 22px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  transition:background .2s;
+}
+.pn-cell:nth-child(2n){border-right:none}
+.pn-cell:nth-last-child(-n+2){border-bottom:none}
+.pn-cell:hover{background:rgba(255,255,255,.03)}
+.pn-cell-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px}
+.pn-cell-v{font-size:clamp(13px,1.9vw,17px);font-weight:600;letter-spacing:-.01em;color:#fff}
+.pn-cell-v.pn-accent{color:var(--accent)}
+
+/* ── feature cards ── */
+.pn-cards{
+  position:relative;z-index:10;
+  max-width:860px;margin:0 auto;
+  padding:0 24px clamp(44px,6vh,72px);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;
+}
+.pn-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:24px 22px;
+  transition:all .4s var(--ease);
+}
+.pn-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px);box-shadow:0 24px 48px -12px rgba(0,0,0,.6)}
+.pn-card-icon{font-size:26px;margin-bottom:12px;display:block}
+.pn-card-title{font-size:clamp(14px,2vw,17px);font-weight:600;letter-spacing:-.01em;margin-bottom:8px;color:#fff}
+.pn-card-body{font-size:13px;color:var(--text-dim);line-height:1.65;font-weight:400}
+
+/* ── vote / choose side ── */
+.pn-vote{
+  position:relative;z-index:10;
+  max-width:520px;margin:0 auto;
+  padding:0 24px clamp(44px,6vh,72px);text-align:center;
+}
+.pn-vote-h{font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-.025em;margin-bottom:8px}
+.pn-vote-h em{color:var(--accent);font-style:normal}
+.pn-vote-p{font-size:14px;color:var(--text-dim);margin-bottom:28px;font-weight:400}
+.pn-vote-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.pn-vbtn{
+  padding:clamp(14px,2.2vh,18px) 16px;border-radius:14px;
+  background:var(--surface);border:1px solid var(--border-hi);
+  cursor:pointer;font-family:var(--font);
+  font-size:clamp(12px,1.7vw,14px);font-weight:600;letter-spacing:-.005em;color:#fff;
+  transition:all .25s var(--ease);
+}
+.pn-vbtn:hover{background:rgba(255,255,255,.08);transform:scale(1.02);border-color:rgba(245,197,24,.4)}
+.pn-vbtn:active{transform:scale(.97)}
+.pn-vote-r{font-size:12px;color:var(--text-dim);min-height:18px;letter-spacing:.06em;text-transform:uppercase;transition:color .3s}
+
+/* ── CTA ── */
+.pn-cta{
+  position:relative;z-index:10;
+  max-width:580px;margin:0 auto;
+  padding:0 24px clamp(72px,11vh,120px);text-align:center;
+}
+.pn-cta-h{
+  font-size:clamp(2rem,5.5vw,4.5rem);
+  font-weight:700;letter-spacing:-.04em;line-height:1.04;margin-bottom:14px;
+}
+.pn-cta-h em{color:var(--accent);font-style:normal}
+.pn-cta-p{font-size:14px;color:var(--text-dim);margin-bottom:36px;font-weight:400}
+.pn-btn{
+  display:inline-block;padding:17px 52px;
+  background:#fff;color:#000;
+  border-radius:100px;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;font-family:var(--font);
+  border:none;cursor:pointer;text-decoration:none;
+  transition:all .25s var(--ease);
+  animation:pnAura 3s ease infinite;
+}
+.pn-btn:hover{transform:scale(1.04);background:rgba(255,255,255,.93)}
+.pn-btn:active{transform:scale(.98)}
+@keyframes pnAura{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 40px 0 rgba(255,255,255,.1)}}
+
+/* ── footer ── */
+.pn-footer{
+  position:relative;z-index:10;
+  padding:20px 24px;border-top:1px solid var(--border);
+  text-align:center;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);
+}
+
+/* ── responsive ── */
+@media(max-width:520px){
+  .pn-vs-label{display:none}
+  .pn-duel{padding:0 10px}
+  .pn-vote-btns{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="pn-flash"></div>
+<canvas id="pn-sparks"></canvas>
+<div class="pn-amb"><div class="pn-amb-l"></div><div class="pn-amb-r"></div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     START EDITING HERE
+     Replace everything in [[ double brackets ]] with your content
+═══════════════════════════════════════════════════════ -->
+
+<!-- NAV BAR -->
+<nav class="pn-nav">
+  <span class="pn-nav-loc">[[VENUE]] · [[CITY, STATE]]</span>
+  <span class="pn-nav-chip">[[EVENT TYPE]]</span>
+  <span class="pn-nav-date">[[YEAR]]</span>
+</nav>
+
+<main>
+
+  <!-- HERO HEADLINE -->
+  <section class="pn-hero">
+    <p class="pn-eyebrow">[[TAGLINE / SUB-HEADLINE]]</p>
+    <h1 class="pn-h1">[[MAIN<br>EVENT TITLE]]</h1>
+    <p class="pn-sub">[[One-line description of the event]]</p>
+  </section>
+
+  <!-- SOCIAL PROOF BAR -->
+  <div class="pn-social">
+    <div class="pn-pill">🔥 <span id="pn-fan">1,247</span> [[Social proof text, e.g. "personas ya están hablando"]]</div>
+  </div>
+
+  <!-- DUEL — two images facing each other -->
+  <section class="pn-duel">
+
+    <!-- LEFT COMPETITOR -->
+    <div class="pn-horse pn-left">
+      <!-- Replace LEFT_IMAGE.jpg with your image file -->
+      <img src="LEFT_IMAGE.jpg" alt="[[Left competitor name]]" class="pn-img" loading="eager">
+      <div class="pn-name">[[LEFT NAME]]</div>
+      <div class="pn-stable">[[Team / Cuadra / Stable]]</div>
+      <div class="pn-tag">[[Badge, e.g. "La Invicta"]]</div>
+    </div>
+
+    <!-- VS CENTER -->
+    <div class="pn-vs">
+      <span class="pn-bolt">⚡</span>
+      <div class="pn-vs-text">VS</div>
+      <div class="pn-vs-label">[[FORMAT<br>e.g. MANO<br>A MANO]]</div>
+      <div class="pn-vs-pill">[[DISTANCE / DETAIL]]</div>
+    </div>
+
+    <!-- RIGHT COMPETITOR — pn-flip mirrors the image so they face each other -->
+    <div class="pn-horse pn-right">
+      <!-- Replace RIGHT_IMAGE.jpg with your image file -->
+      <!-- Add class="pn-img pn-flip" to mirror the image -->
+      <img src="RIGHT_IMAGE.jpg" alt="[[Right competitor name]]" class="pn-img pn-flip" loading="eager">
+      <div class="pn-name">[[RIGHT NAME]]</div>
+      <div class="pn-stable">[[Team / Cuadra / Stable]]</div>
+      <div class="pn-tag">[[Badge, e.g. "La Retadora"]]</div>
+    </div>
+
+  </section>
+
+  <!-- COUNTDOWN TIMER -->
+  <section class="pn-cd">
+    <p class="pn-cd-eye">[[Countdown label, e.g. "Cuenta Regresiva al Duelo"]]</p>
+    <div class="pn-cd-row">
+      <div class="pn-cd-unit"><div class="pn-cd-n" id="pn-d">00</div><div class="pn-cd-l">Días</div></div>
+      <div class="pn-cd-dot">:</div>
+      <div class="pn-cd-unit"><div class="pn-cd-n" id="pn-h">00</div><div class="pn-cd-l">Horas</div></div>
+      <div class="pn-cd-dot">:</div>
+      <div class="pn-cd-unit"><div class="pn-cd-n" id="pn-m">00</div><div class="pn-cd-l">Min</div></div>
+      <div class="pn-cd-dot">:</div>
+      <div class="pn-cd-unit"><div class="pn-cd-n" id="pn-s">00</div><div class="pn-cd-l">Seg</div></div>
+    </div>
+    <p class="pn-cd-urg">[[Urgency line, e.g. "Cada segundo que pasa es historia que no vuelve"]]</p>
+  </section>
+
+  <!-- EVENT INFO GRID -->
+  <div class="pn-info">
+    <div class="pn-rule"></div>
+    <div class="pn-grid">
+      <div class="pn-cell"><div class="pn-cell-k">Venue</div><div class="pn-cell-v">[[VENUE NAME]]</div></div>
+      <div class="pn-cell"><div class="pn-cell-k">Ciudad</div><div class="pn-cell-v">[[CITY, STATE]]</div></div>
+      <div class="pn-cell"><div class="pn-cell-k">Formato</div><div class="pn-cell-v pn-accent">[[FORMAT]]</div></div>
+      <div class="pn-cell"><div class="pn-cell-k">Distancia</div><div class="pn-cell-v pn-accent">[[DISTANCE]]</div></div>
+      <div class="pn-cell"><div class="pn-cell-k">[[Label 1]]</div><div class="pn-cell-v">[[Value 1]]</div></div>
+      <div class="pn-cell"><div class="pn-cell-k">[[Label 2]]</div><div class="pn-cell-v">[[Value 2]]</div></div>
+    </div>
+  </div>
+
+  <!-- FEATURE / FOMO CARDS — add or remove cards as needed -->
+  <div class="pn-cards">
+    <div class="pn-card">
+      <span class="pn-card-icon">🔥</span>
+      <div class="pn-card-title">[[Card 1 Headline]]</div>
+      <p class="pn-card-body">[[Card 1 body copy. Use urgency, scarcity, or social proof here.]]</p>
+    </div>
+    <div class="pn-card">
+      <span class="pn-card-icon">⚡</span>
+      <div class="pn-card-title">[[Card 2 Headline]]</div>
+      <p class="pn-card-body">[[Card 2 body copy.]]</p>
+    </div>
+    <div class="pn-card">
+      <span class="pn-card-icon">🏆</span>
+      <div class="pn-card-title">[[Card 3 Headline]]</div>
+      <p class="pn-card-body">[[Card 3 body copy.]]</p>
+    </div>
+  </div>
+
+  <!-- VOTE / CHOOSE SIDE -->
+  <div class="pn-vote">
+    <div class="pn-vote-h">[[Question headline]] <em>[[highlighted word]]?</em></div>
+    <p class="pn-vote-p">[[Vote sub-text]]</p>
+    <div class="pn-vote-btns">
+      <button class="pn-vbtn" onclick="pnVote('left')">[[LEFT BUTTON LABEL]]</button>
+      <button class="pn-vbtn" onclick="pnVote('right')">[[RIGHT BUTTON LABEL]]</button>
+    </div>
+    <div class="pn-vote-r" id="pn-vr"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="pn-cta">
+    <div class="pn-cta-h">[[CTA headline<br>with]] <em>[[emphasis]]</em></div>
+    <p class="pn-cta-p">[[Supporting line — scarcity or instruction]]</p>
+    <a href="[[LINK OR tel:PHONENUMBER]]" class="pn-btn">[[CTA Button Text]]</a>
+  </div>
+
+</main>
+
+<footer class="pn-footer">[[VENUE]] · [[CITY, STATE]] · [[Legal line, e.g. "Evento privado · Solo mayores de edad"]]</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     PISTA NOIR — JAVASCRIPT (configure the two values below)
+═══════════════════════════════════════════════════════ -->
+<script>
+/* ─── CONFIGURE THESE TWO VALUES ─── */
+var PN_EVENT_DATE  = new Date('YYYY-MM-DDTHH:MM:SS'); /* event date/time */
+var PN_VOTE_LABELS = { left: '[[Left Name]]', right: '[[Right Name]]' };
+/* ─────────────────────────────────── */
+
+/* countdown */
+(function tick(){
+  var ms = PN_EVENT_DATE - Date.now();
+  var v = {
+    d: ms>0?Math.floor(ms/86400000):0,
+    h: ms>0?Math.floor(ms%86400000/3600000):0,
+    m: ms>0?Math.floor(ms%3600000/60000):0,
+    s: ms>0?Math.floor(ms%60000/1000):0
+  };
+  ['d','h','m','s'].forEach(function(k){
+    var el=document.getElementById('pn-'+k);
+    var val=String(v[k]).padStart(2,'0');
+    if(el&&el.textContent!==val){
+      el.textContent=val;
+      if(k==='s'){
+        el.classList.remove('pn-lit');
+        void el.offsetWidth;
+        el.classList.add('pn-lit');
+        setTimeout(function(){el.classList.remove('pn-lit');},350);
+      }
+    }
+  });
+  setTimeout(tick,1000);
+})();
+
+/* social proof counter */
+var pnCount=1247;
+setInterval(function(){
+  pnCount+=Math.floor(Math.random()*3);
+  var el=document.getElementById('pn-fan');
+  if(el) el.textContent=pnCount.toLocaleString('en-US');
+},4000);
+
+/* vote */
+var pnVotes={left:0,right:0};
+function pnVote(side){
+  pnVotes[side]++;
+  var t=pnVotes.left+pnVotes.right;
+  var p=Math.round(pnVotes.left/t*100);
+  var el=document.getElementById('pn-vr');
+  if(el) el.textContent=(PN_VOTE_LABELS.left+' '+p+'%  ·  '+PN_VOTE_LABELS.right+' '+(100-p)+'%');
+}
+
+/* canvas sparks */
+(function(){
+  var cv=document.getElementById('pn-sparks'),c=cv.getContext('2d'),pts=[];
+  function rsz(){cv.width=innerWidth;cv.height=innerHeight} rsz();
+  addEventListener('resize',rsz);
+  function P(x,y){
+    this.x=x;this.y=y;
+    this.vx=(Math.random()-.5)*3;
+    this.vy=-Math.random()*2.2-.4;
+    this.a=1;this.r=Math.random()*2+.6;
+    var cols=[[245,197,24],[255,255,220],[255,160,40]];
+    this.col=cols[Math.floor(Math.random()*cols.length)];
+  }
+  P.prototype.step=function(){this.x+=this.vx;this.y+=this.vy;this.vy+=.032;this.a-=.013+Math.random()*.009;};
+  P.prototype.draw=function(){
+    c.save();c.globalAlpha=Math.max(0,this.a);
+    c.shadowBlur=7;c.shadowColor='rgba('+this.col+','+this.a+')';
+    c.fillStyle='rgba('+this.col+',1)';
+    c.beginPath();c.arc(this.x,this.y,this.r,0,Math.PI*2);c.fill();
+    c.restore();
+  };
+  setInterval(function(){
+    var cx=innerWidth/2;
+    for(var i=0;i<3;i++) pts.push(new P(cx+(Math.random()-.5)*50,innerHeight*.5+(Math.random()-.5)*80));
+  },100);
+  (function loop(){
+    requestAnimationFrame(loop);
+    c.clearRect(0,0,cv.width,cv.height);
+    pts=pts.filter(function(p){p.step();p.draw();return p.a>0;});
+  })();
+})();
+
+/* screen shake on load */
+setTimeout(function(){
+  var s=[3,-3,2,-2,1,0];
+  s.forEach(function(v,i){setTimeout(function(){document.body.style.transform='translateX('+v+'px)';},i*42);});
+  setTimeout(function(){document.body.style.transform='';},s.length*42);
+},700);
+</script>
+</body>
+</html>
