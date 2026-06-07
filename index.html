@@ -3,445 +3,399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CarrerasOS – DINERO PAREJO</title>
+<title>CarrerasOS – DINERO PAREJO · Rancho Los Pinos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08080F;
-  --bg2:#0F0F1A;
-  --card:#13131F;
-  --card2:#1A1A2E;
-  --border:#1E1E32;
-  --border2:#2A2A44;
-  --cyan:#00D4FF;
-  --green:#00FF88;
-  --purple:#7B2FFF;
-  --gold:#FFB800;
-  --red:#FF3B5C;
+  --navy:#05101E;
+  --dark:#08121F;
+  --green:#0B5E38;
+  --green2:#0D7A47;
+  --gold:#C9973A;
+  --goldb:#F0C040;
+  --cream:#F2E8D0;
   --white:#FFFFFF;
-  --t1:#E8EAF0;
-  --t2:#8B9CB6;
-  --t3:#4A5568;
-  --glow-c:rgba(0,212,255,.18);
-  --glow-g:rgba(0,255,136,.18);
-  --glow-p:rgba(123,47,255,.18);
+  --t1:#F0EDE8;
+  --t2:#A8B4C0;
+  --t3:#5A6675;
+  --border:rgba(255,255,255,.08);
+  --border2:rgba(255,255,255,.14);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;line-height:1.5;min-height:100vh;overflow-x:hidden}
-
+body{background:var(--dark);color:var(--t1);font-family:'Inter',sans-serif;line-height:1.5;min-height:100vh;overflow-x:hidden}
 ::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:#1E3A52;border-radius:2px}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.nav-brand{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;letter-spacing:2px;color:var(--cyan)}
-.nav-badge{display:flex;align-items:center;gap:8px}
-.live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:pulse-dot 1.4s ease infinite}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.live-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--red);text-transform:uppercase}
-.nav-date{font-size:12px;color:var(--t2);font-weight:500;letter-spacing:.5px}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,16,30,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 32px;gap:0;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--green2),var(--gold));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-logo-text{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;color:var(--white)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:var(--t2);text-decoration:none;font-weight:500;letter-spacing:.3px;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-event-badge{padding:6px 14px;background:var(--green);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+@media(max-width:640px){.nav-links{display:none}.nav-right{display:none}}
 
-/* HERO */
-#hero{padding:104px 24px 64px;max-width:900px;margin:0 auto}
-.hero-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:28px}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.chip-cyan{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--cyan)}
-.chip-gold{background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.3);color:var(--gold)}
-.chip-green{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green)}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,10vw,96px);font-weight:900;line-height:.92;letter-spacing:-1px;text-transform:uppercase;margin-bottom:12px}
-.hero-title .line1{color:var(--white)}
-.hero-title .line2{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:15px;color:var(--t2);margin-bottom:40px;max-width:520px;line-height:1.6}
+/* ── HERO ── */
+#hero{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1800&q=85&auto=format&fit=crop');background-size:cover;background-position:center 30%;filter:brightness(.65)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.98) 0%,rgba(5,16,30,.7) 40%,rgba(5,16,30,.25) 80%,transparent 100%)}
+.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,16,30,.6) 0%,transparent 60%)}
+.hero-content{position:relative;z-index:2;padding:0 40px 60px;max-width:900px;margin:0 auto;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);border-radius:4px;margin-bottom:20px}
+.hero-tag-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.hero-tag-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse-dot 1.8s ease infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(60px,11vw,110px);font-weight:900;line-height:.88;text-transform:uppercase;margin-bottom:16px;letter-spacing:-1px}
+.hero-title .t-white{color:var(--white)}
+.hero-title .t-gold{color:var(--goldb);text-shadow:0 0 60px rgba(240,192,64,.3)}
+.hero-tagline{font-size:16px;color:var(--t2);margin-bottom:32px;font-style:italic;letter-spacing:.3px}
+.hero-countdown{display:flex;align-items:flex-end;gap:0;margin-bottom:36px}
+.cd-unit{text-align:center;padding:0 18px;border-right:1px solid rgba(255,255,255,.12)}
+.cd-unit:first-child{padding-left:0}
+.cd-unit:last-child{border-right:none}
+.cd-num{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,7vw,64px);font-weight:900;color:var(--white);line-height:1}
+.cd-label{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.hero-details{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.hd-item{display:flex;align-items:center;gap:8px}
+.hd-icon{font-size:15px;opacity:.8}
+.hd-text{font-size:13px;color:var(--t2)}
+.hd-text strong{color:var(--t1)}
+.hd-sep{width:4px;height:4px;background:var(--t3);border-radius:50%}
 
-/* countdown */
-.cd-block{display:inline-flex;gap:4px;margin-bottom:48px;flex-wrap:wrap}
-.cd-unit{display:flex;flex-direction:column;align-items:center}
-.cd-num{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,7vw,60px);font-weight:900;color:var(--white);background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:10px 18px;min-width:74px;text-align:center;line-height:1;box-shadow:0 0 20px var(--glow-c)}
-.cd-label{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
-.cd-sep{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--t3);padding-top:12px}
-.hero-info-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
-.info-pill{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px}
-.info-pill svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
-.info-pill span{font-size:13px;color:var(--t2);font-weight:500}
-.info-pill strong{color:var(--t1)}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{padding:13px 28px;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:opacity .2s,transform .2s}
-.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
-.btn-ghost{padding:13px 28px;background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--t1);font-size:14px;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s}
-.btn-ghost:hover{border-color:var(--cyan);background:rgba(0,212,255,.05)}
+/* ── MATCHUP ── */
+#matchup{background:var(--navy);padding:80px 32px}
+.section-header{max-width:900px;margin:0 auto 36px;display:flex;align-items:center;gap:16px}
+.sh-line{flex:1;height:1px;background:var(--border)}
+.sh-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.matchup-wrap{max-width:900px;margin:0 auto}
+.matchup-grid{display:grid;grid-template-columns:1fr 100px 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--border2)}
+/* horse card */
+.hc{position:relative;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hc-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.55);transition:filter .4s}
+.hc:hover .hc-bg{filter:brightness(.7)}
+.hc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.95) 0%,rgba(5,16,30,.5) 50%,transparent 100%)}
+.hc.right .hc-overlay{background:linear-gradient(to top,rgba(5,16,30,.95) 0%,rgba(5,16,30,.5) 50%,transparent 100%)}
+.hc-content{position:relative;z-index:2;padding:28px 28px 28px}
+.hc.right .hc-content{text-align:right}
+.hc-gate{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.hc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--white);text-transform:uppercase;line-height:1;margin-bottom:6px}
+.hc-ranch{font-size:12px;color:var(--t2);margin-bottom:14px}
+.hc-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hc.right .hc-chips{justify-content:flex-end}
+.hc-chip{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.chip-gold{background:rgba(201,151,58,.18);border:1px solid rgba(201,151,58,.4);color:var(--gold)}
+.chip-blue{background:rgba(100,160,255,.12);border:1px solid rgba(100,160,255,.3);color:#84B4FF}
+.chip-green{background:rgba(0,200,100,.1);border:1px solid rgba(0,200,100,.25);color:#4AE08A}
+/* vs col */
+.vs-center{background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
+.vs-big{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:#243347;letter-spacing:3px}
+.vs-dist{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-align:center;line-height:1.6;border:1px solid rgba(201,151,58,.3);padding:6px 10px;border-radius:4px}
+/* matchup footer */
+.mf{max-width:900px;margin:0 auto;margin-top:0;border:1px solid var(--border2);border-top:none;border-radius:0 0 16px 16px;background:rgba(11,94,56,.08);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.mf-badge{padding:5px 14px;background:var(--green);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
+.mf-info{font-size:12px;color:var(--t2)}
+.mf-time{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--goldb)}
 
-/* divider */
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2) 30%,var(--border2) 70%,transparent);max-width:900px;margin:0 auto}
+/* ── RACE CARD ── */
+#racecard{background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);padding:80px 32px}
+.rc-wrap{max-width:900px;margin:0 auto}
+.rc-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.rc-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--white)}
+.rc-sub{font-size:12px;color:var(--t3);margin-top:4px}
+.rc-date-badge{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--green);border-radius:6px}
+.rc-date-text{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+/* race table */
+.race-table{width:100%;border-collapse:collapse}
+.race-table thead tr{border-bottom:2px solid var(--green)}
+.race-table thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+.race-table thead th:last-child{text-align:right}
+.race-table tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
+.race-table tbody tr:hover{background:rgba(255,255,255,.03)}
+.race-table tbody tr.estelar{background:linear-gradient(90deg,rgba(201,151,58,.07),transparent);border-bottom-color:rgba(201,151,58,.2)}
+.race-table tbody tr.estelar:hover{background:linear-gradient(90deg,rgba(201,151,58,.12),transparent)}
+.race-table tbody td{padding:14px 14px;vertical-align:middle}
+.rn{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--t3);width:50px}
+.estelar .rn{color:var(--gold)}
+.rname{font-size:13px;font-weight:700;color:var(--t1)}
+.estelar .rname{color:var(--goldb)}
+.rmeta{font-size:11px;color:var(--t3);margin-top:2px}
+.rtime{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--t2);text-align:right}
+.rdist{font-size:11px;color:var(--t3);text-align:right;margin-top:2px}
+.estrelabadge{display:inline-flex;align-items:center;gap:4px;margin-left:10px;padding:2px 8px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.3);border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
 
-/* MATCHUP */
-#matchup{padding:64px 24px;max-width:900px;margin:0 auto}
-.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
-.matchup-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative}
-.matchup-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.04) 0%,transparent 50%,rgba(123,47,255,.04) 100%);pointer-events:none}
-.matchup-inner{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center}
-.horse-side{padding:36px 32px;display:flex;flex-direction:column;gap:8px}
-.horse-side.right{align-items:flex-end;text-align:right;border-left:1px solid var(--border)}
-.horse-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
-.horse-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:900;color:var(--white);text-transform:uppercase;line-height:1}
-.horse-ranch{font-size:13px;color:var(--t2);margin-top:4px}
-.horse-stat{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
-.horse-side.right .horse-stat{justify-content:flex-end}
-.stat-chip{padding:4px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--t2);font-weight:600}
-.stat-chip.hot{border-color:rgba(0,255,136,.3);color:var(--green);background:rgba(0,255,136,.05)}
-.vs-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:32px 0}
-.vs-text{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--t3);letter-spacing:2px}
-.vs-dist{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;line-height:1.4}
-.matchup-footer{padding:16px 32px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(255,184,0,.03);flex-wrap:wrap;gap:8px}
-.mf-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.mf-badge{padding:4px 12px;background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.3);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase}
-.mf-label{font-size:12px;color:var(--t2)}
-.mf-time{font-size:13px;font-weight:600;color:var(--t1)}
+/* ── VENUE / DETAILS ── */
+#venue{background:var(--dark);padding:80px 32px;position:relative;overflow:hidden}
+#venue::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green2),transparent)}
+.venue-wrap{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.venue-photo{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+.venue-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
+.venue-photo-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,94,56,.4),transparent)}
+.venue-photo-badge{position:absolute;bottom:16px;left:16px;padding:6px 14px;background:var(--green);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+.venue-info{display:flex;flex-direction:column;gap:24px}
+.vi-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:4px}
+.vi-sub{font-size:13px;color:var(--t2);line-height:1.7}
+.vi-rows{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.vi-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border)}
+.vi-row:last-child{border-bottom:none}
+.vi-key{font-size:12px;color:var(--t3);font-weight:500}
+.vi-val{font-size:13px;color:var(--t1);font-weight:600;text-align:right}
+@media(max-width:680px){.venue-wrap{grid-template-columns:1fr}}
 
-/* SCHEDULE */
-#schedule{padding:64px 24px;max-width:900px;margin:0 auto}
-.schedule-grid{display:flex;flex-direction:column;gap:4px;margin-top:24px}
-.race-row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:16px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color .2s,background .2s}
-.race-row:hover{border-color:var(--border2);background:var(--card2)}
-.race-row.main-event{background:linear-gradient(135deg,rgba(255,184,0,.06),rgba(255,184,0,.02));border-color:rgba(255,184,0,.25)}
-.race-row.main-event:hover{border-color:rgba(255,184,0,.45)}
-.race-num{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--t3);text-align:center}
-.race-row.main-event .race-num{color:var(--gold)}
-.race-info{display:flex;flex-direction:column;gap:2px}
-.race-name{font-size:14px;font-weight:700;color:var(--t1)}
-.race-row.main-event .race-name{color:var(--gold)}
-.race-meta{font-size:12px;color:var(--t3)}
-.race-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.race-time{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--t2)}
-.race-dist{font-size:11px;color:var(--t3);font-weight:600;letter-spacing:.5px}
-.main-star{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.25);border-radius:4px;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase}
+/* ── STATS STRIP ── */
+#stats{background:var(--green);padding:40px 32px}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;text-align:center}
+.stat-item{padding:20px;border-right:1px solid rgba(255,255,255,.12)}
+.stat-item:last-child{border-right:none}
+.si-num{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:var(--white);line-height:1}
+.si-label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
 
-/* DETAILS */
-#details{padding:64px 24px;max-width:900px;margin:0 auto}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:24px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 20px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
-.stat-card:hover{transform:translateY(-2px);border-color:var(--border2)}
-.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;opacity:0;transition:opacity .3s}
-.stat-card:nth-child(1)::after{background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
-.stat-card:nth-child(2)::after{background:var(--gold);box-shadow:0 0 12px var(--gold)}
-.stat-card:nth-child(3)::after{background:var(--green);box-shadow:0 0 12px var(--green)}
-.stat-card:nth-child(4)::after{background:var(--purple);box-shadow:0 0 12px var(--purple)}
-.stat-card:hover::after{opacity:1}
-.stat-icon{font-size:22px;margin-bottom:12px}
-.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--white);line-height:1;margin-bottom:4px}
-.stat-key{font-size:11px;color:var(--t3);font-weight:600;letter-spacing:1px;text-transform:uppercase}
-.info-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
-.info-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
-.ic-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.ic-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.ic-title{font-size:13px;font-weight:700;color:var(--t1);letter-spacing:.5px;text-transform:uppercase}
-.ic-rows{display:flex;flex-direction:column;gap:10px}
-.ic-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.ic-row:last-child{border-bottom:none;padding-bottom:0}
-.ic-label{font-size:12px;color:var(--t2)}
-.ic-val{font-size:13px;font-weight:600;color:var(--t1)}
-
-/* PLATFORM */
-#platform{padding:64px 24px;max-width:900px;margin:0 auto}
-.platform-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:24px}
-.pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;transition:transform .2s,border-color .2s,background .2s}
-.pc:hover{transform:translateY(-3px);border-color:var(--cyan);background:var(--card2)}
-.pc-icon{font-size:28px;margin-bottom:14px}
-.pc-name{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:4px}
-.pc-desc{font-size:12px;color:var(--t2);line-height:1.5}
-
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px 32px;margin-top:80px}
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32px 32px}
 .footer-inner{max-width:900px;margin:0 auto}
-.footer-top{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start;margin-bottom:32px}
-.footer-brand{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;letter-spacing:3px;color:var(--cyan)}
-.footer-tagline{font-size:12px;color:var(--t3);margin-top:4px}
-.contact-items{display:flex;flex-direction:column;gap:8px}
-.contact-item{font-size:13px;color:var(--t2)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fg-brand{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:3px;color:var(--white);margin-bottom:8px}
+.fg-tagline{font-size:13px;color:var(--t3);line-height:1.6;max-width:260px}
+.fg-colhead{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.fg-links{display:flex;flex-direction:column;gap:10px}
+.fg-links a{font-size:13px;color:var(--t2);text-decoration:none;transition:color .2s}
+.fg-links a:hover{color:var(--white)}
 .footer-bottom{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-copy{font-size:11px;color:var(--t3)}
-.footer-copy span{color:var(--t2)}
-
-.glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);opacity:.4}
-
-@media(max-width:640px){
-  .matchup-inner{grid-template-columns:1fr 60px 1fr}
-  .horse-side,.horse-side.right{padding:24px 16px}
-  .vs-col{padding:24px 0}
-  .stats-row{grid-template-columns:1fr 1fr}
-  .nav-date{display:none}
-  .cd-num{min-width:60px;font-size:40px}
-  .cd-sep{font-size:36px}
-}
+.fc{font-size:11px;color:var(--t3)}
+.fc span{color:var(--t2)}
+@media(max-width:640px){.footer-grid{grid-template-columns:1fr;gap:24px}}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-brand">CARRERASОС</div>
-  <div class="nav-badge">
-    <div class="live-dot"></div>
-    <span class="live-tag">Evento</span>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">🏇</div>
+    <div class="nav-logo-text">CARRERASОС</div>
   </div>
-  <div class="nav-date">SÁB 06 JUN 2026</div>
+  <div class="nav-links">
+    <a href="#matchup">Carrera Estelar</a>
+    <a href="#racecard">Programa</a>
+    <a href="#venue">Lugar</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-event-badge">06 Jun 2026</span>
+  </div>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-meta">
-    <span class="chip chip-cyan">🏇 Carreras de Caballos</span>
-    <span class="chip chip-gold">DINERO PAREJO</span>
-    <span class="chip chip-green">350 YDS</span>
-  </div>
-  <h1 class="hero-title">
-    <div class="line1">DINERO</div>
-    <div class="line2">PAREJO</div>
-  </h1>
-  <p class="hero-sub">La carrera más grande del año. Dos caballos, un camino, todo el dinero sobre la mesa. Rancho Los Pinos presenta la noche definitiva.</p>
-
-  <div class="cd-block">
-    <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-label">días</div></div>
-    <div class="cd-sep">:</div>
-    <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">horas</div></div>
-    <div class="cd-sep">:</div>
-    <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-label">min</div></div>
-    <div class="cd-sep">:</div>
-    <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-label">seg</div></div>
-  </div>
-
-  <div class="hero-info-row">
-    <div class="info-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span><strong>Sábado 06 de Junio, 2026</strong></span>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      <span class="hero-tag-text">Rancho Los Pinos · Evento Estelar</span>
     </div>
-    <div class="info-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Inicio <strong>3:15 PM</strong></span>
-    </div>
-    <div class="info-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span><strong>Rancho Los Pinos</strong></span>
-    </div>
-  </div>
+    <h1 class="hero-title">
+      <div class="t-white">DINERO</div>
+      <div class="t-gold">PAREJO</div>
+    </h1>
+    <p class="hero-tagline">El enfrentamiento más esperado del año — 350 yardas, dos campeones, una sola victoria.</p>
 
-  <div class="hero-cta">
-    <button class="btn-primary">Ver Programas</button>
-    <button class="btn-ghost">Compartir Evento</button>
+    <div class="hero-countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Días</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Horas</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Min</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Seg</div></div>
+    </div>
+
+    <div class="hero-details">
+      <div class="hd-item"><span class="hd-icon">📅</span><span class="hd-text"><strong>Sábado 06 de Junio, 2026</strong></span></div>
+      <div class="hd-sep"></div>
+      <div class="hd-item"><span class="hd-icon">⏰</span><span class="hd-text">Inicio <strong>3:15 PM</strong></span></div>
+      <div class="hd-sep"></div>
+      <div class="hd-item"><span class="hd-icon">📍</span><span class="hd-text"><strong>Rancho Los Pinos</strong></span></div>
+    </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<!-- STATS STRIP -->
+<div id="stats">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="si-num">6</div><div class="si-label">Carreras</div></div>
+    <div class="stat-item"><div class="si-num">350</div><div class="si-label">Yardas Estelar</div></div>
+    <div class="stat-item"><div class="si-num">2</div><div class="si-label">Campeones</div></div>
+    <div class="stat-item"><div class="si-num">1</div><div class="si-label">Ganador</div></div>
+  </div>
+</div>
 
+<!-- MATCHUP -->
 <section id="matchup">
-  <div class="section-label">Carrera Principal</div>
-  <div class="matchup-card">
-    <div class="matchup-inner">
-      <div class="horse-side left">
-        <div class="horse-tag">Caballo #1 · Puerta 8</div>
-        <div class="horse-name">EL JUDIO</div>
-        <div class="horse-ranch">Rancho Los Pinos</div>
-        <div class="horse-stat">
-          <span class="stat-chip hot">🔥 Favorito</span>
-          <span class="stat-chip">Puerta 8</span>
+  <div class="section-header">
+    <div class="sh-line"></div>
+    <div class="sh-label">Carrera Estelar · Carrera #6</div>
+    <div class="sh-line"></div>
+  </div>
+  <div class="matchup-wrap">
+    <div class="matchup-grid">
+      <!-- Horse 1 -->
+      <div class="hc left">
+        <div class="hc-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop')"></div>
+        <div class="hc-overlay"></div>
+        <div class="hc-content">
+          <div class="hc-gate">Puerta 8 · Caballo #1</div>
+          <div class="hc-name">EL JUDIO</div>
+          <div class="hc-ranch">Rancho Los Pinos</div>
+          <div class="hc-chips">
+            <span class="hc-chip chip-gold">🔥 Favorito</span>
+            <span class="hc-chip chip-green">Puerta 8</span>
+          </div>
         </div>
       </div>
-      <div class="vs-col">
-        <div class="vs-text">VS</div>
+      <!-- VS -->
+      <div class="vs-center">
+        <div class="vs-big">VS</div>
         <div class="vs-dist">350<br>YDS</div>
       </div>
-      <div class="horse-side right">
-        <div class="horse-tag">Caballo #2 · Puerta 1</div>
-        <div class="horse-name">EL TEXANO</div>
-        <div class="horse-ranch">Rancho Los Pinos</div>
-        <div class="horse-stat">
-          <span class="stat-chip">Puerta 1</span>
-          <span class="stat-chip hot">⚡ Reto</span>
+      <!-- Horse 2 -->
+      <div class="hc right">
+        <div class="hc-bg" style="background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80&auto=format&fit=crop&crop=right')"></div>
+        <div class="hc-overlay"></div>
+        <div class="hc-content" style="text-align:right">
+          <div class="hc-gate">Puerta 1 · Caballo #2</div>
+          <div class="hc-name">EL TEXANO</div>
+          <div class="hc-ranch">Rancho Los Pinos</div>
+          <div class="hc-chips" style="justify-content:flex-end">
+            <span class="hc-chip chip-blue">⚡ Retador</span>
+            <span class="hc-chip chip-green">Puerta 1</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="matchup-footer">
-      <div class="mf-left">
-        <span class="mf-badge">★ Carrera Estelar</span>
-        <span class="mf-label">Carrera #6 &nbsp;·&nbsp; 350 yardas &nbsp;·&nbsp; Dinero Parejo</span>
-      </div>
-      <div class="mf-time">~7:30 PM</div>
+    <div class="mf">
+      <span class="mf-badge">★ Dinero Parejo</span>
+      <span class="mf-info">Carrera #6 &nbsp;·&nbsp; 350 yardas &nbsp;·&nbsp; Puerta 8 vs Puerta 1</span>
+      <span class="mf-time">~7:30 PM</span>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<section id="schedule">
-  <div class="section-label">Programa de Carreras</div>
-  <div class="schedule-grid">
-    <div class="race-row">
-      <div class="race-num">R1</div>
-      <div class="race-info">
-        <div class="race-name">Apertura — Caballos Regionales</div>
-        <div class="race-meta">Yeguas 3 años · Sin reclamación</div>
+<!-- RACE CARD -->
+<section id="racecard">
+  <div class="rc-wrap">
+    <div class="rc-header">
+      <div>
+        <div class="rc-title">Programa Oficial de Carreras</div>
+        <div class="rc-sub">Rancho Los Pinos · Sábado 06 de Junio, 2026</div>
       </div>
-      <div class="race-right">
-        <div class="race-time">3:15 PM</div>
-        <div class="race-dist">300 YDS</div>
+      <div class="rc-date-badge">
+        <span class="rc-date-text">Puertas 2:00 PM</span>
       </div>
     </div>
-    <div class="race-row">
-      <div class="race-num">R2</div>
-      <div class="race-info">
-        <div class="race-name">Caballos Cuarto de Milla</div>
-        <div class="race-meta">Todas las edades · Mixta</div>
-      </div>
-      <div class="race-right">
-        <div class="race-time">4:00 PM</div>
-        <div class="race-dist">330 YDS</div>
-      </div>
-    </div>
-    <div class="race-row">
-      <div class="race-num">R3</div>
-      <div class="race-info">
-        <div class="race-name">Desafío Los Pinos</div>
-        <div class="race-meta">Machos 4+ años · Invitacional</div>
-      </div>
-      <div class="race-right">
-        <div class="race-time">5:00 PM</div>
-        <div class="race-dist">350 YDS</div>
-      </div>
-    </div>
-    <div class="race-row">
-      <div class="race-num">R4</div>
-      <div class="race-info">
-        <div class="race-name">Copa Regional Norte</div>
-        <div class="race-meta">Todas las edades · Mixta</div>
-      </div>
-      <div class="race-right">
-        <div class="race-time">5:45 PM</div>
-        <div class="race-dist">350 YDS</div>
-      </div>
-    </div>
-    <div class="race-row">
-      <div class="race-num">R5</div>
-      <div class="race-info">
-        <div class="race-name">Semi-Final — Gran Premio</div>
-        <div class="race-meta">Clasificatoria para la estelar</div>
-      </div>
-      <div class="race-right">
-        <div class="race-time">6:30 PM</div>
-        <div class="race-dist">350 YDS</div>
-      </div>
-    </div>
-    <div class="race-row main-event">
-      <div class="race-num">R6</div>
-      <div class="race-info">
-        <div class="race-name">EL JUDIO vs EL TEXANO &nbsp;<span class="main-star">★ Estelar</span></div>
-        <div class="race-meta">Dinero Parejo · Puerta 8 vs Puerta 1</div>
-      </div>
-      <div class="race-right">
-        <div class="race-time">~7:30 PM</div>
-        <div class="race-dist">350 YDS</div>
-      </div>
-    </div>
+    <table class="race-table">
+      <thead>
+        <tr>
+          <th>Carrera</th>
+          <th>Nombre / Categoría</th>
+          <th style="text-align:right">Hora · Dist.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rn">R1</td>
+          <td><div class="rname">Apertura — Caballos Regionales</div><div class="rmeta">Yeguas 3 años · Sin reclamación</div></td>
+          <td><div class="rtime">3:15 PM</div><div class="rdist">300 YDS</div></td>
+        </tr>
+        <tr>
+          <td class="rn">R2</td>
+          <td><div class="rname">Cuarto de Milla — Todas las edades</div><div class="rmeta">Mixta · Clasificatoria</div></td>
+          <td><div class="rtime">4:00 PM</div><div class="rdist">330 YDS</div></td>
+        </tr>
+        <tr>
+          <td class="rn">R3</td>
+          <td><div class="rname">Desafío Los Pinos</div><div class="rmeta">Machos 4+ años · Invitacional</div></td>
+          <td><div class="rtime">5:00 PM</div><div class="rdist">350 YDS</div></td>
+        </tr>
+        <tr>
+          <td class="rn">R4</td>
+          <td><div class="rname">Copa Regional Norte</div><div class="rmeta">Todas las edades · Mixta</div></td>
+          <td><div class="rtime">5:45 PM</div><div class="rdist">350 YDS</div></td>
+        </tr>
+        <tr>
+          <td class="rn">R5</td>
+          <td><div class="rname">Semi-Final Gran Premio</div><div class="rmeta">Clasificatoria para la estelar</div></td>
+          <td><div class="rtime">6:30 PM</div><div class="rdist">350 YDS</div></td>
+        </tr>
+        <tr class="estelar">
+          <td class="rn">R6</td>
+          <td>
+            <div class="rname">EL JUDIO vs EL TEXANO <span class="estrelabadge">★ Estelar</span></div>
+            <div class="rmeta">Dinero Parejo · Puerta 8 vs Puerta 1 · 350 yardas</div>
+          </td>
+          <td><div class="rtime">~7:30 PM</div><div class="rdist">350 YDS</div></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<div class="glow-line"></div>
-
-<section id="details">
-  <div class="section-label">Detalles del Evento</div>
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-icon">🏁</div>
-      <div class="stat-val">350</div>
-      <div class="stat-key">Yardas</div>
+<!-- VENUE -->
+<section id="venue">
+  <div class="venue-wrap">
+    <div class="venue-photo">
+      <img src="https://images.unsplash.com/photo-1449497524933-d5e3e4b73c7b?w=900&q=80&auto=format&fit=crop" alt="Pista de carreras" loading="lazy">
+      <div class="venue-photo-overlay"></div>
+      <div class="venue-photo-badge">🏟 Rancho Los Pinos</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">🏇</div>
-      <div class="stat-val">6</div>
-      <div class="stat-key">Carreras</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">💰</div>
-      <div class="stat-val">PAREJO</div>
-      <div class="stat-key">Tipo de apuesta</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">📍</div>
-      <div class="stat-val">LOS PINOS</div>
-      <div class="stat-key">Rancho</div>
-    </div>
-  </div>
-  <div class="info-cards" style="margin-top:16px">
-    <div class="info-card">
-      <div class="ic-head">
-        <div class="ic-dot" style="background:var(--cyan)"></div>
-        <div class="ic-title">Información General</div>
+    <div class="venue-info">
+      <div>
+        <div class="vi-title">Información del Evento</div>
+        <div class="vi-sub">Un evento exclusivo organizado por Rancho Los Pinos para los amantes de las carreras de caballos cuarto de milla.</div>
       </div>
-      <div class="ic-rows">
-        <div class="ic-row"><span class="ic-label">Fecha</span><span class="ic-val">Sábado 06 Jun 2026</span></div>
-        <div class="ic-row"><span class="ic-label">Primer programa</span><span class="ic-val">3:15 PM</span></div>
-        <div class="ic-row"><span class="ic-label">Carrera estelar</span><span class="ic-val">~7:30 PM</span></div>
-        <div class="ic-row"><span class="ic-label">Lugar</span><span class="ic-val">Rancho Los Pinos</span></div>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="ic-head">
-        <div class="ic-dot" style="background:var(--gold)"></div>
-        <div class="ic-title">Carrera Estelar</div>
-      </div>
-      <div class="ic-rows">
-        <div class="ic-row"><span class="ic-label">Caballo 1</span><span class="ic-val">El Judio · Puerta 8</span></div>
-        <div class="ic-row"><span class="ic-label">Caballo 2</span><span class="ic-val">El Texano · Puerta 1</span></div>
-        <div class="ic-row"><span class="ic-label">Distancia</span><span class="ic-val">350 yardas</span></div>
-        <div class="ic-row"><span class="ic-label">Apuesta</span><span class="ic-val">Dinero Parejo</span></div>
+      <div class="vi-rows">
+        <div class="vi-row"><span class="vi-key">Fecha</span><span class="vi-val">Sábado 06 de Junio, 2026</span></div>
+        <div class="vi-row"><span class="vi-key">Puertas abren</span><span class="vi-val">2:00 PM</span></div>
+        <div class="vi-row"><span class="vi-key">Primera carrera</span><span class="vi-val">3:15 PM</span></div>
+        <div class="vi-row"><span class="vi-key">Carrera estelar</span><span class="vi-val">~7:30 PM</span></div>
+        <div class="vi-row"><span class="vi-key">Lugar</span><span class="vi-val">Rancho Los Pinos</span></div>
+        <div class="vi-row"><span class="vi-key">Tipo de apuesta</span><span class="vi-val">Dinero Parejo</span></div>
+        <div class="vi-row"><span class="vi-key">Distancia estelar</span><span class="vi-val">350 yardas</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<section id="platform">
-  <div class="section-label">Cómo Seguirnos</div>
-  <div class="platform-cards">
-    <div class="pc">
-      <div class="pc-icon">📱</div>
-      <div class="pc-name">WhatsApp</div>
-      <div class="pc-desc">Recibe actualizaciones y resultados en tiempo real por WhatsApp.</div>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">📸</div>
-      <div class="pc-name">Instagram</div>
-      <div class="pc-desc">Fotos y videos en vivo del evento. Síguenos para no perderte nada.</div>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">▶️</div>
-      <div class="pc-name">Facebook Live</div>
-      <div class="pc-desc">Transmisión en vivo de todas las carreras directamente en Facebook.</div>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">📞</div>
-      <div class="pc-name">Contacto Directo</div>
-      <div class="pc-desc">Para información sobre apuestas o separación de lugar, contáctanos.</div>
-    </div>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-top">
+    <div class="footer-grid">
       <div>
-        <div class="footer-brand">CARRERASОС</div>
-        <div class="footer-tagline">Rancho Los Pinos · Eventos Ecuestres</div>
+        <div class="fg-brand">CARRERASОС</div>
+        <div class="fg-tagline">La experiencia más emocionante de las carreras de cuarto de milla. Rancho Los Pinos, Sábado 06 de Junio 2026.</div>
       </div>
-      <div class="contact-items">
-        <div class="contact-item">📅 Sábado 06 de Junio, 2026</div>
-        <div class="contact-item">⏰ Puertas abren 2:00 PM</div>
-        <div class="contact-item">📍 Rancho Los Pinos</div>
+      <div>
+        <div class="fg-colhead">Evento</div>
+        <div class="fg-links">
+          <a href="#matchup">Carrera Estelar</a>
+          <a href="#racecard">Programa</a>
+          <a href="#venue">Lugar & Horarios</a>
+        </div>
+      </div>
+      <div>
+        <div class="fg-colhead">Seguir</div>
+        <div class="fg-links">
+          <a href="#">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">Facebook Live</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 <span>CarrerasOS · Rancho Los Pinos</span>. Todos los derechos reservados.</div>
-      <div class="footer-copy">Evento privado · Solo mayores de edad</div>
+      <div class="fc">© 2026 <span>CarrerasOS · Rancho Los Pinos</span>. Todos los derechos reservados.</div>
+      <div class="fc">Evento privado · Solo mayores de edad</div>
     </div>
   </div>
 </footer>
@@ -455,7 +409,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     document.getElementById('cd-m').textContent = String(Math.floor(ms%3600000/60000)).padStart(2,'0');
     document.getElementById('cd-s').textContent = String(Math.floor(ms%60000/1000)).padStart(2,'0');
   } else {
-    ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ document.getElementById(id).textContent = '00'; });
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ document.getElementById(id).textContent='00'; });
   }
   setTimeout(tick, 1000);
 })();
