@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CarrerasOS – DINERO PAREJO · Rancho Los Pinos</title>
+<title>Carril Agua Caliente – 07 de Junio 2026 · Imuris, Sonora</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -15,11 +15,11 @@
   --green2:#0D7A47;
   --gold:#C9973A;
   --goldb:#F0C040;
-  --cream:#F2E8D0;
   --white:#FFFFFF;
   --t1:#F0EDE8;
   --t2:#A8B4C0;
   --t3:#5A6675;
+  --red:#C0392B;
   --border:rgba(255,255,255,.08);
   --border2:rgba(255,255,255,.14);
 }
@@ -29,190 +29,202 @@ body{background:var(--dark);color:var(--t1);font-family:'Inter',sans-serif;line-
 ::-webkit-scrollbar-track{background:var(--navy)}
 ::-webkit-scrollbar-thumb{background:#1E3A52;border-radius:2px}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,16,30,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 32px;gap:0;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--green2),var(--gold));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.nav-logo-text{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;color:var(--white)}
-.nav-links{display:flex;gap:28px}
-.nav-links a{font-size:13px;color:var(--t2);text-decoration:none;font-weight:500;letter-spacing:.3px;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-event-badge{padding:6px 14px;background:var(--green);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
-@media(max-width:640px){.nav-links{display:none}.nav-right{display:none}}
-
-/* ── HERO ── */
-#hero{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1800&q=85&auto=format&fit=crop');background-size:cover;background-position:center 30%;filter:brightness(.65)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.98) 0%,rgba(5,16,30,.7) 40%,rgba(5,16,30,.25) 80%,transparent 100%)}
-.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,16,30,.6) 0%,transparent 60%)}
-.hero-content{position:relative;z-index:2;padding:0 40px 60px;max-width:900px;margin:0 auto;width:100%}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);border-radius:4px;margin-bottom:20px}
-.hero-tag-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
-.hero-tag-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse-dot 1.8s ease infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(60px,11vw,110px);font-weight:900;line-height:.88;text-transform:uppercase;margin-bottom:16px;letter-spacing:-1px}
-.hero-title .t-white{color:var(--white)}
-.hero-title .t-gold{color:var(--goldb);text-shadow:0 0 60px rgba(240,192,64,.3)}
-.hero-tagline{font-size:16px;color:var(--t2);margin-bottom:32px;font-style:italic;letter-spacing:.3px}
-.hero-countdown{display:flex;align-items:flex-end;gap:0;margin-bottom:36px}
-.cd-unit{text-align:center;padding:0 18px;border-right:1px solid rgba(255,255,255,.12)}
-.cd-unit:first-child{padding-left:0}
-.cd-unit:last-child{border-right:none}
-.cd-num{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,7vw,64px);font-weight:900;color:var(--white);line-height:1}
-.cd-label{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
-.hero-details{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
-.hd-item{display:flex;align-items:center;gap:8px}
-.hd-icon{font-size:15px;opacity:.8}
-.hd-text{font-size:13px;color:var(--t2)}
-.hd-text strong{color:var(--t1)}
-.hd-sep{width:4px;height:4px;background:var(--t3);border-radius:50%}
-
-/* ── MATCHUP ── */
-#matchup{background:var(--navy);padding:80px 32px}
-.section-header{max-width:900px;margin:0 auto 36px;display:flex;align-items:center;gap:16px}
-.sh-line{flex:1;height:1px;background:var(--border)}
-.sh-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
-.matchup-wrap{max-width:900px;margin:0 auto}
-.matchup-grid{display:grid;grid-template-columns:1fr 100px 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--border2)}
-/* horse card */
-.hc{position:relative;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hc-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.55);transition:filter .4s}
-.hc:hover .hc-bg{filter:brightness(.7)}
-.hc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.95) 0%,rgba(5,16,30,.5) 50%,transparent 100%)}
-.hc.right .hc-overlay{background:linear-gradient(to top,rgba(5,16,30,.95) 0%,rgba(5,16,30,.5) 50%,transparent 100%)}
-.hc-content{position:relative;z-index:2;padding:28px 28px 28px}
-.hc.right .hc-content{text-align:right}
-.hc-gate{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.hc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--white);text-transform:uppercase;line-height:1;margin-bottom:6px}
-.hc-ranch{font-size:12px;color:var(--t2);margin-bottom:14px}
-.hc-chips{display:flex;gap:8px;flex-wrap:wrap}
-.hc.right .hc-chips{justify-content:flex-end}
-.hc-chip{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-.chip-gold{background:rgba(201,151,58,.18);border:1px solid rgba(201,151,58,.4);color:var(--gold)}
-.chip-blue{background:rgba(100,160,255,.12);border:1px solid rgba(100,160,255,.3);color:#84B4FF}
-.chip-green{background:rgba(0,200,100,.1);border:1px solid rgba(0,200,100,.25);color:#4AE08A}
-/* vs col */
-.vs-center{background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
-.vs-big{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:#243347;letter-spacing:3px}
-.vs-dist{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-align:center;line-height:1.6;border:1px solid rgba(201,151,58,.3);padding:6px 10px;border-radius:4px}
-/* matchup footer */
-.mf{max-width:900px;margin:0 auto;margin-top:0;border:1px solid var(--border2);border-top:none;border-radius:0 0 16px 16px;background:rgba(11,94,56,.08);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.mf-badge{padding:5px 14px;background:var(--green);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
-.mf-info{font-size:12px;color:var(--t2)}
-.mf-time{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--goldb)}
-
-/* ── RACE CARD ── */
-#racecard{background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);padding:80px 32px}
-.rc-wrap{max-width:900px;margin:0 auto}
-.rc-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
-.rc-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--white)}
-.rc-sub{font-size:12px;color:var(--t3);margin-top:4px}
-.rc-date-badge{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--green);border-radius:6px}
-.rc-date-text{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
-/* race table */
-.race-table{width:100%;border-collapse:collapse}
-.race-table thead tr{border-bottom:2px solid var(--green)}
-.race-table thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
-.race-table thead th:last-child{text-align:right}
-.race-table tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
-.race-table tbody tr:hover{background:rgba(255,255,255,.03)}
-.race-table tbody tr.estelar{background:linear-gradient(90deg,rgba(201,151,58,.07),transparent);border-bottom-color:rgba(201,151,58,.2)}
-.race-table tbody tr.estelar:hover{background:linear-gradient(90deg,rgba(201,151,58,.12),transparent)}
-.race-table tbody td{padding:14px 14px;vertical-align:middle}
-.rn{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--t3);width:50px}
-.estelar .rn{color:var(--gold)}
-.rname{font-size:13px;font-weight:700;color:var(--t1)}
-.estelar .rname{color:var(--goldb)}
-.rmeta{font-size:11px;color:var(--t3);margin-top:2px}
-.rtime{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--t2);text-align:right}
-.rdist{font-size:11px;color:var(--t3);text-align:right;margin-top:2px}
-.estrelabadge{display:inline-flex;align-items:center;gap:4px;margin-left:10px;padding:2px 8px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.3);border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
-
-/* ── VENUE / DETAILS ── */
-#venue{background:var(--dark);padding:80px 32px;position:relative;overflow:hidden}
-#venue::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green2),transparent)}
-.venue-wrap{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-.venue-photo{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
-.venue-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
-.venue-photo-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,94,56,.4),transparent)}
-.venue-photo-badge{position:absolute;bottom:16px;left:16px;padding:6px 14px;background:var(--green);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
-.venue-info{display:flex;flex-direction:column;gap:24px}
-.vi-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:4px}
-.vi-sub{font-size:13px;color:var(--t2);line-height:1.7}
-.vi-rows{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.vi-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border)}
-.vi-row:last-child{border-bottom:none}
-.vi-key{font-size:12px;color:var(--t3);font-weight:500}
-.vi-val{font-size:13px;color:var(--t1);font-weight:600;text-align:right}
-@media(max-width:680px){.venue-wrap{grid-template-columns:1fr}}
-
-/* ── STATS STRIP ── */
-#stats{background:var(--green);padding:40px 32px}
-.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;text-align:center}
-.stat-item{padding:20px;border-right:1px solid rgba(255,255,255,.12)}
-.stat-item:last-child{border-right:none}
-.si-num{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:var(--white);line-height:1}
-.si-label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
-
 /* ── ANIMATIONS ── */
 @keyframes fu{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fl{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:translateX(0)}}
 @keyframes fr{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:translateX(0)}}
-@keyframes fi{from{opacity:0}to{opacity:1}}
 @keyframes kb{from{transform:scale(1) translateY(0)}to{transform:scale(1.07) translateY(-1.5%)}}
 @keyframes cdfl{0%,100%{color:var(--white);text-shadow:none}45%{color:var(--goldb);text-shadow:0 0 28px rgba(240,192,64,.65)}}
 @keyframes rowglow{0%,100%{background:linear-gradient(90deg,rgba(201,151,58,.07),transparent)}55%{background:linear-gradient(90deg,rgba(201,151,58,.18),rgba(201,151,58,.04))}}
+@keyframes musicpulse{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.6)}}
 
-/* hero on-load stagger */
+/* hero stagger */
 .hero-tag{opacity:0;animation:fu .65s ease .1s forwards}
 .hero-title .t-white{display:block;opacity:0;animation:fu .65s ease .3s forwards}
 .hero-title .t-gold{display:block;opacity:0;animation:fu .65s ease .5s forwards}
 .hero-tagline{opacity:0;animation:fu .6s ease .7s forwards}
 .hero-countdown{opacity:0;animation:fu .6s ease .9s forwards}
 .hero-details{opacity:0;animation:fu .55s ease 1.1s forwards}
+.hero-music{opacity:0;animation:fu .55s ease 1.3s forwards}
 
-/* hero bg ken burns + parallax */
 .hero-bg{animation:kb 22s ease-out forwards;will-change:transform}
 
-/* horse card hover scale */
 .hc-bg{transform-origin:center;transition:filter .4s ease,transform .65s ease}
 .hc:hover .hc-bg{filter:brightness(.72);transform:scale(1.06)}
 .hc-content{transition:transform .3s ease}
 .hc:hover .hc-content{transform:translateY(-4px)}
 
-/* estelar row pulse */
 .race-table tbody tr.estelar{animation:rowglow 3.5s ease infinite}
 
-/* scroll reveal classes */
+/* scroll reveal */
 .rv{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
 .rv.in{opacity:1;transform:none}
 .rv-l{opacity:0;transform:translateX(-46px);transition:opacity .7s ease,transform .7s ease}
 .rv-l.in{opacity:1;transform:none}
 .rv-r{opacity:0;transform:translateX(46px);transition:opacity .7s ease,transform .7s ease}
 .rv-r.in{opacity:1;transform:none}
-
-/* section header line sweep */
 .sh-line{transform:scaleX(0);transform-origin:left center;transition:transform .9s ease}
 .section-header.in .sh-line{transform:scaleX(1)}
-
-/* nav scroll shadow */
 nav{transition:box-shadow .3s}
 nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.5)}
 
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(5,16,30,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 32px;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--green2),var(--gold));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-logo-text{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;color:var(--white)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:var(--t2);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-event-badge{padding:6px 14px;background:var(--green);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+@media(max-width:640px){.nav-links{display:none}.nav-right{display:none}}
+
+/* ── HERO ── */
+#hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1800&q=85&auto=format&fit=crop');background-size:cover;background-position:center 30%;filter:brightness(.6)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.99) 0%,rgba(5,16,30,.7) 40%,rgba(5,16,30,.2) 80%,transparent 100%)}
+.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,16,30,.65) 0%,transparent 65%)}
+.hero-content{position:relative;z-index:2;padding:0 40px 56px;max-width:960px;margin:0 auto;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.4);border-radius:4px;margin-bottom:18px}
+.hero-tag-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:cdfl 1.8s ease infinite}
+.hero-tag-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,10.5vw,108px);font-weight:900;line-height:.88;text-transform:uppercase;margin-bottom:14px;letter-spacing:-1px}
+.hero-title .t-white{color:var(--white)}
+.hero-title .t-gold{color:var(--goldb);text-shadow:0 0 60px rgba(240,192,64,.3)}
+.hero-tagline{font-size:15px;color:var(--t2);margin-bottom:28px;font-style:italic}
+.hero-countdown{display:flex;align-items:flex-end;gap:0;margin-bottom:30px}
+.cd-unit{text-align:center;padding:0 18px;border-right:1px solid rgba(255,255,255,.12)}
+.cd-unit:first-child{padding-left:0}
+.cd-unit:last-child{border-right:none}
+.cd-num{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,7vw,62px);font-weight:900;color:var(--white);line-height:1}
+.cd-label{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.hero-details{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-bottom:18px}
+.hd-item{display:flex;align-items:center;gap:8px}
+.hd-icon{font-size:15px;opacity:.8}
+.hd-text{font-size:13px;color:var(--t2)}
+.hd-text strong{color:var(--t1)}
+.hd-sep{width:4px;height:4px;background:var(--t3);border-radius:50%}
+/* music badge */
+.hero-music{display:inline-flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.35);border-radius:8px;margin-top:4px}
+.music-bars{display:flex;align-items:flex-end;gap:3px;height:18px}
+.music-bars span{display:block;width:3px;background:var(--red);border-radius:2px;animation:musicpulse .8s ease infinite}
+.music-bars span:nth-child(1){height:8px;animation-delay:0s}
+.music-bars span:nth-child(2){height:14px;animation-delay:.15s}
+.music-bars span:nth-child(3){height:18px;animation-delay:.3s}
+.music-bars span:nth-child(4){height:11px;animation-delay:.45s}
+.music-bars span:nth-child(5){height:16px;animation-delay:.1s}
+.music-text{font-size:13px;font-weight:700;color:var(--t1)}.music-sub{font-size:11px;color:var(--t3);display:block;margin-top:1px}
+
+/* ── STATS STRIP ── */
+#stats{background:var(--green);padding:36px 32px}
+.stats-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;text-align:center}
+.stat-item{padding:16px;border-right:1px solid rgba(255,255,255,.12)}
+.stat-item:last-child{border-right:none}
+.si-num{font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:900;color:var(--white);line-height:1}
+.si-label{font-size:10px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+
+/* ── MATCHUP ── */
+#matchup{background:var(--navy);padding:72px 32px}
+.section-header{max-width:960px;margin:0 auto 36px;display:flex;align-items:center;gap:16px}
+.sh-line{flex:1;height:1px;background:var(--border)}
+.sh-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.matchup-wrap{max-width:960px;margin:0 auto}
+.matchup-grid{display:grid;grid-template-columns:1fr 100px 1fr;border-radius:16px;overflow:hidden;border:1px solid var(--border2)}
+.hc{position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hc-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.52)}
+.hc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,16,30,.97) 0%,rgba(5,16,30,.5) 55%,transparent 100%)}
+.hc-content{position:relative;z-index:2;padding:24px 26px}
+.hc.right .hc-content{text-align:right}
+.hc-gate{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.hc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:900;color:var(--white);text-transform:uppercase;line-height:1;margin-bottom:4px}
+.hc-ranch{font-size:12px;color:var(--t2);margin-bottom:12px}
+.hc-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hc.right .hc-chips{justify-content:flex-end}
+.hc-chip{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.chip-gold{background:rgba(201,151,58,.18);border:1px solid rgba(201,151,58,.4);color:var(--gold)}
+.chip-blue{background:rgba(100,160,255,.12);border:1px solid rgba(100,160,255,.3);color:#84B4FF}
+.chip-green{background:rgba(0,200,100,.1);border:1px solid rgba(0,200,100,.25);color:#4AE08A}
+.vs-center{background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
+.vs-big{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:#243347;letter-spacing:3px}
+.vs-dist{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-align:center;line-height:1.6;border:1px solid rgba(201,151,58,.3);padding:6px 10px;border-radius:4px}
+.mf{max-width:960px;margin:0 auto;border:1px solid var(--border2);border-top:none;border-radius:0 0 16px 16px;background:rgba(11,94,56,.08);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.mf-badge{padding:5px 14px;background:var(--green);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff}
+.mf-info{font-size:12px;color:var(--t2)}
+.mf-time{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--goldb)}
+
+/* ── RACE CARD ── */
+#racecard{background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);padding:72px 32px}
+.rc-wrap{max-width:960px;margin:0 auto}
+.rc-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.rc-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--white)}
+.rc-sub{font-size:12px;color:var(--t3);margin-top:4px}
+.rc-date-badge{padding:8px 16px;background:var(--green);border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+/* category headers */
+.cat-header{display:flex;align-items:center;gap:12px;margin:20px 0 0;padding:10px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase}
+.cat-potrillos{background:rgba(13,122,71,.15);border-left:3px solid var(--green2);color:var(--green2)}
+.cat-tabajos{background:rgba(100,160,255,.08);border-left:3px solid #4A90D9;color:#6EB0F0}
+.cat-estelares{background:rgba(201,151,58,.1);border-left:3px solid var(--gold);color:var(--gold)}
+/* race table */
+.race-table{width:100%;border-collapse:collapse;margin-top:4px}
+.race-table thead tr{border-bottom:2px solid var(--green)}
+.race-table thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+.race-table thead th:last-child{text-align:right}
+.race-table tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+.race-table tbody tr:hover{background:rgba(255,255,255,.025)}
+.race-table tbody tr.estelar{background:linear-gradient(90deg,rgba(201,151,58,.07),transparent);border-bottom-color:rgba(201,151,58,.2)}
+.race-table tbody tr.estelar:hover{background:linear-gradient(90deg,rgba(201,151,58,.13),transparent)}
+.race-table tbody td{padding:13px 14px;vertical-align:middle}
+.rn{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--t3);width:48px}
+.estelar .rn{color:var(--gold)}
+.rname{font-size:13px;font-weight:700;color:var(--t1)}
+.estelar .rname{color:var(--goldb)}
+.rmeta{font-size:11px;color:var(--t3);margin-top:2px}
+.rvs{font-size:11px;font-weight:700;color:var(--t3);margin:0 6px}
+.rtime{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--t2);text-align:right;white-space:nowrap}
+.rdist{font-size:11px;color:var(--t3);text-align:right;margin-top:2px}
+.estrelabadge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:2px 8px;background:rgba(201,151,58,.15);border:1px solid rgba(201,151,58,.3);border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+.rnote{font-size:10px;color:#4A90D9;margin-top:3px;font-style:italic}
+
+/* ── VENUE ── */
+#venue{background:var(--dark);padding:72px 32px;position:relative;overflow:hidden}
+#venue::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green2),transparent)}
+.venue-wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.venue-photo{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+.venue-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
+.venue-photo-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,94,56,.4),transparent)}
+.venue-photo-badge{position:absolute;bottom:16px;left:16px;padding:6px 14px;background:var(--green);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase}
+.venue-info{display:flex;flex-direction:column;gap:20px}
+.vi-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--white);margin-bottom:4px}
+.vi-sub{font-size:13px;color:var(--t2);line-height:1.7}
+.vi-rows{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.vi-row{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--border)}
+.vi-row:last-child{border-bottom:none}
+.vi-key{font-size:12px;color:var(--t3);font-weight:500}
+.vi-val{font-size:13px;color:var(--t1);font-weight:600;text-align:right}
+/* rules row */
+.rules-row{display:flex;gap:12px;flex-wrap:wrap}
+.rule-chip{display:flex;align-items:center;gap:7px;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600}
+.rule-ok{background:rgba(13,122,71,.12);border:1px solid rgba(13,122,71,.3);color:#4AE08A}
+.rule-no{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);color:#E07070}
+.rule-chip .ri{font-size:16px}
+@media(max-width:680px){.venue-wrap{grid-template-columns:1fr}}
+
 /* ── FOOTER ── */
-footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32px 32px}
-.footer-inner{max-width:900px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
-.fg-brand{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:3px;color:var(--white);margin-bottom:8px}
+footer{background:var(--navy);border-top:1px solid var(--border);padding:56px 32px 32px}
+.footer-inner{max-width:960px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:44px}
+.fg-brand{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;letter-spacing:3px;color:var(--white);margin-bottom:6px}
 .fg-tagline{font-size:13px;color:var(--t3);line-height:1.6;max-width:260px}
-.fg-colhead{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.fg-colhead{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .fg-links{display:flex;flex-direction:column;gap:10px}
 .fg-links a{font-size:13px;color:var(--t2);text-decoration:none;transition:color .2s}
 .fg-links a:hover{color:var(--white)}
 .footer-bottom{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .fc{font-size:11px;color:var(--t3)}
 .fc span{color:var(--t2)}
+.sponsors{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.sponsor-tag{font-size:11px;color:var(--t3);padding:4px 10px;border:1px solid var(--border);border-radius:4px}
 @media(max-width:640px){.footer-grid{grid-template-columns:1fr;gap:24px}}
 </style>
 </head>
@@ -222,7 +234,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
 <nav>
   <div class="nav-logo">
     <div class="nav-logo-icon">🏇</div>
-    <div class="nav-logo-text">CARRERASОС</div>
+    <div class="nav-logo-text">CARRIL AGUA CALIENTE</div>
   </div>
   <div class="nav-links">
     <a href="#matchup">Carrera Estelar</a>
@@ -230,7 +242,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
     <a href="#venue">Lugar</a>
   </div>
   <div class="nav-right">
-    <span class="nav-event-badge">06 Jun 2026</span>
+    <span class="nav-event-badge">07 Jun 2026</span>
   </div>
 </nav>
 
@@ -242,13 +254,13 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
   <div class="hero-content">
     <div class="hero-tag">
       <div class="hero-tag-dot"></div>
-      <span class="hero-tag-text">Rancho Los Pinos · Evento Estelar</span>
+      <span class="hero-tag-text">Carril Agua Caliente · Imuris, Sonora</span>
     </div>
     <h1 class="hero-title">
-      <div class="t-white">DINERO</div>
-      <div class="t-gold">PAREJO</div>
+      <div class="t-white">07 DE JUNIO</div>
+      <div class="t-gold">2026</div>
     </h1>
-    <p class="hero-tagline">El enfrentamiento más esperado del año — 350 yardas, dos campeones, una sola victoria.</p>
+    <p class="hero-tagline">Carreras de caballos cuarto de milla · 7 carreras · Imuris, Sonora</p>
 
     <div class="hero-countdown">
       <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Días</div></div>
@@ -258,11 +270,23 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
     </div>
 
     <div class="hero-details">
-      <div class="hd-item"><span class="hd-icon">📅</span><span class="hd-text"><strong>Sábado 06 de Junio, 2026</strong></span></div>
+      <div class="hd-item"><span class="hd-icon">📅</span><span class="hd-text"><strong>Domingo 07 de Junio, 2026</strong></span></div>
       <div class="hd-sep"></div>
-      <div class="hd-item"><span class="hd-icon">⏰</span><span class="hd-text">Inicio <strong>3:15 PM</strong></span></div>
+      <div class="hd-item"><span class="hd-icon">⏰</span><span class="hd-text">Inicio <strong>2:30 PM</strong></span></div>
       <div class="hd-sep"></div>
-      <div class="hd-item"><span class="hd-icon">📍</span><span class="hd-text"><strong>Rancho Los Pinos</strong></span></div>
+      <div class="hd-item"><span class="hd-icon">📍</span><span class="hd-text"><strong>Imuris, Sonora</strong></span></div>
+      <div class="hd-sep"></div>
+      <div class="hd-item"><span class="hd-icon">🎟</span><span class="hd-text">Entrada <strong>$250</strong></span></div>
+    </div>
+
+    <div class="hero-music">
+      <div class="music-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div>
+        <span class="music-text">CÓDIGO KONTRA</span>
+        <span class="music-sub">Música en Vivo</span>
+      </div>
     </div>
   </div>
 </section>
@@ -270,10 +294,10 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
 <!-- STATS STRIP -->
 <div id="stats">
   <div class="stats-inner">
-    <div class="stat-item"><div class="si-num">6</div><div class="si-label">Carreras</div></div>
-    <div class="stat-item"><div class="si-num">350</div><div class="si-label">Yardas Estelar</div></div>
-    <div class="stat-item"><div class="si-num">2</div><div class="si-label">Campeones</div></div>
-    <div class="stat-item"><div class="si-num">1</div><div class="si-label">Ganador</div></div>
+    <div class="stat-item"><div class="si-num">7</div><div class="si-label">Carreras</div></div>
+    <div class="stat-item"><div class="si-num">300</div><div class="si-label">Varas Estelar</div></div>
+    <div class="stat-item"><div class="si-num">250</div><div class="si-label">Entrada $</div></div>
+    <div class="stat-item"><div class="si-num">3</div><div class="si-label">Categorías</div></div>
   </div>
 </div>
 
@@ -281,7 +305,7 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
 <section id="matchup">
   <div class="section-header">
     <div class="sh-line"></div>
-    <div class="sh-label">Carrera Estelar · Carrera #6</div>
+    <div class="sh-label">Carrera Estelar #7 · 6:30 PM</div>
     <div class="sh-line"></div>
   </div>
   <div class="matchup-wrap">
@@ -291,39 +315,38 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
         <div class="hc-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop')"></div>
         <div class="hc-overlay"></div>
         <div class="hc-content">
-          <div class="hc-gate">Puerta 8 · Caballo #1</div>
+          <div class="hc-gate">Carrera #7 · San Judas</div>
           <div class="hc-name">EL JUDIO</div>
-          <div class="hc-ranch">Rancho Los Pinos</div>
+          <div class="hc-ranch">C. San Judas</div>
           <div class="hc-chips">
-            <span class="hc-chip chip-gold">🔥 Favorito</span>
-            <span class="hc-chip chip-green">Puerta 8</span>
+            <span class="hc-chip chip-gold">★ Estelar</span>
+            <span class="hc-chip chip-green">Favorito</span>
           </div>
         </div>
       </div>
       <!-- VS -->
       <div class="vs-center">
         <div class="vs-big">VS</div>
-        <div class="vs-dist">350<br>YDS</div>
+        <div class="vs-dist">300<br>VARAS</div>
       </div>
       <!-- Horse 2 -->
       <div class="hc right">
         <div class="hc-bg" style="background-image:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80&auto=format&fit=crop&crop=right')"></div>
         <div class="hc-overlay"></div>
         <div class="hc-content" style="text-align:right">
-          <div class="hc-gate">Puerta 1 · Caballo #2</div>
-          <div class="hc-name">EL TEXANO</div>
-          <div class="hc-ranch">Rancho Los Pinos</div>
+          <div class="hc-gate">Carrera #7 · 2 Hermanos</div>
+          <div class="hc-name">EL NVO.<br>MECANICO</div>
+          <div class="hc-ranch">C. 2 Hermanos</div>
           <div class="hc-chips" style="justify-content:flex-end">
             <span class="hc-chip chip-blue">⚡ Retador</span>
-            <span class="hc-chip chip-green">Puerta 1</span>
           </div>
         </div>
       </div>
     </div>
     <div class="mf">
-      <span class="mf-badge">★ Dinero Parejo</span>
-      <span class="mf-info">Carrera #6 &nbsp;·&nbsp; 350 yardas &nbsp;·&nbsp; Puerta 8 vs Puerta 1</span>
-      <span class="mf-time">~7:30 PM</span>
+      <span class="mf-badge">★ Carrera Estelar</span>
+      <span class="mf-info">Carrera #7 &nbsp;·&nbsp; 300 varas &nbsp;·&nbsp; Bajo Reglamento / O a 20 seg.</span>
+      <span class="mf-time">6:30 PM</span>
     </div>
   </div>
 </section>
@@ -334,53 +357,100 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
     <div class="rc-header">
       <div>
         <div class="rc-title">Programa Oficial de Carreras</div>
-        <div class="rc-sub">Rancho Los Pinos · Sábado 06 de Junio, 2026</div>
+        <div class="rc-sub">Carril Agua Caliente · Imuris, Sonora · Domingo 07 de Junio, 2026</div>
       </div>
-      <div class="rc-date-badge">
-        <span class="rc-date-text">Puertas 2:00 PM</span>
-      </div>
+      <div class="rc-date-badge">Inicio 2:30 PM</div>
     </div>
+
+    <!-- ESCUELA DE POTRILLOS -->
+    <div class="cat-header cat-potrillos">🐴 Escuela de Potrillos</div>
     <table class="race-table">
       <thead>
         <tr>
-          <th>Carrera</th>
-          <th>Nombre / Categoría</th>
-          <th style="text-align:right">Hora · Dist.</th>
+          <th>#</th><th>Matchup</th><th style="text-align:right">Hora · Dist.</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="rn">R1</td>
-          <td><div class="rname">Apertura — Caballos Regionales</div><div class="rmeta">Yeguas 3 años · Sin reclamación</div></td>
-          <td><div class="rtime">3:15 PM</div><div class="rdist">300 YDS</div></td>
+          <td class="rn">1</td>
+          <td>
+            <div class="rname">POTRILLO <span class="rvs">VS</span> POTRILLO</div>
+            <div class="rmeta">C. San Judas — C. San Judas</div>
+          </td>
+          <td><div class="rtime">2:30 PM</div><div class="rdist">200 MTS</div></td>
         </tr>
         <tr>
-          <td class="rn">R2</td>
-          <td><div class="rname">Cuarto de Milla — Todas las edades</div><div class="rmeta">Mixta · Clasificatoria</div></td>
-          <td><div class="rtime">4:00 PM</div><div class="rdist">330 YDS</div></td>
+          <td class="rn">2</td>
+          <td>
+            <div class="rname">LA SOFIA <span class="rvs">VS</span> LA TECATE LIGHT</div>
+            <div class="rmeta">C. San Judas — C. Vaquero</div>
+            <div class="rnote">0 a 1 min. en puertas / Bajo Reglamento</div>
+          </td>
+          <td><div class="rtime">3:00 PM</div><div class="rdist">200 MTS</div></td>
         </tr>
         <tr>
-          <td class="rn">R3</td>
-          <td><div class="rname">Desafío Los Pinos</div><div class="rmeta">Machos 4+ años · Invitacional</div></td>
-          <td><div class="rtime">5:00 PM</div><div class="rdist">350 YDS</div></td>
+          <td class="rn">3</td>
+          <td>
+            <div class="rname">EL GASPARIN <span class="rvs">VS</span> EL INDIO</div>
+            <div class="rmeta">C. Los Amigos — C. MN/Santa Maria</div>
+          </td>
+          <td><div class="rtime">3:30 PM</div><div class="rdist">300 VARAS</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- TIEMPOS DE TABAJOS -->
+    <div class="cat-header cat-tabajos">⚡ Tiempos de Tabajos</div>
+    <table class="race-table">
+      <thead>
+        <tr><th>#</th><th>Matchup</th><th style="text-align:right">Hora · Dist.</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rn">4</td>
+          <td>
+            <div class="rname">EL RAYITO <span class="rvs">VS</span> EL WISKY</div>
+            <div class="rmeta">C. Los Amigos — C. El Pelon</div>
+            <div class="rnote">El Rayito ofrece faja de ventaja · Bajo Reglamento</div>
+          </td>
+          <td><div class="rtime">5:00 PM</div><div class="rdist">300 VARAS</div></td>
         </tr>
         <tr>
-          <td class="rn">R4</td>
-          <td><div class="rname">Copa Regional Norte</div><div class="rmeta">Todas las edades · Mixta</div></td>
-          <td><div class="rtime">5:45 PM</div><div class="rdist">350 YDS</div></td>
+          <td class="rn">5</td>
+          <td>
+            <div class="rname">EL SONORENSE <span class="rvs">VS</span> LA BELINDA</div>
+            <div class="rmeta">C. San Judas — C. 2 Hermanos</div>
+            <div class="rnote">Bajo Reglamento</div>
+          </td>
+          <td><div class="rtime">5:30 PM</div><div class="rdist">225 MTS</div></td>
         </tr>
+      </tbody>
+    </table>
+
+    <!-- CARRERAS ESTELARES -->
+    <div class="cat-header cat-estelares">★ Carreras Estelares</div>
+    <table class="race-table">
+      <thead>
+        <tr><th>#</th><th>Matchup</th><th style="text-align:right">Hora · Dist.</th></tr>
+      </thead>
+      <tbody>
         <tr>
-          <td class="rn">R5</td>
-          <td><div class="rname">Semi-Final Gran Premio</div><div class="rmeta">Clasificatoria para la estelar</div></td>
-          <td><div class="rtime">6:30 PM</div><div class="rdist">350 YDS</div></td>
+          <td class="rn">6</td>
+          <td>
+            <div class="rname">LA MALQUERIDA <span class="rvs">VS</span> EL CENTELLO</div>
+            <div class="rmeta">C. El Pelon — C. R/O Segura II</div>
+            <div class="rnote">Ley Tigre / O a 20 seg.</div>
+          </td>
+          <td><div class="rtime">6:00 PM</div><div class="rdist">200 MTS</div></td>
         </tr>
         <tr class="estelar">
-          <td class="rn">R6</td>
+          <td class="rn">7</td>
           <td>
-            <div class="rname">EL JUDIO vs EL TEXANO <span class="estrelabadge">★ Estelar</span></div>
-            <div class="rmeta">Dinero Parejo · Puerta 8 vs Puerta 1 · 350 yardas</div>
+            <div class="rname">EL JUDIO <span class="rvs">VS</span> EL NVO. MECANICO <span class="estrelabadge">★ Estelar</span></div>
+            <div class="rmeta">C. San Judas — C. 2 Hermanos</div>
+            <div class="rnote">Bajo Reglamento / O a 20 seg.</div>
           </td>
-          <td><div class="rtime">~7:30 PM</div><div class="rdist">350 YDS</div></td>
+          <td><div class="rtime">6:30 PM</div><div class="rdist">300 VARAS</div></td>
         </tr>
       </tbody>
     </table>
@@ -391,23 +461,29 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
 <section id="venue">
   <div class="venue-wrap">
     <div class="venue-photo">
-      <img src="https://images.unsplash.com/photo-1449497524933-d5e3e4b73c7b?w=900&q=80&auto=format&fit=crop" alt="Pista de carreras" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1449497524933-d5e3e4b73c7b?w=900&q=80&auto=format&fit=crop" alt="Carril Agua Caliente" loading="lazy">
       <div class="venue-photo-overlay"></div>
-      <div class="venue-photo-badge">🏟 Rancho Los Pinos</div>
+      <div class="venue-photo-badge">📍 Imuris, Sonora</div>
     </div>
     <div class="venue-info">
       <div>
         <div class="vi-title">Información del Evento</div>
-        <div class="vi-sub">Un evento exclusivo organizado por Rancho Los Pinos para los amantes de las carreras de caballos cuarto de milla.</div>
+        <div class="vi-sub">Carril Agua Caliente en Imuris, Sonora presenta una noche completa de carreras cuarto de milla con 7 matchups y música en vivo de Código Kontra.</div>
       </div>
       <div class="vi-rows">
-        <div class="vi-row"><span class="vi-key">Fecha</span><span class="vi-val">Sábado 06 de Junio, 2026</span></div>
-        <div class="vi-row"><span class="vi-key">Puertas abren</span><span class="vi-val">2:00 PM</span></div>
-        <div class="vi-row"><span class="vi-key">Primera carrera</span><span class="vi-val">3:15 PM</span></div>
-        <div class="vi-row"><span class="vi-key">Carrera estelar</span><span class="vi-val">~7:30 PM</span></div>
-        <div class="vi-row"><span class="vi-key">Lugar</span><span class="vi-val">Rancho Los Pinos</span></div>
-        <div class="vi-row"><span class="vi-key">Tipo de apuesta</span><span class="vi-val">Dinero Parejo</span></div>
-        <div class="vi-row"><span class="vi-key">Distancia estelar</span><span class="vi-val">350 yardas</span></div>
+        <div class="vi-row"><span class="vi-key">Fecha</span><span class="vi-val">Domingo 07 de Junio, 2026</span></div>
+        <div class="vi-row"><span class="vi-key">Lugar</span><span class="vi-val">Carril Agua Caliente</span></div>
+        <div class="vi-row"><span class="vi-key">Ciudad</span><span class="vi-val">Imuris, Sonora</span></div>
+        <div class="vi-row"><span class="vi-key">Primera carrera</span><span class="vi-val">2:30 PM</span></div>
+        <div class="vi-row"><span class="vi-key">Carrera estelar</span><span class="vi-val">6:30 PM</span></div>
+        <div class="vi-row"><span class="vi-key">Entrada</span><span class="vi-val" style="color:var(--goldb);font-weight:700">$250.00</span></div>
+        <div class="vi-row"><span class="vi-key">Música en vivo</span><span class="vi-val">Código Kontra</span></div>
+        <div class="vi-row"><span class="vi-key">Fotofinish</span><span class="vi-val">Fotofinish del Rio</span></div>
+        <div class="vi-row"><span class="vi-key">Patrocinador</span><span class="vi-val">Mister Corona Veterinaria</span></div>
+      </div>
+      <div class="rules-row">
+        <div class="rule-chip rule-ok"><span class="ri">🧊</span> Hieleras Libres</div>
+        <div class="rule-chip rule-no"><span class="ri">🚫</span> No Envase de Vidrio</div>
       </div>
     </div>
   </div>
@@ -418,136 +494,117 @@ footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 32
   <div class="footer-inner">
     <div class="footer-grid">
       <div>
-        <div class="fg-brand">CARRERASОС</div>
-        <div class="fg-tagline">La experiencia más emocionante de las carreras de cuarto de milla. Rancho Los Pinos, Sábado 06 de Junio 2026.</div>
+        <div class="fg-brand">CARRIL AGUA CALIENTE</div>
+        <div class="fg-tagline">Imuris, Sonora · Carreras de caballos cuarto de milla · Domingo 07 de Junio, 2026. Música en vivo: Código Kontra.</div>
       </div>
       <div>
         <div class="fg-colhead">Evento</div>
         <div class="fg-links">
           <a href="#matchup">Carrera Estelar</a>
-          <a href="#racecard">Programa</a>
-          <a href="#venue">Lugar & Horarios</a>
+          <a href="#racecard">Programa Completo</a>
+          <a href="#venue">Lugar & Reglas</a>
         </div>
       </div>
       <div>
-        <div class="fg-colhead">Seguir</div>
+        <div class="fg-colhead">Info</div>
         <div class="fg-links">
           <a href="#">WhatsApp</a>
-          <a href="#">Instagram</a>
           <a href="#">Facebook Live</a>
+          <a href="#">Instagram</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="fc">© 2026 <span>CarrerasOS · Rancho Los Pinos</span>. Todos los derechos reservados.</div>
-      <div class="fc">Evento privado · Solo mayores de edad</div>
+      <div class="fc">© 2026 <span>Carril Agua Caliente · Imuris, Sonora</span>. Entrada $250 · Solo mayores de edad.</div>
+      <div class="sponsors">
+        <span class="sponsor-tag">📸 Fotofinish del Rio</span>
+        <span class="sponsor-tag">🐴 Mister Corona Veterinaria</span>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-/* ── countdown with flash ── */
-var cdPrev = {};
-function flash(el){
-  el.style.animation='none';
-  el.offsetHeight; // reflow
-  el.style.animation='cdfl .55s ease';
-}
+/* countdown with flash */
+function flash(el){el.style.animation='none';el.offsetHeight;el.style.animation='cdfl .55s ease'}
 (function tick(){
-  var ms = new Date('2026-06-06T15:15:00') - new Date();
-  var vals = {
+  var ms = new Date('2026-06-07T14:30:00') - new Date();
+  var vals={
     'd': ms>0 ? String(Math.floor(ms/86400000)).padStart(2,'0') : '00',
     'h': ms>0 ? String(Math.floor(ms%86400000/3600000)).padStart(2,'0') : '00',
     'm': ms>0 ? String(Math.floor(ms%3600000/60000)).padStart(2,'0') : '00',
     's': ms>0 ? String(Math.floor(ms%60000/1000)).padStart(2,'0') : '00'
   };
   ['d','h','m','s'].forEach(function(k){
-    var el = document.getElementById('cd-'+k);
-    if(el.textContent !== vals[k]){ el.textContent = vals[k]; if(k==='s') flash(el); }
+    var el=document.getElementById('cd-'+k);
+    if(el.textContent!==vals[k]){el.textContent=vals[k];if(k==='s')flash(el);}
   });
-  setTimeout(tick, 1000);
+  setTimeout(tick,1000);
 })();
 
-/* ── scroll reveal via IntersectionObserver ── */
+/* scroll reveal */
 var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-  });
+  entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-
-/* section-level reveals */
-['.section-header','.matchup-wrap','.mf','.rc-header','.venue-wrap','.stats-inner'].forEach(function(sel){
-  document.querySelectorAll(sel).forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+['.section-header','.matchup-wrap','.mf','.rc-header','.rc-wrap .cat-header','.stats-inner'].forEach(function(sel){
+  document.querySelectorAll(sel).forEach(function(el){el.classList.add('rv');io.observe(el);});
 });
-/* horse cards slide in from sides */
-document.querySelectorAll('.hc.left').forEach(function(el){ el.classList.add('rv-l'); io.observe(el); });
-document.querySelectorAll('.hc.right').forEach(function(el){ el.classList.add('rv-r'); io.observe(el); });
-document.querySelectorAll('.vs-center').forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+document.querySelectorAll('.hc.left').forEach(function(el){el.classList.add('rv-l');io.observe(el);});
+document.querySelectorAll('.hc.right').forEach(function(el){el.classList.add('rv-r');io.observe(el);});
+document.querySelectorAll('.vs-center').forEach(function(el){el.classList.add('rv');io.observe(el);});
+document.querySelectorAll('.venue-photo').forEach(function(el){el.classList.add('rv-l');io.observe(el);});
+document.querySelectorAll('.venue-info').forEach(function(el){el.classList.add('rv-r');io.observe(el);});
 
 /* race rows stagger */
 var ioRow = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none'; ioRow.unobserve(e.target); }
-  });
-},{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+  entries.forEach(function(e){ if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';ioRow.unobserve(e.target);} });
+},{threshold:0.05});
 document.querySelectorAll('.race-table tbody tr').forEach(function(el,i){
-  el.style.cssText += 'opacity:0;transform:translateY(18px);transition:opacity .5s ease '+(i*80)+'ms,transform .5s ease '+(i*80)+'ms';
+  el.style.cssText+='opacity:0;transform:translateY(16px);transition:opacity .45s ease '+(i*70)+'ms,transform .45s ease '+(i*70)+'ms';
   ioRow.observe(el);
 });
 
-/* venue info rows stagger */
+/* venue info rows */
 var ioVi = new IntersectionObserver(function(entries){
   entries.forEach(function(e){
     if(e.isIntersecting){
       e.target.querySelectorAll('.vi-row').forEach(function(r,i){
-        r.style.transition='opacity .4s ease '+(i*60)+'ms,transform .4s ease '+(i*60)+'ms';
-        r.style.opacity='1'; r.style.transform='none';
+        r.style.transition='opacity .4s ease '+(i*55)+'ms,transform .4s ease '+(i*55)+'ms';
+        r.style.opacity='1';r.style.transform='none';
       });
       ioVi.unobserve(e.target);
     }
   });
-},{threshold:0.15});
+},{threshold:0.1});
 document.querySelectorAll('.vi-rows').forEach(function(el){
-  el.querySelectorAll('.vi-row').forEach(function(r){ r.style.cssText+='opacity:0;transform:translateX(-14px)'; });
+  el.querySelectorAll('.vi-row').forEach(function(r){r.style.cssText+='opacity:0;transform:translateX(-12px)';});
   ioVi.observe(el);
 });
 
-/* venue photo */
-document.querySelectorAll('.venue-photo').forEach(function(el){ el.classList.add('rv-l'); io.observe(el); });
-document.querySelectorAll('.venue-info').forEach(function(el){ el.classList.add('rv-r'); io.observe(el); });
-
-/* rc-header reveal */
-document.querySelectorAll('.race-table').forEach(function(el){ el.classList.add('rv'); io.observe(el); });
-
-/* ── hero parallax on scroll ── */
+/* hero parallax + nav */
 var heroBg = document.querySelector('.hero-bg');
 var heroH = document.getElementById('hero').offsetHeight;
-window.addEventListener('scroll', function(){
-  var y = window.scrollY;
-  if(y < heroH){ heroBg.style.transform = 'translateY('+Math.round(y*0.28)+'px) scale(1.07)'; }
-  document.querySelector('nav').classList.toggle('scrolled', y > 30);
+window.addEventListener('scroll',function(){
+  var y=window.scrollY;
+  if(y<heroH) heroBg.style.transform='translateY('+Math.round(y*.28)+'px) scale(1.07)';
+  document.querySelector('nav').classList.toggle('scrolled',y>30);
 },{passive:true});
 
-/* ── stats count-up ── */
-var counted = false;
-var ioStats = new IntersectionObserver(function(entries){
-  if(!entries[0].isIntersecting || counted) return;
-  counted = true;
-  var nums = document.querySelectorAll('.si-num');
-  var ends = [6, 350, 2, 1];
-  var dur  = [900, 1300, 700, 500];
-  nums.forEach(function(el, i){
-    var start = null, from = 0, to = ends[i], d = dur[i];
+/* stats count-up */
+var counted=false;
+new IntersectionObserver(function(entries){
+  if(!entries[0].isIntersecting||counted) return;
+  counted=true;
+  [[7,900],[250,1400],[250,1000],[3,600]].forEach(function(cfg,i){
+    var el=document.querySelectorAll('.si-num')[i],end=cfg[0],dur=cfg[1],start=null;
     requestAnimationFrame(function step(ts){
-      if(!start) start = ts;
-      var p = Math.min((ts-start)/d, 1);
-      el.textContent = Math.round(from + (to-from) * (1 - Math.pow(1-p, 3)));
-      if(p < 1) requestAnimationFrame(step);
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      el.textContent=Math.round(end*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(step);
     });
   });
-  ioStats.disconnect();
-},{threshold:0.5});
-ioStats.observe(document.getElementById('stats'));
+},{threshold:0.5}).observe(document.getElementById('stats'));
 </script>
 </body>
 </html>
