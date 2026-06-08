@@ -1,0 +1,7 @@
+openai-whisper
+sounddevice
+numpy
+pyautogui
+Pillow
+surya-ocr
+win10toast; sys_platform == "win32"
