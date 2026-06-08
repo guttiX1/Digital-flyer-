@@ -18,6 +18,14 @@
         "--mcp"
       ],
       "env": {}
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@context7/mcp@latest"
+      ],
+      "env": {}
     }
   }
 }
