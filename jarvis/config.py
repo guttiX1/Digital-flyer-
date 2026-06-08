@@ -31,6 +31,9 @@ DANGER_PATTERNS = {
 # Confidence threshold: how closely voice must match screen element (0.0–1.0)
 MATCH_THRESHOLD = 0.75
 
+# Say this word before any command — set to "" to disable
+TRIGGER_WORD = "jarvis"
+
 # Seconds of silence before Whisper processes audio
 SILENCE_TIMEOUT = 0.8
 

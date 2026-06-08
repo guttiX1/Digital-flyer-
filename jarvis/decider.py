@@ -1,10 +1,11 @@
+import re
 from dataclasses import dataclass
 from typing import Optional
 from difflib import SequenceMatcher
 
 from config import (
     APPROVE_WORDS, DENY_WORDS, KILL_WORDS,
-    DANGER_PATTERNS, MATCH_THRESHOLD,
+    DANGER_PATTERNS, MATCH_THRESHOLD, TRIGGER_WORD,
 )
 
 
@@ -28,6 +29,10 @@ class Action:
     reason: str = ""
 
 
+def _has_word(word: str, text: str) -> bool:
+    return bool(re.search(r"\b" + re.escape(word) + r"\b", text, re.IGNORECASE))
+
+
 def _similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
@@ -39,11 +44,11 @@ def _is_dangerous(elements: list[ScreenElement]) -> bool:
 
 def _intent_type(voice: str) -> str:
     v = voice.lower().strip()
-    if any(k in v for k in KILL_WORDS):
+    if any(_has_word(k, v) for k in KILL_WORDS):
         return "kill"
-    if any(w in v for w in APPROVE_WORDS):
+    if any(_has_word(w, v) for w in APPROVE_WORDS):
         return "approve"
-    if any(w in v for w in DENY_WORDS):
+    if any(_has_word(w, v) for w in DENY_WORDS):
         return "deny"
     return "unknown"
 
@@ -63,6 +68,12 @@ def _find_button(elements: list[ScreenElement], target_words: set[str]) -> Optio
 
 
 def decide(voice: str, elements: list[ScreenElement]) -> Action:
+    # Require trigger word unless it's a kill command
+    if TRIGGER_WORD and not _has_word(TRIGGER_WORD, voice):
+        intent = _intent_type(voice)
+        if intent != "kill":
+            return Action(kind="none", reason=f"no trigger word '{TRIGGER_WORD}' heard")
+
     intent = _intent_type(voice)
 
     if intent == "kill":
