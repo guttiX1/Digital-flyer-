@@ -67,9 +67,16 @@ def _find_button(elements: list[ScreenElement], target_words: set[str]) -> Optio
     return None
 
 
+def _has_trigger(voice: str) -> bool:
+    if not TRIGGER_WORD:
+        return True
+    words = re.findall(r"\w+", voice.lower())
+    return any(_similarity(w, TRIGGER_WORD) >= 0.65 for w in words)
+
+
 def decide(voice: str, elements: list[ScreenElement]) -> Action:
     # Require trigger word unless it's a kill command
-    if TRIGGER_WORD and not _has_word(TRIGGER_WORD, voice):
+    if TRIGGER_WORD and not _has_trigger(voice):
         intent = _intent_type(voice)
         if intent != "kill":
             return Action(kind="none", reason=f"no trigger word '{TRIGGER_WORD}' heard")
