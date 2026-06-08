@@ -1,40 +1,27 @@
 import numpy as np
 from PIL import ImageGrab
-from surya.ocr import run_ocr
-from surya.model.detection.model import load_model as load_det_model, load_processor as load_det_processor
-from surya.model.recognition.model import load_model as load_rec_model
-from surya.model.recognition.processor import load_processor as load_rec_processor
+from surya.detection import DetectionPredictor
+from surya.recognition import RecognitionPredictor
 
 from config import CAPTURE_REGION
 from decider import ScreenElement
 
-_det_model = None
-_det_processor = None
-_rec_model = None
-_rec_processor = None
+_det_predictor = None
+_rec_predictor = None
 
 
 def _load_models():
-    global _det_model, _det_processor, _rec_model, _rec_processor
-    if _det_model is None:
-        _det_model, _det_processor = load_det_model(), load_det_processor()
-        _rec_model, _rec_processor = load_rec_model(), load_rec_processor()
+    global _det_predictor, _rec_predictor
+    if _det_predictor is None:
+        _det_predictor = DetectionPredictor()
+        _rec_predictor = RecognitionPredictor()
 
 
 def capture_elements() -> list[ScreenElement]:
     _load_models()
 
     img = ImageGrab.grab(bbox=CAPTURE_REGION)
-    img_np = np.array(img)
-
-    results = run_ocr(
-        [img],
-        [["en"]],
-        _det_model,
-        _det_processor,
-        _rec_model,
-        _rec_processor,
-    )
+    results = _rec_predictor([img], [["en"]], _det_predictor)
 
     elements = []
     for line in results[0].text_lines:
