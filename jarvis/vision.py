@@ -1,4 +1,3 @@
-import numpy as np
 from PIL import ImageGrab
 from surya.detection import DetectionPredictor
 from surya.recognition import RecognitionPredictor
@@ -21,7 +20,8 @@ def capture_elements() -> list[ScreenElement]:
     _load_models()
 
     img = ImageGrab.grab(bbox=CAPTURE_REGION)
-    results = _rec_predictor([img], [["en"]], _det_predictor)
+    det_results = _det_predictor([img])
+    results = _rec_predictor([img], det_results)
 
     elements = []
     for line in results[0].text_lines:
