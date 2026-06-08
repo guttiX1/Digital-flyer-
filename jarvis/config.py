@@ -5,7 +5,7 @@ APPROVE_WORDS = {
 }
 
 DENY_WORDS = {
-    "no", "nope", "cancel", "stop", "deny", "reject",
+    "no", "nope", "cancel", "deny", "reject",
     "abort", "don't", "dont", "skip",
 }
 
