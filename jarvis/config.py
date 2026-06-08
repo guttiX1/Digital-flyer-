@@ -39,3 +39,19 @@ SILENCE_TIMEOUT = 0.8
 
 # Screenshot region: None = full screen, or (x, y, w, h)
 CAPTURE_REGION = None
+
+# Claude Code watch mode — auto-approve permission prompts without voice
+WATCH_MODE = True
+WATCH_INTERVAL = 1.0  # seconds between screen checks
+
+# Claude Code prompt signatures — if ALL words in a set appear on screen, it's a prompt
+CLAUDE_CODE_PROMPT_SIGNATURES = [
+    {"allow", "tool"},
+    {"allow", "bash"},
+    {"allow", "read"},
+    {"allow", "write"},
+    {"allow", "edit"},
+    {"do you want to", "proceed"},
+    {"approve", "action"},
+    {"grant", "permission"},
+]
