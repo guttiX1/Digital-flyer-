@@ -29,7 +29,7 @@ DANGER_PATTERNS = {
 }
 
 # Confidence threshold: how closely voice must match screen element (0.0–1.0)
-MATCH_THRESHOLD = 0.6
+MATCH_THRESHOLD = 0.75
 
 # Seconds of silence before Whisper processes audio
 SILENCE_TIMEOUT = 0.8
