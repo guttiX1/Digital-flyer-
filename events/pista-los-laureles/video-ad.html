@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!-- PISTA NOIR · Video Ad · Pista Los Laureles -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pista Los Laureles · Video Ad · 14 Junio 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
+body{background:#111;display:flex;align-items:center;justify-content:center;
+  min-height:100svh;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+
+.stage{position:relative;width:100%;max-width:400px;aspect-ratio:9/16;
+  background:#000;border-radius:28px;overflow:hidden;
+  box-shadow:0 60px 120px -20px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.06)}
+
+/* progress bar */
+.prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);z-index:50}
+.prog-fill{height:100%;background:var(--gold);width:0;transition:width .1s linear}
+
+/* play overlay */
+.play-ov{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.55);cursor:pointer;transition:opacity .3s}
+.play-ov:hover{background:rgba(0,0,0,.35)}
+.play-ring{width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;padding-left:4px}
+
+/* scenes */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:40px 28px;
+  text-align:center;opacity:0;pointer-events:none;
+  transition:opacity .7s ease}
+.scene.active{opacity:1;pointer-events:auto}
+
+/* ambient glows per scene */
+.sc-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.7}
+.gl{left:-20%;top:5%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(255,255,255,.07),transparent 70%)}
+.gr{right:-20%;bottom:5%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(245,197,24,.09),transparent 70%)}
+
+.sc-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0}
+
+.sc-eye{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:14px}
+.sc-h1{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:700;letter-spacing:-.04em;line-height:.96;
+  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.65) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc-h1.gold{background:linear-gradient(160deg,var(--gold),#FF8C00);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc-p{margin-top:14px;font-size:14px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.5}
+.sc-big{font-size:clamp(5rem,20vw,9rem);line-height:1;margin-bottom:8px;
+  filter:drop-shadow(0 0 40px rgba(245,197,24,.4))}
+
+/* race list mini */
+.mini-list{display:flex;flex-direction:column;gap:7px;width:100%;margin-top:16px}
+.mini-row{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.mini-time{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--gold)}
+.mini-race{font-size:12px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.mini-dist{font-size:9px;font-weight:600;color:rgba(255,255,255,.35)}
+
+/* stat row */
+.stat-row{display:flex;gap:28px;justify-content:center;margin-top:20px}
+.stat{text-align:center}
+.stat-n{font-size:clamp(2rem,9vw,3.2rem);font-weight:700;color:var(--gold);letter-spacing:-.04em}
+.stat-l{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:5px}
+
+/* vs badge */
+.vs-badge{font-size:clamp(2.8rem,12vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:1;
+  background:linear-gradient(180deg,#fff 0%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:vsPulse 2s ease infinite;margin:8px 0}
+@keyframes vsPulse{0%,100%{filter:none}50%{filter:drop-shadow(0 0 20px rgba(245,197,24,.8))}}
+
+/* CTA pill */
+.cta-pill{margin-top:24px;padding:14px 36px;background:#fff;color:#000;border-radius:100px;
+  font-size:14px;font-weight:700;letter-spacing:-.01em;display:inline-block}
+
+/* scene-specific bg colors */
+#s1{background:linear-gradient(160deg,#0a0a0a 0%,#050505 100%)}
+#s2{background:linear-gradient(160deg,#060606 0%,#0a0a0a 100%)}
+#s3{background:#000}
+#s4{background:linear-gradient(160deg,#080800 0%,#000 100%)}
+#s5{background:#000}
+#s6{background:linear-gradient(160deg,#060606 0%,#000 100%)}
+#s7{background:linear-gradient(160deg,#000 0%,#080600 100%)}
+
+/* race number badge */
+.race-badge{width:52px;height:52px;border-radius:50%;background:rgba(245,197,24,.1);
+  border:1.5px solid rgba(245,197,24,.3);display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:14px}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="prog"><div class="prog-fill" id="prog-fill"></div></div>
+
+  <div class="play-ov" id="play-ov">
+    <div class="play-ring">▶</div>
+  </div>
+
+  <!-- Scene 1: Title reveal -->
+  <div class="scene" id="s1">
+    <div class="sc-bg"><div class="glow gl"></div><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <div class="sc-big">🏇</div>
+      <p class="sc-eye">Programa Oficial · Grandes Carreras</p>
+      <h1 class="sc-h1">Pista Los<br>Laureles</h1>
+      <p class="sc-p">Xicotencatl, Tamaulipas</p>
+    </div>
+  </div>
+
+  <!-- Scene 2: Date & location -->
+  <div class="scene" id="s2">
+    <div class="sc-bg"><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <p class="sc-eye">Marca Tu Calendario</p>
+      <h1 class="sc-h1 gold">Domingo<br>14 Junio</h1>
+      <p class="sc-p" style="font-size:16px;color:rgba(255,255,255,.7);margin-top:10px">2026</p>
+      <p class="sc-p">12:00 PM · Apertura de puertas</p>
+    </div>
+  </div>
+
+  <!-- Scene 3: 13 races stat -->
+  <div class="scene" id="s3">
+    <div class="sc-bg"><div class="glow gl"></div><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <p class="sc-eye">El Programa Más Completo</p>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-n">13</div><div class="stat-l">Carreras</div></div>
+        <div class="stat"><div class="stat-n">6h</div><div class="stat-l">Programa</div></div>
+        <div class="stat"><div class="stat-n">26</div><div class="stat-l">Caballos</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 4: Race highlights -->
+  <div class="scene" id="s4">
+    <div class="sc-bg"><div class="glow gl"></div></div>
+    <div class="sc-content" style="width:100%">
+      <p class="sc-eye">Algunas Peleas del Día</p>
+      <div class="mini-list">
+        <div class="mini-row"><span class="mini-time">12:00</span><span class="mini-race">El Spirit vs La Clave 7</span><span class="mini-dist">180 VRS</span></div>
+        <div class="mini-row"><span class="mini-time">1:00</span><span class="mini-race">La Joyita vs El Ferrari</span><span class="mini-dist">225 YDS</span></div>
+        <div class="mini-row"><span class="mini-time">3:00</span><span class="mini-race">El Fabyo vs El Hypper</span><span class="mini-dist">325 YDS</span></div>
+        <div class="mini-row"><span class="mini-time" style="color:var(--gold)">5:00 ★</span><span class="mini-race">Abierto 2 Años</span><span class="mini-dist">250 YDS</span></div>
+        <div class="mini-row"><span class="mini-time">6:00</span><span class="mini-race">La Fresita</span><span class="mini-dist">250 VRS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 5: Featured matchup -->
+  <div class="scene" id="s5">
+    <div class="sc-bg"><div class="glow gl"></div><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <p class="sc-eye">Carrera Especial · 5:00 PM</p>
+      <div class="race-badge">★</div>
+      <h1 class="sc-h1" style="font-size:clamp(1.4rem,6vw,2.4rem)">Abierto<br>2 Años<br>No Jugadas</h1>
+      <p class="sc-p">C. Buenasvista / Herrera<br>vs C. San Lucas</p>
+      <div style="margin-top:14px;padding:5px 16px;border-radius:100px;
+        background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);
+        font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">250 YDS</div>
+    </div>
+  </div>
+
+  <!-- Scene 6: Family / vibe -->
+  <div class="scene" id="s6">
+    <div class="sc-bg"><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <div class="sc-big" style="font-size:4rem">👨‍👩‍👧</div>
+      <p class="sc-eye">Ambiente Familiar</p>
+      <h1 class="sc-h1" style="font-size:clamp(1.6rem,7vw,2.8rem)">Trae a<br>toda la familia</h1>
+      <p class="sc-p">No bebidas alcohólicas · Evento seguro<br>Respetan horarios</p>
+    </div>
+  </div>
+
+  <!-- Scene 7: CTA -->
+  <div class="scene" id="s7">
+    <div class="sc-bg"><div class="glow gl"></div><div class="glow gr"></div></div>
+    <div class="sc-content">
+      <p class="sc-eye">No Te Lo Pierdas</p>
+      <h1 class="sc-h1 gold">Pista Los<br>Laureles</h1>
+      <p class="sc-p" style="margin-top:10px;font-size:15px;color:rgba(255,255,255,.7)">Domingo 14 Junio · 12 PM</p>
+      <p class="sc-p">Xicotencatl, Tamaulipas</p>
+      <div class="cta-pill">Ver Programa Completo</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var SCENES = 7;
+var DURATIONS = [4500, 4000, 4000, 5000, 4500, 4000, 4500]; // ms per scene
+var TOTAL = DURATIONS.reduce(function(a,b){return a+b},0);
+
+var current = 0;
+var elapsed = 0;
+var running = false;
+var animFrame = null;
+var sceneTimer = null;
+
+function showScene(n) {
+  document.querySelectorAll('.scene').forEach(function(s){ s.classList.remove('active'); });
+  var el = document.getElementById('s'+(n+1));
+  if (el) el.classList.add('active');
+  current = n;
+}
+
+function startProgress() {
+  var lastTime = null;
+  var sceneElapsed = 0;
+  var sceneIdx = 0;
+  var totalElapsed = 0;
+
+  showScene(0);
+
+  function frame(ts) {
+    if (!lastTime) lastTime = ts;
+    var dt = ts - lastTime;
+    lastTime = ts;
+
+    totalElapsed = Math.min(totalElapsed + dt, TOTAL);
+    sceneElapsed += dt;
+
+    document.getElementById('prog-fill').style.width = (totalElapsed / TOTAL * 100) + '%';
+
+    if (sceneElapsed >= DURATIONS[sceneIdx]) {
+      sceneElapsed = 0;
+      sceneIdx++;
+      if (sceneIdx < SCENES) {
+        showScene(sceneIdx);
+      } else {
+        // reset
+        document.getElementById('prog-fill').style.width = '0';
+        document.getElementById('play-ov').style.display = 'flex';
+        return;
+      }
+    }
+    animFrame = requestAnimationFrame(frame);
+  }
+  animFrame = requestAnimationFrame(frame);
+}
+
+document.getElementById('play-ov').addEventListener('click', function() {
+  this.style.display = 'none';
+  if (animFrame) cancelAnimationFrame(animFrame);
+  startProgress();
+});
+</script>
+</body>
+</html>

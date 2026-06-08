@@ -1,0 +1,29 @@
+{
+  "event_name": "Pista Los Laureles",
+  "event_type": "Grandes Carreras de Caballos",
+  "slug": "pista-los-laureles",
+  "date_iso": "2026-06-14T12:00:00",
+  "date_display": "Domingo · 14 de Junio, 2026",
+  "venue": "Pista Los Laureles",
+  "city": "Xicotencatl, Tamaulipas",
+  "format": "Programa Oficial",
+  "distance": "100–325 YDS",
+  "prize": "A Convenir",
+  "tagline": "Programa Oficial · 13 Carreras · Ambiente Familiar",
+  "notes": "Respetan Horarios · No Ingresar Bebidas Alcohólicas · Ambiente Familiar",
+  "races": [
+    { "time": "12:00 PM", "horse1": "El Spirit",     "cuadra1": "C. Nvo. Quintero", "horse2": "La Clave 7",     "cuadra2": "C. Nvo. Quintero", "distance": "180 VRS",     "note": "10 NEG" },
+    { "time": "12:30 PM", "horse1": "El Chuki",      "cuadra1": "C. GR / La Laja",  "horse2": "El Niño",        "cuadra2": "C. Las Palmas",    "distance": "100-250 VRS", "note": "" },
+    { "time": "1:00 PM",  "horse1": "La Joyita",     "cuadra1": "C. Dante",         "horse2": "El Ferrari",     "cuadra2": "C. Dos Potrillos", "distance": "225 YDS",     "note": "10 NEG" },
+    { "time": "1:30 PM",  "horse1": "La Baby Routh", "cuadra1": "C. Santa Mariana", "horse2": "La Shamancita",  "cuadra2": "C. GS",            "distance": "225-300 YDS", "note": "" },
+    { "time": "2:00 PM",  "horse1": "La Lluvia",     "cuadra1": "C. R. El Mezquital","horse2": "El Comando",    "cuadra2": "C. Carnales / Butasvato", "distance": "100 YDS", "note": "" },
+    { "time": "2:30 PM",  "horse1": "El Compresor",  "cuadra1": "C. Pericos",       "horse2": "El Gavilán",     "cuadra2": "C. Herrera / Butasvato", "distance": "250 YDS",  "note": "" },
+    { "time": "3:00 PM",  "horse1": "El Fabyo",      "cuadra1": "C. Dos Hermanos",  "horse2": "El Hypper",      "cuadra2": "—",                "distance": "325 YDS",     "note": "10 NEG" },
+    { "time": "3:30 PM",  "horse1": "El Chacal",     "cuadra1": "C. Nvo. Quintero / Legales", "horse2": "El Mambo", "cuadra2": "C. González", "distance": "150-200 VRS", "note": "" },
+    { "time": "4:00 PM",  "horse1": "El Chucky",     "cuadra1": "C. La Lerra",      "horse2": "La Venenosa",    "cuadra2": "C. Pericos",       "distance": "A Convenir",  "note": "" },
+    { "time": "4:30 PM",  "horse1": "El Chango Malo","cuadra1": "C. Las Palmas",    "horse2": "La Dueña",       "cuadra2": "C. Carpintero",    "distance": "100-200 VRS", "note": "" },
+    { "time": "5:00 PM",  "horse1": "C. Buenasvista / Herrera", "cuadra1": "", "horse2": "C. San Lucas", "cuadra2": "", "distance": "250 YDS", "note": "Abierto 2 Años No Jugadas" },
+    { "time": "5:30 PM",  "horse1": "El Nevada",     "cuadra1": "—",                "horse2": "El Enamorado",   "cuadra2": "C. Puentes",       "distance": "200 YDS",     "note": "10 NEG" },
+    { "time": "6:00 PM",  "horse1": "La Fresita",    "cuadra1": "C. Sta. Sofia / Nvo. Quintero", "horse2": "—", "cuadra2": "C. González", "distance": "250 VRS",      "note": "10 NEG" }
+  ]
+}
