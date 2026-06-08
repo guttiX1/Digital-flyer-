@@ -3,5 +3,5 @@ sounddevice
 numpy
 pyautogui
 Pillow
-surya-ocr==0.6.15
+surya-ocr==0.6.13
 win10toast; sys_platform == "win32"
