@@ -7,306 +7,242 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F5F5F7;
-  --card:#FFFFFF;
-  --gold:#B8890A;
-  --gold-vv:#F5C518;
-  --gold-bg:rgba(184,137,10,.07);
-  --gold-bd:rgba(184,137,10,.18);
-  --ink:#1D1D1F;
-  --ink2:#3A3A3C;
-  --muted:#6E6E73;
-  --bd:rgba(0,0,0,.07);
-  --bd2:rgba(0,0,0,.12);
+  --bg:#F5F5F7;--card:#fff;--gold:#B8890A;--gold-vv:#F5C518;
+  --gold-bg:rgba(184,137,10,.07);--gold-bd:rgba(184,137,10,.18);
+  --ink:#1D1D1F;--ink2:#3A3A3C;--muted:#6E6E73;
+  --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
   --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
   --sh-s:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
   --sh-m:0 4px 20px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.05);
   --sh-l:0 24px 64px rgba(0,0,0,.11),0 4px 16px rgba(0,0,0,.06);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
-  padding:0 24px;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(245,245,247,.88);
-  backdrop-filter:blur(20px) saturate(180%);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid var(--bd);
+  padding:0 20px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(245,245,247,.92);backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--bd);
 }
-.nav-l{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.nav-l{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);line-height:1.4}
 .nav-chip{
-  padding:5px 14px;border-radius:100px;
-  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold);
+  display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--card);border:1.5px solid var(--gold-bd);color:var(--gold);box-shadow:var(--sh-s);
 }
-.nav-r{font-size:11px;font-weight:600;color:var(--muted)}
+.nav-r{display:flex;align-items:center;gap:12px}
+.nav-date{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.nav-menu{color:var(--ink2);display:flex;align-items:center}
 
-/* ── HERO ── */
+/* ── HERO (DUEL SPLIT) ── */
 .hero{
-  position:relative;min-height:100svh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:80px 24px 60px;text-align:center;overflow:hidden;
+  position:relative;min-height:100svh;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:52px;
 }
-.hero-photo{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1400&q=85&auto=format&fit=crop') center 40%/cover no-repeat;
+.hero-horses{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;pointer-events:none}
+.hero-hl,.hero-hr{position:relative;overflow:hidden}
+.hero-hl img,.hero-hr img{
+  position:absolute;bottom:0;height:96%;width:100%;object-fit:contain;
 }
-.hero-photo::after{
+.hero-hl img{object-position:left bottom}
+.hero-hr img{object-position:right bottom;transform:scaleX(-1)}
+.hero-hl::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(10,10,10,.52) 0%,rgba(10,10,10,.38) 50%,rgba(10,10,10,.72) 100%);
+  background:linear-gradient(to right,rgba(245,245,247,0) 30%,rgba(245,245,247,.97) 74%);
 }
-.hero-inner{position:relative;z-index:2}
-.hero-eyebrow{
-  font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(255,255,255,.55);margin-bottom:20px;
-  opacity:0;animation:fadeUp .8s ease .2s forwards;
+.hero-hr::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to left,rgba(245,245,247,0) 30%,rgba(245,245,247,.97) 74%);
 }
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:7px 18px;border-radius:100px;
-  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:rgba(245,197,24,.14);border:1px solid rgba(245,197,24,.3);color:#F5C518;
-  margin-bottom:28px;
-  opacity:0;animation:fadeUp .8s ease .35s forwards;
+.hero::before{
+  content:'';position:absolute;top:52px;left:0;right:0;height:80px;
+  background:linear-gradient(to bottom,var(--bg),transparent);z-index:3;pointer-events:none;
 }
-.hero-h1{
-  font-size:clamp(3.4rem,12vw,10rem);
-  font-weight:800;letter-spacing:-.05em;line-height:.87;color:#fff;
-  opacity:0;animation:heroReveal 1s cubic-bezier(.22,1,.36,1) .15s forwards;
-  margin-bottom:16px;
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:90px;
+  background:linear-gradient(to top,var(--bg),transparent);z-index:3;pointer-events:none;
 }
-.hero-h2{
-  font-size:clamp(1.1rem,3.5vw,2.6rem);font-weight:500;letter-spacing:.01em;
-  color:rgba(255,255,255,.72);
-  opacity:0;animation:fadeUp .9s ease .5s forwards;
-  margin-bottom:24px;
+.hero-center{position:relative;z-index:10;text-align:center;padding:20px 12px;max-width:380px}
+.hero-crown{color:var(--gold-vv);margin-bottom:6px;display:flex;justify-content:center;
+  opacity:0;animation:fadeUp .6s ease .05s forwards}
+.hero-elim{
+  display:block;font-size:clamp(11px,2.6vw,15px);font-weight:800;letter-spacing:.38em;
+  text-transform:uppercase;color:var(--ink2);margin-bottom:0;
+  opacity:0;animation:fadeUp .6s ease .1s forwards;
 }
-.hero-p{
-  font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.5);
-  opacity:0;animation:fadeUp .8s ease .65s forwards;
-  margin-bottom:40px;
+.hero-del{
+  display:block;font-size:clamp(13px,3vw,18px);font-weight:400;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);
+  opacity:0;animation:fadeUp .6s ease .18s forwards;
 }
-.hero-cta-wrap{
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-  opacity:0;animation:fadeUp .8s ease .8s forwards;
+.hero-rey{
+  display:block;
+  font-size:clamp(6rem,22vw,16rem);font-weight:900;letter-spacing:-.05em;line-height:.82;
+  background:linear-gradient(160deg,#F5C518 0%,#D4A017 30%,#F5C518 52%,#A07810 78%,#F5C518 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;animation:heroReveal .85s cubic-bezier(.22,1,.36,1) .08s forwards;
+  margin-bottom:4px;
 }
-.btn-w{
-  padding:15px 36px;background:#fff;color:#000;border-radius:100px;
-  font-size:15px;font-weight:700;letter-spacing:-.01em;
-  border:none;cursor:pointer;text-decoration:none;font-family:var(--font);
-  transition:transform .2s,box-shadow .2s;
+.hero-date-sub{
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:18px;opacity:0;animation:fadeUp .6s ease .32s forwards;
 }
-.btn-w:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.25)}
-.btn-g{
-  padding:15px 32px;background:linear-gradient(135deg,#F5C518,#D4A017);color:#000;
-  border-radius:100px;font-size:15px;font-weight:700;
-  border:none;cursor:pointer;text-decoration:none;font-family:var(--font);
-  transition:transform .2s,box-shadow .2s;
+.hero-vs{
+  font-size:clamp(1.6rem,7vw,4rem);font-weight:900;letter-spacing:.08em;color:var(--ink);
+  margin-bottom:16px;opacity:0;animation:fadeUp .55s ease .25s forwards;
 }
-.btn-g:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(184,137,10,.35)}
+/* Countdown in hero */
+.h-cd{display:flex;align-items:center;gap:7px;justify-content:center;
+  opacity:0;animation:fadeUp .6s ease .42s forwards;}
+.h-cd-lbl{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin-right:2px}
+.h-cd-u{display:flex;flex-direction:column;align-items:center;gap:2px}
+.h-cd-n{
+  font-size:clamp(18px,4.5vw,32px);font-weight:800;letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums;
+  background:var(--card);border:1px solid var(--bd2);border-radius:9px;
+  box-shadow:var(--sh-s);padding:4px 9px;min-width:clamp(40px,8vw,54px);text-align:center;
+  color:var(--ink);transition:border-color .3s,box-shadow .3s;
+}
+.h-cd-n.lit{border-color:var(--gold-bd);box-shadow:0 0 12px rgba(184,137,10,.18)}
+.h-cd-l{font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.h-cd-sep{font-size:clamp(12px,3.5vw,22px);font-weight:300;color:var(--bd2);padding-bottom:12px}
+
+/* Horse name labels */
+.hero-labels{
+  position:absolute;bottom:clamp(80px,12vh,130px);left:0;right:0;z-index:11;
+  display:flex;justify-content:space-between;padding:0 clamp(6px,2.5vw,28px);
+  pointer-events:none;opacity:0;animation:fadeUp .6s ease .55s forwards;
+}
+.h-lbl{display:inline-block;padding:7px 16px 6px;border-radius:5px}
+.h-lbl-l{background:linear-gradient(135deg,#0030cc,#1A4EFF);box-shadow:0 3px 18px rgba(26,78,255,.4);transform:skewX(-4deg)}
+.h-lbl-r{background:linear-gradient(135deg,#b00018,#DC143C);box-shadow:0 3px 18px rgba(220,20,60,.4);transform:skewX(-4deg)}
+.h-lbl-name{display:block;font-size:clamp(11px,3vw,18px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.h-lbl-city{display:block;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:1px}
 
 .scroll-hint{
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);
-  animation:fadeUp .8s ease 1.2s both;
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:12;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);animation:fadeUp .8s ease 1.2s both;
 }
-.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(245,197,24,.7));animation:sP 2s ease infinite}
+.scroll-line{width:1px;height:26px;background:linear-gradient(to bottom,transparent,var(--gold));animation:sP 2s ease infinite}
 
 /* ── KEYFRAMES ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(20deg) translateY(40px) scale(.97)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(18deg) translateY(36px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes sP{0%,100%{opacity:.2}50%{opacity:1}}
 @keyframes cB{0%,100%{transform:none}50%{transform:translateY(-5px)}}
 @keyframes urgBlink{0%,100%{opacity:.55}50%{opacity:1}}
 @keyframes spSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ── SCROLL REVEAL ── */
-.rv{
-  opacity:0;transform:perspective(900px) rotateX(16deg) translateY(36px) scale(.98);
-  transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1);
-}
-.rv.in{opacity:1;transform:perspective(900px) rotateX(0) translateY(0) scale(1)}
+.rv{opacity:0;transform:perspective(900px) rotateX(16deg) translateY(36px) scale(.98);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
 .rv-l{opacity:0;transform:translateX(-28px);transition:opacity .68s cubic-bezier(.22,1,.36,1),transform .68s cubic-bezier(.22,1,.36,1)}
-.rv-l.in{opacity:1;transform:translateX(0)}
+.rv-l.in{opacity:1;transform:none}
 .rv-r{opacity:0;transform:translateX(28px);transition:opacity .68s cubic-bezier(.22,1,.36,1),transform .68s cubic-bezier(.22,1,.36,1)}
-.rv-r.in{opacity:1;transform:translateX(0)}
-.rv-up{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
-.rv-up.in{opacity:1;transform:translateY(0)}
-
+.rv-r.in{opacity:1;transform:none}
 .d1{transition-delay:.06s}.d2{transition-delay:.11s}.d3{transition-delay:.17s}
 .d4{transition-delay:.23s}.d5{transition-delay:.29s}.d6{transition-delay:.35s}
-.d7{transition-delay:.41s}.d8{transition-delay:.47s}.d9{transition-delay:.53s}
-.d10{transition-delay:.59s}.d11{transition-delay:.65s}.d12{transition-delay:.71s}
-.d13{transition-delay:.77s}
-
-/* ── COUNTDOWN ── */
-.cd-section{
-  position:sticky;top:52px;z-index:90;
-  background:rgba(245,245,247,.92);
-  backdrop-filter:blur(20px) saturate(180%);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid var(--bd);
-  padding:11px 24px;
-  display:flex;align-items:center;justify-content:center;
-  gap:clamp(10px,3vw,28px);flex-wrap:wrap;
-}
-.cd-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);animation:urgBlink 3s ease infinite;display:flex;align-items:center;gap:6px}
-.cd-unit{display:flex;flex-direction:column;align-items:center;gap:3px}
-.cd-n{
-  font-size:clamp(22px,5vw,42px);font-weight:700;letter-spacing:-.05em;
-  font-variant-numeric:tabular-nums;color:var(--ink);
-  padding:4px 8px;min-width:clamp(46px,8vw,68px);text-align:center;
-  background:var(--card);border:1px solid var(--bd);border-radius:10px;
-  box-shadow:var(--sh-s);transition:box-shadow .3s,border-color .3s;
-}
-.cd-n.lit{border-color:var(--gold-bd);box-shadow:0 0 14px rgba(184,137,10,.14)}
-.cd-l{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.cd-sep{font-size:clamp(18px,4vw,34px);font-weight:300;color:var(--bd2);align-self:flex-start;padding-top:4px}
 
 /* ── SECTIONS ── */
 section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp(48px,8vh,80px) 24px}
-.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:12px;text-align:center}
-.s-title{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;letter-spacing:-.03em;
-  color:var(--ink);text-align:center;margin-bottom:32px;line-height:1.1}
-.s-rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2) 30%,var(--bd2) 70%,transparent);
-  max-width:960px;margin:0 auto}
+.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
+.s-title{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;letter-spacing:-.03em;color:var(--ink);text-align:center;margin-bottom:32px;line-height:1.1}
+.s-rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2) 30%,var(--bd2) 70%,transparent);max-width:960px;margin:0 auto}
 
 /* ── STATS STRIP ── */
-.stats-strip{
-  display:flex;justify-content:center;gap:0;flex-wrap:nowrap;
-  background:var(--card);border:1px solid var(--bd);border-radius:20px;
-  box-shadow:var(--sh-m);overflow:hidden;
-}
+.stats-strip{display:flex;justify-content:center;gap:0;background:var(--card);border:1px solid var(--bd);border-radius:20px;box-shadow:var(--sh-m);overflow:hidden}
 .ss{flex:1;min-width:80px;padding:20px 14px;text-align:center;border-right:1px solid var(--bd);transition:background .2s}
 .ss:last-child{border-right:none}
 .ss:hover{background:var(--gold-bg)}
 .ss-n{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;letter-spacing:-.04em;color:var(--gold)}
 .ss-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 
-/* ── HERO PHOTO STRIP ── */
-.photo-strip{
-  position:relative;width:100%;max-width:960px;margin:0 auto;
-  border-radius:28px;overflow:hidden;
-  box-shadow:var(--sh-l);
-}
-.photo-strip img{width:100%;height:auto;display:block;max-height:520px;object-fit:cover}
-.photo-strip-ov{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);
-  display:flex;align-items:flex-end;padding:22px 26px;gap:10px;
-}
-.ps-tag{
-  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.8);
-  padding:6px 14px;border-radius:100px;
-  background:rgba(0,0,0,.38);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.15);
-}
+/* ── HORSE SHOWCASE ── */
+.horse-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.hc-card{background:var(--card);border:1px solid var(--bd);border-radius:22px;overflow:hidden;box-shadow:var(--sh-m);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+.hc-card:hover{transform:translateY(-5px);box-shadow:var(--sh-l)}
+.hc-img{aspect-ratio:3/4;overflow:hidden;background:#fff;border-bottom:1px solid var(--bd)}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.hc-card:hover .hc-img img{transform:scale(1.04)}
+.hc-info{padding:14px 16px}
+.hc-name{font-size:clamp(1rem,2.5vw,1.4rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.hc-stable{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.hc-tag{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold)}
 
 /* ── RACE CARDS ── */
 .race-grid{display:flex;flex-direction:column;gap:8px}
 .rcard{
-  position:relative;
-  background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden;
-  box-shadow:var(--sh-s);transition:box-shadow .25s,border-color .25s,transform .25s;
+  position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;
+  overflow:hidden;box-shadow:var(--sh-s);transition:box-shadow .25s,border-color .25s,transform .25s;
 }
 .rcard:hover{box-shadow:var(--sh-m);border-color:var(--bd2);transform:scale(1.005)}
-.rcard.featured{
-  border-color:var(--gold-bd);
-  background:linear-gradient(135deg,rgba(184,137,10,.03) 0%,var(--card) 100%);
-}
+.rcard.featured{border-color:var(--gold-bd);background:linear-gradient(135deg,rgba(184,137,10,.03),var(--card))}
 .rcard.featured:hover{border-color:rgba(184,137,10,.28);box-shadow:0 6px 28px rgba(184,137,10,.09)}
 .rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bd);border-radius:18px 0 0 18px}
 .rcard.featured::before{background:linear-gradient(180deg,var(--gold-vv),var(--gold))}
-.rcard-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center}
-.rc-time{
-  padding:16px 18px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);white-space:nowrap;min-width:78px;text-align:center;
-  border-right:1px solid var(--bd);
-}
-.rc-body{padding:13px 16px}
-.rc-horses{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  font-size:clamp(13px,2vw,17px);font-weight:700;letter-spacing:-.02em;margin-bottom:4px;
-}
-.rc-h1{color:var(--ink)}
-.rc-vs{font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--gold);flex-shrink:0}
-.rc-h2{color:var(--ink2)}
-.rc-meta{display:flex;gap:8px;flex-wrap:wrap}
-.rc-cuadra{font-size:10px;font-weight:600;color:var(--muted)}
-.rc-right{padding:13px 18px;border-left:1px solid var(--bd);text-align:right;min-width:80px;white-space:nowrap}
-.rc-dist{font-size:13px;font-weight:700;color:var(--ink2)}
-.rc-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:3px}
-
-/* ── RACE MINI HORSE PAIR ── */
-.rc-horse-imgs{display:flex;align-items:center;gap:5px;margin-bottom:8px}
-.rc-hi{width:40px;height:52px;border-radius:9px;overflow:hidden;background:#fff;border:1px solid var(--bd);flex-shrink:0;box-shadow:var(--sh-s)}
+/* New race card layout: time | side1 VS side2 | btn */
+.rcard-inner{display:grid;grid-template-columns:72px 1fr auto;align-items:center}
+.rc-time{padding:14px 12px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);white-space:nowrap;text-align:center;border-right:1px solid var(--bd)}
+.rc-body{padding:10px 14px;display:flex;align-items:center;gap:8px;min-width:0}
+.rc-side{display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+.rc-hi{width:36px;height:48px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid var(--bd);flex-shrink:0;box-shadow:var(--sh-s)}
 .rc-hi img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
-.rc-hi-vs{font-size:8px;font-weight:900;color:var(--gold);letter-spacing:.04em;padding:0 3px}
+.rc-side-info{min-width:0}
+.rc-h1{font-size:clamp(11px,1.8vw,14px);font-weight:700;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-h2{font-size:clamp(11px,1.8vw,14px);font-weight:700;letter-spacing:-.01em;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-cuadra{font-size:9px;font-weight:600;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-vs-center{font-size:10px;font-weight:900;color:var(--gold);letter-spacing:.06em;flex-shrink:0;padding:0 4px}
+.rc-right{padding:10px 12px;border-left:1px solid var(--bd);display:flex;flex-direction:column;align-items:flex-end;gap:5px;white-space:nowrap}
+.rc-dist{font-size:11px;font-weight:700;color:var(--ink2)}
+.rc-badge{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.rc-btn{
+  padding:5px 11px;border-radius:100px;border:1.5px solid var(--gold-bd);
+  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:transparent;cursor:pointer;font-family:var(--font);
+  transition:background .2s,border-color .2s;white-space:nowrap;
+}
+.rc-btn:hover{background:var(--gold-bg);border-color:rgba(184,137,10,.32)}
 
 /* ── ELIMINATORIAS HEADER ── */
-.elim-header{
-  display:flex;align-items:center;gap:16px;justify-content:center;
-  margin-bottom:clamp(24px,4vh,36px);
-}
-.elim-icon{
-  width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(135deg,rgba(184,137,10,.1),rgba(245,197,24,.06));
-  border:1.5px solid var(--gold-bd);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;animation:cB 3.5s ease infinite;
-  color:var(--gold);
-}
+.elim-header{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:clamp(24px,4vh,36px)}
+.elim-icon{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(184,137,10,.1),rgba(245,197,24,.06));border:1.5px solid var(--gold-bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:cB 3.5s ease infinite;color:var(--gold)}
 .elim-title-wrap{text-align:center}
 .elim-title{font-size:clamp(1.6rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1}
 .elim-title .acc{color:var(--gold)}
 .elim-sub{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:7px}
 
-/* ── HORSE PHOTO PAIR ── */
-.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:clamp(24px,4vh,36px)}
-.pp{
-  position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;
-  box-shadow:var(--sh-m);cursor:default;background:#fff;
-}
-.pp img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
-.pp:hover img{transform:scale(1.03)}
-.pp-cap{
-  position:absolute;bottom:0;left:0;right:0;padding:18px 16px;
-  background:linear-gradient(to top,rgba(0,0,0,.65),transparent);
-  font-size:12px;font-weight:700;letter-spacing:.06em;color:#fff;text-align:center;
-}
+/* ── DUEL SHOWCASE ── */
+.duel-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:flex-end;gap:0;margin-bottom:clamp(24px,4vh,36px)}
+.dp-side{display:flex;flex-direction:column;align-items:center}
+.dp-horse{width:100%;aspect-ratio:3/4;overflow:hidden;background:#fff;border-radius:22px;box-shadow:var(--sh-m);border:1px solid var(--bd);transition:transform .3s,box-shadow .3s}
+.dp-horse:hover{transform:translateY(-4px);box-shadow:var(--sh-l)}
+.dp-horse img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+.dp-right .dp-horse img{transform:scaleX(-1)}
+.dp-right .dp-horse:hover img{transform:scaleX(-1) scale(1.03)}
+.dp-label{text-align:center;padding:12px 8px}
+.dp-name{font-size:clamp(.9rem,2.5vw,1.4rem);font-weight:800;letter-spacing:-.02em}
+.dp-left .dp-name{color:#DC143C}
+.dp-right .dp-name{color:#1A6EFF}
+.dp-stable{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.dp-vs{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:clamp(44px,10vw,80px);flex-shrink:0}
+.dp-vs-badge{width:clamp(44px,8vw,72px);height:clamp(44px,8vw,72px);border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:clamp(11px,2vw,16px);font-weight:900;letter-spacing:.04em;color:#fff;box-shadow:var(--sh-m)}
 
 /* ── PROPUESTAS ── */
 .prop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.prop-card{
-  background:var(--card);border:1px solid var(--bd);border-radius:18px;
-  padding:20px 20px 18px;box-shadow:var(--sh-s);
-  transition:box-shadow .28s,border-color .28s,transform .28s;
-}
+.prop-card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:20px 20px 18px;box-shadow:var(--sh-s);transition:box-shadow .28s,border-color .28s,transform .28s}
 .prop-card:hover{box-shadow:var(--sh-m);border-color:var(--gold-bd);transform:translateY(-3px)}
-.prop-icon{
-  width:42px;height:42px;border-radius:13px;
-  background:var(--gold-bg);border:1px solid var(--gold-bd);
-  display:flex;align-items:center;justify-content:center;margin-bottom:13px;
-  color:var(--gold);
-}
+.prop-icon{width:42px;height:42px;border-radius:13px;background:var(--gold-bg);border:1px solid var(--gold-bd);display:flex;align-items:center;justify-content:center;margin-bottom:13px;color:var(--gold)}
 .prop-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .prop-detail{font-size:12px;color:var(--muted);line-height:1.5}
 .prop-price{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:var(--gold)}
 
 /* ── INFO GRID ── */
-.info-grid{
-  background:var(--card);border:1px solid var(--bd);border-radius:22px;
-  box-shadow:var(--sh-m);overflow:hidden;
-  display:grid;grid-template-columns:repeat(3,1fr);
-}
+.info-grid{background:var(--card);border:1px solid var(--bd);border-radius:22px;box-shadow:var(--sh-m);overflow:hidden;display:grid;grid-template-columns:repeat(3,1fr)}
 .ic{padding:18px 20px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .2s}
 .ic:nth-child(3n){border-right:none}
 .ic:nth-last-child(-n+3){border-bottom:none}
@@ -316,91 +252,14 @@ section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp
 .ic-v.g{color:var(--gold)}
 
 /* ── RULES ── */
-.rules{
-  background:var(--card);border:1px solid var(--bd);border-radius:16px;
-  padding:16px 24px;display:flex;gap:20px;flex-wrap:wrap;
-  justify-content:center;align-items:center;box-shadow:var(--sh-s);margin-top:12px;
-}
+.rules{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px 24px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center;box-shadow:var(--sh-s);margin-top:12px}
 .rule-tag{font-size:12px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:7px}
 .rule-tag svg{color:var(--gold);flex-shrink:0}
 
-/* ── FINAL CTA ── */
-.final-cta{
-  position:relative;z-index:10;border-radius:32px;overflow:hidden;
-  max-width:912px;margin:0 auto clamp(60px,10vh,120px);
-  box-shadow:var(--sh-l);
-}
-.final-cta-photo{
-  position:absolute;inset:0;
-  background:url('carrerasos-2.jpg') center 30%/cover no-repeat;
-}
-.final-cta-photo::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.62)}
-.final-cta-inner{position:relative;z-index:1;padding:clamp(52px,9vh,88px) 32px;text-align:center}
-.fcta-h{
-  font-size:clamp(2.6rem,7vw,6.5rem);font-weight:800;letter-spacing:-.04em;line-height:.92;
-  color:#fff;margin-bottom:16px;
-}
-.fcta-h .acc{color:#F5C518}
-.fcta-p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:36px}
-
-/* ── HORSE SHOWCASE ── */
-.horse-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.hc-card{
-  background:var(--card);border:1px solid var(--bd);border-radius:22px;
-  overflow:hidden;box-shadow:var(--sh-m);
-  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
-}
-.hc-card:hover{transform:translateY(-5px);box-shadow:var(--sh-l)}
-.hc-img{
-  aspect-ratio:3/4;overflow:hidden;background:#fff;
-  border-bottom:1px solid var(--bd);
-}
-.hc-img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;
-  transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.hc-card:hover .hc-img img{transform:scale(1.04)}
-.hc-info{padding:14px 16px}
-.hc-name{font-size:clamp(1rem,2.5vw,1.5rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-.hc-stable{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
-.hc-tag{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:100px;
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold)}
-
-/* ── DUEL SHOWCASE ── */
-.duel-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:flex-end;gap:0}
-.dp-side{display:flex;flex-direction:column;align-items:center}
-.dp-horse{
-  width:100%;aspect-ratio:3/4;overflow:hidden;background:#fff;
-  border-radius:22px;box-shadow:var(--sh-m);border:1px solid var(--bd);
-  transition:transform .3s,box-shadow .3s;
-}
-.dp-horse:hover{transform:translateY(-4px);box-shadow:var(--sh-l)}
-.dp-horse img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
-.dp-right .dp-horse img{transform:scaleX(-1)}
-.dp-right .dp-horse:hover img{transform:scaleX(-1) scale(1.03)}
-.dp-label{text-align:center;padding:12px 8px}
-.dp-name{font-size:clamp(.9rem,2.5vw,1.4rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-.dp-left .dp-name{color:#DC143C}
-.dp-right .dp-name{color:#1A6EFF}
-.dp-stable{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
-.dp-vs{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  padding-bottom:clamp(44px,10vw,80px);flex-shrink:0}
-.dp-vs-badge{
-  width:clamp(44px,8vw,72px);height:clamp(44px,8vw,72px);
-  border-radius:50%;background:var(--ink);
-  display:flex;align-items:center;justify-content:center;
-  font-size:clamp(11px,2vw,16px);font-weight:900;letter-spacing:.04em;color:#fff;
-  box-shadow:var(--sh-m);
-}
-
-/* ── CARRERASOS SECTION ── */
-.cos-wrap{
-  background:#0D0D0D;border-radius:28px;overflow:hidden;
-  padding:clamp(40px,7vh,68px) clamp(24px,4vw,48px);
-  box-shadow:var(--sh-l);
-}
+/* ── CARRERASOS ── */
+.cos-wrap{background:#0D0D0D;border-radius:28px;overflow:hidden;padding:clamp(40px,7vh,68px) clamp(24px,4vw,48px);box-shadow:var(--sh-l)}
 .cos-top{text-align:center;margin-bottom:clamp(28px,5vh,44px)}
-.cos-badge{font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(255,255,255,.3);margin-bottom:10px}
+.cos-badge{font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
 .cos-name{font-size:clamp(2rem,6vw,4rem);font-weight:900;letter-spacing:-.03em;color:#fff}
 .cos-name .g{color:#6CC04A}
 .cos-tag{font-size:12px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:6px}
@@ -408,36 +267,35 @@ section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp
 .cos-ad{border-radius:18px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.5)}
 .cos-ad img{width:100%;height:auto;display:block}
 .cos-footer{text-align:center;margin-top:clamp(20px,4vh,32px)}
-.cos-cta{
-  display:inline-block;padding:13px 36px;border-radius:100px;
-  background:rgba(108,192,74,.08);border:1.5px solid rgba(108,192,74,.35);
-  font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  color:#6CC04A;text-decoration:none;
-  transition:background .2s,box-shadow .2s;
-}
+.cos-cta{display:inline-block;padding:13px 36px;border-radius:100px;background:rgba(108,192,74,.08);border:1.5px solid rgba(108,192,74,.35);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6CC04A;text-decoration:none;transition:background .2s,box-shadow .2s}
 .cos-cta:hover{background:rgba(108,192,74,.16);box-shadow:0 0 24px rgba(108,192,74,.18)}
 
-/* ── FLOATING BAR ── */
-.sp-bar{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;
-  display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;
-  background:rgba(13,13,13,.9);backdrop-filter:blur(16px);
-  border:1px solid rgba(184,137,10,.22);
-  font-size:12px;font-weight:600;color:#F5C518;white-space:nowrap;
-  animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both;
-}
+/* ── FINAL CTA ── */
+.final-cta{position:relative;z-index:10;border-radius:32px;overflow:hidden;max-width:912px;margin:0 auto clamp(60px,10vh,120px);box-shadow:var(--sh-l)}
+.final-cta-photo{position:absolute;inset:0;background:url('carrerasos-2.jpg') center 30%/cover no-repeat}
+.final-cta-photo::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.62)}
+.final-cta-inner{position:relative;z-index:1;padding:clamp(52px,9vh,88px) 32px;text-align:center}
+.fcta-h{font-size:clamp(2.6rem,7vw,6.5rem);font-weight:800;letter-spacing:-.04em;line-height:.92;color:#fff;margin-bottom:16px}
+.fcta-h .acc{color:#F5C518}
+.fcta-p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:36px}
 
-footer{
-  position:relative;z-index:10;
-  padding:20px 24px;border-top:1px solid var(--bd);text-align:center;
-  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
-}
+/* ── BUTTONS ── */
+.btn-w{padding:15px 36px;background:#fff;color:#000;border-radius:100px;font-size:15px;font-weight:700;letter-spacing:-.01em;border:none;cursor:pointer;text-decoration:none;font-family:var(--font);transition:transform .2s,box-shadow .2s}
+.btn-w:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.btn-g{padding:15px 32px;background:linear-gradient(135deg,#F5C518,#D4A017);color:#000;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;text-decoration:none;font-family:var(--font);transition:transform .2s,box-shadow .2s}
+.btn-g:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(184,137,10,.35)}
+
+/* ── FLOATING BAR ── */
+.sp-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;background:rgba(13,13,13,.9);backdrop-filter:blur(16px);border:1px solid rgba(184,137,10,.22);font-size:12px;font-weight:600;color:#F5C518;white-space:nowrap;animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both}
+footer{position:relative;z-index:10;padding:20px 24px;border-top:1px solid var(--bd);text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 @media(max-width:600px){
-  .rcard-inner{grid-template-columns:auto 1fr}
-  .rc-right{display:none}
-  .photo-pair{grid-template-columns:1fr}
-  .horse-showcase{grid-template-columns:repeat(3,1fr);gap:10px}
+  .hero-hl::after{background:linear-gradient(to right,rgba(245,245,247,0) 18%,rgba(245,245,247,.98) 68%)}
+  .hero-hr::after{background:linear-gradient(to left,rgba(245,245,247,0) 18%,rgba(245,245,247,.98) 68%)}
+  .hero-labels{bottom:clamp(56px,9vh,100px)}
+  .h-lbl-name{font-size:11px}
+  .rcard-inner{grid-template-columns:60px 1fr auto}
+  .horse-showcase{gap:10px}
   .hc-info{padding:10px 12px}
   .cos-ads{grid-template-columns:1fr}
   .info-grid{grid-template-columns:repeat(2,1fr)}
@@ -451,48 +309,61 @@ footer{
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <span class="nav-l">Carril 4 Vientos · Illinois</span>
-  <span class="nav-chip">Eliminatorias del Rey</span>
-  <span class="nav-r">14 Jun 2026</span>
+  <div class="nav-l">Carril 4 Vientos<br>Illinois</div>
+  <div class="nav-chip">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19h20v2H2v-2zM2 6l5 5 5-7 5 7 5-5v11H2V6z"/></svg>
+    Eliminatorias del Rey
+  </div>
+  <div class="nav-r">
+    <span class="nav-date">14 Jun 2026</span>
+    <span class="nav-menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </span>
+  </div>
 </nav>
 
-<!-- COUNTDOWN -->
-<div class="cd-section">
-  <span class="cd-label">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    Faltan
-  </span>
-  <div class="cd-unit"><div class="cd-n" id="cd-d">03</div><div class="cd-l">Días</div></div>
-  <div class="cd-sep">:</div>
-  <div class="cd-unit"><div class="cd-n" id="cd-h">00</div><div class="cd-l">Hrs</div></div>
-  <div class="cd-sep">:</div>
-  <div class="cd-unit"><div class="cd-n" id="cd-m">00</div><div class="cd-l">Min</div></div>
-  <div class="cd-sep">:</div>
-  <div class="cd-unit"><div class="cd-n" id="cd-s">00</div><div class="cd-l">Seg</div></div>
-</div>
-
-<!-- HERO -->
+<!-- HERO: duel split -->
 <div class="hero">
-  <div class="hero-photo"></div>
-  <div class="hero-inner">
-    <p class="hero-eyebrow">Illinois · 14 de Junio 2026</p>
-    <div class="hero-badge">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
-      Eliminatorias del Rey del Cuatro Vientos
+  <div class="hero-horses">
+    <div class="hero-hl"><img src="pisces.jpg" alt="El Pisces" loading="eager"></div>
+    <div class="hero-hr"><img src="aries.jpg" alt="El Aries" loading="eager"></div>
+  </div>
+
+  <div class="hero-center">
+    <div class="hero-crown">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19h20v2H2v-2zM2 6l5 5 5-7 5 7 5-5v11H2V6z"/></svg>
     </div>
-    <h1 class="hero-h1">CARRIL<br>4 VIENTOS</h1>
-    <h2 class="hero-h2">Carreras de Caballos</h2>
-    <p class="hero-p">El evento más esperado del año · Programa completo · Ambiente familiar</p>
-    <div class="hero-cta-wrap">
-      <a href="#programa" class="btn-w">Ver Programa</a>
-      <a href="#eliminatorias" class="btn-g">Eliminatorias</a>
+    <span class="hero-elim">Eliminatorias</span>
+    <span class="hero-del">del</span>
+    <span class="hero-rey">REY</span>
+    <div class="hero-date-sub">Illinois · 14 de Junio 2026</div>
+    <div class="hero-vs">VS</div>
+    <div class="h-cd">
+      <span class="h-cd-lbl">Faltan</span>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-d">03</div><div class="h-cd-l">Días</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-h">00</div><div class="h-cd-l">Hrs</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-m">00</div><div class="h-cd-l">Min</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-s">00</div><div class="h-cd-l">Seg</div></div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+
+  <div class="hero-labels">
+    <div class="h-lbl h-lbl-l">
+      <span class="h-lbl-name">El Pisces</span>
+      <span class="h-lbl-city">Houston, TX</span>
+    </div>
+    <div class="h-lbl h-lbl-r">
+      <span class="h-lbl-name">El Aries</span>
+      <span class="h-lbl-city">Houston, TX</span>
+    </div>
   </div>
+
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
 </div>
 
 <!-- STATS STRIP -->
@@ -510,6 +381,22 @@ footer{
   <p class="s-eye rv">Los Caballos del Evento</p>
   <div class="horse-showcase" style="margin-top:20px">
     <div class="hc-card rv d1">
+      <div class="hc-img"><img src="pisces.jpg" alt="El Pisces" loading="lazy"></div>
+      <div class="hc-info">
+        <div class="hc-name">EL PISCES</div>
+        <div class="hc-stable">Houston, TX</div>
+        <span class="hc-tag">El Retador</span>
+      </div>
+    </div>
+    <div class="hc-card rv d2">
+      <div class="hc-img"><img src="aries.jpg" alt="El Aries" loading="lazy"></div>
+      <div class="hc-info">
+        <div class="hc-name">EL ARIES</div>
+        <div class="hc-stable">Houston, TX</div>
+        <span class="hc-tag">Eliminatorias</span>
+      </div>
+    </div>
+    <div class="hc-card rv d3">
       <div class="hc-img"><img src="la-mami.jpg" alt="La Mami" loading="lazy"></div>
       <div class="hc-info">
         <div class="hc-name">LA MAMI</div>
@@ -517,24 +404,10 @@ footer{
         <span class="hc-tag">Favorita</span>
       </div>
     </div>
-    <div class="hc-card rv d2">
-      <div class="hc-img"><img src="aries.jpg" alt="Aries" loading="lazy"></div>
-      <div class="hc-info">
-        <div class="hc-name">ARIES</div>
-        <div class="hc-stable">Houston, TX</div>
-        <span class="hc-tag">Eliminatorias</span>
-      </div>
-    </div>
-    <div class="hc-card rv d3">
-      <div class="hc-img"><img src="pisces.jpg" alt="Pisces" loading="lazy"></div>
-      <div class="hc-info">
-        <div class="hc-name">PISCES</div>
-        <div class="hc-stable">Houston, TX</div>
-        <span class="hc-tag">El Retador</span>
-      </div>
-    </div>
   </div>
 </section>
+
+<div class="s-rule" style="margin-top:clamp(40px,7vh,72px)"></div>
 
 <!-- PROGRAMA DEL DÍA -->
 <section id="programa">
@@ -546,15 +419,20 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">1:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">El Pascual</div>
+              <div class="rc-cuadra">C. Avila &amp; Rueda</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">El Pascual</span><span class="rc-vs">VS</span><span class="rc-h2">El Zorro</span></div>
-          <div class="rc-meta"><span class="rc-cuadra">C. Avila &amp; Rueda</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">El Zorro</div></div>
+          </div>
         </div>
-        <div class="rc-right"><div class="rc-dist">200 YDS</div></div>
+        <div class="rc-right"><div class="rc-dist">200 YDS</div><button class="rc-btn">Ver Más</button></div>
       </div>
     </div>
 
@@ -562,15 +440,20 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">1:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">Señor de los Gallos</div>
+              <div class="rc-cuadra">Cuadra vs Cuadra</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">El Señor de los Gallos</span><span class="rc-vs">VS</span><span class="rc-h2">El Oso</span></div>
-          <div class="rc-meta"><span class="rc-cuadra">Cuadra vs Cuadra</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">El Oso</div></div>
+          </div>
         </div>
-        <div class="rc-right"><div class="rc-dist">300 YDS</div></div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><button class="rc-btn">Ver Más</button></div>
       </div>
     </div>
 
@@ -578,15 +461,20 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">2:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">La Tapada</div>
+              <div class="rc-cuadra">C. La Tapada</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">El Chucuquito</span><span class="rc-vs">VS</span><span class="rc-h2">El Retador</span></div>
-          <div class="rc-meta"><span class="rc-cuadra">C. Rondeno Rosas</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">La Reyna</div></div>
+          </div>
         </div>
-        <div class="rc-right"><div class="rc-dist">250 YDS</div></div>
+        <div class="rc-right"><div class="rc-dist">250 YDS</div><button class="rc-btn">Ver Más</button></div>
       </div>
     </div>
 
@@ -610,28 +498,16 @@ footer{
     </div>
   </div>
 
-  <!-- Head-to-Head Duel: ARIES vs PISCES -->
-  <div class="duel-pair" style="margin-bottom:clamp(24px,4vh,36px)">
+  <!-- Head-to-Head Duel -->
+  <div class="duel-pair">
     <div class="dp-side dp-left rv-l">
-      <div class="dp-horse">
-        <img src="aries.jpg" alt="ARIES" loading="lazy">
-      </div>
-      <div class="dp-label">
-        <div class="dp-name">ARIES</div>
-        <div class="dp-stable">Houston, TX</div>
-      </div>
+      <div class="dp-horse"><img src="aries.jpg" alt="Aries" loading="lazy"></div>
+      <div class="dp-label"><div class="dp-name">ARIES</div><div class="dp-stable">Houston, TX</div></div>
     </div>
-    <div class="dp-vs">
-      <div class="dp-vs-badge">VS</div>
-    </div>
+    <div class="dp-vs"><div class="dp-vs-badge">VS</div></div>
     <div class="dp-side dp-right rv-r">
-      <div class="dp-horse">
-        <img src="pisces.jpg" alt="PISCES" loading="lazy">
-      </div>
-      <div class="dp-label">
-        <div class="dp-name">PISCES</div>
-        <div class="dp-stable">Houston, TX</div>
-      </div>
+      <div class="dp-horse"><img src="pisces.jpg" alt="Pisces" loading="lazy"></div>
+      <div class="dp-label"><div class="dp-name">PISCES</div><div class="dp-stable">Houston, TX</div></div>
     </div>
   </div>
 
@@ -641,13 +517,18 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="el-chigon.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">C. Soriano</div>
+              <div class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria A</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">C. Soriano</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria A</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">C. Cristo Rey</div></div>
+          </div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM A</div></div>
       </div>
@@ -657,13 +538,18 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">C. Los Locos</div>
+              <div class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria B</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">C. Los Locos</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria B</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">C. Cristo Rey</div></div>
+          </div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM B</div></div>
       </div>
@@ -673,13 +559,18 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">C. Gutiérrez</div>
+              <div class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria C</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. La Tepada</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria C</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">C. La Tepada</div></div>
+          </div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM C</div></div>
       </div>
@@ -689,13 +580,18 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">C. Esperanza</div>
+              <div class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria D</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">C. Esperanza</span><span class="rc-vs">VS</span><span class="rc-h2">C. Gutiérrez</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria D</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">C. Gutiérrez</div></div>
+          </div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM D</div></div>
       </div>
@@ -705,13 +601,18 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">5:15 PM</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="aries.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">ARIES</div>
+              <div class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria E · Final</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">ARIES</span><span class="rc-vs">VS</span><span class="rc-h2">PISCES</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria E · Final</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">PISCES</div></div>
+          </div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM E</div></div>
       </div>
@@ -721,15 +622,20 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">TAPADOS</div>
         <div class="rc-body">
-          <div class="rc-horse-imgs">
+          <div class="rc-side">
             <div class="rc-hi"><img src="la-mami.jpg" alt="" loading="lazy"></div>
-            <div class="rc-hi-vs">VS</div>
-            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info">
+              <div class="rc-h1">C. Sabala</div>
+              <div class="rc-cuadra">Carrera Tapada</div>
+            </div>
           </div>
-          <div class="rc-horses"><span class="rc-h1">C. Sabala</span><span class="rc-vs">VS</span><span class="rc-h2">C. El Potrero</span></div>
-          <div class="rc-meta"><span class="rc-cuadra">Carrera Tapada</span></div>
+          <div class="rc-vs-center">VS</div>
+          <div class="rc-side">
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-side-info"><div class="rc-h2">C. El Potrero</div></div>
+          </div>
         </div>
-        <div class="rc-right"><div class="rc-dist">—</div></div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
       </div>
     </div>
 
@@ -743,61 +649,42 @@ footer{
   <p class="s-eye rv">Propuestas del Día</p>
   <h2 class="s-title rv d1">Propuestas Disponibles</h2>
   <div class="prop-grid">
-
     <div class="prop-card rv d1">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3"/><path d="M12 12v5"/><circle cx="12" cy="7" r="3"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3"/><path d="M12 12v5"/><circle cx="12" cy="7" r="3"/></svg></div>
       <div class="prop-title">Abierta de 3 Años</div>
       <div class="prop-detail">270 yardas · Caballos de 3 años sin jugadas</div>
       <div class="prop-price">$5 pesos hay uno</div>
     </div>
-
     <div class="prop-card rv d2">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <div class="prop-title">Abierta de Maides</div>
       <div class="prop-detail">Yeguas abiertas · Cualquier distancia</div>
       <div class="prop-price">A Convenir</div>
     </div>
-
     <div class="prop-card rv d3">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
       <div class="prop-title">Abierta de 4 Años</div>
       <div class="prop-detail">330 yardas · Caballos de 4 años</div>
       <div class="prop-price">10y pesos hay uno</div>
     </div>
-
     <div class="prop-card rv d4">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg></div>
       <div class="prop-title">Maides 330y — Copa</div>
       <div class="prop-detail">Yeguas · 330 yardas · Premio especial</div>
       <div class="prop-price">$10 pesos hay uno</div>
     </div>
-
     <div class="prop-card rv d5">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
       <div class="prop-title">Maides 330y — Series</div>
       <div class="prop-detail">Segunda corrida · 330 yardas</div>
       <div class="prop-price">$8 pesos hay uno</div>
     </div>
-
     <div class="prop-card rv d6">
-      <div class="prop-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
+      <div class="prop-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
       <div class="prop-title">Propuesta Adicional</div>
       <div class="prop-detail">Propuesta abierta · Pendiente confirmar</div>
       <div class="prop-price">A Convenir</div>
     </div>
-
   </div>
 </section>
 
@@ -814,28 +701,12 @@ footer{
     <div class="ic"><div class="ic-k">Tipo</div><div class="ic-v g">Eliminatorias del Rey</div></div>
     <div class="ic"><div class="ic-k">Comida</div><div class="ic-v">Comida Mexicana</div></div>
   </div>
-
   <div class="rules rv" style="margin-top:12px">
-    <span class="rule-tag">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Evento Familiar
-    </span>
-    <span class="rule-tag">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-      Sin Bebidas Alcohólicas
-    </span>
-    <span class="rule-tag">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-      Sin Pirotecnia
-    </span>
-    <span class="rule-tag">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Respetan Horarios
-    </span>
-    <span class="rule-tag">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-      Comida &amp; Bebida Mexicana
-    </span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Evento Familiar</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Sin Bebidas Alcohólicas</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Sin Pirotecnia</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Respetan Horarios</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Comida &amp; Bebida Mexicana</span>
   </div>
 </section>
 
@@ -874,7 +745,7 @@ footer{
   </div>
 </div>
 
-<footer>Carril 4 Vientos · Illinois · 14 Junio 2026 · Evento 100% Familiar · Sin Alcohol</footer>
+<footer>Carril 4 Vientos · Illinois · 14 Junio 2026 · Solo Uno Reinará</footer>
 
 <div class="sp-bar">
   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
@@ -898,9 +769,7 @@ var EVENT = new Date('2026-06-14T13:00:00');
     if (el && el.textContent !== val) {
       el.textContent = val;
       if (k === 's') {
-        el.classList.remove('lit');
-        void el.offsetWidth;
-        el.classList.add('lit');
+        el.classList.remove('lit'); void el.offsetWidth; el.classList.add('lit');
         setTimeout(function() { el.classList.remove('lit'); }, 300);
       }
     }
@@ -912,7 +781,7 @@ var EVENT = new Date('2026-06-14T13:00:00');
 var io = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: .1 });
-document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-up').forEach(function(el) { io.observe(el); });
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el) { io.observe(el); });
 
 /* ANIMATED COUNTERS */
 function ac(id, target, suffix, dur) {
@@ -920,33 +789,22 @@ function ac(id, target, suffix, dur) {
   var st = null;
   (function f(ts) {
     if (!st) st = ts;
-    var p = Math.min((ts - st) / dur, 1);
-    var e = 1 - Math.pow(1 - p, 3);
+    var p = Math.min((ts - st) / dur, 1), e = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(e * target) + (suffix || '');
-    if (p < 1) requestAnimationFrame(f);
-    else el.textContent = target + (suffix || '');
+    if (p < 1) requestAnimationFrame(f); else el.textContent = target + (suffix || '');
   })(performance.now());
 }
 setTimeout(function() {
-  ac('sn1', 9, '', 900);
-  ac('sn2', 5, 'h', 800);
-  ac('sn3', 18, '', 700);
-  ac('sn4', 1847, '', 1200);
+  ac('sn1', 9, '', 900); ac('sn2', 5, 'h', 800); ac('sn3', 18, '', 700); ac('sn4', 1847, '', 1200);
 }, 600);
 
-/* SOCIAL PROOF COUNTER */
+/* SOCIAL PROOF */
 var spCount = 1847;
 setInterval(function() {
   spCount += Math.floor(Math.random() * 4);
   var el = document.getElementById('sp-count');
   if (el) el.textContent = spCount.toLocaleString('en-US');
 }, 4500);
-
-/* PARALLAX HERO */
-window.addEventListener('scroll', function() {
-  var h = document.querySelector('.hero-photo');
-  if (h) h.style.transform = 'translateY(' + window.scrollY * .22 + 'px)';
-}, { passive: true });
 </script>
 </body>
 </html>
