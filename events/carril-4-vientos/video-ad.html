@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carril 4 Vientos · Video Ad</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--gold2:#FF8C00;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
+body{background:#111;display:flex;align-items:center;justify-content:center;min-height:100svh;font-family:var(--font);overflow:hidden}
+.stage{position:relative;width:100%;max-width:400px;aspect-ratio:9/16;background:#000;border-radius:28px;overflow:hidden;box-shadow:0 60px 120px -20px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.06)}
+.prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);z-index:50}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;transition:width .12s linear}
+.play-ov{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);cursor:pointer;transition:opacity .3s}
+.play-ov:hover{background:rgba(0,0,0,.35)}
+.play-ring{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;font-size:30px;padding-left:4px}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 28px;text-align:center;opacity:0;pointer-events:none;transition:opacity .65s ease}
+.scene.active{opacity:1;pointer-events:auto}
+.sc-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.glow-a{position:absolute;left:-20%;top:0;width:70%;height:60%;background:radial-gradient(ellipse,rgba(245,197,24,.1),transparent 65%);filter:blur(70px)}
+.glow-b{position:absolute;right:-20%;bottom:0;width:70%;height:60%;background:radial-gradient(ellipse,rgba(255,140,0,.08),transparent 65%);filter:blur(70px)}
+.glow-c{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(245,197,24,.06),transparent 70%)}
+.sc-c{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0}
+.sc-eye{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px}
+.sc-h1{font-size:clamp(2.4rem,10vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:.9;background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.65) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc-h1.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc-p{margin-top:14px;font-size:14px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.5}
+.sc-big{font-size:5.5rem;line-height:1;margin-bottom:8px;filter:drop-shadow(0 0 30px rgba(245,197,24,.5))}
+.badge{display:inline-block;margin-top:16px;padding:8px 20px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);color:var(--gold)}
+.vs-line{display:flex;align-items:center;gap:14px;margin:14px 0}
+.vs-name{font-size:clamp(1.2rem,5vw,1.8rem);font-weight:700;letter-spacing:-.02em;color:#fff}
+.vs-txt{font-size:clamp(1.4rem,6vw,2.4rem);font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-row{display:flex;gap:24px;justify-content:center;margin-top:18px}
+.stat-n{font-size:2.6rem;font-weight:800;color:var(--gold);letter-spacing:-.05em;display:block}
+.stat-l{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:4px;display:block}
+.cta-pill{margin-top:24px;padding:14px 36px;background:#fff;color:#000;border-radius:100px;font-size:14px;font-weight:700;letter-spacing:-.01em;display:inline-block}
+.rule-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;width:100%}
+.rl-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-align:left}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="prog"><div class="prog-bar" id="bar"></div></div>
+  <div class="play-ov" id="ov"><div class="play-ring">▶</div></div>
+
+  <!-- S1: Title -->
+  <div class="scene" id="s1">
+    <div class="sc-bg"><div class="glow-a"></div><div class="glow-b"></div><div class="glow-c"></div></div>
+    <div class="sc-c">
+      <div class="sc-big">🏇</div>
+      <p class="sc-eye">Illinois · 14 de Junio 2026</p>
+      <h1 class="sc-h1">CARRIL<br>4 VIENTOS</h1>
+      <div class="badge">Carreras de Caballos</div>
+    </div>
+  </div>
+
+  <!-- S2: Eliminatorias -->
+  <div class="scene" id="s2">
+    <div class="sc-bg"><div class="glow-c"></div></div>
+    <div class="sc-c">
+      <div class="sc-big">👑</div>
+      <p class="sc-eye">El Evento del Año</p>
+      <h1 class="sc-h1 gold">Eliminatorias<br>del Rey</h1>
+      <p class="sc-p">300 Yardas · 5 Eliminatorias<br>Solo uno puede ser el rey</p>
+    </div>
+  </div>
+
+  <!-- S3: Stats -->
+  <div class="scene" id="s3">
+    <div class="sc-bg"><div class="glow-a"></div><div class="glow-b"></div></div>
+    <div class="sc-c">
+      <p class="sc-eye">El Programa Completo</p>
+      <div class="stat-row">
+        <div><span class="stat-n">9</span><span class="stat-l">Carreras</span></div>
+        <div><span class="stat-n">5h</span><span class="stat-l">Programa</span></div>
+        <div><span class="stat-n">18</span><span class="stat-l">Caballos</span></div>
+      </div>
+      <p class="sc-p" style="margin-top:20px">Desde la 1:00 PM hasta el Rey</p>
+    </div>
+  </div>
+
+  <!-- S4: Matchup highlight -->
+  <div class="scene" id="s4">
+    <div class="sc-bg"><div class="glow-c"></div></div>
+    <div class="sc-c">
+      <p class="sc-eye">Programa del Día</p>
+      <div class="vs-line"><span class="vs-name">El Pascual</span><span class="vs-txt">VS</span><span class="vs-name">El Zorro</span></div>
+      <p class="sc-p" style="color:rgba(245,197,24,.7);margin-top:0">1:00 PM · 200 YDS</p>
+      <div class="vs-line" style="margin-top:12px"><span class="vs-name">El Señor</span><span class="vs-txt">VS</span><span class="vs-name">El Oso</span></div>
+      <p class="sc-p" style="color:rgba(245,197,24,.7);margin-top:0">1:30 PM · 300 YDS</p>
+      <div class="vs-line" style="margin-top:12px"><span class="vs-name">C. Soriano</span><span class="vs-txt">⚡</span><span class="vs-name">C. Cristo Rey</span></div>
+      <p class="sc-p" style="color:rgba(245,197,24,.7);margin-top:0">3:00 PM · Eliminatoria A</p>
+    </div>
+  </div>
+
+  <!-- S5: Family / food -->
+  <div class="scene" id="s5">
+    <div class="sc-bg"><div class="glow-b"></div></div>
+    <div class="sc-c">
+      <div class="sc-big" style="font-size:3.5rem">🌮👨‍👩‍👧</div>
+      <p class="sc-eye">Ambiente Familiar</p>
+      <h1 class="sc-h1" style="font-size:clamp(1.8rem,7vw,3rem)">Trae a toda<br>la familia</h1>
+      <div class="rule-list">
+        <div class="rl-item"><span>🌮</span>Abra comida &amp; bebida mexicana</div>
+        <div class="rl-item"><span>✅</span>Evento 100% familiar</div>
+        <div class="rl-item"><span>🚫</span>Sin bebidas alcohólicas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6: Date / CTA -->
+  <div class="scene" id="s6">
+    <div class="sc-bg"><div class="glow-a"></div><div class="glow-b"></div><div class="glow-c"></div></div>
+    <div class="sc-c">
+      <p class="sc-eye">No Te Lo Pierdas</p>
+      <h1 class="sc-h1 gold">Carril<br>4 Vientos</h1>
+      <p class="sc-p" style="margin-top:12px;font-size:16px;color:rgba(255,255,255,.8)">Domingo 14 Junio</p>
+      <p class="sc-p">1:00 PM · Illinois</p>
+      <div class="cta-pill">Ver Programa Completo</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var DUR=[4500,4500,4000,5000,4500,5000];
+var TOTAL=DUR.reduce(function(a,b){return a+b},0);
+var cur=0,raf=null,elapsed=0,scElapsed=0,last=null;
+
+function show(n){
+  document.querySelectorAll('.scene').forEach(function(s){s.classList.remove('active')});
+  var el=document.getElementById('s'+(n+1));if(el)el.classList.add('active');cur=n;
+}
+
+document.getElementById('ov').addEventListener('click',function(){
+  this.style.display='none';
+  show(0);elapsed=0;scElapsed=0;last=null;
+  function frame(ts){
+    if(!last)last=ts;var dt=Math.min(ts-last,100);last=ts;
+    elapsed=Math.min(elapsed+dt,TOTAL);
+    scElapsed+=dt;
+    document.getElementById('bar').style.width=(elapsed/TOTAL*100)+'%';
+    if(scElapsed>=DUR[cur]){
+      scElapsed=0;cur++;
+      if(cur<DUR.length)show(cur);
+      else{
+        document.getElementById('bar').style.width='0';
+        document.getElementById('ov').style.display='flex';
+        return;
+      }
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  raf=requestAnimationFrame(frame);
+});
+</script>
+</body>
+</html>

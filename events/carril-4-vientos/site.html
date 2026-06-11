@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carril 4 Vientos · Eliminatorias del Rey · 14 Junio 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;--gold:#F5C518;--gold2:#FF8C00;
+  --dim:rgba(255,255,255,.5);--muted:rgba(255,255,255,.22);
+  --bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.14);
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:var(--font);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NOISE GRAIN OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.35;mix-blend-mode:overlay;
+}
+
+/* ── PARTICLES ── */
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:52px;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--bd);
+}
+.nav-l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.nav-chip{
+  padding:5px 16px;border-radius:100px;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,rgba(245,197,24,.2),rgba(255,140,0,.15));
+  border:1px solid rgba(245,197,24,.3);color:var(--gold);
+  animation:chipGlow 3s ease infinite;
+}
+@keyframes chipGlow{0%,100%{box-shadow:none}50%{box-shadow:0 0 20px rgba(245,197,24,.25)}}
+.nav-r{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:10;
+  min-height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 24px 60px;
+  text-align:center;
+  overflow:hidden;
+}
+/* radial ambient */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(245,197,24,.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,140,0,.05) 0%, transparent 60%);
+}
+.hero-inner{position:relative;z-index:2}
+
+.hero-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;
+  opacity:0;animation:fadeUp .8s ease .2s forwards;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 18px;border-radius:100px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);color:var(--gold);
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .8s ease .35s forwards;
+}
+.hero-h1{
+  font-size:clamp(3rem,11vw,9rem);
+  font-weight:800;letter-spacing:-.05em;line-height:.9;
+  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.7) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;animation:heroReveal 1s cubic-bezier(.22,1,.36,1) .15s forwards;
+  margin-bottom:16px;
+}
+.hero-h2{
+  font-size:clamp(1.2rem,4vw,3.2rem);
+  font-weight:700;letter-spacing:-.02em;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;animation:fadeUp .9s ease .5s forwards;
+  margin-bottom:24px;
+}
+.hero-p{
+  font-size:clamp(14px,2vw,18px);font-weight:400;color:var(--dim);letter-spacing:.01em;
+  opacity:0;animation:fadeUp .8s ease .65s forwards;
+  margin-bottom:40px;
+}
+.hero-cta-wrap{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s ease .8s forwards;
+}
+.btn-primary{
+  padding:16px 40px;background:#fff;color:#000;border-radius:100px;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;
+  border:none;cursor:pointer;text-decoration:none;font-family:var(--font);
+  transition:transform .2s,box-shadow .2s;
+  animation:ctaAura 3s ease infinite;
+}
+.btn-primary:hover{transform:scale(1.04)}
+.btn-outline{
+  padding:16px 32px;background:transparent;color:#fff;border-radius:100px;
+  font-size:15px;font-weight:600;letter-spacing:-.01em;
+  border:1px solid var(--bd2);cursor:pointer;text-decoration:none;font-family:var(--font);
+  transition:all .2s;
+}
+.btn-outline:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25)}
+
+/* scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  animation:fadeUp .8s ease 1.2s both;
+}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,transparent,var(--gold));animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.2}50%{opacity:1}}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(25deg) translateY(40px) scale(.97)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
+@keyframes ctaAura{0%,100%{box-shadow:none}50%{box-shadow:0 0 40px rgba(255,255,255,.12)}}
+@keyframes boltFlash{0%,100%{opacity:.2}40%{opacity:1;filter:drop-shadow(0 0 10px var(--gold))}55%{opacity:.3}}
+@keyframes vsPulse{0%,100%{filter:none}50%{filter:drop-shadow(0 0 24px rgba(245,197,24,.9))}}
+@keyframes urgBlink{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+
+/* ── SCROLL REVEAL ── */
+.rv{
+  opacity:0;
+  transform:perspective(900px) rotateX(22deg) translateY(44px) scale(.97);
+  transition:opacity .75s cubic-bezier(.22,1,.36,1),
+             transform .75s cubic-bezier(.22,1,.36,1);
+}
+.rv.in{opacity:1;transform:perspective(900px) rotateX(0) translateY(0) scale(1)}
+.rv-l{opacity:0;transform:perspective(900px) rotateY(-22deg) translateX(-40px);
+  transition:opacity .75s var(--e,cubic-bezier(.22,1,.36,1)),transform .75s var(--e,cubic-bezier(.22,1,.36,1))}
+.rv-l.in{opacity:1;transform:perspective(900px) rotateY(0) translateX(0)}
+.rv-r{opacity:0;transform:perspective(900px) rotateY(22deg) translateX(40px);
+  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.rv-r.in{opacity:1;transform:perspective(900px) rotateY(0) translateX(0)}
+.rv-up{opacity:0;transform:translateY(36px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv-up.in{opacity:1;transform:translateY(0)}
+
+/* delay helpers */
+.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.19s}
+.d4{transition-delay:.26s}.d5{transition-delay:.33s}.d6{transition-delay:.4s}
+.d7{transition-delay:.47s}.d8{transition-delay:.54s}.d9{transition-delay:.61s}
+.d10{transition-delay:.68s}.d11{transition-delay:.75s}.d12{transition-delay:.82s}
+.d13{transition-delay:.89s}
+
+/* ── SECTION WRAPPER ── */
+section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp(48px,8vh,88px) 24px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+
+/* ── SECTION LABEL ── */
+.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;text-align:center}
+
+/* ── COUNTDOWN ── */
+.cd-section{
+  position:sticky;top:52px;z-index:90;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--bd);
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:center;gap:clamp(12px,4vw,32px);
+  flex-wrap:wrap;
+}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px}
+.cd-n{
+  font-size:clamp(28px,6vw,52px);font-weight:700;letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums;color:#fff;
+  padding:6px 10px;min-width:clamp(56px,9vw,80px);text-align:center;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-top-color:rgba(255,255,255,.14);border-radius:10px;
+  transition:box-shadow .3s,border-color .3s;
+}
+.cd-n.lit{border-color:rgba(245,197,24,.4);box-shadow:0 0 20px rgba(245,197,24,.2)}
+.cd-l{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cd-sep{font-size:clamp(22px,5vw,40px);font-weight:300;color:rgba(255,255,255,.15);align-self:flex-start;padding-top:6px}
+.cd-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);animation:urgBlink 3.5s ease infinite}
+
+/* ── RACE CARD ── */
+.race-grid{display:flex;flex-direction:column;gap:10px}
+.rcard{
+  position:relative;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;overflow:hidden;
+  transition:background .3s,border-color .3s,transform .3s;
+  cursor:default;
+}
+.rcard:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);transform:scale(1.008)}
+.rcard.featured{
+  background:linear-gradient(135deg,rgba(245,197,24,.05),rgba(255,140,0,.04));
+  border-color:rgba(245,197,24,.25);
+}
+.rcard.featured:hover{border-color:rgba(245,197,24,.45)}
+/* side accent line */
+.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:rgba(255,255,255,.08);border-radius:20px 0 0 20px}
+.rcard.featured::before{background:linear-gradient(180deg,var(--gold),var(--gold2))}
+
+.rcard-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0}
+
+.rc-time{
+  padding:16px 18px;
+  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);white-space:nowrap;min-width:76px;text-align:center;
+  border-right:1px solid var(--bd);background:rgba(245,197,24,.03);
+}
+.rcard.featured .rc-time{color:var(--gold)}
+
+.rc-body{padding:14px 16px}
+.rc-horses{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:clamp(14px,2vw,18px);font-weight:700;letter-spacing:-.02em;margin-bottom:6px;
+}
+.rc-h1{color:#fff}
+.rc-vs{
+  font-size:10px;font-weight:800;letter-spacing:.08em;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:boltFlash 2s ease infinite;flex-shrink:0;
+}
+.rc-h2{color:rgba(255,255,255,.8)}
+.rc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rc-cuadra{font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.rc-dot{font-size:8px;color:rgba(255,255,255,.2)}
+
+.rc-right{padding:14px 18px;border-left:1px solid var(--bd);text-align:right;min-width:88px;white-space:nowrap}
+.rc-dist{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--dim)}
+.rc-badge{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);margin-top:3px}
+
+/* ── ELIMINATORIAS SPECIAL ── */
+.elim-header{
+  display:flex;align-items:center;gap:14px;justify-content:center;
+  margin-bottom:clamp(24px,4vh,40px);
+}
+.elim-crown{font-size:clamp(2rem,6vw,4rem);animation:crownPulse 3s ease infinite}
+@keyframes crownPulse{0%,100%{transform:none;filter:none}50%{transform:translateY(-4px);filter:drop-shadow(0 0 20px rgba(245,197,24,.8))}}
+.elim-title-wrap{text-align:center}
+.elim-title{
+  font-size:clamp(1.4rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1;
+  background:linear-gradient(135deg,var(--gold),var(--gold2),#fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.elim-sub{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* ── PROPUESTAS ── */
+.prop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.prop-card{
+  background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:16px;
+  padding:18px 20px;transition:all .35s;
+}
+.prop-card:hover{background:rgba(245,197,24,.05);border-color:rgba(245,197,24,.2);transform:translateY(-3px)}
+.prop-icon{font-size:22px;margin-bottom:10px;display:block}
+.prop-title{font-size:clamp(13px,1.8vw,16px);font-weight:700;letter-spacing:-.01em;color:#fff;margin-bottom:6px}
+.prop-detail{font-size:12px;color:var(--dim);line-height:1.5}
+.prop-price{
+  display:inline-block;margin-top:8px;
+  font-size:13px;font-weight:800;letter-spacing:-.01em;
+  color:var(--gold);
+}
+
+/* ── STATS STRIP ── */
+.stats-strip{
+  display:flex;justify-content:center;gap:0;flex-wrap:nowrap;overflow:hidden;
+  border:1px solid var(--bd);border-radius:18px;
+}
+.ss{flex:1;min-width:80px;padding:18px 12px;text-align:center;border-right:1px solid var(--bd);
+  transition:background .2s}
+.ss:last-child{border-right:none}.ss:hover{background:rgba(255,255,255,.03)}
+.ss-n{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;letter-spacing:-.04em;color:var(--gold)}
+.ss-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ── INFO GRID ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  border:1px solid var(--bd);border-radius:20px;overflow:hidden}
+.ic{padding:18px 20px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .2s}
+.ic:nth-child(2n){border-right:none}.ic:nth-last-child(-n+2){border-bottom:none}.ic:hover{background:rgba(255,255,255,.03)}
+.ic-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ic-v{font-size:clamp(13px,2vw,17px);font-weight:600;letter-spacing:-.01em;color:#fff}
+.ic-v.g{color:var(--gold)}
+
+/* ── RULES BANNER ── */
+.rules{
+  background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:16px;
+  padding:16px 20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;
+}
+.rule-tag{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);
+  display:flex;align-items:center;gap:5px}
+
+/* ── CTA FINAL ── */
+.final-cta{
+  text-align:center;padding:clamp(60px,10vh,100px) 24px clamp(80px,14vh,140px);
+  position:relative;z-index:10;
+}
+.fcta-h{
+  font-size:clamp(2.4rem,7vw,6.5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:20px;
+}
+.fcta-h .line1{
+  display:block;
+  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.65) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.fcta-h .line2{
+  display:block;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.fcta-p{font-size:15px;color:var(--dim);margin-bottom:36px}
+
+footer{
+  position:relative;z-index:10;
+  padding:20px 24px;border-top:1px solid var(--bd);text-align:center;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ── FLOATING SOCIAL PROOF ── */
+.sp-bar{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;
+  display:flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:100px;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(16px);
+  border:1px solid rgba(245,197,24,.2);
+  font-size:12px;font-weight:600;color:var(--gold);
+  white-space:nowrap;
+  animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both;
+}
+@keyframes spSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+@media(max-width:520px){
+  .rcard-inner{grid-template-columns:auto 1fr}
+  .rc-right{display:none}
+  .stats-strip{border-radius:14px}
+  .elim-crown{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="cv"></canvas>
+
+<nav>
+  <span class="nav-l">Carril 4 Vientos · Illinois</span>
+  <span class="nav-chip">⚡ Eliminatorias del Rey</span>
+  <span class="nav-r">14 Junio 2026</span>
+</nav>
+
+<!-- COUNTDOWN BAR (sticky) -->
+<div class="cd-section">
+  <span class="cd-label">🏁 Carrera en</span>
+  <div class="cd-unit"><div class="cd-n" id="cd-d">00</div><div class="cd-l">Días</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-n" id="cd-h">00</div><div class="cd-l">Hrs</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-n" id="cd-m">00</div><div class="cd-l">Min</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-n" id="cd-s">00</div><div class="cd-l">Seg</div></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Illinois · 14 de Junio 2026</p>
+    <div class="hero-badge">🏆 Eliminatorias del Rey del Cuatro Vientos</div>
+    <h1 class="hero-h1">CARRIL<br>4 VIENTOS</h1>
+    <h2 class="hero-h2">Carreras de Caballos</h2>
+    <p class="hero-p">El evento más esperado del año · Programa completo · Ambiente familiar</p>
+    <div class="hero-cta-wrap">
+      <a href="#programa" class="btn-primary">Ver Programa</a>
+      <a href="#eliminatorias" class="btn-outline">Eliminatorias</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<section style="padding-top:0;padding-bottom:0">
+  <div class="stats-strip rv">
+    <div class="ss"><div class="ss-n" id="sn1">0</div><div class="ss-l">Carreras</div></div>
+    <div class="ss"><div class="ss-n" id="sn2">0</div><div class="ss-l">Horas</div></div>
+    <div class="ss"><div class="ss-n" id="sn3">0</div><div class="ss-l">Caballos</div></div>
+    <div class="ss"><div class="ss-n" id="sn4">0</div><div class="ss-l">Siguiendo</div></div>
+  </div>
+</section>
+
+<!-- PROGRAMA DEL DÍA -->
+<section id="programa">
+  <p class="s-eye rv">Programa del Día</p>
+  <div class="race-grid">
+
+    <div class="rcard rv d1">
+      <div class="rcard-inner">
+        <div class="rc-time">1:00 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">El Pascual</span><span class="rc-vs">VS</span><span class="rc-h2">El Zorro</span></div>
+          <div class="rc-meta"><span class="rc-cuadra">C. Avila &amp; Rueda</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">200 YDS</div></div>
+      </div>
+    </div>
+
+    <div class="rcard rv d2">
+      <div class="rcard-inner">
+        <div class="rc-time">1:30 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">El Señor de los Gallos</span><span class="rc-vs">VS</span><span class="rc-h2">El Oso</span></div>
+          <div class="rc-meta"><span class="rc-cuadra">Cuadra vs Cuadra</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div></div>
+      </div>
+    </div>
+
+    <div class="rcard rv d3">
+      <div class="rcard-inner">
+        <div class="rc-time">2:00 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">El Chucuquito</span><span class="rc-vs">VS</span><span class="rc-h2">El Chucuquito</span></div>
+          <div class="rc-meta"><span class="rc-cuadra">C. Rondeno Rosas</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">250 YDS</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+
+<!-- ELIMINATORIAS -->
+<section id="eliminatorias">
+  <div class="elim-header rv">
+    <div class="elim-crown">👑</div>
+    <div class="elim-title-wrap">
+      <div class="elim-title">Eliminatorias del Rey</div>
+      <div class="elim-sub">300 Yardas · Carril 4 Vientos</div>
+    </div>
+    <div class="elim-crown">👑</div>
+  </div>
+
+  <div class="race-grid">
+
+    <div class="rcard featured rv d1">
+      <div class="rcard-inner">
+        <div class="rc-time">3:00 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">C. Soriano</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria A</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM A</div></div>
+      </div>
+    </div>
+
+    <div class="rcard featured rv d2">
+      <div class="rcard-inner">
+        <div class="rc-time">3:30 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">C. Los Locos</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria B</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM B</div></div>
+      </div>
+    </div>
+
+    <div class="rcard featured rv d3">
+      <div class="rcard-inner">
+        <div class="rc-time">4:00 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria C</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM C</div></div>
+      </div>
+    </div>
+
+    <div class="rcard featured rv d4">
+      <div class="rcard-inner">
+        <div class="rc-time">4:30 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria D</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM D</div></div>
+      </div>
+    </div>
+
+    <div class="rcard featured rv d5">
+      <div class="rcard-inner">
+        <div class="rc-time">5:15 PM</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">Eliminatoria</span><span class="rc-vs">⚡</span><span class="rc-h2">Eliminatoria</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria E</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM E</div></div>
+      </div>
+    </div>
+
+    <div class="rcard rv d6">
+      <div class="rcard-inner">
+        <div class="rc-time">TAPADOS</div>
+        <div class="rc-body">
+          <div class="rc-horses"><span class="rc-h1">C. Sabala</span><span class="rc-vs">VS</span><span class="rc-h2">C. El Potrero</span></div>
+          <div class="rc-meta"><span class="rc-cuadra">Carrera Tapada</span></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+
+<!-- PROPUESTAS -->
+<section>
+  <p class="s-eye rv">Propuestas del Día</p>
+  <div class="prop-grid">
+
+    <div class="prop-card rv d1">
+      <span class="prop-icon">🐴</span>
+      <div class="prop-title">Abierta de 3 Años</div>
+      <div class="prop-detail">270 yardas · Caballos de 3 años</div>
+      <div class="prop-price">$5 pesos hay uno</div>
+    </div>
+
+    <div class="prop-card rv d2">
+      <span class="prop-icon">🐎</span>
+      <div class="prop-title">Abierta de Maides</div>
+      <div class="prop-detail">Yeguas abiertas</div>
+      <div class="prop-price">A Convenir</div>
+    </div>
+
+    <div class="prop-card rv d3">
+      <span class="prop-icon">⚡</span>
+      <div class="prop-title">Abierta de 4 Años</div>
+      <div class="prop-detail">330 yardas · Caballos de 4 años</div>
+      <div class="prop-price">10y pesos hay uno</div>
+    </div>
+
+    <div class="prop-card rv d4">
+      <span class="prop-icon">🏆</span>
+      <div class="prop-title">Abierta de Maides 330y</div>
+      <div class="prop-detail">Yeguas · 330 yardas</div>
+      <div class="prop-price">$10 pesos hay uno</div>
+    </div>
+
+    <div class="prop-card rv d5">
+      <span class="prop-icon">🎯</span>
+      <div class="prop-title">Abierta de Maides 330y</div>
+      <div class="prop-detail">Segunda corrida · 330 yardas</div>
+      <div class="prop-price">$8 pesos hay uno</div>
+    </div>
+
+    <div class="prop-card rv d6">
+      <span class="prop-icon">🌟</span>
+      <div class="prop-title">Abierta de Maides</div>
+      <div class="prop-detail">Propuesta adicional</div>
+      <div class="prop-price">A Convenir</div>
+    </div>
+
+  </div>
+</section>
+
+<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+
+<!-- EVENT INFO -->
+<section>
+  <p class="s-eye rv">Detalles del Evento</p>
+  <div class="info-grid rv">
+    <div class="ic"><div class="ic-k">Venue</div><div class="ic-v">Carril 4 Vientos</div></div>
+    <div class="ic"><div class="ic-k">Estado</div><div class="ic-v">Illinois, USA</div></div>
+    <div class="ic"><div class="ic-k">Fecha</div><div class="ic-v">Dom. 14 Jun 2026</div></div>
+    <div class="ic"><div class="ic-k">Inicio</div><div class="ic-v g">1:00 PM</div></div>
+    <div class="ic"><div class="ic-k">Tipo</div><div class="ic-v g">Eliminatorias del Rey</div></div>
+    <div class="ic"><div class="ic-k">Comida</div><div class="ic-v">Abra Comida Mexicana</div></div>
+  </div>
+
+  <!-- Rules -->
+  <div class="rules rv" style="margin-top:16px">
+    <span class="rule-tag">👨‍👩‍👧 Evento Familiar</span>
+    <span class="rule-tag">🚫 Sin Bebidas Alcohólicas</span>
+    <span class="rule-tag">🚫 Sin Pirotecnia</span>
+    <span class="rule-tag">✅ Respetan Horarios</span>
+    <span class="rule-tag">🌮 Comida &amp; Bebida Mexicana</span>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2 class="fcta-h rv">
+    <span class="line1">Ven a disfrutar</span>
+    <span class="line2">con la familia</span>
+  </h2>
+  <p class="fcta-p rv d1">14 de Junio · Carril 4 Vientos · Illinois · 1:00 PM</p>
+  <div class="rv d2" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a class="btn-primary" href="#programa">Ver Programa</a>
+    <a class="btn-outline" href="#eliminatorias">Eliminatorias</a>
+  </div>
+</div>
+
+<footer>Carril 4 Vientos · Illinois · 14 Junio 2026 · Evento 100% Familiar · Sin Alcohol</footer>
+
+<!-- FLOATING SOCIAL PROOF -->
+<div class="sp-bar">
+  🔥 <span id="sp-count">1,847</span> personas ya están hablando de este evento
+</div>
+
+<script>
+/* ── COUNTDOWN ── */
+var EVENT=new Date('2026-06-14T13:00:00');
+(function tick(){
+  var ms=EVENT-Date.now();
+  var v={d:ms>0?Math.floor(ms/86400000):0,h:ms>0?Math.floor(ms%86400000/3600000):0,
+         m:ms>0?Math.floor(ms%3600000/60000):0,s:ms>0?Math.floor(ms%60000/1000):0};
+  ['d','h','m','s'].forEach(function(k){
+    var el=document.getElementById('cd-'+k),val=String(v[k]).padStart(2,'0');
+    if(el&&el.textContent!==val){
+      el.textContent=val;
+      if(k==='s'){el.classList.remove('lit');void el.offsetWidth;el.classList.add('lit');
+        setTimeout(function(){el.classList.remove('lit')},300);}
+    }
+  });
+  setTimeout(tick,1000);
+})();
+
+/* ── SCROLL REVEAL ── */
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');}});
+},{threshold:.12});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-up').forEach(function(el){io.observe(el);});
+
+/* ── ANIMATED COUNTERS ── */
+function ac(id,target,suffix,dur){
+  var el=document.getElementById(id);if(!el)return;var st=null;
+  (function f(ts){
+    if(!st)st=ts;var p=Math.min((ts-st)/dur,1);var e=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(e*target)+(suffix||'');
+    if(p<1)requestAnimationFrame(f);else el.textContent=target+(suffix||'');
+  })(performance.now());
+}
+setTimeout(function(){
+  ac('sn1',9,'',900);ac('sn2',5,'h',800);ac('sn3',18,'',700);ac('sn4',1847,'',1200);
+},600);
+
+/* ── SOCIAL PROOF ── */
+var spCount=1847;
+setInterval(function(){
+  spCount+=Math.floor(Math.random()*4);
+  var el=document.getElementById('sp-count');
+  if(el)el.textContent=spCount.toLocaleString('en-US');
+},4000);
+
+/* ── CANVAS PARTICLES ── */
+(function(){
+  var cv=document.getElementById('cv'),c=cv.getContext('2d'),pts=[];
+  function rsz(){cv.width=innerWidth;cv.height=innerHeight}rsz();
+  addEventListener('resize',rsz);
+  function P(){
+    this.x=Math.random()*innerWidth;
+    this.y=Math.random()*innerHeight;
+    this.vx=(Math.random()-.5)*.4;
+    this.vy=-Math.random()*.6-.1;
+    this.a=Math.random()*.5+.1;
+    this.r=Math.random()*1.5+.3;
+    var cols=[[245,197,24],[255,255,255],[255,160,40]];
+    this.col=cols[Math.floor(Math.random()*cols.length)];
+    this.life=Math.random()*200+100;
+    this.age=0;
+  }
+  for(var i=0;i<80;i++){var p=new P();p.age=Math.floor(Math.random()*p.life);pts.push(p);}
+  (function loop(){
+    requestAnimationFrame(loop);
+    c.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.age++;
+      if(p.age>p.life){var np=new P();Object.assign(p,np);p.age=0;}
+      var fade=Math.sin(p.age/p.life*Math.PI);
+      c.save();c.globalAlpha=p.a*fade*.4;
+      c.shadowBlur=6;c.shadowColor='rgba('+p.col+',.5)';
+      c.fillStyle='rgba('+p.col+',1)';
+      c.beginPath();c.arc(p.x,p.y,p.r,0,Math.PI*2);c.fill();
+      c.restore();
+    });
+  })();
+})();
+
+/* ── PARALLAX HERO ── */
+window.addEventListener('scroll',function(){
+  var y=window.scrollY;
+  var h=document.querySelector('.hero-inner');
+  if(h)h.style.transform='translateY('+y*.28+'px)';
+},{passive:true});
+</script>
+</body>
+</html>
