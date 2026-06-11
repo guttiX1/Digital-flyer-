@@ -245,6 +245,12 @@ section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp
 .rc-dist{font-size:13px;font-weight:700;color:var(--ink2)}
 .rc-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 
+/* ── RACE MINI HORSE PAIR ── */
+.rc-horse-imgs{display:flex;align-items:center;gap:5px;margin-bottom:8px}
+.rc-hi{width:40px;height:52px;border-radius:9px;overflow:hidden;background:#fff;border:1px solid var(--bd);flex-shrink:0;box-shadow:var(--sh-s)}
+.rc-hi img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+.rc-hi-vs{font-size:8px;font-weight:900;color:var(--gold);letter-spacing:.04em;padding:0 3px}
+
 /* ── ELIMINATORIAS HEADER ── */
 .elim-header{
   display:flex;align-items:center;gap:16px;justify-content:center;
@@ -530,19 +536,6 @@ footer{
   </div>
 </section>
 
-<!-- HORSE ROSTER STRIP -->
-<section style="padding-top:clamp(32px,5vh,48px);padding-bottom:0">
-  <div class="photo-strip rv">
-    <img src="horses-grid.jpg" alt="Roster de Caballos" loading="lazy">
-    <div class="photo-strip-ov">
-      <span class="ps-tag">Roster Oficial · 20 Caballos</span>
-      <span class="ps-tag">Carril 4 Vientos</span>
-    </div>
-  </div>
-</section>
-
-<div class="s-rule" style="margin-top:clamp(32px,5vh,56px)"></div>
-
 <!-- PROGRAMA DEL DÍA -->
 <section id="programa">
   <p class="s-eye rv">Programa del Día</p>
@@ -553,6 +546,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">1:00 PM</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">El Pascual</span><span class="rc-vs">VS</span><span class="rc-h2">El Zorro</span></div>
           <div class="rc-meta"><span class="rc-cuadra">C. Avila &amp; Rueda</span></div>
         </div>
@@ -564,6 +562,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">1:30 PM</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">El Señor de los Gallos</span><span class="rc-vs">VS</span><span class="rc-h2">El Oso</span></div>
           <div class="rc-meta"><span class="rc-cuadra">Cuadra vs Cuadra</span></div>
         </div>
@@ -575,6 +578,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">2:00 PM</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">El Chucuquito</span><span class="rc-vs">VS</span><span class="rc-h2">El Retador</span></div>
           <div class="rc-meta"><span class="rc-cuadra">C. Rondeno Rosas</span></div>
         </div>
@@ -633,6 +641,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:00 PM</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="el-chigon.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">C. Soriano</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
           <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria A</span></div>
         </div>
@@ -644,6 +657,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:30 PM</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">C. Los Locos</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
           <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria B</span></div>
         </div>
@@ -655,7 +673,12 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div>
+          </div>
+          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. La Tepada</span></div>
           <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria C</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM C</div></div>
@@ -666,7 +689,12 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+          </div>
+          <div class="rc-horses"><span class="rc-h1">C. Esperanza</span><span class="rc-vs">VS</span><span class="rc-h2">C. Gutiérrez</span></div>
           <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria D</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM D</div></div>
@@ -677,7 +705,12 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">5:15 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">Por Definir</span><span class="rc-vs">VS</span><span class="rc-h2">Por Definir</span></div>
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="aries.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div>
+          </div>
+          <div class="rc-horses"><span class="rc-h1">ARIES</span><span class="rc-vs">VS</span><span class="rc-h2">PISCES</span></div>
           <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria E · Final</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM E</div></div>
@@ -688,6 +721,11 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">TAPADOS</div>
         <div class="rc-body">
+          <div class="rc-horse-imgs">
+            <div class="rc-hi"><img src="la-mami.jpg" alt="" loading="lazy"></div>
+            <div class="rc-hi-vs">VS</div>
+            <div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div>
+          </div>
           <div class="rc-horses"><span class="rc-h1">C. Sabala</span><span class="rc-vs">VS</span><span class="rc-h2">C. El Potrero</span></div>
           <div class="rc-meta"><span class="rc-cuadra">Carrera Tapada</span></div>
         </div>
