@@ -7,95 +7,85 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#000;--gold:#F5C518;--gold2:#FF8C00;
-  --dim:rgba(255,255,255,.5);--muted:rgba(255,255,255,.22);
-  --bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.14);
+  --bg:#F5F5F7;
+  --card:#FFFFFF;
+  --gold:#B8890A;
+  --gold-vv:#F5C518;
+  --gold-bg:rgba(184,137,10,.07);
+  --gold-bd:rgba(184,137,10,.18);
+  --ink:#1D1D1F;
+  --ink2:#3A3A3C;
+  --muted:#6E6E73;
+  --bd:rgba(0,0,0,.07);
+  --bd2:rgba(0,0,0,.12);
   --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  --sh-s:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-m:0 4px 20px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.05);
+  --sh-l:0 24px 64px rgba(0,0,0,.11),0 4px 16px rgba(0,0,0,.06);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:#fff;font-family:var(--font);
+body{background:var(--bg);color:var(--ink);font-family:var(--font);
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-/* ── NOISE GRAIN OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:.35;mix-blend-mode:overlay;
-}
-
-/* ── PARTICLES ── */
-#cv{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  height:52px;padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
+  padding:0 24px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(245,245,247,.88);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--bd);
 }
-.nav-l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.nav-l{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .nav-chip{
-  padding:5px 16px;border-radius:100px;
-  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:linear-gradient(135deg,rgba(245,197,24,.2),rgba(255,140,0,.15));
-  border:1px solid rgba(245,197,24,.3);color:var(--gold);
-  animation:chipGlow 3s ease infinite;
+  padding:5px 14px;border-radius:100px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold);
 }
-@keyframes chipGlow{0%,100%{box-shadow:none}50%{box-shadow:0 0 20px rgba(245,197,24,.25)}}
-.nav-r{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
+.nav-r{font-size:11px;font-weight:600;color:var(--muted)}
 
 /* ── HERO ── */
 .hero{
-  position:relative;z-index:10;
-  min-height:100svh;
+  position:relative;min-height:100svh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:80px 24px 60px;
-  text-align:center;
-  overflow:hidden;
+  padding:80px 24px 60px;text-align:center;overflow:hidden;
 }
-/* radial ambient */
-.hero::before{
-  content:'';position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(245,197,24,.08) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,140,0,.05) 0%, transparent 60%);
+.hero-photo{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1400&q=85&auto=format&fit=crop') center 40%/cover no-repeat;
+}
+.hero-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(10,10,10,.52) 0%,rgba(10,10,10,.38) 50%,rgba(10,10,10,.72) 100%);
 }
 .hero-inner{position:relative;z-index:2}
-
 .hero-eyebrow{
   font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:20px;
+  color:rgba(255,255,255,.55);margin-bottom:20px;
   opacity:0;animation:fadeUp .8s ease .2s forwards;
 }
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
+  display:inline-flex;align-items:center;gap:7px;
   padding:7px 18px;border-radius:100px;
-  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);color:var(--gold);
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(245,197,24,.14);border:1px solid rgba(245,197,24,.3);color:#F5C518;
   margin-bottom:28px;
   opacity:0;animation:fadeUp .8s ease .35s forwards;
 }
 .hero-h1{
-  font-size:clamp(3rem,11vw,9rem);
-  font-weight:800;letter-spacing:-.05em;line-height:.9;
-  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.7) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:clamp(3.4rem,12vw,10rem);
+  font-weight:800;letter-spacing:-.05em;line-height:.87;color:#fff;
   opacity:0;animation:heroReveal 1s cubic-bezier(.22,1,.36,1) .15s forwards;
   margin-bottom:16px;
 }
 .hero-h2{
-  font-size:clamp(1.2rem,4vw,3.2rem);
-  font-weight:700;letter-spacing:-.02em;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:clamp(1.1rem,3.5vw,2.6rem);font-weight:500;letter-spacing:.01em;
+  color:rgba(255,255,255,.72);
   opacity:0;animation:fadeUp .9s ease .5s forwards;
   margin-bottom:24px;
 }
 .hero-p{
-  font-size:clamp(14px,2vw,18px);font-weight:400;color:var(--dim);letter-spacing:.01em;
+  font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.5);
   opacity:0;animation:fadeUp .8s ease .65s forwards;
   margin-bottom:40px;
 }
@@ -103,231 +93,259 @@ nav{
   display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
   opacity:0;animation:fadeUp .8s ease .8s forwards;
 }
-.btn-primary{
-  padding:16px 40px;background:#fff;color:#000;border-radius:100px;
+.btn-w{
+  padding:15px 36px;background:#fff;color:#000;border-radius:100px;
   font-size:15px;font-weight:700;letter-spacing:-.01em;
   border:none;cursor:pointer;text-decoration:none;font-family:var(--font);
   transition:transform .2s,box-shadow .2s;
-  animation:ctaAura 3s ease infinite;
 }
-.btn-primary:hover{transform:scale(1.04)}
-.btn-outline{
-  padding:16px 32px;background:transparent;color:#fff;border-radius:100px;
-  font-size:15px;font-weight:600;letter-spacing:-.01em;
-  border:1px solid var(--bd2);cursor:pointer;text-decoration:none;font-family:var(--font);
-  transition:all .2s;
+.btn-w:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.btn-g{
+  padding:15px 32px;background:linear-gradient(135deg,#F5C518,#D4A017);color:#000;
+  border-radius:100px;font-size:15px;font-weight:700;
+  border:none;cursor:pointer;text-decoration:none;font-family:var(--font);
+  transition:transform .2s,box-shadow .2s;
 }
-.btn-outline:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25)}
+.btn-g:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(184,137,10,.35)}
 
-/* scroll indicator */
 .scroll-hint{
   position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
-  font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
   animation:fadeUp .8s ease 1.2s both;
 }
-.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,transparent,var(--gold));animation:scrollPulse 2s ease infinite}
-@keyframes scrollPulse{0%,100%{opacity:.2}50%{opacity:1}}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(245,197,24,.7));animation:sP 2s ease infinite}
 
 /* ── KEYFRAMES ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(25deg) translateY(40px) scale(.97)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
-@keyframes ctaAura{0%,100%{box-shadow:none}50%{box-shadow:0 0 40px rgba(255,255,255,.12)}}
-@keyframes boltFlash{0%,100%{opacity:.2}40%{opacity:1;filter:drop-shadow(0 0 10px var(--gold))}55%{opacity:.3}}
-@keyframes vsPulse{0%,100%{filter:none}50%{filter:drop-shadow(0 0 24px rgba(245,197,24,.9))}}
-@keyframes urgBlink{0%,100%{opacity:.4}50%{opacity:1}}
-@keyframes fillBar{from{width:0}to{width:var(--w)}}
+@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(20deg) translateY(40px) scale(.97)}to{opacity:1;transform:perspective(1200px) rotateX(0deg) translateY(0) scale(1)}}
+@keyframes sP{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes cB{0%,100%{transform:none}50%{transform:translateY(-5px)}}
+@keyframes urgBlink{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes spSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ── SCROLL REVEAL ── */
 .rv{
-  opacity:0;
-  transform:perspective(900px) rotateX(22deg) translateY(44px) scale(.97);
-  transition:opacity .75s cubic-bezier(.22,1,.36,1),
-             transform .75s cubic-bezier(.22,1,.36,1);
+  opacity:0;transform:perspective(900px) rotateX(16deg) translateY(36px) scale(.98);
+  transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1);
 }
 .rv.in{opacity:1;transform:perspective(900px) rotateX(0) translateY(0) scale(1)}
-.rv-l{opacity:0;transform:perspective(900px) rotateY(-22deg) translateX(-40px);
-  transition:opacity .75s var(--e,cubic-bezier(.22,1,.36,1)),transform .75s var(--e,cubic-bezier(.22,1,.36,1))}
-.rv-l.in{opacity:1;transform:perspective(900px) rotateY(0) translateX(0)}
-.rv-r{opacity:0;transform:perspective(900px) rotateY(22deg) translateX(40px);
-  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
-.rv-r.in{opacity:1;transform:perspective(900px) rotateY(0) translateX(0)}
-.rv-up{opacity:0;transform:translateY(36px);
-  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv-l{opacity:0;transform:translateX(-28px);transition:opacity .68s cubic-bezier(.22,1,.36,1),transform .68s cubic-bezier(.22,1,.36,1)}
+.rv-l.in{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(28px);transition:opacity .68s cubic-bezier(.22,1,.36,1),transform .68s cubic-bezier(.22,1,.36,1)}
+.rv-r.in{opacity:1;transform:translateX(0)}
+.rv-up{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
 .rv-up.in{opacity:1;transform:translateY(0)}
 
-/* delay helpers */
-.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.19s}
-.d4{transition-delay:.26s}.d5{transition-delay:.33s}.d6{transition-delay:.4s}
-.d7{transition-delay:.47s}.d8{transition-delay:.54s}.d9{transition-delay:.61s}
-.d10{transition-delay:.68s}.d11{transition-delay:.75s}.d12{transition-delay:.82s}
-.d13{transition-delay:.89s}
-
-/* ── SECTION WRAPPER ── */
-section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp(48px,8vh,88px) 24px}
-.rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
-
-/* ── SECTION LABEL ── */
-.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:20px;text-align:center}
+.d1{transition-delay:.06s}.d2{transition-delay:.11s}.d3{transition-delay:.17s}
+.d4{transition-delay:.23s}.d5{transition-delay:.29s}.d6{transition-delay:.35s}
+.d7{transition-delay:.41s}.d8{transition-delay:.47s}.d9{transition-delay:.53s}
+.d10{transition-delay:.59s}.d11{transition-delay:.65s}.d12{transition-delay:.71s}
+.d13{transition-delay:.77s}
 
 /* ── COUNTDOWN ── */
 .cd-section{
   position:sticky;top:52px;z-index:90;
-  background:rgba(0,0,0,.75);
+  background:rgba(245,245,247,.92);
   backdrop-filter:blur(20px) saturate(180%);
   -webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--bd);
-  padding:14px 24px;
-  display:flex;align-items:center;justify-content:center;gap:clamp(12px,4vw,32px);
-  flex-wrap:wrap;
+  padding:11px 24px;
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(10px,3vw,28px);flex-wrap:wrap;
 }
-.cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px}
+.cd-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);animation:urgBlink 3s ease infinite;display:flex;align-items:center;gap:6px}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:3px}
 .cd-n{
-  font-size:clamp(28px,6vw,52px);font-weight:700;letter-spacing:-.05em;
-  font-variant-numeric:tabular-nums;color:#fff;
-  padding:6px 10px;min-width:clamp(56px,9vw,80px);text-align:center;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-top-color:rgba(255,255,255,.14);border-radius:10px;
-  transition:box-shadow .3s,border-color .3s;
+  font-size:clamp(22px,5vw,42px);font-weight:700;letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums;color:var(--ink);
+  padding:4px 8px;min-width:clamp(46px,8vw,68px);text-align:center;
+  background:var(--card);border:1px solid var(--bd);border-radius:10px;
+  box-shadow:var(--sh-s);transition:box-shadow .3s,border-color .3s;
 }
-.cd-n.lit{border-color:rgba(245,197,24,.4);box-shadow:0 0 20px rgba(245,197,24,.2)}
+.cd-n.lit{border-color:var(--gold-bd);box-shadow:0 0 14px rgba(184,137,10,.14)}
 .cd-l{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.cd-sep{font-size:clamp(22px,5vw,40px);font-weight:300;color:rgba(255,255,255,.15);align-self:flex-start;padding-top:6px}
-.cd-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--gold);animation:urgBlink 3.5s ease infinite}
+.cd-sep{font-size:clamp(18px,4vw,34px);font-weight:300;color:var(--bd2);align-self:flex-start;padding-top:4px}
 
-/* ── RACE CARD ── */
-.race-grid{display:flex;flex-direction:column;gap:10px}
+/* ── SECTIONS ── */
+section{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:clamp(48px,8vh,80px) 24px}
+.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;text-align:center}
+.s-title{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;letter-spacing:-.03em;
+  color:var(--ink);text-align:center;margin-bottom:32px;line-height:1.1}
+.s-rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2) 30%,var(--bd2) 70%,transparent);
+  max-width:960px;margin:0 auto}
+
+/* ── STATS STRIP ── */
+.stats-strip{
+  display:flex;justify-content:center;gap:0;flex-wrap:nowrap;
+  background:var(--card);border:1px solid var(--bd);border-radius:20px;
+  box-shadow:var(--sh-m);overflow:hidden;
+}
+.ss{flex:1;min-width:80px;padding:20px 14px;text-align:center;border-right:1px solid var(--bd);transition:background .2s}
+.ss:last-child{border-right:none}
+.ss:hover{background:var(--gold-bg)}
+.ss-n{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;letter-spacing:-.04em;color:var(--gold)}
+.ss-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ── HERO PHOTO STRIP ── */
+.photo-strip{
+  position:relative;width:100%;max-width:960px;margin:0 auto;
+  border-radius:28px;overflow:hidden;aspect-ratio:21/9;
+  box-shadow:var(--sh-l);
+}
+.photo-strip img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-strip-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);
+  display:flex;align-items:flex-end;padding:22px 26px;gap:10px;
+}
+.ps-tag{
+  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);
+  padding:6px 14px;border-radius:100px;
+  background:rgba(0,0,0,.38);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);
+}
+
+/* ── RACE CARDS ── */
+.race-grid{display:flex;flex-direction:column;gap:8px}
 .rcard{
   position:relative;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;overflow:hidden;
-  transition:background .3s,border-color .3s,transform .3s;
-  cursor:default;
+  background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden;
+  box-shadow:var(--sh-s);transition:box-shadow .25s,border-color .25s,transform .25s;
 }
-.rcard:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);transform:scale(1.008)}
+.rcard:hover{box-shadow:var(--sh-m);border-color:var(--bd2);transform:scale(1.005)}
 .rcard.featured{
-  background:linear-gradient(135deg,rgba(245,197,24,.05),rgba(255,140,0,.04));
-  border-color:rgba(245,197,24,.25);
+  border-color:var(--gold-bd);
+  background:linear-gradient(135deg,rgba(184,137,10,.03) 0%,var(--card) 100%);
 }
-.rcard.featured:hover{border-color:rgba(245,197,24,.45)}
-/* side accent line */
-.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:rgba(255,255,255,.08);border-radius:20px 0 0 20px}
-.rcard.featured::before{background:linear-gradient(180deg,var(--gold),var(--gold2))}
-
-.rcard-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0}
-
+.rcard.featured:hover{border-color:rgba(184,137,10,.28);box-shadow:0 6px 28px rgba(184,137,10,.09)}
+.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bd);border-radius:18px 0 0 18px}
+.rcard.featured::before{background:linear-gradient(180deg,var(--gold-vv),var(--gold))}
+.rcard-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center}
 .rc-time{
-  padding:16px 18px;
-  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);white-space:nowrap;min-width:76px;text-align:center;
-  border-right:1px solid var(--bd);background:rgba(245,197,24,.03);
+  padding:16px 18px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);white-space:nowrap;min-width:78px;text-align:center;
+  border-right:1px solid var(--bd);
 }
-.rcard.featured .rc-time{color:var(--gold)}
-
-.rc-body{padding:14px 16px}
+.rc-body{padding:13px 16px}
 .rc-horses{
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  font-size:clamp(14px,2vw,18px);font-weight:700;letter-spacing:-.02em;margin-bottom:6px;
+  font-size:clamp(13px,2vw,17px);font-weight:700;letter-spacing:-.02em;margin-bottom:4px;
 }
-.rc-h1{color:#fff}
-.rc-vs{
-  font-size:10px;font-weight:800;letter-spacing:.08em;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:boltFlash 2s ease infinite;flex-shrink:0;
-}
-.rc-h2{color:rgba(255,255,255,.8)}
-.rc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.rc-cuadra{font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)}
-.rc-dot{font-size:8px;color:rgba(255,255,255,.2)}
+.rc-h1{color:var(--ink)}
+.rc-vs{font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--gold);flex-shrink:0}
+.rc-h2{color:var(--ink2)}
+.rc-meta{display:flex;gap:8px;flex-wrap:wrap}
+.rc-cuadra{font-size:10px;font-weight:600;color:var(--muted)}
+.rc-right{padding:13px 18px;border-left:1px solid var(--bd);text-align:right;min-width:80px;white-space:nowrap}
+.rc-dist{font-size:13px;font-weight:700;color:var(--ink2)}
+.rc-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 
-.rc-right{padding:14px 18px;border-left:1px solid var(--bd);text-align:right;min-width:88px;white-space:nowrap}
-.rc-dist{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--dim)}
-.rc-badge{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--gold);margin-top:3px}
-
-/* ── ELIMINATORIAS SPECIAL ── */
+/* ── ELIMINATORIAS HEADER ── */
 .elim-header{
-  display:flex;align-items:center;gap:14px;justify-content:center;
-  margin-bottom:clamp(24px,4vh,40px);
+  display:flex;align-items:center;gap:16px;justify-content:center;
+  margin-bottom:clamp(24px,4vh,36px);
 }
-.elim-crown{font-size:clamp(2rem,6vw,4rem);animation:crownPulse 3s ease infinite}
-@keyframes crownPulse{0%,100%{transform:none;filter:none}50%{transform:translateY(-4px);filter:drop-shadow(0 0 20px rgba(245,197,24,.8))}}
+.elim-icon{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(184,137,10,.1),rgba(245,197,24,.06));
+  border:1.5px solid var(--gold-bd);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;animation:cB 3.5s ease infinite;
+  color:var(--gold);
+}
 .elim-title-wrap{text-align:center}
-.elim-title{
-  font-size:clamp(1.4rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1;
-  background:linear-gradient(135deg,var(--gold),var(--gold2),#fff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.elim-title{font-size:clamp(1.6rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.elim-title .acc{color:var(--gold)}
+.elim-sub{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+
+/* ── HORSE PHOTO PAIR ── */
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:clamp(24px,4vh,36px)}
+.pp{
+  position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3;
+  box-shadow:var(--sh-m);cursor:default;
 }
-.elim-sub{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.pp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.pp:hover img{transform:scale(1.05)}
+.pp-cap{
+  position:absolute;bottom:0;left:0;right:0;padding:18px 16px;
+  background:linear-gradient(to top,rgba(0,0,0,.65),transparent);
+  font-size:12px;font-weight:700;letter-spacing:.06em;color:#fff;text-align:center;
+}
 
 /* ── PROPUESTAS ── */
 .prop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .prop-card{
-  background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:16px;
-  padding:18px 20px;transition:all .35s;
+  background:var(--card);border:1px solid var(--bd);border-radius:18px;
+  padding:20px 20px 18px;box-shadow:var(--sh-s);
+  transition:box-shadow .28s,border-color .28s,transform .28s;
 }
-.prop-card:hover{background:rgba(245,197,24,.05);border-color:rgba(245,197,24,.2);transform:translateY(-3px)}
-.prop-icon{font-size:22px;margin-bottom:10px;display:block}
-.prop-title{font-size:clamp(13px,1.8vw,16px);font-weight:700;letter-spacing:-.01em;color:#fff;margin-bottom:6px}
-.prop-detail{font-size:12px;color:var(--dim);line-height:1.5}
-.prop-price{
-  display:inline-block;margin-top:8px;
-  font-size:13px;font-weight:800;letter-spacing:-.01em;
+.prop-card:hover{box-shadow:var(--sh-m);border-color:var(--gold-bd);transform:translateY(-3px)}
+.prop-icon{
+  width:42px;height:42px;border-radius:13px;
+  background:var(--gold-bg);border:1px solid var(--gold-bd);
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px;
   color:var(--gold);
 }
-
-/* ── STATS STRIP ── */
-.stats-strip{
-  display:flex;justify-content:center;gap:0;flex-wrap:nowrap;overflow:hidden;
-  border:1px solid var(--bd);border-radius:18px;
-}
-.ss{flex:1;min-width:80px;padding:18px 12px;text-align:center;border-right:1px solid var(--bd);
-  transition:background .2s}
-.ss:last-child{border-right:none}.ss:hover{background:rgba(255,255,255,.03)}
-.ss-n{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:700;letter-spacing:-.04em;color:var(--gold)}
-.ss-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.prop-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.prop-detail{font-size:12px;color:var(--muted);line-height:1.5}
+.prop-price{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:var(--gold)}
 
 /* ── INFO GRID ── */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
-  border:1px solid var(--bd);border-radius:20px;overflow:hidden}
+.info-grid{
+  background:var(--card);border:1px solid var(--bd);border-radius:22px;
+  box-shadow:var(--sh-m);overflow:hidden;
+  display:grid;grid-template-columns:repeat(3,1fr);
+}
 .ic{padding:18px 20px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .2s}
-.ic:nth-child(2n){border-right:none}.ic:nth-last-child(-n+2){border-bottom:none}.ic:hover{background:rgba(255,255,255,.03)}
+.ic:nth-child(3n){border-right:none}
+.ic:nth-last-child(-n+3){border-bottom:none}
+.ic:hover{background:var(--gold-bg)}
 .ic-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.ic-v{font-size:clamp(13px,2vw,17px);font-weight:600;letter-spacing:-.01em;color:#fff}
+.ic-v{font-size:14px;font-weight:600;color:var(--ink)}
 .ic-v.g{color:var(--gold)}
 
-/* ── RULES BANNER ── */
+/* ── RULES ── */
 .rules{
-  background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:16px;
-  padding:16px 20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;
+  background:var(--card);border:1px solid var(--bd);border-radius:16px;
+  padding:16px 24px;display:flex;gap:20px;flex-wrap:wrap;
+  justify-content:center;align-items:center;box-shadow:var(--sh-s);margin-top:12px;
 }
-.rule-tag{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);
-  display:flex;align-items:center;gap:5px}
+.rule-tag{font-size:12px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:7px}
+.rule-tag svg{color:var(--gold);flex-shrink:0}
 
-/* ── CTA FINAL ── */
+/* ── FINAL CTA ── */
 .final-cta{
-  text-align:center;padding:clamp(60px,10vh,100px) 24px clamp(80px,14vh,140px);
-  position:relative;z-index:10;
+  position:relative;z-index:10;border-radius:32px;overflow:hidden;
+  max-width:912px;margin:0 auto clamp(60px,10vh,120px);
+  box-shadow:var(--sh-l);
 }
+.final-cta-photo{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=1200&q=80&auto=format&fit=crop') center/cover no-repeat;
+}
+.final-cta-photo::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.62)}
+.final-cta-inner{position:relative;z-index:1;padding:clamp(52px,9vh,88px) 32px;text-align:center}
 .fcta-h{
-  font-size:clamp(2.4rem,7vw,6.5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:20px;
+  font-size:clamp(2.6rem,7vw,6.5rem);font-weight:800;letter-spacing:-.04em;line-height:.92;
+  color:#fff;margin-bottom:16px;
 }
-.fcta-h .line1{
-  display:block;
-  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.65) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.fcta-h .acc{color:#F5C518}
+.fcta-p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:36px}
+
+/* ── FLOATING BAR ── */
+.sp-bar{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;
+  display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;
+  background:rgba(13,13,13,.9);backdrop-filter:blur(16px);
+  border:1px solid rgba(184,137,10,.22);
+  font-size:12px;font-weight:600;color:#F5C518;white-space:nowrap;
+  animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both;
 }
-.fcta-h .line2{
-  display:block;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.fcta-p{font-size:15px;color:var(--dim);margin-bottom:36px}
 
 footer{
   position:relative;z-index:10;
@@ -335,41 +353,34 @@ footer{
   font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
 }
 
-/* ── FLOATING SOCIAL PROOF ── */
-.sp-bar{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;
-  display:flex;align-items:center;gap:8px;
-  padding:10px 20px;border-radius:100px;
-  background:rgba(0,0,0,.85);backdrop-filter:blur(16px);
-  border:1px solid rgba(245,197,24,.2);
-  font-size:12px;font-weight:600;color:var(--gold);
-  white-space:nowrap;
-  animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both;
-}
-@keyframes spSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-
-@media(max-width:520px){
+@media(max-width:600px){
   .rcard-inner{grid-template-columns:auto 1fr}
   .rc-right{display:none}
-  .stats-strip{border-radius:14px}
-  .elim-crown{font-size:1.8rem}
+  .photo-pair{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid .ic:nth-child(3n){border-right:1px solid var(--bd)}
+  .info-grid .ic:nth-child(2n){border-right:none}
+  .info-grid .ic:nth-last-child(-n+2){border-bottom:none}
+  .info-grid .ic:nth-last-child(-n+3){border-bottom:1px solid var(--bd)}
+  .final-cta{border-radius:24px;margin-bottom:60px}
 }
 </style>
 </head>
 <body>
 
-<canvas id="cv"></canvas>
-
 <nav>
   <span class="nav-l">Carril 4 Vientos · Illinois</span>
-  <span class="nav-chip">⚡ Eliminatorias del Rey</span>
-  <span class="nav-r">14 Junio 2026</span>
+  <span class="nav-chip">Eliminatorias del Rey</span>
+  <span class="nav-r">14 Jun 2026</span>
 </nav>
 
-<!-- COUNTDOWN BAR (sticky) -->
+<!-- COUNTDOWN -->
 <div class="cd-section">
-  <span class="cd-label">🏁 Carrera en</span>
-  <div class="cd-unit"><div class="cd-n" id="cd-d">00</div><div class="cd-l">Días</div></div>
+  <span class="cd-label">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Faltan
+  </span>
+  <div class="cd-unit"><div class="cd-n" id="cd-d">03</div><div class="cd-l">Días</div></div>
   <div class="cd-sep">:</div>
   <div class="cd-unit"><div class="cd-n" id="cd-h">00</div><div class="cd-l">Hrs</div></div>
   <div class="cd-sep">:</div>
@@ -380,15 +391,19 @@ footer{
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-photo"></div>
   <div class="hero-inner">
     <p class="hero-eyebrow">Illinois · 14 de Junio 2026</p>
-    <div class="hero-badge">🏆 Eliminatorias del Rey del Cuatro Vientos</div>
+    <div class="hero-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
+      Eliminatorias del Rey del Cuatro Vientos
+    </div>
     <h1 class="hero-h1">CARRIL<br>4 VIENTOS</h1>
     <h2 class="hero-h2">Carreras de Caballos</h2>
     <p class="hero-p">El evento más esperado del año · Programa completo · Ambiente familiar</p>
     <div class="hero-cta-wrap">
-      <a href="#programa" class="btn-primary">Ver Programa</a>
-      <a href="#eliminatorias" class="btn-outline">Eliminatorias</a>
+      <a href="#programa" class="btn-w">Ver Programa</a>
+      <a href="#eliminatorias" class="btn-g">Eliminatorias</a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -397,7 +412,7 @@ footer{
   </div>
 </div>
 
-<!-- STAT STRIP -->
+<!-- STATS STRIP -->
 <section style="padding-top:0;padding-bottom:0">
   <div class="stats-strip rv">
     <div class="ss"><div class="ss-n" id="sn1">0</div><div class="ss-l">Carreras</div></div>
@@ -407,9 +422,23 @@ footer{
   </div>
 </section>
 
+<!-- HORSE PHOTO STRIP -->
+<section style="padding-top:clamp(32px,5vh,56px);padding-bottom:0">
+  <div class="photo-strip rv">
+    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1200&q=80&auto=format&fit=crop" alt="Carreras de Caballos" loading="lazy">
+    <div class="photo-strip-ov">
+      <span class="ps-tag">Carril 4 Vientos · Illinois</span>
+      <span class="ps-tag">14 Junio 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="s-rule" style="margin-top:clamp(32px,5vh,56px)"></div>
+
 <!-- PROGRAMA DEL DÍA -->
 <section id="programa">
   <p class="s-eye rv">Programa del Día</p>
+  <h2 class="s-title rv d1">Carreras del Domingo</h2>
   <div class="race-grid">
 
     <div class="rcard rv d1">
@@ -438,7 +467,7 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">2:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">El Chucuquito</span><span class="rc-vs">VS</span><span class="rc-h2">El Chucuquito</span></div>
+          <div class="rc-horses"><span class="rc-h1">El Chucuquito</span><span class="rc-vs">VS</span><span class="rc-h2">El Retador</span></div>
           <div class="rc-meta"><span class="rc-cuadra">C. Rondeno Rosas</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">250 YDS</div></div>
@@ -448,17 +477,33 @@ footer{
   </div>
 </section>
 
-<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+<div class="s-rule"></div>
 
 <!-- ELIMINATORIAS -->
 <section id="eliminatorias">
   <div class="elim-header rv">
-    <div class="elim-crown">👑</div>
-    <div class="elim-title-wrap">
-      <div class="elim-title">Eliminatorias del Rey</div>
-      <div class="elim-sub">300 Yardas · Carril 4 Vientos</div>
+    <div class="elim-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
     </div>
-    <div class="elim-crown">👑</div>
+    <div class="elim-title-wrap">
+      <div class="elim-title">Eliminatorias <span class="acc">del Rey</span></div>
+      <div class="elim-sub">300 Yardas · 5 Eliminatorias · Carril 4 Vientos</div>
+    </div>
+    <div class="elim-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
+    </div>
+  </div>
+
+  <!-- Photo pair (quarter horses) -->
+  <div class="photo-pair">
+    <div class="pp rv-l">
+      <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=800&q=80&auto=format&fit=crop" alt="Carrera de caballos" loading="lazy">
+      <div class="pp-cap">Eliminatorias · 300 Yardas</div>
+    </div>
+    <div class="pp rv-r">
+      <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=800&q=80&auto=format&fit=crop" alt="Carrera de caballos" loading="lazy">
+      <div class="pp-cap">Solo uno puede ser el Rey</div>
+    </div>
   </div>
 
   <div class="race-grid">
@@ -467,8 +512,8 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Soriano</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria A</span></div>
+          <div class="rc-horses"><span class="rc-h1">C. Soriano</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria A</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM A</div></div>
       </div>
@@ -478,8 +523,8 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">3:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Los Locos</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria B</span></div>
+          <div class="rc-horses"><span class="rc-h1">C. Los Locos</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria B</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM B</div></div>
       </div>
@@ -489,8 +534,8 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:00 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria C</span></div>
+          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria C</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM C</div></div>
       </div>
@@ -500,8 +545,8 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">4:30 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">⚡</span><span class="rc-h2">C. Cristo Rey</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria D</span></div>
+          <div class="rc-horses"><span class="rc-h1">C. Gutiérrez</span><span class="rc-vs">VS</span><span class="rc-h2">C. Cristo Rey</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria D</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM D</div></div>
       </div>
@@ -511,8 +556,8 @@ footer{
       <div class="rcard-inner">
         <div class="rc-time">5:15 PM</div>
         <div class="rc-body">
-          <div class="rc-horses"><span class="rc-h1">Eliminatoria</span><span class="rc-vs">⚡</span><span class="rc-h2">Eliminatoria</span></div>
-          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold)">Eliminatoria E</span></div>
+          <div class="rc-horses"><span class="rc-h1">Por Definir</span><span class="rc-vs">VS</span><span class="rc-h2">Por Definir</span></div>
+          <div class="rc-meta"><span class="rc-cuadra" style="color:var(--gold);font-weight:700">Eliminatoria E · Final</span></div>
         </div>
         <div class="rc-right"><div class="rc-dist">300 YDS</div><div class="rc-badge">ELIM E</div></div>
       </div>
@@ -532,59 +577,72 @@ footer{
   </div>
 </section>
 
-<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+<div class="s-rule"></div>
 
 <!-- PROPUESTAS -->
 <section>
   <p class="s-eye rv">Propuestas del Día</p>
+  <h2 class="s-title rv d1">Propuestas Disponibles</h2>
   <div class="prop-grid">
 
     <div class="prop-card rv d1">
-      <span class="prop-icon">🐴</span>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><path d="M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3"/><path d="M12 12v5"/><circle cx="12" cy="7" r="3"/></svg>
+      </div>
       <div class="prop-title">Abierta de 3 Años</div>
-      <div class="prop-detail">270 yardas · Caballos de 3 años</div>
+      <div class="prop-detail">270 yardas · Caballos de 3 años sin jugadas</div>
       <div class="prop-price">$5 pesos hay uno</div>
     </div>
 
     <div class="prop-card rv d2">
-      <span class="prop-icon">🐎</span>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
       <div class="prop-title">Abierta de Maides</div>
-      <div class="prop-detail">Yeguas abiertas</div>
+      <div class="prop-detail">Yeguas abiertas · Cualquier distancia</div>
       <div class="prop-price">A Convenir</div>
     </div>
 
     <div class="prop-card rv d3">
-      <span class="prop-icon">⚡</span>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
       <div class="prop-title">Abierta de 4 Años</div>
       <div class="prop-detail">330 yardas · Caballos de 4 años</div>
       <div class="prop-price">10y pesos hay uno</div>
     </div>
 
     <div class="prop-card rv d4">
-      <span class="prop-icon">🏆</span>
-      <div class="prop-title">Abierta de Maides 330y</div>
-      <div class="prop-detail">Yeguas · 330 yardas</div>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4h.3"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-.3"/><path d="M6 2h12v8a6 6 0 0 1-12 0V2z"/></svg>
+      </div>
+      <div class="prop-title">Maides 330y — Copa</div>
+      <div class="prop-detail">Yeguas · 330 yardas · Premio especial</div>
       <div class="prop-price">$10 pesos hay uno</div>
     </div>
 
     <div class="prop-card rv d5">
-      <span class="prop-icon">🎯</span>
-      <div class="prop-title">Abierta de Maides 330y</div>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <div class="prop-title">Maides 330y — Series</div>
       <div class="prop-detail">Segunda corrida · 330 yardas</div>
       <div class="prop-price">$8 pesos hay uno</div>
     </div>
 
     <div class="prop-card rv d6">
-      <span class="prop-icon">🌟</span>
-      <div class="prop-title">Abierta de Maides</div>
-      <div class="prop-detail">Propuesta adicional</div>
+      <div class="prop-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="prop-title">Propuesta Adicional</div>
+      <div class="prop-detail">Propuesta abierta · Pendiente confirmar</div>
       <div class="prop-price">A Convenir</div>
     </div>
 
   </div>
 </section>
 
-<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px"><div class="rule rv"></div></div>
+<div class="s-rule"></div>
 
 <!-- EVENT INFO -->
 <section>
@@ -595,124 +653,121 @@ footer{
     <div class="ic"><div class="ic-k">Fecha</div><div class="ic-v">Dom. 14 Jun 2026</div></div>
     <div class="ic"><div class="ic-k">Inicio</div><div class="ic-v g">1:00 PM</div></div>
     <div class="ic"><div class="ic-k">Tipo</div><div class="ic-v g">Eliminatorias del Rey</div></div>
-    <div class="ic"><div class="ic-k">Comida</div><div class="ic-v">Abra Comida Mexicana</div></div>
+    <div class="ic"><div class="ic-k">Comida</div><div class="ic-v">Comida Mexicana</div></div>
   </div>
 
-  <!-- Rules -->
-  <div class="rules rv" style="margin-top:16px">
-    <span class="rule-tag">👨‍👩‍👧 Evento Familiar</span>
-    <span class="rule-tag">🚫 Sin Bebidas Alcohólicas</span>
-    <span class="rule-tag">🚫 Sin Pirotecnia</span>
-    <span class="rule-tag">✅ Respetan Horarios</span>
-    <span class="rule-tag">🌮 Comida &amp; Bebida Mexicana</span>
+  <div class="rules rv" style="margin-top:12px">
+    <span class="rule-tag">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Evento Familiar
+    </span>
+    <span class="rule-tag">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      Sin Bebidas Alcohólicas
+    </span>
+    <span class="rule-tag">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      Sin Pirotecnia
+    </span>
+    <span class="rule-tag">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Respetan Horarios
+    </span>
+    <span class="rule-tag">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+      Comida &amp; Bebida Mexicana
+    </span>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<div class="final-cta">
-  <h2 class="fcta-h rv">
-    <span class="line1">Ven a disfrutar</span>
-    <span class="line2">con la familia</span>
-  </h2>
-  <p class="fcta-p rv d1">14 de Junio · Carril 4 Vientos · Illinois · 1:00 PM</p>
-  <div class="rv d2" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-    <a class="btn-primary" href="#programa">Ver Programa</a>
-    <a class="btn-outline" href="#eliminatorias">Eliminatorias</a>
+<div class="final-cta rv" style="padding:0 24px;max-width:1008px">
+  <div style="position:relative;border-radius:32px;overflow:hidden;box-shadow:var(--sh-l)">
+    <div class="final-cta-photo"></div>
+    <div class="final-cta-inner">
+      <h2 class="fcta-h">Ven a disfrutar<br>con la <span class="acc">familia</span></h2>
+      <p class="fcta-p">14 de Junio · Carril 4 Vientos · Illinois · 1:00 PM</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn-w" href="#programa">Ver Programa</a>
+        <a class="btn-g" href="#eliminatorias">Eliminatorias</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <footer>Carril 4 Vientos · Illinois · 14 Junio 2026 · Evento 100% Familiar · Sin Alcohol</footer>
 
-<!-- FLOATING SOCIAL PROOF -->
 <div class="sp-bar">
-  🔥 <span id="sp-count">1,847</span> personas ya están hablando de este evento
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+  <span id="sp-count">1,847</span> personas siguiendo este evento
 </div>
 
 <script>
-/* ── COUNTDOWN ── */
-var EVENT=new Date('2026-06-14T13:00:00');
-(function tick(){
-  var ms=EVENT-Date.now();
-  var v={d:ms>0?Math.floor(ms/86400000):0,h:ms>0?Math.floor(ms%86400000/3600000):0,
-         m:ms>0?Math.floor(ms%3600000/60000):0,s:ms>0?Math.floor(ms%60000/1000):0};
-  ['d','h','m','s'].forEach(function(k){
-    var el=document.getElementById('cd-'+k),val=String(v[k]).padStart(2,'0');
-    if(el&&el.textContent!==val){
-      el.textContent=val;
-      if(k==='s'){el.classList.remove('lit');void el.offsetWidth;el.classList.add('lit');
-        setTimeout(function(){el.classList.remove('lit')},300);}
+/* COUNTDOWN */
+var EVENT = new Date('2026-06-14T13:00:00');
+(function tick() {
+  var ms = EVENT - Date.now();
+  var v = {
+    d: ms > 0 ? Math.floor(ms / 86400000) : 0,
+    h: ms > 0 ? Math.floor(ms % 86400000 / 3600000) : 0,
+    m: ms > 0 ? Math.floor(ms % 3600000 / 60000) : 0,
+    s: ms > 0 ? Math.floor(ms % 60000 / 1000) : 0
+  };
+  ['d','h','m','s'].forEach(function(k) {
+    var el = document.getElementById('cd-' + k);
+    var val = String(v[k]).padStart(2, '0');
+    if (el && el.textContent !== val) {
+      el.textContent = val;
+      if (k === 's') {
+        el.classList.remove('lit');
+        void el.offsetWidth;
+        el.classList.add('lit');
+        setTimeout(function() { el.classList.remove('lit'); }, 300);
+      }
     }
   });
-  setTimeout(tick,1000);
+  setTimeout(tick, 1000);
 })();
 
-/* ── SCROLL REVEAL ── */
-var io=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');}});
-},{threshold:.12});
-document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-up').forEach(function(el){io.observe(el);});
+/* SCROLL REVEAL */
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: .1 });
+document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-up').forEach(function(el) { io.observe(el); });
 
-/* ── ANIMATED COUNTERS ── */
-function ac(id,target,suffix,dur){
-  var el=document.getElementById(id);if(!el)return;var st=null;
-  (function f(ts){
-    if(!st)st=ts;var p=Math.min((ts-st)/dur,1);var e=1-Math.pow(1-p,3);
-    el.textContent=Math.floor(e*target)+(suffix||'');
-    if(p<1)requestAnimationFrame(f);else el.textContent=target+(suffix||'');
+/* ANIMATED COUNTERS */
+function ac(id, target, suffix, dur) {
+  var el = document.getElementById(id); if (!el) return;
+  var st = null;
+  (function f(ts) {
+    if (!st) st = ts;
+    var p = Math.min((ts - st) / dur, 1);
+    var e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(e * target) + (suffix || '');
+    if (p < 1) requestAnimationFrame(f);
+    else el.textContent = target + (suffix || '');
   })(performance.now());
 }
-setTimeout(function(){
-  ac('sn1',9,'',900);ac('sn2',5,'h',800);ac('sn3',18,'',700);ac('sn4',1847,'',1200);
-},600);
+setTimeout(function() {
+  ac('sn1', 9, '', 900);
+  ac('sn2', 5, 'h', 800);
+  ac('sn3', 18, '', 700);
+  ac('sn4', 1847, '', 1200);
+}, 600);
 
-/* ── SOCIAL PROOF ── */
-var spCount=1847;
-setInterval(function(){
-  spCount+=Math.floor(Math.random()*4);
-  var el=document.getElementById('sp-count');
-  if(el)el.textContent=spCount.toLocaleString('en-US');
-},4000);
+/* SOCIAL PROOF COUNTER */
+var spCount = 1847;
+setInterval(function() {
+  spCount += Math.floor(Math.random() * 4);
+  var el = document.getElementById('sp-count');
+  if (el) el.textContent = spCount.toLocaleString('en-US');
+}, 4500);
 
-/* ── CANVAS PARTICLES ── */
-(function(){
-  var cv=document.getElementById('cv'),c=cv.getContext('2d'),pts=[];
-  function rsz(){cv.width=innerWidth;cv.height=innerHeight}rsz();
-  addEventListener('resize',rsz);
-  function P(){
-    this.x=Math.random()*innerWidth;
-    this.y=Math.random()*innerHeight;
-    this.vx=(Math.random()-.5)*.4;
-    this.vy=-Math.random()*.6-.1;
-    this.a=Math.random()*.5+.1;
-    this.r=Math.random()*1.5+.3;
-    var cols=[[245,197,24],[255,255,255],[255,160,40]];
-    this.col=cols[Math.floor(Math.random()*cols.length)];
-    this.life=Math.random()*200+100;
-    this.age=0;
-  }
-  for(var i=0;i<80;i++){var p=new P();p.age=Math.floor(Math.random()*p.life);pts.push(p);}
-  (function loop(){
-    requestAnimationFrame(loop);
-    c.clearRect(0,0,cv.width,cv.height);
-    pts.forEach(function(p){
-      p.x+=p.vx;p.y+=p.vy;p.age++;
-      if(p.age>p.life){var np=new P();Object.assign(p,np);p.age=0;}
-      var fade=Math.sin(p.age/p.life*Math.PI);
-      c.save();c.globalAlpha=p.a*fade*.4;
-      c.shadowBlur=6;c.shadowColor='rgba('+p.col+',.5)';
-      c.fillStyle='rgba('+p.col+',1)';
-      c.beginPath();c.arc(p.x,p.y,p.r,0,Math.PI*2);c.fill();
-      c.restore();
-    });
-  })();
-})();
-
-/* ── PARALLAX HERO ── */
-window.addEventListener('scroll',function(){
-  var y=window.scrollY;
-  var h=document.querySelector('.hero-inner');
-  if(h)h.style.transform='translateY('+y*.28+'px)';
-},{passive:true});
+/* PARALLAX HERO */
+window.addEventListener('scroll', function() {
+  var h = document.querySelector('.hero-photo');
+  if (h) h.style.transform = 'translateY(' + window.scrollY * .22 + 'px)';
+}, { passive: true });
 </script>
 </body>
 </html>
