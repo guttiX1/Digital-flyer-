@@ -219,8 +219,9 @@ footer{position:relative;z-index:10;padding:20px 24px 60px;border-top:1px solid 
 .re-horse-right .re-horse-img img{transform:scaleX(-1)}
 .re-vs-col{display:flex;align-items:center;justify-content:center;padding-bottom:28px}
 .re-vs-txt{font-size:12px;font-weight:900;color:var(--gold);letter-spacing:.06em}
-.re-track{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.re-track-item{font-size:10px;font-weight:600;color:var(--ink2);background:var(--bg);border:1px solid var(--bd);border-radius:100px;padding:4px 10px;display:flex;align-items:center;gap:4px}
+.re-track{display:none}
+.re-track-dist{display:flex;align-items:center;gap:5px;margin-bottom:10px;font-size:11px;font-weight:700;color:var(--ink2)}
+.re-dist-val{color:var(--gold);font-weight:800}
 .re-details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
 .re-det-col{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
 .re-det-col-title{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:2px;border-bottom:1px solid var(--bd);padding-bottom:5px}
@@ -271,6 +272,19 @@ footer{position:relative;z-index:10;padding:20px 24px 60px;border-top:1px solid 
   .info-grid .ic:nth-last-child(-n+3){border-bottom:1px solid var(--bd)}
   .cos-ads{grid-template-columns:1fr}
   .final-cta-wrap{padding:0 16px}
+}
+@media(max-width:480px){
+  nav{padding:0 12px}
+  .nav-chip{padding:5px 10px;font-size:9px}
+  .nav-date{display:none}
+  .hero-hl img,.hero-hr img{height:78%}
+  .hero-hl::after{background:linear-gradient(to right,rgba(245,245,247,0) 40%,rgba(245,245,247,.97) 80%)}
+  .hero-hr::after{background:linear-gradient(to left,rgba(245,245,247,0) 40%,rgba(245,245,247,.97) 80%)}
+  .hero-cosidas{font-size:clamp(3rem,14vw,10rem)}
+  .race-grid{padding:0 8px}
+  .rcard-inner{padding:10px 10px 10px 0}
+  .re-details{grid-template-columns:1fr}
+  .re-det-col{padding:8px 10px}
 }
 </style>
 </head>
@@ -783,12 +797,7 @@ function buildExpand(card){
         +'<div class="re-horse-name">'+(h2?h2.textContent:'')+'</div>'
       +'</div>'
     +'</div>'
-    +'<div class="re-track">'
-      +'<span class="re-track-item">📍 Carril Dos Hermanos · Colorado</span>'
-      +'<span class="re-track-item">📏 '+(dist?dist.textContent:'')+'</span>'
-      +'<span class="re-track-item">📅 Dom. 14 Jun 2026</span>'
-      +'<span class="re-track-item">🏇 Match Race · Tierra</span>'
-    +'</div>'
+    +'<div class="re-track-dist"><span class="re-dist-lbl">📏</span><span class="re-dist-val">'+(dist?dist.textContent:'')+'</span></div>'
     +'<div class="re-details">'
       +detCol(h1?h1.textContent:'Caballo 1',sides[0])
       +detCol(h2?h2.textContent:'Caballo 2',sides[1])
@@ -835,10 +844,11 @@ setInterval(function(){
   window.addEventListener('scroll',function(){
     if(window.scrollY>window.innerHeight*.6)show();
   },{passive:true,once:true});
-  document.getElementById('pop-close').addEventListener('click',function(){
+  function dismissPopup(permanent){
     document.getElementById('evt-popup').classList.remove('pop-visible');
-    localStorage.setItem('cdh_popup_dismissed','1');
-  });
+    if(permanent)localStorage.setItem('cdh_popup_dismissed','1');
+  }
+  document.getElementById('pop-close').addEventListener('click',function(){dismissPopup(true)});
   document.getElementById('pop-form').addEventListener('submit',function(e){
     e.preventDefault();
     var phone=document.getElementById('pop-phone').value.trim();
@@ -846,7 +856,7 @@ setInterval(function(){
     if(!phone&&!email)return;
     document.getElementById('pop-body').innerHTML='<div class="pop-thanks">¡Listo! Te avisamos del próximo evento 🎉</div>';
     localStorage.setItem('cdh_popup_dismissed','1');
-    setTimeout(function(){document.getElementById('evt-popup').classList.remove('pop-visible')},2600);
+    setTimeout(function(){dismissPopup(true)},2600);
   });
 })();
 </script>
@@ -864,7 +874,7 @@ setInterval(function(){
         <input id="pop-email" class="pop-input" type="email" placeholder="✉️ Email (opcional)" inputmode="email" autocomplete="email">
         <button type="submit" class="pop-submit">Avisamé del próximo evento</button>
       </form>
-      <button id="pop-close2" class="pop-skip" onclick="document.getElementById('pop-close').click()">Ahora no</button>
+      <button id="pop-close2" class="pop-skip" onclick="dismissPopup(false)">Ahora no</button>
     </div>
   </div>
 </div>
