@@ -7,17 +7,17 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#F5C518;--goldD:#B8890A;--bg:#080808;
+  --gold:#B8890A;--goldB:#F5C518;--bg:#ffffff;
   --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
 }
-html,body{min-height:100%;background:#111;display:flex;align-items:flex-start;justify-content:center;padding:16px;font-family:var(--font);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start;justify-content:center;padding:16px;font-family:var(--font);-webkit-font-smoothing:antialiased}
 
 /* ── FLYER CARD ── */
 .flyer{
   width:100%;max-width:480px;
   background:var(--bg);
   border-radius:20px;overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.7);
+  box-shadow:0 24px 60px rgba(0,0,0,.18);
   position:relative;
 }
 
@@ -25,58 +25,58 @@ html,body{min-height:100%;background:#111;display:flex;align-items:flex-start;ju
 .f-topbar{
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 18px;
-  background:rgba(255,255,255,.04);
-  border-bottom:1px solid rgba(255,255,255,.07);
+  background:#F0F0F3;
+  border-bottom:1px solid rgba(0,0,0,.07);
 }
-.f-topbar-l,.f-topbar-r{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-.f-topbar-c{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);padding:4px 12px;border-radius:100px;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.18)}
+.f-topbar-l,.f-topbar-r{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.f-topbar-c{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);padding:4px 12px;border-radius:100px;background:rgba(184,137,10,.08);border:1px solid rgba(184,137,10,.22)}
 
 /* ── HORSE DUEL BANNER ── */
 .f-horses{
   position:relative;height:clamp(180px,42vw,210px);overflow:hidden;
   background:#F5F5F7;
 }
-/* Left/right color tint on white */
-.f-horses::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(180,0,0,.08) 0%,transparent 50%,rgba(26,50,200,.08) 100%);z-index:1;pointer-events:none}
+.f-horses::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(180,0,0,.06) 0%,transparent 50%,rgba(26,50,200,.06) 100%);z-index:1;pointer-events:none}
 .fh-left{
   position:absolute;bottom:0;left:-4%;
   height:95%;width:auto;max-width:52%;
   object-fit:contain;object-position:left bottom;
+  z-index:2;
 }
 .fh-right{
   position:absolute;bottom:0;right:-4%;
   height:95%;width:auto;max-width:52%;
   object-fit:contain;object-position:right bottom;
   transform:scaleX(-1);
+  z-index:2;
 }
-/* fade horses to center over white bg */
-.fh-fade-l{position:absolute;inset:0;background:linear-gradient(to right,transparent 34%,rgba(245,245,247,.96) 70%);z-index:2;pointer-events:none}
-.fh-fade-r{position:absolute;inset:0;background:linear-gradient(to left,transparent 34%,rgba(245,245,247,.96) 70%);z-index:2;pointer-events:none}
+/* subtle center shadow so title pops over horses */
+.fh-center-shadow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 80% at 50% 50%,rgba(245,245,247,.78) 30%,transparent 75%);z-index:3;pointer-events:none}
 /* center content */
-.f-horses-center{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 4px}
+.f-horses-center{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 4px}
 .fhc-tag{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:6px}
-.fhc-cosidas{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:900;letter-spacing:-.04em;line-height:.85;background:linear-gradient(160deg,#F5C518 0%,#D4A017 30%,#F5C518 55%,#A07810 80%,#F5C518 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.fhc-y{font-size:clamp(.65rem,2.5vw,1rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);display:block;margin:.15em 0}
-.fhc-cosinadas{font-size:clamp(1.3rem,5.5vw,2.2rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fhc-cosidas{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:900;letter-spacing:-.04em;line-height:.85;background:linear-gradient(160deg,#9A6A00 0%,#C89010 30%,#B8890A 55%,#7A5200 80%,#C89010 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fhc-y{font-size:clamp(.65rem,2.5vw,1rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.3);display:block;margin:.15em 0}
+.fhc-cosinadas{font-size:clamp(1.3rem,5.5vw,2.2rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#9A6A00,#C89010,#9A6A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 /* names under horses */
-.f-horse-names{display:flex;justify-content:space-between;padding:0 14px 10px;position:relative;z-index:3}
+.f-horse-names{display:flex;justify-content:space-between;padding:0 14px 10px;background:#F5F5F7}
 .fhn{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:3px}
-.fhn-l{background:rgba(180,0,0,.25);border:1px solid rgba(180,0,0,.4);color:#ff6666}
-.fhn-r{background:rgba(26,50,200,.25);border:1px solid rgba(26,50,200,.4);color:#6688ff}
+.fhn-l{background:rgba(180,0,0,.08);border:1px solid rgba(180,0,0,.22);color:#CC0000}
+.fhn-r{background:rgba(26,50,200,.08);border:1px solid rgba(26,50,200,.22);color:#1A3ECC}
 
 /* ── GOLD DIVIDER ── */
 .f-div{display:flex;align-items:center;gap:0;padding:0 18px;margin:2px 0}
-.f-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(245,197,24,.35) 40%,rgba(245,197,24,.35) 60%,transparent)}
+.f-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(184,137,10,.3) 40%,rgba(184,137,10,.3) 60%,transparent)}
 .f-div-crown{padding:0 10px;color:var(--gold);font-size:13px;line-height:1}
 
 /* ── TAGLINE ── */
-.f-tagline{text-align:center;padding:10px 16px 8px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);font-style:italic}
+.f-tagline{text-align:center;padding:10px 16px 8px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.32);font-style:italic}
 
 /* ── RACE LIST ── */
 .f-races{padding:4px 14px 10px}
 .f-race-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.f-race-header-line{flex:1;height:1px;background:rgba(255,255,255,.07)}
-.f-race-header-txt{font-size:8px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.f-race-header-line{flex:1;height:1px;background:rgba(0,0,0,.08)}
+.f-race-header-txt{font-size:8px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,0,0,.28)}
 
 .race-row{
   display:grid;grid-template-columns:20px 1fr 40px;
@@ -85,70 +85,69 @@ html,body{min-height:100%;background:#111;display:flex;align-items:flex-start;ju
   border-radius:7px;
   border:1px solid transparent;
   margin-bottom:3px;
-  transition:background .15s;
 }
 .race-row.feat{
-  background:rgba(245,197,24,.05);
-  border-color:rgba(245,197,24,.18);
+  background:rgba(184,137,10,.06);
+  border-color:rgba(184,137,10,.22);
 }
-.race-row:not(.feat){background:rgba(255,255,255,.025)}
+.race-row:not(.feat){background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.05)}
 .rr-num{
   width:18px;height:18px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-size:8px;font-weight:800;
-  background:rgba(255,255,255,.06);color:rgba(255,255,255,.35);
+  background:rgba(0,0,0,.07);color:rgba(0,0,0,.4);
   flex-shrink:0;
 }
-.race-row.feat .rr-num{background:var(--gold);color:#000}
-.rr-match{font-size:clamp(10px,2.4vw,11.5px);font-weight:700;letter-spacing:.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race-row.feat .rr-num{background:var(--gold);color:#fff}
+.rr-match{font-size:clamp(10px,2.4vw,11.5px);font-weight:700;letter-spacing:.01em;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .race-row.feat .rr-match{color:var(--gold)}
-.rr-cuadra{font-size:8px;color:rgba(255,255,255,.3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rr-dist{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-align:right;white-space:nowrap}
+.rr-cuadra{font-size:8px;color:rgba(0,0,0,.38);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-dist{font-size:9px;font-weight:700;color:rgba(0,0,0,.35);text-align:right;white-space:nowrap}
 .race-row.feat .rr-dist{color:var(--gold)}
 
 /* ── BOTTOM INFO ── */
 .f-bottom{
   margin:6px 14px 14px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
+  background:#F0F0F3;
+  border:1px solid rgba(0,0,0,.07);
   border-radius:12px;overflow:hidden;
 }
 .f-info-row{display:flex}
-.f-ic{flex:1;padding:10px 12px;border-right:1px solid rgba(255,255,255,.06)}
+.f-ic{flex:1;padding:10px 12px;border-right:1px solid rgba(0,0,0,.06)}
 .f-ic:last-child{border-right:none}
-.f-ic-k{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:3px}
-.f-ic-v{font-size:11px;font-weight:700;color:#fff}
+.f-ic-k{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:3px}
+.f-ic-v{font-size:11px;font-weight:700;color:#111}
 .f-ic-v.g{color:var(--gold)}
 
 /* ── PHONE CTA ── */
 .f-cta{
   margin:0 14px 14px;
-  background:linear-gradient(135deg,rgba(245,197,24,.1),rgba(245,197,24,.05));
-  border:1.5px solid rgba(245,197,24,.25);
+  background:linear-gradient(135deg,rgba(184,137,10,.08),rgba(184,137,10,.04));
+  border:1.5px solid rgba(184,137,10,.22);
   border-radius:12px;padding:12px 16px;
   display:flex;align-items:center;justify-content:space-between;
 }
-.f-cta-txt{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.f-cta-txt{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.35)}
 .f-cta-num{font-size:clamp(1.1rem,4.5vw,1.5rem);font-weight:900;letter-spacing:.04em;color:var(--gold)}
 
 /* ── SPONSOR STRIP ── */
 .f-sponsor{
   margin:0 14px 14px;
-  background:#0D0D0D;border:1px solid rgba(255,255,255,.06);
+  background:#F0F0F3;border:1px solid rgba(0,0,0,.07);
   border-radius:12px;padding:10px 14px;
   display:flex;align-items:center;justify-content:space-between;
 }
-.f-sponsor-lbl{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2)}
-.f-sponsor-name{font-size:clamp(1rem,3.5vw,1.3rem);font-weight:900;letter-spacing:-.02em;color:#fff}
-.f-sponsor-name .g{color:#6CC04A}
-.f-sponsor-url{font-size:8px;font-weight:700;letter-spacing:.1em;color:#6CC04A}
+.f-sponsor-lbl{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.28)}
+.f-sponsor-name{font-size:clamp(1rem,3.5vw,1.3rem);font-weight:900;letter-spacing:-.02em;color:#111}
+.f-sponsor-name .g{color:#3A8A1A}
+.f-sponsor-url{font-size:8px;font-weight:700;letter-spacing:.1em;color:#3A8A1A}
 
 /* ── FOOTER ── */
 .f-footer{
   padding:8px 18px 14px;text-align:center;
   font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(255,255,255,.18);
-  border-top:1px solid rgba(255,255,255,.05);
+  color:rgba(0,0,0,.22);
+  border-top:1px solid rgba(0,0,0,.06);
 }
 </style>
 </head>
@@ -167,8 +166,7 @@ html,body{min-height:100%;background:#111;display:flex;align-items:flex-start;ju
   <div class="f-horses">
     <img class="fh-left" src="la-mami.jpg" alt="CAOS">
     <img class="fh-right" src="aries.jpg" alt="REY PUERRO">
-    <div class="fh-fade-l"></div>
-    <div class="fh-fade-r"></div>
+    <div class="fh-center-shadow"></div>
     <div class="f-horses-center">
       <div class="fhc-tag">Unas de las que ya están</div>
       <div class="fhc-cosidas">COSIDAS</div>
@@ -295,7 +293,7 @@ html,body{min-height:100%;background:#111;display:flex;align-items:flex-start;ju
     </div>
     <div style="text-align:right">
       <div class="f-cta-txt" style="margin-bottom:3px">Así nomas kedo</div>
-      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)">Dijo El Pirata</div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)">Dijo El Pirata</div>
     </div>
   </div>
 
