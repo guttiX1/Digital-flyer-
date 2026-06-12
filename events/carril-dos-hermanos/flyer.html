@@ -34,26 +34,22 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
 /* ── HORSE DUEL BANNER ── */
 .f-horses{
   position:relative;height:clamp(180px,42vw,210px);overflow:hidden;
-  background:#F5F5F7;
+  background:#ffffff;
 }
-.f-horses::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(180,0,0,.06) 0%,transparent 50%,rgba(26,50,200,.06) 100%);z-index:1;pointer-events:none}
 .fh-left{
-  position:absolute;bottom:0;left:-4%;
-  height:95%;width:auto;max-width:52%;
+  position:absolute;bottom:0;left:0;
+  height:95%;width:auto;max-width:50%;
   object-fit:contain;object-position:left bottom;
-  z-index:2;
 }
 .fh-right{
-  position:absolute;bottom:0;right:-4%;
-  height:95%;width:auto;max-width:52%;
+  position:absolute;bottom:0;right:0;
+  height:95%;width:auto;max-width:50%;
   object-fit:contain;object-position:right bottom;
   transform:scaleX(-1);
-  z-index:2;
 }
-/* subtle center shadow so title pops over horses */
-.fh-center-shadow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 80% at 50% 50%,rgba(245,245,247,.78) 30%,transparent 75%);z-index:3;pointer-events:none}
 /* center content */
-.f-horses-center{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 4px}
+.f-horses-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 4px;pointer-events:none}
+.fhc-inner{background:rgba(255,255,255,.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:8px 18px 10px;border-radius:14px}
 .fhc-tag{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:6px}
 .fhc-cosidas{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:900;letter-spacing:-.04em;line-height:.85;background:linear-gradient(160deg,#9A6A00 0%,#C89010 30%,#B8890A 55%,#7A5200 80%,#C89010 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .fhc-y{font-size:clamp(.65rem,2.5vw,1rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.3);display:block;margin:.15em 0}
@@ -166,12 +162,13 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
   <div class="f-horses">
     <img class="fh-left" src="la-mami.jpg" alt="CAOS">
     <img class="fh-right" src="aries.jpg" alt="REY PUERRO">
-    <div class="fh-center-shadow"></div>
     <div class="f-horses-center">
-      <div class="fhc-tag">Unas de las que ya están</div>
-      <div class="fhc-cosidas">COSIDAS</div>
-      <span class="fhc-y">y</span>
-      <div class="fhc-cosinadas">COSINADAS</div>
+      <div class="fhc-inner">
+        <div class="fhc-tag">Unas de las que ya están</div>
+        <div class="fhc-cosidas">COSIDAS</div>
+        <span class="fhc-y">y</span>
+        <div class="fhc-cosinadas">COSINADAS</div>
+      </div>
     </div>
   </div>
   <div class="f-horse-names">
