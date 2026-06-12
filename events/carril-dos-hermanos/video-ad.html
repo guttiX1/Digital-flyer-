@@ -102,6 +102,16 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s8-venue{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
 .s8-phone{font-size:clamp(1.2rem,5vw,1.8rem);font-weight:900;letter-spacing:.04em;color:var(--gold);animation:pulseGold 1.5s ease infinite}
 
+/* ── END SCREEN ── */
+.end-screen{position:absolute;inset:0;z-index:100;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px;opacity:0;pointer-events:none;transition:opacity .6s}
+.end-screen.show{opacity:1;pointer-events:auto}
+.end-title{font-size:clamp(2rem,9vw,3.2rem);font-weight:900;letter-spacing:-.04em;line-height:.9;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.end-sub{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:28px}
+.enter-btn{display:inline-block;padding:16px 36px;background:linear-gradient(135deg,#F5C518,#B8890A);border-radius:100px;font-size:16px;font-weight:800;letter-spacing:.04em;color:#000;text-decoration:none;box-shadow:0 8px 32px rgba(245,197,24,.35);transition:transform .15s,box-shadow .15s}
+.enter-btn:hover{transform:scale(1.04);box-shadow:0 12px 40px rgba(245,197,24,.5)}
+.end-replay{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--font)}
+.end-replay:hover{color:rgba(255,255,255,.6)}
+
 /* ── PROGRESS BAR ── */
 .progress{position:absolute;bottom:0;left:0;right:0;z-index:50;height:3px;background:rgba(255,255,255,.1)}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#D4A017);width:0;transition:width linear}
@@ -251,6 +261,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
     </div>
   </div>
 
+  <!-- END SCREEN -->
+  <div class="end-screen" id="endScreen">
+    <div class="end-title">COSIDAS Y<br>COSINADAS</div>
+    <div class="end-sub">14 Jun 2026 · Carril Dos Hermanos</div>
+    <a class="enter-btn" href="site.html">Entrar al Sitio del Evento →</a>
+    <button class="end-replay" id="replayBtn">↺ Ver de nuevo</button>
+  </div>
+
   <!-- PROGRESS -->
   <div class="progress"><div class="progress-fill" id="pBar"></div></div>
 
@@ -305,7 +323,8 @@ function startProgress(){
     pElapsed=Date.now()-pStart;
     if(pElapsed>=dur){
       clearInterval(timer);
-      showScene((cur+1)%SCENES);
+      if(cur===SCENES-1){showEndScreen()}
+      else{showScene(cur+1)}
     }
   },100);
 }
@@ -316,6 +335,21 @@ function pauseResume(){
   if(running){pStart=Date.now()-pElapsed;startProgress()}
   else{clearInterval(timer)}
 }
+
+function showEndScreen(){
+  document.getElementById('endScreen').classList.add('show');
+  document.querySelector('.controls').style.display='none';
+  document.querySelector('.scene-dots').style.display='none';
+}
+
+document.getElementById('replayBtn').addEventListener('click',function(){
+  document.getElementById('endScreen').classList.remove('show');
+  document.querySelector('.controls').style.display='';
+  document.querySelector('.scene-dots').style.display='';
+  running=true;
+  document.getElementById('playBtn').textContent='⏸ Pause';
+  showScene(0);
+});
 
 document.getElementById('prevBtn').addEventListener('click',function(){showScene((cur-1+SCENES)%SCENES)});
 document.getElementById('nextBtn').addEventListener('click',function(){showScene((cur+1)%SCENES)});

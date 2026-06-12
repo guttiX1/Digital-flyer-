@@ -7,144 +7,103 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#B8890A;--goldB:#F5C518;--bg:#ffffff;
+  --gold:#B8890A;--goldB:#F5C518;
   --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
 }
-html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start;justify-content:center;padding:16px;font-family:var(--font);-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;background:#E5E5EA;display:flex;align-items:flex-start;justify-content:center;padding:16px;font-family:var(--font);-webkit-font-smoothing:antialiased}
 
 /* ── FLYER CARD ── */
-.flyer{
-  width:100%;max-width:480px;
-  background:var(--bg);
-  border-radius:20px;overflow:hidden;
-  box-shadow:0 24px 60px rgba(0,0,0,.18);
-  position:relative;
-}
+.flyer{width:100%;max-width:480px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.15)}
 
-/* ── TOP HEADER BAR ── */
+/* ── TOP BAR ── */
 .f-topbar{
   display:flex;align-items:center;justify-content:space-between;
-  padding:10px 18px;
-  background:#F0F0F3;
+  padding:10px 18px;background:#F7F7F9;
   border-bottom:1px solid rgba(0,0,0,.07);
 }
-.f-topbar-l,.f-topbar-r{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4)}
-.f-topbar-c{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);padding:4px 12px;border-radius:100px;background:rgba(184,137,10,.08);border:1px solid rgba(184,137,10,.22)}
+.f-topbar-l,.f-topbar-r{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.38)}
+.f-topbar-c{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);padding:4px 12px;border-radius:100px;background:rgba(184,137,10,.08);border:1px solid rgba(184,137,10,.2)}
 
-/* ── HORSE DUEL BANNER ── */
-.f-horses{
-  position:relative;height:clamp(180px,42vw,210px);overflow:hidden;
-  background:#ffffff;
-}
-.fh-left{
-  position:absolute;bottom:0;left:0;
-  height:95%;width:auto;max-width:50%;
-  object-fit:contain;object-position:left bottom;
-}
-.fh-right{
-  position:absolute;bottom:0;right:0;
-  height:95%;width:auto;max-width:50%;
-  object-fit:contain;object-position:right bottom;
-  transform:scaleX(-1);
-}
-/* center content */
-.f-horses-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 4px;pointer-events:none}
-.fhc-inner{background:rgba(255,255,255,.82);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:8px 18px 10px;border-radius:14px}
-.fhc-tag{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:6px}
-.fhc-cosidas{font-size:clamp(2.2rem,9vw,3.6rem);font-weight:900;letter-spacing:-.04em;line-height:.85;background:linear-gradient(160deg,#9A6A00 0%,#C89010 30%,#B8890A 55%,#7A5200 80%,#C89010 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.fhc-y{font-size:clamp(.65rem,2.5vw,1rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.3);display:block;margin:.15em 0}
-.fhc-cosinadas{font-size:clamp(1.3rem,5.5vw,2.2rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#9A6A00,#C89010,#9A6A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-/* names under horses */
-.f-horse-names{display:flex;justify-content:space-between;padding:0 14px 10px;background:#F5F5F7}
-.fhn{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:3px}
-.fhn-l{background:rgba(180,0,0,.08);border:1px solid rgba(180,0,0,.22);color:#CC0000}
-.fhn-r{background:rgba(26,50,200,.08);border:1px solid rgba(26,50,200,.22);color:#1A3ECC}
+/* ── HORSES — side by side, no overlays ── */
+.f-horses{display:flex;width:100%;background:#fff}
+.fh-left,.fh-right{flex:1;overflow:hidden}
+.fh-left img,.fh-right img{width:100%;height:220px;object-fit:cover;object-position:center top;display:block}
+.fh-right img{transform:scaleX(-1)}
+/* thin red/blue stripe under each horse */
+.fh-stripe{height:3px}
+.fh-stripe-l{background:#CC0000}
+.fh-stripe-r{background:#1A3ECC}
 
-/* ── GOLD DIVIDER ── */
-.f-div{display:flex;align-items:center;gap:0;padding:0 18px;margin:2px 0}
-.f-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(184,137,10,.3) 40%,rgba(184,137,10,.3) 60%,transparent)}
-.f-div-crown{padding:0 10px;color:var(--gold);font-size:13px;line-height:1}
+/* ── HORSE NAME TAGS ── */
+.f-horse-names{display:flex;justify-content:space-between;padding:8px 14px 4px;background:#fff}
+.fhn{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:4px}
+.fhn-l{background:rgba(204,0,0,.08);border:1px solid rgba(204,0,0,.2);color:#CC0000}
+.fhn-r{background:rgba(26,62,204,.08);border:1px solid rgba(26,62,204,.2);color:#1A3ECC}
+
+/* ── TITLE BLOCK ── */
+.f-title{text-align:center;padding:10px 16px 6px}
+.f-title-tag{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:5px}
+.f-title-main{font-size:clamp(2rem,9vw,3.2rem);font-weight:900;letter-spacing:-.04em;line-height:.88;background:linear-gradient(160deg,#9A6A00 0%,#D4A017 35%,#B8890A 60%,#7A5200 85%,#C89010 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.f-title-y{display:block;font-size:clamp(.6rem,2.2vw,.85rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.28);margin:.12em 0}
+.f-title-sub{font-size:clamp(1.1rem,5vw,1.8rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#9A6A00,#C89010,#9A6A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── DIVIDER ── */
+.f-div{display:flex;align-items:center;padding:6px 18px}
+.f-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(184,137,10,.25) 40%,rgba(184,137,10,.25) 60%,transparent)}
+.f-div-icon{padding:0 10px;color:var(--gold);font-size:13px;line-height:1}
 
 /* ── TAGLINE ── */
-.f-tagline{text-align:center;padding:10px 16px 8px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.32);font-style:italic}
+.f-tagline{text-align:center;padding:2px 16px 10px;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(0,0,0,.3);font-style:italic}
 
 /* ── RACE LIST ── */
-.f-races{padding:4px 14px 10px}
+.f-races{padding:0 14px 10px}
 .f-race-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.f-race-header-line{flex:1;height:1px;background:rgba(0,0,0,.08)}
-.f-race-header-txt{font-size:8px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,0,0,.28)}
+.f-race-header-line{flex:1;height:1px;background:rgba(0,0,0,.07)}
+.f-race-header-txt{font-size:8px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,0,0,.25)}
 
 .race-row{
-  display:grid;grid-template-columns:20px 1fr 40px;
+  display:grid;grid-template-columns:20px 1fr 44px;
   align-items:center;gap:6px;
   padding:5px 10px 5px 8px;
-  border-radius:7px;
-  border:1px solid transparent;
-  margin-bottom:3px;
+  border-radius:7px;border:1px solid rgba(0,0,0,.05);
+  margin-bottom:3px;background:rgba(0,0,0,.02);
 }
-.race-row.feat{
-  background:rgba(184,137,10,.06);
-  border-color:rgba(184,137,10,.22);
-}
-.race-row:not(.feat){background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.05)}
-.rr-num{
-  width:18px;height:18px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:8px;font-weight:800;
-  background:rgba(0,0,0,.07);color:rgba(0,0,0,.4);
-  flex-shrink:0;
-}
+.race-row.feat{background:rgba(184,137,10,.05);border-color:rgba(184,137,10,.2)}
+.rr-num{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;background:rgba(0,0,0,.06);color:rgba(0,0,0,.38);flex-shrink:0}
 .race-row.feat .rr-num{background:var(--gold);color:#fff}
-.rr-match{font-size:clamp(10px,2.4vw,11.5px);font-weight:700;letter-spacing:.01em;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-match{font-size:clamp(10px,2.4vw,11.5px);font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .race-row.feat .rr-match{color:var(--gold)}
-.rr-cuadra{font-size:8px;color:rgba(0,0,0,.38);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rr-dist{font-size:9px;font-weight:700;color:rgba(0,0,0,.35);text-align:right;white-space:nowrap}
+.rr-cuadra{font-size:7.5px;color:rgba(0,0,0,.35);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-dist{font-size:9px;font-weight:700;color:rgba(0,0,0,.3);text-align:right;white-space:nowrap}
 .race-row.feat .rr-dist{color:var(--gold)}
 
-/* ── BOTTOM INFO ── */
-.f-bottom{
-  margin:6px 14px 14px;
-  background:#F0F0F3;
-  border:1px solid rgba(0,0,0,.07);
-  border-radius:12px;overflow:hidden;
-}
+/* ── INFO ROW ── */
+.f-bottom{margin:6px 14px 14px;background:#F7F7F9;border:1px solid rgba(0,0,0,.07);border-radius:12px;overflow:hidden}
 .f-info-row{display:flex}
 .f-ic{flex:1;padding:10px 12px;border-right:1px solid rgba(0,0,0,.06)}
 .f-ic:last-child{border-right:none}
-.f-ic-k{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:3px}
+.f-ic-k{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.28);margin-bottom:3px}
 .f-ic-v{font-size:11px;font-weight:700;color:#111}
 .f-ic-v.g{color:var(--gold)}
 
-/* ── PHONE CTA ── */
-.f-cta{
-  margin:0 14px 14px;
-  background:linear-gradient(135deg,rgba(184,137,10,.08),rgba(184,137,10,.04));
-  border:1.5px solid rgba(184,137,10,.22);
-  border-radius:12px;padding:12px 16px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.f-cta-txt{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.35)}
-.f-cta-num{font-size:clamp(1.1rem,4.5vw,1.5rem);font-weight:900;letter-spacing:.04em;color:var(--gold)}
+/* ── QR + PHONE ROW ── */
+.f-qr-row{margin:0 14px 14px;display:flex;align-items:center;gap:14px;background:#F7F7F9;border:1px solid rgba(0,0,0,.07);border-radius:12px;padding:14px}
+.f-qr-img{width:88px;height:88px;border-radius:8px;border:2px solid rgba(184,137,10,.2);flex-shrink:0;display:block}
+.f-qr-info{flex:1;min-width:0}
+.f-qr-label{font-size:8px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:4px}
+.f-qr-title{font-size:13px;font-weight:800;color:#111;margin-bottom:2px}
+.f-qr-sub{font-size:9px;color:rgba(0,0,0,.38);margin-bottom:10px}
+.f-qr-phone{font-size:clamp(1rem,4.5vw,1.3rem);font-weight:900;letter-spacing:.02em;color:var(--gold)}
 
 /* ── SPONSOR STRIP ── */
-.f-sponsor{
-  margin:0 14px 14px;
-  background:#F0F0F3;border:1px solid rgba(0,0,0,.07);
-  border-radius:12px;padding:10px 14px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.f-sponsor-lbl{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.28)}
+.f-sponsor{margin:0 14px 14px;background:#F7F7F9;border:1px solid rgba(0,0,0,.07);border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.f-sponsor-lbl{font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.25)}
 .f-sponsor-name{font-size:clamp(1rem,3.5vw,1.3rem);font-weight:900;letter-spacing:-.02em;color:#111}
-.f-sponsor-name .g{color:#3A8A1A}
-.f-sponsor-url{font-size:8px;font-weight:700;letter-spacing:.1em;color:#3A8A1A}
+.f-sponsor-name .g{color:#2E8A0E}
+.f-sponsor-url{font-size:8px;font-weight:700;letter-spacing:.1em;color:#2E8A0E}
 
 /* ── FOOTER ── */
-.f-footer{
-  padding:8px 18px 14px;text-align:center;
-  font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(0,0,0,.22);
-  border-top:1px solid rgba(0,0,0,.06);
-}
+.f-footer{padding:8px 18px 14px;text-align:center;font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(0,0,0,.2);border-top:1px solid rgba(0,0,0,.05)}
 </style>
 </head>
 <body>
@@ -158,28 +117,36 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
     <span class="f-topbar-r">14 Jun 2026</span>
   </div>
 
-  <!-- HORSE DUEL BANNER -->
+  <!-- HORSES SIDE BY SIDE — no overlays, 100% visible -->
   <div class="f-horses">
-    <img class="fh-left" src="la-mami.jpg" alt="CAOS">
-    <img class="fh-right" src="aries.jpg" alt="REY PUERRO">
-    <div class="f-horses-center">
-      <div class="fhc-inner">
-        <div class="fhc-tag">Unas de las que ya están</div>
-        <div class="fhc-cosidas">COSIDAS</div>
-        <span class="fhc-y">y</span>
-        <div class="fhc-cosinadas">COSINADAS</div>
-      </div>
+    <div class="fh-left">
+      <img src="la-mami.jpg" alt="CAOS">
+      <div class="fh-stripe fh-stripe-l"></div>
+    </div>
+    <div class="fh-right">
+      <img src="aries.jpg" alt="REY PUERRO">
+      <div class="fh-stripe fh-stripe-r"></div>
     </div>
   </div>
+
+  <!-- NAME TAGS -->
   <div class="f-horse-names">
     <span class="fhn fhn-l">CAOS</span>
     <span class="fhn fhn-r">REY PUERRO</span>
   </div>
 
+  <!-- TITLE -->
+  <div class="f-title">
+    <div class="f-title-tag">Unas de las que ya están</div>
+    <div class="f-title-main">COSIDAS</div>
+    <span class="f-title-y">y</span>
+    <div class="f-title-sub">COSINADAS</div>
+  </div>
+
   <!-- DIVIDER -->
   <div class="f-div">
     <div class="f-div-line"></div>
-    <div class="f-div-crown">♛</div>
+    <div class="f-div-icon">♛</div>
     <div class="f-div-line"></div>
   </div>
 
@@ -194,83 +161,19 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
       <div class="f-race-header-line"></div>
     </div>
 
-    <div class="race-row">
-      <div class="rr-num">1</div>
-      <div><div class="rr-match">POCA LUZ vs CHIKLIN</div><div class="rr-cuadra">Cdra: Ramirez</div></div>
-      <div class="rr-dist">125m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">2</div>
-      <div><div class="rr-match">CALCAMONIA vs VALENTINA</div><div class="rr-cuadra">Cdra: El Alaxan</div></div>
-      <div class="rr-dist">200m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">3</div>
-      <div><div class="rr-match">SPECIAL TINY CONGRI vs TAPADO</div><div class="rr-cuadra">Cdra: Chihuahua</div></div>
-      <div class="rr-dist">—</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">4</div>
-      <div><div class="rr-match">BELEKIN vs VIVORAS</div><div class="rr-cuadra">Cdra: Ca Weze</div></div>
-      <div class="rr-dist">250m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">5</div>
-      <div><div class="rr-match">AGUILA vs BLACK JACK</div><div class="rr-cuadra">Cdra: Con Chuy</div></div>
-      <div class="rr-dist">150m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">6</div>
-      <div><div class="rr-match">DRAMATICA vs VIEJITO</div><div class="rr-cuadra">Cdra: Ramirez</div></div>
-      <div class="rr-dist">—</div>
-    </div>
-
-    <div class="race-row feat">
-      <div class="rr-num">★</div>
-      <div><div class="rr-match">CAOS vs REY PUERRO</div><div class="rr-cuadra">Cdra: Charly · Estelar</div></div>
-      <div class="rr-dist">225×250</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">8</div>
-      <div><div class="rr-match">VOLCAN vs EMA</div><div class="rr-cuadra">Cdra: Cafetero</div></div>
-      <div class="rr-dist">—</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">9</div>
-      <div><div class="rr-match">PICO BLANCO vs CAÑERO</div><div class="rr-cuadra">Cdra: Cafetero</div></div>
-      <div class="rr-dist">300m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">10</div>
-      <div><div class="rr-match">REY RAMSES vs NUEVO ROMEO</div><div class="rr-cuadra">Cdra: GDA / Ca Vence</div></div>
-      <div class="rr-dist">250m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">11</div>
-      <div><div class="rr-match">RAYITO vs TRAKALOSA</div><div class="rr-cuadra">Cdra: Chichinero</div></div>
-      <div class="rr-dist">—</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">12</div>
-      <div><div class="rr-match">SECRETO vs CANTINELAS</div><div class="rr-cuadra">Cdra: Charly Potosina</div></div>
-      <div class="rr-dist">250m</div>
-    </div>
-
-    <div class="race-row">
-      <div class="rr-num">13</div>
-      <div><div class="rr-match">SUREÑO vs TRAVIESA</div><div class="rr-cuadra">Cdra: Charly / Potosina</div></div>
-      <div class="rr-dist">—</div>
-    </div>
+    <div class="race-row"><div class="rr-num">1</div><div><div class="rr-match">POCA LUZ vs CHIKLIN</div><div class="rr-cuadra">Cdra: Ramirez</div></div><div class="rr-dist">125m</div></div>
+    <div class="race-row"><div class="rr-num">2</div><div><div class="rr-match">CALCAMONIA vs VALENTINA</div><div class="rr-cuadra">Cdra: El Alaxan</div></div><div class="rr-dist">200m</div></div>
+    <div class="race-row"><div class="rr-num">3</div><div><div class="rr-match">SPECIAL TINY CONGRI vs TAPADO</div><div class="rr-cuadra">Cdra: Chihuahua</div></div><div class="rr-dist">—</div></div>
+    <div class="race-row"><div class="rr-num">4</div><div><div class="rr-match">BELEKIN vs VIVORAS</div><div class="rr-cuadra">Cdra: Ca Weze</div></div><div class="rr-dist">250m</div></div>
+    <div class="race-row"><div class="rr-num">5</div><div><div class="rr-match">AGUILA vs BLACK JACK</div><div class="rr-cuadra">Cdra: Con Chuy</div></div><div class="rr-dist">150m</div></div>
+    <div class="race-row"><div class="rr-num">6</div><div><div class="rr-match">DRAMATICA vs VIEJITO</div><div class="rr-cuadra">Cdra: Ramirez</div></div><div class="rr-dist">—</div></div>
+    <div class="race-row feat"><div class="rr-num">★</div><div><div class="rr-match">CAOS vs REY PUERRO</div><div class="rr-cuadra">Cdra: Charly · Estelar</div></div><div class="rr-dist">225×250</div></div>
+    <div class="race-row"><div class="rr-num">8</div><div><div class="rr-match">VOLCAN vs EMA</div><div class="rr-cuadra">Cdra: Cafetero</div></div><div class="rr-dist">—</div></div>
+    <div class="race-row"><div class="rr-num">9</div><div><div class="rr-match">PICO BLANCO vs CAÑERO</div><div class="rr-cuadra">Cdra: Cafetero</div></div><div class="rr-dist">300m</div></div>
+    <div class="race-row"><div class="rr-num">10</div><div><div class="rr-match">REY RAMSES vs NUEVO ROMEO</div><div class="rr-cuadra">Cdra: GDA / Ca Vence</div></div><div class="rr-dist">250m</div></div>
+    <div class="race-row"><div class="rr-num">11</div><div><div class="rr-match">RAYITO vs TRAKALOSA</div><div class="rr-cuadra">Cdra: Chichinero</div></div><div class="rr-dist">—</div></div>
+    <div class="race-row"><div class="rr-num">12</div><div><div class="rr-match">SECRETO vs CANTINELAS</div><div class="rr-cuadra">Cdra: Charly Potosina</div></div><div class="rr-dist">250m</div></div>
+    <div class="race-row"><div class="rr-num">13</div><div><div class="rr-match">SUREÑO vs TRAVIESA</div><div class="rr-cuadra">Cdra: Charly / Potosina</div></div><div class="rr-dist">—</div></div>
   </div>
 
   <!-- INFO ROW -->
@@ -282,19 +185,22 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
     </div>
   </div>
 
-  <!-- PHONE CTA -->
-  <div class="f-cta">
-    <div>
-      <div class="f-cta-txt">Más información</div>
-      <div class="f-cta-num">📞 970 901 1260</div>
-    </div>
-    <div style="text-align:right">
-      <div class="f-cta-txt" style="margin-bottom:3px">Así nomas kedo</div>
-      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)">Dijo El Pirata</div>
+  <!-- QR CODE + PHONE -->
+  <div class="f-qr-row">
+    <img
+      class="f-qr-img"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Fcarril-dos-hermanos%2Fvideo-ad.html&bgcolor=F7F7F9&color=1a1a1a&margin=6"
+      alt="QR Video"
+    >
+    <div class="f-qr-info">
+      <div class="f-qr-label">Escanea para ver el video</div>
+      <div class="f-qr-title">Video Promocional</div>
+      <div class="f-qr-sub">Al terminar el video, entra al sitio del evento</div>
+      <div class="f-qr-phone">📞 970 901 1260</div>
     </div>
   </div>
 
-  <!-- CARRERASOS SPONSOR -->
+  <!-- SPONSOR -->
   <div class="f-sponsor">
     <div>
       <div class="f-sponsor-lbl">Patrocinador Oficial</div>
@@ -310,6 +216,5 @@ html,body{min-height:100%;background:#D8D8DC;display:flex;align-items:flex-start
   <div class="f-footer">Sírbase Solo Caliente Las Tortillas · Carril Dos Hermanos · Colorado</div>
 
 </div>
-
 </body>
 </html>
