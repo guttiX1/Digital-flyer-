@@ -3,737 +3,612 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CarrerasOS — Tienda Oficial de Merch</title>
+<title>CarrerasOS — Merch Store</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --g:#00CC33;--g-light:rgba(0,204,51,.1);--g-border:rgba(0,204,51,.25);
-  --black:#111;--dark:#1a1a1a;
-  --white:#fff;--off:#f9f9f9;--light:#f3f3f3;
-  --text:#111;--muted:#6b6b6b;--subtle:#aaa;
-  --border:#e8e8e8;
-  --red:#e53935;--orange:#f57c00;--gold:#f9a825;
-  --radius:12px;--radius-lg:20px;
+  --g:#00FF41;--g2:#00CC33;--black:#000;--white:#fff;
+  --dark:#0a0a0a;--card:#111;--border:rgba(255,255,255,.08);
+  --muted:rgba(255,255,255,.45);--text:#fff;
+  --red:#FF3B30;--gold:#FFD60A;--orange:#FF9500;
 }
-html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+html{scroll-behavior:smooth;cursor:none}
+body{background:var(--black);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;overflow-x:hidden;min-height:100vh}
 
-/* ── ANNOUNCEMENT BAR ── */
-.ann-bar{background:var(--black);color:#fff;text-align:center;padding:.55rem 1rem;font-size:.78rem;font-weight:500;letter-spacing:.02em;position:relative}
-.ann-bar b{color:#00FF41}
+/* ── CUSTOM CURSOR ── */
+#cursor{position:fixed;width:12px;height:12px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s,background .3s;mix-blend-mode:difference;box-shadow:0 0 20px var(--g)}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,255,65,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;backdrop-filter:none}
+body:has(.pc:hover) #cursor{width:50px;height:50px;background:rgba(0,255,65,.2)}
+body:has(.hf-cta:hover) #cursor{background:var(--white);width:60px;height:60px}
+
+/* ── CANVAS ── */
+#heroCanvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* ── ANN BAR ── */
+.ann{background:var(--g);color:#000;text-align:center;padding:.45rem;font-size:.75rem;font-weight:800;letter-spacing:.06em;overflow:hidden;position:relative}
+.ann-track{display:inline-flex;gap:4rem;animation:marquee 20s linear infinite;white-space:nowrap}
+.ann-track span{flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5vw;height:62px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;flex-shrink:0}
-.logo-box{width:32px;height:32px;background:var(--black);border-radius:8px;display:grid;place-items:center}
-.logo-box span{font-size:.7rem;font-weight:900;color:#00FF41;letter-spacing:-.05em}
-.logo-wordmark{font-size:1.1rem;font-weight:800;color:var(--black);letter-spacing:-.03em}
-.logo-wordmark em{font-style:normal;color:var(--g)}
-.nav-cats{display:flex;gap:.15rem}
-.nav-cat{font-size:.85rem;font-weight:500;color:var(--muted);padding:.4rem .85rem;border-radius:50px;text-decoration:none;transition:all .2s;white-space:nowrap;cursor:pointer;background:none;border:none}
-.nav-cat:hover,.nav-cat.active{color:var(--black);background:var(--light)}
+nav{position:sticky;top:0;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(0,0,0,.8);backdrop-filter:blur(30px) saturate(200%);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:var(--g);border-radius:8px;display:grid;place-items:center;font-size:.7rem;font-weight:900;color:#000;box-shadow:0 0 20px rgba(0,255,65,.4);animation:logoPulse 3s ease infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 20px rgba(0,255,65,.4)}50%{box-shadow:0 0 40px rgba(0,255,65,.7)}}
+.logo-text{font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.logo-text em{font-style:normal;color:var(--g)}
+.nav-filters{display:flex;gap:.25rem}
+.nf{font-size:.8rem;font-weight:600;padding:.38rem .9rem;border-radius:50px;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:none;transition:all .25s;white-space:nowrap}
+.nf:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.nf.active{background:var(--g);color:#000;border-color:var(--g);box-shadow:0 0 15px rgba(0,255,65,.3)}
 .nav-right{display:flex;gap:.5rem;align-items:center}
-.nav-icon-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:none;border:none;cursor:pointer;transition:background .2s;font-size:1.1rem;position:relative}
-.nav-icon-btn:hover{background:var(--light)}
-.cart-count{position:absolute;top:2px;right:2px;background:var(--red);color:#fff;font-size:.55rem;font-weight:900;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff}
+.cart-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:50px;padding:.4rem 1rem;font-size:.82rem;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .25s;position:relative}
+.cart-btn:hover{background:rgba(0,255,65,.1);border-color:rgba(0,255,65,.3)}
+.cbadge{background:var(--red);color:#fff;font-size:.55rem;font-weight:900;min-width:16px;height:16px;border-radius:50px;display:none;place-items:center;padding:0 3px;box-shadow:0 0 8px rgba(255,59,48,.5)}
+.cbadge.show{display:grid}
 
-/* ── HERO BANNER ── */
-.hero-banner{background:var(--black);color:#fff;display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
-.hb-left{padding:5vw;display:flex;flex-direction:column;justify-content:center}
-.hb-eyebrow{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;color:#00FF41;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.2rem;background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.2);padding:.3rem .8rem;border-radius:50px;width:fit-content}
-.hb-dot{width:6px;height:6px;border-radius:50%;background:#00FF41;animation:blink 1.5s infinite}
-.hb-title{font-size:clamp(2.2rem,4.5vw,4rem);font-weight:900;line-height:.95;letter-spacing:-.04em}
-.hb-title em{font-style:normal;color:#00FF41}
-.hb-sub{font-size:.95rem;color:rgba(255,255,255,.55);margin-top:.9rem;line-height:1.65;max-width:400px}
-.hb-actions{display:flex;gap:.75rem;margin-top:2rem;flex-wrap:wrap}
-.hb-btn-primary{background:#00FF41;color:#000;font-weight:800;font-size:.9rem;padding:.8rem 2rem;border-radius:50px;text-decoration:none;transition:all .2s}
-.hb-btn-primary:hover{background:#fff;transform:translateY(-2px)}
-.hb-btn-ghost{color:#fff;font-weight:600;font-size:.9rem;padding:.8rem 2rem;border-radius:50px;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:all .2s}
-.hb-btn-ghost:hover{border-color:rgba(255,255,255,.5)}
-.hb-right{display:grid;grid-template-columns:1fr 1fr;gap:3px;overflow:hidden}
-.hb-img{overflow:hidden}
-.hb-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
-.hb-img:hover img{transform:scale(1.05)}
+/* ── HERO ── */
+.hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden;padding:80px 5vw 60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 70% 50%,rgba(0,255,65,.06) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(0,204,51,.04) 0%,transparent 70%)}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,65,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.025) 1px,transparent 1px);background-size:50px 50px;animation:gridShift 20s ease infinite}
+@keyframes gridShift{0%,100%{background-position:0 0}50%{background-position:25px 25px}}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.4rem;background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.2);padding:.35rem .9rem;border-radius:50px;animation:fadeUp .6s ease both}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:blink 1.4s infinite}
+.hero h1{font-size:clamp(3rem,7vw,6.5rem);font-weight:900;line-height:.9;letter-spacing:-.05em;animation:fadeUp .6s ease .1s both}
+.hero h1 .word{display:inline-block;overflow:hidden}
+.hero h1 .char{display:inline-block;animation:charReveal .6s cubic-bezier(.16,1,.3,1) both}
+.hero h1 .accent{color:var(--g);text-shadow:0 0 60px rgba(0,255,65,.4)}
+.hero-sub{font-size:1rem;color:var(--muted);margin-top:1.2rem;line-height:1.65;max-width:460px;animation:fadeUp .6s ease .2s both}
+.hero-sub b{color:#fff}
+.hero-actions{margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap;animation:fadeUp .6s ease .3s both}
+.btn-primary{background:var(--g);color:#000;font-weight:800;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;border:none;cursor:pointer;transition:all .3s;box-shadow:0 0 30px rgba(0,255,65,.35),0 4px 20px rgba(0,0,0,.3);position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:transform .4s}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(0,255,65,.5),0 8px 30px rgba(0,0,0,.4)}
+.btn-primary:hover::before{transform:translateX(100%)}
+.btn-ghost{color:#fff;font-weight:600;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;border:1px solid rgba(255,255,255,.15);cursor:pointer;background:none;transition:all .3s}
+.btn-ghost:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.35)}
+.hero-trust{display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;animation:fadeUp .6s ease .4s both}
+.trust-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--muted)}
+.trust-item b{color:#fff}
 
-/* ── FILTERS STRIP ── */
-.filters{padding:.9rem 5vw;border-bottom:1px solid var(--border);display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;background:var(--white);position:sticky;top:62px;z-index:100}
-.filters::-webkit-scrollbar{display:none}
-.filter-chip{flex-shrink:0;font-size:.8rem;font-weight:600;padding:.45rem 1.1rem;border-radius:50px;border:1.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s;background:var(--white)}
-.filter-chip:hover{border-color:var(--black);color:var(--black)}
-.filter-chip.active{background:var(--black);color:#fff;border-color:var(--black)}
+/* ── HERO PRODUCT SHOWCASE (right side) ── */
+.hero-showcase{position:relative;z-index:2;height:600px;display:flex;align-items:center;justify-content:center}
+.showcase-orbit{position:relative;width:440px;height:440px}
+.orbit-card{position:absolute;width:160px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.5);transition:all .3s;cursor:pointer}
+.orbit-card img{width:100%;height:200px;object-fit:cover;display:block}
+.orbit-card-label{background:rgba(0,0,0,.9);padding:.6rem .8rem;font-size:.72rem;font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px)}
+.orbit-card-price{color:var(--g);font-weight:900}
+.oc-1{top:0;left:50%;transform:translateX(-50%);animation:float1 6s ease infinite}
+.oc-2{top:50%;right:0;transform:translateY(-50%);animation:float2 7s ease infinite}
+.oc-3{bottom:0;left:50%;transform:translateX(-50%);animation:float3 5.5s ease infinite}
+.oc-4{top:50%;left:0;transform:translateY(-50%);animation:float4 6.5s ease infinite}
+.oc-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;background:var(--g);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 60px rgba(0,255,65,.4),0 0 120px rgba(0,255,65,.2);animation:centerPulse 3s ease infinite}
+.oc-center-text{font-size:.65rem;font-weight:900;color:#000;text-align:center;letter-spacing:-.01em;line-height:1.2}
+@keyframes float1{0%,100%{transform:translateX(-50%) translateY(0) rotate(0deg)}33%{transform:translateX(-50%) translateY(-15px) rotate(2deg)}66%{transform:translateX(-50%) translateY(-8px) rotate(-1deg)}}
+@keyframes float2{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(12px)}}
+@keyframes float3{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+@keyframes float4{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(-12px)}}
+@keyframes centerPulse{0%,100%{box-shadow:0 0 60px rgba(0,255,65,.4),0 0 120px rgba(0,255,65,.2)}50%{box-shadow:0 0 80px rgba(0,255,65,.6),0 0 160px rgba(0,255,65,.3)}}
 
-/* ── SECTION ── */
-.section{padding:3rem 5vw}
-.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:.5rem}
-.section-title{font-size:1.5rem;font-weight:800;color:var(--black);letter-spacing:-.03em}
-.section-title span{color:var(--g)}
-.section-link{font-size:.82rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s}
-.section-link:hover{color:var(--black)}
+/* ── SCROLL INDICATOR ── */
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:2;animation:fadeUp .6s ease .6s both}
+.si-text{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:.15em;text-transform:uppercase}
+.si-line{width:1px;height:40px;background:linear-gradient(var(--g),transparent);animation:scrollLine 2s ease infinite}
+@keyframes scrollLine{0%{opacity:.3;transform:scaleY(.5);transform-origin:top}100%{opacity:1;transform:scaleY(1);transform-origin:top}}
+
+/* ── TICKER ── */
+.ticker{background:var(--g);padding:.55rem 0;overflow:hidden}
+.ticker-track{display:inline-flex;gap:3rem;animation:marquee 18s linear infinite;white-space:nowrap}
+.ticker-item{font-size:.75rem;font-weight:800;color:#000;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.ticker-sep{opacity:.4}
+
+/* ── SECTION HEADER ── */
+.sec{padding:80px 5vw}
+.sec-label{font-size:.68rem;font-weight:700;color:var(--g);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.6rem}
+.sec-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.sec-sub{font-size:.9rem;color:var(--muted);margin-top:.6rem;max-width:480px;line-height:1.6}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.sec-link{font-size:.8rem;color:var(--g);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(0,255,65,.3);padding-bottom:.1rem;transition:all .2s}
+.sec-link:hover{border-color:var(--g)}
+
+/* ── FEATURED 2-UP ── */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feat-card{position:relative;border-radius:24px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;transform-style:preserve-3d;transition:transform .1s}
+.feat-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.feat-card:hover img{transform:scale(1.08)}
+.feat-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 50%,transparent 100%)}
+.feat-info{position:absolute;bottom:0;left:0;right:0;padding:1.8rem}
+.fi-eyebrow{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.fi-name{font-size:1.8rem;font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:.3rem}
+.fi-price{color:var(--g);font-size:1.1rem;font-weight:800}
+.feat-add{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;background:rgba(255,255,255,.12);color:#fff;font-weight:700;font-size:.82rem;padding:.6rem 1.3rem;border-radius:50px;border:1px solid rgba(255,255,255,.2);cursor:pointer;backdrop-filter:blur(10px);transition:all .25s}
+.feat-add:hover{background:var(--g);color:#000;border-color:var(--g)}
+/* glow reveal on hover */
+.feat-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,255,65,.12),transparent 60%);opacity:0;transition:opacity .3s}
+.feat-card:hover::after{opacity:1}
 
 /* ── PRODUCT GRID ── */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
-.pgrid.wide{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
 
 /* ── PRODUCT CARD ── */
-.pc{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;position:relative;transition:box-shadow .3s}
-.pc:hover{box-shadow:0 8px 40px rgba(0,0,0,.12)}
-.pc-img-wrap{position:relative;aspect-ratio:1;overflow:hidden;background:var(--off)}
-.pc-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
-.pc:hover .pc-img-wrap img{transform:scale(1.06)}
-.pc-badges{position:absolute;top:.75rem;left:.75rem;display:flex;flex-direction:column;gap:.3rem;z-index:2}
-.badge{font-size:.62rem;font-weight:800;padding:.25rem .65rem;border-radius:50px;letter-spacing:.04em;text-transform:uppercase;width:fit-content}
-.b-hot{background:var(--red);color:#fff}
-.b-new{background:var(--black);color:#fff}
+.pc{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;background:var(--card);border:1px solid var(--border);transform-style:preserve-3d;transition:box-shadow .3s,border-color .3s;will-change:transform}
+.pc:hover{border-color:rgba(0,255,65,.2);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(0,255,65,.1)}
+/* holographic shimmer */
+.pc::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(0,255,65,.04) 40%,rgba(255,255,255,.06) 50%,rgba(0,255,65,.04) 60%,transparent 75%);background-size:200% 200%;background-position:200% 0%;transition:background-position .6s ease;z-index:2;pointer-events:none;border-radius:20px}
+.pc:hover::before{background-position:-200% 0%}
+.pc-img{aspect-ratio:1;overflow:hidden;position:relative}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94);display:block}
+.pc:hover .pc-img img{transform:scale(1.08) translateY(-4px)}
+/* badge */
+.pc-badge{position:absolute;top:.65rem;left:.65rem;z-index:3;display:flex;flex-direction:column;gap:.25rem}
+.badge{font-size:.58rem;font-weight:900;padding:.22rem .6rem;border-radius:50px;letter-spacing:.05em;text-transform:uppercase;width:fit-content}
+.b-hot{background:var(--red);color:#fff;animation:badgePulse 2s ease infinite}
+.b-new{background:#fff;color:#000}
 .b-ltd{background:var(--gold);color:#000}
 .b-sale{background:var(--g);color:#000}
-.b-sold{background:var(--border);color:var(--muted)}
-.pc-watch{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.95);border-radius:50px;padding:.25rem .65rem;font-size:.62rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;z-index:2;backdrop-filter:blur(4px)}
-.watch-dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink .9s infinite}
-.pc-quick-add{position:absolute;bottom:.75rem;left:.75rem;right:.75rem;background:rgba(17,17,17,.9);color:#fff;font-weight:700;font-size:.8rem;padding:.65rem;border-radius:50px;text-align:center;opacity:0;transform:translateY(6px);transition:all .25s;backdrop-filter:blur(4px);cursor:pointer;border:none}
-.pc:hover .pc-quick-add{opacity:1;transform:translateY(0)}
-.pc-info{padding:1rem}
-.pc-brand{font-size:.68rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.25rem}
-.pc-name{font-size:.95rem;font-weight:700;color:var(--black);margin-bottom:.5rem;line-height:1.3}
-.pc-trigger{font-size:.72rem;color:var(--orange);font-weight:600;display:flex;align-items:center;gap:.3rem;margin-bottom:.5rem}
-.pc-price-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-.pc-price{font-size:1.05rem;font-weight:800;color:var(--black)}
-.pc-orig{font-size:.85rem;color:var(--subtle);text-decoration:line-through}
-.pc-save{font-size:.65rem;font-weight:700;background:rgba(229,57,53,.1);color:var(--red);padding:.15rem .45rem;border-radius:50px}
-.pc-social{font-size:.67rem;color:var(--subtle);margin-top:.4rem;display:flex;align-items:center;gap:.3rem}
+.b-pre{background:#0A84FF;color:#fff}
+@keyframes badgePulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 12px rgba(255,59,48,.6)}}
+.pc-watch{position:absolute;top:.65rem;right:.65rem;z-index:3;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.2rem .55rem;font-size:.58rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.25rem;backdrop-filter:blur(8px)}
+.wd{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink .8s infinite}
+/* quick add */
+.pc-qa{position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(0,0,0,.92);color:var(--g);font-weight:800;font-size:.8rem;padding:.7rem;text-align:center;transform:translateY(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);cursor:pointer;border:none;backdrop-filter:blur(10px)}
+.pc:hover .pc-qa{transform:translateY(0)}
+.pc-qa:hover{background:var(--g);color:#000}
+/* info */
+.pc-info{padding:.9rem}
+.pc-brand{font-size:.62rem;font-weight:700;color:rgba(0,255,65,.7);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.pc-name{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.35rem;line-height:1.3}
+.pc-trigger{font-size:.68rem;color:var(--orange);font-weight:600;display:flex;align-items:center;gap:.25rem;margin-bottom:.4rem}
+.pc-prices{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.pc-price{font-size:1rem;font-weight:900;color:#fff}
+.pc-orig{font-size:.8rem;color:rgba(255,255,255,.3);text-decoration:line-through}
+.pc-disc{font-size:.6rem;font-weight:800;background:rgba(255,59,48,.15);color:var(--red);padding:.12rem .4rem;border-radius:50px}
+.pc-social{font-size:.64rem;color:rgba(255,255,255,.3);margin-top:.35rem;display:flex;align-items:center;gap:.25rem}
 
-/* ── FEATURED ROW (2-up) ── */
-.featured-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.featured-card{border-radius:var(--radius-lg);overflow:hidden;position:relative;cursor:pointer;aspect-ratio:3/4}
-.featured-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
-.featured-card:hover img{transform:scale(1.04)}
-.featured-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.15) 50%,transparent 100%)}
-.featured-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem}
-.fi-label{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem}
-.fi-name{font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:.4rem}
-.fi-price{font-size:1rem;font-weight:700;color:#00FF41}
-.fi-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;background:rgba(255,255,255,.15);color:#fff;font-weight:600;font-size:.82rem;padding:.55rem 1.2rem;border-radius:50px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);transition:all .2s;cursor:pointer;border-style:solid}
-.fi-btn:hover{background:rgba(255,255,255,.25)}
-
-/* ── HORSE COLLECTION BANNER ── */
-.horse-banner{background:var(--black);margin:0 5vw 3rem;border-radius:var(--radius-lg);padding:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;overflow:hidden;position:relative}
-.horse-banner::before{content:'';position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:300px;height:300px;background:radial-gradient(ellipse,rgba(0,255,65,.08),transparent 70%);pointer-events:none}
-.hb-text .hb-label{font-size:.7rem;font-weight:700;color:#00FF41;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
-.hb-text h3{font-size:1.8rem;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
-.hb-text p{font-size:.88rem;color:rgba(255,255,255,.45);margin-top:.5rem;max-width:380px;line-height:1.55}
-.hb-horses{display:flex;gap:.75rem}
-.hb-horse-card{width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s;flex-shrink:0}
-.hb-horse-card:hover{border-color:rgba(0,255,65,.4);background:rgba(0,255,65,.06)}
-.hb-horse-img{height:90px;overflow:hidden}
-.hb-horse-img img{width:100%;height:100%;object-fit:cover}
-.hb-horse-name{font-size:.65rem;font-weight:800;color:#fff;text-align:center;padding:.4rem;letter-spacing:.02em;text-transform:uppercase}
+/* ── HORSE COLLECTION ── */
+.horse-sec{background:linear-gradient(135deg,#050905,#000);padding:80px 5vw;position:relative;overflow:hidden}
+.horse-sec::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(0,255,65,.05),transparent 70%);pointer-events:none}
+.horse-scroll{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:1rem;margin-top:2.5rem}
+.horse-scroll::-webkit-scrollbar{display:none}
+.hcard{flex:0 0 240px;border-radius:20px;overflow:hidden;border:1px solid var(--border);cursor:pointer;position:relative;transition:all .35s;background:var(--card)}
+.hcard:hover{border-color:rgba(0,255,65,.35);transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 30px rgba(0,255,65,.1)}
+.hcard-img{height:280px;position:relative;overflow:hidden}
+.hcard-img img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s ease}
+.hcard:hover .hcard-img img{transform:scale(1.08)}
+.hcard-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1) 60%,transparent)}
+.hcard-info{position:absolute;bottom:0;left:0;right:0;padding:1.2rem}
+.hcard-name{font-size:1.2rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+.hcard-sub{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.15rem}
+.hcard-add{display:block;width:100%;background:rgba(0,255,65,.12);border:1px solid rgba(0,255,65,.25);color:var(--g);font-weight:700;font-size:.78rem;padding:.55rem;text-align:center;border-radius:0 0 0 0;cursor:pointer;transition:all .25s;margin-top:0}
+.hcard:hover .hcard-add{background:var(--g);color:#000;border-color:var(--g)}
 
 /* ── BUNDLE ── */
-.bundle-section{background:var(--off);padding:3rem 5vw}
-.bundle-card{background:var(--white);border-radius:var(--radius-lg);border:1.5px solid var(--border);padding:2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
-.bundle-img-row{display:flex;gap:.5rem;margin-top:1.2rem}
-.bundle-thumb{width:64px;height:64px;border-radius:var(--radius);overflow:hidden;border:1.5px solid var(--border)}
-.bundle-thumb img{width:100%;height:100%;object-fit:cover}
-.bundle-plus{width:24px;height:24px;background:var(--light);border-radius:50%;display:grid;place-items:center;font-size:.8rem;color:var(--muted);align-self:center;flex-shrink:0}
-.bl-label{font-size:.7rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
-.bl-title{font-size:1.5rem;font-weight:900;color:var(--black);letter-spacing:-.03em}
-.bl-desc{font-size:.85rem;color:var(--muted);margin-top:.4rem;line-height:1.55;max-width:420px}
-.bp-was{font-size:.82rem;color:var(--subtle);text-decoration:line-through;margin-bottom:.2rem}
-.bp-price{font-size:2.5rem;font-weight:900;color:var(--black);letter-spacing:-.04em;line-height:1}
-.bp-save{display:inline-block;margin-top:.4rem;background:var(--red);color:#fff;font-size:.68rem;font-weight:800;padding:.3rem .8rem;border-radius:50px;letter-spacing:.04em}
-.bp-cta{display:block;margin-top:1.2rem;background:var(--black);color:#fff;font-weight:800;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;text-align:center;cursor:pointer;border:none;transition:all .2s;width:100%}
-.bp-cta:hover{background:#333}
+.bundle-sec{padding:80px 5vw;background:var(--dark)}
+.bundle-card{background:linear-gradient(135deg,#0d130d,#0a0a0a);border:1px solid rgba(0,255,65,.15);border-radius:28px;padding:3rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.bundle-card::before{content:'BUNDLE';position:absolute;top:2rem;right:-2rem;font-size:6rem;font-weight:900;color:rgba(0,255,65,.04);letter-spacing:-.05em;transform:rotate(10deg);pointer-events:none}
+.bundle-imgs{display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
+.bimg{width:72px;height:72px;border-radius:12px;overflow:hidden;border:2px solid rgba(0,255,65,.2);transition:all .25s;flex-shrink:0}
+.bimg:hover{border-color:var(--g);transform:scale(1.1)}
+.bimg img{width:100%;height:100%;object-fit:cover}
+.bplus{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);display:grid;place-items:center;font-size:.7rem;color:var(--muted);align-self:center;flex-shrink:0}
+.bundle-label{font-size:.68rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.bundle-title{font-size:2rem;font-weight:900;letter-spacing:-.04em}
+.bundle-desc{font-size:.88rem;color:var(--muted);margin-top:.4rem;line-height:1.6;max-width:420px}
+.bprice-was{font-size:.85rem;color:rgba(255,255,255,.3);text-decoration:line-through;margin-bottom:.2rem}
+.bprice{font-size:3rem;font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1}
+.bsave{display:inline-block;margin-top:.4rem;background:var(--red);color:#fff;font-size:.65rem;font-weight:900;padding:.3rem .8rem;border-radius:50px;letter-spacing:.04em;box-shadow:0 0 15px rgba(255,59,48,.3)}
+.bundle-cta{display:block;margin-top:1.5rem;background:var(--g);color:#000;font-weight:900;font-size:1rem;padding:.9rem 2.5rem;border-radius:50px;text-align:center;border:none;cursor:pointer;transition:all .3s;box-shadow:0 0 30px rgba(0,255,65,.3);letter-spacing:.01em}
+.bundle-cta:hover{background:#fff;transform:translateY(-2px);box-shadow:0 0 50px rgba(0,255,65,.4)}
 
-/* ── SOCIAL PROOF STRIP ── */
-.proof-strip{background:var(--off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 5vw;display:flex;gap:3rem;overflow-x:auto;scrollbar-width:none}
-.proof-strip::-webkit-scrollbar{display:none}
-.proof-item{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
-.proof-icon{font-size:1.2rem}
-.proof-text{font-size:.78rem;color:var(--muted);font-weight:500;white-space:nowrap}
-.proof-text b{color:var(--black)}
+/* ── STATS ── */
+.stats-sec{padding:60px 5vw;background:var(--black)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:20px;overflow:hidden}
+.stat-box{background:var(--dark);padding:2.5rem 2rem;text-align:center;transition:background .3s}
+.stat-box:hover{background:rgba(0,255,65,.04)}
+.stat-num{font-size:3rem;font-weight:900;color:var(--g);text-shadow:0 0 30px rgba(0,255,65,.3);line-height:1;display:block}
+.stat-label{font-size:.75rem;color:var(--muted);margin-top:.4rem;letter-spacing:.04em}
 
-/* ── URGENCY TIMER ── */
-.urgency-strip{background:#fff8e1;border:1.5px solid #ffe082;border-radius:var(--radius);padding:1rem 1.5rem;margin:0 5vw 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.us-left{display:flex;align-items:center;gap:.75rem}
-.us-icon{font-size:1.4rem}
-.us-text{font-size:.88rem;font-weight:700;color:#5d4037}
-.us-sub{font-size:.75rem;color:#8d6e63;margin-top:.1rem}
-.us-timer{display:flex;gap:.35rem;align-items:center}
-.t-box{background:#fff;border:1.5px solid #ffe082;border-radius:8px;padding:.3rem .6rem;text-align:center;min-width:44px}
-.t-num{font-size:1.2rem;font-weight:900;color:#e65100;display:block;line-height:1;font-variant-numeric:tabular-nums}
-.t-lbl{font-size:.48rem;color:#bf360c;letter-spacing:.05em;text-transform:uppercase}
-.t-sep{font-size:1.1rem;font-weight:900;color:#e65100}
+/* ── CART DRAWER ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:800;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:rgba(10,10,10,.98);backdrop-filter:blur(40px);z-index:801;transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.drawer.open{transform:translateX(0)}
+.dr-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dr-title{font-size:1.05rem;font-weight:800}
+.dr-close{background:rgba(255,255,255,.08);border:none;color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;transition:all .2s;font-size:.85rem}
+.dr-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.dr-items{flex:1;overflow-y:auto;padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:.8rem}
+.dr-item{display:flex;gap:.9rem;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:.9rem;animation:fadeUp .3s ease both}
+.dri-img{width:56px;height:56px;border-radius:10px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+.dri-img img{width:100%;height:100%;object-fit:cover}
+.dri-name{font-size:.85rem;font-weight:700}
+.dri-price{color:var(--g);font-size:.8rem;font-weight:700;margin-top:.15rem}
+.dri-rm{background:none;border:none;color:rgba(255,255,255,.3);font-size:.75rem;cursor:pointer;margin-left:auto;transition:color .2s;padding:.25rem}
+.dri-rm:hover{color:var(--red)}
+.dr-empty{text-align:center;padding:3rem;color:var(--muted)}
+.dr-foot{padding:1.5rem;border-top:1px solid var(--border)}
+.dr-total-row{display:flex;justify-content:space-between;margin-bottom:.5rem;align-items:center}
+.dr-total-l{font-size:.85rem;color:var(--muted)}
+.dr-total-v{font-size:1.4rem;font-weight:900}
+.dr-ship{font-size:.75rem;color:var(--g);text-align:center;margin-bottom:1rem}
+.dr-checkout{width:100%;background:var(--g);color:#000;font-weight:900;font-size:.95rem;padding:.9rem;border-radius:50px;border:none;cursor:pointer;transition:all .25s;box-shadow:0 0 20px rgba(0,255,65,.25)}
+.dr-checkout:hover{background:#fff}
+.dr-wa{width:100%;background:#25D366;color:#fff;font-weight:700;font-size:.85rem;padding:.75rem;border-radius:50px;border:none;margin-top:.5rem;cursor:pointer;transition:all .25s}
+.dr-wa:hover{background:#1da855}
+
+/* ── PARTICLES ── */
+.particle{position:fixed;pointer-events:none;z-index:9990;border-radius:50%;animation:particleFly .8s ease both}
+@keyframes particleFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
 
 /* ── TOAST ── */
-.toast-wrap{position:fixed;bottom:1.5rem;left:1.5rem;z-index:999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
-.toast{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem;font-size:.78rem;transform:translateX(-120%);transition:transform .4s cubic-bezier(.16,1,.3,1);max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.toasts{position:fixed;bottom:1.5rem;left:1.5rem;z-index:9000;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
+.toast{background:rgba(10,10,10,.98);border:1px solid var(--border);border-radius:14px;padding:.8rem 1rem;display:flex;align-items:center;gap:.75rem;font-size:.78rem;transform:translateX(-130%);transition:transform .4s cubic-bezier(.16,1,.3,1);max-width:280px;backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(0,0,0,.5)}
 .toast.show{transform:translateX(0)}
 .toast-img{width:40px;height:40px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
 .toast-img img{width:100%;height:100%;object-fit:cover}
-.toast-body{flex:1}
-.toast-name{font-weight:700;color:var(--black)}
-.toast-action{color:var(--muted);margin-top:.1rem}
-.toast-time{font-size:.63rem;color:var(--subtle);margin-top:.15rem;display:block}
+.toast-text b{color:#fff}
+.toast-time{font-size:.62rem;color:var(--muted);display:block;margin-top:.1rem}
 
-/* ── CART DRAWER ── */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px)}
-.cart-overlay.open{opacity:1;pointer-events:all}
-.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100vw);background:#fff;z-index:501;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.1)}
-.cart-drawer.open{transform:translateX(0)}
-.cd-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.cd-title{font-size:1.05rem;font-weight:800;color:var(--black)}
-.cd-close{background:var(--light);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.85rem;color:var(--muted);transition:all .2s}
-.cd-close:hover{background:var(--border);color:var(--black)}
-.cd-items{flex:1;overflow-y:auto;padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:.8rem}
-.cd-item{display:flex;gap:.9rem;align-items:center;padding:.9rem;background:var(--off);border-radius:var(--radius)}
-.cdi-img{width:56px;height:56px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
-.cdi-img img{width:100%;height:100%;object-fit:cover}
-.cdi-name{font-size:.85rem;font-weight:700;color:var(--black)}
-.cdi-price{font-size:.82rem;color:var(--g);font-weight:700;margin-top:.15rem}
-.cdi-remove{background:none;border:none;color:var(--subtle);font-size:.75rem;cursor:pointer;margin-left:auto;transition:color .2s;padding:.25rem}
-.cdi-remove:hover{color:var(--red)}
-.cd-empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
-.cd-empty-icon{font-size:3rem;margin-bottom:.8rem}
-.cd-footer{padding:1.5rem;border-top:1px solid var(--border)}
-.cd-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.cd-subtotal-label{font-size:.85rem;color:var(--muted)}
-.cd-subtotal-val{font-size:1.3rem;font-weight:900;color:var(--black)}
-.cd-shipping{font-size:.75rem;color:var(--g);font-weight:600;text-align:center;margin-bottom:1rem}
-.cd-checkout{display:block;width:100%;background:var(--black);color:#fff;font-weight:800;font-size:.95rem;padding:.9rem;border-radius:50px;text-align:center;cursor:pointer;border:none;transition:all .2s}
-.cd-checkout:hover{background:#333}
-.cd-wa{display:block;width:100%;background:#25D366;color:#fff;font-weight:700;font-size:.85rem;padding:.75rem;border-radius:50px;text-align:center;cursor:pointer;border:none;margin-top:.6rem;transition:all .2s}
-.cd-wa:hover{background:#1da855}
+/* ── UTILITIES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes charReveal{from{opacity:0;transform:translateY(60%) rotateX(-40deg)}to{opacity:1;transform:translateY(0) rotateX(0)}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
 
 /* ── FOOTER ── */
-footer{background:var(--black);color:#fff;padding:3rem 5vw 2rem;margin-top:4rem}
+footer{background:var(--dark);border-top:1px solid var(--border);padding:3rem 5vw 2rem}
 .ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
-.ft-brand .ft-logo{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem}
-.ft-logo-box{width:28px;height:28px;background:#00FF41;border-radius:7px;display:grid;place-items:center;font-size:.65rem;font-weight:900;color:#000}
-.ft-logo-name{font-size:1rem;font-weight:800;color:#fff}
-.ft-logo-name em{font-style:normal;color:#00FF41}
-.ft-tagline{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.6;max-width:220px}
-.ft-col-title{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.9rem}
-.ft-links{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.ft-links a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
-.ft-links a:hover{color:#fff}
-.ft-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
-.ft-copy{font-size:.75rem;color:rgba(255,255,255,.25)}
-.ft-pow{font-size:.72rem;color:rgba(255,255,255,.2)}
-
-/* ── UTILS ── */
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.ft-logo{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem}
+.ft-mark{width:28px;height:28px;background:var(--g);border-radius:7px;display:grid;place-items:center;font-size:.65rem;font-weight:900;color:#000}
+.ft-name{font-size:1rem;font-weight:800}
+.ft-name em{font-style:normal;color:var(--g)}
+.ft-tag{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:200px;margin-top:.4rem}
+.ft-col h4{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.9rem}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.ft-col a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.ft-col a:hover{color:var(--g)}
+.ft-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+.ft-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero-banner{grid-template-columns:1fr}
-  .hb-right{grid-template-columns:1fr 1fr;height:280px}
-  .featured-row{grid-template-columns:1fr}
-  .featured-card{aspect-ratio:4/3}
+  .hero{grid-template-columns:1fr;padding-top:60px}
+  .hero-showcase{display:none}
+  .feat-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .bundle-card{grid-template-columns:1fr}
   .ft-grid{grid-template-columns:1fr 1fr;gap:2rem}
 }
 @media(max-width:600px){
-  .nav-cats{display:none}
-  .horse-banner{flex-direction:column}
-  .bundle-card{grid-template-columns:1fr}
+  .nf{display:none}
+  .nf:nth-child(-n+2){display:block}
+  #cursor,#cursor-ring{display:none}
+  html{cursor:auto}
+  .stats-grid{grid-template-columns:1fr 1fr}
   .ft-grid{grid-template-columns:1fr}
-  .hb-horses{overflow-x:auto}
+  .pgrid{grid-template-columns:repeat(2,1fr);gap:10px}
 }
 </style>
 </head>
 <body>
 
-<!-- OVERLAY + CART -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cd-header">
-    <div class="cd-title">Tu Carrito 🛒</div>
-    <button class="cd-close" onclick="closeCart()">✕</button>
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- CART -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="dr-head">
+    <div class="dr-title">Tu Carrito 🛒</div>
+    <button class="dr-close" onclick="closeCart()">✕</button>
   </div>
-  <div class="cd-items" id="cartItems">
-    <div class="cd-empty"><div class="cd-empty-icon">🛍️</div>Tu carrito está vacío.</div>
-  </div>
-  <div class="cd-footer">
-    <div class="cd-subtotal">
-      <span class="cd-subtotal-label">Subtotal</span>
-      <span class="cd-subtotal-val" id="cartTotal">$0</span>
-    </div>
-    <div class="cd-shipping" id="shipMsg">Agrega $75 para envío gratis 📦</div>
-    <button class="cd-checkout" onclick="checkout()">Finalizar Pedido →</button>
-    <button class="cd-wa" onclick="checkoutWA()">💬 Pedir por WhatsApp</button>
+  <div class="dr-items" id="drItems"><div class="dr-empty">🛍️<br><br>Tu carrito está vacío.</div></div>
+  <div class="dr-foot">
+    <div class="dr-total-row"><span class="dr-total-l">Total</span><span class="dr-total-v" id="drTotal">$0</span></div>
+    <div class="dr-ship" id="drShip">Agrega $75 para envío gratis 📦</div>
+    <button class="dr-checkout" onclick="checkoutWA()">Finalizar por WhatsApp →</button>
+    <button class="dr-wa" onclick="checkoutWA()">💬 Ordenar directo</button>
   </div>
 </div>
 
 <!-- TOAST CONTAINER -->
-<div class="toast-wrap" id="toastWrap"></div>
+<div class="toasts" id="toasts"></div>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="ann-bar">⚡ Flash Sale — <b>30% OFF</b> en toda la tienda · Envío gratis en pedidos +$75</div>
+<!-- ANN BAR -->
+<div class="ann">
+  <div class="ann-track">
+    <span>⚡ FLASH SALE — 30% OFF TODO</span><span>·</span>
+    <span>📦 ENVÍO GRATIS +$75</span><span>·</span>
+    <span>🏇 NUEVA COLECCIÓN CABALLOS</span><span>·</span>
+    <span>🎰 PICK 6 JERSEY DISPONIBLE</span><span>·</span>
+    <span>⚡ FLASH SALE — 30% OFF TODO</span><span>·</span>
+    <span>📦 ENVÍO GRATIS +$75</span><span>·</span>
+    <span>🏇 NUEVA COLECCIÓN CABALLOS</span><span>·</span>
+    <span>🎰 PICK 6 JERSEY DISPONIBLE</span><span>·</span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
   <a href="carrerasos.html" class="nav-logo">
-    <div class="logo-box"><span>OS</span></div>
-    <div class="logo-wordmark">Carreras<em>OS</em></div>
+    <div class="logo-mark">OS</div>
+    <div class="logo-text">Carreras<em>OS</em></div>
   </a>
-  <div class="nav-cats">
-    <button class="nav-cat active" onclick="filterCat('all',this)">Todo</button>
-    <button class="nav-cat" onclick="filterCat('caballos',this)">Caballos</button>
-    <button class="nav-cat" onclick="filterCat('caos',this)">CaOS</button>
-    <button class="nav-cat" onclick="filterCat('ropa',this)">Ropa</button>
-    <button class="nav-cat" onclick="filterCat('accesorios',this)">Accesorios</button>
+  <div class="nav-filters">
+    <button class="nf active" onclick="filter('all',this)">Todo</button>
+    <button class="nf" onclick="filter('caballos',this)">🏇 Caballos</button>
+    <button class="nf" onclick="filter('caos',this)">CaOS</button>
+    <button class="nf" onclick="filter('ropa',this)">Ropa</button>
+    <button class="nf" onclick="filter('accesorios',this)">Accesorios</button>
   </div>
   <div class="nav-right">
-    <button class="nav-icon-btn" title="Buscar">🔍</button>
-    <button class="nav-icon-btn" onclick="openCart()" title="Carrito">
-      🛒
-      <span class="cart-count" id="cartCount" style="display:none">0</span>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Carrito
+      <span class="cbadge" id="cbadge">0</span>
     </button>
   </div>
 </nav>
 
-<!-- HERO BANNER -->
-<div class="hero-banner">
-  <div class="hb-left">
-    <div class="hb-eyebrow"><span class="hb-dot"></span> Nuevo Drop — Primavera 2026</div>
-    <h1 class="hb-title">Lleva el<br>carril<br><em>contigo.</em></h1>
-    <p class="hb-sub">Merch oficial CarrerasOS & CaOS. Diseños exclusivos con los caballos que conoces. Print on demand — calidad premium.</p>
-    <div class="hb-actions">
-      <a href="#productos" class="hb-btn-primary">Comprar Ahora</a>
-      <a href="events/carril-dos-hermanos/pick6.html" target="_blank" class="hb-btn-ghost">Ver Pick 6 →</a>
+<!-- HERO -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Drop Primavera 2026</div>
+    <h1 id="heroH1">
+      <span class="word">Lleva el</span><br>
+      <span class="word">carril</span><br>
+      <span class="word accent">contigo.</span>
+    </h1>
+    <p class="hero-sub">Merch oficial <b>CarrerasOS & CaOS</b>. Camisas con tus caballos favoritos. Print on demand — calidad premium entregada en 48 horas.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Comprar Ahora</button>
+      <button class="btn-ghost" onclick="window.open('events/carril-dos-hermanos/pick6.html','_blank')">Ver Pick 6 →</button>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">⭐ <b>4.9/5</b> rating</div>
+      <div class="trust-item">📦 Envío <b>48h</b></div>
+      <div class="trust-item">🔄 Cambios <b>30 días</b></div>
+      <div class="trust-item">🌎 <b>MX & USA</b></div>
     </div>
   </div>
-  <div class="hb-right">
-    <div class="hb-img"><img src="https://design.canva.ai/Fm-Jp6Hp7jzUtH6" alt="La Mami Shirt"></div>
-    <div class="hb-img"><img src="https://design.canva.ai/FuDaN1iriDH9GHM" alt="Aries Shirt"></div>
-    <div class="hb-img"><img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="Hoodie"></div>
-    <div class="hb-img"><img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="Cap"></div>
-  </div>
-</div>
-
-<!-- PROOF STRIP -->
-<div class="proof-strip">
-  <div class="proof-item"><span class="proof-icon">⭐</span><span class="proof-text"><b>4.9/5</b> — 200+ reseñas</span></div>
-  <div class="proof-item"><span class="proof-icon">📦</span><span class="proof-text"><b>Envío gratis</b> en pedidos +$75</span></div>
-  <div class="proof-item"><span class="proof-icon">🔄</span><span class="proof-text"><b>Cambios gratis</b> en 30 días</span></div>
-  <div class="proof-item"><span class="proof-icon">🇺🇸</span><span class="proof-text">Envíos a <b>México y EEUU</b></span></div>
-  <div class="proof-item"><span class="proof-icon">🎨</span><span class="proof-text"><b>Print on demand</b> — cada pieza única</span></div>
-  <div class="proof-item"><span class="proof-icon">💬</span><span class="proof-text">Pedidos personalizados por <b>WhatsApp</b></span></div>
-</div>
-
-<!-- URGENCY -->
-<div class="urgency-strip" style="margin-top:2.5rem">
-  <div class="us-left">
-    <div class="us-icon">⏰</div>
-    <div>
-      <div class="us-text">Flash Sale — 30% OFF termina pronto</div>
-      <div class="us-sub">Solo mientras dure el stock de lanzamiento</div>
+  <div class="hero-showcase">
+    <div class="showcase-orbit">
+      <div class="orbit-card oc-1" onclick="addToCart('Playera La Mami','https://design.canva.ai/Fm-Jp6Hp7jzUtH6',45)">
+        <img src="https://design.canva.ai/Fm-Jp6Hp7jzUtH6" alt="La Mami">
+        <div class="orbit-card-label"><span>La Mami</span><span class="orbit-card-price">$45</span></div>
+      </div>
+      <div class="orbit-card oc-2" onclick="addToCart('CarrerasOS Hoodie','https://design.canva.ai/1INiEAgh4uu_kmu',55)">
+        <img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="Hoodie">
+        <div class="orbit-card-label"><span>Hoodie</span><span class="orbit-card-price">$55</span></div>
+      </div>
+      <div class="orbit-card oc-3" onclick="addToCart('Playera Aries','https://design.canva.ai/FuDaN1iriDH9GHM',45)">
+        <img src="https://design.canva.ai/FuDaN1iriDH9GHM" alt="Aries">
+        <div class="orbit-card-label"><span>Aries</span><span class="orbit-card-price">$45</span></div>
+      </div>
+      <div class="orbit-card oc-4" onclick="addToCart('CaOS Snapback','https://design.canva.ai/uxdz8C372JDkg9p',40)">
+        <img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="Snapback">
+        <div class="orbit-card-label"><span>Snapback</span><span class="orbit-card-price">$40</span></div>
+      </div>
+      <div class="oc-center"><div class="oc-center-text">20+<br>Productos</div></div>
     </div>
   </div>
-  <div class="us-timer">
-    <div class="t-box"><span class="t-num" id="tH">03</span><span class="t-lbl">Hrs</span></div>
-    <span class="t-sep">:</span>
-    <div class="t-box"><span class="t-num" id="tM">47</span><span class="t-lbl">Min</span></div>
-    <span class="t-sep">:</span>
-    <div class="t-box"><span class="t-num" id="tS">22</span><span class="t-lbl">Seg</span></div>
+  <div class="scroll-ind"><span class="si-text">Scroll</span><div class="si-line"></div></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">La Mami</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Aries</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Cristo Rey</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">El Chigón</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">La Reyna</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Pisces</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CarrerasOS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CaOS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Pick 6 Club</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">La Mami</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Aries</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Cristo Rey</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">El Chigón</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">La Reyna</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Pisces</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CarrerasOS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CaOS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">Pick 6 Club</span><span class="ticker-item ticker-sep">✦</span>
   </div>
 </div>
 
-<!-- FEATURED — HORSE SHIRTS -->
-<section class="section" id="productos">
-  <div class="section-head">
-    <div class="section-title">🏇 Camisas de <span>Caballos</span></div>
+<!-- FEATURED HORSE SHIRTS -->
+<section class="sec reveal" id="products">
+  <div class="sec-head">
+    <div><div class="sec-label">Edición Especial</div><h2 class="sec-title">🏇 Camisas de Caballos</h2></div>
+    <a href="#" class="sec-link">Ver colección →</a>
   </div>
-  <div class="featured-row">
-    <div class="featured-card" data-cat="caballos">
-      <img src="https://design.canva.ai/Fm-Jp6Hp7jzUtH6" alt="La Mami Shirt">
-      <div class="featured-overlay"></div>
-      <div class="featured-info">
-        <div class="fi-label">CarrerasOS · Edición Especial</div>
+  <div class="feat-grid">
+    <div class="feat-card" id="fc1">
+      <img src="https://design.canva.ai/Fm-Jp6Hp7jzUtH6" alt="La Mami">
+      <div class="feat-grad"></div>
+      <div class="feat-info">
+        <div class="fi-eyebrow">CarrerasOS · Edición Especial</div>
         <div class="fi-name">La Mami</div>
-        <div class="fi-price">$45 <span style="font-size:.85rem;color:rgba(255,255,255,.5);text-decoration:line-through;font-weight:400">$65</span></div>
-        <button class="fi-btn" onclick="addToCart('Playera La Mami','https://design.canva.ai/Fm-Jp6Hp7jzUtH6',45)">+ Agregar al Carrito</button>
+        <div class="fi-price">$45 <span style="font-size:.85rem;color:rgba(255,255,255,.4);text-decoration:line-through;font-weight:400">$65</span></div>
+        <button class="feat-add" onclick="addToCart('Playera La Mami','https://design.canva.ai/Fm-Jp6Hp7jzUtH6',45)">+ Agregar al Carrito</button>
       </div>
     </div>
-    <div class="featured-card" data-cat="caballos">
-      <img src="https://design.canva.ai/FuDaN1iriDH9GHM" alt="Aries Shirt">
-      <div class="featured-overlay"></div>
-      <div class="featured-info">
-        <div class="fi-label">CarrerasOS · Edición Especial</div>
+    <div class="feat-card" id="fc2">
+      <img src="https://design.canva.ai/FuDaN1iriDH9GHM" alt="Aries">
+      <div class="feat-grad"></div>
+      <div class="feat-info">
+        <div class="fi-eyebrow">CarrerasOS · Edición Especial</div>
         <div class="fi-name">Aries</div>
-        <div class="fi-price">$45 <span style="font-size:.85rem;color:rgba(255,255,255,.5);text-decoration:line-through;font-weight:400">$65</span></div>
-        <button class="fi-btn" onclick="addToCart('Playera Aries','https://design.canva.ai/FuDaN1iriDH9GHM',45)">+ Agregar al Carrito</button>
+        <div class="fi-price">$45 <span style="font-size:.85rem;color:rgba(255,255,255,.4);text-decoration:line-through;font-weight:400">$65</span></div>
+        <button class="feat-add" onclick="addToCart('Playera Aries','https://design.canva.ai/FuDaN1iriDH9GHM',45)">+ Agregar al Carrito</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HORSE COLLECTION BANNER -->
-<div class="horse-banner">
-  <div class="hb-text">
-    <div class="hb-label">Colección Caballos</div>
-    <h3>Una camisa por<br>cada caballo.</h3>
-    <p>Cada camisa tiene el nombre y gráfico del caballo que más te gusta. La Mami, Aries, Cristo Rey, El Chigón y más.</p>
-  </div>
-  <div class="hb-horses">
-    <div class="hb-horse-card" onclick="addToCart('Playera La Mami','https://design.canva.ai/Fm-Jp6Hp7jzUtH6',45)">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-mami.jpg" alt="La Mami" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">La Mami</div>
-    </div>
-    <div class="hb-horse-card" onclick="addToCart('Playera Aries','https://design.canva.ai/FuDaN1iriDH9GHM',45)">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/aries.jpg" alt="Aries" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">Aries</div>
-    </div>
-    <div class="hb-horse-card">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/cristo-rey.jpg" alt="Cristo Rey" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">Cristo Rey</div>
-    </div>
-    <div class="hb-horse-card">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/el-chigon.jpg" alt="El Chigón" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">El Chigón</div>
-    </div>
-    <div class="hb-horse-card">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-reyna.jpg" alt="La Reyna" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">La Reyna</div>
-    </div>
-    <div class="hb-horse-card">
-      <div class="hb-horse-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/pisces.jpg" alt="Pisces" onerror="this.style.background='#222';this.src=''"></div>
-      <div class="hb-horse-name">Pisces</div>
-    </div>
-  </div>
-</div>
-
-<!-- ALL PRODUCTS GRID -->
-<section class="section">
-  <div class="section-head">
-    <div class="section-title">Todo el <span>Merch</span></div>
-    <a href="#" class="section-link">20 productos →</a>
+<!-- ALL PRODUCTS -->
+<section class="sec reveal delay-1" style="padding-top:0">
+  <div class="sec-head">
+    <div><div class="sec-label">Colección Completa</div><h2 class="sec-title">Todo el Merch</h2></div>
+    <span style="font-size:.8rem;color:var(--muted)">20 productos</span>
   </div>
   <div class="pgrid" id="pgrid">
 
-    <!-- CaOS Streetwear Tee -->
     <div class="pc" data-cat="caos ropa">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/dRn7TzS7mPNpRxU" alt="CaOS Tee">
-        <div class="pc-badges"><span class="badge b-new">CaOS Drop</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 11 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('CaOS Streetwear Tee','https://design.canva.ai/dRn7TzS7mPNpRxU',38)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CaOS</div>
-        <div class="pc-name">CaOS Streetwear Tee</div>
-        <div class="pc-trigger">⚡ Solo 15 disponibles</div>
-        <div class="pc-price-row"><span class="pc-price">$38</span><span class="pc-orig">$55</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ 23 pedidos esta semana</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/dRn7TzS7mPNpRxU" alt="CaOS Tee"><div class="pc-badge"><span class="badge b-new">CaOS</span></div><div class="pc-watch"><span class="wd"></span>11</div><button class="pc-qa" onclick="addToCart('CaOS Streetwear Tee','https://design.canva.ai/dRn7TzS7mPNpRxU',38)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CaOS</div><div class="pc-name">CaOS Streetwear Tee</div><div class="pc-trigger">⚡ Solo 15 disponibles</div><div class="pc-prices"><span class="pc-price">$38</span><span class="pc-orig">$55</span><span class="pc-disc">-31%</span></div><div class="pc-social">✓ 23 pedidos esta semana</div></div>
     </div>
 
-    <!-- CarrerasOS Hoodie -->
     <div class="pc" data-cat="ropa caos">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="CarrerasOS Hoodie">
-        <div class="pc-badges"><span class="badge b-hot">🔥 Best Seller</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 8 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('CarrerasOS Hoodie','https://design.canva.ai/1INiEAgh4uu_kmu',55)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Hoodie Premium Negro</div>
-        <div class="pc-trigger">🔥 El más vendido del mes</div>
-        <div class="pc-price-row"><span class="pc-price">$55</span><span class="pc-orig">$78</span><span class="pc-save">-29%</span></div>
-        <div class="pc-social">⭐ 4.9 · 47 reseñas</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="Hoodie"><div class="pc-badge"><span class="badge b-hot">🔥 Hot</span></div><div class="pc-watch"><span class="wd"></span>8</div><button class="pc-qa" onclick="addToCart('Hoodie Premium','https://design.canva.ai/1INiEAgh4uu_kmu',55)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Hoodie Premium Negro</div><div class="pc-trigger">🔥 Más vendido del mes</div><div class="pc-prices"><span class="pc-price">$55</span><span class="pc-orig">$78</span><span class="pc-disc">-29%</span></div><div class="pc-social">⭐ 4.9 · 47 reseñas</div></div>
     </div>
 
-    <!-- CaOS Snapback -->
     <div class="pc" data-cat="caos accesorios">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="CaOS Snapback">
-        <div class="pc-badges"><span class="badge b-ltd">Limitado</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 5 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('CaOS Snapback','https://design.canva.ai/uxdz8C372JDkg9p',40)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CaOS</div>
-        <div class="pc-name">Snapback Edición Limitada</div>
-        <div class="pc-trigger">⚠️ Solo 7 en stock</div>
-        <div class="pc-price-row"><span class="pc-price">$40</span><span class="pc-orig">$58</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Envío en 48h</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="Snapback"><div class="pc-badge"><span class="badge b-ltd">Limitado</span></div><div class="pc-watch"><span class="wd"></span>5</div><button class="pc-qa" onclick="addToCart('CaOS Snapback','https://design.canva.ai/uxdz8C372JDkg9p',40)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CaOS</div><div class="pc-name">Snapback Edición Limitada</div><div class="pc-trigger">⚠️ Solo 7 en stock</div><div class="pc-prices"><span class="pc-price">$40</span><span class="pc-orig">$58</span><span class="pc-disc">-31%</span></div><div class="pc-social">✓ Envío en 48h</div></div>
     </div>
 
-    <!-- Phone Case -->
     <div class="pc" data-cat="accesorios">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/mLdAhKMnXM3UolD" alt="Phone Case">
-        <div class="pc-badges"><span class="badge b-new">Nuevo</span></div>
-        <button class="pc-quick-add" onclick="addToCart('CarrerasOS Phone Case','https://design.canva.ai/mLdAhKMnXM3UolD',25)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Case iPhone / Android</div>
-        <div class="pc-trigger">📱 El más regalado</div>
-        <div class="pc-price-row"><span class="pc-price">$25</span><span class="pc-orig">$35</span><span class="pc-save">-29%</span></div>
-        <div class="pc-social">✓ 40+ modelos compatibles</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/mLdAhKMnXM3UolD" alt="Case"><div class="pc-badge"><span class="badge b-new">Nuevo</span></div><button class="pc-qa" onclick="addToCart('Phone Case CarrerasOS','https://design.canva.ai/mLdAhKMnXM3UolD',25)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Case iPhone / Android</div><div class="pc-trigger">📱 El más regalado</div><div class="pc-prices"><span class="pc-price">$25</span><span class="pc-orig">$35</span><span class="pc-disc">-29%</span></div><div class="pc-social">✓ 40+ modelos</div></div>
     </div>
 
-    <!-- Classic Tee v1 -->
     <div class="pc" data-cat="ropa caos">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/TgTt7f1U2_vSr4O" alt="Classic Tee">
-        <div class="pc-badges"><span class="badge b-sale">-30%</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 6 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('Playera Classic Logo','https://design.canva.ai/TgTt7f1U2_vSr4O',35)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Playera Classic Logo</div>
-        <div class="pc-trigger">👥 89 personas la tienen</div>
-        <div class="pc-price-row"><span class="pc-price">$35</span><span class="pc-orig">$50</span><span class="pc-save">-30%</span></div>
-        <div class="pc-social">✓ 14 pedidos esta semana</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/TgTt7f1U2_vSr4O" alt="Classic Tee"><div class="pc-badge"><span class="badge b-sale">-30%</span></div><div class="pc-watch"><span class="wd"></span>6</div><button class="pc-qa" onclick="addToCart('Playera Classic Logo','https://design.canva.ai/TgTt7f1U2_vSr4O',35)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Playera Classic Logo</div><div class="pc-trigger">👥 89 personas la tienen</div><div class="pc-prices"><span class="pc-price">$35</span><span class="pc-orig">$50</span><span class="pc-disc">-30%</span></div><div class="pc-social">✓ 14 pedidos esta semana</div></div>
     </div>
 
-    <!-- Classic Tee v2 -->
     <div class="pc" data-cat="ropa caos">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/VwV6kxPezHrlha1" alt="Tee V2">
-        <div class="pc-badges"><span class="badge b-new">Drop 2</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Playera Drop 2','https://design.canva.ai/VwV6kxPezHrlha1',35)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Playera Gráfica Drop 2</div>
-        <div class="pc-trigger">⭐ Nueva llegada</div>
-        <div class="pc-price-row"><span class="pc-price">$35</span><span class="pc-orig">$50</span><span class="pc-save">-30%</span></div>
-        <div class="pc-social">✓ Algodón 100% peinado</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/VwV6kxPezHrlha1" alt="Drop 2"><div class="pc-badge"><span class="badge b-new">Drop 2</span></div><button class="pc-qa" onclick="addToCart('Playera Drop 2','https://design.canva.ai/VwV6kxPezHrlha1',35)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Playera Gráfica Drop 2</div><div class="pc-trigger">⭐ Nueva llegada</div><div class="pc-prices"><span class="pc-price">$35</span><span class="pc-orig">$50</span><span class="pc-disc">-30%</span></div><div class="pc-social">✓ Algodón 100% peinado</div></div>
     </div>
 
-    <!-- Hoodie V2 -->
     <div class="pc" data-cat="ropa">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/8NFA3i2ZJ6FD3Vq" alt="Hoodie V2">
-        <div class="pc-badges"><span class="badge b-ltd">Edición Limitada</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 4 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('Hoodie Edición Limitada','https://design.canva.ai/8NFA3i2ZJ6FD3Vq',60)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Hoodie Edición Limitada</div>
-        <div class="pc-trigger">⚡ Casi agotado</div>
-        <div class="pc-price-row"><span class="pc-price">$60</span><span class="pc-orig">$85</span><span class="pc-save">-29%</span></div>
-        <div class="pc-social">🔥 Último drop se agotó en 2 días</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/8NFA3i2ZJ6FD3Vq" alt="Hoodie Ltd"><div class="pc-badge"><span class="badge b-ltd">Limitada</span></div><div class="pc-watch"><span class="wd"></span>4</div><button class="pc-qa" onclick="addToCart('Hoodie Edición Limitada','https://design.canva.ai/8NFA3i2ZJ6FD3Vq',60)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Hoodie Edición Limitada</div><div class="pc-trigger">⚡ Casi agotado</div><div class="pc-prices"><span class="pc-price">$60</span><span class="pc-orig">$85</span><span class="pc-disc">-29%</span></div><div class="pc-social">🔥 Se agotó en 2 días antes</div></div>
     </div>
 
-    <!-- Cap v2 -->
     <div class="pc" data-cat="accesorios">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/lU2vq4vh-kF7wqr" alt="Dad Hat">
-        <div class="pc-badges"><span class="badge b-new">Nuevo</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Dad Hat CarrerasOS','https://design.canva.ai/lU2vq4vh-kF7wqr',35)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Dad Hat Logo</div>
-        <div class="pc-trigger">😎 Look casual del carril</div>
-        <div class="pc-price-row"><span class="pc-price">$35</span><span class="pc-orig">$48</span><span class="pc-save">-27%</span></div>
-        <div class="pc-social">✓ Talla única ajustable</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/lU2vq4vh-kF7wqr" alt="Dad Hat"><div class="pc-badge"><span class="badge b-new">Nuevo</span></div><button class="pc-qa" onclick="addToCart('Dad Hat CarrerasOS','https://design.canva.ai/lU2vq4vh-kF7wqr',35)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Dad Hat Logo</div><div class="pc-trigger">😎 Look casual del carril</div><div class="pc-prices"><span class="pc-price">$35</span><span class="pc-orig">$48</span><span class="pc-disc">-27%</span></div><div class="pc-social">✓ Talla única ajustable</div></div>
     </div>
 
-    <!-- Mug -->
     <div class="pc" data-cat="accesorios">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/0g2-6N4mZktIC0r" alt="CarrerasOS Mug">
-        <div class="pc-badges"><span class="badge b-new">Nuevo</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Taza CarrerasOS','https://design.canva.ai/0g2-6N4mZktIC0r',22)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Taza CarrerasOS</div>
-        <div class="pc-trigger">☕ Para el café antes de la carrera</div>
-        <div class="pc-price-row"><span class="pc-price">$22</span><span class="pc-orig">$32</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ 31 vendidas este mes</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/0g2-6N4mZktIC0r" alt="Mug"><div class="pc-badge"><span class="badge b-new">Nuevo</span></div><button class="pc-qa" onclick="addToCart('Taza CarrerasOS','https://design.canva.ai/0g2-6N4mZktIC0r',22)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Taza CarrerasOS</div><div class="pc-trigger">☕ Para el café de la carrera</div><div class="pc-prices"><span class="pc-price">$22</span><span class="pc-orig">$32</span><span class="pc-disc">-31%</span></div><div class="pc-social">✓ 31 vendidas este mes</div></div>
     </div>
 
-    <!-- Pick 6 Tee -->
     <div class="pc" data-cat="caos ropa">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/giRHpa18zP1STZB" alt="Pick 6 Club Tee">
-        <div class="pc-badges"><span class="badge b-ltd">🎰 Pick 6</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 9 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('Jersey Pick 6 Club','https://design.canva.ai/giRHpa18zP1STZB',45)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Jersey Pick 6 Club</div>
-        <div class="pc-trigger">🏆 Exclusivo para ganadores</div>
-        <div class="pc-price-row"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">🎰 Usado en eventos reales</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/giRHpa18zP1STZB" alt="Pick 6 Tee"><div class="pc-badge"><span class="badge b-ltd">Pick 6</span></div><div class="pc-watch"><span class="wd"></span>9</div><button class="pc-qa" onclick="addToCart('Jersey Pick 6 Club','https://design.canva.ai/giRHpa18zP1STZB',45)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Jersey Pick 6 Club</div><div class="pc-trigger">🏆 Exclusivo para ganadores</div><div class="pc-prices"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-disc">-31%</span></div><div class="pc-social">🎰 Usado en eventos reales</div></div>
     </div>
 
-    <!-- Zip Hoodie -->
     <div class="pc" data-cat="ropa">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/KUsW-PN0awtEGEl" alt="Zip Hoodie">
-        <div class="pc-badges"><span class="badge b-hot">Popular</span></div>
-        <div class="pc-watch"><span class="watch-dot"></span> 6 viendo</div>
-        <button class="pc-quick-add" onclick="addToCart('Zip Hoodie Full','https://design.canva.ai/KUsW-PN0awtEGEl',70)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS</div>
-        <div class="pc-name">Zip Hoodie Full</div>
-        <div class="pc-trigger">⚡ Solo 5 disponibles</div>
-        <div class="pc-price-row"><span class="pc-price">$70</span><span class="pc-orig">$98</span><span class="pc-save">-29%</span></div>
-        <div class="pc-social">🔥 Casi agotado</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/KUsW-PN0awtEGEl" alt="Zip Hoodie"><div class="pc-badge"><span class="badge b-hot">Popular</span></div><div class="pc-watch"><span class="wd"></span>6</div><button class="pc-qa" onclick="addToCart('Zip Hoodie Full','https://design.canva.ai/KUsW-PN0awtEGEl',70)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CarrerasOS</div><div class="pc-name">Zip Hoodie Full</div><div class="pc-trigger">⚡ Solo 5 disponibles</div><div class="pc-prices"><span class="pc-price">$70</span><span class="pc-orig">$98</span><span class="pc-disc">-29%</span></div><div class="pc-social">🔥 Casi agotado</div></div>
     </div>
 
-    <!-- Snapback v2 -->
     <div class="pc" data-cat="accesorios caos">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/tkJ8J-wpnkRU_NL" alt="Snapback V2">
-        <div class="pc-badges"><span class="badge b-sale">-30%</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Snapback CaOS V2','https://design.canva.ai/tkJ8J-wpnkRU_NL',40)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CaOS</div>
-        <div class="pc-name">Snapback CaOS Clásica</div>
-        <div class="pc-trigger">⭐ 4.8 · 29 reseñas</div>
-        <div class="pc-price-row"><span class="pc-price">$40</span><span class="pc-orig">$55</span><span class="pc-save">-27%</span></div>
-        <div class="pc-social">✓ Ajuste trasero incluido</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/tkJ8J-wpnkRU_NL" alt="Snapback V2"><div class="pc-badge"><span class="badge b-sale">-30%</span></div><button class="pc-qa" onclick="addToCart('Snapback CaOS V2','https://design.canva.ai/tkJ8J-wpnkRU_NL',40)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CaOS</div><div class="pc-name">Snapback CaOS Clásica</div><div class="pc-trigger">⭐ 4.8 · 29 reseñas</div><div class="pc-prices"><span class="pc-price">$40</span><span class="pc-orig">$55</span><span class="pc-disc">-27%</span></div><div class="pc-social">✓ Ajuste trasero snapback</div></div>
     </div>
 
-    <!-- Hoodie V3 -->
     <div class="pc" data-cat="ropa caos">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/OOyCSmB090pQZbT" alt="Hoodie V3">
-        <div class="pc-badges"><span class="badge b-new">Drop 3</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Hoodie Drop 3','https://design.canva.ai/OOyCSmB090pQZbT',65)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CaOS</div>
-        <div class="pc-name">Hoodie CaOS Drop 3</div>
-        <div class="pc-trigger">🆕 Recién llegado</div>
-        <div class="pc-price-row"><span class="pc-price">$65</span><span class="pc-orig">$90</span><span class="pc-save">-28%</span></div>
-        <div class="pc-social">✓ Fleece premium 380g</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/OOyCSmB090pQZbT" alt="Hoodie Drop 3"><div class="pc-badge"><span class="badge b-new">Drop 3</span></div><button class="pc-qa" onclick="addToCart('Hoodie CaOS Drop 3','https://design.canva.ai/OOyCSmB090pQZbT',65)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CaOS</div><div class="pc-name">Hoodie CaOS Drop 3</div><div class="pc-trigger">🆕 Recién llegado</div><div class="pc-prices"><span class="pc-price">$65</span><span class="pc-orig">$90</span><span class="pc-disc">-28%</span></div><div class="pc-social">✓ Fleece premium 380g</div></div>
     </div>
 
-    <!-- Mug V2 -->
     <div class="pc" data-cat="accesorios">
-      <div class="pc-img-wrap">
-        <img src="https://design.canva.ai/tYAp_90aZeXO4iS" alt="Mug V2">
-        <div class="pc-badges"><span class="badge b-sale">-30%</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Taza CaOS Negra','https://design.canva.ai/tYAp_90aZeXO4iS',22)">+ Agregar Rápido</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CaOS</div>
-        <div class="pc-name">Taza CaOS Edición Negra</div>
-        <div class="pc-trigger">☕ El favorito de las mañanas</div>
-        <div class="pc-price-row"><span class="pc-price">$22</span><span class="pc-orig">$32</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Cerámica 11oz resistente</div>
-      </div>
+      <div class="pc-img"><img src="https://design.canva.ai/tYAp_90aZeXO4iS" alt="Mug V2"><div class="pc-badge"><span class="badge b-sale">-30%</span></div><button class="pc-qa" onclick="addToCart('Taza CaOS Negra','https://design.canva.ai/tYAp_90aZeXO4iS',22)">+ Agregar Rápido</button></div>
+      <div class="pc-info"><div class="pc-brand">CaOS</div><div class="pc-name">Taza CaOS Edición Negra</div><div class="pc-trigger">☕ Favorita de las mañanas</div><div class="pc-prices"><span class="pc-price">$22</span><span class="pc-orig">$32</span><span class="pc-disc">-31%</span></div><div class="pc-social">✓ Cerámica 11oz</div></div>
     </div>
 
-    <!-- Cristo Rey Tee -->
-    <div class="pc" data-cat="caballos">
-      <div class="pc-img-wrap" style="background:#111">
-        <img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/cristo-rey.jpg" alt="Cristo Rey" style="object-position:center top">
-        <div class="pc-badges"><span class="badge b-new">Pre-Order</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Playera Cristo Rey','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/cristo-rey.jpg',45)">+ Pre-Ordenar</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS · Caballos</div>
-        <div class="pc-name">Playera Cristo Rey</div>
-        <div class="pc-trigger">🐎 Pre-order disponible</div>
-        <div class="pc-price-row"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Diseño personalizado con el caballo</div>
-      </div>
+  </div>
+</section>
+
+<!-- HORSE COLLECTION -->
+<section class="horse-sec reveal">
+  <div class="sec-label">Colección Completa</div>
+  <h2 class="sec-title">Una camisa por cada <span style="color:var(--g)">caballo.</span></h2>
+  <p class="sec-sub">Cada diseño con el nombre y gráfico del caballo. Pre-ordena tu favorito — producción en 48h.</p>
+  <div class="horse-scroll">
+
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-mami.jpg" alt="La Mami" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">La Mami</div><div class="hcard-sub">Cuadra Gutiérrez · Favorita 🔥</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera La Mami','https://design.canva.ai/Fm-Jp6Hp7jzUtH6',45)">Agregar · $45</button>
     </div>
 
-    <!-- La Reyna Tee -->
-    <div class="pc" data-cat="caballos">
-      <div class="pc-img-wrap" style="background:#111">
-        <img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-reyna.jpg" alt="La Reyna" style="object-position:center top">
-        <div class="pc-badges"><span class="badge b-new">Pre-Order</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Playera La Reyna','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-reyna.jpg',45)">+ Pre-Ordenar</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS · Caballos</div>
-        <div class="pc-name">Playera La Reyna</div>
-        <div class="pc-trigger">👑 La favorita del público</div>
-        <div class="pc-price-row"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Diseño personalizado con el caballo</div>
-      </div>
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/aries.jpg" alt="Aries" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">Aries</div><div class="hcard-sub">Cuadra Esperanza · Retador</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera Aries','https://design.canva.ai/FuDaN1iriDH9GHM',45)">Agregar · $45</button>
     </div>
 
-    <!-- Pisces Tee -->
-    <div class="pc" data-cat="caballos">
-      <div class="pc-img-wrap" style="background:#111">
-        <img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/pisces.jpg" alt="Pisces" style="object-position:center top">
-        <div class="pc-badges"><span class="badge b-new">Pre-Order</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Playera Pisces','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/pisces.jpg',45)">+ Pre-Ordenar</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS · Caballos</div>
-        <div class="pc-name">Playera Pisces</div>
-        <div class="pc-trigger">🐟 El oscuro favorito</div>
-        <div class="pc-price-row"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Diseño personalizado con el caballo</div>
-      </div>
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/cristo-rey.jpg" alt="Cristo Rey" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">Cristo Rey</div><div class="hcard-sub">Pre-Order disponible</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera Cristo Rey (Pre-Order)','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/cristo-rey.jpg',45)">Pre-Ordenar · $45</button>
     </div>
 
-    <!-- El Chigon Tee -->
-    <div class="pc" data-cat="caballos">
-      <div class="pc-img-wrap" style="background:#111">
-        <img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/el-chigon.jpg" alt="El Chigón" style="object-position:center top">
-        <div class="pc-badges"><span class="badge b-ltd">Limitado</span></div>
-        <button class="pc-quick-add" onclick="addToCart('Playera El Chigón','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/el-chigon.jpg',45)">+ Pre-Ordenar</button>
-      </div>
-      <div class="pc-info">
-        <div class="pc-brand">CarrerasOS · Caballos</div>
-        <div class="pc-name">Playera El Chigón</div>
-        <div class="pc-trigger">💨 El más rápido del carril</div>
-        <div class="pc-price-row"><span class="pc-price">$45</span><span class="pc-orig">$65</span><span class="pc-save">-31%</span></div>
-        <div class="pc-social">✓ Diseño personalizado con el caballo</div>
-      </div>
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/el-chigon.jpg" alt="El Chigón" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">El Chigón</div><div class="hcard-sub">El más rápido 💨</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera El Chigón (Pre-Order)','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/el-chigon.jpg',45)">Pre-Ordenar · $45</button>
+    </div>
+
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-reyna.jpg" alt="La Reyna" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">La Reyna</div><div class="hcard-sub">Favorita del público 👑</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera La Reyna (Pre-Order)','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/la-reyna.jpg',45)">Pre-Ordenar · $45</button>
+    </div>
+
+    <div class="hcard" data-cat="caballos">
+      <div class="hcard-img"><img src="https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/pisces.jpg" alt="Pisces" onerror="this.parentElement.style.background='#1a1a1a'"><div class="hcard-grad"></div><div class="hcard-info"><div class="hcard-name">Pisces</div><div class="hcard-sub">El oscuro favorito 🐟</div></div></div>
+      <button class="hcard-add" onclick="addToCart('Playera Pisces (Pre-Order)','https://raw.githubusercontent.com/guttix1/Digital-flyer-/main/events/carril-dos-hermanos/pisces.jpg',45)">Pre-Ordenar · $45</button>
     </div>
 
   </div>
 </section>
 
 <!-- BUNDLE -->
-<section class="bundle-section">
-  <div class="section-head">
-    <div class="section-title">🎁 Bundle <span>Exclusivo</span></div>
-  </div>
+<section class="bundle-sec reveal">
   <div class="bundle-card">
     <div>
-      <div class="bl-label">Starter Pack</div>
-      <div class="bl-title">CarrerasOS Complete Bundle</div>
-      <div class="bl-desc">Todo lo que necesitas para representar en el carril. Playera + Hoodie + Cap + Case. Personalización gratis con tu nombre o cuadra favorita.</div>
-      <div class="bundle-img-row">
-        <div class="bundle-thumb"><img src="https://design.canva.ai/TgTt7f1U2_vSr4O" alt="Tee"></div>
-        <div class="bundle-plus">+</div>
-        <div class="bundle-thumb"><img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="Hoodie"></div>
-        <div class="bundle-plus">+</div>
-        <div class="bundle-thumb"><img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="Cap"></div>
-        <div class="bundle-plus">+</div>
-        <div class="bundle-thumb"><img src="https://design.canva.ai/giRHpa18zP1STZB" alt="Pick 6 Tee"></div>
+      <div class="bundle-label">🎁 Bundle Exclusivo</div>
+      <div class="bundle-title">CarrerasOS<br>Starter Pack</div>
+      <div class="bundle-desc">Playera + Hoodie + Snapback + Phone Case. Personalización gratis con tu nombre o cuadra. Envío incluido.</div>
+      <div class="bundle-imgs">
+        <div class="bimg"><img src="https://design.canva.ai/TgTt7f1U2_vSr4O" alt="Tee"></div>
+        <div class="bplus">+</div>
+        <div class="bimg"><img src="https://design.canva.ai/1INiEAgh4uu_kmu" alt="Hoodie"></div>
+        <div class="bplus">+</div>
+        <div class="bimg"><img src="https://design.canva.ai/uxdz8C372JDkg9p" alt="Cap"></div>
+        <div class="bplus">+</div>
+        <div class="bimg"><img src="https://design.canva.ai/mLdAhKMnXM3UolD" alt="Case"></div>
       </div>
     </div>
     <div>
-      <div class="bp-was">Precio normal: $155</div>
-      <div class="bp-price">$99</div>
-      <div class="bp-save">Ahorras $56 🎉</div>
-      <button onclick="addToCart('Starter Pack Bundle','https://design.canva.ai/TgTt7f1U2_vSr4O',99)" class="bp-cta">Comprar Bundle</button>
+      <div class="bprice-was">Valor normal: $155</div>
+      <div class="bprice">$99</div>
+      <div class="bsave">Ahorras $56 🎉</div>
+      <button onclick="addToCart('Starter Pack Bundle','https://design.canva.ai/TgTt7f1U2_vSr4O',99)" class="bundle-cta">Comprar Bundle</button>
     </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-sec reveal">
+  <div class="stats-grid">
+    <div class="stat-box"><span class="stat-num" data-n="500">0</span><div class="stat-label">Pedidos completados</div></div>
+    <div class="stat-box"><span class="stat-num" data-n="98" data-s="%">0</span><div class="stat-label">Clientes satisfechos</div></div>
+    <div class="stat-box"><span class="stat-num" data-n="48" data-s="h">0</span><div class="stat-label">Entrega promedio</div></div>
+    <div class="stat-box"><span class="stat-num" data-n="20">0</span><div class="stat-label">Diseños disponibles</div></div>
   </div>
 </section>
 
@@ -741,147 +616,170 @@ footer{background:var(--black);color:#fff;padding:3rem 5vw 2rem;margin-top:4rem}
 <footer>
   <div class="ft-grid">
     <div class="ft-brand">
-      <div class="ft-logo">
-        <div class="ft-logo-box">OS</div>
-        <div class="ft-logo-name">Carreras<em>OS</em></div>
-      </div>
-      <div class="ft-tagline">Merch oficial para fans de las carreras de caballos. Print on demand — cada pieza hecha para ti.</div>
+      <div class="ft-logo"><div class="ft-mark">OS</div><div class="ft-name">Carreras<em>OS</em></div></div>
+      <div class="ft-tag">Merch oficial para fans de carreras de caballos. Print on demand — calidad premium.</div>
     </div>
-    <div>
-      <div class="ft-col-title">Tienda</div>
-      <ul class="ft-links">
-        <li><a href="#">Caballos</a></li>
-        <li><a href="#">CaOS Collection</a></li>
-        <li><a href="#">Hoodies</a></li>
-        <li><a href="#">Accesorios</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="ft-col-title">Ayuda</div>
-      <ul class="ft-links">
-        <li><a href="#">Guía de Tallas</a></li>
-        <li><a href="#">Envíos</a></li>
-        <li><a href="#">Cambios</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="ft-col-title">Contacto</div>
-      <ul class="ft-links">
-        <li><a href="https://wa.me/17195551234" target="_blank">💬 WhatsApp</a></li>
-        <li><a href="carrerasos.html">Servicios</a></li>
-        <li><a href="events/carril-dos-hermanos/pick6.html" target="_blank">Pick 6</a></li>
-        <li><a href="events/carril-dos-hermanos/site.html" target="_blank">Demo Evento</a></li>
-      </ul>
-    </div>
+    <div class="ft-col"><h4>Tienda</h4><ul><li><a href="#">Caballos</a></li><li><a href="#">CaOS</a></li><li><a href="#">Hoodies</a></li><li><a href="#">Accesorios</a></li></ul></div>
+    <div class="ft-col"><h4>Info</h4><ul><li><a href="#">Guía de Tallas</a></li><li><a href="#">Envíos</a></li><li><a href="#">Cambios</a></li><li><a href="#">Contacto</a></li></ul></div>
+    <div class="ft-col"><h4>Links</h4><ul>
+      <li><a href="carrerasos.html">← Servicios</a></li>
+      <li><a href="events/carril-dos-hermanos/pick6.html" target="_blank">Pick 6</a></li>
+      <li><a href="events/carril-dos-hermanos/site.html" target="_blank">Demo Evento</a></li>
+      <li><a href="https://wa.me/17195551234" target="_blank">💬 WhatsApp</a></li>
+    </ul></div>
   </div>
   <div class="ft-bottom">
     <div class="ft-copy">© 2026 CarrerasOS. Todos los derechos reservados.</div>
-    <div class="ft-pow">Print on demand — Envíos a México y EEUU</div>
+    <div class="ft-copy">Print on demand · MX & USA</div>
   </div>
 </footer>
 
 <script>
-/* ── CART ── */
-let CART = [];
-function openCart(){ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open') }
-function closeCart(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open') }
+/* ── CUSTOM CURSOR ── */
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
 
-function addToCart(name, img, price){
-  CART.push({name, img, price});
-  renderCart();
-  openCart();
-  showToast(img, name);
-}
-function removeCartItem(i){ CART.splice(i,1); renderCart() }
+/* ── HERO CANVAS PARTICLES ── */
+(function(){
+  const c=document.getElementById('heroCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');let W,H,pts=[];
+  function sz(){W=c.width=c.parentElement.offsetWidth;H=c.height=c.parentElement.offsetHeight;pts=[];const n=Math.floor(W*H/12000);for(let i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.2+.3})}
+  function draw(){ctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){const p=pts[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(0,255,65,.3)';ctx.fill();for(let j=i+1;j<pts.length;j++){const q=pts[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(0,255,65,${.08*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}}}requestAnimationFrame(draw)}
+  window.addEventListener('resize',sz);sz();draw();
+})();
 
-function renderCart(){
-  const el = document.getElementById('cartItems');
-  const count = document.getElementById('cartCount');
-  const total = document.getElementById('cartTotal');
-  const ship = document.getElementById('shipMsg');
-  if(!CART.length){
-    el.innerHTML = '<div class="cd-empty"><div class="cd-empty-icon">🛍️</div>Tu carrito está vacío.</div>';
-    count.style.display = 'none';
-  } else {
-    el.innerHTML = CART.map((item,i) => `
-      <div class="cd-item">
-        <div class="cdi-img"><img src="${item.img}" alt="${item.name}"></div>
-        <div style="flex:1">
-          <div class="cdi-name">${item.name}</div>
-          <div class="cdi-price">$${item.price}</div>
-        </div>
-        <button class="cdi-remove" onclick="removeCartItem(${i})">✕</button>
-      </div>`).join('');
-    count.style.display = 'grid';
-    count.textContent = CART.length;
-    const sum = CART.reduce((a,b)=>a+b.price,0);
-    total.textContent = '$' + sum;
-    const left = Math.max(75 - sum, 0);
-    ship.textContent = left > 0 ? `Agrega $${left} más para envío gratis 📦` : '🎉 ¡Tienes envío gratis!';
-    ship.style.color = left === 0 ? 'var(--g)' : '';
+/* ── 3D CARD TILT ── */
+document.querySelectorAll('.pc,.feat-card,.orbit-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)/(r.width/2);
+    const y=(e.clientY-r.top-r.height/2)/(r.height/2);
+    card.style.transform=`perspective(800px) rotateX(${-y*8}deg) rotateY(${x*8}deg) translateZ(8px)`;
+    if(card.classList.contains('feat-card')){
+      card.style.setProperty('--mx',(e.clientX-r.left)/r.width*100+'%');
+      card.style.setProperty('--my',(e.clientY-r.top)/r.height*100+'%');
+    }
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+});
+
+/* ── ADD TO CART PARTICLES ── */
+function burst(x,y){
+  const colors=['#00FF41','#FFD60A','#FF3B30','#fff','#00CC33'];
+  for(let i=0;i<14;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*8+4;
+    const angle=Math.random()*360;
+    const dist=80+Math.random()*80;
+    p.style.cssText=`width:${size}px;height:${size}px;background:${colors[~~(Math.random()*colors.length)]};left:${x}px;top:${y}px;--tx:${Math.cos(angle*Math.PI/180)*dist}px;--ty:${Math.sin(angle*Math.PI/180)*dist-40}px;animation-delay:${Math.random()*.1}s`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),900);
   }
 }
 
-function checkout(){
-  if(!CART.length) return;
-  alert('En producción esto conectaría a Stripe / Shopify');
+/* ── CART STATE ── */
+let CART=[];
+function openCart(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('open')}
+function closeCart(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+
+function addToCart(name,img,price,e){
+  CART.push({name,img,price});
+  renderCart();
+  openCart();
+  toast(img,`<b>${name}</b> agregado al carrito`,'justo ahora');
+  if(e){const r=e.target?.getBoundingClientRect?.();if(r)burst(r.left+r.width/2,r.top+r.height/2)}
+  // shake cart btn
+  const cb=document.querySelector('.cart-btn');
+  cb.style.transform='scale(1.15)';setTimeout(()=>cb.style.transform='',200);
 }
+function removeItem(i){CART.splice(i,1);renderCart()}
+
+function renderCart(){
+  const el=document.getElementById('drItems'),badge=document.getElementById('cbadge'),tot=document.getElementById('drTotal'),ship=document.getElementById('drShip');
+  if(!CART.length){el.innerHTML='<div class="dr-empty">🛍️<br><br>Tu carrito está vacío.</div>';badge.classList.remove('show');return}
+  el.innerHTML=CART.map((c,i)=>`<div class="dr-item"><div class="dri-img"><img src="${c.img}" alt="${c.name}"></div><div style="flex:1"><div class="dri-name">${c.name}</div><div class="dri-price">$${c.price}</div></div><button class="dri-rm" onclick="removeItem(${i})">✕</button></div>`).join('');
+  badge.classList.add('show');badge.textContent=CART.length;
+  const sum=CART.reduce((a,b)=>a+b.price,0);tot.textContent='$'+sum;
+  const left=Math.max(75-sum,0);
+  ship.textContent=left>0?`Agrega $${left} para envío gratis 📦`:'🎉 ¡Envío gratis desbloqueado!';
+  ship.style.color=left===0?'var(--g)':'';
+}
+
 function checkoutWA(){
-  if(!CART.length) return;
-  const lines = CART.map(i=>`• ${i.name} - $${i.price}`).join('%0A');
-  const sum = CART.reduce((a,b)=>a+b.price,0);
-  window.open(`https://wa.me/17195551234?text=Hola!%20Quiero%20pedir:%0A${lines}%0A%0ATotal:%20$${sum}`,'_blank');
+  if(!CART.length)return;
+  const lines=CART.map(c=>`• ${c.name} - $${c.price}`).join('%0A');
+  const sum=CART.reduce((a,b)=>a+b.price,0);
+  window.open(`https://wa.me/17195551234?text=Hola!%20Quiero%20ordenar:%0A${lines}%0A%0ATotal: $${sum}`,'_blank');
 }
 
 /* ── TOAST ── */
-const ACTIVITIES = [
-  {img:'https://design.canva.ai/Fm-Jp6Hp7jzUtH6', name:'Carlos · TX', item:'Playera La Mami', time:'hace 1 min'},
-  {img:'https://design.canva.ai/FuDaN1iriDH9GHM', name:'Miguel · CO', item:'Playera Aries', time:'hace 3 min'},
-  {img:'https://design.canva.ai/1INiEAgh4uu_kmu', name:'Roberto · NM', item:'Hoodie Premium', time:'hace 6 min'},
-  {img:'https://design.canva.ai/uxdz8C372JDkg9p', name:'Juan · AZ', item:'CaOS Snapback', time:'hace 9 min'},
-  {img:'https://design.canva.ai/dRn7TzS7mPNpRxU', name:'Luis · CA', item:'CaOS Streetwear Tee', time:'hace 12 min'},
-  {img:'https://design.canva.ai/mLdAhKMnXM3UolD', name:'Pedro · IL', item:'Phone Case', time:'hace 15 min'},
+const LIVES=[
+  {img:'https://design.canva.ai/Fm-Jp6Hp7jzUtH6',msg:'<b>Carlos · TX</b> compró <b>La Mami</b>',t:'hace 1 min'},
+  {img:'https://design.canva.ai/1INiEAgh4uu_kmu',msg:'<b>Miguel · CO</b> compró <b>Hoodie Premium</b>',t:'hace 3 min'},
+  {img:'https://design.canva.ai/FuDaN1iriDH9GHM',msg:'<b>Roberto · NM</b> compró <b>Playera Aries</b>',t:'hace 5 min'},
+  {img:'https://design.canva.ai/uxdz8C372JDkg9p',msg:'<b>Juan · AZ</b> compró <b>CaOS Snapback</b>',t:'hace 8 min'},
+  {img:'https://design.canva.ai/dRn7TzS7mPNpRxU',msg:'<b>Luis · CA</b> compró <b>CaOS Streetwear</b>',t:'hace 11 min'},
 ];
-let actIdx = 0;
-function showLiveActivity(){
-  const a = ACTIVITIES[actIdx++ % ACTIVITIES.length];
-  spawnToast(a.img, `<b>${a.name}</b> compró <b>${a.item}</b>`, a.time);
+let li=0;
+function toast(img,msg,time){
+  const d=document.createElement('div');d.className='toast';
+  d.innerHTML=`<div class="toast-img"><img src="${img}"></div><div class="toast-text">${msg}<span class="toast-time">${time}</span></div>`;
+  document.getElementById('toasts').appendChild(d);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('show')));
+  setTimeout(()=>{d.classList.remove('show');setTimeout(()=>d.remove(),400)},3200);
 }
-function showToast(img, name){
-  spawnToast(img, `<b>${name}</b> agregado al carrito`, 'justo ahora');
-}
-function spawnToast(img, html, time){
-  const div = document.createElement('div');
-  div.className = 'toast';
-  div.innerHTML = `<div class="toast-img"><img src="${img}" alt=""></div><div class="toast-body"><div class="toast-name">${html}</div><span class="toast-time">${time}</span></div>`;
-  document.getElementById('toastWrap').appendChild(div);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>div.classList.add('show')));
-  setTimeout(()=>{ div.classList.remove('show'); setTimeout(()=>div.remove(),400) }, 3200);
-}
-setTimeout(showLiveActivity, 2500);
-setInterval(showLiveActivity, 9000);
-
-/* ── COUNTDOWN ── */
-let secs = 3*3600+47*60+22;
-setInterval(()=>{
-  if(secs<=0) return; secs--;
-  const h=Math.floor(secs/3600), m=Math.floor((secs%3600)/60), s=secs%60;
-  const f=n=>String(n).padStart(2,'0');
-  document.getElementById('tH').textContent=f(h);
-  document.getElementById('tM').textContent=f(m);
-  document.getElementById('tS').textContent=f(s);
-},1000);
+function liveToast(){const a=LIVES[li++%LIVES.length];toast(a.img,a.msg,a.t)}
+setTimeout(liveToast,2500);setInterval(liveToast,9000);
 
 /* ── FILTER ── */
-function filterCat(cat, btn){
-  document.querySelectorAll('.nav-cat').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.querySelectorAll('#pgrid .pc,[data-cat]').forEach(c=>{
-    if(cat==='all'){c.style.display='';return}
-    c.style.display=(c.dataset.cat||'').includes(cat)?'':'none';
-  });
+function filter(cat,btn){
+  document.querySelectorAll('.nf').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('#pgrid .pc,.hcard').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat?.includes(cat))?'':'none'});
 }
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(en=>{en.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-n]').forEach(el=>{
+      const n=+el.dataset.n,s=el.dataset.s||'';let c=0;
+      const iv=setInterval(()=>{c=Math.min(c+n/60,n);el.textContent=Math.floor(c)+s;if(c>=n)clearInterval(iv)},16);
+    });
+    io.unobserve(e.target);
+  }
+})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── 3D TILT ON HORSE CARDS ── */
+document.querySelectorAll('.hcard').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)/(r.width/2);
+    const y=(e.clientY-r.top-r.height/2)/(r.height/2);
+    card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-8px) scale(1.02)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+
+/* ── HERO TITLE CHAR ANIMATION ── */
+(function(){
+  const h=document.getElementById('heroH1');
+  if(!h)return;
+  h.querySelectorAll('.word').forEach((word,wi)=>{
+    const text=word.textContent;
+    word.innerHTML='';
+    [...text].forEach((ch,ci)=>{
+      const s=document.createElement('span');
+      s.className='char';s.textContent=ch==' '?' ':ch;
+      s.style.animationDelay=(.4+wi*.15+ci*.04)+'s';
+      word.appendChild(s);
+    });
+  });
+})();
 </script>
 </body>
 </html>
