@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CarrerasOS — Marketing Digital Para Carreras de Caballos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g:#00FF41;
+  --g2:#00CC33;
+  --g3:rgba(0,255,65,.12);
+  --g4:rgba(0,255,65,.06);
+  --dark:#000;
+  --dark2:#060606;
+  --dark3:#0A0A0A;
+  --glass:rgba(0,255,65,.05);
+  --border:rgba(0,255,65,.15);
+  --text:#E8E8E8;
+  --muted:rgba(232,232,232,.5);
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;overflow-x:hidden}
+
+/* ── CANVAS ── */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 6vw;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--g);text-shadow:0 0 18px rgba(0,255,65,.6)}
+.nav-logo span{color:#fff}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);font-size:.9rem;font-weight:500;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--g)}
+.nav-cta{background:var(--g);color:#000;font-weight:700;font-size:.85rem;padding:.55rem 1.3rem;border-radius:50px;text-decoration:none;letter-spacing:.02em;transition:all .2s;box-shadow:0 0 20px rgba(0,255,65,.3)}
+.nav-cta:hover{background:#fff;box-shadow:0 0 30px rgba(0,255,65,.5)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 6vw 80px;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:var(--g3);border:1px solid var(--border);border-radius:50px;padding:.4rem 1rem;font-size:.78rem;font-weight:600;color:var(--g);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.8rem;animation:fadeUp .8s ease both}
+.hero-eyebrow-dot{width:6px;height:6px;background:var(--g);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero h1{font-size:clamp(3rem,10vw,7.5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;animation:fadeUp .8s ease .1s both}
+.hero h1 .line1{display:block;color:#fff}
+.hero h1 .line2{display:block;color:var(--g);text-shadow:0 0 60px rgba(0,255,65,.4),0 0 120px rgba(0,255,65,.2)}
+.hero-sub{margin-top:1.5rem;font-size:clamp(1rem,2.5vw,1.3rem);color:var(--muted);max-width:580px;line-height:1.6;animation:fadeUp .8s ease .2s both}
+.hero-sub strong{color:var(--text)}
+.hero-actions{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease .3s both}
+.btn-primary{background:var(--g);color:#000;font-weight:800;font-size:1rem;padding:.85rem 2.2rem;border-radius:50px;text-decoration:none;letter-spacing:.01em;transition:all .25s;box-shadow:0 0 30px rgba(0,255,65,.35),0 4px 20px rgba(0,0,0,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,255,65,.5),0 8px 30px rgba(0,0,0,.4)}
+.btn-ghost{color:var(--g);font-weight:700;font-size:1rem;padding:.85rem 2.2rem;border-radius:50px;text-decoration:none;border:1px solid var(--border);transition:all .25s;backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:var(--g3);border-color:var(--g)}
+.hero-stats{margin-top:4rem;display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease .4s both}
+.stat-item{text-align:center}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--g);text-shadow:0 0 20px rgba(0,255,65,.4);display:block;line-height:1}
+.stat-label{font-size:.75rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.3rem}
+
+/* ── MARQUEE ── */
+.marquee-wrap{position:relative;z-index:1;overflow:hidden;padding:1rem 0;background:var(--g4);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.marquee-track{display:flex;gap:3rem;white-space:nowrap;animation:marquee 30s linear infinite}
+.marquee-item{font-size:.8rem;font-weight:600;color:var(--g);letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.marquee-sep{color:var(--border)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION COMMON ── */
+section{position:relative;z-index:1;padding:100px 6vw}
+.section-label{font-size:.75rem;font-weight:700;color:var(--g);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.section-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.03em;line-height:1.05}
+.section-sub{font-size:1.05rem;color:var(--muted);margin-top:.8rem;max-width:520px;line-height:1.6}
+
+/* ── WHAT YOU GET ── */
+.wtg{background:var(--dark2)}
+.wtg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5px;margin-top:3.5rem;border:1.5px solid var(--border);border-radius:20px;overflow:hidden}
+.wtg-card{background:var(--dark3);padding:2.2rem 2rem;position:relative;transition:background .3s;cursor:default}
+.wtg-card:hover{background:var(--g4)}
+.wtg-card::after{content:'';position:absolute;inset:0;border:1.5px solid transparent;border-radius:0;transition:border-color .3s}
+.wtg-card:hover::after{border-color:rgba(0,255,65,.12)}
+.wtg-icon{width:48px;height:48px;background:var(--g3);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+.wtg-name{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.5rem}
+.wtg-desc{font-size:.88rem;color:var(--muted);line-height:1.6}
+.wtg-tag{display:inline-block;margin-top:.9rem;font-size:.72rem;font-weight:700;color:var(--g);background:var(--g4);border:1px solid var(--border);border-radius:50px;padding:.25rem .8rem;letter-spacing:.05em;text-transform:uppercase}
+
+/* ── HOW IT WORKS ── */
+.hiw-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3.5rem;position:relative}
+.hiw-steps::before{content:'';position:absolute;top:3rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);display:none}
+.hiw-step{text-align:center}
+.hiw-num{width:64px;height:64px;background:var(--dark3);border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:var(--g);margin:0 auto 1.2rem;position:relative;transition:all .3s}
+.hiw-step:hover .hiw-num{background:var(--g3);box-shadow:0 0 30px rgba(0,255,65,.3)}
+.hiw-step h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.hiw-step p{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ── PACKAGES ── */
+.pkgs{background:var(--dark2)}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3.5rem;align-items:start}
+.pkg-card{background:var(--dark3);border:1.5px solid var(--border);border-radius:24px;padding:2.2rem;position:relative;transition:all .3s}
+.pkg-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.pkg-card.featured{border-color:var(--g);box-shadow:0 0 40px rgba(0,255,65,.15);background:linear-gradient(145deg,#050f05,#000)}
+.pkg-card.featured::before{content:'MÁS POPULAR';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--g);color:#000;font-size:.7rem;font-weight:800;letter-spacing:.1em;padding:.35rem 1.2rem;border-radius:50px}
+.pkg-name{font-size:.8rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.pkg-price{font-size:3rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.03em}
+.pkg-price span{font-size:1rem;font-weight:500;color:var(--muted);letter-spacing:0}
+.pkg-tagline{font-size:.85rem;color:var(--muted);margin-top:.5rem;margin-bottom:1.5rem;line-height:1.5}
+.pkg-divider{height:1px;background:var(--border);margin:1.5rem 0}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.pkg-features li{font-size:.88rem;color:var(--muted);display:flex;align-items:flex-start;gap:.6rem;line-height:1.4}
+.pkg-features li::before{content:'✦';color:var(--g);font-size:.7rem;margin-top:.2rem;flex-shrink:0}
+.pkg-features li.off{opacity:.35}
+.pkg-features li.off::before{content:'✕';color:var(--muted)}
+.pkg-btn{display:block;text-align:center;margin-top:2rem;padding:.85rem;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .25s}
+.pkg-btn-ghost{color:var(--g);border:1.5px solid var(--border)}
+.pkg-btn-ghost:hover{background:var(--g3);border-color:var(--g)}
+.pkg-btn-solid{background:var(--g);color:#000;box-shadow:0 0 25px rgba(0,255,65,.3)}
+.pkg-btn-solid:hover{background:#fff;box-shadow:0 0 40px rgba(0,255,65,.4)}
+
+/* ── RESULTS ── */
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:3.5rem}
+.result-card{background:var(--dark3);border:1.5px solid var(--border);border-radius:20px;padding:2rem;transition:all .3s}
+.result-card:hover{border-color:rgba(0,255,65,.4);box-shadow:0 0 30px rgba(0,255,65,.08)}
+.result-num{font-size:3rem;font-weight:900;color:var(--g);text-shadow:0 0 30px rgba(0,255,65,.4);line-height:1}
+.result-desc{font-size:.85rem;color:var(--muted);margin-top:.5rem;line-height:1.5}
+
+/* ── TICKER TAPE ── */
+.ticker{background:var(--g);padding:.5rem 0;overflow:hidden;position:relative;z-index:1}
+.ticker-track{display:flex;gap:4rem;animation:marquee 20s linear infinite;white-space:nowrap}
+.ticker-item{font-size:.8rem;font-weight:800;color:#000;letter-spacing:.08em;text-transform:uppercase}
+
+/* ── CTA BLOCK ── */
+.cta-block{text-align:center;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(0,255,65,.08),transparent)}
+.cta-block h2{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.cta-block h2 em{font-style:normal;color:var(--g);text-shadow:0 0 40px rgba(0,255,65,.3)}
+.cta-block p{color:var(--muted);font-size:1.05rem;margin-top:1rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6}
+.cta-block .cta-actions{margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.wa-btn{background:#25D366;color:#fff;font-weight:800;font-size:1rem;padding:.9rem 2.2rem;border-radius:50px;text-decoration:none;display:flex;align-items:center;gap:.6rem;transition:all .25s;box-shadow:0 0 25px rgba(37,211,102,.3)}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(37,211,102,.5)}
+.wa-icon{font-size:1.2rem}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;padding:2.5rem 6vw;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+.footer-logo{font-size:1.1rem;font-weight:800;color:var(--g)}
+.footer-logo span{color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--muted);font-size:.82rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--g)}
+.footer-copy{font-size:.78rem;color:rgba(232,232,232,.3)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:0 5vw}
+  .nav-links{display:none}
+  .hero h1{font-size:3rem}
+  section{padding:70px 5vw}
+  .hero-stats{gap:1.5rem}
+  .stat-num{font-size:1.8rem}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Carreras<span>OS</span></div>
+  <ul class="nav-links">
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+  </ul>
+  <a href="https://wa.me/17195551234?text=Hola,%20quiero%20info%20sobre%20CarrerasOS" class="nav-cta" target="_blank">Empezar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Marketing Digital Para Carreras de Caballos
+  </div>
+  <h1>
+    <span class="line1">Sube el</span>
+    <span class="line2">Nivel.</span>
+  </h1>
+  <p class="hero-sub">
+    Flyer. Video. Sitio web. Pick 6. SMS blast.<br>
+    <strong>Todo listo en 24 horas.</strong> Tú solo corres las carreras.
+  </p>
+  <div class="hero-actions">
+    <a href="#paquetes" class="btn-primary">Ver Paquetes</a>
+    <a href="events/carril-dos-hermanos/site.html" class="btn-ghost" target="_blank">Ver Ejemplo Live ↗</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num" data-target="24">0</span>
+      <span class="stat-label">Hrs de entrega</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="6">0</span>
+      <span class="stat-label">Assets por evento</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-suffix="K" data-target="5">0</span>
+      <span class="stat-label">Premio Pick 6</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-prefix="$" data-target="0" data-display="Cero">0</span>
+      <span class="stat-label">Ads pagados</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Carril Dos Hermanos</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Pick 6 Challenge</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Video Ad Cinematic</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">SMS Blast</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Sitio del Evento</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Mano a Mano Duel</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Reel de Instagram</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">QR Flyer</span><span class="marquee-sep">✦</span>
+    <!-- dup for seamless -->
+    <span class="marquee-item">Carril Dos Hermanos</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Pick 6 Challenge</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Video Ad Cinematic</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">SMS Blast</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Sitio del Evento</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Mano a Mano Duel</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Reel de Instagram</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">QR Flyer</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<section class="wtg" id="stack">
+  <div class="reveal">
+    <div class="section-label">El Stack Completo</div>
+    <h2 class="section-title">Todo lo que <span style="color:var(--g)">necesitas</span><br>para llenar el carril.</h2>
+    <p class="section-sub">Un paquete de marketing digital diseñado exclusivamente para promotores de carreras de caballos.</p>
+  </div>
+  <div class="wtg-grid reveal">
+    <div class="wtg-card">
+      <div class="wtg-icon">📄</div>
+      <div class="wtg-name">Flyer Interactivo</div>
+      <div class="wtg-desc">Flyer digital con código QR que lleva directo al video ad. Para imprimir y para WhatsApp.</div>
+      <span class="wtg-tag">Compartir</span>
+    </div>
+    <div class="wtg-card">
+      <div class="wtg-icon">🎬</div>
+      <div class="wtg-name">Video Ad Cinemático</div>
+      <div class="wtg-desc">Animación de 30 segundos con música, caballos en pantalla dividida y estética Apple. Listo para Reels, TikTok y Stories.</div>
+      <span class="wtg-tag">Viral</span>
+    </div>
+    <div class="wtg-card">
+      <div class="wtg-icon">🌐</div>
+      <div class="wtg-name">Sitio del Evento</div>
+      <div class="wtg-desc">Página web completa con programa de carreras, horarios, redes sociales y botón de ubicación. Los aficionados la visitan antes de ir.</div>
+      <span class="wtg-tag">Profesional</span>
+    </div>
+    <div class="wtg-card">
+      <div class="wtg-icon">⚔️</div>
+      <div class="wtg-name">Duelo Mano a Mano</div>
+      <div class="wtg-desc">Página head-to-head con stats de ambos caballos, porcentajes de victoria y generador de hype previo al evento.</div>
+      <span class="wtg-tag">Hype</span>
+    </div>
+    <div class="wtg-card">
+      <div class="wtg-icon">🎰</div>
+      <div class="wtg-name">Pick 6 Challenge</div>
+      <div class="wtg-desc">Sistema interactivo de raspadito donde los fans escojen 6 ganadores. Premio de $5K. 100 boletos a $100. Genera ingresos extras para ti.</div>
+      <span class="wtg-tag">Ingresos Extra</span>
+    </div>
+    <div class="wtg-card">
+      <div class="wtg-icon">📱</div>
+      <div class="wtg-name">SMS Blast</div>
+      <div class="wtg-desc">Mensaje masivo a tu lista de fans con el link del evento. Tasa de apertura del 98% vs el 22% de email. Llega a quien ya te sigue.</div>
+      <span class="wtg-tag">Alcance</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="reveal" style="text-align:center">
+    <div class="section-label">El Proceso</div>
+    <h2 class="section-title">Simple. <span style="color:var(--g)">Rápido.</span> Listo.</h2>
+    <p class="section-sub" style="margin:auto">Sin reuniones largas. Sin ida y vuelta. Solo manda el flyer y recibe todo.</p>
+  </div>
+  <div class="hiw-steps reveal">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <h3>Sube el Flyer</h3>
+      <p>Manda la imagen del evento por WhatsApp. Con eso tenemos todo — fecha, caballos, carril, precio.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <h3>Generamos el Paquete</h3>
+      <p>En menos de 24 horas producimos todos los assets del stack que seleccionaste.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <h3>Recibes los Links</h3>
+      <p>Te mandamos URLs listos para compartir en Facebook, WhatsApp, Instagram. Sin instalar nada.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">4</div>
+      <h3>Tú Llenas el Carril</h3>
+      <p>Los fans visitan el sitio, miran el video, juegan el Pick 6. El buzz se genera solo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Entrega en 24 horas</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Pick 6 genera $10K en boletos</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">100% mobile-first</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Sin contratos anuales</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Entrega en 24 horas</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Pick 6 genera $10K en boletos</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">100% mobile-first</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Sin contratos anuales</span>
+    <span class="ticker-item">✦</span>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section class="pkgs" id="paquetes">
+  <div class="reveal">
+    <div class="section-label">Paquetes</div>
+    <h2 class="section-title">Escoge tu <span style="color:var(--g)">nivel.</span></h2>
+    <p class="section-sub">Sin suscripciones. Pagas por evento. Crece cuando quieras.</p>
+  </div>
+  <div class="pkg-grid reveal">
+
+    <div class="pkg-card">
+      <div class="pkg-name">Básico</div>
+      <div class="pkg-price">$400<span> / evento</span></div>
+      <div class="pkg-tagline">Para empezar a verse profesional en redes.</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Flyer interactivo con QR</li>
+        <li>Video ad cinemático 30s</li>
+        <li>Assets para Stories e Instagram</li>
+        <li class="off">Sitio web del evento</li>
+        <li class="off">Duelo Mano a Mano</li>
+        <li class="off">Pick 6 Challenge</li>
+        <li class="off">SMS Blast</li>
+      </ul>
+      <a href="https://wa.me/17195551234?text=Quiero%20el%20paquete%20Basico" class="pkg-btn pkg-btn-ghost" target="_blank">Pedir Básico</a>
+    </div>
+
+    <div class="pkg-card featured">
+      <div class="pkg-name">Premium</div>
+      <div class="pkg-price">$1,500<span> / evento</span></div>
+      <div class="pkg-tagline">El paquete completo. Máximo impacto, máxima asistencia.</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Flyer interactivo con QR</li>
+        <li>Video ad cinemático 30s</li>
+        <li>Sitio web del evento</li>
+        <li>Duelo Mano a Mano</li>
+        <li>Pick 6 Challenge completo</li>
+        <li>SMS Blast a tu lista</li>
+        <li>Assets para Stories e Instagram</li>
+      </ul>
+      <a href="https://wa.me/17195551234?text=Quiero%20el%20paquete%20Premium" class="pkg-btn pkg-btn-solid" target="_blank">Empezar Ahora</a>
+    </div>
+
+    <div class="pkg-card">
+      <div class="pkg-name">Carril Completo</div>
+      <div class="pkg-price">$3,500<span> / mes</span></div>
+      <div class="pkg-tagline">Para carriles con eventos frecuentes. Cobertura total del mes.</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Todo del paquete Premium</li>
+        <li>Hasta 4 eventos por mes</li>
+        <li>Actualizaciones de resultados</li>
+        <li>Clasificaciones en vivo</li>
+        <li>Pick 6 mensual acumulado</li>
+        <li>Soporte prioritario 7 días</li>
+        <li>Estrategia de redes incluida</li>
+      </ul>
+      <a href="https://wa.me/17195551234?text=Quiero%20el%20paquete%20Carril%20Completo" class="pkg-btn pkg-btn-ghost" target="_blank">Contactar</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="resultados">
+  <div class="reveal">
+    <div class="section-label">Por Qué Funciona</div>
+    <h2 class="section-title">Los <span style="color:var(--g)">números</span> no mienten.</h2>
+  </div>
+  <div class="results-grid reveal">
+    <div class="result-card">
+      <div class="result-num">98%</div>
+      <div class="result-desc">Tasa de apertura de SMS vs 22% de email. Tu mensaje siempre llega.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">$10K</div>
+      <div class="result-desc">Potencial generado por el Pick 6. 100 boletos × $100. Ingresos directos para el carril.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">24h</div>
+      <div class="result-desc">Tiempo de entrega del paquete completo. Sube el flyer hoy, tienes todo mañana.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">0</div>
+      <div class="result-desc">Dólares en ads pagados necesarios. El contenido genera el tráfico orgánico.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-block">
+  <div class="reveal">
+    <h2>¿Listo para <em>llenar<br>el carril?</em></h2>
+    <p>Manda el flyer de tu próximo evento y te regresamos un paquete completo en 24 horas.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/17195551234?text=Hola,%20quiero%20un%20paquete%20para%20mi%20evento" class="wa-btn" target="_blank">
+        <span class="wa-icon">💬</span> WhatsApp Directo
+      </a>
+      <a href="events/carril-dos-hermanos/pick6.html" class="btn-ghost" target="_blank">Ver Pick 6 Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CarrerasOS <span>— Marketing Digital</span></div>
+  <div class="footer-links">
+    <a href="events/carril-dos-hermanos/site.html" target="_blank">Demo Evento</a>
+    <a href="events/carril-dos-hermanos/video-ad.html" target="_blank">Demo Video</a>
+    <a href="events/carril-dos-hermanos/pick6.html" target="_blank">Demo Pick 6</a>
+  </div>
+  <div class="footer-copy">© 2026 CarrerasOS. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+/* ── PARTICLE NETWORK CANVAS ── */
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;initPts()}
+function initPts(){
+  pts=[];
+  const n=Math.floor(W*H/18000);
+  for(let i=0;i<n;i++){
+    pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5})
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<pts.length;i++){
+    const p=pts[i];
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,255,65,.4)';
+    ctx.fill();
+    for(let j=i+1;j<pts.length;j++){
+      const q=pts[j];
+      const d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<130){
+        ctx.beginPath();
+        ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle=`rgba(0,255,65,${.12*(1-d/130)})`;
+        ctx.lineWidth=.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize',resize);
+resize();
+draw();
+
+/* ── COUNTER ANIMATION ── */
+function animCount(el){
+  const target=+el.dataset.target;
+  const suffix=el.dataset.suffix||'';
+  const prefix=el.dataset.prefix||'';
+  const display=el.dataset.display;
+  if(display){el.textContent=display;return}
+  let cur=0;
+  const dur=1200;
+  const step=target/(dur/16);
+  const t=setInterval(()=>{
+    cur=Math.min(cur+step,target);
+    el.textContent=prefix+Math.floor(cur)+suffix;
+    if(cur>=target){clearInterval(t);el.textContent=prefix+target+suffix}
+  },16);
+}
+
+/* ── SCROLL REVEAL + COUNTER TRIGGER ── */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('[data-target]').forEach(animCount);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// also hero stats on load
+setTimeout(()=>{
+  document.querySelectorAll('.hero-stats [data-target]').forEach(animCount);
+},600);
+</script>
+</body>
+</html>
