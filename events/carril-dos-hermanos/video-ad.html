@@ -13,7 +13,7 @@
   --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
 }
 body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;display:flex;align-items:center;justify-content:center}
-.stage{position:relative;width:min(420px,100vw,calc(100svh * .5625));aspect-ratio:9/16;overflow:hidden;background:#000}
+.stage{position:relative;width:min(420px,100vw,calc(100svh*.5625));aspect-ratio:9/16;overflow:hidden;background:#000}
 
 #fx{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .scanlines{position:absolute;inset:0;z-index:88;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px)}
@@ -28,9 +28,17 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .scene{position:absolute;inset:0;opacity:0;pointer-events:none;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5}
 .scene.active{opacity:1;pointer-events:auto}
 
-/* ══════════════════════════════════════
-   S0 — COLD OPEN + HOOK
-══════════════════════════════════════ */
+/* ── SHARED HORSE PANEL PATTERN ── */
+.horse-panel{position:absolute;bottom:0;background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+.horse-panel-l{left:0;width:52%;height:70%;background-image:url('la-mami.jpg');animation:hPanelL .7s cubic-bezier(.16,1,.3,1) .1s both}
+.horse-panel-r{right:0;width:52%;height:70%;background-image:url('aries.jpg');transform:scaleX(-1);animation:hPanelR .7s cubic-bezier(.16,1,.3,1) .1s both}
+@keyframes hPanelL{from{left:-60%;opacity:0}to{left:0;opacity:1}}
+@keyframes hPanelR{from{right:-60%;opacity:0}to{right:0;opacity:1}}
+.horse-fade-l{position:absolute;inset:0;background:linear-gradient(to right,transparent 42%,rgba(0,0,0,.9) 78%);pointer-events:none;z-index:2}
+.horse-fade-r{position:absolute;inset:0;background:linear-gradient(to left,transparent 42%,rgba(0,0,0,.9) 78%);pointer-events:none;z-index:2}
+.horse-fade-top{position:absolute;top:0;left:0;right:0;height:30%;background:linear-gradient(to bottom,#000,transparent);z-index:3;pointer-events:none}
+
+/* ══ S0 — COLD OPEN ══ */
 .s0-bg{position:absolute;inset:0;background:#000}
 .s0-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,197,24,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,.06) 1px,transparent 1px);background-size:24px 24px;animation:gridPulse 2s ease-in-out infinite}
 @keyframes gridPulse{0%,100%{opacity:.3}50%{opacity:1}}
@@ -50,9 +58,7 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s0-social-txt{font-size:9px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.45)}
 .s0-social-num{font-size:9px;font-weight:800;color:var(--gold)}
 
-/* ══════════════════════════════════════
-   S1 — SOCIAL PROOF + SCARCITY
-══════════════════════════════════════ */
+/* ══ S1 — SOCIAL PROOF ══ */
 .s1-bg{position:absolute;inset:0;background:#040408}
 .s1-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300%;height:300%;background:radial-gradient(ellipse at center,rgba(245,197,24,.04),transparent 55%);animation:glowPulse 3s ease-in-out infinite}
 @keyframes glowPulse{0%,100%{opacity:.5}50%{opacity:1}}
@@ -60,7 +66,6 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s1-eyebrow{font-size:9px;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;animation:fadeUp .4s ease .2s both}
 .s1-counter{font-size:clamp(3.5rem,16vw,6.5rem);font-weight:900;letter-spacing:-.05em;line-height:.85;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:stampIn .5s cubic-bezier(.22,1,.36,1) .3s both,shimmer 2s linear 1s infinite}
 .s1-label{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px;animation:fadeUp .4s ease .5s both}
-/* capacity bar */
 .s1-cap{margin:22px 0 10px;animation:fadeUp .4s ease .7s both}
 .s1-cap-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .s1-cap-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35)}
@@ -72,23 +77,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s1-fomo{margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);border:1px solid rgba(255,197,24,.18);border-radius:8px;padding:9px 14px;animation:fadeUp .4s ease 1s both;line-height:1.5}
 .s1-fomo strong{color:var(--gold)}
 
-/* ══════════════════════════════════════
-   S2 — TITLE REVEAL
-══════════════════════════════════════ */
-.s2-bg{position:absolute;inset:0;background:linear-gradient(170deg,#100000,#000820 55%,#000)}
+/* ══ S2 — TITLE REVEAL ══ */
+.s2-bg{position:absolute;inset:0;background:linear-gradient(170deg,#0a0000,#00050d 55%,#000)}
 .s2-stripe{position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(112deg,transparent 43%,rgba(245,197,24,.11) 50%,transparent 57%);animation:stripe .55s cubic-bezier(.22,1,.36,1) .05s both;pointer-events:none}
 @keyframes stripe{from{left:-100%}to{left:100%}}
-/* horse wrappers */
-.s2-hl-wrap{position:absolute;bottom:0;animation:runFromLeft .65s cubic-bezier(.16,1,.3,1) .18s both}
-.s2-hr-wrap{position:absolute;bottom:0;animation:runFromRight .65s cubic-bezier(.16,1,.3,1) .18s both}
-.s2-hl-wrap img{height:68%;width:auto;display:block;filter:drop-shadow(-10px 0 24px rgba(200,0,0,.5));animation:gallop .45s ease-in-out .85s infinite}
-.s2-hr-wrap img{height:68%;width:auto;display:block;transform:scaleX(-1);filter:drop-shadow(10px 0 24px rgba(26,62,204,.5));animation:gallop .45s ease-in-out .9s infinite}
-@keyframes runFromLeft{from{left:-90%;opacity:0;filter:blur(4px)}to{left:-6%;opacity:1;filter:blur(0)}}
-@keyframes runFromRight{from{right:-90%;opacity:0;filter:blur(4px)}to{right:-6%;opacity:1;filter:blur(0)}}
-@keyframes gallop{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.s2-hr-wrap img{animation:gallopR .45s ease-in-out .9s infinite}
-@keyframes gallopR{0%,100%{transform:scaleX(-1) translateY(0)}50%{transform:scaleX(-1) translateY(-9px)}}
-.s2-fade{position:absolute;inset:0;background:radial-gradient(ellipse 50% 64% at 50% 52%,rgba(0,0,0,.8),transparent 100%)}
+/* S2 horse panels — wider for title reveal */
+.s2-hp-l{left:0;width:48%;height:72%;background-image:url('la-mami.jpg')}
+.s2-hp-r{right:0;width:48%;height:72%;background-image:url('aries.jpg');transform:scaleX(-1)}
+.s2-fade-c{position:absolute;inset:0;background:radial-gradient(ellipse 52% 66% at 50% 54%,rgba(0,0,0,.82),transparent 100%);z-index:4;pointer-events:none}
 .s2-inner{position:relative;z-index:6;text-align:center}
 .s2-eye{font-size:9px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:10px;animation:fadeUp .4s ease .5s both}
 .s2-cosidas{font-size:clamp(3.2rem,14vw,6rem);font-weight:900;letter-spacing:-.05em;line-height:.84;background:linear-gradient(160deg,#F5C518 0%,#D4A017 28%,#F5C518 52%,#A07810 78%,#F5C518 100%);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 2.5s linear 1.2s infinite}
@@ -97,17 +93,13 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s2-tag{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.24);margin-top:16px;animation:fadeUp .4s ease 1.4s both;font-style:italic}
 .ltr{display:inline-block}
 
-/* ══════════════════════════════════════
-   S3 — CAOS RUNS IN
-══════════════════════════════════════ */
-.s3-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 36% 98%,rgba(130,0,0,.7),#030000 55%,#000)}
-.s3-glow{position:absolute;bottom:-12%;left:-12%;width:125%;height:75%;background:radial-gradient(ellipse at 38% 100%,rgba(200,0,0,.42),transparent 60%);animation:pulseR 2s ease-in-out infinite}
+/* ══ S3 — CAOS ══ */
+.s3-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 36% 98%,rgba(100,0,0,.65),#030000 55%,#000)}
+.s3-glow{position:absolute;bottom:-12%;left:-12%;width:125%;height:75%;background:radial-gradient(ellipse at 38% 100%,rgba(180,0,0,.38),transparent 60%);animation:pulseR 2s ease-in-out infinite}
 @keyframes pulseR{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
-/* running horse */
-.s3-horse-wrap{position:absolute;bottom:0;animation:runFromLeft .7s cubic-bezier(.16,1,.3,1) .05s both}
-.s3-horse-img{height:68%;width:auto;display:block;filter:drop-shadow(0 0 32px rgba(200,0,0,.6));animation:gallop .4s ease-in-out .8s infinite}
-/* dust trail on canvas triggers from JS */
-.s3-inner{position:relative;z-index:6;text-align:center;margin-top:-36%}
+/* S3 horse panel — wider, left-anchored */
+.s3-hp{left:0;width:55%;height:72%;background-image:url('la-mami.jpg');animation:hPanelL .7s cubic-bezier(.16,1,.3,1) .05s both}
+.s3-inner{position:relative;z-index:6;text-align:center;margin-top:-38%}
 .s3-intro{font-size:9px;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.26);margin-bottom:6px;animation:fadeUp .4s ease .7s both}
 .s3-name{font-size:clamp(4.5rem,20vw,8rem);font-weight:900;letter-spacing:-.04em;line-height:.87;color:var(--redB);text-shadow:0 0 55px rgba(200,0,0,.95),0 0 110px rgba(200,0,0,.4);position:relative;animation:glitchReveal .7s ease .75s both}
 .s3-name::before{content:attr(data-text);position:absolute;top:0;left:-3px;width:100%;color:#ff7777;animation:gA .5s step-end .78s 4 both}
@@ -121,15 +113,13 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s3-bar{height:100%;width:0;background:var(--redB);border-radius:2px;transition:width 1.1s ease .3s}
 .s3-bar.go{width:88%}
 
-/* ══════════════════════════════════════
-   S4 — REY PUERRO RUNS IN
-══════════════════════════════════════ */
-.s4-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 64% 98%,rgba(0,22,130,.7),#000010 55%,#000)}
-.s4-glow{position:absolute;bottom:-12%;right:-12%;width:125%;height:75%;background:radial-gradient(ellipse at 62% 100%,rgba(26,62,204,.42),transparent 60%);animation:pulseB 2s ease-in-out infinite}
+/* ══ S4 — REY PUERRO ══ */
+.s4-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 64% 98%,rgba(0,18,100,.65),#000010 55%,#000)}
+.s4-glow{position:absolute;bottom:-12%;right:-12%;width:125%;height:75%;background:radial-gradient(ellipse at 62% 100%,rgba(26,62,180,.38),transparent 60%);animation:pulseB 2s ease-in-out infinite}
 @keyframes pulseB{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
-.s4-horse-wrap{position:absolute;bottom:0;animation:runFromRight .7s cubic-bezier(.16,1,.3,1) .05s both}
-.s4-horse-img{height:68%;width:auto;display:block;transform:scaleX(-1);filter:drop-shadow(0 0 32px rgba(26,62,204,.6));animation:gallopR .4s ease-in-out .8s infinite}
-.s4-inner{position:relative;z-index:6;text-align:center;margin-top:-34%}
+/* S4 horse panel — right-anchored, flipped */
+.s4-hp{right:0;width:55%;height:72%;background-image:url('aries.jpg');transform:scaleX(-1);animation:hPanelR .7s cubic-bezier(.16,1,.3,1) .05s both}
+.s4-inner{position:relative;z-index:6;text-align:center;margin-top:-36%}
 .s4-intro{font-size:9px;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.26);margin-bottom:6px;animation:fadeUp .4s ease .7s both}
 .s4-name{font-size:clamp(2.5rem,11vw,4.4rem);font-weight:900;letter-spacing:-.03em;line-height:.87;color:var(--blueB);text-shadow:0 0 55px rgba(26,62,204,.95),0 0 110px rgba(26,62,204,.4);position:relative;animation:glitchReveal .7s ease .75s both}
 .s4-name::before{content:attr(data-text);position:absolute;top:0;left:-3px;width:100%;color:#88ccff;animation:gA .5s step-end .78s 4 both}
@@ -143,22 +133,18 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s4-bar{height:100%;width:0;background:var(--blueB);border-radius:2px;transition:width 1.1s ease .3s}
 .s4-bar.go{width:85%}
 
-/* ══════════════════════════════════════
-   S5 — GATE COUNTDOWN
-══════════════════════════════════════ */
+/* ══ S5 — GATE COUNTDOWN ══ */
 .s5-bg{position:absolute;inset:0;background:#000}
 .s5-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:20px 20px}
-/* starting gate visual */
+/* ghost horse panels at low opacity for S5 */
+.s5-sil-l{position:absolute;bottom:0;left:0;width:42%;height:36%;background-image:url('la-mami.jpg');background-size:cover;background-position:center bottom;opacity:.18;filter:brightness(.4)}
+.s5-sil-r{position:absolute;bottom:0;right:0;width:42%;height:36%;background-image:url('aries.jpg');background-size:cover;background-position:center bottom;opacity:.18;filter:brightness(.4);transform:scaleX(-1)}
 .s5-gate{position:absolute;bottom:30%;left:50%;transform:translateX(-50%);display:flex;align-items:flex-end;gap:28px;z-index:3}
 .s5-gate-post{width:8px;height:70px;background:linear-gradient(180deg,#ccc,#555);border-radius:3px;transform-origin:bottom center;transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .s5-gate-bar{position:absolute;top:-6px;left:-28px;right:-28px;height:7px;background:repeating-linear-gradient(90deg,#CC0000 0,#CC0000 12px,#fff 12px,#fff 24px);border-radius:3px;transition:opacity .3s}
 .s5-gate.open .s5-gate-post:first-child{transform:rotate(-80deg)}
 .s5-gate.open .s5-gate-post:last-child{transform:rotate(80deg)}
 .s5-gate.open .s5-gate-bar{opacity:0}
-/* horses silhouettes at gate */
-.s5-sil-l{position:absolute;bottom:0;left:0;width:42%;height:35%;background:url('la-mami.jpg') left bottom/contain no-repeat;opacity:.35;filter:brightness(0) invert(.3)}
-.s5-sil-r{position:absolute;bottom:0;right:0;width:42%;height:35%;background:url('aries.jpg') right bottom/contain no-repeat;opacity:.35;filter:brightness(0) invert(.3) scaleX(-1);transform:scaleX(-1)}
-/* countdown number */
 .s5-inner{position:relative;z-index:5;text-align:center}
 .s5-ready{font-size:11px;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;animation:fadeUp .4s ease .2s both}
 .s5-num{font-size:clamp(7rem,32vw,14rem);font-weight:900;letter-spacing:-.06em;line-height:.85;color:#fff;text-shadow:0 0 60px rgba(255,255,255,.2);animation:countNum .35s cubic-bezier(.22,1,.36,1) both}
@@ -166,16 +152,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s5-num.gold{color:var(--gold);text-shadow:0 0 80px rgba(245,197,24,.7);font-size:clamp(4rem,18vw,7.5rem)}
 @keyframes countNum{from{transform:scale(1.6);opacity:0}to{transform:scale(1);opacity:1}}
 
-/* ══════════════════════════════════════
-   S6 — VS CLASH
-══════════════════════════════════════ */
+/* ══ S6 — VS CLASH ══ */
 .s6-bg{position:absolute;inset:0;background:#000}
-.s6-hl{position:absolute;inset:0 50% 0 0;background:linear-gradient(to right,rgba(100,0,0,.4),transparent)}
-.s6-hr{position:absolute;inset:0 0 0 50%;background:linear-gradient(to left,rgba(0,22,100,.4),transparent)}
-.s6-horse-l{position:absolute;bottom:0;left:0;height:68%;width:auto;filter:drop-shadow(0 0 20px rgba(200,0,0,.4));animation:hSlideL .5s cubic-bezier(.16,1,.3,1) .05s both}
-.s6-horse-r{position:absolute;bottom:0;right:0;height:68%;width:auto;transform:scaleX(-1);filter:drop-shadow(0 0 20px rgba(26,62,204,.4));animation:hSlideR .5s cubic-bezier(.16,1,.3,1) .05s both}
-.s6-fl{position:absolute;inset:0;background:linear-gradient(to right,transparent 16%,rgba(0,0,0,.88) 52%);pointer-events:none}
-.s6-fr{position:absolute;inset:0;background:linear-gradient(to left,transparent 16%,rgba(0,0,0,.88) 52%);pointer-events:none}
+.s6-hp-l{left:0;width:50%;height:75%;background-image:url('la-mami.jpg');animation:hPanelL .5s cubic-bezier(.16,1,.3,1) .05s both}
+.s6-hp-r{right:0;width:50%;height:75%;background-image:url('aries.jpg');transform:scaleX(-1);animation:hPanelR .5s cubic-bezier(.16,1,.3,1) .05s both}
+.s6-fl{position:absolute;inset:0;background:linear-gradient(to right,transparent 12%,rgba(0,0,0,.88) 52%);pointer-events:none;z-index:3}
+.s6-fr{position:absolute;inset:0;background:linear-gradient(to left,transparent 12%,rgba(0,0,0,.88) 52%);pointer-events:none;z-index:3}
+.s6-hl-tint{position:absolute;inset:0 50% 0 0;background:linear-gradient(to right,rgba(80,0,0,.3),transparent);z-index:2}
+.s6-hr-tint{position:absolute;inset:0 0 0 50%;background:linear-gradient(to left,rgba(0,18,80,.3),transparent);z-index:2}
 .s6-charge{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);width:72%;z-index:6}
 .s6-charge-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;display:flex}
 .s6-charge-l{width:0;height:100%;background:linear-gradient(to right,var(--red),rgba(245,197,24,.6));border-radius:3px 0 0 3px;transition:width .9s ease-in .3s}
@@ -201,9 +185,7 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s6-nl{font-size:clamp(14px,5vw,19px);font-weight:900;color:var(--redB);text-shadow:0 0 20px rgba(200,0,0,.7)}
 .s6-nr{font-size:clamp(14px,5vw,19px);font-weight:900;color:var(--blueB);text-shadow:0 0 20px rgba(26,62,204,.7)}
 
-/* ══════════════════════════════════════
-   S7 — RACE LIST + SCARCITY
-══════════════════════════════════════ */
+/* ══ S7 — RACE LIST ══ */
 .s7-bg{position:absolute;inset:0;background:#060612}
 .s7-topbar{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue));transform-origin:left;animation:barH .5s ease .1s both}
 @keyframes barH{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -225,13 +207,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s7-footer-txt{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--redB)}
 .s7-footer-sub{font-size:9px;color:rgba(255,255,255,.3);margin-top:2px}
 
-/* ══════════════════════════════════════
-   S8 — CTA
-══════════════════════════════════════ */
-.s8-bg{position:absolute;inset:0;background:linear-gradient(180deg,#060606,#0c0400)}
-.s8-hl{position:absolute;bottom:0;left:-5%;height:65%;width:auto;filter:brightness(.7);animation:fadeUp .6s ease .2s both}
-.s8-hr{position:absolute;bottom:0;right:-5%;height:65%;width:auto;transform:scaleX(-1);filter:brightness(.7);animation:fadeUp .6s ease .2s both}
-.s8-center-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 62%,rgba(245,197,24,.09),transparent 65%)}
+/* ══ S8 — CTA ══ */
+.s8-bg{position:absolute;inset:0;background:linear-gradient(180deg,#060606,#0a0400)}
+/* S8 horse panels, low brightness */
+.s8-hp-l{left:0;width:50%;height:68%;background-image:url('la-mami.jpg');filter:brightness(.55);animation:hPanelL .6s cubic-bezier(.16,1,.3,1) .2s both}
+.s8-hp-r{right:0;width:50%;height:68%;background-image:url('aries.jpg');transform:scaleX(-1);filter:brightness(.55);animation:hPanelR .6s cubic-bezier(.16,1,.3,1) .2s both}
+.s8-fl{position:absolute;inset:0;background:linear-gradient(to right,transparent 8%,rgba(0,0,0,.85) 48%);pointer-events:none;z-index:3}
+.s8-fr{position:absolute;inset:0;background:linear-gradient(to left,transparent 8%,rgba(0,0,0,.85) 48%);pointer-events:none;z-index:3}
+.s8-center-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 62%,rgba(245,197,24,.08),transparent 65%);z-index:4}
 .s8-inner{position:relative;z-index:6;text-align:center;padding:0 14px}
 .s8-star{font-size:22px;display:block;margin-bottom:6px;animation:spinIn .55s ease .3s both;color:var(--gold)}
 @keyframes spinIn{from{transform:rotate(-180deg) scale(0);opacity:0}to{transform:none;opacity:1}}
@@ -247,78 +230,105 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 .s8-phone{font-size:clamp(1.1rem,5vw,1.7rem);font-weight:900;letter-spacing:.04em;color:var(--gold);margin-top:14px;text-shadow:0 0 24px rgba(245,197,24,.4);animation:stampIn .45s cubic-bezier(.22,1,.36,1) 1.4s both,pulseGold 1.8s ease 1.9s infinite}
 .s8-cd-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:10px;animation:fadeUp .3s ease 1.6s both}
 
-/* ══════════════════════════════════════
-   END SCREEN — DUEL + QR + BIG CTA
-══════════════════════════════════════ */
-.end-screen{position:absolute;inset:0;z-index:100;background:#000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .6s}
+/* ══ END SCREEN — APPLE iOS DESIGN ══ */
+.end-screen{position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s}
 .end-screen.show{opacity:1;pointer-events:auto}
-.ed-duel{position:relative;flex:0 0 44%;overflow:hidden}
-.ed-duel-bg{position:absolute;inset:0;background:#000}
-.ed-red{position:absolute;inset:0 50% 0 0;background:radial-gradient(ellipse at 15% 90%,rgba(140,0,0,.55),transparent 65%)}
-.ed-blue{position:absolute;inset:0 0 0 50%;background:radial-gradient(ellipse at 85% 90%,rgba(0,22,140,.55),transparent 65%)}
-.ed-hl{position:absolute;bottom:0;left:0;height:68%;width:auto;filter:drop-shadow(0 0 20px rgba(200,0,0,.45));animation:edSL .6s cubic-bezier(.16,1,.3,1) .2s both}
-.ed-hr{position:absolute;bottom:0;right:0;height:68%;width:auto;transform:scaleX(-1);filter:drop-shadow(0 0 20px rgba(26,62,204,.45));animation:edSR .6s cubic-bezier(.16,1,.3,1) .2s both}
-@keyframes edSL{from{left:-70%;opacity:0}to{left:0;opacity:1}}
-@keyframes edSR{from{right:-70%;opacity:0}to{right:0;opacity:1}}
-.ed-fl{position:absolute;inset:0;background:linear-gradient(to right,transparent 28%,rgba(0,0,0,.82) 56%);pointer-events:none}
-.ed-fr{position:absolute;inset:0;background:linear-gradient(to left,transparent 28%,rgba(0,0,0,.82) 56%);pointer-events:none}
-.ed-vs-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5}
-.ed-vs{font-size:clamp(2.2rem,10vw,4rem);font-weight:900;color:#fff;text-shadow:0 0 50px rgba(245,197,24,.4);line-height:1;animation:vsSlam .4s cubic-bezier(.22,1,.36,1) .5s both;position:relative;display:inline-block}
+
+/* Top dark portion — horse duel */
+.ed-top{position:relative;flex:0 0 40%;overflow:hidden;background:#000}
+.ed-top-hl{position:absolute;bottom:0;left:0;width:52%;height:100%;background-image:url('la-mami.jpg');background-size:cover;background-position:center bottom}
+.ed-top-hr{position:absolute;bottom:0;right:0;width:52%;height:100%;background-image:url('aries.jpg');background-size:cover;background-position:center bottom;transform:scaleX(-1)}
+.ed-top-fl{position:absolute;inset:0;background:linear-gradient(to right,transparent 28%,rgba(0,0,0,.78) 55%);z-index:2;pointer-events:none}
+.ed-top-fr{position:absolute;inset:0;background:linear-gradient(to left,transparent 28%,rgba(0,0,0,.78) 55%);z-index:2;pointer-events:none}
+.ed-top-red{position:absolute;inset:0 50% 0 0;background:radial-gradient(ellipse at 20% 100%,rgba(100,0,0,.45),transparent 70%);z-index:1}
+.ed-top-blue{position:absolute;inset:0 0 0 50%;background:radial-gradient(ellipse at 80% 100%,rgba(0,16,100,.45),transparent 70%);z-index:1}
+.ed-top-fade-t{position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,#000,transparent);z-index:3;pointer-events:none}
+.ed-vs-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4}
+.ed-vs{font-size:clamp(2.4rem,11vw,4.5rem);font-weight:900;color:#fff;line-height:1;position:relative;display:inline-block;animation:vsSlam .4s cubic-bezier(.22,1,.36,1) .4s both}
 .ed-vs::before{content:'VS';position:absolute;inset:0;color:rgba(200,0,0,.5);transform:translateX(-3px);z-index:-1}
 .ed-vs::after{content:'VS';position:absolute;inset:0;color:rgba(26,62,204,.5);transform:translateX(3px);z-index:-1}
-.ed-names{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding:6px 12px;z-index:5}
-.ed-nl{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--redB)}
-.ed-nr{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--blueB)}
-/* scarcity bar in end screen */
-.ed-scarcity{padding:10px 18px 6px;border-bottom:1px solid rgba(255,255,255,.06)}
-.ed-sc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
-.ed-sc-label{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.ed-sc-pct{font-size:11px;font-weight:900;color:var(--redB);animation:numPulse .9s ease infinite}
-.ed-sc-track{height:5px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
-.ed-sc-fill{height:100%;background:linear-gradient(90deg,#FF3300,var(--gold));border-radius:100px;width:0;transition:width 1.5s ease .3s}
+.ed-names-row{display:flex;justify-content:space-between;width:100%;padding:4px 14px 0;position:absolute;bottom:6px;z-index:4}
+.ed-nl{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--redB)}
+.ed-nr{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--blueB)}
+
+/* iOS-style slide-up white card */
+.ed-card{
+  flex:1;
+  background:#FFFFFF;
+  border-radius:24px 24px 0 0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  animation:slideUpCard .5s cubic-bezier(.22,1,.36,1) .3s both;
+  position:relative;
+  z-index:10;
+}
+@keyframes slideUpCard{from{transform:translateY(100%)}to{transform:none}}
+
+/* iOS card drag pill */
+.ed-card-pill{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,.12);margin:10px auto 0;flex-shrink:0}
+
+/* Scarcity bar INSIDE white card */
+.ed-scarcity{padding:12px 20px 0;flex-shrink:0}
+.ed-sc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ed-sc-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:#6E6E73}
+.ed-sc-pct{font-size:12px;font-weight:800;color:#FF3300;animation:numPulse .9s ease infinite}
+.ed-sc-track{height:6px;background:rgba(0,0,0,.08);border-radius:100px;overflow:hidden}
+.ed-sc-fill{height:100%;background:linear-gradient(90deg,#FF3300,#FF8800);border-radius:100px;width:0;transition:width 1.5s cubic-bezier(.22,1,.36,1) .6s}
+
 /* QR row */
-.ed-qr-row{padding:10px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
-.ed-qr-img{width:70px;height:70px;border-radius:7px;border:2px solid rgba(245,197,24,.25);flex-shrink:0}
+.ed-qr-row{padding:12px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(0,0,0,.07);flex-shrink:0}
+.ed-qr-img{width:68px;height:68px;border-radius:10px;border:1.5px solid rgba(0,0,0,.1);flex-shrink:0;background:#f0f0f0}
 .ed-qr-info{flex:1}
-.ed-qr-label{font-size:7.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
-.ed-qr-title{font-size:13px;font-weight:800;color:#fff}
-.ed-qr-sub{font-size:9px;color:rgba(255,255,255,.3);margin-top:2px}
-/* MAIN CTA button */
-.ed-cta{padding:12px 18px;display:flex;flex-direction:column;gap:7px}
+.ed-qr-arrow{font-size:18px;color:rgba(0,0,0,.25);flex-shrink:0}
+.ed-qr-label{font-size:10px;font-weight:700;letter-spacing:.04em;color:#6E6E73;margin-bottom:2px}
+.ed-qr-title{font-size:15px;font-weight:700;color:#1D1D1F;line-height:1.2}
+.ed-qr-sub{font-size:11px;color:#6E6E73;margin-top:2px}
+
+/* CTA buttons */
+.ed-cta{padding:14px 20px 18px;display:flex;flex-direction:column;gap:10px;flex-shrink:0}
 .enter-btn{
-  display:block;padding:16px;text-align:center;
-  background:linear-gradient(135deg,#F5C518,#D4A017,#F5C518);
+  display:block;padding:16px 20px;text-align:center;
+  background:linear-gradient(135deg,#F5C518 0%,#D4A017 50%,#F5C518 100%);
   background-size:200%;
   border-radius:14px;
-  font-size:clamp(1rem,4.5vw,1.3rem);font-weight:900;letter-spacing:.04em;
+  font-size:clamp(.95rem,4vw,1.15rem);font-weight:800;letter-spacing:.02em;
   color:#000;text-decoration:none;
-  box-shadow:0 0 0 0 rgba(245,197,24,.5);
-  animation:enterPulse 1.5s ease infinite, fadeUp .4s ease .8s both;
+  box-shadow:0 4px 20px rgba(245,197,24,.4),0 1px 3px rgba(0,0,0,.12);
+  animation:enterPulse 1.6s ease infinite,fadeUp .4s ease .8s both;
   position:relative;overflow:hidden;
 }
-.enter-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%);background-size:200%;animation:shimmer 2s linear infinite}
+.enter-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.22) 50%,transparent 60%);background-size:200%;animation:shimmer 2.2s linear infinite}
 @keyframes enterPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,.5),0 8px 28px rgba(245,197,24,.28)}
-  50%{box-shadow:0 0 0 10px rgba(245,197,24,0),0 12px 40px rgba(245,197,24,.5)}
+  0%,100%{box-shadow:0 4px 20px rgba(245,197,24,.4),0 1px 3px rgba(0,0,0,.12)}
+  50%{box-shadow:0 6px 32px rgba(245,197,24,.65),0 1px 3px rgba(0,0,0,.12)}
 }
-.enter-btn-sub{font-size:9px;font-weight:600;letter-spacing:.12em;color:rgba(0,0,0,.55);display:block;margin-top:2px}
-.duel-btn{display:block;padding:11px;text-align:center;background:linear-gradient(135deg,rgba(200,0,0,.15),rgba(26,62,204,.15));border:1.5px solid rgba(245,197,24,.22);border-radius:12px;font-size:13px;font-weight:800;letter-spacing:.04em;color:#fff;text-decoration:none;transition:border-color .2s;animation:fadeUp .4s ease .95s both}
-.duel-btn:hover{border-color:rgba(245,197,24,.45)}
-.end-replay{display:block;text-align:center;font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.22);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--font);animation:fadeUp .3s ease 1.1s both}
+.enter-btn-icon{margin-right:6px}
+.enter-btn-sub{font-size:10px;font-weight:600;letter-spacing:.08em;color:rgba(0,0,0,.5);display:block;margin-top:3px}
+.duel-btn{
+  display:block;padding:14px 20px;text-align:center;
+  background:transparent;
+  border:1.5px solid rgba(0,0,0,.15);
+  border-radius:14px;
+  font-size:13px;font-weight:700;letter-spacing:.02em;
+  color:#1D1D1F;text-decoration:none;
+  transition:border-color .2s,background .2s;
+  animation:fadeUp .4s ease .95s both;
+}
+.duel-btn:hover{border-color:rgba(245,197,24,.5);background:rgba(245,197,24,.05)}
+.end-replay{display:block;text-align:center;font-size:11px;font-weight:600;letter-spacing:.04em;color:#6E6E73;cursor:pointer;text-decoration:none;background:none;border:none;font-family:var(--font);animation:fadeUp .3s ease 1.1s both;padding:4px}
 
-/* PROGRESS */
+/* PROGRESS + DOTS + CONTROLS */
 .progress{position:absolute;bottom:0;left:0;right:0;z-index:50;height:3px;background:rgba(255,255,255,.07)}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldD));width:0;transition:width linear}
-/* DOTS */
 .dots{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:5px}
 .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s}
 .dot.active{width:16px;border-radius:2px;background:var(--gold)}
-/* CONTROLS */
 .controls{position:absolute;bottom:12px;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px}
 .ctrl-btn{padding:7px 18px;border-radius:100px;border:1.5px solid rgba(255,255,255,.16);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);color:rgba(255,255,255,.65);font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;font-family:var(--font);transition:background .2s}
 .ctrl-btn.play{background:linear-gradient(135deg,rgba(245,197,24,.12),rgba(245,197,24,.05));border-color:rgba(245,197,24,.26);color:var(--gold)}
 
-/* KEYFRAMES */
+/* SHARED KEYFRAMES */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes stampIn{from{opacity:0;transform:scale(1.15)}to{opacity:1;transform:scale(1)}}
 @keyframes vsSlam{from{opacity:0;transform:scale(1.65)}to{opacity:1;transform:scale(1)}}
@@ -328,8 +338,6 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 @keyframes shimmer{from{background-position:200% center}to{background-position:-200% center}}
 @keyframes pulseGold{0%,100%{text-shadow:0 0 20px rgba(245,197,24,.3)}50%{text-shadow:0 0 55px rgba(245,197,24,.8),0 0 100px rgba(245,197,24,.25)}}
 @keyframes shake{0%,100%{transform:translate(0)}10%{transform:translate(-5px,-2px) rotate(-.5deg)}20%{transform:translate(5px,2px) rotate(.5deg)}30%{transform:translate(-4px,3px) rotate(-.3deg)}40%{transform:translate(4px,-3px) rotate(.3deg)}50%{transform:translate(-3px,2px)}60%{transform:translate(3px,-2px)}70%{transform:translate(-2px,1px)}80%{transform:translate(2px,-1px)}90%{transform:translate(-1px,0)}}
-@keyframes hSlideL{from{left:-90%;opacity:0}to{left:0;opacity:1}}
-@keyframes hSlideR{from{right:-90%;opacity:0}to{right:0;opacity:1}}
 </style>
 </head>
 <body>
@@ -372,12 +380,19 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
   </div>
 </div>
 
-<!-- S2: TITLE -->
+<!-- S2: TITLE REVEAL -->
 <div class="scene" id="s2">
   <div class="s2-bg"></div><div class="s2-stripe"></div>
-  <div class="s2-hl-wrap"><img src="la-mami.jpg" alt="" class="s2-hl-img"></div>
-  <div class="s2-hr-wrap"><img src="aries.jpg" alt="" class="s2-hr-img"></div>
-  <div class="s2-fade"></div>
+  <!-- Left horse panel -->
+  <div class="horse-panel s2-hp-l"></div>
+  <div class="horse-fade-l" style="z-index:4"></div>
+  <!-- Right horse panel -->
+  <div class="horse-panel s2-hp-r"></div>
+  <div class="horse-fade-r" style="z-index:4"></div>
+  <!-- Top fade -->
+  <div class="horse-fade-top"></div>
+  <!-- Center dark overlay -->
+  <div class="s2-fade-c"></div>
   <div class="s2-inner">
     <div class="s2-eye">Unas de las que ya están</div>
     <div class="s2-cosidas" id="cos-txt">COSIDAS</div>
@@ -390,11 +405,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 <!-- S3: CAOS -->
 <div class="scene" id="s3">
   <div class="s3-bg"></div><div class="s3-glow"></div>
-  <div class="s3-horse-wrap" id="s3hw"><img class="s3-horse-img" src="la-mami.jpg" alt=""></div>
+  <!-- Left horse bg panel -->
+  <div class="horse-panel s3-hp"></div>
+  <div class="horse-fade-l" style="z-index:4"></div>
+  <div class="horse-fade-top"></div>
   <div class="s3-inner">
     <div class="s3-intro">La favorita de la gente</div>
     <div class="s3-name" data-text="CAOS">CAOS</div>
-    <div class="s3-psych">⚡ El favorito del público</div>
+    <div class="s3-psych">&#9889; El favorito del público</div>
     <div class="s3-info">
       <div class="s3-cuadra">Cuadra Charly · 246 yds</div>
       <div class="s3-stat"><div class="s3-stat-txt">VELOCIDAD</div><div class="s3-bar-w"><div class="s3-bar" id="barR"></div></div></div>
@@ -405,11 +423,14 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 <!-- S4: REY PUERRO -->
 <div class="scene" id="s4">
   <div class="s4-bg"></div><div class="s4-glow"></div>
-  <div class="s4-horse-wrap" id="s4hw"><img class="s4-horse-img" src="aries.jpg" alt=""></div>
+  <!-- Right horse bg panel -->
+  <div class="horse-panel s4-hp"></div>
+  <div class="horse-fade-r" style="z-index:4"></div>
+  <div class="horse-fade-top"></div>
   <div class="s4-inner">
     <div class="s4-intro">Aquí para quitar</div>
     <div class="s4-name" data-text="REY PUERRO">REY PUERRO</div>
-    <div class="s4-psych">🔥 El que viene a sorprender</div>
+    <div class="s4-psych">&#128293; El que viene a sorprender</div>
     <div class="s4-info">
       <div class="s4-cuadra">Cuadra Charly · 273 yds</div>
       <div class="s4-stat"><div class="s4-stat-txt">VELOCIDAD</div><div class="s4-bar-w"><div class="s4-bar" id="barB"></div></div></div>
@@ -432,11 +453,15 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
   </div>
 </div>
 
-<!-- S6: VS -->
+<!-- S6: VS CLASH -->
 <div class="scene" id="s6">
-  <div class="s6-bg"></div><div class="s6-hl"></div><div class="s6-hr"></div>
-  <img class="s6-horse-l" src="la-mami.jpg" alt="">
-  <img class="s6-horse-r" src="aries.jpg" alt="">
+  <div class="s6-bg"></div>
+  <div class="s6-hl-tint"></div><div class="s6-hr-tint"></div>
+  <!-- Horse bg panels -->
+  <div class="horse-panel s6-hp-l"></div>
+  <div class="horse-panel s6-hp-r"></div>
+  <div class="horse-fade-top"></div>
+  <!-- Edge fades to black -->
   <div class="s6-fl"></div><div class="s6-fr"></div>
   <div class="s6-charge" id="s6charge">
     <div class="s6-charge-track">
@@ -456,7 +481,7 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
   </div>
 </div>
 
-<!-- S7: RACES + URGENCY -->
+<!-- S7: RACE LIST -->
 <div class="scene" id="s7">
   <div class="s7-bg"></div><div class="s7-topbar"></div>
   <div class="s7-inner">
@@ -469,7 +494,7 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
       <div class="rr" data-i="3"><div class="rr-n">4</div><div class="rr-m">BELEKIN vs VIVORAS</div><div class="rr-d">273 yds</div></div>
       <div class="rr" data-i="4"><div class="rr-n">5</div><div class="rr-m">AGUILA vs BLACK JACK</div><div class="rr-d">164 yds</div></div>
       <div class="rr" data-i="5"><div class="rr-n">6</div><div class="rr-m">DRAMATICA vs VIEJITO</div><div class="rr-d">—</div></div>
-      <div class="rr feat" data-i="6"><div class="rr-n">★</div><div class="rr-m">CAOS vs REY PUERRO</div><div class="rr-d">246×273</div></div>
+      <div class="rr feat" data-i="6"><div class="rr-n">&#9733;</div><div class="rr-m">CAOS vs REY PUERRO</div><div class="rr-d">246×273</div></div>
       <div class="rr" data-i="7"><div class="rr-n">8</div><div class="rr-m">VOLCAN vs EMA</div><div class="rr-d">—</div></div>
       <div class="rr" data-i="8"><div class="rr-n">9</div><div class="rr-m">PICO BLANCO vs CAÑERO</div><div class="rr-d">328 yds</div></div>
       <div class="rr" data-i="9"><div class="rr-n">10</div><div class="rr-m">REY RAMSES vs NUEVO ROMEO</div><div class="rr-d">273 yds</div></div>
@@ -478,7 +503,7 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
       <div class="rr" data-i="12"><div class="rr-n">13</div><div class="rr-m">SUREÑO vs TRAVIESA</div><div class="rr-d">—</div></div>
     </div>
     <div class="s7-footer">
-      <div class="s7-footer-txt">🔥 Último evento del verano</div>
+      <div class="s7-footer-txt">&#128293; Último evento del verano</div>
       <div class="s7-footer-sub">El que no va... no va nunca</div>
     </div>
   </div>
@@ -487,61 +512,85 @@ body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;displ
 <!-- S8: CTA -->
 <div class="scene" id="s8">
   <div class="s8-bg"></div>
-  <img class="s8-hl" src="la-mami.jpg" alt=""><img class="s8-hr" src="aries.jpg" alt="">
+  <!-- Horse panels, dimmed -->
+  <div class="horse-panel s8-hp-l"></div>
+  <div class="horse-panel s8-hp-r"></div>
+  <div class="s8-fl"></div><div class="s8-fr"></div>
+  <div class="horse-fade-top" style="z-index:5"></div>
   <div class="s8-center-glow"></div>
   <div class="s8-inner">
-    <span class="s8-star">★</span>
+    <span class="s8-star">&#9733;</span>
     <div class="s8-cosidas">COSIDAS</div>
     <span class="s8-y">y</span>
     <div class="s8-cosinadas">COSINADAS</div>
     <div class="s8-div"><div class="s8-div-line"></div><div class="s8-div-dot"></div><div class="s8-div-line"></div></div>
     <div class="s8-date"><span class="g">14</span> DE JUNIO <span class="g">2026</span></div>
     <div class="s8-venue">Carril Dos Hermanos · Colorado</div>
-    <div class="s8-phone">📞 970 901 1260</div>
+    <div class="s8-phone">&#128222; 970 901 1260</div>
     <div class="s8-cd-label">Más información al número de arriba</div>
   </div>
 </div>
 
-<!-- END SCREEN -->
+<!-- END SCREEN — APPLE iOS CARD DESIGN -->
 <div class="end-screen" id="endScreen">
-  <div class="ed-duel">
-    <div class="ed-duel-bg"></div><div class="ed-red"></div><div class="ed-blue"></div>
-    <img class="ed-hl" src="la-mami.jpg" alt=""><img class="ed-hr" src="aries.jpg" alt="">
-    <div class="ed-fl"></div><div class="ed-fr"></div>
-    <div class="ed-vs-c"><div class="ed-vs">VS</div></div>
-    <div class="ed-names"><span class="ed-nl">CAOS</span><span class="ed-nr">REY PUERRO</span></div>
-  </div>
-  <div class="ed-scarcity">
-    <div class="ed-sc-header">
-      <span class="ed-sc-label">⚠ Cupos disponibles</span>
-      <span class="ed-sc-pct">73% Lleno</span>
+  <!-- Dark top: horse duel -->
+  <div class="ed-top">
+    <div class="ed-top-red"></div><div class="ed-top-blue"></div>
+    <div class="ed-top-hl"></div>
+    <div class="ed-top-hr"></div>
+    <div class="ed-top-fl"></div><div class="ed-top-fr"></div>
+    <div class="ed-top-fade-t"></div>
+    <div class="ed-vs-wrap">
+      <div class="ed-vs">&#9889;VS&#9889;</div>
     </div>
-    <div class="ed-sc-track"><div class="ed-sc-fill" id="edFill"></div></div>
-  </div>
-  <div class="ed-qr-row">
-    <img class="ed-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Fcarril-dos-hermanos%2Fsite.html&bgcolor=000000&color=F5C518&margin=8" alt="QR">
-    <div class="ed-qr-info">
-      <div class="ed-qr-label">Escanea · Elige tu caballo</div>
-      <div class="ed-qr-title">Sitio del Evento</div>
-      <div class="ed-qr-sub">Programa · Info · Caballos</div>
+    <div class="ed-names-row">
+      <span class="ed-nl">CAOS</span>
+      <span class="ed-nr">REY PUERRO</span>
     </div>
   </div>
-  <div class="ed-cta">
-    <a class="enter-btn" href="site.html">
-      🏇 ENTRA AL SITIO DEL EVENTO
-      <span class="enter-btn-sub">Reserva tu lugar · Cupos limitados</span>
-    </a>
-    <a class="duel-btn" href="duel.html">⚔ Ver Mano a Mano — CAOS vs Rey Puerro</a>
-    <button class="end-replay" id="replayBtn">↺ Ver el video de nuevo</button>
+
+  <!-- iOS-style slide-up white card -->
+  <div class="ed-card">
+    <div class="ed-card-pill"></div>
+
+    <!-- Scarcity bar inside card -->
+    <div class="ed-scarcity">
+      <div class="ed-sc-header">
+        <span class="ed-sc-label">&#9888; Cupos disponibles</span>
+        <span class="ed-sc-pct">73% Lleno</span>
+      </div>
+      <div class="ed-sc-track"><div class="ed-sc-fill" id="edFill"></div></div>
+    </div>
+
+    <!-- QR row -->
+    <div class="ed-qr-row">
+      <img class="ed-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Fcarril-dos-hermanos%2Fsite.html&bgcolor=ffffff&color=000000&margin=8" alt="QR" loading="lazy">
+      <div class="ed-qr-info">
+        <div class="ed-qr-label">Escanea · Elige tu caballo</div>
+        <div class="ed-qr-title">Sitio del Evento</div>
+        <div class="ed-qr-sub">Programa · Info · Caballos</div>
+      </div>
+      <div class="ed-qr-arrow">&#8250;</div>
+    </div>
+
+    <!-- CTA buttons -->
+    <div class="ed-cta">
+      <a class="enter-btn" href="site.html">
+        <span class="enter-btn-icon">&#127943;</span>ENTRA AL SITIO DEL EVENTO
+        <span class="enter-btn-sub">Reserva tu lugar · Cupos limitados</span>
+      </a>
+      <a class="duel-btn" href="duel.html">&#9876; Ver Mano a Mano — CAOS vs Rey Puerro</a>
+      <button class="end-replay" id="replayBtn">&#8635; Ver el video de nuevo</button>
+    </div>
   </div>
 </div>
 
 <div class="progress"><div class="progress-fill" id="pBar"></div></div>
 <div class="dots" id="dots"></div>
 <div class="controls">
-  <button class="ctrl-btn" id="prevBtn">← Prev</button>
-  <button class="ctrl-btn play" id="playBtn">⏸ Pause</button>
-  <button class="ctrl-btn" id="nextBtn">Next →</button>
+  <button class="ctrl-btn" id="prevBtn">&#8592; Prev</button>
+  <button class="ctrl-btn play" id="playBtn">&#9646;&#9646; Pause</button>
+  <button class="ctrl-btn" id="nextBtn">Next &#8594;</button>
 </div>
 </div>
 
@@ -678,9 +727,18 @@ function onEnter(n){
 
 function show(n,noFlash){
   document.getElementById('s'+cur).classList.remove('active');
-  if(cur===6){document.getElementById('chgL').classList.remove('go');document.getElementById('chgR').classList.remove('go');document.getElementById('s6charge').style.opacity='1';document.getElementById('s6ctr').classList.remove('show')}
+  if(cur===6){
+    document.getElementById('chgL').classList.remove('go');
+    document.getElementById('chgR').classList.remove('go');
+    document.getElementById('s6charge').style.opacity='1';
+    document.getElementById('s6ctr').classList.remove('show');
+  }
   cur=n;
-  function go(){var sc=document.getElementById('s'+cur);sc.classList.add('active');document.querySelectorAll('.dot').forEach(function(d,i){d.className='dot'+(i===cur?' active':'')});onEnter(cur);startProg()}
+  function go(){
+    var sc=document.getElementById('s'+cur);sc.classList.add('active');
+    document.querySelectorAll('.dot').forEach(function(d,i){d.className='dot'+(i===cur?' active':'')});
+    onEnter(cur);startProg();
+  }
   if(!noFlash&&Math.random()>.3)doFlash(go);else go();
 }
 
@@ -703,7 +761,7 @@ function showEnd(){
   document.querySelector('.controls').style.display='none';
   document.querySelector('.dots').style.display='none';
   document.getElementById('pBar').parentElement.style.display='none';
-  setTimeout(function(){document.getElementById('edFill').style.width='73%'},400);
+  setTimeout(function(){document.getElementById('edFill').style.width='73%'},600);
 }
 
 function togglePlay(){
