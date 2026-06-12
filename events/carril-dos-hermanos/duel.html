@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAOS vs REY PUERRO · Carril Dos Hermanos · 14 Jun 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--card:#111;--gold:#F5C518;--goldD:#B8890A;
+  --red:#CC0000;--blue:#1A3ECC;
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100svh}
+
+/* ── AMBIENT BG ── */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.amb-l{position:absolute;left:-20%;top:10%;width:60%;height:80%;background:radial-gradient(ellipse,rgba(200,0,0,.12) 0%,transparent 70%);animation:ambFloat 8s ease-in-out infinite}
+.amb-r{position:absolute;right:-20%;top:5%;width:60%;height:85%;background:radial-gradient(ellipse,rgba(26,62,204,.12) 0%,transparent 70%);animation:ambFloat 8s ease-in-out 2s infinite reverse}
+.amb-c{position:absolute;left:50%;top:40%;transform:translateX(-50%);width:40%;height:40%;background:radial-gradient(ellipse,rgba(245,197,24,.06) 0%,transparent 70%);animation:ambFloat 6s ease-in-out 1s infinite}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-back{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:#fff}
+.nav-chip{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:5px 14px;border-radius:100px;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2)}
+.nav-date{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+/* ── HERO DUEL ── */
+.duel-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding-top:52px}
+.duel-horses{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+.dh-l,.dh-r{position:relative;overflow:hidden}
+.dh-l img{position:absolute;bottom:0;left:0;height:92%;width:auto;max-width:none;filter:drop-shadow(0 0 40px rgba(200,0,0,.25));animation:floatL 6s ease-in-out infinite}
+.dh-r img{position:absolute;bottom:0;right:0;height:92%;width:auto;max-width:none;transform:scaleX(-1);filter:drop-shadow(0 0 40px rgba(26,62,204,.25));animation:floatR 6s ease-in-out 1.5s infinite}
+.dh-l::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0) 44%,rgba(10,10,10,.96) 82%)}
+.dh-r::after{content:'';position:absolute;inset:0;background:linear-gradient(to left,rgba(10,10,10,0) 44%,rgba(10,10,10,.96) 82%)}
+/* Color tint on each side */
+.dh-l::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(200,0,0,.08),transparent 60%);z-index:1}
+.dh-r::before{content:'';position:absolute;inset:0;background:linear-gradient(to left,rgba(26,62,204,.08),transparent 60%);z-index:1}
+
+/* Center content */
+.duel-center{position:relative;z-index:10;text-align:center;padding:20px 16px;max-width:380px}
+.dc-tag{font-size:9px;font-weight:800;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;opacity:0;animation:fadeUp .5s ease .05s forwards}
+.dc-caos{display:block;font-size:clamp(3.5rem,14vw,9rem);font-weight:900;letter-spacing:-.04em;line-height:.88;color:var(--red);text-shadow:0 0 60px rgba(200,0,0,.4),0 0 120px rgba(200,0,0,.2);opacity:0;animation:heroReveal .8s ease .1s forwards}
+.dc-vs{display:block;font-size:clamp(1rem,4vw,2.2rem);font-weight:900;letter-spacing:.3em;color:rgba(255,255,255,.6);margin:.2em 0;opacity:0;animation:fadeUp .5s ease .2s forwards}
+.dc-rey{display:block;font-size:clamp(2rem,8vw,5.5rem);font-weight:900;letter-spacing:-.03em;line-height:.9;color:var(--blue);text-shadow:0 0 60px rgba(26,62,204,.4),0 0 120px rgba(26,62,204,.2);opacity:0;animation:heroReveal .8s ease .18s forwards;margin-bottom:14px}
+.dc-dist{display:inline-block;padding:7px 20px;border-radius:100px;background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--gold);margin-bottom:20px;opacity:0;animation:fadeUp .5s ease .3s forwards}
+/* Countdown */
+.dc-cd{display:flex;align-items:center;gap:8px;justify-content:center;opacity:0;animation:fadeUp .5s ease .38s forwards}
+.dc-cd-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.dc-u{display:flex;flex-direction:column;align-items:center;gap:2px}
+.dc-n{font-size:clamp(16px,4vw,28px);font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 8px;min-width:clamp(36px,7vw,48px);text-align:center;color:#fff;transition:border-color .3s}
+.dc-n.lit{border-color:rgba(245,197,24,.4);box-shadow:0 0 12px rgba(245,197,24,.15)}
+.dc-l{font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.dc-sep{font-size:clamp(12px,3vw,20px);font-weight:300;color:rgba(255,255,255,.15);padding-bottom:10px}
+
+/* Name labels bottom */
+.duel-labels{position:absolute;bottom:clamp(70px,11vh,120px);left:0;right:0;z-index:11;display:flex;justify-content:space-between;padding:0 clamp(8px,3vw,32px);pointer-events:none;opacity:0;animation:fadeUp .5s ease .5s forwards}
+.dl-card{padding:12px 18px;border-radius:10px;backdrop-filter:blur(10px)}
+.dl-l{background:rgba(200,0,0,.2);border:1px solid rgba(200,0,0,.35);box-shadow:0 4px 24px rgba(200,0,0,.2)}
+.dl-r{background:rgba(26,62,204,.2);border:1px solid rgba(26,62,204,.35);box-shadow:0 4px 24px rgba(26,62,204,.2);text-align:right}
+.dl-name{font-size:clamp(13px,3.5vw,22px);font-weight:900;letter-spacing:.03em;text-transform:uppercase;color:#fff;display:block}
+.dl-cuadra{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;display:block}
+
+/* ── STATS SECTION ── */
+.stats-sec{position:relative;z-index:10;max-width:760px;margin:0 auto;padding:clamp(40px,7vh,72px) 24px}
+.stats-title{text-align:center;margin-bottom:clamp(28px,5vh,44px)}
+.stats-title h2{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;letter-spacing:-.03em;color:#fff}
+.stats-title .acc{color:var(--gold)}
+.stats-title p{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:8px}
+
+.horse-compare{display:grid;grid-template-columns:1fr 80px 1fr;gap:20px;align-items:start}
+.hc-col{display:flex;flex-direction:column;gap:10px}
+.hc-head{padding:18px;background:rgba(255,255,255,.04);border-radius:16px;border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:8px}
+.hc-l .hc-head{border-color:rgba(200,0,0,.25);background:rgba(200,0,0,.06)}
+.hc-r .hc-head{border-color:rgba(26,62,204,.25);background:rgba(26,62,204,.06)}
+.hc-img{width:100%;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+.hc-r .hc-img img{transform:scaleX(-1)}
+.hc-name-big{font-size:clamp(1.2rem,3.5vw,2.2rem);font-weight:900;letter-spacing:-.02em;text-align:center}
+.hc-l .hc-name-big{color:var(--red)}
+.hc-r .hc-name-big{color:#4466FF}
+.hc-cuadra{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);text-align:center}
+
+/* Stat bars */
+.stat-row{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.stat-bar-wrap{height:6px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.stat-bar{height:100%;border-radius:100px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.hc-l .stat-bar{background:linear-gradient(90deg,#990000,#CC0000)}
+.hc-r .stat-bar{background:linear-gradient(90deg,#001a6e,#1A3ECC)}
+.stat-val{font-size:18px;font-weight:800;letter-spacing:-.03em;color:#fff;margin-top:6px}
+
+/* VS center column */
+.hc-vs-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding-top:60px}
+.vs-badge{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(245,197,24,.15),rgba(245,197,24,.05));border:1.5px solid rgba(245,197,24,.3);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--gold);letter-spacing:.04em;box-shadow:0 0 24px rgba(245,197,24,.1)}
+.vs-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(245,197,24,.2),transparent)}
+
+/* ── INFO CARDS ── */
+.info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.ic{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px 18px}
+.ic-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px}
+.ic-v{font-size:14px;font-weight:700;color:#fff}
+.ic-v.g{color:var(--gold)}
+
+/* ── CARRERASOS ── */
+.cos-sec{max-width:760px;margin:0 auto;padding:0 24px clamp(60px,10vh,100px)}
+.cos-wrap{background:#0D0D0D;border:1px solid rgba(255,255,255,.06);border-radius:24px;overflow:hidden;padding:clamp(32px,6vh,56px) clamp(20px,4vw,44px)}
+.cos-top{text-align:center;margin-bottom:28px}
+.cos-badge{font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:8px}
+.cos-name{font-size:clamp(1.6rem,5vw,3rem);font-weight:900;letter-spacing:-.03em;color:#fff}
+.cos-name .g{color:#6CC04A}
+.cos-ads{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cos-ad{border-radius:14px;overflow:hidden}
+.cos-ad img{width:100%;height:auto;display:block}
+.cos-cta{display:block;text-align:center;margin-top:20px;padding:12px 32px;border-radius:100px;background:rgba(108,192,74,.08);border:1.5px solid rgba(108,192,74,.3);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6CC04A;text-decoration:none;width:fit-content;margin-left:auto;margin-right:auto}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes heroReveal{from{opacity:0;transform:perspective(1000px) rotateX(14deg) translateY(28px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes floatL{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes floatR{0%,100%{transform:scaleX(-1) translateY(0)}50%{transform:scaleX(-1) translateY(-12px)}}
+@keyframes ambFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-28px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rv-l.in{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(28px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rv-r.in{opacity:1;transform:none}
+.d1{transition-delay:.05s}.d2{transition-delay:.1s}.d3{transition-delay:.15s}.d4{transition-delay:.2s}.d5{transition-delay:.25s}
+
+@media(max-width:600px){
+  .dh-l img,.dh-r img{height:82%}
+  .dh-l::after{background:linear-gradient(to right,rgba(10,10,10,0) 30%,rgba(10,10,10,.97) 74%)}
+  .dh-r::after{background:linear-gradient(to left,rgba(10,10,10,0) 30%,rgba(10,10,10,.97) 74%)}
+  .horse-compare{grid-template-columns:1fr 48px 1fr;gap:10px}
+  .vs-badge{width:44px;height:44px;font-size:11px}
+  .info-cards{grid-template-columns:repeat(2,1fr)}
+  .cos-ads{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- AMBIENT BG -->
+<div class="ambient"><div class="amb-l"></div><div class="amb-r"></div><div class="amb-c"></div></div>
+
+<!-- NAV -->
+<nav>
+  <a href="site.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Programa
+  </a>
+  <span class="nav-chip">CAOS vs REY PUERRO</span>
+  <span class="nav-date">14 Jun 2026</span>
+</nav>
+
+<!-- HERO DUEL -->
+<div class="duel-hero">
+  <div class="duel-horses">
+    <div class="dh-l"><img src="la-mami.jpg" alt="CAOS" loading="eager"></div>
+    <div class="dh-r"><img src="aries.jpg" alt="REY PUERRO" loading="eager"></div>
+  </div>
+  <div class="duel-center">
+    <div class="dc-tag">Carrera Estelar · Carril Dos Hermanos</div>
+    <span class="dc-caos">CAOS</span>
+    <span class="dc-vs">— vs —</span>
+    <span class="dc-rey">REY PUERRO</span>
+    <div class="dc-dist">225 × 250 Metros</div>
+    <div class="dc-cd">
+      <span class="dc-cd-lbl">Faltan</span>
+      <div class="dc-u"><div class="dc-n" id="cd-d">03</div><div class="dc-l">Días</div></div>
+      <div class="dc-sep">:</div>
+      <div class="dc-u"><div class="dc-n" id="cd-h">00</div><div class="dc-l">Hrs</div></div>
+      <div class="dc-sep">:</div>
+      <div class="dc-u"><div class="dc-n" id="cd-m">00</div><div class="dc-l">Min</div></div>
+      <div class="dc-sep">:</div>
+      <div class="dc-u"><div class="dc-n" id="cd-s">00</div><div class="dc-l">Seg</div></div>
+    </div>
+  </div>
+  <div class="duel-labels">
+    <div class="dl-card dl-l"><span class="dl-name">CAOS</span><span class="dl-cuadra">Cdra. Charly · 225m</span></div>
+    <div class="dl-card dl-r"><span class="dl-name">Rey Puerro</span><span class="dl-cuadra">Cdra. Charly · 250m</span></div>
+  </div>
+</div>
+
+<!-- STATS COMPARISON -->
+<div class="stats-sec">
+  <div class="stats-title rv">
+    <h2>El <span class="acc">Duelo</span></h2>
+    <p>Carrera 7 · Estelar · Carril Dos Hermanos</p>
+  </div>
+
+  <div class="horse-compare rv">
+    <div class="hc-col hc-l rv-l d1">
+      <div class="hc-head">
+        <div class="hc-img"><img src="la-mami.jpg" alt="CAOS" loading="lazy"></div>
+        <div class="hc-name-big">CAOS</div>
+        <div class="hc-cuadra">Cuadra Charly</div>
+      </div>
+      <div class="stat-row"><div class="stat-label">Velocidad</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="88"></div></div><div class="stat-val">88</div></div>
+      <div class="stat-row"><div class="stat-label">Potencia</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="84"></div></div><div class="stat-val">84</div></div>
+      <div class="stat-row"><div class="stat-label">Experiencia</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="81"></div></div><div class="stat-val">81</div></div>
+    </div>
+
+    <div class="hc-vs-col">
+      <div class="vs-line"></div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-line"></div>
+    </div>
+
+    <div class="hc-col hc-r rv-r d1">
+      <div class="hc-head">
+        <div class="hc-img"><img src="aries.jpg" alt="REY PUERRO" loading="lazy"></div>
+        <div class="hc-name-big">REY PUERRO</div>
+        <div class="hc-cuadra">Cuadra Charly</div>
+      </div>
+      <div class="stat-row"><div class="stat-label">Velocidad</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="85"></div></div><div class="stat-val">85</div></div>
+      <div class="stat-row"><div class="stat-label">Potencia</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="90"></div></div><div class="stat-val">90</div></div>
+      <div class="stat-row"><div class="stat-label">Experiencia</div><div class="stat-bar-wrap"><div class="stat-bar" data-w="87"></div></div><div class="stat-val">87</div></div>
+    </div>
+  </div>
+
+  <div class="info-cards rv" style="margin-top:24px">
+    <div class="ic"><div class="ic-k">Venue</div><div class="ic-v">Carril Dos Hermanos</div></div>
+    <div class="ic"><div class="ic-k">Fecha</div><div class="ic-v">Dom. 14 Jun 2026</div></div>
+    <div class="ic"><div class="ic-k">Distancia</div><div class="ic-v g">225 × 250m</div></div>
+    <div class="ic"><div class="ic-k">Estado</div><div class="ic-v">Colorado</div></div>
+    <div class="ic"><div class="ic-k">Carrera</div><div class="ic-v g">Nº 7 · Estelar</div></div>
+    <div class="ic"><div class="ic-k">Contacto</div><div class="ic-v">970 901 1260</div></div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px" class="rv">
+    <a href="site.html" style="display:inline-block;padding:14px 36px;border-radius:100px;background:linear-gradient(135deg,#F5C518,#D4A017);color:#000;font-size:14px;font-weight:800;text-decoration:none;letter-spacing:.04em">Ver Programa Completo</a>
+  </div>
+</div>
+
+<!-- CARRERASOS -->
+<div class="cos-sec">
+  <div class="cos-wrap rv">
+    <div class="cos-top">
+      <div class="cos-badge">Patrocinador Oficial</div>
+      <div class="cos-name">CARRERAS<span class="g">OS</span></div>
+    </div>
+    <div class="cos-ads">
+      <div class="cos-ad"><img src="carrerasos-1.jpg" alt="" loading="lazy"></div>
+      <div class="cos-ad"><img src="carrerasos-2.jpg" alt="" loading="lazy"></div>
+    </div>
+    <a href="https://carrerasos.com" class="cos-cta" target="_blank" rel="noopener">CARRERASOS.COM</a>
+  </div>
+</div>
+
+<script>
+/* COUNTDOWN */
+var EVENT=new Date('2026-06-14T12:00:00');
+(function tick(){
+  var ms=EVENT-Date.now(),v={d:ms>0?Math.floor(ms/86400000):0,h:ms>0?Math.floor(ms%86400000/3600000):0,m:ms>0?Math.floor(ms%3600000/60000):0,s:ms>0?Math.floor(ms%60000/1000):0};
+  ['d','h','m','s'].forEach(function(k){var el=document.getElementById('cd-'+k),val=String(v[k]).padStart(2,'0');if(el&&el.textContent!==val){el.textContent=val;if(k==='s'){el.classList.remove('lit');void el.offsetWidth;el.classList.add('lit');setTimeout(function(){el.classList.remove('lit')},300)}}});
+  setTimeout(tick,1000);
+})();
+
+/* SCROLL REVEAL */
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){io.observe(el)});
+
+/* STAT BARS */
+var barIo=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.stat-bar').forEach(function(bar){
+        setTimeout(function(){bar.style.width=bar.dataset.w+'%'},100);
+      });
+      barIo.unobserve(e.target);
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.hc-col').forEach(function(el){barIo.observe(el)});
+</script>
+</body>
+</html>

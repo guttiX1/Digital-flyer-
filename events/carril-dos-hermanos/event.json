@@ -1,0 +1,41 @@
+{
+  "event_name": "Cosidas y Cosinadas",
+  "event_type": "Gran Carrera",
+  "slug": "carril-dos-hermanos",
+  "date_iso": "2026-06-14T12:00:00",
+  "date_display": "Domingo · Junio 14, 2026",
+  "venue": "Carril Dos Hermanos",
+  "city": "Colorado",
+  "format": "13 Carreras",
+  "distance": "125-300 Metros",
+  "tagline": "Sírbase Solo Caliente Las Tortillas",
+  "contact": "970 901 1260",
+  "featured_race": "CAOS vs REY PUERRO",
+  "horse_left": {
+    "name": "CAOS",
+    "cuadra": "Cuadra Charly",
+    "image": "la-mami.jpg",
+    "tag": "El Favorito"
+  },
+  "horse_right": {
+    "name": "REY PUERRO",
+    "cuadra": "Cuadra Charly",
+    "image": "aries.jpg",
+    "tag": "El Retador"
+  },
+  "races": [
+    {"num":1,"h1":"POCA LUZ","h2":"CHIKLIN","dist":"125","cuadra":"Cdra: Ramirez","img1":"cuadra-mtz.jpg","img2":"cristo-rey.jpg"},
+    {"num":2,"h1":"CALCAMONIA","h2":"VALENTINA","dist":"200","cuadra":"Cdra: El Alaxan","img1":"la-reyna.jpg","img2":"cuadra-esperanza.jpg"},
+    {"num":3,"h1":"SPECIAL TINY CONGRI","h2":"TAPADO","dist":"—","cuadra":"Cdra: Chihuahua","img1":"cuadra-gutierrez.jpg","img2":"el-chigon.jpg"},
+    {"num":4,"h1":"BELEKIN","h2":"VIVORAS","dist":"250","cuadra":"Cdra: Ca Weze","img1":"la-mami.jpg","img2":"pisces.jpg"},
+    {"num":5,"h1":"AGUILA","h2":"BLACK JACK","dist":"150","cuadra":"Cdra: Con Chuy","img1":"cristo-rey.jpg","img2":"la-tepada.jpg"},
+    {"num":6,"h1":"DRAMATICA","h2":"VIEJITO","dist":"—","cuadra":"Cdra: Ramirez","img1":"la-reyna.jpg","img2":"cuadra-mtz.jpg"},
+    {"num":7,"h1":"CAOS","h2":"REY PUERRO","dist":"225×250","cuadra":"Cdra: Charly","img1":"la-mami.jpg","img2":"aries.jpg","featured":true},
+    {"num":8,"h1":"VOLCAN","h2":"EMA","dist":"—","cuadra":"Cdra: Cafetero","img1":"cuadra-gutierrez.jpg","img2":"cuadra-esperanza.jpg"},
+    {"num":9,"h1":"PICO BLANCO","h2":"CAÑERO","dist":"300","cuadra":"Cdra: Cafetero","img1":"el-chigon.jpg","img2":"cuadra-mtz.jpg"},
+    {"num":10,"h1":"REY RAMSES","h2":"NUEVO ROMEO","dist":"250","cuadra":"Cdra: GDA / Ca Vence","img1":"la-reyna.jpg","img2":"cristo-rey.jpg"},
+    {"num":11,"h1":"RAYITO","h2":"TRAKALOSA","dist":"—","cuadra":"Cdra: Chichinero","img1":"la-tepada.jpg","img2":"pisces.jpg"},
+    {"num":12,"h1":"SECRETO","h2":"CANTINELAS","dist":"250","cuadra":"Cdra: Charly Potosina","img1":"pisces.jpg","img2":"cuadra-gutierrez.jpg"},
+    {"num":13,"h1":"SUREÑO","h2":"TRAVIESA","dist":"—","cuadra":"Cdra: Charly / Ca Potosina","img1":"aries.jpg","img2":"la-mami.jpg"}
+  ]
+}

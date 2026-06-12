@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cosidas y Cosinadas · Video Ad · Carril Dos Hermanos</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--red:#CC0000;--blue:#1A3ECC;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
+body{background:#000;font-family:var(--font);overflow:hidden;height:100svh;display:flex;align-items:center;justify-content:center}
+.stage{position:relative;width:min(420px,100vw);aspect-ratio:9/16;overflow:hidden;background:#000}
+
+/* ── SCENES ── */
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.scene.active{opacity:1;pointer-events:auto}
+
+/* Scene 1 — cold open */
+.s1-bg{position:absolute;inset:0;background:#000}
+.s1-horse{position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:85%;width:auto;filter:brightness(.9)}
+.s1-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.7) 100%)}
+.s1-text{position:relative;z-index:5;text-align:center;animation:fadeInScale .8s ease .3s both}
+.s1-eyebrow{font-size:11px;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px}
+.s1-title{font-size:clamp(2.8rem,11vw,4.5rem);font-weight:900;letter-spacing:-.04em;line-height:.9;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Scene 2 — event title */
+.s2-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0a0a0a,#1a0a0a)}
+.s2-h1,.s2-h3{position:relative;z-index:5;text-align:center}
+.s2-horse-l{position:absolute;bottom:0;left:-5%;height:80%;width:auto;animation:slideFromLeft .8s ease .1s both}
+.s2-horse-r{position:absolute;bottom:0;right:-5%;height:80%;width:auto;transform:scaleX(-1);animation:slideFromRight .8s ease .1s both}
+.s2-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.5) 0%,transparent 70%)}
+.s2-inner{position:relative;z-index:5;text-align:center;animation:fadeInScale .7s ease .2s both}
+.s2-cosidas{display:block;font-size:clamp(3rem,13vw,5.5rem);font-weight:900;letter-spacing:-.04em;line-height:.88;background:linear-gradient(160deg,#F5C518 0%,#D4A017 35%,#F5C518 60%,#A07810 85%,#F5C518 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:pulseGold 1.5s ease infinite}
+.s2-y{display:block;font-size:clamp(.9rem,4vw,1.6rem);font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:.15em 0}
+.s2-cosinadas{display:block;font-size:clamp(1.8rem,7vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s2-tagline{font-size:11px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-top:14px;text-transform:uppercase}
+
+/* Scene 3 — date reveal */
+.s3-bg{position:absolute;inset:0;background:#000}
+.s3-horse{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.35) saturate(.5)}
+.s3-inner{position:relative;z-index:5;text-align:center;animation:stampIn .6s cubic-bezier(.22,1,.36,1) .1s both}
+.s3-venue{font-size:13px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.s3-date{font-size:clamp(2.8rem,12vw,5rem);font-weight:900;letter-spacing:-.04em;line-height:.9;color:#fff}
+.s3-date .num{color:var(--gold)}
+.s3-sub{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:10px}
+.s3-line{width:60px;height:2px;background:var(--gold);margin:12px auto;animation:expandLine .6s ease .5s both}
+
+/* Scene 4 — CAOS reveal */
+.s4-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0000,#000)}
+.s4-horse{position:absolute;bottom:0;left:50%;transform:translateX(-40%);height:92%;width:auto;filter:drop-shadow(0 0 40px rgba(200,0,0,.4))}
+.s4-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200%;height:50%;background:radial-gradient(ellipse at center bottom,rgba(200,0,0,.25),transparent 70%)}
+.s4-inner{position:relative;z-index:5;text-align:center;animation:fadeInScale .6s ease .2s both}
+.s4-name{font-size:clamp(3.5rem,15vw,6rem);font-weight:900;letter-spacing:-.04em;color:#CC0000;text-shadow:0 0 80px rgba(200,0,0,.6);animation:flicker 3s ease 1s infinite}
+.s4-tag{font-size:10px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px}
+.s4-bottom{position:absolute;bottom:14%;left:0;right:0;text-align:center;z-index:6}
+.s4-vs{font-size:11px;font-weight:800;letter-spacing:.4em;color:rgba(255,255,255,.5);animation:pulse 1s ease infinite}
+
+/* Scene 5 — REY PUERRO reveal */
+.s5-bg{position:absolute;inset:0;background:linear-gradient(135deg,#000015,#000)}
+.s5-horse{position:absolute;bottom:0;right:50%;transform:translateX(40%) scaleX(-1);height:92%;width:auto;filter:drop-shadow(0 0 40px rgba(26,62,204,.4))}
+.s5-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200%;height:50%;background:radial-gradient(ellipse at center bottom,rgba(26,62,204,.2),transparent 70%)}
+.s5-inner{position:relative;z-index:5;text-align:center;animation:fadeInScale .6s ease .2s both}
+.s5-name{font-size:clamp(2.2rem,9vw,3.8rem);font-weight:900;letter-spacing:-.03em;color:#4466FF;text-shadow:0 0 80px rgba(26,62,204,.6)}
+.s5-tag{font-size:10px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px}
+
+/* Scene 6 — VS clash */
+.s6-bg{position:absolute;inset:0;background:#000}
+.s6-l{position:absolute;inset:0;left:0;width:50%;background:linear-gradient(to right,rgba(150,0,0,.4),transparent)}
+.s6-r{position:absolute;inset:0;right:0;left:50%;background:linear-gradient(to left,rgba(0,30,150,.4),transparent)}
+.s6-horse-l{position:absolute;bottom:0;left:0;height:86%;width:auto}
+.s6-horse-r{position:absolute;bottom:0;right:0;height:86%;width:auto;transform:scaleX(-1)}
+.s6-fade-l{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 25%,rgba(0,0,0,.85) 55%)}
+.s6-fade-r{position:absolute;inset:0;background:linear-gradient(to left,rgba(0,0,0,0) 25%,rgba(0,0,0,.85) 55%)}
+.s6-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:5}
+.s6-vs{font-size:clamp(4rem,20vw,8rem);font-weight:900;letter-spacing:.06em;color:#fff;text-shadow:0 0 60px rgba(245,197,24,.4);animation:vsSlam .5s cubic-bezier(.22,1,.36,1) .2s both}
+.s6-dist{font-size:13px;font-weight:800;letter-spacing:.2em;color:var(--gold);margin-top:8px;animation:fadeInScale .5s ease .5s both}
+.s6-names{display:flex;justify-content:space-between;width:100%;padding:0 20px;margin-top:12px;animation:fadeInScale .5s ease .6s both}
+.s6-n{font-size:clamp(12px,4vw,16px);font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.s6-nl{color:var(--red)}.s6-nr{color:#4466FF}
+
+/* Scene 7 — races list */
+.s7-bg{position:absolute;inset:0;background:#0a0a0a}
+.s7-inner{position:relative;z-index:5;width:100%;padding:16px 20px;animation:fadeInScale .5s ease .1s both}
+.s7-title{font-size:13px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:16px}
+.s7-races{display:flex;flex-direction:column;gap:5px}
+.s7-race{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:8px 12px;opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .3s}
+.s7-race.show{opacity:1;transform:none}
+.s7-race.feat{border-color:rgba(245,197,24,.3);background:rgba(245,197,24,.06)}
+.s7-num{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:rgba(255,255,255,.5);flex-shrink:0}
+.s7-race.feat .s7-num{background:var(--gold);color:#000}
+.s7-match{font-size:10px;font-weight:700;letter-spacing:.02em;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s7-race.feat .s7-match{color:var(--gold)}
+.s7-dist{font-size:8px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.35);white-space:nowrap}
+
+/* Scene 8 — CTA */
+.s8-bg{position:absolute;inset:0;background:linear-gradient(180deg,#080808,#100800)}
+.s8-horse{position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:78%;width:auto;filter:brightness(.5)}
+.s8-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center 60%,rgba(0,0,0,.2),rgba(0,0,0,.75) 100%)}
+.s8-inner{position:relative;z-index:5;text-align:center;animation:fadeInScale .6s ease .2s both;padding:0 20px}
+.s8-cosidas{font-size:clamp(2.4rem,11vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:.9;background:linear-gradient(160deg,#F5C518,#D4A017,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.s8-sub{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:18px}
+.s8-date{font-size:clamp(1.4rem,6vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:#fff;margin-bottom:6px}
+.s8-venue{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+.s8-phone{font-size:clamp(1.2rem,5vw,1.8rem);font-weight:900;letter-spacing:.04em;color:var(--gold);animation:pulseGold 1.5s ease infinite}
+
+/* ── PROGRESS BAR ── */
+.progress{position:absolute;bottom:0;left:0;right:0;z-index:50;height:3px;background:rgba(255,255,255,.1)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#D4A017);width:0;transition:width linear}
+
+/* ── CONTROLS ── */
+.controls{position:absolute;bottom:14px;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px}
+.ctrl-btn{padding:8px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;font-family:var(--font);transition:background .2s,border-color .2s}
+.ctrl-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4)}
+.ctrl-btn.play-btn{background:linear-gradient(135deg,rgba(245,197,24,.15),rgba(245,197,24,.06));border-color:rgba(245,197,24,.3);color:var(--gold)}
+
+/* ── SCENE DOTS ── */
+.scene-dots{position:absolute;top:62px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:5px}
+.dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s}
+.dot.active{width:14px;border-radius:2px;background:var(--gold)}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeInScale{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:none}}
+@keyframes stampIn{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+@keyframes slideFromLeft{from{opacity:0;transform:translateX(-30%)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideFromRight{from{opacity:0;transform:scaleX(-1) translateX(-30%)}to{opacity:1;transform:scaleX(-1) translateX(0)}}
+@keyframes expandLine{from{width:0}to{width:60px}}
+@keyframes vsSlam{from{opacity:0;transform:scale(1.3)}to{opacity:1;transform:scale(1)}}
+@keyframes pulseGold{0%,100%{opacity:1;text-shadow:0 0 20px rgba(245,197,24,.3)}50%{opacity:.8;text-shadow:0 0 40px rgba(245,197,24,.6)}}
+@keyframes flicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.7}94%{opacity:1}96%{opacity:.8}97%{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- Scene Dots -->
+  <div class="scene-dots" id="dots"></div>
+
+  <!-- SCENE 1: COLD OPEN -->
+  <div class="scene s1" id="s0">
+    <div class="s1-bg"></div>
+    <div class="s1-horse" style="background:url('la-mami.jpg') center bottom/contain no-repeat;width:100%;height:85%;position:absolute;bottom:0"></div>
+    <div class="s1-vignette"></div>
+    <div class="s1-text">
+      <div class="s1-eyebrow">Carril Dos Hermanos · Colorado</div>
+      <div class="s1-title">14 Junio<br>2026</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: EVENT TITLE -->
+  <div class="scene s2" id="s1">
+    <div class="s2-bg"></div>
+    <img class="s2-horse-l" src="pisces.jpg" alt="">
+    <img class="s2-horse-r" src="aries.jpg" alt="">
+    <div class="s2-overlay"></div>
+    <div class="s2-inner">
+      <span class="s2-cosidas">COSIDAS</span>
+      <span class="s2-y">y</span>
+      <span class="s2-cosinadas">COSINADAS</span>
+      <div class="s2-tagline">Sírbase Solo Caliente Las Tortillas</div>
+    </div>
+  </div>
+
+  <!-- SCENE 3: DATE / VENUE -->
+  <div class="scene s3" id="s2">
+    <div class="s3-bg"></div>
+    <img class="s3-horse" src="cuadra-gutierrez.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.25) saturate(.4)">
+    <div class="s3-inner">
+      <div class="s3-venue">En Su Carril · Dos Hermanos</div>
+      <div class="s3-line"></div>
+      <div class="s3-date"><span class="num">14</span> DE JUNIO<br><span class="num">2026</span></div>
+      <div class="s3-sub">Colorado, USA</div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: CAOS -->
+  <div class="scene s4" id="s3">
+    <div class="s4-bg"></div>
+    <div class="s4-horse" style="background:url('la-mami.jpg') center bottom/contain no-repeat;width:100%;position:absolute;bottom:0;height:92%"></div>
+    <div class="s4-glow"></div>
+    <div class="s4-inner">
+      <div class="s4-name">CAOS</div>
+      <div class="s4-tag">Cuadra Charly · 225m</div>
+    </div>
+    <div class="s4-bottom"><div class="s4-vs">▼ VS ▼</div></div>
+  </div>
+
+  <!-- SCENE 5: REY PUERRO -->
+  <div class="scene s5" id="s4">
+    <div class="s5-bg"></div>
+    <div class="s5-horse" style="background:url('aries.jpg') center bottom/contain no-repeat;width:100%;position:absolute;bottom:0;height:92%;transform:scaleX(-1)"></div>
+    <div class="s5-glow"></div>
+    <div class="s5-inner">
+      <div class="s5-name">REY PUERRO</div>
+      <div class="s5-tag">Cuadra Charly · 250m</div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: VS CLASH -->
+  <div class="scene s6" id="s5">
+    <div class="s6-bg"></div>
+    <div class="s6-l"></div>
+    <div class="s6-r"></div>
+    <div class="s6-horse-l" style="background:url('la-mami.jpg') left bottom/contain no-repeat;height:86%;width:50%;position:absolute;bottom:0;left:0"></div>
+    <div class="s6-horse-r" style="background:url('aries.jpg') right bottom/contain no-repeat;height:86%;width:50%;position:absolute;bottom:0;right:0;transform:scaleX(-1)"></div>
+    <div class="s6-fade-l"></div>
+    <div class="s6-fade-r"></div>
+    <div class="s6-center">
+      <div class="s6-vs">VS</div>
+      <div class="s6-dist">225 × 250 Metros</div>
+      <div class="s6-names">
+        <span class="s6-n s6-nl">CAOS</span>
+        <span class="s6-n s6-nr">Rey Puerro</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: RACES LIST -->
+  <div class="scene s7" id="s6">
+    <div class="s7-bg"></div>
+    <div class="s7-inner">
+      <div class="s7-title">Programa Completo</div>
+      <div class="s7-races" id="raceList">
+        <div class="s7-race" data-i="0"><div class="s7-num">1</div><div class="s7-match">POCA LUZ vs CHIKLIN</div><div class="s7-dist">125m</div></div>
+        <div class="s7-race" data-i="1"><div class="s7-num">2</div><div class="s7-match">CALCAMONIA vs VALENTINA</div><div class="s7-dist">200m</div></div>
+        <div class="s7-race" data-i="2"><div class="s7-num">3</div><div class="s7-match">SPECIAL TINY vs TAPADO</div><div class="s7-dist">—</div></div>
+        <div class="s7-race" data-i="3"><div class="s7-num">4</div><div class="s7-match">BELEKIN vs VIVORAS</div><div class="s7-dist">250m</div></div>
+        <div class="s7-race" data-i="4"><div class="s7-num">5</div><div class="s7-match">AGUILA vs BLACK JACK</div><div class="s7-dist">150m</div></div>
+        <div class="s7-race" data-i="5"><div class="s7-num">6</div><div class="s7-match">DRAMATICA vs VIEJITO</div><div class="s7-dist">—</div></div>
+        <div class="s7-race feat" data-i="6"><div class="s7-num">★</div><div class="s7-match">CAOS vs REY PUERRO</div><div class="s7-dist">225×250</div></div>
+        <div class="s7-race" data-i="7"><div class="s7-num">8</div><div class="s7-match">VOLCAN vs EMA</div><div class="s7-dist">—</div></div>
+        <div class="s7-race" data-i="8"><div class="s7-num">9</div><div class="s7-match">PICO BLANCO vs CAÑERO</div><div class="s7-dist">300m</div></div>
+        <div class="s7-race" data-i="9"><div class="s7-num">10</div><div class="s7-match">REY RAMSES vs NUEVO ROMEO</div><div class="s7-dist">250m</div></div>
+        <div class="s7-race" data-i="10"><div class="s7-num">11</div><div class="s7-match">RAYITO vs TRAKALOSA</div><div class="s7-dist">—</div></div>
+        <div class="s7-race" data-i="11"><div class="s7-num">12</div><div class="s7-match">SECRETO vs CANTINELAS</div><div class="s7-dist">250m</div></div>
+        <div class="s7-race" data-i="12"><div class="s7-num">13</div><div class="s7-match">SUREÑO vs TRAVIESA</div><div class="s7-dist">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 8: CTA -->
+  <div class="scene s8" id="s7">
+    <div class="s8-bg"></div>
+    <div class="s8-horse" style="background:url('carrerasos-2.jpg') center/cover no-repeat;width:100%;height:100%;filter:brightness(.3) saturate(.5)"></div>
+    <div class="s8-overlay"></div>
+    <div class="s8-inner">
+      <div class="s8-cosidas">COSIDAS Y<br>COSINADAS</div>
+      <div class="s8-sub">Sírbase Solo Caliente Las Tortillas</div>
+      <div class="s8-date">14 de Junio 2026</div>
+      <div class="s8-venue">Carril Dos Hermanos · Colorado</div>
+      <div class="s8-phone">📞 970 901 1260</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress"><div class="progress-fill" id="pBar"></div></div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn">← Prev</button>
+    <button class="ctrl-btn play-btn" id="playBtn">⏸ Pause</button>
+    <button class="ctrl-btn" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<script>
+var SCENES=8;
+var DURATIONS=[3000,4000,3500,3500,3500,4000,5000,5000];
+var cur=0,timer=null,running=true,pStart=null,pElapsed=0;
+
+// Build dots
+var dotsEl=document.getElementById('dots');
+for(var i=0;i<SCENES;i++){
+  var d=document.createElement('div');d.className='dot';dotsEl.appendChild(d);
+}
+
+function showScene(n,restart){
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=n;
+  var sc=document.getElementById('s'+cur);
+  sc.classList.add('active');
+  // Update dots
+  document.querySelectorAll('.dot').forEach(function(d,i){d.className='dot'+(i===cur?' active':'')});
+  // Animate race list if scene 7
+  if(cur===6){
+    document.querySelectorAll('.s7-race').forEach(function(r,i){
+      r.classList.remove('show');
+      setTimeout(function(){r.classList.add('show')},150+i*80);
+    });
+  }
+  if(restart!==false){startProgress()}
+}
+
+function startProgress(){
+  clearInterval(timer);
+  pElapsed=0;pStart=Date.now();
+  var dur=DURATIONS[cur];
+  document.getElementById('pBar').style.transition='none';
+  document.getElementById('pBar').style.width='0';
+  setTimeout(function(){
+    document.getElementById('pBar').style.transition='width '+dur+'ms linear';
+    document.getElementById('pBar').style.width='100%';
+  },30);
+  timer=setInterval(function(){
+    if(!running)return;
+    pElapsed=Date.now()-pStart;
+    if(pElapsed>=dur){
+      clearInterval(timer);
+      showScene((cur+1)%SCENES);
+    }
+  },100);
+}
+
+function pauseResume(){
+  running=!running;
+  document.getElementById('playBtn').textContent=running?'⏸ Pause':'▶ Play';
+  if(running){pStart=Date.now()-pElapsed;startProgress()}
+  else{clearInterval(timer)}
+}
+
+document.getElementById('prevBtn').addEventListener('click',function(){showScene((cur-1+SCENES)%SCENES)});
+document.getElementById('nextBtn').addEventListener('click',function(){showScene((cur+1)%SCENES)});
+document.getElementById('playBtn').addEventListener('click',pauseResume);
+
+showScene(0);
+</script>
+</body>
+</html>

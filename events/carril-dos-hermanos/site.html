@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cosidas y Cosinadas · Carril Dos Hermanos · 14 Junio 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F5F7;--card:#fff;--gold:#B8890A;--gv:#F5C518;
+  --gbg:rgba(184,137,10,.07);--gbd:rgba(184,137,10,.18);
+  --ink:#1D1D1F;--ink2:#3A3A3C;--mut:#6E6E73;
+  --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  --ss:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sm:0 4px 20px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.05);
+  --sl:0 24px 64px rgba(0,0,0,.11),0 4px 16px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,245,247,.92);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--bd)}
+.nav-l{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);line-height:1.4}
+.nav-chip{display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--card);border:1.5px solid var(--gbd);color:var(--gold);box-shadow:var(--ss);animation:pulseChip 3s ease infinite}
+.nav-r{display:flex;align-items:center;gap:12px}
+.nav-date{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100svh;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:52px}
+.hero-horses{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;pointer-events:none}
+.hero-hl,.hero-hr{position:relative;overflow:hidden}
+.hero-hl img{position:absolute;bottom:0;left:0;height:94%;width:auto;max-width:none;animation:floatL 6s ease-in-out infinite}
+.hero-hr img{position:absolute;bottom:0;right:0;height:94%;width:auto;max-width:none;transform:scaleX(-1);animation:floatR 6s ease-in-out 1s infinite}
+.hero-hl::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(245,245,247,0) 52%,rgba(245,245,247,.95) 84%)}
+.hero-hr::after{content:'';position:absolute;inset:0;background:linear-gradient(to left,rgba(245,245,247,0) 52%,rgba(245,245,247,.95) 84%)}
+.hero::before{content:'';position:absolute;top:52px;left:0;right:0;height:60px;background:linear-gradient(to bottom,var(--bg),transparent);z-index:3;pointer-events:none}
+.hero-center{position:relative;z-index:10;text-align:center;padding:20px 12px;max-width:420px}
+.hero-tag{font-size:9px;font-weight:800;letter-spacing:.35em;text-transform:uppercase;color:var(--mut);margin-bottom:10px;opacity:0;animation:fadeUp .5s ease .05s forwards}
+.hero-cosidas{display:block;font-size:clamp(4rem,16vw,10rem);font-weight:900;letter-spacing:-.04em;line-height:.88;background:linear-gradient(160deg,#F5C518 0%,#D4A017 28%,#F5C518 50%,#A07810 76%,#F5C518 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;opacity:0;animation:heroReveal .9s cubic-bezier(.22,1,.36,1) .08s forwards,shimmer 4s linear 1.2s infinite}
+.hero-y{display:block;font-size:clamp(.9rem,3vw,1.8rem);font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:var(--mut);margin:.2em 0 .1em;opacity:0;animation:fadeUp .5s ease .2s forwards}
+.hero-cosinadas{display:block;font-size:clamp(2rem,9vw,5.5rem);font-weight:900;letter-spacing:-.03em;line-height:.9;background:linear-gradient(160deg,#F5C518 0%,#D4A017 35%,#F5C518 55%,#A07810 80%,#F5C518 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;opacity:0;animation:heroReveal .9s cubic-bezier(.22,1,.36,1) .18s forwards,shimmer 4s linear 1.5s infinite;margin-bottom:10px}
+.hero-tagline{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:18px;opacity:0;animation:fadeUp .5s ease .32s forwards}
+.hero-vs{font-size:clamp(1.4rem,6vw,3rem);font-weight:900;letter-spacing:.08em;color:var(--ink);margin-bottom:14px;opacity:0;animation:fadeUp .5s ease .25s forwards}
+/* Countdown */
+.h-cd{display:flex;align-items:center;gap:7px;justify-content:center;opacity:0;animation:fadeUp .5s ease .4s forwards}
+.h-cd-lbl{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-right:2px}
+.h-cd-u{display:flex;flex-direction:column;align-items:center;gap:2px}
+.h-cd-n{font-size:clamp(18px,4.5vw,32px);font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;background:var(--card);border:1px solid var(--bd2);border-radius:9px;box-shadow:var(--ss);padding:4px 9px;min-width:clamp(40px,8vw,54px);text-align:center;color:var(--ink);transition:border-color .3s,box-shadow .3s}
+.h-cd-n.lit{border-color:var(--gbd);box-shadow:0 0 12px rgba(184,137,10,.22)}
+.h-cd-l{font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.h-cd-sep{font-size:clamp(12px,3.5vw,22px);font-weight:300;color:var(--bd2);padding-bottom:12px}
+/* Labels */
+.hero-labels{position:absolute;bottom:clamp(80px,12vh,130px);left:0;right:0;z-index:11;display:flex;justify-content:space-between;padding:0 clamp(6px,2.5vw,28px);pointer-events:none;opacity:0;animation:fadeUp .5s ease .52s forwards}
+.h-lbl{display:inline-block;padding:7px 16px 6px;border-radius:5px}
+.h-lbl-l{background:linear-gradient(135deg,#7a0000,#CC0000);box-shadow:0 3px 18px rgba(200,0,0,.4);transform:skewX(-4deg)}
+.h-lbl-r{background:linear-gradient(135deg,#001a6e,#1A3ECC);box-shadow:0 3px 18px rgba(26,62,204,.4);transform:skewX(-4deg)}
+.h-lbl-name{display:block;font-size:clamp(11px,3vw,18px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.h-lbl-city{display:block;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:1px}
+.scroll-hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:12;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);animation:fadeUp .8s ease 1.4s both}
+.scroll-line{width:1px;height:26px;background:linear-gradient(to bottom,transparent,var(--gold));animation:sP 2s ease infinite}
+
+/* ── TICKER ── */
+.ticker{background:var(--ink);color:var(--gv);padding:10px 0;overflow:hidden;position:relative;z-index:20}
+.ticker-inner{display:flex;gap:0;white-space:nowrap;animation:tickerScroll 35s linear infinite}
+.ticker-item{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:0 28px;border-right:1px solid rgba(245,197,24,.2)}
+.ticker-sep{color:rgba(245,197,24,.4);margin:0 4px}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes heroReveal{from{opacity:0;transform:perspective(1200px) rotateX(18deg) translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes floatL{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes floatR{0%,100%{transform:scaleX(-1) translateY(0)}50%{transform:scaleX(-1) translateY(-10px)}}
+@keyframes sP{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes pulseChip{0%,100%{box-shadow:0 0 0 0 rgba(184,137,10,0)}50%{box-shadow:0 0 0 4px rgba(184,137,10,.12)}}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+@keyframes slideInR{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes spSlide{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes cB{0%,100%{transform:none}50%{transform:translateY(-5px)}}
+@keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:perspective(900px) rotateX(14deg) translateY(32px) scale(.98);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-30px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rv-l.in{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(30px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rv-r.in{opacity:1;transform:none}
+.d1{transition-delay:.04s}.d2{transition-delay:.09s}.d3{transition-delay:.14s}
+.d4{transition-delay:.19s}.d5{transition-delay:.24s}.d6{transition-delay:.29s}
+.d7{transition-delay:.34s}.d8{transition-delay:.39s}.d9{transition-delay:.44s}
+.d10{transition-delay:.49s}.d11{transition-delay:.54s}.d12{transition-delay:.59s}.d13{transition-delay:.64s}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:clamp(48px,8vh,80px) 24px;scroll-margin-top:60px}
+.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--mut);margin-bottom:12px;text-align:center}
+.s-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:-.03em;color:var(--ink);text-align:center;margin-bottom:32px;line-height:1.1}
+.s-rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2) 30%,var(--bd2) 70%,transparent);max-width:980px;margin:0 auto}
+
+/* ── STATS ── */
+.stats-strip{display:flex;justify-content:center;background:var(--card);border:1px solid var(--bd);border-radius:20px;box-shadow:var(--sm);overflow:hidden}
+.ss{flex:1;min-width:72px;padding:20px 10px;text-align:center;border-right:1px solid var(--bd);transition:background .2s,transform .2s}
+.ss:last-child{border-right:none}
+.ss:hover{background:var(--gbg);transform:scale(1.02)}
+.ss-n{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;letter-spacing:-.04em;color:var(--gold)}
+.ss-l{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-top:4px}
+
+/* ── FEATURED HORSES ── */
+.horse-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.hc-card{background:var(--card);border:1px solid var(--bd);border-radius:22px;overflow:hidden;box-shadow:var(--sm);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.hc-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:var(--sl)}
+.hc-img{aspect-ratio:3/4;overflow:hidden;background:#fff;border-bottom:1px solid var(--bd)}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.hc-card:hover .hc-img img{transform:scale(1.06)}
+.hc-info{padding:14px 16px}
+.hc-name{font-size:clamp(1rem,2.5vw,1.4rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.hc-stable{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+.hc-tag{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gbg);border:1px solid var(--gbd);color:var(--gold)}
+
+/* ── RACE CARDS ── */
+.race-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.race-count-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:var(--ink);color:var(--gv);font-size:11px;font-weight:800;letter-spacing:.08em}
+.race-grid{display:flex;flex-direction:column;gap:7px}
+.rcard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden;box-shadow:var(--ss);transition:box-shadow .25s,border-color .25s,transform .25s}
+.rcard:hover{box-shadow:var(--sm);border-color:var(--bd2);transform:scale(1.006)}
+.rcard.featured{border-color:var(--gbd);background:linear-gradient(135deg,rgba(184,137,10,.04),var(--card))}
+.rcard.featured:hover{border-color:rgba(184,137,10,.3);box-shadow:0 6px 28px rgba(184,137,10,.1),var(--sm)}
+.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bd);border-radius:18px 0 0 18px}
+.rcard.featured::before{background:linear-gradient(180deg,var(--gv),var(--gold));animation:shimmerBar 2.5s ease infinite}
+@keyframes shimmerBar{0%,100%{opacity:1}50%{opacity:.5}}
+/* Race number badge */
+.rc-num{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--gbg);border:1px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--gold)}
+.rcard.featured .rc-num{background:var(--gold);border-color:var(--gold);color:#000}
+.rcard-inner{display:grid;grid-template-columns:64px 1fr auto;align-items:center}
+.rc-time{padding:12px 10px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);white-space:nowrap;text-align:center;border-right:1px solid var(--bd)}
+.rc-body{padding:10px 28px 10px 12px;display:flex;align-items:center;gap:8px;min-width:0}
+.rc-side{display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+.rc-hi{width:34px;height:44px;border-radius:7px;overflow:hidden;background:#fff;border:1px solid var(--bd);flex-shrink:0;box-shadow:var(--ss);transition:transform .3s}
+.rcard:hover .rc-hi{transform:scale(1.08)}
+.rc-hi img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+.rc-side-info{min-width:0}
+.rc-h1{font-size:clamp(11px,1.8vw,14px);font-weight:700;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-h2{font-size:clamp(11px,1.8vw,14px);font-weight:700;letter-spacing:-.01em;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-cuadra{font-size:9px;font-weight:600;color:var(--mut);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-vs-c{font-size:9px;font-weight:900;color:var(--gold);letter-spacing:.06em;flex-shrink:0;padding:0 4px}
+.rc-right{padding:10px 12px;border-left:1px solid var(--bd);display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap}
+.rc-dist{font-size:11px;font-weight:700;color:var(--ink2)}
+.rc-badge{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.rc-btn{padding:5px 10px;border-radius:100px;border:1.5px solid var(--gbd);font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:transparent;cursor:pointer;font-family:var(--font);transition:background .2s,border-color .2s,transform .2s}
+.rc-btn:hover{background:var(--gbg);border-color:rgba(184,137,10,.3);transform:scale(1.08)}
+
+/* ── INFO GRID ── */
+.info-grid{background:var(--card);border:1px solid var(--bd);border-radius:22px;box-shadow:var(--sm);overflow:hidden;display:grid;grid-template-columns:repeat(3,1fr)}
+.ic{padding:18px 20px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .2s,transform .2s}
+.ic:nth-child(3n){border-right:none}
+.ic:nth-last-child(-n+3){border-bottom:none}
+.ic:hover{background:var(--gbg);transform:scale(1.01)}
+.ic-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:5px}
+.ic-v{font-size:14px;font-weight:600;color:var(--ink)}
+.ic-v.g{color:var(--gold)}
+
+/* ── RULES ── */
+.rules{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px 24px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center;box-shadow:var(--ss);margin-top:12px}
+.rule-tag{font-size:12px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:7px}
+.rule-tag svg{color:var(--gold);flex-shrink:0}
+
+/* ── CARRERASOS ── */
+.cos-wrap{background:#0D0D0D;border-radius:28px;overflow:hidden;padding:clamp(40px,7vh,68px) clamp(24px,4vw,48px);box-shadow:var(--sl)}
+.cos-top{text-align:center;margin-bottom:clamp(28px,5vh,44px)}
+.cos-badge{font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
+.cos-name{font-size:clamp(2rem,6vw,4rem);font-weight:900;letter-spacing:-.03em;color:#fff}
+.cos-name .g{color:#6CC04A}
+.cos-tag{font-size:12px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:6px}
+.cos-ads{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.cos-ad{border-radius:18px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.5);transition:transform .3s}
+.cos-ad:hover{transform:scale(1.02)}
+.cos-ad img{width:100%;height:auto;display:block}
+.cos-footer{text-align:center;margin-top:clamp(20px,4vh,32px)}
+.cos-cta{display:inline-block;padding:13px 36px;border-radius:100px;background:rgba(108,192,74,.08);border:1.5px solid rgba(108,192,74,.35);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6CC04A;text-decoration:none;transition:background .2s,box-shadow .2s,transform .2s}
+.cos-cta:hover{background:rgba(108,192,74,.16);box-shadow:0 0 24px rgba(108,192,74,.2);transform:scale(1.04)}
+
+/* ── FINAL CTA ── */
+.final-cta-wrap{position:relative;z-index:10;max-width:960px;margin:0 auto clamp(60px,10vh,120px);padding:0 24px}
+.final-cta-inner{position:relative;border-radius:32px;overflow:hidden;box-shadow:var(--sl)}
+.final-cta-photo{position:absolute;inset:0;background:url('carrerasos-2.jpg') center 30%/cover no-repeat}
+.final-cta-photo::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.64)}
+.final-cta-body{position:relative;z-index:1;padding:clamp(52px,9vh,88px) 32px;text-align:center}
+.fcta-h{font-size:clamp(2.4rem,7vw,6rem);font-weight:900;letter-spacing:-.04em;line-height:.92;color:#fff;margin-bottom:14px}
+.fcta-h .acc{color:#F5C518;background:linear-gradient(135deg,#F5C518,#D4A017);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fcta-sub{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:10px}
+.fcta-phone{font-size:clamp(1.4rem,4vw,2.5rem);font-weight:900;letter-spacing:.04em;color:#F5C518;margin-bottom:32px}
+.btn-w{padding:15px 36px;background:#fff;color:#000;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;text-decoration:none;font-family:var(--font);transition:transform .2s,box-shadow .2s}
+.btn-w:hover{transform:scale(1.04);box-shadow:0 8px 32px rgba(0,0,0,.28)}
+.btn-g{padding:15px 32px;background:linear-gradient(135deg,#F5C518,#D4A017);color:#000;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;text-decoration:none;font-family:var(--font);transition:transform .2s,box-shadow .2s}
+.btn-g:hover{transform:scale(1.04);box-shadow:0 8px 32px rgba(184,137,10,.38)}
+
+/* ── FLOATING BAR ── */
+.sp-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;background:rgba(13,13,13,.9);backdrop-filter:blur(16px);border:1px solid rgba(184,137,10,.22);font-size:12px;font-weight:600;color:#F5C518;white-space:nowrap;animation:spSlide .8s cubic-bezier(.22,1,.36,1) 1.5s both;pointer-events:none}
+footer{position:relative;z-index:10;padding:20px 24px 60px;border-top:1px solid var(--bd);text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+
+@media(max-width:600px){
+  .hero-hl img{height:86%}
+  .hero-hr img{height:86%}
+  .hero-hl::after{background:linear-gradient(to right,rgba(245,245,247,0) 40%,rgba(245,245,247,.96) 78%)}
+  .hero-hr::after{background:linear-gradient(to left,rgba(245,245,247,0) 40%,rgba(245,245,247,.96) 78%)}
+  .hero-labels{bottom:clamp(60px,9vh,100px)}
+  .h-lbl-name{font-size:11px}
+  .horse-showcase{gap:10px}
+  .hc-info{padding:10px 12px}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid .ic:nth-child(3n){border-right:1px solid var(--bd)}
+  .info-grid .ic:nth-child(2n){border-right:none}
+  .info-grid .ic:nth-last-child(-n+2){border-bottom:none}
+  .info-grid .ic:nth-last-child(-n+3){border-bottom:1px solid var(--bd)}
+  .cos-ads{grid-template-columns:1fr}
+  .final-cta-wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-l">Carril Dos Hermanos<br>Colorado</div>
+  <div class="nav-chip">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19h20v2H2v-2zM2 6l5 5 5-7 5 7 5-5v11H2V6z"/></svg>
+    Cosidas y Cosinadas
+  </div>
+  <div class="nav-r">
+    <span class="nav-date">14 Jun 2026</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-horses">
+    <div class="hero-hl"><img src="la-mami.jpg" alt="CAOS" loading="eager"></div>
+    <div class="hero-hr"><img src="aries.jpg" alt="REY PUERRO" loading="eager"></div>
+  </div>
+  <div class="hero-center">
+    <div class="hero-tag">Carril Dos Hermanos · Colorado</div>
+    <span class="hero-cosidas">COSIDAS</span>
+    <span class="hero-y">y</span>
+    <span class="hero-cosinadas">COSINADAS</span>
+    <div class="hero-tagline">Sírbase Solo Caliente Las Tortillas</div>
+    <div class="hero-vs">CAOS vs REY PUERRO</div>
+    <div class="h-cd">
+      <span class="h-cd-lbl">Faltan</span>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-d">03</div><div class="h-cd-l">Días</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-h">00</div><div class="h-cd-l">Hrs</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-m">00</div><div class="h-cd-l">Min</div></div>
+      <div class="h-cd-sep">:</div>
+      <div class="h-cd-u"><div class="h-cd-n" id="cd-s">00</div><div class="h-cd-l">Seg</div></div>
+    </div>
+  </div>
+  <div class="hero-labels">
+    <div class="h-lbl h-lbl-l"><span class="h-lbl-name">CAOS</span><span class="h-lbl-city">Cdra. Charly</span></div>
+    <div class="h-lbl h-lbl-r"><span class="h-lbl-name">Rey Puerro</span><span class="h-lbl-city">Cdra. Charly</span></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">POCA LUZ <span class="ticker-sep">⚔</span> CHIKLIN</span>
+    <span class="ticker-item">CALCAMONIA <span class="ticker-sep">⚔</span> VALENTINA</span>
+    <span class="ticker-item">SPECIAL TINY CONGRI <span class="ticker-sep">⚔</span> TAPADO</span>
+    <span class="ticker-item">BELEKIN <span class="ticker-sep">⚔</span> VIVORAS</span>
+    <span class="ticker-item">AGUILA <span class="ticker-sep">⚔</span> BLACK JACK</span>
+    <span class="ticker-item">DRAMATICA <span class="ticker-sep">⚔</span> VIEJITO</span>
+    <span class="ticker-item">CAOS <span class="ticker-sep">★</span> REY PUERRO</span>
+    <span class="ticker-item">VOLCAN <span class="ticker-sep">⚔</span> EMA</span>
+    <span class="ticker-item">PICO BLANCO <span class="ticker-sep">⚔</span> CAÑERO</span>
+    <span class="ticker-item">REY RAMSES <span class="ticker-sep">⚔</span> NUEVO ROMEO</span>
+    <span class="ticker-item">RAYITO <span class="ticker-sep">⚔</span> TRAKALOSA</span>
+    <span class="ticker-item">SECRETO <span class="ticker-sep">⚔</span> CANTINELAS</span>
+    <span class="ticker-item">SUREÑO <span class="ticker-sep">⚔</span> TRAVIESA</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">POCA LUZ <span class="ticker-sep">⚔</span> CHIKLIN</span>
+    <span class="ticker-item">CALCAMONIA <span class="ticker-sep">⚔</span> VALENTINA</span>
+    <span class="ticker-item">SPECIAL TINY CONGRI <span class="ticker-sep">⚔</span> TAPADO</span>
+    <span class="ticker-item">BELEKIN <span class="ticker-sep">⚔</span> VIVORAS</span>
+    <span class="ticker-item">AGUILA <span class="ticker-sep">⚔</span> BLACK JACK</span>
+    <span class="ticker-item">DRAMATICA <span class="ticker-sep">⚔</span> VIEJITO</span>
+    <span class="ticker-item">CAOS <span class="ticker-sep">★</span> REY PUERRO</span>
+    <span class="ticker-item">VOLCAN <span class="ticker-sep">⚔</span> EMA</span>
+    <span class="ticker-item">PICO BLANCO <span class="ticker-sep">⚔</span> CAÑERO</span>
+    <span class="ticker-item">REY RAMSES <span class="ticker-sep">⚔</span> NUEVO ROMEO</span>
+    <span class="ticker-item">RAYITO <span class="ticker-sep">⚔</span> TRAKALOSA</span>
+    <span class="ticker-item">SECRETO <span class="ticker-sep">⚔</span> CANTINELAS</span>
+    <span class="ticker-item">SUREÑO <span class="ticker-sep">⚔</span> TRAVIESA</span>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<section style="padding-top:0;padding-bottom:0">
+  <div class="stats-strip rv">
+    <div class="ss"><div class="ss-n" id="sn1">0</div><div class="ss-l">Carreras</div></div>
+    <div class="ss"><div class="ss-n" id="sn2">0</div><div class="ss-l">Caballos</div></div>
+    <div class="ss"><div class="ss-n" id="sn3">0</div><div class="ss-l">Cuadras</div></div>
+    <div class="ss"><div class="ss-n" id="sn4">0</div><div class="ss-l">Siguiendo</div></div>
+  </div>
+</section>
+
+<!-- FEATURED HORSES -->
+<section style="padding-top:clamp(40px,7vh,72px);padding-bottom:0">
+  <p class="s-eye rv">Los Caballos del Evento</p>
+  <div class="horse-showcase" style="margin-top:20px">
+    <div class="hc-card rv d1">
+      <div class="hc-img"><img src="la-mami.jpg" alt="CAOS" loading="lazy"></div>
+      <div class="hc-info"><div class="hc-name">CAOS</div><div class="hc-stable">Cdra. Charly</div><span class="hc-tag">Carrera 7</span></div>
+    </div>
+    <div class="hc-card rv d2">
+      <div class="hc-img"><img src="aries.jpg" alt="Rey Puerro" loading="lazy"></div>
+      <div class="hc-info"><div class="hc-name">REY PUERRO</div><div class="hc-stable">Cdra. Charly</div><span class="hc-tag">El Retador</span></div>
+    </div>
+    <div class="hc-card rv d3">
+      <div class="hc-img"><img src="pisces.jpg" alt="Rey Ramses" loading="lazy"></div>
+      <div class="hc-info"><div class="hc-name">REY RAMSES</div><div class="hc-stable">Cdra. GDA</div><span class="hc-tag">Carrera 10</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="s-rule" style="margin-top:clamp(40px,7vh,72px)"></div>
+
+<!-- PROGRAMA -->
+<section id="programa">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px" class="rv">
+    <div>
+      <p class="s-eye" style="margin-bottom:6px;text-align:left">Programa Completo</p>
+      <h2 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1">Cosidas y <span style="color:var(--gold)">Cosinadas</span></h2>
+    </div>
+    <div class="race-count-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19h20v2H2v-2zM2 6l5 5 5-7 5 7 5-5v11H2V6z"/></svg>
+      13 Carreras
+    </div>
+  </div>
+
+  <div class="race-grid">
+
+    <div class="rcard rv-l d1">
+      <div class="rc-num">1</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>1</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">POCA LUZ</div><div class="rc-cuadra">Cdra: Ramirez</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">CHIKLIN</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">125m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d2">
+      <div class="rc-num">2</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>2</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">CALCAMONIA</div><div class="rc-cuadra">Cdra: El Alaxan</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">VALENTINA</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">200m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-l d3">
+      <div class="rc-num">3</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>3</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">SPECIAL TINY</div><div class="rc-cuadra">Cdra: Chihuahua</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="el-chigon.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">TAPADO</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d4">
+      <div class="rc-num">4</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>4</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-mami.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">BELEKIN</div><div class="rc-cuadra">Cdra: Ca Weze</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">VIVORAS</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">250m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-l d5">
+      <div class="rc-num">5</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>5</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">AGUILA</div><div class="rc-cuadra">Cdra: Con Chuy</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">BLACK JACK</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">150m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d6">
+      <div class="rc-num">6</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>6</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">DRAMATICA</div><div class="rc-cuadra">Cdra: Ramirez</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">VIEJITO</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="rcard featured rv d7">
+      <div class="rc-num">7</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>★ 7</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-mami.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">CAOS</div><div class="rc-cuadra" style="color:var(--gold);font-weight:700">225m · Estelar</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="aries.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">REY PUERRO</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">225×250</div><div class="rc-badge">ESTELAR</div></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-l d8">
+      <div class="rc-num">8</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>8</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">VOLCAN</div><div class="rc-cuadra">Cdra: Cafetero</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-esperanza.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">EMA</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d9">
+      <div class="rc-num">9</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>9</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="el-chigon.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">PICO BLANCO</div><div class="rc-cuadra">Cdra: Cafetero</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-mtz.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">CAÑERO</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">300m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-l d10">
+      <div class="rc-num">10</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>10</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-reyna.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">REY RAMSES</div><div class="rc-cuadra">Cdra: GDA / Ca Vence</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cristo-rey.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">NUEVO ROMEO</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">250m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d11">
+      <div class="rc-num">11</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>11</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="la-tepada.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">RAYITO</div><div class="rc-cuadra">Cdra: Chichinero</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">TRAKALOSA</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-l d12">
+      <div class="rc-num">12</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>12</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="pisces.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">SECRETO</div><div class="rc-cuadra">Cdra: Charly Potosina</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="cuadra-gutierrez.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">CANTINELAS</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">250m</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+    <div class="rcard rv-r d13">
+      <div class="rc-num">13</div>
+      <div class="rcard-inner">
+        <div class="rc-time">Carrera<br>13</div>
+        <div class="rc-body">
+          <div class="rc-side"><div class="rc-hi"><img src="aries.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h1">SUREÑO</div><div class="rc-cuadra">Cdra: Charly / Potosina</div></div></div>
+          <div class="rc-vs-c">VS</div>
+          <div class="rc-side"><div class="rc-hi"><img src="la-mami.jpg" alt="" loading="lazy"></div><div class="rc-side-info"><div class="rc-h2">TRAVIESA</div></div></div>
+        </div>
+        <div class="rc-right"><div class="rc-dist">—</div><button class="rc-btn">Ver Más</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="s-rule"></div>
+
+<!-- EVENT INFO -->
+<section>
+  <p class="s-eye rv">Detalles del Evento</p>
+  <div class="info-grid rv">
+    <div class="ic"><div class="ic-k">Venue</div><div class="ic-v">Carril Dos Hermanos</div></div>
+    <div class="ic"><div class="ic-k">Estado</div><div class="ic-v">Colorado, USA</div></div>
+    <div class="ic"><div class="ic-k">Fecha</div><div class="ic-v">Dom. 14 Jun 2026</div></div>
+    <div class="ic"><div class="ic-k">Carreras</div><div class="ic-v g">13 Corridas</div></div>
+    <div class="ic"><div class="ic-k">Estelar</div><div class="ic-v g">CAOS vs Rey Puerro</div></div>
+    <div class="ic"><div class="ic-k">Contacto</div><div class="ic-v">970 901 1260</div></div>
+  </div>
+  <div class="rules rv" style="margin-top:12px">
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Evento Familiar</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sírbase Solo Caliente</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Las Tortillas</span>
+    <span class="rule-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>13 Corridas</span>
+  </div>
+</section>
+
+<!-- CARRERASOS SPONSOR -->
+<section>
+  <div class="cos-wrap rv">
+    <div class="cos-top">
+      <div class="cos-badge">Patrocinador Oficial</div>
+      <div class="cos-name">CARRERAS<span class="g">OS</span></div>
+      <div class="cos-tag">GEAR UP · RACE HARD · STAND OUT</div>
+    </div>
+    <div class="cos-ads">
+      <div class="cos-ad rv-l"><img src="carrerasos-1.jpg" alt="CarrerasOS Custom Gear" loading="lazy"></div>
+      <div class="cos-ad rv-r"><img src="carrerasos-2.jpg" alt="CarrerasOS Built for Winners" loading="lazy"></div>
+    </div>
+    <div class="cos-footer"><a href="https://carrerasos.com" class="cos-cta" target="_blank" rel="noopener">CARRERASOS.COM</a></div>
+  </div>
+</section>
+
+<div class="s-rule"></div>
+
+<!-- FINAL CTA -->
+<div class="final-cta-wrap rv">
+  <div class="final-cta-inner">
+    <div class="final-cta-photo"></div>
+    <div class="final-cta-body">
+      <h2 class="fcta-h">Unas de las que ya<br>están <span class="acc">Cosidas</span></h2>
+      <div class="fcta-sub">14 de Junio 2026 · Carril Dos Hermanos · Colorado</div>
+      <div class="fcta-phone">📞 970 901 1260</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn-w" href="#programa">Ver Programa</a>
+        <a class="btn-g" href="duel.html">Ver Duelo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Carril Dos Hermanos · Colorado · 14 Junio 2026 · Asi Nomas Kedo Dijo El Pirata</footer>
+
+<div class="sp-bar">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+  <span id="sp-count">2,341</span> personas siguiendo este evento
+</div>
+
+<script>
+/* COUNTDOWN */
+var EVENT = new Date('2026-06-14T12:00:00');
+(function tick(){
+  var ms=EVENT-Date.now(),v={
+    d:ms>0?Math.floor(ms/86400000):0,
+    h:ms>0?Math.floor(ms%86400000/3600000):0,
+    m:ms>0?Math.floor(ms%3600000/60000):0,
+    s:ms>0?Math.floor(ms%60000/1000):0
+  };
+  ['d','h','m','s'].forEach(function(k){
+    var el=document.getElementById('cd-'+k),val=String(v[k]).padStart(2,'0');
+    if(el&&el.textContent!==val){
+      el.textContent=val;
+      if(k==='s'){el.classList.remove('lit');void el.offsetWidth;el.classList.add('lit');setTimeout(function(){el.classList.remove('lit')},300)}
+    }
+  });
+  setTimeout(tick,1000);
+})();
+
+/* SCROLL REVEAL */
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.08});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){io.observe(el)});
+
+/* ANIMATED COUNTERS */
+function ac(id,target,suffix,dur){
+  var el=document.getElementById(id);if(!el)return;
+  var st=null;
+  (function f(ts){
+    if(!st)st=ts;var p=Math.min((ts-st)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(e*target)+(suffix||'');
+    if(p<1)requestAnimationFrame(f);else el.textContent=target+(suffix||'');
+  })(performance.now());
+}
+setTimeout(function(){
+  ac('sn1',13,'',900);ac('sn2',26,'',800);ac('sn3',12,'',700);ac('sn4',2341,'',1200);
+},600);
+
+/* SOCIAL PROOF */
+var sp=2341;
+setInterval(function(){
+  sp+=Math.floor(Math.random()*3);
+  var el=document.getElementById('sp-count');
+  if(el)el.textContent=sp.toLocaleString('en-US');
+},4200);
+</script>
+</body>
+</html>
