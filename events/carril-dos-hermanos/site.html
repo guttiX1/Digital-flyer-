@@ -717,45 +717,53 @@ setTimeout(function(){
 
 /* EXPANDABLE RACE CARDS */
 var HORSE_DATA={
-  'POCA LUZ':    {cuadra:'Rancho Ramirez',         jinete:'Carlos "El Güero" Leal',      prop:'Don Memo Ramirez',          ent:'Isidro "Chilo" Vargas'},
-  'CHIKLIN':     {cuadra:'Cristo Rey Racing',       jinete:'Jorge "Chiquilín" Vega',      prop:'Cuadra Cristo Rey',         ent:'Jaime Fuentes'},
-  'CALCAMONIA':  {cuadra:'El Alaxan Racing',        jinete:'Pedro "Pelón" Álvarez',       prop:'Fam. Alaxan Herrera',       ent:'Beto Medina'},
-  'VALENTINA':   {cuadra:'Cdra Esperanza',          jinete:'Martín "El Nene" Barajas',    prop:'Rancho Esperanza',          ent:'Chavo Ríos'},
-  'SPECIAL TINY':{cuadra:'Cdra Chihuahua',          jinete:'Rubén "El Chico" Torres',     prop:'Fam. Gutiérrez Chihuahua',  ent:'Nacho Gutiérrez'},
-  'TAPADO':      {cuadra:'Rancho El Chigón',        jinete:'Héctor "El Chigón" López',    prop:'Los Hermanos Chigón',       ent:'Cuco Garza'},
-  'BELEKIN':     {cuadra:'Ca Weze',                 jinete:'Memo "El Belekin" Weze',      prop:'Cuadra Ca Weze',            ent:'Pancho Villa Jr.'},
-  'VIVORAS':     {cuadra:'Rancho Pisces',           jinete:'Tino "Las Víboras" Soto',     prop:'Pisces Racing',             ent:'El Toro Blanco'},
-  'AGUILA':      {cuadra:'Con Chuy Racing',         jinete:'Chuy "El Águila" Hernández',  prop:'Rancho Con Chuy',           ent:'Don Lupe Cristo'},
-  'BLACK JACK':  {cuadra:'Rancho La Tepada',        jinete:'Fernando "Black" Morales',    prop:'Fam. Tepada Ramos',         ent:'Rafa Montoya'},
-  'DRAMATICA':   {cuadra:'Cdra Ramirez',            jinete:'Enrique "Kike" Pérez',        prop:'Rancho Ramirez',            ent:'Don Memo Ramirez'},
-  'VIEJITO':     {cuadra:'Rancho MTZ',              jinete:'Aurelio "El Viejito" Cruz',   prop:'Cuadra MTZ Racing',         ent:'Fidel Montoya'},
-  'CAOS':        {cuadra:'La Mami Racing',          jinete:'El Chilo Saucedo',            prop:'Fam. Mami & Asociados',     ent:'Rodrigo "El Mago" Flores'},
-  'REY PUERRO':  {cuadra:'Cuadra Aries',            jinete:'Memo "El Rey" Castillo',      prop:'Rancho Aries Colorado',     ent:'Don Nacho Puerro'},
-  'VOLCAN':      {cuadra:'Cdra Cafetero',           jinete:'Pancho "El Volcán" Rosas',    prop:'Cafetero Racing Stables',   ent:'Ignacio Gutiérrez'},
-  'EMA':         {cuadra:'Cdra Esperanza',          jinete:'Saúl "La Esperanza" Barajas', prop:'Rancho Esperanza',          ent:'Tito Vargas'},
-  'PICO BLANCO': {cuadra:'Cdra Cafetero',           jinete:'Lupe "El Pico" Medrano',      prop:'Cafetero Racing Stables',   ent:'Chilo Morales'},
-  'CAÑERO':      {cuadra:'Rancho MTZ',              jinete:'Ricardo "El Cañero" Vega',    prop:'Cuadra MTZ Racing',         ent:'Don Beto Cruz'},
-  'REY RAMSES':  {cuadra:'GDA / Ca Vence',          jinete:'Alfonso "El Faraón" GDA',     prop:'GDA & Ca Vence Assoc.',     ent:'Tavo Venegas'},
-  'NUEVO ROMEO': {cuadra:'Cristo Rey Racing',       jinete:'Gilberto "Romeo" Saldaña',    prop:'Cuadra Cristo Rey',         ent:'Jaime Fuentes'},
-  'RAYITO':      {cuadra:'Cdra Chichinero',         jinete:'Omar "El Rayito" Chávez',     prop:'Rancho Chichinero',         ent:'Flaco Cisneros'},
-  'TRAKALOSA':   {cuadra:'Rancho Pisces',           jinete:'Ernesto "La Traka" Ríos',     prop:'Pisces Racing',             ent:'Hugo Salinas'},
-  'SECRETO':     {cuadra:'Cdra Charly Potosina',    jinete:'Alex "El Secreto" Pimentel',  prop:'Don Charly Aguayo',         ent:'Beto Potosino'},
-  'CANTINELAS':  {cuadra:'Cdra Gutiérrez',          jinete:'Joel "La Cantina" Cisneros',  prop:'Rancho Gutiérrez',          ent:'Hugo Salinas'},
-  'SUREÑO':      {cuadra:'Cdra Charly / Potosina',  jinete:'Joel "El Sureño" Rosales',    prop:'Don Charly Aguayo',         ent:'Beto Potosino'},
-  'TRAVIESA':    {cuadra:'La Mami Racing',          jinete:'Jessy "La Traviesa" Ramos',   prop:'Fam. Mami & Asociados',     ent:'Rodrigo Flores'}
+  'POCA LUZ':    {jinete:'Carlos "El Güero" Leal',       prop:'Rancho Ramirez Hnos.',        ent:'Isidro "Chilo" Vargas'},
+  'CHIKLIN':     {jinete:'Jorge "Chiquilín" Vega',        prop:'Cristo Rey Enterprises',      ent:'Jaime Fuentes'},
+  'CALCAMONIA':  {jinete:'Pedro "Pelón" Álvarez',         prop:'Fam. Alaxan Herrera',         ent:'Beto Medina'},
+  'VALENTINA':   {jinete:'Martín "El Nene" Barajas',      prop:'Rancho Esperanza Assoc.',     ent:'Chavo Ríos'},
+  'SPECIAL TINY':{jinete:'Rubén "El Chico" Torres',       prop:'Gutiérrez Racing Group',      ent:'Nacho Gutiérrez'},
+  'TAPADO':      {jinete:'Héctor "El Chigón" López',      prop:'Los Hermanos Chigón',         ent:'Cuco Garza'},
+  'BELEKIN':     {jinete:'Memo "El Belekin" Weze',        prop:'Ca Weze & Asociados',         ent:'Pancho Villa Jr.'},
+  'VIVORAS':     {jinete:'Tino "Las Víboras" Soto',       prop:'Pisces Racing LLC',           ent:'El Toro Blanco'},
+  'AGUILA':      {jinete:'Chuy "El Águila" Hernández',    prop:'Rancho Con Chuy',             ent:'Don Lupe Cristo'},
+  'BLACK JACK':  {jinete:'Fernando "Black" Morales',      prop:'Fam. Tepada Ramos',           ent:'Rafa Montoya'},
+  'DRAMATICA':   {jinete:'Enrique "Kike" Pérez',          prop:'Ramirez Racing Stables',      ent:'Don Memo Ramirez'},
+  'VIEJITO':     {jinete:'Aurelio "El Viejito" Cruz',     prop:'MTZ Racing Group',            ent:'Fidel Montoya'},
+  'CAOS':        {jinete:'El Chilo Saucedo',              prop:'Fam. Mami & Asociados',       ent:'Rodrigo "El Mago" Flores'},
+  'REY PUERRO':  {jinete:'Memo "El Rey" Castillo',        prop:'Rancho Aries Colorado',       ent:'Don Nacho Puerro'},
+  'VOLCAN':      {jinete:'Pancho "El Volcán" Rosas',      prop:'Cafetero Racing Stables',     ent:'Ignacio Gutiérrez'},
+  'EMA':         {jinete:'Saúl "La Esperanza" Barajas',   prop:'Rancho Esperanza Assoc.',     ent:'Tito Vargas'},
+  'PICO BLANCO': {jinete:'Lupe "El Pico" Medrano',        prop:'Cafetero Racing Stables',     ent:'Chilo Morales'},
+  'CAÑERO':      {jinete:'Ricardo "El Cañero" Vega',      prop:'MTZ Racing Group',            ent:'Don Beto Cruz'},
+  'REY RAMSES':  {jinete:'Alfonso "El Faraón" GDA',       prop:'GDA & Ca Vence Assoc.',       ent:'Tavo Venegas'},
+  'NUEVO ROMEO': {jinete:'Gilberto "Romeo" Saldaña',      prop:'Cristo Rey Enterprises',      ent:'Jaime Fuentes'},
+  'RAYITO':      {jinete:'Omar "El Rayito" Chávez',       prop:'Rancho Chichinero',           ent:'Flaco Cisneros'},
+  'TRAKALOSA':   {jinete:'Ernesto "La Traka" Ríos',       prop:'Pisces Racing LLC',           ent:'Hugo Salinas'},
+  'SECRETO':     {jinete:'Alex "El Secreto" Pimentel',    prop:'Aguayo & Potosino Racing',    ent:'Beto Potosino'},
+  'CANTINELAS':  {jinete:'Joel "La Cantina" Cisneros',    prop:'Gutiérrez Racing Group',      ent:'Hugo Salinas'},
+  'SUREÑO':      {jinete:'Joel "El Sureño" Rosales',      prop:'Aguayo & Potosino Racing',    ent:'Beto Potosino'},
+  'TRAVIESA':    {jinete:'Jessy "La Traviesa" Ramos',     prop:'Fam. Mami & Asociados',       ent:'Rodrigo Flores'}
 };
 
 function buildExpand(card){
   var h1=card.querySelector('.rc-h1'),h2=card.querySelector('.rc-h2');
   var img1=card.querySelector('.rc-side .rc-hi img'),img2=card.querySelectorAll('.rc-side .rc-hi img')[1];
+  var sides=card.querySelectorAll('.rc-side-info');
   var dist=card.querySelector('.rc-dist');
   var isFeat=card.classList.contains('featured');
 
-  function detCol(name){
+  function getCuadra(sideInfo){
+    var el=sideInfo?sideInfo.querySelector('.rc-cuadra'):null;
+    if(!el)return'—';
+    return el.textContent.replace(/^Cdra:\s*/i,'').replace(/\s*·.*/,'').trim()||'—';
+  }
+
+  function detCol(name,sideInfo){
     var d=HORSE_DATA[name]||{};
+    var cuadra=getCuadra(sideInfo);
     return '<div class="re-det-col">'
       +'<div class="re-det-col-title">'+name+'</div>'
-      +'<div class="re-det-row"><span class="re-det-lbl">Cuadra</span><span class="re-det-val">'+(d.cuadra||'—')+'</span></div>'
+      +'<div class="re-det-row"><span class="re-det-lbl">Cuadra</span><span class="re-det-val">'+cuadra+'</span></div>'
       +'<div class="re-det-row"><span class="re-det-lbl">Jinete</span><span class="re-det-val">'+(d.jinete||'—')+'</span></div>'
       +'<div class="re-det-row"><span class="re-det-lbl">Propietario</span><span class="re-det-val">'+(d.prop||'—')+'</span></div>'
       +'<div class="re-det-row"><span class="re-det-lbl">Entrenador</span><span class="re-det-val">'+(d.ent||'—')+'</span></div>'
@@ -782,8 +790,8 @@ function buildExpand(card){
       +'<span class="re-track-item">🏇 Match Race · Tierra</span>'
     +'</div>'
     +'<div class="re-details">'
-      +detCol(h1?h1.textContent:'Caballo 1')
-      +detCol(h2?h2.textContent:'Caballo 2')
+      +detCol(h1?h1.textContent:'Caballo 1',sides[0])
+      +detCol(h2?h2.textContent:'Caballo 2',sides[1])
     +'</div>'
     +(isFeat?'<a href="duel.html" class="re-duel-link">⚔ Ver Mano a Mano — CAOS vs REY PUERRO</a>':'')
   +'</div>';
