@@ -29,8 +29,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;padding:0 20px;d
 
 /* ── HERO DUEL ── */
 .duel-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding-top:52px}
-.duel-horses{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
-.dh-l,.dh-r{position:relative;overflow:hidden}
+.duel-horses{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;pointer-events:none}
+.dh-l,.dh-r{position:relative;overflow:hidden;pointer-events:none}
 .dh-l img{position:absolute;bottom:0;left:0;height:92%;width:auto;max-width:none;filter:drop-shadow(0 0 40px rgba(200,0,0,.25));animation:floatL 6s ease-in-out infinite}
 .dh-r img{position:absolute;bottom:0;right:0;height:92%;width:auto;max-width:none;transform:scaleX(-1);filter:drop-shadow(0 0 40px rgba(26,62,204,.25));animation:floatR 6s ease-in-out 1.5s infinite}
 .dh-l::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0) 44%,rgba(10,10,10,.96) 82%)}
