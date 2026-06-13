@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Carril Los Amigos · 18 Carreras · Domingo Junio 14, 2026 · Belton, Missouri">
+<title>Carril Los Amigos · Jun 14, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--green:#00FF41;--dark:#070707;--red:#E8372A;--bdr:rgba(255,255,255,.07)}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:#fff;font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(248,197,24,.06) 0%,transparent 65%),url(flyer.jpg) center 15%/cover no-repeat;filter:brightness(.25) saturate(1.4)}
+.hero-content{position:relative;z-index:10;padding:0 1.5rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(248,197,24,.1);border:1px solid rgba(248,197,24,.3);padding:.3rem 1rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;animation:fadeUp .6s .2s both}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,8rem);line-height:.9;letter-spacing:.02em;animation:fadeUp .7s .35s both;text-shadow:0 0 60px rgba(248,197,24,.15)}
+.hero h1 span{color:var(--gold)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.35rem);color:rgba(255,255,255,.6);margin:.8rem 0;letter-spacing:.08em;text-transform:uppercase;animation:fadeUp .7s .5s both}
+.hero-date{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--gold);letter-spacing:.04em;animation:fadeUp .7s .6s both;margin-bottom:1.5rem}
+
+/* COUNTDOWN */
+.countdown{display:flex;gap:1.2rem;justify-content:center;margin-bottom:2rem;animation:fadeUp .7s .75s both}
+.cd-unit{text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(248,197,24,.2);border-radius:14px;padding:.8rem 1.2rem;min-width:72px;backdrop-filter:blur(10px)}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;color:var(--gold);display:block}
+.cd-lbl{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.15rem}
+
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .9s both}
+.btn-primary{background:var(--gold);color:#000;font-weight:800;padding:.9rem 2.2rem;border-radius:12px;text-decoration:none;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;transition:box-shadow .2s,transform .15s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{box-shadow:0 16px 50px rgba(248,197,24,.45);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;font-weight:700;padding:.9rem 2rem;border-radius:12px;text-decoration:none;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.2);transition:border-color .2s,transform .15s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);transform:translateY(-2px)}
+.scroll-ind{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.35rem;opacity:.4;animation:bounce 2s infinite}
+.scroll-ind span{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase}
+.sa{width:16px;height:16px;border-right:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(45deg)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(5px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:var(--gold);padding:.5rem 0;position:relative;z-index:1}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 28s linear infinite}
+.marquee-track span{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;color:#000;padding:0 1.5rem}
+.marquee-track span.dot{color:rgba(0,0,0,.35)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:5rem 1.5rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1;letter-spacing:.03em;margin-bottom:.5rem}
+.section-sub{color:rgba(255,255,255,.45);font-size:.95rem;margin-bottom:3rem}
+
+/* FEATURE MATCH */
+.vs-section{background:linear-gradient(180deg,var(--dark) 0%,#0d0800 50%,var(--dark) 100%)}
+.vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;border-radius:20px;overflow:hidden;min-height:420px;position:relative}
+.horse-card{position:relative;overflow:hidden;cursor:default}
+.horse-card .bg{position:absolute;inset:0;background-image:url(flyer.jpg);background-size:280%;transition:transform 8s ease}
+.horse-card:hover .bg{transform:scale(1.05)}
+.hc-left .bg{background-position:14% 8%}
+.hc-right .bg{background-position:86% 8%}
+.horse-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.85) 100%)}
+.horse-card .info{position:absolute;bottom:0;left:0;right:0;padding:2rem;z-index:2}
+.hc-left .info{text-align:left}
+.hc-right .info{text-align:right}
+.horse-tag{display:inline-block;background:var(--gold);color:#000;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;margin-bottom:.5rem}
+.horse-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;letter-spacing:.03em;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.horse-cuadra{font-size:.82rem;color:rgba(255,255,255,.55);margin-top:.3rem;letter-spacing:.04em;text-transform:uppercase}
+.vs-center{background:#0d0800;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:.6rem;z-index:2}
+.vs-badge{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:var(--gold);line-height:1;text-shadow:0 0 40px rgba(248,197,24,.6)}
+.vs-dist{background:rgba(248,197,24,.12);border:1px solid rgba(248,197,24,.3);border-radius:8px;padding:.4rem .8rem;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold)}
+.vs-num{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+
+/* RACE CARD */
+.races-section{background:#0a0a0a}
+.race-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.race-card{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:14px;padding:1.1rem 1.25rem;transition:border-color .2s,transform .2s,background .2s;position:relative;overflow:hidden}
+.race-card:hover{border-color:rgba(248,197,24,.25);transform:translateY(-2px);background:rgba(255,255,255,.05)}
+.race-card.featured{border-color:rgba(248,197,24,.4);background:rgba(248,197,24,.04)}
+.race-card.featured::before{content:'⭐ CARRERA ESTELAR';position:absolute;top:0;left:0;right:0;background:var(--gold);color:#000;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-align:center;padding:.2rem;text-transform:uppercase}
+.race-card.featured .rc-body{padding-top:.6rem}
+.rc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.rc-num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:rgba(255,255,255,.15);line-height:1}
+.rc-time{font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.rc-dist{font-size:.68rem;color:rgba(255,255,255,.35);background:rgba(255,255,255,.05);padding:.18rem .5rem;border-radius:4px}
+.rc-title{font-weight:700;font-size:.88rem;margin-bottom:.35rem;line-height:1.3}
+.rc-horses{font-size:.75rem;color:rgba(255,255,255,.45)}
+.rc-horses span{color:rgba(255,255,255,.7)}
+
+/* INFO STRIP */
+.info-strip{background:linear-gradient(135deg,rgba(248,197,24,.07),rgba(0,0,0,0));border:1px solid rgba(248,197,24,.15);border-radius:20px;padding:2.5rem;margin-bottom:2rem}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem}
+.info-item{text-align:center}
+.info-icon{font-size:2rem;margin-bottom:.5rem}
+.info-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold)}
+.info-lbl{font-size:.72rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+
+/* QR SECTION */
+.qr-section{background:linear-gradient(135deg,#0a0a0a,#0d0800)}
+.qr-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+@media(max-width:680px){.qr-wrap{grid-template-columns:1fr;text-align:center}.qr-img-wrap{justify-content:center}}
+.qr-img-wrap{display:flex;align-items:center;gap:1.5rem}
+.qr-box{background:#080808;border:2px solid rgba(248,197,24,.3);border-radius:16px;padding:1.2rem;display:inline-block;position:relative}
+.qr-box::after{content:'';position:absolute;inset:0;border-radius:14px;box-shadow:0 0 40px rgba(248,197,24,.12);pointer-events:none}
+.qr-box img{display:block;border-radius:8px;width:180px;height:180px}
+.qr-text h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;margin-bottom:.5rem}
+.qr-text p{color:rgba(255,255,255,.5);font-size:.9rem;line-height:1.6;margin-bottom:1rem}
+.qr-url{background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:8px;padding:.5rem .9rem;font-size:.72rem;color:rgba(255,255,255,.5);font-family:monospace;word-break:break-all;margin-bottom:1rem}
+.qr-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-sm{padding:.55rem 1.1rem;border-radius:8px;font-size:.8rem;font-weight:700;text-decoration:none;letter-spacing:.04em;transition:transform .15s}
+.btn-sm-gold{background:var(--gold);color:#000}
+.btn-sm-ghost{background:transparent;border:1px solid var(--bdr);color:#fff}
+.btn-sm:hover{transform:translateY(-1px)}
+
+/* SPONSOR */
+.sponsor-bar{background:rgba(255,255,255,.02);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:1.5rem;text-align:center}
+.sponsor-bar p{font-size:.72rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.sponsor-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.1em;color:var(--green)}
+
+/* FOOTER */
+footer{background:#040404;padding:2rem 1.5rem;text-align:center;border-top:1px solid var(--bdr)}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:rgba(255,255,255,.8);margin-bottom:.5rem}
+.footer-sub{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.06em;font-style:italic}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.nav-links-inner{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;justify-content:center}
+.nav-links-inner a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;transition:color .2s}
+.nav-links-inner a:hover{color:#fff}
+
+/* sticky nav */
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(7,7,7,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}
+.nl span{color:var(--gold)}
+.btn-ticket{background:var(--gold);color:#000;font-weight:800;padding:.38rem 1rem;border-radius:7px;text-decoration:none;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:box-shadow .2s}
+.btn-ticket:hover{box-shadow:0 6px 24px rgba(248,197,24,.4)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nl">Carril <span>Los Amigos</span></div>
+  <div class="nav-links-inner">
+    <a href="races.html">Programa</a>
+    <a href="infographic.html">Info</a>
+    <a href="video-ad.html">Video</a>
+    <a href="#qr">QR</a>
+    <a href="tel:9709011260" class="btn-ticket">📞 970 901 1260</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">🐎 Colorado, USA · Belton, Missouri</div>
+    <h1>Carril<br><span>Los Amigos</span></h1>
+    <div class="hero-sub">Entretenimiento… Más Rápido que el Viento</div>
+    <div class="hero-date">Domingo · 14 de Junio, 2026</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cdD">00</span><span class="cd-lbl">Días</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdH">00</span><span class="cd-lbl">Horas</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdM">00</span><span class="cd-lbl">Min</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cdS">00</span><span class="cd-lbl">Seg</span></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#races" class="btn-primary">🏁 Ver Programa</a>
+      <a href="tel:9709011260" class="btn-ghost">📞 970 901 1260</a>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Scroll</span><div class="sa"></div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mtrack"></div>
+</div>
+
+<!-- FEATURE MATCH -->
+<section class="vs-section" style="padding:5rem 0">
+  <div class="container" style="padding:0 1.5rem">
+    <div class="section-label reveal">Carrera Estelar · Carrera #2 · 11:00 AM</div>
+    <div class="section-title reveal">La Gran Batalla</div>
+    <div class="section-sub reveal">350 Yards de pura velocidad</div>
+  </div>
+  <div class="container" style="padding:0 1.5rem">
+    <div class="vs-grid reveal">
+      <div class="horse-card hc-left">
+        <div class="bg"></div>
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="horse-tag">El Favorito</div>
+          <div class="horse-name">El Ruso</div>
+          <div class="horse-cuadra">C. Hnos Olvera</div>
+        </div>
+      </div>
+      <div class="vs-center">
+        <div class="vs-badge">VS</div>
+        <div class="vs-dist">350 YDS</div>
+        <div class="vs-num">Carrera #2 · 11:00 AM</div>
+      </div>
+      <div class="horse-card hc-right">
+        <div class="bg"></div>
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="horse-tag">El Retador</div>
+          <div class="horse-name">El Gringo</div>
+          <div class="horse-cuadra">C. 4 Ases</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT INFO -->
+<section style="padding:3rem 1.5rem">
+  <div class="container">
+    <div class="info-strip reveal">
+      <div class="info-grid">
+        <div class="info-item"><div class="info-icon">🎟️</div><div class="info-val">$45</div><div class="info-lbl">Entrada General</div></div>
+        <div class="info-item"><div class="info-icon">🏁</div><div class="info-val">18</div><div class="info-lbl">Carreras</div></div>
+        <div class="info-item"><div class="info-icon">⏰</div><div class="info-val">10:30 AM</div><div class="info-lbl">Primera Carrera</div></div>
+        <div class="info-item"><div class="info-icon">👨‍👩‍👧</div><div class="info-val">100%</div><div class="info-lbl">Ambiente Familiar</div></div>
+        <div class="info-item"><div class="info-icon">🎵</div><div class="info-val">Live</div><div class="info-lbl">Música en Vivo</div></div>
+        <div class="info-item"><div class="info-icon">🌮</div><div class="info-val">Comida</div><div class="info-lbl">Y Mucho Más</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RACE CARD -->
+<section class="races-section" id="races">
+  <div class="container">
+    <div class="section-label reveal">Programa Oficial</div>
+    <div class="section-title reveal">18 Carreras</div>
+    <div class="section-sub reveal">Domingo 14 de Junio · 10:30 AM – 7:30 PM</div>
+    <div class="race-grid" id="raceGrid"></div>
+  </div>
+</section>
+
+<!-- QR CODE -->
+<section class="qr-section" id="qr">
+  <div class="container">
+    <div class="qr-wrap reveal">
+      <div>
+        <div class="section-label">Código QR · Funcional</div>
+        <div class="qr-text">
+          <h3>Escanea Para<br>Este Evento</h3>
+          <p>Comparte este código QR en redes sociales, mensajes de texto, o imprímelo en tus materiales promocionales.</p>
+          <div class="qr-url">guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html</div>
+          <div class="qr-btns">
+            <a href="infographic.html" class="btn-sm btn-sm-gold">📊 Infographic</a>
+            <a href="video-ad.html" class="btn-sm btn-sm-ghost">🎬 Video Ad</a>
+            <a href="races.html" class="btn-sm btn-sm-ghost">🏁 Programa</a>
+          </div>
+        </div>
+      </div>
+      <div class="qr-img-wrap">
+        <div class="qr-box">
+          <img id="qrImg" alt="QR Code — Carril Los Amigos Jun 14">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSOR -->
+<div class="sponsor-bar">
+  <p>Patrocinador Oficial</p>
+  <div class="sponsor-name">CarrerasOS</div>
+  <p style="margin-top:.3rem;font-size:.68rem">carrerasos.com · 970 901 1260</p>
+</div>
+
+<footer>
+  <div class="footer-logo">Carril Los Amigos</div>
+  <div class="footer-sub">Sírvase solo caliente las tortillas</div>
+  <div class="footer-links">
+    <a href="races.html">Programa Completo</a>
+    <a href="infographic.html">Infographic</a>
+    <a href="video-ad.html">Video Ad</a>
+    <a href="../../carrerasos.html">CarrerasOS</a>
+  </div>
+</footer>
+
+<script>
+// COUNTDOWN
+const EVENT_DATE = new Date('2026-06-14T10:30:00');
+function tick() {
+  const now = new Date(), diff = EVENT_DATE - now;
+  if (diff <= 0) { document.getElementById('countdown').innerHTML = '<div style="font-family:Bebas Neue,sans-serif;font-size:2rem;color:var(--gold)">¡ES HOY! 🏁</div>'; return; }
+  const d = Math.floor(diff/864e5), h = Math.floor((diff%864e5)/36e5), m = Math.floor((diff%36e5)/6e4), s = Math.floor((diff%6e4)/1e3);
+  document.getElementById('cdD').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+// QR CODE
+const SITE_URL = 'https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
+document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(SITE_URL)}&bgcolor=080808&color=F5C518&format=png&margin=10`;
+
+// MARQUEE
+const MQ_TEXT = ['JUNIO 14, 2026','18 CARRERAS','EL RUSO VS EL GRINGO','350 YARDS','BELTON, MISSOURI','$45 ENTRADA','MÚSICA EN VIVO','AMBIENTE FAMILIAR','10:30 AM','CARRIL LOS AMIGOS','COLORADO, USA'];
+const track = document.getElementById('mtrack');
+[...MQ_TEXT,...MQ_TEXT].forEach((t,i)=>{
+  const s = document.createElement('span'); s.textContent = t; track.appendChild(s);
+  const d = document.createElement('span'); d.textContent = '·'; d.className = 'dot'; track.appendChild(d);
+});
+
+// RACE GRID
+const RACES = [
+  {num:1, time:'10:30 AM',title:'Abierta 3 Años No Mechados',dist:'275 yds'},
+  {num:2, time:'11:00 AM',title:'El Ruso vs El Gringo',h1:'El Ruso · C. Hnos Olvera',h2:'El Gringo · C. 4 Ases',dist:'350 yds',featured:true},
+  {num:3, time:'11:30 AM',title:'El Texano vs El Moro Talacho',h1:'El Texano · C. Gallegos',h2:'El Moro Talacho · C. Valsequillo',dist:'150 yds'},
+  {num:4, time:'12:00 PM',title:'El Kene vs El Torpedo vs La Lucero',h1:'El Kene · C. Hnos Olvera',h2:'El Torpedo · C. Jarrocha Regreso',dist:'225 yds'},
+  {num:5, time:'12:30 PM',title:'El Fenix vs Moro Sheetrockero',h1:'El Fenix · C. Sta Barbara',h2:'Moro Sheetrockero · C. Gallegos',dist:'225 yds'},
+  {num:6, time:'1:00 PM', title:'Tapados — La Escondida vs Tres Letras',h1:'C. La Escondida',h2:'C. Tres Letras',dist:'250 yds'},
+  {num:7, time:'1:30 PM', title:'El Scorpion vs El Plebe',h1:'El Scorpion · C. Sta Rosa',h2:'El Plebe · C. Jarrocha Regreso',dist:'150–175 yds'},
+  {num:8, time:'2:00 PM', title:'La Buchona vs El Caro Quintero',h1:'La Buchona · C. Hnos Olvera',h2:'El Caro Quintero · C. Gallegos',dist:'150 yds'},
+  {num:9, time:'2:30 PM', title:'Abierta Dos Años Verdes 3 Dentro',dist:'200 yds'},
+  {num:10,time:'3:00 PM', title:'La Sanita vs La Princesa Diana',h1:'La Sanita · C. El Arenal',h2:'La Princesa Diana · C. Sta Barbara',dist:'300 yds'},
+  {num:11,time:'3:30 PM', title:'El Tyson vs Tapado',h1:'El Tyson · C. Tamaulipas',h2:'Tapado · C. Sta Rosa',dist:'275 yds'},
+  {num:12,time:'4:00 PM', title:'El Chivo vs La Dosis',h1:'El Chivo · C. Tarahumara',h2:'La Dosis · C. Veneno',dist:'250–350 yds'},
+  {num:13,time:'4:30 PM', title:'Abierta Caballos de 9+ Años 3 Dentro',dist:'200 yds'},
+  {num:14,time:'5:00 PM', title:'Abierta Caballos Locales Conocidos 6 Dentro',dist:'325 yds'},
+  {num:15,time:'5:30 PM', title:'El Coronel vs El Italiano',h1:'El Coronel · C. Tamaulipas',h2:'El Italiano · C. Ramos',dist:'150 yds'},
+  {num:16,time:'6:00 PM', title:'La Pancheta vs La Tormenta',h1:'La Pancheta · C. Sta Rosa',h2:'La Tormenta · C. Jarrocha Regreso',dist:'200 yds'},
+  {num:17,time:'6:30 PM', title:'Final Derby',dist:'250 yds'},
+  {num:18,time:'7:30 PM', title:'La Reyna Yaky vs El Dos Estados',h1:'La Reyna Yaky · C. Chavalones',h2:'El Dos Estados · C. Garrajas',dist:'250 yds'},
+];
+const grid = document.getElementById('raceGrid');
+RACES.forEach(r => {
+  const c = document.createElement('div');
+  c.className = 'race-card reveal' + (r.featured ? ' featured' : '');
+  c.innerHTML = `<div class="rc-body">
+    <div class="rc-head"><span class="rc-num">${String(r.num).padStart(2,'0')}</span><span class="rc-time">${r.time}</span><span class="rc-dist">${r.dist}</span></div>
+    <div class="rc-title">${r.title}</div>
+    ${r.h1 ? `<div class="rc-horses"><span>${r.h1}</span> vs <span>${r.h2||''}</span></div>` : ''}
+  </div>`;
+  grid.appendChild(c);
+});
+
+// PARTICLE CANVAS
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+function resize() { W = canvas.width = canvas.parentElement.clientWidth; H = canvas.height = canvas.parentElement.clientHeight; initPts(); }
+function initPts() { pts = Array.from({length:80},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4})); }
+function drawPts() {
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p => { p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1; ctx.beginPath();ctx.arc(p.x,p.y,1.5,0,Math.PI*2);ctx.fillStyle='rgba(248,197,24,.35)';ctx.fill(); });
+  pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(248,197,24,${.12*(1-d/120)})`;ctx.lineWidth=.6;ctx.stroke()}}));
+  requestAnimationFrame(drawPts);
+}
+resize(); window.addEventListener('resize',resize); drawPts();
+
+// SCROLL REVEAL
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('in')},{threshold:.08}).observe(el));
+</script>
+</body>
+</html>

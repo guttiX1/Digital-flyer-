@@ -1,0 +1,61 @@
+{
+  "event_name": "Carril Los Amigos · 18 Carreras",
+  "event_type": "Gran Carrera",
+  "slug": "carril-los-amigos-jun14",
+  "date_iso": "2026-06-14T10:30:00",
+  "date_display": "Domingo · Junio 14, 2026",
+  "venue": "Carril Los Amigos",
+  "city": "Belton, Missouri",
+  "state": "Colorado, USA",
+  "format": "18 Carreras",
+  "distance": "150–350 Yards",
+  "entry": "$45",
+  "tagline": "Entretenimiento... Más Rápido que el Viento",
+  "slogan": "Sírvase solo caliente las tortillas",
+  "phone": "970 901 1260",
+  "sponsor": "CarrerasOS",
+  "website": "carrerasos.com",
+  "first_race": "10:30 AM",
+  "last_race": "7:30 PM",
+  "horse_left": {
+    "name": "El Ruso",
+    "cuadra": "C. Hnos Olvera",
+    "tag": "El Favorito",
+    "race_num": 2
+  },
+  "horse_right": {
+    "name": "El Gringo",
+    "cuadra": "C. 4 Ases",
+    "tag": "El Retador",
+    "race_num": 2
+  },
+  "featured_race": {
+    "num": 2,
+    "time": "11:00 AM",
+    "distance": "350 yds",
+    "horse1": "El Ruso",
+    "cuadra1": "C. Hnos Olvera",
+    "horse2": "El Gringo",
+    "cuadra2": "C. 4 Ases"
+  },
+  "races": [
+    {"num":1,  "time":"10:30 AM","title":"Abierta 3 Años No Mechados","dist":"275 yds","featured":false},
+    {"num":2,  "time":"11:00 AM","title":"El Ruso vs El Gringo","h1":"El Ruso","c1":"C. Hnos Olvera","h2":"El Gringo","c2":"C. 4 Ases","dist":"350 yds","featured":true},
+    {"num":3,  "time":"11:30 AM","title":"El Texano vs El Moro Talacho","h1":"El Texano","c1":"C. Gallegos","h2":"El Moro Talacho","c2":"C. Valsequillo","dist":"150 yds","featured":false},
+    {"num":4,  "time":"12:00 PM","title":"El Kene vs El Torpedo vs La Lucero","h1":"El Kene","c1":"C. Hnos Olvera","h2":"El Torpedo","c2":"C. Jarrocha Regreso","dist":"225 yds","featured":false},
+    {"num":5,  "time":"12:30 PM","title":"El Fenix vs Moro Sheetrockero","h1":"El Fenix","c1":"C. Sta Barbara","h2":"Moro Sheetrockero","c2":"C. Gallegos","dist":"225 yds","featured":false},
+    {"num":6,  "time":"1:00 PM", "title":"Tapados — La Escondida vs Tres Letras","h1":"C. La Escondida","c1":"","h2":"C. Tres Letras","c2":"","dist":"250 yds","featured":false},
+    {"num":7,  "time":"1:30 PM", "title":"El Scorpion vs El Plebe","h1":"El Scorpion","c1":"C. Sta Rosa","h2":"El Plebe","c2":"C. Jarrocha Regreso","dist":"150–175 yds","featured":false},
+    {"num":8,  "time":"2:00 PM", "title":"La Buchona vs El Caro Quintero","h1":"La Buchona","c1":"C. Hnos Olvera","h2":"El Caro Quintero","c2":"C. Gallegos","dist":"150 yds","featured":false},
+    {"num":9,  "time":"2:30 PM", "title":"Abierta Dos Años Verdes 3 Dentro","dist":"200 yds","featured":false},
+    {"num":10, "time":"3:00 PM", "title":"La Sanita vs La Princesa Diana","h1":"La Sanita","c1":"C. El Arenal","h2":"La Princesa Diana","c2":"C. Sta Barbara","dist":"300 yds","featured":false},
+    {"num":11, "time":"3:30 PM", "title":"El Tyson vs Tapado","h1":"El Tyson","c1":"C. Tamaulipas","h2":"Tapado","c2":"C. Sta Rosa","dist":"275 yds","featured":false},
+    {"num":12, "time":"4:00 PM", "title":"El Chivo vs La Dosis","h1":"El Chivo","c1":"C. Tarahumara","h2":"La Dosis","c2":"C. Veneno","dist":"250–350 yds","featured":false},
+    {"num":13, "time":"4:30 PM", "title":"Abierta Caballos de 9+ Años 3 Dentro","dist":"200 yds","featured":false},
+    {"num":14, "time":"5:00 PM", "title":"Abierta Caballos Locales Conocidos 6 Dentro","dist":"325 yds","featured":false},
+    {"num":15, "time":"5:30 PM", "title":"El Coronel vs El Italiano","h1":"El Coronel","c1":"C. Tamaulipas","h2":"El Italiano","c2":"C. Ramos","dist":"150 yds","featured":false},
+    {"num":16, "time":"6:00 PM", "title":"La Pancheta vs La Tormenta","h1":"La Pancheta","c1":"C. Sta Rosa","h2":"La Tormenta","c2":"C. Jarrocha Regreso","dist":"200 yds","featured":false},
+    {"num":17, "time":"6:30 PM", "title":"Final Derby","dist":"250 yds","featured":false},
+    {"num":18, "time":"7:30 PM", "title":"La Reyna Yaky vs El Dos Estados","h1":"La Reyna Yaky","c1":"C. Chavalones","h2":"El Dos Estados","c2":"C. Garrajas","dist":"250 yds","featured":false}
+  ]
+}

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Ad · Carril Los Amigos · Jun 14</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--dark:#070707}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Bebas Neue',sans-serif}
+
+/* BACK LINK */
+.back-btn{position:fixed;top:1rem;left:1rem;z-index:9999;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.4rem .9rem;border-radius:8px;text-decoration:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;backdrop-filter:blur(10px)}
+
+/* PROGRESS BAR */
+.progress{position:fixed;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.1);z-index:9999}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width .1s linear}
+
+/* REPLAY */
+.replay-btn{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--gold);color:#000;border:none;border-radius:10px;padding:.6rem 1.2rem;font-family:'Inter',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;display:none;letter-spacing:.06em}
+.replay-btn:hover{opacity:.9}
+
+/* ============ SCENES ============ */
+.scene{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.scene.active{opacity:1;pointer-events:all}
+
+/* ---- SCENE 1: INTRO ---- */
+#s1{background:#000;flex-direction:column;text-align:center}
+#s1 .logo-wrap{animation:s1Anim 4s ease forwards}
+@keyframes s1Anim{0%{opacity:0;transform:scale(.7)}15%{opacity:1;transform:scale(1.05)}25%,85%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+#s1 .venue{font-size:clamp(1rem,3vw,1.6rem);letter-spacing:.2em;color:rgba(255,255,255,.5);animation:fadeDelay 4s ease forwards}
+#s1 .title{font-size:clamp(4rem,14vw,11rem);line-height:.88;color:#fff;text-shadow:0 0 80px rgba(248,197,24,.3);animation:fadeDelay 4s ease forwards}
+#s1 .title span{color:var(--gold)}
+@keyframes fadeDelay{0%,8%{opacity:0}20%,80%{opacity:1}100%{opacity:0}}
+.spark-ring{position:absolute;width:300px;height:300px;border:1px solid rgba(248,197,24,.15);border-radius:50%;animation:expandRing 4s ease forwards}
+.spark-ring:nth-child(2){width:500px;height:500px;animation-delay:.3s;border-color:rgba(248,197,24,.08)}
+.spark-ring:nth-child(3){width:700px;height:700px;animation-delay:.6s;border-color:rgba(248,197,24,.04)}
+@keyframes expandRing{0%{transform:scale(0);opacity:0}20%{transform:scale(1);opacity:1}100%{transform:scale(1.3);opacity:0}}
+
+/* ---- SCENE 2: EL RUSO — full bleed horse ---- */
+#s2{background:#000}
+#s2 .horse-fill{position:absolute;inset:0;background-image:url(flyer.jpg);
+  /* zoom into left horse: El Ruso in red jockey, top-left quadrant */
+  background-size:350%;
+  background-position:13% 5%;
+  animation:kenBurnsLeft 6s ease forwards;
+  filter:contrast(1.25) saturate(1.4) brightness(1.1)}
+@keyframes kenBurnsLeft{0%{transform:scale(1.0) translateX(0);background-position:13% 5%}100%{transform:scale(1.12) translateX(-15px);background-position:18% 8%}}
+#s2 .scene-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.1) 50%,transparent 100%)}
+#s2 .content{position:absolute;left:0;top:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(1.5rem,5vw,4rem)}
+#s2 .tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .7rem;border-radius:4px;margin-bottom:.8rem;animation:slideInLeft .5s .4s both}
+#s2 .horse-name{font-size:clamp(4rem,12vw,9rem);line-height:.88;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.8);animation:slideInLeft .5s .5s both}
+#s2 .horse-name span{color:var(--gold)}
+#s2 .cuadra{font-family:'Inter',sans-serif;font-size:clamp(.8rem,2vw,1.1rem);font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.12em;text-transform:uppercase;animation:slideInLeft .5s .65s both;margin-bottom:1rem}
+#s2 .num-badge{background:rgba(0,0,0,.5);border:1.5px solid rgba(248,197,24,.4);border-radius:8px;padding:.5rem 1rem;display:inline-block;animation:slideInLeft .5s .8s both}
+#s2 .num-badge span{font-size:.65rem;font-family:'Inter',sans-serif;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;display:block}
+#s2 .num-badge strong{font-size:1.4rem;color:var(--gold)}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+
+/* ---- SCENE 3: EL GRINGO — full bleed horse ---- */
+#s3{background:#000}
+#s3 .horse-fill{position:absolute;inset:0;background-image:url(flyer.jpg);
+  /* zoom into right horse: El Gringo */
+  background-size:350%;
+  background-position:88% 5%;
+  animation:kenBurnsRight 6s ease forwards;
+  filter:contrast(1.25) saturate(1.4) brightness(1.1)}
+@keyframes kenBurnsRight{0%{transform:scale(1.0) translateX(0);background-position:88% 5%}100%{transform:scale(1.12) translateX(15px);background-position:83% 8%}}
+#s3 .scene-overlay{position:absolute;inset:0;background:linear-gradient(270deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.1) 50%,transparent 100%)}
+#s3 .content{position:absolute;right:0;top:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:clamp(1.5rem,5vw,4rem);text-align:right}
+#s3 .tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .7rem;border-radius:4px;margin-bottom:.8rem;animation:slideInRight .5s .4s both}
+#s3 .horse-name{font-size:clamp(4rem,12vw,9rem);line-height:.88;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.8);animation:slideInRight .5s .5s both}
+#s3 .horse-name span{color:var(--gold)}
+#s3 .cuadra{font-family:'Inter',sans-serif;font-size:clamp(.8rem,2vw,1.1rem);font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.12em;text-transform:uppercase;animation:slideInRight .5s .65s both;margin-bottom:1rem}
+#s3 .num-badge{background:rgba(0,0,0,.5);border:1.5px solid rgba(248,197,24,.4);border-radius:8px;padding:.5rem 1rem;display:inline-block;animation:slideInRight .5s .8s both}
+#s3 .num-badge span{font-size:.65rem;font-family:'Inter',sans-serif;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;display:block}
+#s3 .num-badge strong{font-size:1.4rem;color:var(--gold)}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+
+/* ---- SCENE 4: VS SPLIT — BOTH HORSES FILL SCREEN ---- */
+#s4{background:#000;flex-direction:row}
+.split-left,.split-right{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+.split-left{left:0}
+.split-right{right:0}
+.split-left .hf{position:absolute;inset:0;background-image:url(flyer.jpg);background-size:350%;background-position:13% 5%;filter:contrast(1.3) saturate(1.5);animation:splitKenL 5s ease forwards}
+.split-right .hf{position:absolute;inset:0;background-image:url(flyer.jpg);background-size:350%;background-position:88% 5%;filter:contrast(1.3) saturate(1.5);animation:splitKenR 5s ease forwards}
+@keyframes splitKenL{0%{transform:scale(1.12)}100%{transform:scale(1.02)}}
+@keyframes splitKenR{0%{transform:scale(1.12)}100%{transform:scale(1.02)}}
+.split-left .grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.7) 100%)}
+.split-right .grad{position:absolute;inset:0;background:linear-gradient(270deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.7) 100%)}
+.split-left .lbl{position:absolute;bottom:2rem;left:0;right:0;text-align:center;animation:fadeUp .5s .3s both}
+.split-right .lbl{position:absolute;bottom:2rem;left:0;right:0;text-align:center;animation:fadeUp .5s .3s both}
+.split-name{font-size:clamp(2rem,6vw,5rem);color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.9);line-height:1}
+.split-cuadra{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem}
+.vs-divider{position:absolute;left:50%;top:0;bottom:0;width:4px;background:var(--gold);transform:translateX(-50%);z-index:10;box-shadow:0 0 30px rgba(248,197,24,.8)}
+.vs-center-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;text-align:center;animation:vsBadgeIn .4s .5s both}
+@keyframes vsBadgeIn{from{opacity:0;transform:translate(-50%,-50%) scale(.5)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.vs-main{font-size:clamp(3rem,10vw,7rem);color:var(--gold);line-height:1;text-shadow:0 0 60px rgba(248,197,24,.9);background:rgba(0,0,0,.7);padding:.3rem .8rem;border-radius:8px;border:2px solid rgba(248,197,24,.4)}
+.vs-sub{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.1em;text-align:center;margin-top:.3rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ---- SCENE 5: RACE HIGHLIGHTS ---- */
+#s5{background:#070707;flex-direction:column;text-align:center;padding:2rem}
+#s5 .s5-title{font-size:clamp(2rem,6vw,4rem);color:var(--gold);animation:fadeUp .4s both;margin-bottom:1rem}
+#s5 .races-flash{display:flex;flex-direction:column;gap:.4rem;max-height:70vh;overflow:hidden}
+.flash-race{font-size:clamp(.8rem,2vw,1.1rem);color:rgba(255,255,255,.7);padding:.35rem .8rem;background:rgba(255,255,255,.03);border-radius:6px;border-left:3px solid rgba(248,197,24,.3);text-align:left;display:flex;justify-content:space-between;gap:1rem;animation:flashIn .3s both}
+.flash-race.feat{border-left-color:var(--gold);background:rgba(248,197,24,.06);color:#fff}
+.flash-race span:last-child{color:rgba(255,255,255,.35);white-space:nowrap}
+@keyframes flashIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+
+/* ---- SCENE 6: EVENT DETAILS ---- */
+#s6{background:#000;flex-direction:column;text-align:center}
+#s6 .flyer-bg{position:absolute;inset:0;background-image:url(flyer.jpg);background-size:cover;background-position:center 30%;filter:brightness(.2) saturate(1.3)}
+#s6 .content{position:relative;z-index:2;padding:2rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
+#s6 .big-date{font-size:clamp(2.5rem,8vw,6rem);line-height:1;animation:zoomIn .5s both}
+#s6 .big-date span{color:var(--gold)}
+#s6 .venue-line{font-size:clamp(1rem,3vw,2rem);color:rgba(255,255,255,.7);letter-spacing:.1em;animation:zoomIn .5s .15s both}
+#s6 .entry-badge{background:var(--gold);color:#000;font-size:clamp(2.5rem,8vw,5rem);padding:.5rem 2rem;border-radius:12px;animation:zoomIn .5s .3s both;line-height:1}
+#s6 .entry-sub{font-family:'Inter',sans-serif;font-size:clamp(.8rem,2vw,1rem);font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;animation:zoomIn .5s .45s both}
+#s6 .features{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .5s .6s both}
+#s6 .feat-pill{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .9rem;color:rgba(255,255,255,.7)}
+@keyframes zoomIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+
+/* ---- SCENE 7: CTA / QR ---- */
+#s7{background:#000;flex-direction:column;text-align:center}
+#s7 .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2rem}
+#s7 .cta-title{font-size:clamp(3.5rem,12vw,8rem);line-height:.88;animation:slamIn .4s both}
+#s7 .cta-title span{color:var(--gold)}
+@keyframes slamIn{from{opacity:0;transform:scale(1.4)}to{opacity:1;transform:none}}
+#s7 .phone-num{font-size:clamp(2rem,7vw,5rem);color:var(--gold);text-shadow:0 0 40px rgba(248,197,24,.5);animation:slamIn .4s .2s both}
+#s7 .qr-wrap{background:rgba(255,255,255,.04);border:2px solid rgba(248,197,24,.3);border-radius:16px;padding:1rem;animation:fadeUp .4s .35s both}
+#s7 .qr-wrap img{display:block;width:140px;height:140px;border-radius:8px}
+#s7 .scan-text{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;margin-top:.4rem;animation:fadeUp .4s .5s both}
+#s7 .sponsor{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;animation:fadeUp .4s .65s both}
+#s7 .sponsor span{color:#00FF41}
+#s7 .bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(248,197,24,.07) 0%,transparent 65%)}
+
+/* GRAIN OVERLAY on all scenes */
+.scene::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;opacity:.6;z-index:1000}
+</style>
+</head>
+<body>
+
+<a href="site.html" class="back-btn">← Sitio del Evento</a>
+<div class="progress"><div class="progress-fill" id="progFill"></div></div>
+<button class="replay-btn" id="replayBtn" onclick="startAd()">↺ Replay</button>
+
+<!-- SCENE 1: INTRO -->
+<div class="scene" id="s1">
+  <div class="spark-ring"></div>
+  <div class="spark-ring"></div>
+  <div class="spark-ring"></div>
+  <div class="logo-wrap">
+    <div class="venue">Belton, Missouri · Colorado, USA</div>
+    <div class="title">Carril<br><span>Los Amigos</span></div>
+    <div class="venue" style="margin-top:.5rem;font-size:.9em">18 Carreras · Junio 14, 2026</div>
+  </div>
+</div>
+
+<!-- SCENE 2: EL RUSO — HORSE FILLS SCREEN -->
+<div class="scene" id="s2">
+  <div class="horse-fill"></div>
+  <div class="scene-overlay"></div>
+  <div class="content">
+    <div class="tag">El Favorito</div>
+    <div class="horse-name">El<br><span>Ruso</span></div>
+    <div class="cuadra">C. Hnos Olvera</div>
+    <div class="num-badge">
+      <span>Carrera #2 · 11:00 AM</span>
+      <strong>350 YDS</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 3: EL GRINGO — HORSE FILLS SCREEN -->
+<div class="scene" id="s3">
+  <div class="horse-fill"></div>
+  <div class="scene-overlay"></div>
+  <div class="content">
+    <div class="tag">El Retador</div>
+    <div class="horse-name">El<br><span>Gringo</span></div>
+    <div class="cuadra">C. 4 Ases</div>
+    <div class="num-badge">
+      <span>Carrera #2 · 11:00 AM</span>
+      <strong>350 YDS</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 4: VS SPLIT — BOTH HORSES FULL SCREEN -->
+<div class="scene" id="s4">
+  <div class="split-left">
+    <div class="hf"></div>
+    <div class="grad"></div>
+    <div class="lbl">
+      <div class="split-name">El Ruso</div>
+      <div class="split-cuadra">C. Hnos Olvera</div>
+    </div>
+  </div>
+  <div class="split-right">
+    <div class="hf"></div>
+    <div class="grad"></div>
+    <div class="lbl">
+      <div class="split-name">El Gringo</div>
+      <div class="split-cuadra">C. 4 Ases</div>
+    </div>
+  </div>
+  <div class="vs-divider"></div>
+  <div class="vs-center-badge">
+    <div class="vs-main">VS</div>
+    <div class="vs-sub">350 YDS · Carrera #2</div>
+  </div>
+</div>
+
+<!-- SCENE 5: RACE HIGHLIGHTS -->
+<div class="scene" id="s5">
+  <div class="s5-title">18 Carreras</div>
+  <div class="races-flash" id="racesFlash"></div>
+</div>
+
+<!-- SCENE 6: EVENT DETAILS -->
+<div class="scene" id="s6">
+  <div class="flyer-bg"></div>
+  <div class="content">
+    <div class="big-date">Domingo<br><span>14 Junio</span><br>2026</div>
+    <div class="venue-line">Belton, Missouri</div>
+    <div class="entry-badge">$45</div>
+    <div class="entry-sub">Entrada General</div>
+    <div class="features">
+      <div class="feat-pill">👨‍👩‍👧 Ambiente Familiar</div>
+      <div class="feat-pill">🎵 Música en Vivo</div>
+      <div class="feat-pill">🌮 Comida y Más</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 7: CTA -->
+<div class="scene" id="s7">
+  <div class="bg-glow"></div>
+  <div class="content">
+    <div class="cta-title">¡No<br><span>Faltes!</span></div>
+    <div class="phone-num">970 901 1260</div>
+    <div class="qr-wrap">
+      <img id="qrCta" alt="QR Code">
+    </div>
+    <div class="scan-text">Escanea para el sitio del evento</div>
+    <div class="sponsor">Patrocinador: <span>CarrerasOS</span> · carrerasos.com</div>
+  </div>
+</div>
+
+<script>
+// QR Code
+const SITE_URL = 'https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
+document.getElementById('qrCta').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(SITE_URL)}&bgcolor=000000&color=F5C518&format=png&margin=10`;
+
+// Race flash list
+const RACES_FLASH = [
+  {n:'01',t:'10:30 AM',title:'Abierta 3 Años No Mechados',d:'275 yds'},
+  {n:'02',t:'11:00 AM',title:'El Ruso vs El Gringo',d:'350 yds',feat:true},
+  {n:'03',t:'11:30 AM',title:'El Texano vs El Moro Talacho',d:'150 yds'},
+  {n:'04',t:'12:00 PM',title:'El Kene vs El Torpedo vs La Lucero',d:'225 yds'},
+  {n:'05',t:'12:30 PM',title:'El Fenix vs Moro Sheetrockero',d:'225 yds'},
+  {n:'06',t:'1:00 PM', title:'Tapados — Escondida vs Tres Letras',d:'250 yds'},
+  {n:'07',t:'1:30 PM', title:'El Scorpion vs El Plebe',d:'150–175 yds'},
+  {n:'08',t:'2:00 PM', title:'La Buchona vs El Caro Quintero',d:'150 yds'},
+  {n:'09',t:'2:30 PM', title:'Abierta Dos Años Verdes',d:'200 yds'},
+  {n:'10',t:'3:00 PM', title:'La Sanita vs La Princesa Diana',d:'300 yds'},
+  {n:'11',t:'3:30 PM', title:'El Tyson vs Tapado',d:'275 yds'},
+  {n:'12',t:'4:00 PM', title:'El Chivo vs La Dosis',d:'250–350 yds'},
+  {n:'17',t:'6:30 PM', title:'Final Derby',d:'250 yds'},
+  {n:'18',t:'7:30 PM', title:'La Reyna Yaky vs El Dos Estados',d:'250 yds'},
+];
+
+const flashEl = document.getElementById('racesFlash');
+RACES_FLASH.forEach((r,i) => {
+  const el = document.createElement('div');
+  el.className = 'flash-race' + (r.feat ? ' feat' : '');
+  el.style.animationDelay = (i * 0.08) + 's';
+  el.innerHTML = `<span>${r.n} · ${r.t} · ${r.title}</span><span>${r.d}</span>`;
+  flashEl.appendChild(el);
+});
+
+// SCENE TIMING (ms)
+const SCENES = [
+  {id:'s1', dur:4200},
+  {id:'s2', dur:5500},
+  {id:'s3', dur:5500},
+  {id:'s4', dur:5000},
+  {id:'s5', dur:5000},
+  {id:'s6', dur:5500},
+  {id:'s7', dur:8000},
+];
+const TOTAL = SCENES.reduce((a,b) => a + b.dur, 0);
+
+let adTimer = null;
+
+function clearAd() {
+  if (adTimer) { clearTimeout(adTimer); adTimer = null; }
+  document.querySelectorAll('.scene').forEach(s => {
+    s.classList.remove('active');
+    s.style.opacity = '0';
+  });
+  document.getElementById('replayBtn').style.display = 'none';
+  document.getElementById('progFill').style.width = '0';
+}
+
+function startAd() {
+  clearAd();
+  let elapsed = 0;
+  const start = performance.now();
+
+  function progressTick() {
+    const now = performance.now();
+    const pct = Math.min((now - start) / TOTAL * 100, 100);
+    document.getElementById('progFill').style.width = pct + '%';
+    if (pct < 100) requestAnimationFrame(progressTick);
+  }
+  requestAnimationFrame(progressTick);
+
+  SCENES.forEach((sc, i) => {
+    const delay = elapsed;
+    elapsed += sc.dur;
+
+    setTimeout(() => {
+      // Hide all
+      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+      // Force re-trigger animations by cloning
+      const el = document.getElementById(sc.id);
+      const clone = el.cloneNode(true);
+      el.parentNode.replaceChild(clone, el);
+      clone.id = sc.id;
+      // Restore QR if needed
+      if (sc.id === 's7') {
+        clone.querySelector('#qrCta').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(SITE_URL)}&bgcolor=000000&color=F5C518&format=png&margin=10`;
+      }
+      clone.classList.add('active');
+    }, delay);
+  });
+
+  // End
+  setTimeout(() => {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    document.getElementById('s7').classList.add('active');
+    document.getElementById('replayBtn').style.display = 'block';
+  }, elapsed);
+}
+
+startAd();
+</script>
+</body>
+</html>
