@@ -99,17 +99,19 @@ Create `events/<slug>/event.json` with all extracted data using this schema:
 }
 ```
 
-### Step 4 — Run the Generator
-```bash
-python3 generate_package.py events/<slug>/event.json
-```
-This generates the full package inside `events/<slug>/`:
+### Step 4 — Build the Package
+Generate ONLY these files inside `events/<slug>/`:
+
 | File | Description |
 |------|-------------|
-| `site.html` | Main event website (hero, details, CTA) |
-| `duel.html` | Head-to-head matchup page with images facing each other |
-| `infographic.html` | Stats comparison, race history, hype meters, countdown |
-| `video-ad.html` | Animated 30-second video ad |
+| `site.html` | Main event page — full flyer photo hero, race card, working QR code, countdown |
+| `video-ad.html` | Cinematic 30-second animated ad — horses fill 100% of screen, no borders |
+
+**NEVER generate:** infographic.html, sticker-lab, merch store, or any other page unless the user explicitly asks by name.
+
+**QR Code:** Every site.html must include a working QR code using:
+`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=<URL>&bgcolor=000000&color=F5C518`
+pointing to the live site.html URL.
 
 ### Step 5 — Commit and Push
 ```bash
@@ -119,16 +121,15 @@ git push -u origin main
 ```
 
 ### Step 6 — Report Back
-After pushing, reply with the live URLs for every generated page:
+After pushing, reply with the live URLs:
 ```
 ✅ Event package live in ~60 seconds:
-• Site:        https://guttix1.github.io/Digital-flyer-/events/<slug>/site.html
-• Duel:        https://guttix1.github.io/Digital-flyer-/events/<slug>/duel.html
-• Infographic: https://guttix1.github.io/Digital-flyer-/events/<slug>/infographic.html
-• Video Ad:    https://guttix1.github.io/Digital-flyer-/events/<slug>/video-ad.html
+• Site:      https://guttix1.github.io/Digital-flyer-/events/<slug>/site.html
+• Video Ad:  https://guttix1.github.io/Digital-flyer-/events/<slug>/video-ad.html
 ```
 
 ### Notes
-- If the flyer is a multi-race event (not head-to-head), skip `duel.html` and generate `races.html` instead listing each race card.
-- If horse stats/records are not visible in the flyer, use reasonable placeholder values and note that they need to be verified.
-- Always use the **Pista Noir** design system (black bg, `#F5C518` gold accent, `-apple-system` font, glassmorphism cards).
+- If the flyer is a multi-race event, include the full race card inside site.html (not a separate page).
+- Flyer photo must be visible in the hero at real brightness — never dim below brightness(0.4).
+- Horses in video-ad.html must fill the entire viewport: use `background-size: 400%` with targeted `background-position` per horse.
+- Always use the **Pista Noir** design system (black bg, `#F5C518` gold accent, `Bebas Neue` font).
