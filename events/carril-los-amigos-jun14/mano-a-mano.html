@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Ruso vs El Gringo · Mano a Mano · Jun 14</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518;--gold2:#FFB800}
+body{
+  background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;
+  font-family:'Bebas Neue',sans-serif;
+  padding:1rem;
+}
+
+/* ── GRAIN FILTER ── */
+.grain{
+  position:absolute;inset:0;pointer-events:none;z-index:100;opacity:.038;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  border-radius:inherit;
+}
+
+/* ── POSTER ── */
+.poster{
+  position:relative;
+  width:min(460px,100vw);
+  aspect-ratio:9/16;
+  overflow:hidden;
+  border-radius:4px;
+  box-shadow:
+    0 0 0 1px rgba(245,197,24,.2),
+    0 0 80px rgba(245,197,24,.08),
+    0 60px 180px rgba(0,0,0,.95);
+  background:#000;
+}
+
+/* ── TOP BAR ── */
+.top-bar{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:20}
+.bot-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:20}
+
+/* ── SPLIT PHOTOS ── */
+/* Left half — El Ruso */
+.left-half{
+  position:absolute;top:0;bottom:0;left:0;width:50%;
+  overflow:hidden;
+}
+.left-half .photo{
+  position:absolute;inset:0;
+  background:url(flyer.jpg) 12% 4% / 340% no-repeat;
+  filter:contrast(1.3) saturate(1.5) brightness(.92);
+  transform-origin:center center;
+}
+.left-half .grad{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.7) 0%,
+    rgba(0,0,0,.2) 40%,
+    rgba(0,0,0,.55) 100%
+  );
+}
+/* warm tint on El Ruso side */
+.left-half .tint{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(245,197,24,.06) 0%,transparent 60%);
+}
+
+/* Right half — El Gringo */
+.right-half{
+  position:absolute;top:0;bottom:0;right:0;width:50%;
+  overflow:hidden;
+}
+.right-half .photo{
+  position:absolute;inset:0;
+  background:url(flyer.jpg) 88% 4% / 340% no-repeat;
+  filter:contrast(1.3) saturate(1.5) brightness(.92);
+}
+.right-half .grad{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    270deg,
+    rgba(0,0,0,.7) 0%,
+    rgba(0,0,0,.2) 40%,
+    rgba(0,0,0,.55) 100%
+  );
+}
+.right-half .tint{
+  position:absolute;inset:0;
+  background:linear-gradient(225deg,rgba(245,197,24,.06) 0%,transparent 60%);
+}
+
+/* ── HEAVY OVERLAYS for top/bottom content areas ── */
+.top-overlay{
+  position:absolute;top:0;left:0;right:0;height:24%;
+  background:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.7) 70%,transparent 100%);
+  z-index:5;
+}
+.bottom-overlay{
+  position:absolute;bottom:0;left:0;right:0;height:30%;
+  background:linear-gradient(0deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.8) 65%,transparent 100%);
+  z-index:5;
+}
+
+/* ── CENTER GLOW (behind VS) ── */
+.center-glow{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:200px;height:60%;
+  background:radial-gradient(ellipse at center,rgba(245,197,24,.18) 0%,rgba(245,197,24,.06) 30%,transparent 70%);
+  z-index:6;pointer-events:none;
+}
+
+/* ── VERTICAL DIVIDER ── */
+.divider{
+  position:absolute;top:16%;bottom:22%;
+  left:50%;transform:translateX(-50%);
+  width:2px;
+  background:linear-gradient(180deg,transparent,rgba(245,197,24,.9) 20%,var(--gold) 50%,rgba(245,197,24,.9) 80%,transparent);
+  box-shadow:0 0 20px rgba(245,197,24,.8),0 0 60px rgba(245,197,24,.4);
+  z-index:10;
+}
+
+/* ── TOP CONTENT ── */
+.top-content{
+  position:absolute;top:0;left:0;right:0;height:24%;
+  z-index:15;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(.7rem,2.2vw,1rem) clamp(.7rem,2.2vw,1rem) 0;
+  text-align:center;
+}
+.tc-eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.35rem,1.05vw,.52rem);
+  font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  margin-bottom:clamp(.2rem,.7vw,.32rem);
+}
+.tc-event{
+  font-size:clamp(1.2rem,4vw,1.9rem);
+  letter-spacing:.06em;
+  color:#fff;
+  text-shadow:0 2px 20px rgba(0,0,0,1);
+  line-height:1;
+}
+.tc-event em{color:var(--gold);font-style:normal}
+.tc-sub{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.32rem,1vw,.46rem);
+  font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  margin-top:clamp(.2rem,.7vw,.3rem);
+}
+.tc-rule{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(245,197,24,.5),transparent);
+  margin:clamp(.25rem,.8vw,.38rem) auto;
+}
+.tc-tagline{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.35rem,1.1vw,.5rem);
+  font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  opacity:.8;
+}
+
+/* ── HORSE NAMES (on photo area) ── */
+.names-layer{
+  position:absolute;
+  /* sits in lower portion of photo area */
+  top:22%;bottom:24%;
+  left:0;right:0;
+  z-index:12;
+  pointer-events:none;
+}
+/* El Ruso name — bottom left */
+.name-left{
+  position:absolute;
+  bottom:clamp(.8rem,2.5vw,1.2rem);
+  left:0;
+  padding:0 0 0 clamp(.6rem,1.8vw,.9rem);
+  max-width:48%;
+}
+.name-tag{
+  display:inline-block;
+  background:var(--gold);color:#000;
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.3rem,.9vw,.42rem);font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  padding:.15rem .5rem;border-radius:3px;
+  margin-bottom:clamp(.15rem,.5vw,.25rem);
+}
+.horse-name{
+  font-size:clamp(1.6rem,5.5vw,2.7rem);
+  line-height:.85;color:#fff;
+  text-shadow:
+    0 0 60px rgba(0,0,0,1),
+    0 4px 30px rgba(0,0,0,1),
+    0 0 120px rgba(0,0,0,.8);
+  letter-spacing:.04em;
+}
+.horse-name em{color:var(--gold);font-style:normal;display:block}
+.horse-cuadra{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.3rem,.9vw,.42rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  margin-top:clamp(.15rem,.5vw,.25rem);
+}
+
+/* El Gringo name — bottom right */
+.name-right{
+  position:absolute;
+  bottom:clamp(.8rem,2.5vw,1.2rem);
+  right:0;
+  padding:0 clamp(.6rem,1.8vw,.9rem) 0 0;
+  max-width:48%;
+  text-align:right;
+}
+.name-right .horse-name{text-align:right}
+.name-right .name-tag{float:right}
+.name-right .horse-cuadra{text-align:right}
+
+/* ── VS DIAMOND ── */
+.vs-wrap{
+  position:absolute;
+  top:22%;bottom:24%;
+  left:50%;transform:translateX(-50%);
+  z-index:20;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;
+  gap:clamp(.2rem,.7vw,.35rem);
+}
+.vs-diamond{
+  position:relative;
+  width:clamp(44px,12vw,60px);
+  height:clamp(44px,12vw,60px);
+  background:#000;
+  border:2px solid rgba(245,197,24,.8);
+  transform:rotate(45deg);
+  box-shadow:
+    0 0 20px rgba(245,197,24,.7),
+    0 0 50px rgba(245,197,24,.35),
+    inset 0 0 12px rgba(245,197,24,.08);
+  flex-shrink:0;
+}
+.vs-diamond-inner{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  transform:rotate(-45deg);
+}
+.vs-text{
+  font-size:clamp(.9rem,2.8vw,1.4rem);
+  color:var(--gold);
+  text-shadow:0 0 20px rgba(245,197,24,.9),0 0 50px rgba(245,197,24,.4);
+  line-height:1;
+  letter-spacing:.02em;
+}
+.vs-dist-label{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.28rem,.85vw,.4rem);
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  text-align:center;
+  background:rgba(0,0,0,.7);
+  border:1px solid rgba(245,197,24,.18);
+  border-radius:4px;
+  padding:.2rem .5rem;
+}
+
+/* ── BOTTOM CONTENT ── */
+.bottom-content{
+  position:absolute;bottom:0;left:0;right:0;height:30%;
+  z-index:15;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 clamp(.8rem,2.5vw,1.1rem) clamp(.55rem,1.8vw,.8rem);
+  gap:clamp(.3rem,1vw,.45rem);
+}
+
+/* Mano a Mano headline */
+.mam-headline{
+  text-align:center;
+  font-size:clamp(.8rem,2.8vw,1.35rem);
+  letter-spacing:.22em;
+  color:#fff;
+  text-shadow:0 2px 20px rgba(0,0,0,1);
+  line-height:1;
+}
+.mam-headline em{color:var(--gold);font-style:normal}
+
+/* Race details */
+.race-detail-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(.4rem,1.3vw,.65rem);
+}
+.rdb-chip{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(245,197,24,.2);
+  border-radius:6px;
+  padding:clamp(.22rem,.75vw,.35rem) clamp(.45rem,1.4vw,.65rem);
+}
+.rdb-chip span{font-family:'Inter',sans-serif;font-size:clamp(.27rem,.85vw,.38rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.rdb-chip strong{font-size:clamp(.65rem,2.1vw,1rem);color:var(--gold);line-height:1}
+
+/* Date + Location */
+.date-loc{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.3rem;
+}
+.date-block{}
+.date-main{
+  font-size:clamp(.9rem,3vw,1.45rem);
+  line-height:.9;color:#fff;
+  text-shadow:0 2px 16px rgba(0,0,0,.9);
+}
+.date-main em{color:var(--gold);font-style:normal}
+.date-loc-text{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.28rem,.88vw,.4rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+  margin-top:.15rem;
+}
+
+/* Price */
+.price-badge{
+  background:var(--gold);color:#000;
+  font-size:clamp(1.1rem,3.6vw,1.75rem);
+  padding:clamp(.12rem,.4vw,.22rem) clamp(.5rem,1.6vw,.75rem);
+  border-radius:6px;
+  box-shadow:0 0 25px rgba(245,197,24,.35);
+  line-height:1.05;
+  text-align:center;
+  flex-shrink:0;
+}
+.price-sub{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.25rem,.75vw,.34rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.65);
+  display:block;margin-top:.1rem;
+}
+
+/* Divider rule */
+.hr{height:1px;background:rgba(255,255,255,.06);margin:0 -.1rem}
+
+/* QR row */
+.qr-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.4rem;
+}
+.phone-block{}
+.phone-num{
+  font-size:clamp(.82rem,2.7vw,1.3rem);
+  color:var(--gold);
+  text-shadow:0 0 20px rgba(245,197,24,.4);
+  letter-spacing:.04em;
+  line-height:1;
+}
+.phone-label{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.26rem,.82vw,.36rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.22);
+  margin-top:.12rem;
+}
+.qr-block{
+  display:flex;align-items:center;gap:clamp(.25rem,.8vw,.4rem);
+}
+.qr-block img{
+  width:clamp(44px,12vw,60px);height:clamp(44px,12vw,60px);
+  border-radius:5px;border:1.5px solid rgba(245,197,24,.35);
+  display:block;
+}
+.scan-label{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.26rem,.82vw,.36rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+  text-align:right;line-height:1.4;
+}
+
+/* Sponsor */
+.sponsor{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.25rem,.78vw,.35rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.15);
+  text-align:center;
+}
+.sponsor em{color:#00FF41;font-style:normal}
+
+/* ── PAGE ── */
+.back-links{
+  display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;
+  margin-top:.75rem;
+}
+.back-links a{
+  font-family:'Inter',sans-serif;
+  font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(245,197,24,.5);text-decoration:none;
+  background:rgba(245,197,24,.05);border:1px solid rgba(245,197,24,.15);
+  padding:.28rem .7rem;border-radius:6px;transition:all .15s;
+}
+.back-links a:hover{background:rgba(245,197,24,.1);color:var(--gold)}
+.page-bg{
+  position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 50% 40%,rgba(245,197,24,.04) 0%,transparent 55%);
+}
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+
+<div class="poster">
+  <div class="grain"></div>
+  <div class="top-bar"></div>
+  <div class="bot-bar"></div>
+
+  <!-- SPLIT PHOTOS -->
+  <div class="left-half">
+    <div class="photo"></div>
+    <div class="grad"></div>
+    <div class="tint"></div>
+  </div>
+  <div class="right-half">
+    <div class="photo"></div>
+    <div class="grad"></div>
+    <div class="tint"></div>
+  </div>
+
+  <!-- OVERLAYS -->
+  <div class="top-overlay"></div>
+  <div class="bottom-overlay"></div>
+  <div class="center-glow"></div>
+  <div class="divider"></div>
+
+  <!-- TOP CONTENT -->
+  <div class="top-content">
+    <div class="tc-eyebrow">Carril Los Amigos · Belton, Missouri</div>
+    <div class="tc-event">Gran <em>Carrera</em></div>
+    <div class="tc-sub">Domingo · 14 de Junio · 2026</div>
+    <div class="tc-rule"></div>
+    <div class="tc-tagline">El Duelo Más Esperado del Año</div>
+  </div>
+
+  <!-- HORSE NAMES -->
+  <div class="names-layer">
+    <!-- El Ruso -->
+    <div class="name-left">
+      <div class="name-tag">El Favorito</div>
+      <div class="horse-name">El<em>Ruso</em></div>
+      <div class="horse-cuadra">C. Hnos Olvera</div>
+    </div>
+    <!-- El Gringo -->
+    <div class="name-right">
+      <div class="name-tag">El Retador</div>
+      <div class="horse-name">El<em>Gringo</em></div>
+      <div class="horse-cuadra">C. 4 Ases</div>
+    </div>
+  </div>
+
+  <!-- VS DIAMOND -->
+  <div class="vs-wrap">
+    <div class="vs-diamond">
+      <div class="vs-diamond-inner">
+        <div class="vs-text">VS</div>
+      </div>
+    </div>
+    <div class="vs-dist-label">350 YDS</div>
+  </div>
+
+  <!-- BOTTOM CONTENT -->
+  <div class="bottom-content">
+    <div class="mam-headline"><em>Mano a Mano</em> · Carrera Estelar</div>
+
+    <div class="race-detail-bar">
+      <div class="rdb-chip">
+        <span>Carrera</span>
+        <strong>#2</strong>
+      </div>
+      <div class="rdb-chip">
+        <span>Hora</span>
+        <strong>11:00 AM</strong>
+      </div>
+      <div class="rdb-chip">
+        <span>Distancia</span>
+        <strong>350 YDS</strong>
+      </div>
+      <div class="rdb-chip">
+        <span>Carreras</span>
+        <strong>18 Total</strong>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="date-loc">
+      <div class="date-block">
+        <div class="date-main">Dom · <em>14 Jun</em> · 2026</div>
+        <div class="date-loc-text">📍 Belton, Missouri · 10:30 AM</div>
+      </div>
+      <div class="price-badge">
+        $45
+        <span class="price-sub">Entrada</span>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="qr-row">
+      <div class="phone-block">
+        <div class="phone-num">970 901 1260</div>
+        <div class="phone-label">Info y boletos</div>
+      </div>
+      <div class="qr-block">
+        <div class="scan-label">Escanea<br>el sitio</div>
+        <img id="qrImg" alt="QR">
+      </div>
+    </div>
+
+    <div class="sponsor">Patrocinador: <em>CarrerasOS</em> · carrerasos.com</div>
+  </div>
+</div>
+
+<div class="back-links">
+  <a href="site.html">🏠 Sitio</a>
+  <a href="flyer-digital.html">📋 Flyer</a>
+  <a href="races.html">🏁 Programa</a>
+  <a href="video-ad.html">▶ Video</a>
+</div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
+document.getElementById('qrImg').src=
+  `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(SITE)}&bgcolor=000000&color=F5C518&format=png&margin=6`;
+</script>
+</body>
+</html>
