@@ -429,8 +429,18 @@ function tick(){
   if(paused)return;
   const dt=performance.now()-startT;
   const dur=SCENES[cur].dur;
+  const isLast=cur===SCENES.length-1;
   document.getElementById('pfill').style.width=Math.min(dt/dur*100,100)+'%';
-  if(dt>=dur){goTo((cur+1)%SCENES.length);}
+  if(dt>=dur){
+    if(isLast){
+      // stop on QR scene — fill bar and freeze
+      document.getElementById('pfill').style.width='100%';
+      document.getElementById('playBtn').textContent='▶';
+      paused=true;
+      return;
+    }
+    goTo(cur+1);
+  }
   else{raf=requestAnimationFrame(tick);}
 }
 
