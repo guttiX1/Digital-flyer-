@@ -7,17 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#F5C518;--black:#0a0a0a}
+:root{--gold:#F5C518;--black:#0d0d0d}
 body{
-  background:#e8e8e8;
+  background:#d0d0d0;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-height:100vh;font-family:'Bebas Neue',sans-serif;padding:1rem;
-}
-
-.grain{
-  position:absolute;inset:0;pointer-events:none;z-index:200;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:180px 180px;border-radius:inherit;
 }
 
 /* ── POSTER ── */
@@ -28,130 +22,121 @@ body{
   overflow:hidden;border-radius:4px;
   background:#fff;
   box-shadow:
-    0 0 0 1px rgba(245,197,24,.35),
-    0 0 60px rgba(0,0,0,.12),
-    0 40px 140px rgba(0,0,0,.25);
+    0 0 0 1px rgba(245,197,24,.4),
+    0 20px 60px rgba(0,0,0,.22),
+    0 60px 160px rgba(0,0,0,.18);
 }
 
 /* Gold accent bars */
-.top-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);box-shadow:0 0 12px rgba(245,197,24,.6);z-index:100}
-.bot-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--gold);box-shadow:0 0 12px rgba(245,197,24,.6);z-index:100}
+.top-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);z-index:100;box-shadow:0 0 12px rgba(245,197,24,.5)}
+.bot-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--gold);z-index:100;box-shadow:0 0 12px rgba(245,197,24,.5)}
 
-/* ── PHOTO PANELS ── */
-.panel-left{
-  position:absolute;top:0;bottom:0;left:0;width:50%;
-  overflow:hidden;background:#fff;
+/* ── LEFT PANEL (black horse h1.jpg) ── */
+.panel-l{
+  position:absolute;
+  /* photo zone — sits between top header and bottom details */
+  top:21%;bottom:27%;
+  left:0;width:50%;
+  overflow:visible;
 }
-.panel-left .photo{
-  position:absolute;inset:0;
-  background:url(flyer.jpg) 12% 4%/340% no-repeat;
-  filter:contrast(1.25) saturate(1.4) brightness(1.05);
-}
-.panel-left .vign{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.55) 22%, rgba(255,255,255,.08) 50%, transparent 65%),
-    linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.4) 18%, transparent 42%),
-    linear-gradient(0deg,   rgba(255,255,255,.96) 0%, rgba(255,255,255,.4) 18%, transparent 42%),
-    linear-gradient(270deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,.3) 25%, transparent 52%);
+.panel-l .horse{
+  position:absolute;
+  inset:-4% -10% -4% -18%;
+  background:url(h1.jpg) 60% 12%/contain no-repeat #fff;
+  transform:scaleX(-1); /* flip to face right/center */
+  filter:brightness(.95) contrast(1.08) saturate(1.1);
 }
 
-.panel-right{
-  position:absolute;top:0;bottom:0;right:0;width:50%;
-  overflow:hidden;background:#fff;
+/* ── RIGHT PANEL (grey horse h2.jpg) ── */
+.panel-r{
+  position:absolute;
+  top:21%;bottom:27%;
+  right:0;width:50%;
+  overflow:visible;
 }
-.panel-right .photo{
-  position:absolute;inset:0;
-  background:url(flyer.jpg) 88% 4%/340% no-repeat;
-  filter:contrast(1.25) saturate(1.4) brightness(1.05);
-}
-.panel-right .vign{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(270deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.55) 22%, rgba(255,255,255,.08) 50%, transparent 65%),
-    linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.4) 18%, transparent 42%),
-    linear-gradient(0deg,   rgba(255,255,255,.96) 0%, rgba(255,255,255,.4) 18%, transparent 42%),
-    linear-gradient(90deg,  rgba(255,255,255,.82) 0%, rgba(255,255,255,.3) 25%, transparent 52%);
+.panel-r .horse{
+  position:absolute;
+  inset:-4% -18% -4% -10%;
+  background:url(h2.jpg) 40% 12%/contain no-repeat #fff;
+  transform:scaleX(-1); /* flip to face left/center */
+  filter:brightness(.93) contrast(1.1) saturate(1.08);
 }
 
-/* ── TOP / BOTTOM WHITE ZONES ── */
-.z-top{
-  position:absolute;top:0;left:0;right:0;height:24%;z-index:20;
-  background:linear-gradient(180deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.82) 55%,transparent 100%);
+/* Clip panels so overflow doesn't show outside poster */
+.panel-clip-l{
+  position:absolute;top:21%;bottom:27%;left:0;width:50%;overflow:hidden;pointer-events:none;
 }
-.z-bot{
-  position:absolute;bottom:0;left:0;right:0;height:31%;z-index:20;
-  background:linear-gradient(0deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.88) 55%,transparent 100%);
+.panel-clip-r{
+  position:absolute;top:21%;bottom:27%;right:0;width:50%;overflow:hidden;pointer-events:none;
 }
 
-/* ── CENTER GLOW + DIVIDER ── */
+/* ── GOLD DIVIDER ── */
+.divider{
+  position:absolute;top:20%;bottom:26%;
+  left:50%;transform:translateX(-50%);
+  width:2.5px;z-index:40;
+  background:linear-gradient(180deg,
+    transparent 0%,rgba(245,197,24,.6) 8%,
+    var(--gold) 25%,var(--gold) 75%,
+    rgba(245,197,24,.6) 92%,transparent 100%);
+  box-shadow:0 0 12px rgba(245,197,24,.7),0 0 30px rgba(245,197,24,.3);
+}
+
+/* Light center glow on white */
 .center-glow{
-  position:absolute;top:18%;bottom:24%;
+  position:absolute;top:20%;bottom:26%;
   left:50%;transform:translateX(-50%);width:100px;
-  background:radial-gradient(ellipse at center,rgba(245,197,24,.22) 0%,rgba(245,197,24,.08) 40%,transparent 72%);
+  background:radial-gradient(ellipse at center,rgba(245,197,24,.15) 0%,transparent 70%);
   z-index:18;pointer-events:none;
 }
-.divider{
-  position:absolute;top:17%;bottom:24%;
-  left:50%;transform:translateX(-50%);
-  width:2.5px;z-index:30;
-  background:linear-gradient(180deg,
-    transparent 0%,rgba(245,197,24,.7) 8%,
-    var(--gold) 28%,var(--gold) 72%,
-    rgba(245,197,24,.7) 92%,transparent 100%);
-  box-shadow:0 0 14px rgba(245,197,24,.8),0 0 40px rgba(245,197,24,.3);
-}
 
-/* ── TOP CONTENT ── */
+/* ── TOP HEADER ── */
 .top-content{
-  position:absolute;top:0;left:0;right:0;height:24%;
-  z-index:40;
+  position:absolute;top:0;left:0;right:0;height:22%;
+  z-index:50;background:#fff;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:clamp(.5rem,1.6vw,.8rem);
-  text-align:center;gap:clamp(.1rem,.4vw,.2rem);
+  text-align:center;
+  gap:clamp(.1rem,.4vw,.2rem);
+  border-bottom:1px solid rgba(0,0,0,.06);
 }
 .tc-org{
   font-family:'Inter',sans-serif;
   font-size:clamp(.3rem,.92vw,.46rem);
   font-weight:700;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(0,0,0,.3);
+  color:rgba(0,0,0,.28);
 }
 .tc-pre{
   font-family:'Inter',sans-serif;
   font-size:clamp(.28rem,.85vw,.42rem);
   font-weight:800;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(245,197,24,.85);
+  color:rgba(245,197,24,.9);
 }
 .tc-ttl{
   font-size:clamp(1.3rem,4.2vw,2rem);
-  letter-spacing:.07em;line-height:.92;
-  color:var(--black);
+  letter-spacing:.07em;line-height:.92;color:var(--black);
 }
 .tc-ttl em{color:var(--gold);font-style:normal}
-.tc-rule{
-  width:44px;height:1.5px;
-  background:linear-gradient(90deg,transparent,rgba(245,197,24,.6),transparent);
-  margin:.1rem auto;
-}
+.tc-rule{width:44px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(245,197,24,.5),transparent);margin:.1rem auto}
 .tc-tag{
   font-family:'Inter',sans-serif;
   font-size:clamp(.28rem,.85vw,.42rem);
   font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(0,0,0,.38);font-style:italic;
+  color:rgba(0,0,0,.35);font-style:italic;
 }
 
-/* ── HORSE NAMES ── */
+/* ── HORSE NAMES (over photo zone) ── */
 .names{
-  position:absolute;top:22%;bottom:25%;
-  left:0;right:0;z-index:35;pointer-events:none;
+  position:absolute;top:21%;bottom:27%;
+  left:0;right:0;z-index:45;pointer-events:none;
 }
 .nm-l{
-  position:absolute;bottom:clamp(.5rem,1.6vw,.85rem);
-  left:clamp(.45rem,1.4vw,.75rem);max-width:47%;
+  position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);
+  left:clamp(.4rem,1.3vw,.65rem);max-width:46%;
 }
 .nm-r{
-  position:absolute;bottom:clamp(.5rem,1.6vw,.85rem);
-  right:clamp(.45rem,1.4vw,.75rem);max-width:47%;text-align:right;
+  position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);
+  right:clamp(.4rem,1.3vw,.65rem);max-width:46%;text-align:right;
 }
 .nm-tag{
   display:inline-block;
@@ -163,37 +148,37 @@ body{
 }
 .nm-r .nm-tag{float:right;clear:both}
 .nm-horse{
-  font-size:clamp(1.45rem,4.8vw,2.35rem);
-  line-height:.84;color:#fff;
-  text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 50px rgba(0,0,0,.8);
+  font-size:clamp(1.4rem,4.6vw,2.25rem);
+  line-height:.84;color:var(--black);
   letter-spacing:.04em;
+  text-shadow:0 2px 12px rgba(255,255,255,.8),0 0 30px rgba(255,255,255,.9);
 }
 .nm-horse em{color:var(--gold);font-style:normal;display:block}
 .nm-cuad{
   display:block;clear:both;
   font-family:'Inter',sans-serif;
   font-size:clamp(.25rem,.78vw,.36rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(255,255,255,.55);
+  color:rgba(0,0,0,.38);
   margin-top:clamp(.1rem,.35vw,.16rem);
 }
 
 /* ── VS DIAMOND ── */
 .vs-wrap{
-  position:absolute;top:22%;bottom:25%;
+  position:absolute;top:21%;bottom:27%;
   left:50%;transform:translateX(-50%);
-  z-index:40;pointer-events:none;
+  z-index:50;pointer-events:none;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:clamp(.16rem,.55vw,.28rem);
 }
 .vs-diamond{
-  width:clamp(40px,11vw,56px);height:clamp(40px,11vw,56px);
+  width:clamp(42px,11.5vw,58px);height:clamp(42px,11.5vw,58px);
   background:var(--black);
   border:2px solid rgba(245,197,24,.9);
   transform:rotate(45deg);flex-shrink:0;
   box-shadow:
-    0 0 14px rgba(245,197,24,.7),
-    0 0 40px rgba(245,197,24,.3),
-    inset 0 0 8px rgba(245,197,24,.06);
+    0 0 16px rgba(245,197,24,.65),
+    0 0 45px rgba(245,197,24,.25),
+    0 4px 20px rgba(0,0,0,.25);
 }
 .vs-diamond-inner{
   position:absolute;inset:0;
@@ -203,98 +188,92 @@ body{
 .vs-t{
   font-size:clamp(.85rem,2.6vw,1.3rem);
   color:var(--gold);
-  text-shadow:0 0 16px rgba(245,197,24,.9),0 0 35px rgba(245,197,24,.4);
+  text-shadow:0 0 14px rgba(245,197,24,.9);
   line-height:1;
 }
 .vs-dist{
   font-family:'Inter',sans-serif;
   font-size:clamp(.24rem,.74vw,.36rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(0,0,0,.5);
-  background:rgba(255,255,255,.75);
-  border:1px solid rgba(245,197,24,.3);
+  color:rgba(0,0,0,.45);
+  background:rgba(245,197,24,.12);
+  border:1px solid rgba(245,197,24,.35);
   border-radius:4px;padding:.16rem .42rem;text-align:center;
 }
 
-/* ── BOTTOM CONTENT ── */
+/* ── BOTTOM DETAILS ── */
 .bot-content{
-  position:absolute;bottom:0;left:0;right:0;height:31%;
-  z-index:40;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:0 clamp(.7rem,2.2vw,1rem) clamp(.45rem,1.5vw,.75rem);
-  gap:clamp(.26rem,.85vw,.4rem);
+  position:absolute;bottom:0;left:0;right:0;height:28%;
+  z-index:50;background:#fff;
+  border-top:1px solid rgba(0,0,0,.06);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(.7rem,2.2vw,1rem) clamp(.4rem,1.3vw,.65rem);
+  gap:clamp(.24rem,.78vw,.38rem);
 }
 .mam-hl{
   text-align:center;
   font-size:clamp(.82rem,2.7vw,1.32rem);
-  letter-spacing:.2em;color:var(--black);
-  line-height:1;
+  letter-spacing:.2em;color:var(--black);line-height:1;
 }
 .mam-hl em{color:var(--gold);font-style:normal}
 
-.chips{display:flex;align-items:center;justify-content:center;gap:clamp(.28rem,.9vw,.45rem)}
+.chips{display:flex;align-items:center;justify-content:center;gap:clamp(.25rem,.82vw,.42rem)}
 .chip{
   display:flex;flex-direction:column;align-items:center;
-  background:rgba(0,0,0,.04);border:1px solid rgba(245,197,24,.3);
+  background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.28);
   border-radius:5px;
-  padding:clamp(.18rem,.6vw,.3rem) clamp(.36rem,1.2vw,.55rem);
+  padding:clamp(.16rem,.55vw,.28rem) clamp(.32rem,1.1vw,.52rem);
 }
-.chip span{font-family:'Inter',sans-serif;font-size:clamp(.23rem,.72vw,.34rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)}
+.chip span{font-family:'Inter',sans-serif;font-size:clamp(.22rem,.7vw,.33rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)}
 .chip strong{font-size:clamp(.6rem,1.9vw,.92rem);color:var(--black);line-height:1}
 
-.hr{height:1px;background:rgba(0,0,0,.08)}
+.hr{height:1px;background:rgba(0,0,0,.07)}
 
 .date-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
-.date-block .dm{
-  font-size:clamp(.88rem,2.8vw,1.35rem);
-  line-height:.9;color:var(--black);letter-spacing:.03em;
-}
+.date-block .dm{font-size:clamp(.85rem,2.8vw,1.35rem);line-height:.9;color:var(--black);letter-spacing:.03em}
 .date-block .dm em{color:var(--gold);font-style:normal}
 .date-block .dl{
   font-family:'Inter',sans-serif;
-  font-size:clamp(.25rem,.78vw,.36rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(0,0,0,.35);margin-top:clamp(.08rem,.3vw,.14rem);
+  font-size:clamp(.24rem,.76vw,.35rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.32);margin-top:clamp(.07rem,.25vw,.12rem);
 }
 .price{
   background:var(--gold);color:#000;flex-shrink:0;
   font-size:clamp(1.05rem,3.4vw,1.65rem);
   padding:clamp(.1rem,.35vw,.2rem) clamp(.48rem,1.5vw,.7rem);
   border-radius:6px;line-height:1.05;text-align:center;
-  box-shadow:0 4px 18px rgba(245,197,24,.35);
+  box-shadow:0 4px 16px rgba(245,197,24,.3);
 }
 .price span{
   display:block;font-family:'Inter',sans-serif;
-  font-size:clamp(.23rem,.7vw,.32rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(.22rem,.68vw,.31rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;
   color:rgba(0,0,0,.55);margin-top:.06rem;
 }
 
 .qr-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
-.phone .pn{
-  font-size:clamp(.8rem,2.6vw,1.25rem);
-  color:var(--black);letter-spacing:.04em;line-height:1;
-}
+.phone .pn{font-size:clamp(.78rem,2.5vw,1.22rem);color:var(--black);letter-spacing:.04em;line-height:1}
 .phone .pl{
   font-family:'Inter',sans-serif;
-  font-size:clamp(.23rem,.72vw,.33rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(0,0,0,.3);margin-top:.1rem;
+  font-size:clamp(.22rem,.7vw,.32rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,0,0,.28);margin-top:.1rem;
 }
-.qr-unit{display:flex;align-items:center;gap:clamp(.18rem,.6vw,.3rem)}
-.qr-unit img{width:clamp(40px,11vw,55px);height:clamp(40px,11vw,55px);border-radius:5px;border:1.5px solid rgba(245,197,24,.45);display:block;background:#fff}
+.qr-unit{display:flex;align-items:center;gap:clamp(.16rem,.55vw,.28rem)}
+.qr-unit img{width:clamp(40px,11vw,54px);height:clamp(40px,11vw,54px);border-radius:5px;border:1.5px solid rgba(245,197,24,.4);display:block}
 .scan{
   font-family:'Inter',sans-serif;
-  font-size:clamp(.22rem,.68vw,.32rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(0,0,0,.3);text-align:right;line-height:1.5;
+  font-size:clamp(.21rem,.66vw,.31rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.28);text-align:right;line-height:1.5;
 }
 .sponsor{
   text-align:center;font-family:'Inter',sans-serif;
-  font-size:clamp(.22rem,.68vw,.32rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(0,0,0,.2);
+  font-size:clamp(.21rem,.66vw,.31rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,0,0,.18);
 }
 .sponsor em{color:#009933;font-style:normal}
 
 /* page */
-.page-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(245,197,24,.08) 0%,transparent 60%)}
+.page-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(245,197,24,.06) 0%,transparent 60%)}
 .links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-top:.7rem}
-.links a{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.4);text-decoration:none;background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.12);padding:.26rem .62rem;border-radius:6px;transition:all .15s}
+.links a{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.4);text-decoration:none;background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.12);padding:.26rem .62rem;border-radius:6px;transition:all .15s}
 .links a:hover{background:rgba(245,197,24,.15);border-color:rgba(245,197,24,.4);color:#000}
 </style>
 </head>
@@ -302,32 +281,18 @@ body{
 <div class="page-bg"></div>
 
 <div class="poster">
-  <div class="grain"></div>
   <div class="top-bar"></div>
   <div class="bot-bar"></div>
 
-  <div class="panel-left">
-    <div class="photo"></div>
-    <div class="vign"></div>
-  </div>
-  <div class="panel-right">
-    <div class="photo"></div>
-    <div class="vign"></div>
-  </div>
+  <!-- HORSE PHOTOS -->
+  <div class="panel-clip-l"><div class="panel-l"><div class="horse"></div></div></div>
+  <div class="panel-clip-r"><div class="panel-r"><div class="horse"></div></div></div>
 
-  <div class="z-top"></div>
-  <div class="z-bot"></div>
+  <!-- CENTER -->
   <div class="center-glow"></div>
   <div class="divider"></div>
 
-  <div class="top-content">
-    <div class="tc-org">Carril Los Amigos · Belton, Missouri</div>
-    <div class="tc-pre">Presenta</div>
-    <div class="tc-ttl">Gran <em>Carrera</em></div>
-    <div class="tc-rule"></div>
-    <div class="tc-tag">"El Duelo Más Esperado del Año"</div>
-  </div>
-
+  <!-- NAMES OVER PHOTOS -->
   <div class="names">
     <div class="nm-l">
       <div class="nm-tag">El Favorito</div>
@@ -341,6 +306,7 @@ body{
     </div>
   </div>
 
+  <!-- VS -->
   <div class="vs-wrap">
     <div class="vs-diamond">
       <div class="vs-diamond-inner"><div class="vs-t">VS</div></div>
@@ -348,6 +314,16 @@ body{
     <div class="vs-dist">350 YDS</div>
   </div>
 
+  <!-- TOP HEADER (on top of everything) -->
+  <div class="top-content">
+    <div class="tc-org">Carril Los Amigos · Belton, Missouri</div>
+    <div class="tc-pre">Presenta</div>
+    <div class="tc-ttl">Gran <em>Carrera</em></div>
+    <div class="tc-rule"></div>
+    <div class="tc-tag">"El Duelo Más Esperado del Año"</div>
+  </div>
+
+  <!-- BOTTOM DETAILS -->
   <div class="bot-content">
     <div class="mam-hl"><em>Mano a Mano</em> · Carrera Estelar</div>
     <div class="chips">
