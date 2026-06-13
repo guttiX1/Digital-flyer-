@@ -104,7 +104,9 @@ Generate ONLY these files inside `events/<slug>/`:
 
 | File | Description |
 |------|-------------|
-| `site.html` | Main event page — full flyer photo hero, race card, working QR code, countdown |
+| `site.html` | Main event page — full flyer photo hero, working QR code, countdown, CTA |
+| `duel.html` | Head-to-head matchup page (mano a mano events only) |
+| `races.html` | Full race card listing (multi-race events only — replaces duel.html) |
 | `video-ad.html` | Cinematic 30-second animated ad — horses fill 100% of screen, no borders |
 
 **NEVER generate:** infographic.html, sticker-lab, merch store, or any other page unless the user explicitly asks by name.
