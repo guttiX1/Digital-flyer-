@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flyer · Carril Los Amigos · Jun 14</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#F5C518}
+body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',sans-serif;padding:1rem}
+
+/* ── POSTER ── */
+.poster{
+  position:relative;
+  width:min(480px,100vw);
+  aspect-ratio:9/16;
+  overflow:hidden;
+  border-radius:16px;
+  box-shadow:0 0 0 1px rgba(245,197,24,.15),0 40px 120px rgba(0,0,0,.9);
+  background:#000;
+}
+
+/* BG photo */
+.p-bg{
+  position:absolute;inset:0;
+  background:url(flyer.jpg) center 8%/cover no-repeat;
+}
+
+/* Top: dark vignette heavy at top, lighter in middle, heavy at bottom */
+.p-over{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.28) 28%,
+      rgba(0,0,0,.18) 48%,
+      rgba(0,0,0,.55) 65%,
+      rgba(0,0,0,.92) 100%
+    );
+}
+
+/* Gold top bar */
+.p-topbar{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--gold);
+  box-shadow:0 0 20px rgba(245,197,24,.8);
+}
+
+/* Header */
+.p-header{
+  position:absolute;top:0;left:0;right:0;
+  padding:clamp(.9rem,3vw,1.4rem) clamp(.9rem,3vw,1.4rem) 0;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:.5rem;
+}
+.p-venue-block{}
+.p-event-label{
+  font-size:clamp(.45rem,1.4vw,.6rem);
+  font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+  margin-bottom:.2rem;
+}
+.p-event-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.1rem,3.5vw,1.6rem);
+  letter-spacing:.06em;
+  line-height:1;
+  color:#fff;
+}
+.p-event-name em{color:var(--gold);font-style:normal}
+.p-date-pill{
+  background:var(--gold);color:#000;
+  font-size:clamp(.45rem,1.4vw,.6rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:.28rem .7rem;border-radius:999px;
+  white-space:nowrap;margin-top:.15rem;width:fit-content;
+}
+
+/* Main title area — center of poster */
+.p-main{
+  position:absolute;
+  top:50%;left:0;right:0;
+  transform:translateY(-60%);
+  text-align:center;
+  padding:0 clamp(.8rem,2.5vw,1.2rem);
+}
+.p-vs-tag{
+  display:inline-block;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(245,197,24,.4);
+  border-radius:999px;
+  font-size:clamp(.42rem,1.3vw,.58rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  padding:.22rem .75rem;
+  margin-bottom:clamp(.4rem,1.2vw,.65rem);
+}
+.p-horses{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(.3rem,1vw,.55rem);
+}
+.p-horse-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.9rem,6.5vw,3.2rem);
+  line-height:.88;
+  color:#fff;
+  text-shadow:0 4px 30px rgba(0,0,0,.9),0 0 60px rgba(0,0,0,.7);
+}
+.p-horse-name em{color:var(--gold);font-style:normal;display:block}
+.p-vs{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.2rem,4vw,2rem);
+  color:var(--gold);
+  text-shadow:0 0 30px rgba(245,197,24,.7);
+  padding:0 clamp(.2rem,.8vw,.35rem);
+  flex-shrink:0;
+}
+.p-cuadras{
+  display:flex;justify-content:space-between;
+  margin-top:clamp(.3rem,1vw,.5rem);
+  padding:0 clamp(.1rem,.5vw,.2rem);
+}
+.p-cuadra{
+  font-size:clamp(.38rem,1.1vw,.52rem);font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+}
+.p-cuadra.r{text-align:right}
+
+/* Race info strip */
+.p-race-strip{
+  display:flex;align-items:center;justify-content:center;gap:clamp(.4rem,1.4vw,.65rem);
+  margin-top:clamp(.55rem,1.8vw,.9rem);
+}
+.p-race-chip{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(0,0,0,.6);border:1px solid rgba(245,197,24,.3);
+  border-radius:8px;padding:clamp(.28rem,.9vw,.42rem) clamp(.5rem,1.6vw,.75rem);
+}
+.p-race-chip span{font-size:clamp(.35rem,1.1vw,.47rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.p-race-chip strong{font-family:'Bebas Neue',sans-serif;font-size:clamp(.9rem,2.8vw,1.35rem);color:var(--gold);line-height:1}
+
+/* Divider */
+.p-divider{
+  position:absolute;
+  left:clamp(.9rem,3vw,1.4rem);right:clamp(.9rem,3vw,1.4rem);
+  height:1px;background:rgba(245,197,24,.14);
+}
+
+/* Bottom block */
+.p-bottom{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:clamp(.8rem,2.5vw,1.2rem) clamp(.9rem,3vw,1.4rem) clamp(.8rem,2.5vw,1.1rem);
+  display:flex;flex-direction:column;gap:clamp(.45rem,1.4vw,.65rem);
+}
+
+/* Info row */
+.p-info-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.5rem;
+}
+.p-info-left{display:flex;flex-direction:column;gap:clamp(.28rem,.9vw,.4rem)}
+.p-big-date{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.5rem,5vw,2.4rem);
+  line-height:.88;
+  color:#fff;
+}
+.p-big-date em{color:var(--gold);font-style:normal}
+.p-location{
+  font-size:clamp(.42rem,1.3vw,.58rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+}
+.p-price-block{
+  display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;
+}
+.p-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.6rem,5.5vw,2.6rem);
+  color:#000;
+  background:var(--gold);
+  padding:.1rem clamp(.5rem,1.8vw,.85rem);
+  border-radius:8px;
+  line-height:1.1;
+  box-shadow:0 0 30px rgba(245,197,24,.35);
+}
+.p-price-sub{
+  font-size:clamp(.36rem,1.1vw,.5rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+
+/* Amenities pills */
+.p-pills{
+  display:flex;gap:clamp(.25rem,.8vw,.38rem);flex-wrap:wrap;
+}
+.p-pill{
+  font-size:clamp(.35rem,1.1vw,.49rem);font-weight:700;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  border-radius:999px;padding:clamp(.18rem,.6vw,.26rem) clamp(.45rem,1.4vw,.65rem);
+  color:rgba(255,255,255,.6);white-space:nowrap;
+}
+
+/* QR row */
+.p-qr-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.5rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:clamp(.42rem,1.4vw,.6rem);
+}
+.p-phone{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(.95rem,3.2vw,1.55rem);
+  color:var(--gold);
+  letter-spacing:.04em;
+  text-shadow:0 0 20px rgba(245,197,24,.4);
+  line-height:1;
+}
+.p-phone-sub{
+  font-size:clamp(.34rem,1vw,.46rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);margin-top:.15rem;
+}
+.p-qr-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:clamp(.18rem,.6vw,.28rem);
+}
+.p-qr-wrap img{
+  width:clamp(52px,14vw,72px);height:clamp(52px,14vw,72px);
+  border-radius:6px;border:1.5px solid rgba(245,197,24,.35);
+  display:block;
+}
+.p-scan{
+  font-size:clamp(.3rem,.95vw,.42rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.22);text-align:center;
+}
+
+/* Sponsor */
+.p-sponsor{
+  text-align:center;
+  font-size:clamp(.32rem,1vw,.44rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding-top:clamp(.2rem,.7vw,.3rem);
+}
+.p-sponsor span{color:#00FF41}
+
+/* Gold bottom bar */
+.p-botbar{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--gold);
+  box-shadow:0 0 16px rgba(245,197,24,.6);
+}
+
+/* Race count badge top-right of poster */
+.p-count{
+  position:absolute;top:clamp(.9rem,3vw,1.4rem);right:clamp(.9rem,3vw,1.4rem);
+  background:rgba(0,0,0,.65);border:1px solid rgba(245,197,24,.35);
+  border-radius:8px;padding:clamp(.28rem,.9vw,.4rem) clamp(.5rem,1.6vw,.72rem);
+  text-align:center;
+}
+.p-count-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.2vw,1.5rem);color:var(--gold);line-height:1}
+.p-count-lbl{font-size:clamp(.32rem,1vw,.44rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* Outer page */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 50% 40%,rgba(245,197,24,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.page-label{
+  text-align:center;margin-bottom:.75rem;
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+}
+.page-links{
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+  margin-top:.8rem;
+}
+.page-links a{
+  font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(245,197,24,.6);text-decoration:none;
+  background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.18);
+  padding:.3rem .75rem;border-radius:6px;transition:all .15s;
+}
+.page-links a:hover{background:rgba(245,197,24,.12);color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-label">📋 Flyer Digital · Carril Los Amigos</div>
+
+  <div class="poster">
+    <div class="p-bg"></div>
+    <div class="p-over"></div>
+    <div class="p-topbar"></div>
+
+    <!-- Header -->
+    <div class="p-header">
+      <div class="p-venue-block">
+        <div class="p-event-label">Gran Carrera</div>
+        <div class="p-event-name">Carril <em>Los Amigos</em></div>
+        <div class="p-date-pill">Domingo 14 Junio 2026</div>
+      </div>
+    </div>
+
+    <!-- Race count badge -->
+    <div class="p-count">
+      <div class="p-count-num">18</div>
+      <div class="p-count-lbl">Carreras</div>
+    </div>
+
+    <!-- Main VS -->
+    <div class="p-main">
+      <div class="p-vs-tag">⭐ Carrera Estelar · #2 · 350 YDS</div>
+      <div class="p-horses">
+        <div class="p-horse-name">El<em>Ruso</em></div>
+        <div class="p-vs">VS</div>
+        <div class="p-horse-name">El<em>Gringo</em></div>
+      </div>
+      <div class="p-cuadras">
+        <div class="p-cuadra">C. Hnos Olvera</div>
+        <div class="p-cuadra r">C. 4 Ases</div>
+      </div>
+      <div class="p-race-strip">
+        <div class="p-race-chip">
+          <span>Carrera</span>
+          <strong>#2</strong>
+        </div>
+        <div class="p-race-chip">
+          <span>Hora</span>
+          <strong>11:00 AM</strong>
+        </div>
+        <div class="p-race-chip">
+          <span>Distancia</span>
+          <strong>350 YDS</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="p-bottom">
+      <div class="p-info-row">
+        <div class="p-info-left">
+          <div class="p-big-date">Domingo<br><em>14 Junio</em><br>2026</div>
+          <div class="p-location">📍 Belton, Missouri · Colorado, USA</div>
+        </div>
+        <div class="p-price-block">
+          <div class="p-price">$45</div>
+          <div class="p-price-sub">Entrada General</div>
+        </div>
+      </div>
+
+      <div class="p-pills">
+        <div class="p-pill">👨‍👩‍👧 Ambiente Familiar</div>
+        <div class="p-pill">🎵 Música en Vivo</div>
+        <div class="p-pill">🌮 Comida y Más</div>
+        <div class="p-pill">10:30 AM – 7:30 PM</div>
+      </div>
+
+      <div class="p-qr-row">
+        <div>
+          <div class="p-phone">970 901 1260</div>
+          <div class="p-phone-sub">Info y boletos</div>
+        </div>
+        <div class="p-qr-wrap">
+          <img id="qrImg" alt="QR">
+          <div class="p-scan">Escanea para<br>el sitio</div>
+        </div>
+      </div>
+
+      <div class="p-sponsor">Patrocinador: <span>CarrerasOS</span> · carrerasos.com</div>
+    </div>
+
+    <div class="p-botbar"></div>
+  </div>
+
+  <div class="page-links">
+    <a href="site.html">🏠 Sitio</a>
+    <a href="races.html">🏁 Programa</a>
+    <a href="video-ad.html">▶ Video</a>
+    <a href="infographic.html">📊 Info</a>
+  </div>
+</div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
+document.getElementById('qrImg').src=
+  `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(SITE)}&bgcolor=000000&color=F5C518&format=png&margin=8`;
+</script>
+</body>
+</html>
