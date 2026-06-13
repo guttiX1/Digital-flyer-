@@ -4,58 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Programa · Carril Los Amigos · Jun 14</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#F5C518;--green:#00FF41;--dark:#070707;--bdr:rgba(255,255,255,.07)}
-body{background:var(--dark);color:#fff;font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden}
-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(7,7,7,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
-.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}.nl span{color:var(--gold)}
-.nav-links{display:flex;gap:1.2rem;align-items:center}.nav-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;transition:color .2s}.nav-links a:hover{color:#fff}
-.btn-back{background:rgba(248,197,24,.12);border:1px solid rgba(248,197,24,.25);color:var(--gold);padding:.35rem .85rem;border-radius:6px}
+:root{--gold:#F5C518;--dark:#000;--bdr:rgba(255,255,255,.06)}
+body{background:var(--dark);color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden}
 
-/* HERO */
-.page-hero{padding:4rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(248,197,24,.04) 0%,transparent 100%)}
-.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);line-height:.9;letter-spacing:.03em}
-.page-hero h1 span{color:var(--gold)}
-.page-hero .sub{color:rgba(255,255,255,.45);font-size:.95rem;margin-top:.6rem;letter-spacing:.06em;text-transform:uppercase}
-.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(248,197,24,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,197,24,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(245,197,24,.08)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}.nl em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:rgba(255,255,255,.4);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.btn-back{background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);color:var(--gold);padding:.32rem .8rem;border-radius:6px}
 
-/* RACE LIST */
-.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
-.race-list{padding:2rem 1.5rem 6rem;max-width:900px;margin:0 auto}
-.race-row{display:grid;grid-template-columns:3rem 6rem 1fr auto;gap:1rem;align-items:center;padding:1.1rem 1.25rem;border-radius:14px;border:1px solid var(--bdr);margin-bottom:.65rem;transition:border-color .2s,background .2s,transform .15s;position:relative;overflow:hidden;opacity:0;transform:translateX(-20px);transition:opacity .4s ease,transform .4s ease,border-color .2s,background .2s}
-.race-row.in{opacity:1;transform:none}
-.race-row:hover{border-color:rgba(248,197,24,.22);background:rgba(255,255,255,.03);transform:translateX(4px)}
-.race-row.featured{border-color:rgba(248,197,24,.4);background:linear-gradient(135deg,rgba(248,197,24,.06),transparent)}
-.race-row.featured::before{content:'★ ESTELAR';position:absolute;top:0;right:0;background:var(--gold);color:#000;font-size:.52rem;font-weight:800;letter-spacing:.1em;padding:.18rem .5rem;border-radius:0 0 0 6px}
-.rn{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.12);line-height:1}
-.rt{font-size:.75rem;font-weight:700;color:var(--gold);white-space:nowrap}
-.rc-main .title{font-weight:700;font-size:.92rem;margin-bottom:.2rem}
-.rc-main .horses{font-size:.75rem;color:rgba(255,255,255,.4)}
-.rc-main .horses strong{color:rgba(255,255,255,.7)}
-.rd{font-size:.72rem;background:rgba(255,255,255,.05);border:1px solid var(--bdr);padding:.22rem .6rem;border-radius:5px;white-space:nowrap;color:rgba(255,255,255,.5);text-align:right}
-.race-row.featured .rd{background:rgba(248,197,24,.12);border-color:rgba(248,197,24,.3);color:var(--gold)}
+.page-hero{padding:5rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,197,24,.04) 0%,transparent 100%)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(245,197,24,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,7rem);line-height:.88;letter-spacing:.03em;position:relative;z-index:1}
+.page-hero h1 em{color:var(--gold);font-style:normal;display:block}
+.page-hero .sub{color:rgba(255,255,255,.38);font-size:.88rem;margin-top:.8rem;letter-spacing:.1em;text-transform:uppercase;position:relative;z-index:1}
 
-/* FILTER TABS */
 .filter-wrap{padding:1rem 1.5rem;max-width:900px;margin:0 auto;display:flex;gap:.5rem;flex-wrap:wrap}
-.filter-btn{padding:.45rem 1rem;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--bdr);font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s}
-.filter-btn.active{background:rgba(248,197,24,.12);border-color:rgba(248,197,24,.35);color:var(--gold)}
+.filter-btn{padding:.42rem 1rem;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.7rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .15s;user-select:none}
+.filter-btn:hover{border-color:rgba(245,197,24,.2);color:rgba(255,255,255,.7)}
+.filter-btn.active{background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.35);color:var(--gold)}
 
-/* FOOTER STRIP */
-.foot-strip{background:rgba(255,255,255,.02);border-top:1px solid var(--bdr);padding:1.5rem;text-align:center;margin-top:2rem}
-.foot-strip p{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.06em}
+.race-list{padding:0 1.5rem 6rem;max-width:900px;margin:0 auto}
+
+.race-row{
+  display:grid;grid-template-columns:3.2rem 6.2rem 1fr auto;
+  gap:.8rem 1rem;align-items:center;
+  padding:1rem 1.2rem;border-radius:14px;
+  border:1px solid rgba(255,255,255,.05);
+  margin-bottom:.55rem;
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateX(-16px);
+  transition:opacity .38s ease,transform .38s ease,border-color .2s,background .2s;
+  cursor:default;
+}
+.race-row.in{opacity:1;transform:none}
+.race-row:hover{border-color:rgba(245,197,24,.2);background:rgba(255,255,255,.025);transform:translateX(3px)}
+.race-row.featured{border-color:rgba(245,197,24,.38);background:linear-gradient(135deg,rgba(245,197,24,.06),transparent)}
+.race-row.featured::before{content:'★ ESTELAR';position:absolute;top:0;right:0;background:var(--gold);color:#000;font-size:.5rem;font-weight:800;letter-spacing:.1em;padding:.18rem .55rem;border-radius:0 12px 0 7px}
+.race-row::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:rgba(245,197,24,.15);border-radius:0 2px 2px 0;transition:background .2s}
+.race-row:hover::after{background:rgba(245,197,24,.5)}
+.race-row.featured::after{background:var(--gold)}
+
+.rn{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:rgba(255,255,255,.1);line-height:1}
+.rt{font-size:.72rem;font-weight:700;color:var(--gold);white-space:nowrap;line-height:1.3}
+.rt .day{font-size:.58rem;color:rgba(255,255,255,.3);display:block;margin-top:.15rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.rc-main .title{font-weight:700;font-size:.9rem;margin-bottom:.2rem;line-height:1.3}
+.rc-main .horses{font-size:.73rem;color:rgba(255,255,255,.38);line-height:1.4}
+.rc-main .horses strong{color:rgba(255,255,255,.65)}
+.rd{font-size:.7rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:.22rem .65rem;border-radius:5px;white-space:nowrap;color:rgba(255,255,255,.45);text-align:right}
+.race-row.featured .rd{background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.28);color:var(--gold)}
+
+.foot-strip{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.04);padding:1.5rem;text-align:center;margin-top:2rem}
+.foot-strip p{font-size:.72rem;color:rgba(255,255,255,.22);letter-spacing:.07em}
 .foot-strip strong{color:var(--gold)}
 
 @media(max-width:600px){
-  .race-row{grid-template-columns:2.2rem 5rem 1fr;}.rd{display:none}
-  .race-row .rc-main .horses{display:none}
+  .race-row{grid-template-columns:2.4rem 5.2rem 1fr}
+  .rd{display:none}
+  .rc-main .horses{display:none}
+  .nav-links a:not(.btn-back){display:none}
 }
 </style>
 </head>
 <body>
 <nav>
-  <div class="nl">Carril <span>Los Amigos</span></div>
+  <div class="nl">Carril <em>Los Amigos</em></div>
   <div class="nav-links">
     <a href="site.html" class="btn-back">← Sitio</a>
     <a href="infographic.html">Info</a>
@@ -65,7 +83,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 
 <div class="page-hero">
   <div class="grid-bg"></div>
-  <h1>Programa<br><span>Oficial</span></h1>
+  <h1>Programa<br><em>Oficial</em></h1>
   <div class="sub">Domingo 14 de Junio, 2026 · Belton, Missouri · 18 Carreras</div>
 </div>
 
@@ -79,12 +97,12 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 <div class="race-list" id="raceList"></div>
 
 <div class="foot-strip">
-  <p>📞 <strong>970 901 1260</strong> · $45 Entrada · carrerasos.com</p>
-  <p style="margin-top:.3rem">Patrocinador: <strong>CarrerasOS</strong> · Sírvase solo caliente las tortillas</p>
+  <p>📞 <strong>970 901 1260</strong> · <strong>$45 Entrada</strong> · carrerasos.com</p>
+  <p style="margin-top:.35rem">Patrocinador: <strong>CarrerasOS</strong> · Sírvase solo caliente las tortillas</p>
 </div>
 
 <script>
-const RACES = [
+const RACES=[
   {num:1, time:'10:30 AM',ampm:'am',title:'Abierta 3 Años No Mechados',dist:'275 yds'},
   {num:2, time:'11:00 AM',ampm:'am',title:'El Ruso vs El Gringo',h1:'El Ruso',c1:'C. Hnos Olvera',h2:'El Gringo',c2:'C. 4 Ases',dist:'350 yds',featured:true},
   {num:3, time:'11:30 AM',ampm:'am',title:'El Texano vs El Moro Talacho',h1:'El Texano',c1:'C. Gallegos',h2:'El Moro Talacho',c2:'C. Valsequillo',dist:'150 yds'},
@@ -105,36 +123,33 @@ const RACES = [
   {num:18,time:'7:30 PM', ampm:'pm',title:'La Reyna Yaky vs El Dos Estados',h1:'La Reyna Yaky',c1:'C. Chavalones',h2:'El Dos Estados',c2:'C. Garrajas',dist:'250 yds'},
 ];
 
-let currentFilter = 'all';
-
-function buildList(filter) {
-  const list = document.getElementById('raceList');
-  list.innerHTML = '';
-  const filtered = RACES.filter(r => filter === 'all' || filter === r.ampm || (filter === 'featured' && r.featured));
-  filtered.forEach((r, i) => {
-    const row = document.createElement('div');
-    row.className = 'race-row' + (r.featured ? ' featured' : '');
-    row.innerHTML = `
+function buildList(filter){
+  const list=document.getElementById('raceList');
+  list.innerHTML='';
+  const filtered=RACES.filter(r=>filter==='all'||filter===r.ampm||(filter==='featured'&&r.featured));
+  filtered.forEach((r,i)=>{
+    const row=document.createElement('div');
+    row.className='race-row'+(r.featured?' featured':'');
+    row.innerHTML=`
       <div class="rn">${String(r.num).padStart(2,'0')}</div>
       <div class="rt">${r.time}</div>
       <div class="rc-main">
         <div class="title">${r.title}</div>
-        ${r.h1 ? `<div class="horses"><strong>${r.h1}</strong> ${r.c1 ? '· '+r.c1 : ''} &nbsp;vs&nbsp; <strong>${r.h2||''}</strong> ${r.c2 ? '· '+r.c2 : ''}</div>` : ''}
+        ${r.h1?`<div class="horses"><strong>${r.h1}</strong>${r.c1?' · '+r.c1:''} &nbsp;vs&nbsp; <strong>${r.h2||''}</strong>${r.c2?' · '+r.c2:''}</div>`:''}
       </div>
       <div class="rd">${r.dist}</div>`;
     list.appendChild(row);
-    setTimeout(() => row.classList.add('in'), i * 45);
+    setTimeout(()=>row.classList.add('in'),i*40);
   });
 }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     buildList(btn.dataset.filter);
   });
 });
-
 buildList('all');
 </script>
 </body>

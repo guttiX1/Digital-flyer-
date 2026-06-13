@@ -4,165 +4,154 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Video Ad · Carril Los Amigos</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--gold:#F5C518}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Bebas Neue',sans-serif}
 
-/* CHROME */
-.back{position:fixed;top:1rem;left:1rem;z-index:9000;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.38rem .85rem;border-radius:7px;text-decoration:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;backdrop-filter:blur(10px)}
-.progress{position:fixed;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.08);z-index:9000}
-.pbar{height:100%;background:var(--gold);width:0;transition:width .12s linear}
-.replay{position:fixed;bottom:2rem;right:2rem;z-index:9000;background:var(--gold);color:#000;border:none;border-radius:10px;padding:.65rem 1.4rem;font-family:'Inter',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:none;letter-spacing:.06em}
+.back{position:fixed;top:1rem;left:1rem;z-index:9000;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.18);color:#fff;padding:.38rem .85rem;border-radius:7px;text-decoration:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;backdrop-filter:blur(10px)}
+.progress{position:fixed;bottom:0;left:0;right:0;height:5px;background:rgba(255,255,255,.06);z-index:9000}
+.pbar{height:100%;background:var(--gold);width:0;transition:width .12s linear;box-shadow:0 0 12px rgba(245,197,24,.7)}
+.replay{position:fixed;bottom:2rem;right:2rem;z-index:9000;background:var(--gold);color:#000;border:none;border-radius:10px;padding:.7rem 1.5rem;font-family:'Inter',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:none;letter-spacing:.06em;box-shadow:0 8px 30px rgba(245,197,24,.4)}
 
-/* ── ALL SCENES ── */
 .scene{position:fixed;inset:0;opacity:0;pointer-events:none;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .scene.on{opacity:1;pointer-events:all}
 
-/* ── KEYFRAMES (all animations start when parent gets .on via child selectors) ── */
-@keyframes zoomIn   {from{opacity:0;transform:scale(.5)}  to{opacity:1;transform:scale(1)}}
-@keyframes fadeIn   {from{opacity:0}                       to{opacity:1}}
-@keyframes slideL   {from{opacity:0;transform:translateX(-60px)} to{opacity:1;transform:none}}
-@keyframes slideR   {from{opacity:0;transform:translateX(60px)}  to{opacity:1;transform:none}}
-@keyframes slideUp  {from{opacity:0;transform:translateY(40px)}  to{opacity:1;transform:none}}
-@keyframes expand   {from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:.6}}
-@keyframes kenBurnsL{0%{transform:scale(1.1) translate(0,0)} 100%{transform:scale(1.0) translate(-12px,-8px)}}
-@keyframes kenBurnsR{0%{transform:scale(1.1) translate(0,0)} 100%{transform:scale(1.0) translate(12px,-8px)}}
-@keyframes kenBurnsC{0%{transform:scale(1.0)} 100%{transform:scale(1.06)}}
+@keyframes zoomIn  {from{opacity:0;transform:scale(.45)} to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn  {from{opacity:0}                       to{opacity:1}}
+@keyframes slideL  {from{opacity:0;transform:translateX(-70px)} to{opacity:1;transform:none}}
+@keyframes slideR  {from{opacity:0;transform:translateX(70px)}  to{opacity:1;transform:none}}
+@keyframes slideUp {from{opacity:0;transform:translateY(50px)}  to{opacity:1;transform:none}}
+@keyframes expand  {from{transform:scale(0);opacity:0}          to{transform:scale(1);opacity:.55}}
+@keyframes ringPulse{0%,100%{opacity:.55}50%{opacity:.9}}
+@keyframes kbL     {0%{transform:scale(1.12) translate(0,0)} 100%{transform:scale(1.0) translate(-16px,-10px)}}
+@keyframes kbR     {0%{transform:scale(1.12) translate(0,0)} 100%{transform:scale(1.0) translate(16px,-10px)}}
+@keyframes kbC     {0%{transform:scale(1.0)}                 100%{transform:scale(1.08)}}
+@keyframes glowPulse{0%,100%{opacity:.12}50%{opacity:.25}}
+@keyframes lineDrop{from{height:0;opacity:0} to{height:100%;opacity:1}}
 
-/* ── SCENE 1: INTRO ── */
+/* ── S1: INTRO ── */
 #s1{background:#000;flex-direction:column;text-align:center}
-.s1-ring{position:absolute;border-radius:50%;border:1px solid rgba(248,197,24,.4)}
-.scene.on .s1-ring:nth-child(1){width:280px;height:280px;animation:expand 1s .1s both}
-.scene.on .s1-ring:nth-child(2){width:480px;height:480px;animation:expand 1s .3s both;border-color:rgba(248,197,24,.2)}
-.scene.on .s1-ring:nth-child(3){width:680px;height:680px;animation:expand 1s .5s both;border-color:rgba(248,197,24,.08)}
+.s1-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,197,24,.45)}
+.scene.on .s1-ring:nth-child(1){width:300px;height:300px;animation:expand .9s .1s both,ringPulse 2.5s 1s infinite}
+.scene.on .s1-ring:nth-child(2){width:520px;height:520px;animation:expand .9s .3s both,ringPulse 2.5s 1.2s infinite;border-color:rgba(245,197,24,.22)}
+.scene.on .s1-ring:nth-child(3){width:750px;height:750px;animation:expand .9s .5s both,ringPulse 2.5s 1.4s infinite;border-color:rgba(245,197,24,.08)}
+.s1-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(245,197,24,.08) 0%,transparent 60%);animation:glowPulse 3s ease-in-out infinite}
 .s1-body{position:relative;z-index:2;text-align:center}
-.scene.on .s1-venue{animation:fadeIn .6s .3s both;font-family:'Inter',sans-serif;font-size:clamp(.8rem,2vw,1.1rem);font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem}
-.scene.on .s1-title{animation:zoomIn .6s .5s both;font-size:clamp(4.5rem,15vw,11rem);line-height:.88;color:#fff;text-shadow:0 0 100px rgba(248,197,24,.3)}
+.scene.on .s1-venue{animation:fadeIn .6s .4s both;font-family:'Inter',sans-serif;font-size:clamp(.75rem,2vw,1rem);font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.7rem}
+.scene.on .s1-title{animation:zoomIn .7s .55s both;font-size:clamp(5rem,17vw,12rem);line-height:.82;color:#fff;text-shadow:0 0 120px rgba(245,197,24,.3)}
 .scene.on .s1-title em{color:var(--gold);font-style:normal;display:block}
-.scene.on .s1-sub{animation:fadeIn .6s .9s both;font-family:'Inter',sans-serif;font-size:clamp(.75rem,2vw,1rem);font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.15em;text-transform:uppercase;margin-top:.6rem}
+.scene.on .s1-sub{animation:fadeIn .6s 1s both;font-family:'Inter',sans-serif;font-size:clamp(.72rem,2vw,.95rem);font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.18em;text-transform:uppercase;margin-top:.7rem}
 
-/* ── SCENE 2: EL RUSO full bleed ── */
+/* ── S2: EL RUSO ── */
 #s2{background:#000}
-.s2-photo{position:absolute;inset:0;
-  background:url(flyer.jpg) no-repeat;
-  background-size:400%;
-  background-position:11% 2%;
-  filter:contrast(1.3) saturate(1.5) brightness(1.05);
-}
-.scene.on .s2-photo{animation:kenBurnsL 6s ease both}
-.s2-grad{position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.3) 45%,transparent 70%)}
-.s2-content{position:absolute;left:0;top:0;bottom:0;width:55%;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(1.5rem,5vw,4rem)}
-.scene.on .s2-tag  {animation:slideL .45s .35s both}
-.scene.on .s2-name {animation:slideL .45s .5s  both}
-.scene.on .s2-cuad {animation:slideL .45s .65s both}
-.scene.on .s2-badge{animation:slideL .45s .8s  both}
-.s2-tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;margin-bottom:.6rem;width:fit-content}
-.s2-name{font-size:clamp(4.5rem,14vw,11rem);line-height:.88;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.9)}
+.s2-photo{position:absolute;inset:0;background:url(flyer.jpg) no-repeat;background-size:420%;background-position:10% 2%;filter:contrast(1.35) saturate(1.6) brightness(1.05)}
+.scene.on .s2-photo{animation:kbL 6.5s ease both}
+.s2-grad{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.4) 45%,transparent 70%)}
+.s2-shine{position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(245,197,24,.04) 100%)}
+.s2-content{position:absolute;left:0;top:0;bottom:0;width:58%;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(1.5rem,5vw,4rem)}
+.scene.on .s2-tag  {animation:slideL .45s .3s both}
+.scene.on .s2-name {animation:slideL .5s .45s both}
+.scene.on .s2-cuad {animation:slideL .45s .6s  both}
+.scene.on .s2-badge{animation:slideL .45s .75s both}
+.s2-tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:4px;margin-bottom:.7rem;width:fit-content}
+.s2-name{font-size:clamp(5rem,15vw,12rem);line-height:.82;color:#fff;text-shadow:0 6px 60px rgba(0,0,0,1),0 0 80px rgba(0,0,0,.8)}
 .s2-name em{color:var(--gold);font-style:normal}
-.s2-cuad{font-family:'Inter',sans-serif;font-size:clamp(.75rem,2vw,1rem);font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin:.4rem 0 .8rem}
-.s2-badge{display:inline-flex;flex-direction:column;background:rgba(0,0,0,.6);border:1.5px solid rgba(248,197,24,.4);border-radius:8px;padding:.5rem 1rem}
-.s2-badge span{font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase}
-.s2-badge strong{font-size:1.5rem;color:var(--gold)}
+.s2-cuad{font-family:'Inter',sans-serif;font-size:clamp(.72rem,2vw,.95rem);font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 .9rem}
+.s2-badge{display:inline-flex;flex-direction:column;background:rgba(0,0,0,.65);border:1.5px solid rgba(245,197,24,.4);border-radius:9px;padding:.55rem 1.1rem;width:fit-content}
+.s2-badge span{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:700;color:rgba(255,255,255,.32);letter-spacing:.1em;text-transform:uppercase}
+.s2-badge strong{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--gold);line-height:1}
 
-/* ── SCENE 3: EL GRINGO full bleed (mirror of s2) ── */
+/* ── S3: EL GRINGO ── */
 #s3{background:#000}
-.s3-photo{position:absolute;inset:0;
-  background:url(flyer.jpg) no-repeat;
-  background-size:400%;
-  background-position:89% 2%;
-  filter:contrast(1.3) saturate(1.5) brightness(1.05);
-}
-.scene.on .s3-photo{animation:kenBurnsR 6s ease both}
-.s3-grad{position:absolute;inset:0;background:linear-gradient(260deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.3) 45%,transparent 70%)}
-.s3-content{position:absolute;right:0;top:0;bottom:0;width:55%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:clamp(1.5rem,5vw,4rem);text-align:right}
-.scene.on .s3-tag  {animation:slideR .45s .35s both}
-.scene.on .s3-name {animation:slideR .45s .5s  both}
-.scene.on .s3-cuad {animation:slideR .45s .65s both}
-.scene.on .s3-badge{animation:slideR .45s .8s  both}
-.s3-tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;margin-bottom:.6rem}
-.s3-name{font-size:clamp(4.5rem,14vw,11rem);line-height:.88;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.9)}
+.s3-photo{position:absolute;inset:0;background:url(flyer.jpg) no-repeat;background-size:420%;background-position:90% 2%;filter:contrast(1.35) saturate(1.6) brightness(1.05)}
+.scene.on .s3-photo{animation:kbR 6.5s ease both}
+.s3-grad{position:absolute;inset:0;background:linear-gradient(255deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.4) 45%,transparent 70%)}
+.s3-shine{position:absolute;inset:0;background:linear-gradient(225deg,transparent 60%,rgba(245,197,24,.04) 100%)}
+.s3-content{position:absolute;right:0;top:0;bottom:0;width:58%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:clamp(1.5rem,5vw,4rem);text-align:right}
+.scene.on .s3-tag  {animation:slideR .45s .3s both}
+.scene.on .s3-name {animation:slideR .5s .45s both}
+.scene.on .s3-cuad {animation:slideR .45s .6s  both}
+.scene.on .s3-badge{animation:slideR .45s .75s both}
+.s3-tag{display:inline-block;background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .7rem;border-radius:4px;margin-bottom:.7rem}
+.s3-name{font-size:clamp(5rem,15vw,12rem);line-height:.82;color:#fff;text-shadow:0 6px 60px rgba(0,0,0,1)}
 .s3-name em{color:var(--gold);font-style:normal}
-.s3-cuad{font-family:'Inter',sans-serif;font-size:clamp(.75rem,2vw,1rem);font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin:.4rem 0 .8rem}
-.s3-badge{display:inline-flex;flex-direction:column;background:rgba(0,0,0,.6);border:1.5px solid rgba(248,197,24,.4);border-radius:8px;padding:.5rem 1rem;align-items:flex-end}
-.s3-badge span{font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase}
-.s3-badge strong{font-size:1.5rem;color:var(--gold)}
+.s3-cuad{font-family:'Inter',sans-serif;font-size:clamp(.72rem,2vw,.95rem);font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 .9rem}
+.s3-badge{display:inline-flex;flex-direction:column;background:rgba(0,0,0,.65);border:1.5px solid rgba(245,197,24,.4);border-radius:9px;padding:.55rem 1.1rem;align-items:flex-end;width:fit-content}
+.s3-badge span{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:700;color:rgba(255,255,255,.32);letter-spacing:.1em;text-transform:uppercase}
+.s3-badge strong{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--gold);line-height:1}
 
-/* ── SCENE 4: VS SPLIT — BOTH HORSES FILL SCREEN ── */
+/* ── S4: VS SPLIT ── */
 #s4{background:#000}
 .s4-left,.s4-right{position:absolute;top:0;bottom:0;overflow:hidden}
 .s4-left{left:0;width:50%}
 .s4-right{right:0;width:50%}
-.s4-left .ph{
-  position:absolute;inset:0;width:200%;left:0;
-  background:url(flyer.jpg) no-repeat;
-  background-size:800% 400%;
-  background-position:5.5% 1%;
-  filter:contrast(1.3) saturate(1.5);
-}
-.scene.on .s4-left .ph{animation:kenBurnsC 6s ease both}
-.s4-right .ph{
-  position:absolute;inset:0;width:200%;right:0;left:auto;
-  background:url(flyer.jpg) no-repeat;
-  background-size:800% 400%;
-  background-position:94.5% 1%;
-  filter:contrast(1.3) saturate(1.5);
-}
-.scene.on .s4-right .ph{animation:kenBurnsC 6s ease both}
-.s4-left .grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.75) 100%)}
-.s4-right .grad{position:absolute;inset:0;background:linear-gradient(270deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.75) 100%)}
-.s4-lbl{position:absolute;bottom:2rem;left:0;right:0;text-align:center}
+.s4-left .ph{position:absolute;inset:0;width:200%;left:0;background:url(flyer.jpg) no-repeat;background-size:840% 420%;background-position:5% 1%;filter:contrast(1.3) saturate(1.55)}
+.scene.on .s4-left .ph{animation:kbC 7s ease both}
+.s4-right .ph{position:absolute;inset:0;width:200%;right:0;left:auto;background:url(flyer.jpg) no-repeat;background-size:840% 420%;background-position:95% 1%;filter:contrast(1.3) saturate(1.55)}
+.scene.on .s4-right .ph{animation:kbC 7s ease both}
+.s4-left .grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.82) 100%)}
+.s4-right .grad{position:absolute;inset:0;background:linear-gradient(270deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.82) 100%)}
+.s4-lbl{position:absolute;bottom:2.5rem;left:0;right:0;text-align:center}
 .scene.on .s4-left .s4-lbl{animation:slideL .45s .3s both}
 .scene.on .s4-right .s4-lbl{animation:slideR .45s .3s both}
-.s4-lbl-name{font-size:clamp(1.8rem,5vw,4rem);line-height:1;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95)}
-.s4-lbl-cuad{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
-.s4-divider{position:absolute;left:50%;top:0;bottom:0;width:3px;background:var(--gold);transform:translateX(-50%);z-index:10;box-shadow:0 0 30px rgba(248,197,24,.9)}
+.s4-lbl-name{font-size:clamp(2rem,6vw,5rem);line-height:1;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95)}
+.s4-lbl-cuad{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+.s4-divider{position:absolute;left:50%;top:0;bottom:0;width:3px;background:var(--gold);transform:translateX(-50%);z-index:10;box-shadow:0 0 40px rgba(245,197,24,1),0 0 80px rgba(245,197,24,.5)}
 .s4-vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;text-align:center}
 .scene.on .s4-vs{animation:zoomIn .4s .4s both}
-.s4-vs-text{font-size:clamp(3rem,10vw,7rem);color:var(--gold);line-height:1;text-shadow:0 0 50px rgba(248,197,24,.8);background:rgba(0,0,0,.75);padding:.2rem .7rem;border-radius:8px;border:2px solid rgba(248,197,24,.5)}
-.s4-vs-sub{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;margin-top:.35rem;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.s4-vs-text{font-size:clamp(3.5rem,12vw,8rem);color:var(--gold);line-height:1;text-shadow:0 0 60px rgba(245,197,24,.9);background:rgba(0,0,0,.8);padding:.25rem .8rem;border-radius:10px;border:2px solid rgba(245,197,24,.55)}
+.s4-vs-sub{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.1em;margin-top:.4rem;text-shadow:0 2px 8px rgba(0,0,0,.9)}
 
-/* ── SCENE 5: RACES ── */
-#s5{background:#070707;flex-direction:column;text-align:center;padding:1.5rem}
-.scene.on .s5-title{animation:zoomIn .4s both}
-.s5-title{font-size:clamp(2.5rem,8vw,5rem);color:var(--gold);margin-bottom:1rem}
-.s5-grid{display:flex;flex-direction:column;gap:.3rem;max-height:72vh;overflow:hidden;width:100%;max-width:640px}
-.s5-row{display:flex;justify-content:space-between;gap:1rem;font-size:clamp(.72rem,2vw,1rem);color:rgba(255,255,255,.75);background:rgba(255,255,255,.03);border-left:3px solid rgba(248,197,24,.25);border-radius:0 6px 6px 0;padding:.3rem .7rem;text-align:left}
-.s5-row.ft{border-left-color:var(--gold);background:rgba(248,197,24,.07);color:#fff}
-.s5-row span:last-child{color:rgba(255,255,255,.3);white-space:nowrap}
+/* ── S5: RACES ── */
+#s5{background:#060606;flex-direction:column;text-align:center;padding:1.5rem}
+.scene.on .s5-title{animation:zoomIn .45s both}
+.s5-title{font-size:clamp(3rem,10vw,6rem);color:var(--gold);margin-bottom:1rem;text-shadow:0 0 40px rgba(245,197,24,.3)}
+.s5-grid{display:flex;flex-direction:column;gap:.28rem;max-height:72vh;overflow:hidden;width:100%;max-width:660px}
+.s5-row{display:flex;justify-content:space-between;gap:1rem;font-family:'Inter',sans-serif;font-size:clamp(.7rem,2vw,.95rem);color:rgba(255,255,255,.7);background:rgba(255,255,255,.03);border-left:3px solid rgba(245,197,24,.2);border-radius:0 6px 6px 0;padding:.32rem .8rem;text-align:left;transition:all .2s}
+.s5-row.ft{border-left-color:var(--gold);background:rgba(245,197,24,.08);color:#fff;font-weight:700}
+.s5-row span:last-child{color:rgba(255,255,255,.28);white-space:nowrap}
+.scene.on .s5-row{animation:slideL .3s both}
+.scene.on .s5-row:nth-child(1){animation-delay:.1s}
+.scene.on .s5-row:nth-child(2){animation-delay:.18s}
+.scene.on .s5-row:nth-child(3){animation-delay:.24s}
+.scene.on .s5-row:nth-child(4){animation-delay:.3s}
+.scene.on .s5-row:nth-child(5){animation-delay:.36s}
+.scene.on .s5-row:nth-child(n+6){animation-delay:.42s}
 
-/* ── SCENE 6: DATE / DETAILS ── */
+/* ── S6: DATE DETAILS ── */
 #s6{background:#000;flex-direction:column;text-align:center}
-.s6-bg{position:absolute;inset:0;background:url(flyer.jpg) center 35%/cover no-repeat;filter:brightness(.22) saturate(1.3)}
-.s6-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:2rem}
+.s6-bg{position:absolute;inset:0;background:url(flyer.jpg) center 30%/cover no-repeat;filter:brightness(.18) saturate(1.4)}
+.s6-grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.s6-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2rem}
 .scene.on .s6-date  {animation:zoomIn .5s both}
-.scene.on .s6-venue {animation:slideUp .5s .15s both}
-.scene.on .s6-price {animation:zoomIn .5s .3s both}
+.scene.on .s6-venue {animation:slideUp .5s .18s both}
+.scene.on .s6-price {animation:zoomIn .5s .32s both}
 .scene.on .s6-pills {animation:slideUp .5s .5s both}
-.s6-date{font-size:clamp(2.8rem,9vw,7rem);line-height:.9}
+.s6-date{font-size:clamp(3rem,10vw,8rem);line-height:.88;text-shadow:0 0 80px rgba(245,197,24,.2)}
 .s6-date em{color:var(--gold);font-style:normal}
-.s6-venue{font-family:'Inter',sans-serif;font-size:clamp(.85rem,2.5vw,1.2rem);font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.12em;text-transform:uppercase}
-.s6-price{background:var(--gold);color:#000;font-size:clamp(3rem,10vw,7rem);padding:.3rem 1.5rem;border-radius:12px;line-height:1}
+.s6-venue{font-family:'Inter',sans-serif;font-size:clamp(.82rem,2.5vw,1.2rem);font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.14em;text-transform:uppercase}
+.s6-price{background:var(--gold);color:#000;font-size:clamp(3.5rem,11vw,8rem);padding:.3rem 1.8rem;border-radius:14px;line-height:1;box-shadow:0 0 60px rgba(245,197,24,.4)}
 .s6-pills{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center}
-.s6-pill{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .9rem;color:rgba(255,255,255,.7)}
+.s6-pill{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.38rem .95rem;color:rgba(255,255,255,.65)}
 
-/* ── SCENE 7: CTA ── */
+/* ── S7: CTA ── */
 #s7{background:#000;flex-direction:column;text-align:center}
-.s7-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(248,197,24,.1) 0%,transparent 60%)}
-.s7-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:2rem}
-.scene.on .s7-cta   {animation:zoomIn .4s both}
-.scene.on .s7-phone {animation:slideUp .4s .2s both}
-.scene.on .s7-qrbox {animation:slideUp .4s .35s both}
-.scene.on .s7-scan  {animation:fadeIn .4s .55s both}
-.scene.on .s7-spons {animation:fadeIn .4s .7s both}
-.s7-cta{font-size:clamp(4rem,14vw,10rem);line-height:.88}
+.s7-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(245,197,24,.12) 0%,transparent 55%);animation:glowPulse 2.5s ease-in-out infinite}
+.s7-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.85rem;padding:2rem}
+.scene.on .s7-cta   {animation:zoomIn .45s both}
+.scene.on .s7-phone {animation:slideUp .4s .22s both}
+.scene.on .s7-qrbox {animation:slideUp .4s .38s both}
+.scene.on .s7-scan  {animation:fadeIn .4s .58s both}
+.scene.on .s7-spons {animation:fadeIn .4s .75s both}
+.s7-cta{font-size:clamp(4.5rem,16vw,11rem);line-height:.85;text-shadow:0 0 100px rgba(245,197,24,.2)}
 .s7-cta em{color:var(--gold);font-style:normal}
-.s7-phone{font-size:clamp(2.5rem,8vw,6rem);color:var(--gold);text-shadow:0 0 40px rgba(248,197,24,.5);line-height:1}
-.s7-qrbox{background:rgba(255,255,255,.04);border:2px solid rgba(248,197,24,.35);border-radius:14px;padding:1rem}
-.s7-qrbox img{display:block;width:130px;height:130px;border-radius:8px}
-.s7-scan{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase}
-.s7-spons{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase}
+.s7-phone{font-size:clamp(3rem,9vw,7rem);color:var(--gold);text-shadow:0 0 50px rgba(245,197,24,.55);line-height:1}
+.s7-qrbox{background:rgba(255,255,255,.03);border:2px solid rgba(245,197,24,.35);border-radius:16px;padding:1.1rem;box-shadow:0 0 40px rgba(245,197,24,.1)}
+.s7-qrbox img{display:block;width:135px;height:135px;border-radius:8px}
+.s7-scan{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;color:rgba(255,255,255,.28);letter-spacing:.14em;text-transform:uppercase}
+.s7-spons{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:600;color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase}
 .s7-spons span{color:#00FF41}
 </style>
 </head>
@@ -172,8 +161,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
 <div class="progress"><div class="pbar" id="pbar"></div></div>
 <button class="replay" id="replayBtn" onclick="startAd()">↺ Replay</button>
 
-<!-- S1: INTRO -->
+<!-- S1 -->
 <div class="scene" id="s1">
+  <div class="s1-glow"></div>
   <div class="s1-ring"></div><div class="s1-ring"></div><div class="s1-ring"></div>
   <div class="s1-body">
     <div class="s1-venue">Belton, Missouri · Colorado USA</div>
@@ -182,10 +172,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
   </div>
 </div>
 
-<!-- S2: EL RUSO -->
+<!-- S2 -->
 <div class="scene" id="s2">
   <div class="s2-photo"></div>
   <div class="s2-grad"></div>
+  <div class="s2-shine"></div>
   <div class="s2-content">
     <div class="s2-tag">El Favorito</div>
     <div class="s2-name">El<br><em>Ruso</em></div>
@@ -197,10 +188,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
   </div>
 </div>
 
-<!-- S3: EL GRINGO -->
+<!-- S3 -->
 <div class="scene" id="s3">
   <div class="s3-photo"></div>
   <div class="s3-grad"></div>
+  <div class="s3-shine"></div>
   <div class="s3-content">
     <div class="s3-tag">El Retador</div>
     <div class="s3-name">El<br><em>Gringo</em></div>
@@ -212,7 +204,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
   </div>
 </div>
 
-<!-- S4: VS SPLIT -->
+<!-- S4 -->
 <div class="scene" id="s4">
   <div class="s4-left">
     <div class="ph"></div>
@@ -233,19 +225,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
   <div class="s4-divider"></div>
   <div class="s4-vs">
     <div class="s4-vs-text">VS</div>
-    <div class="s4-vs-sub">350 YDS · Carrera #2</div>
+    <div class="s4-vs-sub">350 YDS · Carrera #2 · 11:00 AM</div>
   </div>
 </div>
 
-<!-- S5: RACES -->
+<!-- S5 -->
 <div class="scene" id="s5">
   <div class="s5-title">18 Carreras</div>
   <div class="s5-grid" id="s5grid"></div>
 </div>
 
-<!-- S6: DETAILS -->
+<!-- S6 -->
 <div class="scene" id="s6">
   <div class="s6-bg"></div>
+  <div class="s6-grain"></div>
   <div class="s6-content">
     <div class="s6-date">Domingo<br><em>14 Junio</em><br>2026</div>
     <div class="s6-venue">Belton, Missouri · Colorado USA</div>
@@ -258,7 +251,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
   </div>
 </div>
 
-<!-- S7: CTA -->
+<!-- S7 -->
 <div class="scene" id="s7">
   <div class="s7-glow"></div>
   <div class="s7-content">
@@ -271,12 +264,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Be
 </div>
 
 <script>
-// QR code
-const SITE = 'https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
-document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(SITE)}&bgcolor=000000&color=F5C518&format=png&margin=10`;
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carril-los-amigos-jun14/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=270x270&data=${encodeURIComponent(SITE)}&bgcolor=000000&color=F5C518&format=png&margin=10`;
 
-// Race list for scene 5
-const RACES = [
+const RACES=[
   {n:'01',t:'10:30',title:'Abierta 3 Años No Mechados',d:'275 yds'},
   {n:'02',t:'11:00',title:'El Ruso vs El Gringo',d:'350 yds',ft:true},
   {n:'03',t:'11:30',title:'El Texano vs El Moro Talacho',d:'150 yds'},
@@ -291,16 +282,15 @@ const RACES = [
   {n:'17',t:'6:30', title:'Final Derby',d:'250 yds'},
   {n:'18',t:'7:30', title:'La Reyna Yaky vs El Dos Estados',d:'250 yds'},
 ];
-const g = document.getElementById('s5grid');
-RACES.forEach(r => {
-  const el = document.createElement('div');
-  el.className = 's5-row' + (r.ft ? ' ft' : '');
-  el.innerHTML = `<span>${r.n} · ${r.t} · ${r.title}</span><span>${r.d}</span>`;
+const g=document.getElementById('s5grid');
+RACES.forEach(r=>{
+  const el=document.createElement('div');
+  el.className='s5-row'+(r.ft?' ft':'');
+  el.innerHTML=`<span>${r.n} · ${r.t} · ${r.title}</span><span>${r.d}</span>`;
   g.appendChild(el);
 });
 
-// SCENE TIMING
-const SCENES = [
+const SCENES=[
   {id:'s1',dur:4000},
   {id:'s2',dur:5500},
   {id:'s3',dur:5500},
@@ -309,46 +299,35 @@ const SCENES = [
   {id:'s6',dur:5000},
   {id:'s7',dur:8000},
 ];
-const TOTAL = SCENES.reduce((a,b) => a+b.dur, 0);
-let timers = [];
+const TOTAL=SCENES.reduce((a,b)=>a+b.dur,0);
+let timers=[];
 
-function clearAll() {
-  timers.forEach(t => clearTimeout(t));
-  timers = [];
-  document.querySelectorAll('.scene').forEach(s => s.classList.remove('on'));
-  document.getElementById('replayBtn').style.display = 'none';
-  document.getElementById('pbar').style.width = '0%';
+function clearAll(){
+  timers.forEach(t=>clearTimeout(t));timers=[];
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('on'));
+  document.getElementById('replayBtn').style.display='none';
+  document.getElementById('pbar').style.width='0%';
 }
 
-function startAd() {
+function startAd(){
   clearAll();
-
-  // Progress bar
-  const start = performance.now();
-  function updateBar() {
-    const pct = Math.min(((performance.now()-start)/TOTAL)*100, 100);
-    document.getElementById('pbar').style.width = pct + '%';
-    if (pct < 100) requestAnimationFrame(updateBar);
+  const start=performance.now();
+  function upd(){
+    const pct=Math.min(((performance.now()-start)/TOTAL)*100,100);
+    document.getElementById('pbar').style.width=pct+'%';
+    if(pct<100)requestAnimationFrame(upd);
   }
-  requestAnimationFrame(updateBar);
-
-  // Queue scenes
-  let elapsed = 0;
-  SCENES.forEach((sc, i) => {
-    const delay = elapsed;
-    elapsed += sc.dur;
-    timers.push(setTimeout(() => {
-      document.querySelectorAll('.scene').forEach(s => s.classList.remove('on'));
+  requestAnimationFrame(upd);
+  let el=0;
+  SCENES.forEach(sc=>{
+    const d=el;el+=sc.dur;
+    timers.push(setTimeout(()=>{
+      document.querySelectorAll('.scene').forEach(s=>s.classList.remove('on'));
       document.getElementById(sc.id).classList.add('on');
-    }, delay));
+    },d));
   });
-
-  // End
-  timers.push(setTimeout(() => {
-    document.getElementById('replayBtn').style.display = 'block';
-  }, elapsed));
+  timers.push(setTimeout(()=>{document.getElementById('replayBtn').style.display='block'},el));
 }
-
 startAd();
 </script>
 </body>
