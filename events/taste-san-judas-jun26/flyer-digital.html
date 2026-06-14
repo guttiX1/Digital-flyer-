@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flyer Digital — Gran' Final Maturity Perronn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#22C55E; --gold:#F5C518; --black:#0a0a0a; --white:#f0f0f0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body { background:#111; color:var(--white); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; display:flex; flex-direction:column; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(34,197,94,0.25); padding:0 1rem; }
+    .nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:0.25rem; height:52px; overflow-x:auto; scrollbar-width:none; }
+    .nav-inner::-webkit-scrollbar{display:none;}
+    .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--green); white-space:nowrap; margin-right:0.5rem; }
+    nav a { color:rgba(240,240,240,0.7); text-decoration:none; font-size:0.72rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:0.35rem 0.6rem; border-radius:6px; white-space:nowrap; transition:all 0.2s; }
+    nav a:hover,nav a.active { color:var(--green); background:rgba(34,197,94,0.1); }
+    .page-wrap { padding-top:52px; display:flex; justify-content:center; align-items:flex-start; min-height:100vh; padding-bottom:3rem; }
+    .flyer-container { position:relative; width:min(430px, 100vw); aspect-ratio:9/16; margin-top:2rem; border-radius:24px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(34,197,94,0.2); }
+    .flyer-bg { position:absolute; inset:0; background:url('flyer.jpg') center center/cover no-repeat; z-index:0; }
+    .flyer-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.4) 30%, rgba(10,10,10,0.5) 60%, rgba(10,10,10,0.92) 100%); z-index:1; }
+    .flyer-content { position:relative; z-index:2; height:100%; display:flex; flex-direction:column; padding:1.8rem 1.5rem; }
+    .f-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:auto; }
+    .f-brand-pill { background:rgba(34,197,94,0.15); border:1px solid var(--green); color:var(--green); font-size:0.65rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.3rem 0.8rem; border-radius:100px; }
+    .f-date-pill { background:rgba(245,197,24,0.12); border:1px solid rgba(245,197,24,0.4); color:var(--gold); font-size:0.62rem; font-weight:700; padding:0.3rem 0.8rem; border-radius:100px; }
+    .f-middle { text-align:center; padding:1rem 0; }
+    .f-programa { font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
+    .f-title { font-family:'Bebas Neue',sans-serif; font-size:3.5rem; line-height:0.9; color:var(--green); text-shadow:0 0 40px rgba(34,197,94,0.5); margin-bottom:0.2rem; }
+    .f-subtitle { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--white); letter-spacing:0.05em; margin-bottom:0.3rem; }
+    .f-perronn { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--gold); letter-spacing:0.1em; }
+    .f-main-race { background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.3); border-radius:12px; padding:1rem; margin:0.8rem 0; }
+    .f-main-label { font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+    .f-horses { display:flex; align-items:center; justify-content:center; gap:0.5rem; }
+    .f-horse { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--white); text-align:center; flex:1; }
+    .f-horse small { display:block; font-family:'Inter',sans-serif; font-size:0.52rem; color:var(--gold); font-weight:600; margin-top:0.15rem; text-transform:uppercase; letter-spacing:0.05em; }
+    .f-vs { font-family:'Bebas Neue',sans-serif; font-size:0.9rem; color:var(--gold); flex-shrink:0; }
+    .f-race-meta { display:flex; gap:0.5rem; justify-content:center; margin-top:0.6rem; flex-wrap:wrap; }
+    .f-meta-tag { font-size:0.58rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); padding:0.2rem 0.5rem; border-radius:100px; color:rgba(240,240,240,0.7); }
+    .f-races-list { margin:0.5rem 0; }
+    .f-race-row { display:flex; align-items:center; gap:0.6rem; padding:0.45rem 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .f-race-row:last-child { border-bottom:none; }
+    .f-race-n { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--green); min-width:18px; }
+    .f-race-info { flex:1; }
+    .f-race-name { font-size:0.62rem; font-weight:700; color:var(--white); line-height:1.2; }
+    .f-race-detail { font-size:0.54rem; color:rgba(240,240,240,0.45); margin-top:0.1rem; }
+    .f-race-dist { font-family:'Bebas Neue',sans-serif; font-size:0.85rem; color:var(--gold); flex-shrink:0; }
+    .f-bottom { text-align:center; margin-top:1rem; }
+    .f-social { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--green); letter-spacing:0.05em; }
+    .f-tiger-strip { display:flex; gap:0.3rem; justify-content:center; margin-top:0.4rem; font-size:1.2rem; }
+    .f-venue-line { font-size:0.65rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(240,240,240,0.45); margin-top:0.3rem; }
+    footer { text-align:center; padding:2rem 1rem; border-top:1px solid rgba(255,255,255,0.06); color:rgba(240,240,240,0.35); font-size:0.78rem; margin-top:auto; }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">🐯 TASTE SJ</span>
+    <a href="site.html">Inicio</a>
+    <a href="flyer-digital.html" class="active">Flyer</a>
+    <a href="tres-bandas.html">3 Bandas</a>
+    <a href="races.html">Programa</a>
+    <a href="infographic.html">Stats</a>
+    <a href="video-ad.html">Video Ad</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="flyer-container">
+    <div class="flyer-bg"></div>
+    <div class="flyer-overlay"></div>
+    <div class="flyer-content">
+      <div class="f-top">
+        <div class="f-brand-pill">🐯 Taste San Judas</div>
+        <div class="f-date-pill">Vie · 26 Jun 2026</div>
+      </div>
+
+      <div class="f-middle">
+        <div class="f-programa">Programa Oficial</div>
+        <div class="f-title">Gran' Final</div>
+        <div class="f-subtitle">Maturity</div>
+        <div class="f-perronn">Perronn 🔥</div>
+      </div>
+
+      <div class="f-main-race">
+        <div class="f-main-label">🏆 Gran Final · 3 Bandas · 225 MTS</div>
+        <div class="f-horses">
+          <div class="f-horse">El Wuason<small>C BR</small></div>
+          <div class="f-vs">VS</div>
+          <div class="f-horse">La D7<small>C Regis de Jahuara</small></div>
+          <div class="f-vs">VS</div>
+          <div class="f-horse">El Ping Pong<small>C Garañones/RP</small></div>
+        </div>
+        <div class="f-race-meta">
+          <span class="f-meta-tag">225 MTS</span>
+          <span class="f-meta-tag">10 SEG</span>
+          <span class="f-meta-tag">🐯 Ley del Tigre</span>
+        </div>
+      </div>
+
+      <div class="f-races-list">
+        <div class="f-race-row">
+          <div class="f-race-n">1</div>
+          <div class="f-race-info">
+            <div class="f-race-name">Super Carrerón de Poder</div>
+            <div class="f-race-detail">El Cirujano (Tapado) vs El Chelelo · 10 SEG · CP</div>
+          </div>
+          <div class="f-race-dist">260 MTS</div>
+        </div>
+        <div class="f-race-row">
+          <div class="f-race-n">2</div>
+          <div class="f-race-info">
+            <div class="f-race-name">Gran Duelo de Tapados</div>
+            <div class="f-race-detail">El Indion vs La Patana · 0-15 SEG · CP</div>
+          </div>
+          <div class="f-race-dist">225 MTS</div>
+        </div>
+        <div class="f-race-row">
+          <div class="f-race-n">3</div>
+          <div class="f-race-info">
+            <div class="f-race-name">Gran Carrerón de Damas</div>
+            <div class="f-race-detail">La Mayita vs La Juliet · 0-15 SEG · CP</div>
+          </div>
+          <div class="f-race-dist">225 MTS</div>
+        </div>
+        <div class="f-race-row">
+          <div class="f-race-n">4</div>
+          <div class="f-race-info">
+            <div class="f-race-name">Que Carrerooon de Pique</div>
+            <div class="f-race-detail">La Chapa vs El Tekate · 10 SEG · Ley del Tigre</div>
+          </div>
+          <div class="f-race-dist">200 MTS</div>
+        </div>
+        <div class="f-race-row">
+          <div class="f-race-n">5</div>
+          <div class="f-race-info">
+            <div class="f-race-name">Gran Duelo</div>
+            <div class="f-race-detail">La Pollita vs El Contrato · 10 SEG · Ley del Tigre</div>
+          </div>
+          <div class="f-race-dist">200 MTS</div>
+        </div>
+      </div>
+
+      <div class="f-bottom">
+        <div class="f-tiger-strip">🐯🐯🐯</div>
+        <div class="f-social">@tastesanjudas</div>
+        <div class="f-venue-line">Taste San Judas · Viernes 26 de Junio 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>🐯 Gran' Final Maturity Perronn · Viernes 26 Junio 2026</div>
+  <div style="margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="site.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Inicio</a>
+    <a href="flyer-digital.html" style="color:var(--green);text-decoration:none;font-size:0.75rem;">Flyer</a>
+    <a href="tres-bandas.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">3 Bandas</a>
+    <a href="races.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Programa</a>
+    <a href="infographic.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Stats</a>
+    <a href="video-ad.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Video Ad</a>
+  </div>
+</footer>
+</body>
+</html>

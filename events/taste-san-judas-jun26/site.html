@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gran' Final Maturity Perronn — Taste San Judas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #22C55E;
+      --gold: #F5C518;
+      --black: #0a0a0a;
+      --white: #f0f0f0;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(34,197,94,0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(34,197,94,0.25); padding: 0 1rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
+      gap: 0.25rem; height: 52px; overflow-x: auto; scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--green); white-space: nowrap; margin-right: 0.5rem; }
+    nav a {
+      color: rgba(240,240,240,0.7); text-decoration: none; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase; padding: 0.35rem 0.6rem; border-radius: 6px;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--green); background: rgba(34,197,94,0.1); }
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 80px 1.5rem 3rem; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('flyer.jpg') center center / cover no-repeat;
+      filter: brightness(0.22) saturate(0.5); z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.9) 100%); z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-badge {
+      display: inline-block; background: rgba(34,197,94,0.12); border: 1px solid var(--green);
+      color: var(--green); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 100px; margin-bottom: 1.2rem;
+    }
+    .hero-brand { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.1rem,3vw,1.5rem); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,10vw,7rem); line-height: 0.9; color: var(--green); text-shadow: 0 0 60px rgba(34,197,94,0.5); margin-bottom: 0.2rem; }
+    .hero-subtitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem,4vw,2.8rem); color: var(--white); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .hero-tagline { color: var(--gold); font-size: clamp(0.9rem,2vw,1.1rem); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2.5rem; }
+    .meta-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.88rem; font-weight: 600;
+    }
+    .countdown-wrap { margin-bottom: 2rem; }
+    .countdown-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,240,240,0.5); margin-bottom: 1rem; }
+    .countdown-rings { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .ring-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .ring-svg { width: 72px; height: 72px; }
+    .ring-bg { fill: none; stroke: rgba(34,197,94,0.12); stroke-width: 5; }
+    .ring-fg { fill: none; stroke: var(--green); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 188; stroke-dashoffset: 188; transition: stroke-dashoffset 1s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
+    .ring-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1; color: var(--green); }
+    .ring-lbl { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,240,240,0.5); }
+    .cta-btn {
+      display: inline-block; background: linear-gradient(135deg, var(--green), #16a34a); color: #000;
+      font-weight: 800; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 2.5rem; border-radius: 100px; text-decoration: none;
+      box-shadow: 0 0 40px rgba(34,197,94,0.3); transition: all 0.3s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(34,197,94,0.5); }
+    section { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,5vw,3.5rem); line-height: 1; color: var(--white); margin-bottom: 1rem; }
+    .divider { width: 60px; height: 3px; background: var(--green); border-radius: 2px; margin-bottom: 2.5rem; }
+    .tres-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 1rem; align-items: center; }
+    @media (max-width: 768px) { .tres-grid { grid-template-columns: 1fr; } .vs-col { display: none; } }
+    .horse-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+      padding: 2rem 1.5rem; text-align: center; backdrop-filter: blur(8px);
+      transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden;
+    }
+    .horse-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--green); }
+    .horse-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(34,197,94,0.15); }
+    .horse-tag { display: inline-block; background: rgba(34,197,94,0.12); color: var(--green); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1rem; }
+    .horse-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem,4vw,2.8rem); color: var(--white); line-height: 1; margin-bottom: 0.5rem; }
+    .horse-cuadra { color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.2rem; }
+    .horse-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; }
+    .vs-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .vs-diamond { width: 56px; height: 56px; background: linear-gradient(135deg, var(--gold), #d97706); transform: rotate(45deg); display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 30px rgba(245,197,24,0.3); }
+    .vs-diamond span { transform: rotate(-45deg); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: #000; font-weight: 900; }
+    .race-list { display: flex; flex-direction: column; gap: 1rem; }
+    .race-item { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 40px 1fr auto; gap: 1rem; align-items: center; transition: border-color 0.3s, transform 0.3s; }
+    .race-item:hover { border-color: rgba(34,197,94,0.3); transform: translateX(4px); }
+    .race-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--green); line-height: 1; }
+    .race-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--white); letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .race-horses { font-size: 0.82rem; color: rgba(240,240,240,0.65); line-height: 1.4; }
+    .race-meta { text-align: right; }
+    .race-dist { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--gold); }
+    .race-cond { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,240,240,0.45); margin-top: 0.25rem; }
+    .stats-strip { background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(245,197,24,0.04)); border: 1px solid rgba(34,197,94,0.15); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+    .stat-item { text-align: center; }
+    .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--green); line-height: 1; }
+    .stat-lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,240,240,0.45); margin-top: 0.25rem; }
+    .qr-section { background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(10,10,10,0)); border: 1px solid rgba(34,197,94,0.2); border-radius: 20px; padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
+    .qr-img { border-radius: 12px; border: 2px solid rgba(34,197,94,0.3); }
+    .qr-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); }
+    .qr-sub { font-size: 0.85rem; color: rgba(240,240,240,0.55); }
+    .social-handle { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--green); letter-spacing: 0.05em; }
+    footer { text-align: center; padding: 2rem 1rem 3rem; border-top: 1px solid rgba(255,255,255,0.06); color: rgba(240,240,240,0.35); font-size: 0.78rem; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">🐯 TASTE SJ</span>
+    <a href="site.html" class="active">Inicio</a>
+    <a href="flyer-digital.html">Flyer</a>
+    <a href="tres-bandas.html">3 Bandas</a>
+    <a href="races.html">Programa</a>
+    <a href="infographic.html">Stats</a>
+    <a href="video-ad.html">Video Ad</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🐯 Programa Oficial · Viernes 26 Junio 2026</div>
+    <div class="hero-brand">Taste San Judas</div>
+    <h1 class="hero-title">Gran' Final<br>Maturity</h1>
+    <div class="hero-subtitle">Perronn 🔥</div>
+    <div class="hero-tagline">5 Carreras · 3 Bandas Gran Final · Ley del Tigre</div>
+    <div class="hero-meta">
+      <div class="meta-pill"><span>📅</span> Viernes 26 Junio 2026</div>
+      <div class="meta-pill"><span>📍</span> Taste San Judas</div>
+      <div class="meta-pill"><span>🏁</span> 5 Carreras</div>
+      <div class="meta-pill"><span>🐯</span> Ley del Tigre</div>
+    </div>
+    <div class="countdown-wrap">
+      <div class="countdown-label">Cuenta Regresiva al Evento</div>
+      <div class="countdown-rings">
+        <div class="ring-item">
+          <svg class="ring-svg" viewBox="0 0 72 72"><circle class="ring-bg" cx="36" cy="36" r="30"/><circle class="ring-fg" id="ring-days" cx="36" cy="36" r="30"/></svg>
+          <div class="ring-val" id="cd-days">--</div><div class="ring-lbl">Días</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" viewBox="0 0 72 72"><circle class="ring-bg" cx="36" cy="36" r="30"/><circle class="ring-fg" id="ring-hrs" cx="36" cy="36" r="30"/></svg>
+          <div class="ring-val" id="cd-hrs">--</div><div class="ring-lbl">Horas</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" viewBox="0 0 72 72"><circle class="ring-bg" cx="36" cy="36" r="30"/><circle class="ring-fg" id="ring-min" cx="36" cy="36" r="30"/></svg>
+          <div class="ring-val" id="cd-min">--</div><div class="ring-lbl">Min</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" viewBox="0 0 72 72"><circle class="ring-bg" cx="36" cy="36" r="30"/><circle class="ring-fg" id="ring-sec" cx="36" cy="36" r="30"/></svg>
+          <div class="ring-val" id="cd-sec">--</div><div class="ring-lbl">Seg</div>
+        </div>
+      </div>
+    </div>
+    <a href="races.html" class="cta-btn">🏇 Ver Programa Completo</a>
+  </div>
+</div>
+
+<section class="reveal">
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-val">5</div><div class="stat-lbl">Carreras</div></div>
+    <div class="stat-item"><div class="stat-val">3</div><div class="stat-lbl">Gran Final</div></div>
+    <div class="stat-item"><div class="stat-val">260</div><div class="stat-lbl">MTS Máx</div></div>
+    <div class="stat-item"><div class="stat-val">200</div><div class="stat-lbl">MTS Mín</div></div>
+    <div class="stat-item"><div class="stat-val">🐯</div><div class="stat-lbl">Ley del Tigre</div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label">🏆 Gran Final · 3 Bandas</div>
+  <h2 class="section-title">El Combate Principal</h2>
+  <div class="divider"></div>
+  <p style="color:rgba(240,240,240,0.6); margin-bottom:2rem; font-size:0.9rem;">225 MTS &nbsp;|&nbsp; 10 SEG &nbsp;|&nbsp; 🐯 Ley del Tigre</p>
+  <div class="tres-grid">
+    <div class="horse-card">
+      <span class="horse-tag">🐯 Favorito</span>
+      <span class="horse-emoji">🐎</span>
+      <div class="horse-name">El Wuason</div>
+      <div class="horse-cuadra">C BR</div>
+      <div style="width:100%;background:rgba(34,197,94,0.1);border-radius:100px;height:6px;margin-top:1rem;"><div style="width:88%;height:100%;background:var(--green);border-radius:100px;"></div></div>
+    </div>
+    <div class="vs-col"><div class="vs-diamond"><span>VS</span></div></div>
+    <div class="horse-card">
+      <span class="horse-tag" style="color:var(--gold);background:rgba(245,197,24,0.1);">Retadora</span>
+      <span class="horse-emoji">🏇</span>
+      <div class="horse-name">La D7</div>
+      <div class="horse-cuadra">C Regis de Jahuara</div>
+      <div style="width:100%;background:rgba(245,197,24,0.1);border-radius:100px;height:6px;margin-top:1rem;"><div style="width:80%;height:100%;background:var(--gold);border-radius:100px;"></div></div>
+    </div>
+    <div class="vs-col"><div class="vs-diamond"><span>VS</span></div></div>
+    <div class="horse-card">
+      <span class="horse-tag" style="color:#f97316;background:rgba(249,115,22,0.1);">Sorpresa</span>
+      <span class="horse-emoji">⚡</span>
+      <div class="horse-name">El Ping Pong</div>
+      <div class="horse-cuadra">C Garañones/RP</div>
+      <div style="width:100%;background:rgba(249,115,22,0.1);border-radius:100px;height:6px;margin-top:1rem;"><div style="width:74%;height:100%;background:#f97316;border-radius:100px;"></div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="tres-bandas.html" class="cta-btn">Ver Página 3 Bandas</a>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label">📋 Programa Completo</div>
+  <h2 class="section-title">Las 5 Carreras</h2>
+  <div class="divider"></div>
+  <div class="race-list">
+    <div class="race-item" style="border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.04);">
+      <div class="race-num" style="color:var(--gold);">★</div>
+      <div>
+        <div class="race-title" style="color:var(--gold);">🏆 Gran' Final Maturity Perronn — 3 Bandas</div>
+        <div class="race-horses">El Wuason (C BR) VS La D7 (C Regis de Jahuara) VS El Ping Pong (C Garañones/RP)</div>
+      </div>
+      <div class="race-meta"><div class="race-dist">225 MTS</div><div class="race-cond">10 SEG · 🐯 Ley del Tigre</div></div>
+    </div>
+    <div class="race-item">
+      <div class="race-num">1</div>
+      <div><div class="race-title">Super Carrerón de Poder</div><div class="race-horses">El Cirujano (Tapado) C Machacas VS El Chelelo C El Zopilote</div></div>
+      <div class="race-meta"><div class="race-dist">260 MTS</div><div class="race-cond">10 SEG · CP</div></div>
+    </div>
+    <div class="race-item">
+      <div class="race-num">2</div>
+      <div><div class="race-title">Gran Duelo de Tapados</div><div class="race-horses">El Indion C Tino Valdez VS La Patana C Coy</div></div>
+      <div class="race-meta"><div class="race-dist">225 MTS</div><div class="race-cond">0-15 SEG · CP</div></div>
+    </div>
+    <div class="race-item">
+      <div class="race-num">3</div>
+      <div><div class="race-title">Gran Carrerón de Damas</div><div class="race-horses">La Mayita C JC Amolito VS La Juliet C Los Camachos</div></div>
+      <div class="race-meta"><div class="race-dist">225 MTS</div><div class="race-cond">0-15 SEG · CP</div></div>
+    </div>
+    <div class="race-item">
+      <div class="race-num">4</div>
+      <div><div class="race-title">Que Carrerooon de Pique</div><div class="race-horses">La Chapa C JJRios VS El Tekate C Misa/3 Marias</div></div>
+      <div class="race-meta"><div class="race-dist">200 MTS</div><div class="race-cond">10 SEG · 🐯 Ley del Tigre</div></div>
+    </div>
+    <div class="race-item">
+      <div class="race-num">5</div>
+      <div><div class="race-title">Gran Duelo</div><div class="race-horses">La Pollita C Bocatoma VS El Contrato C Juan de la Noria</div></div>
+      <div class="race-meta"><div class="race-dist">200 MTS</div><div class="race-cond">10 SEG · 🐯 Ley del Tigre</div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="races.html" class="cta-btn">Ver Programa Detallado</a>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="qr-section">
+    <div class="section-label">📱 Comparte el Evento</div>
+    <h2 class="section-title" style="color:var(--white);">Escanea y Comparte</h2>
+    <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Ftaste-san-judas-jun26%2Fsite.html&bgcolor=0a0a0a&color=22C55E&format=png&margin=8" alt="QR Code" width="200" height="200">
+    <div class="qr-title">Gran' Final Maturity Perronn</div>
+    <div class="qr-sub">guttix1.github.io/Digital-flyer-/events/taste-san-judas-jun26/site.html</div>
+    <div class="social-handle">@tastesanjudas</div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--green);margin-bottom:0.5rem;">🐯 Taste San Judas</div>
+  <div>Gran' Final Maturity Perronn · Viernes 26 Junio 2026</div>
+  <div style="margin-top:0.5rem;color:rgba(240,240,240,0.25);">@tastesanjudas</div>
+  <div style="margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="site.html" style="color:var(--green);text-decoration:none;font-size:0.75rem;">Inicio</a>
+    <a href="flyer-digital.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Flyer</a>
+    <a href="tres-bandas.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">3 Bandas</a>
+    <a href="races.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Programa</a>
+    <a href="infographic.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Stats</a>
+    <a href="video-ad.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Video Ad</a>
+  </div>
+</footer>
+
+<script>
+const target = new Date('2026-06-26T10:00:00');
+const circumference = 2 * Math.PI * 30;
+function setRing(id, value, max) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.strokeDashoffset = circumference - (value / max) * circumference;
+}
+function updateCountdown() {
+  const diff = target - new Date();
+  if (diff <= 0) { ['days','hrs','min','sec'].forEach(k => document.getElementById('cd-'+k).textContent = '00'); return; }
+  const days = Math.floor(diff / 86400000);
+  const hrs  = Math.floor((diff % 86400000) / 3600000);
+  const min  = Math.floor((diff % 3600000) / 60000);
+  const sec  = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+  document.getElementById('cd-hrs').textContent  = String(hrs).padStart(2,'0');
+  document.getElementById('cd-min').textContent  = String(min).padStart(2,'0');
+  document.getElementById('cd-sec').textContent  = String(sec).padStart(2,'0');
+  setRing('ring-days', days % 365, 365);
+  setRing('ring-hrs', hrs, 24);
+  setRing('ring-min', min, 60);
+  setRing('ring-sec', sec, 60);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa Completo — Gran' Final Maturity Perronn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #22C55E;
+    --gold: #F5C518;
+    --black: #0a0a0a;
+    --white: #f0f0f0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(34,197,94,0.2); padding: 0 1rem; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--green); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+  .nav-links a { color: rgba(240,240,240,0.7); text-decoration: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; padding: 0.3rem 0.6rem; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; }
+  .nav-links a:hover, .nav-links a.active { background: rgba(34,197,94,0.15); color: var(--green); }
+
+  /* HERO */
+  .page-hero {
+    position: relative; min-height: 45vh;
+    display: flex; align-items: flex-end; padding: 80px 1.5rem 3rem;
+    overflow: hidden;
+  }
+  .page-hero-bg { position: absolute; inset: 0; background: url('flyer.jpg') center/cover no-repeat; }
+  .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.95) 100%); }
+  .page-hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .page-eyebrow { color: var(--green); font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); color: var(--white); letter-spacing: 2px; line-height: 0.95; }
+  .page-subtitle { font-size: 1rem; color: rgba(240,240,240,0.5); margin-top: 0.7rem; }
+
+  /* CONTENT */
+  .content { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+  /* FEATURED RACE (3-WAY) */
+  .featured-race {
+    background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(10,10,10,0.8) 60%, rgba(245,197,24,0.05) 100%);
+    border: 1px solid rgba(34,197,94,0.3); border-radius: 20px;
+    padding: 2.5rem; margin-bottom: 3rem; position: relative; overflow: hidden;
+  }
+  .featured-glow {
+    position: absolute; top: -50px; right: -50px;
+    width: 250px; height: 250px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .featured-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--green); color: #000; font-size: 0.65rem; font-weight: 800;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1.2rem;
+  }
+  .featured-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem; }
+  .horses-3col { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0.5rem; align-items: center; margin-bottom: 2rem; }
+  .h3-card {
+    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 1.5rem 1rem; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .h3-card:hover { border-color: rgba(34,197,94,0.3); }
+  .h3-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .h3-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 1px; }
+  .h3-cuadra { font-size: 0.7rem; color: var(--green); font-weight: 600; letter-spacing: 1px; margin-top: 0.3rem; }
+  .vs-chip {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold);
+    text-shadow: 0 0 15px rgba(245,197,24,0.5); text-align: center; padding: 0 0.5rem;
+  }
+  .featured-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .meta-chip {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 0.6rem 1.2rem; text-align: center;
+  }
+  .meta-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--green); }
+  .meta-lbl { font-size: 0.6rem; color: rgba(240,240,240,0.4); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* RACE CARDS */
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: rgba(240,240,240,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.5rem; padding-left: 0.5rem; border-left: 3px solid var(--green); }
+  .race-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+  .race-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.3s; opacity: 0; transform: translateX(-20px);
+  }
+  .race-card.revealed { opacity: 1; transform: translateX(0); }
+  .race-card:hover { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.02); }
+  .rc-header {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .rc-num {
+    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--green), #16a34a);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #000;
+  }
+  .rc-title-wrap { flex: 1; }
+  .rc-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 1px; }
+  .rc-type { font-size: 0.7rem; color: rgba(240,240,240,0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.2rem; }
+  .rc-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .rc-tag {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+    padding: 0.25rem 0.7rem; border-radius: 20px; text-transform: uppercase;
+  }
+  .rc-tag.green { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+  .rc-tag.gold { background: rgba(245,197,24,0.15); border: 1px solid rgba(245,197,24,0.3); color: var(--gold); }
+  .rc-tag.gray { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(240,240,240,0.5); }
+
+  .rc-body { padding: 1.5rem; }
+  .rc-matchup {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 10px;
+    margin-bottom: 1rem; flex-wrap: wrap;
+  }
+  .rc-horse { flex: 1; min-width: 120px; }
+  .rc-horse-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
+  .rc-horse-cuadra { font-size: 0.7rem; color: var(--green); font-weight: 600; margin-top: 0.2rem; }
+  .rc-vs { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); flex-shrink: 0; }
+  .rc-specs { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .rc-spec-item { }
+  .rc-spec-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--green); }
+  .rc-spec-lbl { font-size: 0.6rem; color: rgba(240,240,240,0.4); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* LEGEND */
+  .legend {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 1.5rem 2rem; margin-top: 3rem;
+  }
+  .legend-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 1rem; }
+  .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .legend-item { }
+  .legend-term { font-weight: 700; color: var(--green); font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .legend-def { font-size: 0.78rem; color: rgba(240,240,240,0.5); line-height: 1.5; }
+
+  @media (max-width: 768px) {
+    .horses-3col { grid-template-columns: 1fr; }
+    .vs-chip { transform: rotate(90deg); }
+    .rc-matchup { flex-direction: column; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">🐎 TASTE SAN JUDAS</span>
+    <div class="nav-links">
+      <a href="site.html">Inicio</a>
+      <a href="flyer-digital.html">Flyer</a>
+      <a href="tres-bandas.html">3-Bandas</a>
+      <a href="races.html" class="active">Carreras</a>
+      <a href="infographic.html">Stats</a>
+      <a href="video-ad.html">Video Ad</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="page-eyebrow">📋 Programa Oficial · Viernes 26 de Junio 2026</div>
+    <h1 class="page-title">5 Carreras<br><span style="color:var(--green)">de Poder</span></h1>
+    <p class="page-subtitle">Taste San Judas · Gran' Final Maturity Perronn</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- FEATURED 3-WAY -->
+  <div class="featured-race">
+    <div class="featured-glow"></div>
+    <div class="featured-badge">⭐ Gran Final · Evento Principal</div>
+    <h2 class="featured-name">La Gran 3-Bandas · Maturity Perronn</h2>
+
+    <div class="horses-3col">
+      <div class="h3-card">
+        <div class="h3-icon">🐴</div>
+        <div class="h3-name">El Wuason</div>
+        <div class="h3-cuadra">C BR</div>
+      </div>
+      <div class="vs-chip">VS</div>
+      <div class="h3-card">
+        <div class="h3-icon">🐴</div>
+        <div class="h3-name">La D7</div>
+        <div class="h3-cuadra">C Regis de Jahuara</div>
+      </div>
+      <div class="vs-chip">VS</div>
+      <div class="h3-card">
+        <div class="h3-icon">🐴</div>
+        <div class="h3-name">El Ping Pong</div>
+        <div class="h3-cuadra">C Garañones/RP</div>
+      </div>
+    </div>
+
+    <div class="featured-meta">
+      <div class="meta-chip">
+        <div class="meta-val">225 MTS</div>
+        <div class="meta-lbl">Distancia</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-val">10 SEG</div>
+        <div class="meta-lbl">Ventaja</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-val" style="color:var(--gold)">🐅 Ley del Tigre</div>
+        <div class="meta-lbl">Condición</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-val">3</div>
+        <div class="meta-lbl">Contendientes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RACE LIST -->
+  <div class="section-label">Carreras del Programa</div>
+  <div class="race-cards">
+
+    <!-- RACE 1 -->
+    <div class="race-card">
+      <div class="rc-header">
+        <div class="rc-num">1</div>
+        <div class="rc-title-wrap">
+          <div class="rc-name">Super Carrerón de Poder</div>
+          <div class="rc-type">Carrera Estelar · Apertura del Programa</div>
+        </div>
+        <div class="rc-tags">
+          <span class="rc-tag green">260 MTS</span>
+          <span class="rc-tag gray">10 SEG</span>
+          <span class="rc-tag gray">CP</span>
+        </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-matchup">
+          <div class="rc-horse">
+            <div class="rc-horse-name">El Cirujano</div>
+            <div class="rc-horse-cuadra">C Machacas · Tapado</div>
+          </div>
+          <div class="rc-vs">VS</div>
+          <div class="rc-horse" style="text-align:right">
+            <div class="rc-horse-name">El Chelelo</div>
+            <div class="rc-horse-cuadra">C El Zopilote</div>
+          </div>
+        </div>
+        <div class="rc-specs">
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">260 MTS</div>
+            <div class="rc-spec-lbl">Distancia</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">10 SEG</div>
+            <div class="rc-spec-lbl">Ventaja</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val" style="color:var(--gold)">CP</div>
+            <div class="rc-spec-lbl">Condición</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACE 2 -->
+    <div class="race-card">
+      <div class="rc-header">
+        <div class="rc-num">2</div>
+        <div class="rc-title-wrap">
+          <div class="rc-name">Gran Duelo de Tapados</div>
+          <div class="rc-type">Duelo de Incógnitas · Alta Tensión</div>
+        </div>
+        <div class="rc-tags">
+          <span class="rc-tag green">225 MTS</span>
+          <span class="rc-tag gray">0-15 SEG</span>
+          <span class="rc-tag gray">CP</span>
+        </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-matchup">
+          <div class="rc-horse">
+            <div class="rc-horse-name">El Indion</div>
+            <div class="rc-horse-cuadra">C Tino Valdez</div>
+          </div>
+          <div class="rc-vs">VS</div>
+          <div class="rc-horse" style="text-align:right">
+            <div class="rc-horse-name">La Patana</div>
+            <div class="rc-horse-cuadra">C Coy</div>
+          </div>
+        </div>
+        <div class="rc-specs">
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">225 MTS</div>
+            <div class="rc-spec-lbl">Distancia</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">0-15 SEG</div>
+            <div class="rc-spec-lbl">Ventaja</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val" style="color:var(--gold)">CP</div>
+            <div class="rc-spec-lbl">Condición</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACE 3 -->
+    <div class="race-card">
+      <div class="rc-header">
+        <div class="rc-num">3</div>
+        <div class="rc-title-wrap">
+          <div class="rc-name">Gran Carrerón de Damas</div>
+          <div class="rc-type">Carrera Femenil · Las Reinas del Carril</div>
+        </div>
+        <div class="rc-tags">
+          <span class="rc-tag green">225 MTS</span>
+          <span class="rc-tag gray">0-15 SEG</span>
+          <span class="rc-tag gray">CP</span>
+        </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-matchup">
+          <div class="rc-horse">
+            <div class="rc-horse-name">La Mayita</div>
+            <div class="rc-horse-cuadra">C JC Amolito</div>
+          </div>
+          <div class="rc-vs">VS</div>
+          <div class="rc-horse" style="text-align:right">
+            <div class="rc-horse-name">La Juliet</div>
+            <div class="rc-horse-cuadra">C Los Camachos</div>
+          </div>
+        </div>
+        <div class="rc-specs">
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">225 MTS</div>
+            <div class="rc-spec-lbl">Distancia</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">0-15 SEG</div>
+            <div class="rc-spec-lbl">Ventaja</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val" style="color:var(--gold)">CP</div>
+            <div class="rc-spec-lbl">Condición</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACE 4 -->
+    <div class="race-card">
+      <div class="rc-header">
+        <div class="rc-num">4</div>
+        <div class="rc-title-wrap">
+          <div class="rc-name">Que Carrerooon de Pique</div>
+          <div class="rc-type">Carrera de Velocidad Pura · Pique a Pique</div>
+        </div>
+        <div class="rc-tags">
+          <span class="rc-tag green">200 MTS</span>
+          <span class="rc-tag gray">10 SEG</span>
+          <span class="rc-tag gold">🐅 Ley del Tigre</span>
+        </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-matchup">
+          <div class="rc-horse">
+            <div class="rc-horse-name">La Chapa</div>
+            <div class="rc-horse-cuadra">C JJRios</div>
+          </div>
+          <div class="rc-vs">VS</div>
+          <div class="rc-horse" style="text-align:right">
+            <div class="rc-horse-name">El Tekate</div>
+            <div class="rc-horse-cuadra">C Misa/3 Marias</div>
+          </div>
+        </div>
+        <div class="rc-specs">
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">200 MTS</div>
+            <div class="rc-spec-lbl">Distancia</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">10 SEG</div>
+            <div class="rc-spec-lbl">Ventaja</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val" style="color:var(--gold)">Ley del Tigre</div>
+            <div class="rc-spec-lbl">Condición</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACE 5 -->
+    <div class="race-card">
+      <div class="rc-header">
+        <div class="rc-num">5</div>
+        <div class="rc-title-wrap">
+          <div class="rc-name">Gran Duelo</div>
+          <div class="rc-type">Duelo Final · Previo a la Gran Final</div>
+        </div>
+        <div class="rc-tags">
+          <span class="rc-tag green">200 MTS</span>
+          <span class="rc-tag gray">10 SEG</span>
+          <span class="rc-tag gold">🐅 Ley del Tigre</span>
+        </div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-matchup">
+          <div class="rc-horse">
+            <div class="rc-horse-name">La Pollita</div>
+            <div class="rc-horse-cuadra">C Bocatoma</div>
+          </div>
+          <div class="rc-vs">VS</div>
+          <div class="rc-horse" style="text-align:right">
+            <div class="rc-horse-name">El Contrato</div>
+            <div class="rc-horse-cuadra">C Juan de la Noria</div>
+          </div>
+        </div>
+        <div class="rc-specs">
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">200 MTS</div>
+            <div class="rc-spec-lbl">Distancia</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val">10 SEG</div>
+            <div class="rc-spec-lbl">Ventaja</div>
+          </div>
+          <div class="rc-spec-item">
+            <div class="rc-spec-val" style="color:var(--gold)">Ley del Tigre</div>
+            <div class="rc-spec-lbl">Condición</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end race-cards -->
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-title">📖 Glosario de Condiciones</div>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-term">🐅 Ley del Tigre</div>
+        <p class="legend-def">El caballo líder debe mantener su ventaja. Si el retador lo alcanza antes de la meta, se aplican reglas especiales. Es la condición más emocionante de la noche.</p>
+      </div>
+      <div class="legend-item">
+        <div class="legend-term">CP — Choca Pierde</div>
+        <p class="legend-def">Si los caballos se rozan o "chocan" durante la carrera, el que inicia el contacto pierde automáticamente. Exige máxima destreza del jinete.</p>
+      </div>
+      <div class="legend-item">
+        <div class="legend-term">Tapado</div>
+        <p class="legend-def">Caballo cuya identidad o historial no es revelado públicamente antes de la carrera. Genera mayor emoción e incertidumbre entre los apostadores.</p>
+      </div>
+      <div class="legend-item">
+        <div class="legend-term">SEG — Ventaja</div>
+        <p class="legend-def">Metros de ventaja que recibe el caballo más lento al inicio de la carrera. La ventaja se negocia entre las cuadras antes del evento.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('revealed'), i * 150);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.race-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

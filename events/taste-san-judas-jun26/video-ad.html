@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Ad · Gran' Final Maturity Perronn</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#22C55E;--gold:#F5C518;--black:#0a0a0a;--white:#f0f0f0;--red:#EF4444}
+html,body{background:#000;color:var(--white);font-family:'Inter',sans-serif;overflow:hidden;height:100%}
+
+/* NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:.5rem 1rem;border-bottom:1px solid rgba(34,197,94,.15)}
+.top-nav .logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--green);letter-spacing:.08em}
+.top-nav .links{display:flex;gap:.4rem;flex-wrap:wrap}
+.top-nav .links a{color:rgba(240,240,240,.55);text-decoration:none;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .55rem;border-radius:5px;transition:all .15s;border:1px solid transparent}
+.top-nav .links a:hover{color:var(--green);border-color:rgba(34,197,94,.3)}
+
+/* STAGE */
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;top:44px}
+
+/* SCENE BASE */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.scene.on{opacity:1;pointer-events:all}
+
+/* ── SCENE 1: INTRO ── */
+.s1-bg{position:absolute;inset:0;background:url('flyer.jpg') center/cover no-repeat;filter:brightness(.2) saturate(.5)}
+.s1-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(34,197,94,.06) 0%,rgba(0,0,0,.95) 65%)}
+.s1-content{position:relative;z-index:2;text-align:center}
+.s1-content .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:999px;padding:.35rem 1.2rem;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem;animation:fadeUp .7s .2s both}
+.s1-content h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,12vw,8rem);line-height:.9;letter-spacing:.04em;animation:fadeUp .7s .4s both}
+.s1-content h1 .line1{color:var(--green);display:block;text-shadow:0 0 60px rgba(34,197,94,.5)}
+.s1-content h1 .line2{color:var(--gold);display:block;font-size:50%}
+.s1-content .s1-date{font-size:1rem;color:rgba(240,240,240,.45);margin-top:1rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeUp .7s .7s both}
+
+/* ── SCENE 2-4: HORSE REVEALS ── */
+.horse-scene-bg{position:absolute;inset:0;background:url('flyer.jpg') center/cover no-repeat}
+.horse-scene-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82)}
+.horse-card-3d{position:relative;z-index:2;width:320px;max-width:90vw;background:rgba(255,255,255,.03);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:2.5rem 2rem;text-align:center;animation:card3dIn .7s .2s cubic-bezier(.22,1,.36,1) both;transform-style:preserve-3d}
+.horse-card-3d .hc-icon{font-size:3.5rem;margin-bottom:1rem;display:block;animation:float 3s ease-in-out infinite}
+.horse-card-3d .hc-tag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .75rem;border-radius:999px;margin-bottom:.75rem}
+.horse-card-3d .hc-name{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.04em;line-height:1;margin-bottom:.35rem}
+.horse-card-3d .hc-cuadra{font-size:.72rem;color:rgba(240,240,240,.45);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.horse-card-3d .hc-spec{display:flex;justify-content:center;gap:1rem}
+.horse-card-3d .hc-spec span{background:rgba(255,255,255,.06);border-radius:8px;padding:.4rem .8rem;font-size:.72rem;font-weight:700}
+
+/* ── SCENE 5: THREE WAY ── */
+.s5-bg{position:absolute;inset:0;background:url('flyer.jpg') center/cover no-repeat;filter:brightness(.15) saturate(.3)}
+.s5-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(34,197,94,.05) 0%,rgba(0,0,0,.92) 70%)}
+.s5-title{position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--green);letter-spacing:.06em;text-align:center;margin-bottom:1.5rem;animation:fadeUp .6s .1s both}
+.s5-grid{position:relative;z-index:2;display:flex;gap:1rem;align-items:center;justify-content:center;flex-wrap:wrap;padding:0 1rem}
+.s5-horse{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem 1.2rem;text-align:center;min-width:140px;animation:card3dIn .7s cubic-bezier(.22,1,.36,1) both}
+.s5-horse:nth-child(1){animation-delay:.2s;border-color:rgba(34,197,94,.3)}
+.s5-horse:nth-child(3){animation-delay:.4s;border-color:rgba(245,197,24,.3)}
+.s5-horse:nth-child(5){animation-delay:.6s;border-color:rgba(239,68,68,.3)}
+.s5-horse .sn{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;line-height:1;margin-bottom:.25rem}
+.s5-horse .sc{font-size:.58rem;color:rgba(240,240,240,.4);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.s5-vs{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:rgba(240,240,240,.25);letter-spacing:.06em}
+.s5-race-info{position:relative;z-index:2;margin-top:1.5rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .8s both}
+.s5-race-info .chip{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;color:var(--green)}
+
+/* ── SCENE 6: DATE ── */
+.s6-bg{position:absolute;inset:0;background:url('flyer.jpg') center/cover no-repeat;filter:brightness(.15) saturate(.2)}
+.s6-overlay{position:absolute;inset:0;background:rgba(0,0,0,.88)}
+.s6-content{position:relative;z-index:2;text-align:center;max-width:600px;padding:0 1.5rem}
+.s6-content .date-tag{font-family:'Bebas Neue',sans-serif;font-size:.7rem;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;animation:fadeUp .6s .1s both}
+.s6-content .date-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,6.5rem);color:var(--gold);letter-spacing:.04em;line-height:.9;animation:fadeUp .6s .25s both;text-shadow:0 0 40px rgba(245,197,24,.3)}
+.s6-content .date-sub{font-size:.8rem;color:rgba(240,240,240,.4);margin:1rem 0 1.5rem;letter-spacing:.1em;text-transform:uppercase;animation:fadeUp .6s .4s both}
+.s6-races{display:flex;flex-direction:column;gap:.4rem;width:100%;max-width:400px;margin:0 auto;animation:fadeUp .6s .6s both}
+.s6-race-line{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.04);border-radius:8px;padding:.45rem .9rem;font-size:.72rem}
+.s6-race-line .rn{font-weight:700;color:var(--white)}
+.s6-race-line .rd{color:rgba(240,240,240,.4)}
+
+/* ── SCENE 7: CTA ── */
+.s7-bg{position:absolute;inset:0;background:url('flyer.jpg') center/cover no-repeat;filter:brightness(.12) saturate(.2)}
+.s7-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(34,197,94,.08) 0%,rgba(0,0,0,.97) 70%)}
+.s7-content{position:relative;z-index:2;text-align:center;padding:0 1.5rem}
+.s7-content .cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,4rem);color:var(--green);letter-spacing:.06em;line-height:.95;animation:fadeUp .7s .1s both;text-shadow:0 0 40px rgba(34,197,94,.4)}
+.s7-content .cta-sub{font-size:.85rem;color:rgba(240,240,240,.45);margin:1rem 0 1.5rem;letter-spacing:.08em;text-transform:uppercase;animation:fadeUp .7s .3s both}
+.s7-qr{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .5s both}
+.s7-qr-card{background:rgba(255,255,255,.04);border:1px solid rgba(34,197,94,.2);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.s7-qr-card img{width:100px;height:100px;border-radius:8px}
+.s7-qr-card .ql{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,240,240,.45)}
+.s7-social{margin-top:1.5rem;font-size:.8rem;color:rgba(240,240,240,.3);animation:fadeUp .7s .7s both;letter-spacing:.08em}
+
+/* PARTICLES */
+.particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:partFloat linear infinite}
+@keyframes partFloat{from{transform:translateY(100vh) rotate(0deg);opacity:1}to{transform:translateY(-20px) rotate(720deg);opacity:0}}
+
+/* PROGRESS BAR */
+.progress-bar{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:min(400px,90vw);z-index:300;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.progress-track{width:100%;height:3px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:99px;transition:width .5s linear}
+.scene-dots{display:flex;gap:.5rem}
+.scene-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .2s}
+.scene-dot.active{background:var(--green);width:20px;border-radius:99px}
+
+/* CONTROLS */
+.controls{position:fixed;bottom:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.75rem 1rem;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.06)}
+.ctrl-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--white);border-radius:8px;padding:.45rem 1.2rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:all .15s;text-transform:uppercase}
+.ctrl-btn:hover{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.35);color:var(--green)}
+.ctrl-btn.primary{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3);color:var(--green)}
+.ctrl-btn.primary:hover{background:var(--green);color:var(--black)}
+.scene-counter{font-size:.7rem;color:rgba(240,240,240,.35);font-weight:700;letter-spacing:.08em}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes card3dIn{from{opacity:0;transform:perspective(900px) rotateX(20deg) translateY(50px) scale(.95)}to{opacity:1;transform:perspective(900px) rotateX(0) translateY(0) scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+@media(max-width:480px){.three-way-split{flex-direction:column;gap:.5rem}.s5-vs{display:none}}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="logo">🐯 Gran' Final</div>
+  <div class="links">
+    <a href="site.html">Inicio</a>
+    <a href="flyer-digital.html">Flyer</a>
+    <a href="tres-bandas.html">3 Bandas</a>
+    <a href="races.html">Carreras</a>
+    <a href="infographic.html">Stats</a>
+    <a href="video-ad.html">Video</a>
+  </div>
+</div>
+
+<div class="stage">
+
+  <!-- SCENE 1: INTRO -->
+  <div class="scene on" id="scene1">
+    <div class="s1-bg"></div>
+    <div class="s1-overlay"></div>
+    <div class="particles" id="p1"></div>
+    <div class="s1-content">
+      <div class="badge">🐯 Taste San Judas Presenta</div>
+      <h1>
+        <span class="line1">GRAN' FINAL</span>
+        <span class="line2">MATURITY PERRONN</span>
+      </h1>
+      <div class="s1-date">Viernes · 26 de Junio · 2026</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: EL WUASON -->
+  <div class="scene" id="scene2">
+    <div class="horse-scene-bg"></div>
+    <div class="horse-scene-overlay" style="background:rgba(0,0,0,.8) radial-gradient(ellipse at center,rgba(34,197,94,.08) 0%,transparent 70%)"></div>
+    <div class="particles" id="p2"></div>
+    <div class="horse-card-3d" style="border-color:rgba(34,197,94,.4)">
+      <span class="hc-icon">🏇</span>
+      <div class="hc-tag" style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--green)">El Retador</div>
+      <div class="hc-name" style="color:var(--green)">EL WUASON</div>
+      <div class="hc-cuadra">Cuadra BR</div>
+      <div class="hc-spec">
+        <span>225 MTS</span>
+        <span>10 SEG</span>
+        <span style="color:var(--green)">🐯 Ley</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3: LA D7 -->
+  <div class="scene" id="scene3">
+    <div class="horse-scene-bg"></div>
+    <div class="horse-scene-overlay" style="background:rgba(0,0,0,.8) radial-gradient(ellipse at center,rgba(245,197,24,.06) 0%,transparent 70%)"></div>
+    <div class="particles" id="p3"></div>
+    <div class="horse-card-3d" style="border-color:rgba(245,197,24,.4)">
+      <span class="hc-icon">🏇</span>
+      <div class="hc-tag" style="background:rgba(245,197,24,.15);border:1px solid rgba(245,197,24,.3);color:var(--gold)">El Campeón</div>
+      <div class="hc-name" style="color:var(--gold)">LA D7</div>
+      <div class="hc-cuadra">Cuadra Regis de Jahuara</div>
+      <div class="hc-spec">
+        <span>225 MTS</span>
+        <span>10 SEG</span>
+        <span style="color:var(--gold)">🐯 Ley</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: EL PING PONG -->
+  <div class="scene" id="scene4">
+    <div class="horse-scene-bg"></div>
+    <div class="horse-scene-overlay" style="background:rgba(0,0,0,.8) radial-gradient(ellipse at center,rgba(239,68,68,.06) 0%,transparent 70%)"></div>
+    <div class="particles" id="p4"></div>
+    <div class="horse-card-3d" style="border-color:rgba(239,68,68,.4)">
+      <span class="hc-icon">🏇</span>
+      <div class="hc-tag" style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red)">El Contendiente</div>
+      <div class="hc-name" style="color:var(--red)">EL PING PONG</div>
+      <div class="hc-cuadra">Cuadra Garañones / RP</div>
+      <div class="hc-spec">
+        <span>225 MTS</span>
+        <span>10 SEG</span>
+        <span style="color:var(--red)">🐯 Ley</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: THREE WAY SPLIT -->
+  <div class="scene" id="scene5">
+    <div class="s5-bg"></div>
+    <div class="s5-overlay"></div>
+    <div class="particles" id="p5"></div>
+    <div class="s5-title">🐯 TRES BANDAS — EL GRAN FINAL</div>
+    <div class="s5-grid">
+      <div class="s5-horse">
+        <div class="sn" style="color:var(--green)">EL WUASON</div>
+        <div class="sc">C BR</div>
+      </div>
+      <div class="s5-vs">VS</div>
+      <div class="s5-horse">
+        <div class="sn" style="color:var(--gold)">LA D7</div>
+        <div class="sc">C Regis de Jahuara</div>
+      </div>
+      <div class="s5-vs">VS</div>
+      <div class="s5-horse">
+        <div class="sn" style="color:var(--red)">EL PING PONG</div>
+        <div class="sc">C Garañones/RP</div>
+      </div>
+    </div>
+    <div class="s5-race-info">
+      <div class="chip">225 MTS</div>
+      <div class="chip">10 SEG</div>
+      <div class="chip">Ley del Tigre</div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: DATE + RACE CARD -->
+  <div class="scene" id="scene6">
+    <div class="s6-bg"></div>
+    <div class="s6-overlay"></div>
+    <div class="s6-content">
+      <div class="date-tag">🐯 Taste San Judas Presenta</div>
+      <div class="date-big">VIERNES<br>26 JUNIO</div>
+      <div class="date-sub">Gran' Final Maturity Perronn · 2026</div>
+      <div class="s6-races">
+        <div class="s6-race-line"><span class="rn">Super Carrerón de Poder</span><span class="rd">260 MTS · 10 SEG · CP</span></div>
+        <div class="s6-race-line"><span class="rn">Gran Duelo de Tapados</span><span class="rd">225 MTS · 0-15 SEG · CP</span></div>
+        <div class="s6-race-line"><span class="rn">Gran Carrerón de Damas</span><span class="rd">225 MTS · 0-15 SEG · CP</span></div>
+        <div class="s6-race-line"><span class="rn">Que Carrerooon de Pique</span><span class="rd">200 MTS · 10 SEG · LT</span></div>
+        <div class="s6-race-line"><span class="rn">Gran Duelo</span><span class="rd">200 MTS · 10 SEG · LT</span></div>
+        <div class="s6-race-line" style="border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.06)"><span class="rn" style="color:var(--green)">⭐ GRAN FINAL TRES BANDAS</span><span class="rd" style="color:var(--green)">225 MTS · 10 SEG</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: CTA + QR -->
+  <div class="scene" id="scene7">
+    <div class="s7-bg"></div>
+    <div class="s7-overlay"></div>
+    <div class="s7-content">
+      <div class="cta-title">NO TE<br>LO PIERDAS 🐯</div>
+      <div class="cta-sub">Viernes 26 Junio 2026 · Taste San Judas</div>
+      <div class="s7-qr">
+        <div class="s7-qr-card">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Ftaste-san-judas-jun26%2Fsite.html&bgcolor=0a0a0a&color=22C55E&format=png&margin=6" alt="QR">
+          <div class="ql">🏠 Sitio Oficial</div>
+        </div>
+        <div class="s7-qr-card">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fguttix1.github.io%2FDigital-flyer-%2Fevents%2Ftaste-san-judas-jun26%2Ftres-bandas.html&bgcolor=0a0a0a&color=22C55E&format=png&margin=6" alt="QR">
+          <div class="ql">🐯 Tres Bandas</div>
+        </div>
+      </div>
+      <div class="s7-social">@tastesanjudas · #GranFinalPerronn · #LeyDelTigre</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  <div class="scene-dots" id="sceneDots"></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="ctrl-btn" id="prevBtn" onclick="prevScene()">← Prev</button>
+  <button class="ctrl-btn primary" id="playBtn" onclick="togglePlay()">▶ Play</button>
+  <button class="ctrl-btn" id="nextBtn" onclick="nextScene()">Next →</button>
+  <div class="scene-counter" id="sceneCounter">1 / 7</div>
+</div>
+
+<script>
+const SCENES = 7;
+const DURATIONS = [3500, 3500, 3500, 3500, 4000, 4500, 6000]; // ms per scene
+let current = 0;
+let playing = false;
+let timer = null;
+let paused = false;
+
+// Build dots
+const dotsEl = document.getElementById('sceneDots');
+for (let i = 0; i < SCENES; i++) {
+  const d = document.createElement('div');
+  d.className = 'scene-dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goToScene(i);
+  dotsEl.appendChild(d);
+}
+
+// Particles
+function spawnParticles(containerId, count = 12) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  c.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 3 + Math.random() * 5;
+    const colors = ['#22C55E','#F5C518','#22C55E','rgba(34,197,94,.4)'];
+    const col = colors[Math.floor(Math.random() * colors.length)];
+    Object.assign(p.style, {
+      width: size + 'px', height: size + 'px',
+      background: col,
+      left: (Math.random() * 100) + '%',
+      animationDuration: (6 + Math.random() * 8) + 's',
+      animationDelay: (Math.random() * 4) + 's',
+      opacity: 0.5 + Math.random() * 0.5
+    });
+    c.appendChild(p);
+  }
+}
+
+for (let i = 1; i <= SCENES; i++) spawnParticles('p' + i);
+
+function updateUI() {
+  // Scenes
+  for (let i = 0; i < SCENES; i++) {
+    const el = document.getElementById('scene' + (i + 1));
+    el.classList.toggle('on', i === current);
+  }
+  // Dots
+  dotsEl.querySelectorAll('.scene-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  // Progress
+  document.getElementById('progFill').style.width = ((current + 1) / SCENES * 100) + '%';
+  document.getElementById('sceneCounter').textContent = (current + 1) + ' / ' + SCENES;
+}
+
+function goToScene(idx) {
+  current = Math.max(0, Math.min(SCENES - 1, idx));
+  updateUI();
+  if (current === SCENES - 1) {
+    paused = true;
+    stopPlay();
+  }
+}
+
+function nextScene() {
+  if (current < SCENES - 1) goToScene(current + 1);
+  else { paused = true; stopPlay(); }
+}
+function prevScene() { goToScene(current - 1); }
+
+function startPlay() {
+  playing = true;
+  paused = false;
+  document.getElementById('playBtn').textContent = '⏸ Pause';
+  advance();
+}
+
+function stopPlay() {
+  playing = false;
+  clearTimeout(timer);
+  document.getElementById('playBtn').textContent = '▶ Play';
+}
+
+function togglePlay() {
+  if (playing) stopPlay();
+  else {
+    if (current === SCENES - 1 && paused) goToScene(0);
+    startPlay();
+  }
+}
+
+function advance() {
+  if (!playing) return;
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    if (current < SCENES - 1) {
+      current++;
+      updateUI();
+      if (current === SCENES - 1) {
+        paused = true;
+        stopPlay();
+        return;
+      }
+      advance();
+    } else {
+      paused = true;
+      stopPlay();
+    }
+  }, DURATIONS[current]);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); playing ? nextScene() : nextScene(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevScene(); }
+  if (e.key === 'p' || e.key === 'P') togglePlay();
+});
+
+updateUI();
+</script>
+</body>
+</html>

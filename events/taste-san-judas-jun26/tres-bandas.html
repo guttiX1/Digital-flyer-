@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 Bandas — El Wuason VS La D7 VS El Ping Pong</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#22C55E; --gold:#F5C518; --black:#0a0a0a; --white:#f0f0f0; --orange:#f97316; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body { background:var(--black); color:var(--white); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(34,197,94,0.25); padding:0 1rem; }
+    .nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:0.25rem; height:52px; overflow-x:auto; scrollbar-width:none; }
+    .nav-inner::-webkit-scrollbar{display:none;}
+    .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--green); white-space:nowrap; margin-right:0.5rem; }
+    nav a { color:rgba(240,240,240,0.7); text-decoration:none; font-size:0.72rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:0.35rem 0.6rem; border-radius:6px; white-space:nowrap; transition:all 0.2s; }
+    nav a:hover,nav a.active { color:var(--green); background:rgba(34,197,94,0.1); }
+
+    /* HERO */
+    .hero { position:relative; min-height:55vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:80px 1.5rem 3rem; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; background:url('flyer.jpg') center center/cover no-repeat; filter:brightness(0.18) saturate(0.4); z-index:0; }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,10,0.3) 0%,rgba(10,10,10,0.95) 100%); z-index:1; }
+    .hero-content { position:relative; z-index:2; max-width:900px; }
+    .hero-badge { display:inline-block; background:rgba(34,197,94,0.12); border:1px solid var(--green); color:var(--green); font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.4rem 1.2rem; border-radius:100px; margin-bottom:1rem; }
+    .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,8vw,6rem); line-height:0.9; color:var(--white); margin-bottom:0.5rem; }
+    .hero-title span { color:var(--green); text-shadow:0 0 50px rgba(34,197,94,0.5); }
+    .hero-sub { font-family:'Bebas Neue',sans-serif; font-size:clamp(1rem,3vw,1.8rem); color:var(--gold); letter-spacing:0.1em; margin-bottom:1.5rem; }
+    .race-info-strip { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .info-tag { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); padding:0.4rem 1rem; border-radius:100px; font-size:0.82rem; font-weight:600; }
+
+    /* THREE-WAY ARENA */
+    .arena { max-width:1200px; margin:0 auto; padding:4rem 1.5rem; }
+    .arena-label { text-align:center; font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:0.5rem; }
+    .arena-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5vw,3.5rem); text-align:center; color:var(--white); margin-bottom:3rem; }
+    .three-grid { display:grid; grid-template-columns:1fr 120px 1fr 120px 1fr; gap:0; align-items:stretch; }
+    @media(max-width:900px) { .three-grid { grid-template-columns:1fr; gap:1rem; } .vs-pillar{display:none;} }
+    .horse-panel { position:relative; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; align-items:center; padding:0; min-height:480px; transition:transform 0.3s, box-shadow 0.3s; }
+    .horse-panel:hover { transform:translateY(-6px); box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+    .panel-bg { position:absolute; inset:0; background:url('flyer.jpg') center center/cover no-repeat; opacity:0.08; z-index:0; }
+    .panel-color-1 { border-color:rgba(34,197,94,0.3); }
+    .panel-color-1::after { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--green); z-index:2; }
+    .panel-color-2 { border-color:rgba(245,197,24,0.3); }
+    .panel-color-2::after { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--gold); z-index:2; }
+    .panel-color-3 { border-color:rgba(249,115,22,0.3); }
+    .panel-color-3::after { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--orange); z-index:2; }
+    .panel-content { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; padding:2.5rem 1.5rem; height:100%; text-align:center; }
+    .panel-tag { display:inline-block; font-size:0.65rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.25rem 0.75rem; border-radius:100px; margin-bottom:1.2rem; }
+    .tag-green { background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3); }
+    .tag-gold { background:rgba(245,197,24,0.15); color:var(--gold); border:1px solid rgba(245,197,24,0.3); }
+    .tag-orange { background:rgba(249,115,22,0.15); color:var(--orange); border:1px solid rgba(249,115,22,0.3); }
+    .panel-emoji { font-size:4rem; margin-bottom:1rem; filter:drop-shadow(0 0 20px rgba(34,197,94,0.3)); }
+    .panel-name { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3rem); line-height:1; color:var(--white); margin-bottom:0.4rem; }
+    .panel-cuadra { font-size:0.82rem; font-weight:600; color:rgba(240,240,240,0.55); letter-spacing:0.05em; margin-bottom:1.5rem; }
+    .panel-stat-label { font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(240,240,240,0.35); margin-bottom:0.3rem; }
+    .panel-bar-wrap { width:100%; background:rgba(255,255,255,0.06); border-radius:100px; height:8px; margin-bottom:0.3rem; overflow:hidden; }
+    .panel-bar-fill { height:100%; border-radius:100px; transition:width 1.5s ease; }
+    .fill-green { background:linear-gradient(90deg,var(--green),#16a34a); }
+    .fill-gold { background:linear-gradient(90deg,var(--gold),#d97706); }
+    .fill-orange { background:linear-gradient(90deg,var(--orange),#ea580c); }
+    .panel-pct { font-family:'Bebas Neue',sans-serif; font-size:1rem; margin-bottom:1.5rem; }
+    .panel-badges { display:flex; flex-wrap:wrap; gap:0.4rem; justify-content:center; margin-top:auto; }
+    .p-badge { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); padding:0.25rem 0.5rem; border-radius:6px; color:rgba(240,240,240,0.6); }
+    .vs-pillar { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; }
+    .vs-diamond-lg { width:72px; height:72px; background:linear-gradient(135deg,var(--gold),#b45309); transform:rotate(45deg); display:flex; align-items:center; justify-content:center; border-radius:10px; box-shadow:0 0 40px rgba(245,197,24,0.25); }
+    .vs-diamond-lg span { transform:rotate(-45deg); font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:#000; }
+    .vs-line { width:2px; height:60px; background:linear-gradient(180deg,transparent,rgba(245,197,24,0.3),transparent); }
+
+    /* RACE DETAILS */
+    .race-details { max-width:700px; margin:0 auto; padding:3rem 1.5rem 5rem; text-align:center; }
+    .race-badge { display:inline-flex; gap:1rem; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2); border-radius:16px; padding:1.5rem 2rem; margin-bottom:2rem; flex-wrap:wrap; justify-content:center; }
+    .rb-item { display:flex; flex-direction:column; align-items:center; gap:0.3rem; }
+    .rb-val { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--green); }
+    .rb-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(240,240,240,0.4); }
+    .tiger-rule { background:rgba(245,197,24,0.05); border:1px solid rgba(245,197,24,0.2); border-radius:12px; padding:1.2rem 1.5rem; margin-top:1.5rem; text-align:left; }
+    .tr-title { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:var(--gold); margin-bottom:0.5rem; }
+    .tr-text { font-size:0.82rem; color:rgba(240,240,240,0.6); line-height:1.6; }
+    .cta-btn { display:inline-block; background:linear-gradient(135deg,var(--green),#16a34a); color:#000; font-weight:800; font-size:1rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.9rem 2.5rem; border-radius:100px; text-decoration:none; box-shadow:0 0 40px rgba(34,197,94,0.3); transition:all 0.3s; margin-top:2rem; }
+    .cta-btn:hover { transform:translateY(-2px); box-shadow:0 0 60px rgba(34,197,94,0.5); }
+    footer { text-align:center; padding:2rem 1rem 3rem; border-top:1px solid rgba(255,255,255,0.06); color:rgba(240,240,240,0.35); font-size:0.78rem; }
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">🐯 TASTE SJ</span>
+    <a href="site.html">Inicio</a>
+    <a href="flyer-digital.html">Flyer</a>
+    <a href="tres-bandas.html" class="active">3 Bandas</a>
+    <a href="races.html">Programa</a>
+    <a href="infographic.html">Stats</a>
+    <a href="video-ad.html">Video Ad</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Gran Final · 3 Bandas</div>
+    <h1 class="hero-title">El Combate<br><span>Triple</span></h1>
+    <div class="hero-sub">🐯 Taste San Judas · Viernes 26 Junio 2026</div>
+    <div class="race-info-strip">
+      <span class="info-tag">📏 225 MTS</span>
+      <span class="info-tag">⏱ 10 SEG</span>
+      <span class="info-tag">🐯 Ley del Tigre</span>
+      <span class="info-tag">3 Caballos</span>
+    </div>
+  </div>
+</div>
+
+<div class="arena reveal">
+  <div class="arena-label">Cara a Cara a Cara</div>
+  <div class="arena-title">🐯 El Wuason VS La D7 VS El Ping Pong</div>
+
+  <div class="three-grid">
+    <!-- EL WUASON -->
+    <div class="horse-panel panel-color-1">
+      <div class="panel-bg"></div>
+      <div class="panel-content">
+        <span class="panel-tag tag-green">🐯 Favorito</span>
+        <div class="panel-emoji">🐎</div>
+        <div class="panel-name">El Wuason</div>
+        <div class="panel-cuadra">Cuadra BR</div>
+        <div class="panel-stat-label">Potencia</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-green" style="width:0%" data-target="88"></div></div>
+        <div class="panel-pct" style="color:var(--green);">88%</div>
+        <div class="panel-stat-label">Velocidad</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-green" style="width:0%" data-target="91"></div></div>
+        <div class="panel-pct" style="color:var(--green);">91%</div>
+        <div class="panel-badges">
+          <span class="p-badge">Ley del Tigre</span>
+          <span class="p-badge">225 MTS</span>
+          <span class="p-badge">10 SEG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS PILLAR 1 -->
+    <div class="vs-pillar">
+      <div class="vs-line"></div>
+      <div class="vs-diamond-lg"><span>VS</span></div>
+      <div class="vs-line"></div>
+    </div>
+
+    <!-- LA D7 -->
+    <div class="horse-panel panel-color-2">
+      <div class="panel-bg"></div>
+      <div class="panel-content">
+        <span class="panel-tag tag-gold">Retadora</span>
+        <div class="panel-emoji">🏇</div>
+        <div class="panel-name">La D7</div>
+        <div class="panel-cuadra">C Regis de Jahuara</div>
+        <div class="panel-stat-label">Potencia</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-gold" style="width:0%" data-target="82"></div></div>
+        <div class="panel-pct" style="color:var(--gold);">82%</div>
+        <div class="panel-stat-label">Velocidad</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-gold" style="width:0%" data-target="85"></div></div>
+        <div class="panel-pct" style="color:var(--gold);">85%</div>
+        <div class="panel-badges">
+          <span class="p-badge">Ley del Tigre</span>
+          <span class="p-badge">225 MTS</span>
+          <span class="p-badge">10 SEG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS PILLAR 2 -->
+    <div class="vs-pillar">
+      <div class="vs-line"></div>
+      <div class="vs-diamond-lg"><span>VS</span></div>
+      <div class="vs-line"></div>
+    </div>
+
+    <!-- EL PING PONG -->
+    <div class="horse-panel panel-color-3">
+      <div class="panel-bg"></div>
+      <div class="panel-content">
+        <span class="panel-tag tag-orange">El Sorpresón</span>
+        <div class="panel-emoji">⚡</div>
+        <div class="panel-name">El Ping Pong</div>
+        <div class="panel-cuadra">C Garañones/RP</div>
+        <div class="panel-stat-label">Potencia</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-orange" style="width:0%" data-target="78"></div></div>
+        <div class="panel-pct" style="color:var(--orange);">78%</div>
+        <div class="panel-stat-label">Velocidad</div>
+        <div class="panel-bar-wrap"><div class="panel-bar-fill fill-orange" style="width:0%" data-target="80"></div></div>
+        <div class="panel-pct" style="color:var(--orange);">80%</div>
+        <div class="panel-badges">
+          <span class="p-badge">Ley del Tigre</span>
+          <span class="p-badge">225 MTS</span>
+          <span class="p-badge">10 SEG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="race-details reveal">
+  <div class="arena-label">Detalles de la Carrera</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:2rem;">Gran' Final Maturity Perronn</h2>
+
+  <div class="race-badge">
+    <div class="rb-item"><div class="rb-val">225</div><div class="rb-lbl">Metros</div></div>
+    <div class="rb-item"><div class="rb-val">10</div><div class="rb-lbl">Seg Ventaja</div></div>
+    <div class="rb-item"><div class="rb-val">3</div><div class="rb-lbl">Caballos</div></div>
+    <div class="rb-item"><div class="rb-val">🐯</div><div class="rb-lbl">Ley del Tigre</div></div>
+  </div>
+
+  <div class="tiger-rule">
+    <div class="tr-title">🐯 Qué es la Ley del Tigre?</div>
+    <div class="tr-text">La Ley del Tigre es la condición de carrera que determina las reglas y ventajas aplicadas a cada competidor. Esta regla aplica tanto a la Gran Final como a varias carreras del programa, asegurando competencia justa y emocionante en el carril.</div>
+  </div>
+
+  <a href="races.html" class="cta-btn">Ver Programa Completo</a>
+</div>
+
+<footer>
+  <div>🐯 Taste San Judas · Gran' Final Maturity Perronn · Viernes 26 Junio 2026</div>
+  <div style="margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="site.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Inicio</a>
+    <a href="flyer-digital.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Flyer</a>
+    <a href="tres-bandas.html" style="color:var(--green);text-decoration:none;font-size:0.75rem;">3 Bandas</a>
+    <a href="races.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Programa</a>
+    <a href="infographic.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Stats</a>
+    <a href="video-ad.html" style="color:rgba(240,240,240,0.4);text-decoration:none;font-size:0.75rem;">Video Ad</a>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('[data-target]').forEach(bar => {
+        bar.style.width = bar.dataset.target + '%';
+      });
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
