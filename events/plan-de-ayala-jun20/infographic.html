@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic · Gran Final Plan de Ayala · Jun 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--dark-blue:#003080;--black:#0a0a1a;--white:#fff}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--black);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--blue)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}.nl em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:rgba(0,0,0,.4);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.btn-back{background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.25);color:var(--blue);padding:.32rem .8rem;border-radius:6px}
+
+.hero{position:relative;min-height:52vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:5rem 1.5rem 3rem}
+.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+.hero-bg-l{background:url(h1.jpg) 50% 10%/cover no-repeat;opacity:.09;filter:saturate(.7)}
+.hero-bg-r{background:url(h2.jpg) 50% 10%/cover no-repeat;transform:scaleX(-1);opacity:.09;filter:saturate(.7)}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,transparent 55%)}
+.hero-content{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.22);padding:.26rem .9rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,6rem);line-height:.88;letter-spacing:.03em;color:var(--black)}
+.hero h1 em{color:var(--blue);font-style:normal}
+.hero-sub{font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-top:.6rem}
+.gold-bar{width:60px;height:3px;background:var(--gold);margin:.6rem auto 0;border-radius:2px}
+
+/* Countdown */
+.cd-section{padding:2.5rem 1.5rem;text-align:center;background:#fafafa;border-bottom:1px solid rgba(0,71,171,.08)}
+.cd-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.8rem;font-weight:700}
+.cd-wrap{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+.cd-unit{position:relative;width:96px;height:96px}
+.cd-ring{width:96px;height:96px}
+.cd-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;line-height:1;color:var(--blue)}
+.cd-lbl{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-top:.1rem;font-weight:700}
+circle{transition:stroke-dashoffset 1s linear}
+
+/* Stats */
+.stats-section{padding:2.5rem 1.5rem}
+.container{max-width:1000px;margin:0 auto}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:1.2rem;letter-spacing:.03em;text-align:center}
+.section-title em{color:var(--blue);font-style:normal}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin-bottom:2rem}
+.stat-card{background:#fff;border:1.5px solid rgba(0,71,171,.12);border-radius:16px;padding:1.4rem 1rem;text-align:center;transition:border-color .2s,transform .2s,box-shadow .2s;cursor:default;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.stat-card:hover{border-color:rgba(0,71,171,.4);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,71,171,.1)}
+.stat-icon{font-size:1.8rem;margin-bottom:.45rem}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--blue);line-height:1}
+.stat-lbl{font-size:.65rem;color:rgba(0,0,0,.38);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;font-weight:700}
+
+/* VS Card */
+.vs-section{padding:1.5rem 1.5rem 2.5rem}
+.vs-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:1.2rem;text-align:center;letter-spacing:.03em}
+.vs-title em{color:var(--blue);font-style:normal}
+.vs-card{background:#fff;border:2px solid rgba(0,71,171,.2);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;box-shadow:0 4px 30px rgba(0,71,171,.08)}
+.vc-horse{padding:2rem;position:relative;overflow:hidden}
+.vc-horse .bg{position:absolute;inset:0;background-size:cover;opacity:.06}
+.vc-left .bg{background-image:url(h1.jpg);background-position:50% 10%}
+.vc-right .bg{background-image:url(h2.jpg);background-position:50% 10%;transform:scaleX(-1)}
+.vc-horse .content{position:relative;z-index:1}
+.vc-tag{display:inline-block;background:var(--blue);color:#fff;font-size:.55rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;margin-bottom:.5rem}
+.vc-tag.gold-tag{background:var(--gold);color:#000}
+.vc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);line-height:.92;margin-bottom:.3rem;color:var(--black)}
+.vc-name em{color:var(--blue);font-style:normal}
+.vc-cuadra{font-size:.72rem;color:rgba(0,0,0,.35);text-transform:uppercase;letter-spacing:.07em;margin-bottom:1rem;font-weight:600}
+.vc-right{text-align:right}
+.hype-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.3rem}
+.hype-bar{height:5px;background:rgba(0,0,0,.06);border-radius:999px;overflow:hidden;margin-bottom:.5rem}
+.hype-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),#4499ff);transition:width 1.3s cubic-bezier(.22,1,.36,1);width:0}
+.vc-right .hype-fill{background:linear-gradient(270deg,var(--gold),#cc9900)}
+.vc-right .hype-bar{direction:rtl}
+.vc-center{padding:1.5rem .8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:#fafafa;min-width:72px;border-left:1.5px solid rgba(0,71,171,.1);border-right:1.5px solid rgba(0,71,171,.1)}
+.vc-vs{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--blue);line-height:1}
+.vc-dist{font-size:.62rem;color:rgba(0,0,0,.3);letter-spacing:.07em;text-align:center;font-weight:700}
+
+/* Derby section */
+.derby-section{padding:1.5rem 1.5rem 2.5rem;background:#fafafa;border-top:1px solid rgba(0,71,171,.08)}
+.derby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-top:1rem}
+.derby-card{background:#fff;border:1.5px solid rgba(245,197,24,.3);border-radius:14px;padding:1.2rem 1rem;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+.derby-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(245,197,24,.15)}
+.derby-num{font-family:'Bebas Neue',sans-serif;font-size:.85rem;color:rgba(0,0,0,.2);margin-bottom:.3rem}
+.derby-horse{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--black);line-height:.9;margin-bottom:.2rem}
+.derby-horse em{color:var(--gold);font-style:normal}
+.derby-cuadra{font-size:.6rem;color:rgba(0,0,0,.35);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.derby-bar{height:4px;background:rgba(245,197,24,.15);border-radius:999px;overflow:hidden;margin-top:.6rem}
+.derby-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),#ffdd44);width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+
+/* Timeline */
+.timeline-section{padding:2rem 1.5rem}
+.tl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:1.5rem;letter-spacing:.03em}
+.tl-title em{color:var(--blue);font-style:normal}
+.timeline{position:relative;padding-left:72px}
+.timeline::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blue) 0%,rgba(0,71,171,.1) 100%)}
+.tl-item{position:relative;margin-bottom:.65rem;padding:.75rem 1rem;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;transition:border-color .2s,box-shadow .2s;cursor:default}
+.tl-item:hover{border-color:rgba(0,71,171,.25);box-shadow:0 4px 20px rgba(0,71,171,.06)}
+.tl-item.featured-tl{border-color:rgba(0,71,171,.35);background:rgba(0,71,171,.03)}
+.tl-item.derby-tl{border-color:rgba(245,197,24,.4);background:rgba(245,197,24,.03)}
+.tl-dot{position:absolute;left:-42px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:rgba(0,71,171,.15);border:2px solid rgba(0,71,171,.3)}
+.tl-item.featured-tl .tl-dot{background:var(--blue);border-color:var(--blue);box-shadow:0 0 14px rgba(0,71,171,.5)}
+.tl-item.derby-tl .tl-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 14px rgba(245,197,24,.5)}
+.tl-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.tl-num{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:rgba(0,0,0,.1);line-height:1;min-width:2rem}
+.tl-name{font-weight:700;font-size:.85rem;flex:1;line-height:1.3;color:var(--black)}
+.tl-dist{font-size:.6rem;background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.18);padding:.14rem .45rem;border-radius:4px;color:var(--blue);white-space:nowrap;font-weight:700}
+.tl-dist.gold{background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.35);color:#8B6914}
+.tl-cond{font-size:.56rem;color:rgba(0,0,0,.3);font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.04em}
+
+/* QR Strip */
+.qr-strip{margin:2rem 1.5rem;background:#fff;border:2px solid rgba(0,71,171,.2);border-radius:20px;padding:2rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;box-shadow:0 4px 30px rgba(0,71,171,.07)}
+.qr-strip img{width:130px;height:130px;border-radius:10px;border:2px solid rgba(0,71,171,.3)}
+.qr-strip h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--black)}
+.qr-strip p{color:rgba(0,0,0,.38);font-size:.8rem;margin:.3rem 0}
+.qr-strip .social{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue)}
+.btn-cta{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;font-weight:800;padding:.7rem 1.6rem;border-radius:10px;text-decoration:none;font-size:.82rem;letter-spacing:.06em;margin-top:.8rem;transition:box-shadow .2s,transform .12s}
+.btn-cta:hover{box-shadow:0 10px 30px rgba(0,71,171,.3);transform:translateY(-2px)}
+
+footer{text-align:center;padding:2rem 1.5rem 4rem;border-top:2px solid var(--blue);background:#fff}
+footer p{font-size:.7rem;color:rgba(0,0,0,.3);letter-spacing:.06em}
+footer em{color:var(--blue);font-style:normal}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:600px){
+  .vs-card{grid-template-columns:1fr 54px 1fr}
+  .vc-horse{padding:1.2rem}
+  .nav-links a:not(.btn-back){display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nl">Plan de <em>Ayala</em></div>
+  <div class="nav-links">
+    <a href="site.html" class="btn-back">← Sitio</a>
+    <a href="races.html">Programa</a>
+    <a href="video-ad.html">Video</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-l"></div>
+    <div class="hero-bg-r"></div>
+  </div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="eyebrow">📊 Infographic Oficial</div>
+    <h1>Gran <em>Final</em></h1>
+    <div class="hero-sub">Plan de Ayala · 20 de Junio 2026</div>
+    <div class="gold-bar"></div>
+  </div>
+</div>
+
+<section class="cd-section reveal">
+  <div class="cd-label">Faltan para el Gran Final</div>
+  <div class="cd-wrap">
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rD" cx="50" cy="50" r="42" fill="none" stroke="#0047AB" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdD">--</span><span class="cd-lbl">Días</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rH" cx="50" cy="50" r="42" fill="none" stroke="#0047AB" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdH">--</span><span class="cd-lbl">Horas</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rM" cx="50" cy="50" r="42" fill="none" stroke="#0047AB" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdM">--</span><span class="cd-lbl">Min</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rS" cx="50" cy="50" r="42" fill="none" stroke="#F5C518" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdS">--</span><span class="cd-lbl">Seg</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <div class="section-title reveal">Datos del <em>Evento</em></div>
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-icon">🏆</div><div class="stat-num">1</div><div class="stat-lbl">Gran Final</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🎠</div><div class="stat-num">4</div><div class="stat-lbl">Derby Ponis</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🏁</div><div class="stat-num" data-target="17">0</div><div class="stat-lbl">Total Carreras</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">📏</div><div class="stat-num">VC</div><div class="stat-lbl">Vale Cordel</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🐎</div><div class="stat-num">20+</div><div class="stat-lbl">Caballos</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🎙️</div><div class="stat-num">Live</div><div class="stat-lbl">Cobertura</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="vs-section">
+  <div class="container">
+    <div class="vs-title reveal">Carrera <em>Estelar</em> · Gran Final</div>
+    <div class="vs-card reveal" id="vsCard">
+      <div class="vc-horse vc-left">
+        <div class="bg"></div>
+        <div class="content">
+          <div class="vc-tag">Gran</div>
+          <div class="vc-name">Nva. <em>Tia</em></div>
+          <div class="vc-cuadra">Cuadra Local</div>
+          <div class="hype-label">Velocidad</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="90"></div></div>
+          <div class="hype-label">Experiencia</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="85"></div></div>
+          <div class="hype-label">Hype Local</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="94"></div></div>
+        </div>
+      </div>
+      <div class="vc-center">
+        <div class="vc-vs">VS</div>
+        <div class="vc-dist">50 V.C.</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:rgba(0,0,0,.2)">FINAL</div>
+        <div class="vc-dist">GRAN</div>
+      </div>
+      <div class="vc-horse vc-right">
+        <div class="bg"></div>
+        <div class="content">
+          <div class="vc-tag gold-tag">Final</div>
+          <div class="vc-name">Car<em>melita</em></div>
+          <div class="vc-cuadra">Cuadra Visitante</div>
+          <div class="hype-label">Velocidad</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="87"></div></div>
+          <div class="hype-label">Experiencia</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="82"></div></div>
+          <div class="hype-label">Hype Visitante</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="89"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="derby-section">
+  <div class="container">
+    <div class="section-title reveal">Derby de <em>Ponis</em></div>
+    <div class="derby-grid reveal" id="derbyGrid"></div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="tl-title reveal">Programa <em>Completo</em></div>
+    <div class="timeline reveal" id="timeline"></div>
+  </div>
+</section>
+
+<div class="qr-strip reveal">
+  <img id="qrImg" alt="QR">
+  <div>
+    <h3>¡Que Gane el Mejor!</h3>
+    <p>Sábado 20 de Junio 2026 · Plan de Ayala</p>
+    <div class="social">@carrerasplanaposta</div>
+    <a href="site.html" class="btn-cta">🏆 Ver Sitio Completo</a>
+  </div>
+</div>
+
+<footer>
+  <p><em>La Pasión Corre en Plan de Ayala</em></p>
+  <p style="margin-top:.3rem">Gran Final · Nva. Tia vs Carmelita</p>
+</footer>
+
+<script>
+const EVENT=new Date('2026-06-20T10:00:00');
+const CIRC=263.9;
+function setRing(id,val,max){document.getElementById(id).style.strokeDashoffset=CIRC-(val/max)*CIRC}
+function tick(){
+  const diff=EVENT-new Date();
+  if(diff<=0)return;
+  const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
+  document.getElementById('cdD').textContent=String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent=String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent=String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+  setRing('rD',d,7);setRing('rH',h,24);setRing('rM',m,60);setRing('rS',s,60);
+}
+tick();setInterval(tick,1000);
+
+const SITE='https://guttix1.github.io/Digital-flyer-/events/plan-de-ayala-jun20/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=0047AB&format=png&margin=8`;
+
+const DERBY=[
+  {num:1,name:'La',em:'Tachuela',cuadra:'C. Los Peques',pct:88},
+  {num:2,name:'El',em:'Canelo',cuadra:'C. Rancho Grande',pct:82},
+  {num:3,name:'El',em:'Goliath',cuadra:'C. Frontera',pct:79},
+  {num:4,name:'El Pájaro',em:'Loco',cuadra:'C. Valle Verde',pct:85},
+];
+const dg=document.getElementById('derbyGrid');
+DERBY.forEach(p=>{
+  const el=document.createElement('div');
+  el.className='derby-card';
+  el.innerHTML=`<div class="derby-num">PONI #${p.num}</div><div class="derby-horse">${p.name}<em>${p.em}</em></div><div class="derby-cuadra">${p.cuadra}</div><div class="derby-bar"><div class="derby-bar-fill" data-w="${p.pct}"></div></div>`;
+  dg.appendChild(el);
+});
+
+const RACES=[
+  {num:'F',title:'Nva. Tia vs Carmelita',cuadras:'Gran Final · 50 V.C.',dist:'50 VC',cond:'Vale Cordel',featured:true},
+  {num:'D',title:'Derby de Ponis',cuadras:'La Tachuela · El Canelo · El Goliath · El Pájaro Loco',dist:'DERBY',cond:'50 VC · 4 Ponis',derby:true},
+  {num:1,title:'Carrera #1',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:2,title:'Carrera #2',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:3,title:'Carrera #3',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:4,title:'Carrera #4',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:5,title:'Carrera #5',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:6,title:'Carrera #6',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:7,title:'Carrera #7',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:8,title:'Carrera #8',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:9,title:'Carrera #9',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:10,title:'Carrera #10',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:11,title:'Carrera #11',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:12,title:'Carrera #12',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:13,title:'Carrera #13',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:14,title:'Carrera #14',cuadras:'Por confirmar',dist:'VC',cond:''},
+  {num:15,title:'Carrera #15',cuadras:'Por confirmar',dist:'VC',cond:''},
+];
+const tl=document.getElementById('timeline');
+RACES.forEach(r=>{
+  const el=document.createElement('div');
+  const cls=r.featured?'tl-item featured-tl':r.derby?'tl-item derby-tl':'tl-item';
+  el.className=cls;
+  const distCls=r.derby?'tl-dist gold':'tl-dist';
+  el.innerHTML=`<div class="tl-dot"></div><div class="tl-row"><span class="tl-num">${r.num}</span><span class="tl-name">${r.title}<br><small style="font-weight:600;color:rgba(0,0,0,.3);font-size:.62rem">${r.cuadras}</small></span><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.2rem"><span class="${distCls}">${r.dist}</span><span class="tl-cond">${r.cond}</span></div></div>`;
+  tl.appendChild(el);
+});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-target]').forEach(el=>{
+      const target=parseInt(el.dataset.target),start=performance.now();
+      const run=t=>{const p=Math.min((t-start)/1000,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(run);};
+      requestAnimationFrame(run);
+    });
+    e.target.querySelectorAll('.hype-fill[data-w],.derby-bar-fill[data-w]').forEach(bar=>{
+      setTimeout(()=>{bar.style.width=bar.dataset.w+'%';},350);
+    });
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('#vsCard .hype-fill').forEach(bar=>{
+  new IntersectionObserver(([e])=>{if(e.isIntersecting)setTimeout(()=>{bar.style.width=bar.dataset.w+'%';},400);},{threshold:0.25}).observe(bar);
+});
+</script>
+</body>
+</html>

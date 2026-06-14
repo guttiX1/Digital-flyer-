@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Ayala · Gran Final · Jun 20, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--black:#0a0a1a;--white:#fff}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--black);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;background:rgba(255,255,255,.96);backdrop-filter:blur(24px);border-bottom:3px solid var(--blue)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--black)}.nl em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:rgba(0,0,0,.4);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-pill{background:rgba(0,71,171,.08);border:1px solid rgba(0,71,171,.3);color:var(--blue)!important;padding:.3rem .8rem;border-radius:6px}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;padding:0 1.5rem 7vh}
+.hero-img{position:absolute;inset:0;background:url(h1.jpg) 30% 10%/cover no-repeat,url(h2.jpg) 70% 10%/cover no-repeat;background-blend-mode:normal;animation:hZoom 14s ease-out both}
+.hero-img::after{content:'';position:absolute;inset:0;background:url(h2.jpg) 70% 10%/50% no-repeat}
+@keyframes hZoom{from{transform:scale(1.12)}to{transform:scale(1.03)}}
+.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+.hero-bg-l{background:url(h1.jpg) 50% 10%/cover no-repeat;animation:hZoom 14s ease-out both}
+.hero-bg-r{background:url(h2.jpg) 50% 10%/cover no-repeat;transform:scaleX(-1);animation:hZoom 14s ease-out both}
+.hero-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,.2) 55%,rgba(255,255,255,.5) 100%)}
+.hero-body{position:relative;z-index:2;text-align:center;animation:hUp .9s .2s both}
+@keyframes hUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:.45rem;background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.25);color:var(--blue);padding:.28rem .95rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,14vw,10rem);line-height:.82;letter-spacing:.03em;color:var(--black)}
+.hero-title em{color:var(--blue);font-style:normal;display:block}
+.hero-sub{font-size:clamp(.78rem,2.5vw,1.1rem);font-weight:600;color:rgba(0,0,0,.4);letter-spacing:.14em;text-transform:uppercase;margin:.8rem 0 1.2rem}
+.badge-row{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.badge{background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.1);padding:.38rem .9rem;border-radius:8px;font-size:.75rem;font-weight:700;color:rgba(0,0,0,.6)}
+.badge.b{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:800}
+.badge.g{background:var(--gold);color:#000;border-color:var(--gold);font-weight:800}
+
+/* COUNTDOWN */
+.cd-strip{display:flex;background:#f8f9ff;border-top:3px solid var(--blue);border-bottom:1px solid rgba(0,71,171,.1)}
+.cd-unit{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.4rem .5rem;border-right:1px solid rgba(0,71,171,.08)}
+.cd-unit:last-child{border-right:none}
+.cd-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,7vw,4.5rem);color:var(--blue);line-height:1}
+.cd-l{font-size:.52rem;font-weight:700;color:rgba(0,0,0,.28);letter-spacing:.16em;text-transform:uppercase;margin-top:.2rem}
+
+/* VS SECTION */
+.vs-wrap{position:relative;overflow:hidden;background:#fff;border-top:1px solid rgba(0,0,0,.05)}
+.vs-grid{display:grid;grid-template-columns:1fr 84px 1fr;min-height:70vh}
+.vh{position:relative;overflow:hidden}
+.vh .ph{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat;background-position:50% 10%;transition:transform 8s ease}
+.vh.l .ph{background-image:url(h1.jpg);filter:contrast(1.15) saturate(1.2)}
+.vh.r .ph{background-image:url(h2.jpg);transform:scaleX(-1);filter:contrast(1.15) saturate(1.2)}
+.vs-wrap:hover .vh.l .ph{transform:scale(1.05)}
+.vs-wrap:hover .vh.r .ph{transform:scaleX(-1) scale(1.05)}
+.vh .gr{position:absolute;inset:0}
+.vh.l .gr{background:linear-gradient(90deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.4) 40%,transparent 65%)}
+.vh.r .gr{background:linear-gradient(270deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.4) 40%,transparent 65%)}
+.vh .inf{position:absolute;bottom:0;left:0;right:0;padding:clamp(1.2rem,4vw,2.5rem)}
+.vh.l .inf{display:flex;flex-direction:column;align-items:flex-start}
+.vh.r .inf{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+.vtag{display:inline-block;background:var(--blue);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;margin-bottom:.5rem}
+.vname{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,8vw,6rem);line-height:.85;color:var(--black);text-shadow:0 4px 20px rgba(255,255,255,.95)}
+.vname em{color:var(--blue);font-style:normal}
+.vcuad{font-size:.72rem;font-weight:700;color:rgba(0,0,0,.35);letter-spacing:.08em;text-transform:uppercase;margin:.5rem 0 .8rem}
+.vbadge{display:inline-flex;flex-direction:column;background:rgba(255,255,255,.9);border:1.5px solid rgba(0,71,171,.3);border-radius:8px;padding:.5rem 1rem;backdrop-filter:blur(4px)}
+.vbadge span{font-size:.52rem;font-weight:700;color:rgba(0,0,0,.3);letter-spacing:.1em;text-transform:uppercase}
+.vbadge strong{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--blue);line-height:1}
+.vc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;padding:1.2rem .8rem;z-index:10;border-left:3px solid var(--blue);border-right:3px solid var(--blue);position:relative}
+.vc::before{content:'';position:absolute;width:150px;height:150px;background:radial-gradient(circle,rgba(0,71,171,.06) 0%,transparent 70%);pointer-events:none}
+.vs-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4.5vw,3rem);color:var(--blue);line-height:1}
+.vs-d{font-size:.6rem;font-weight:700;color:rgba(0,0,0,.3);letter-spacing:.08em;text-align:center;margin-top:.3rem}
+.vs-r{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:rgba(0,0,0,.15);margin-top:.2rem}
+
+/* STATS */
+.stats{display:flex;background:#f8f9ff;border-top:1px solid rgba(0,71,171,.08);border-bottom:1px solid rgba(0,71,171,.08)}
+.si{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.2rem .5rem;border-right:1px solid rgba(0,71,171,.08)}
+.si:last-child{border-right:none}
+.si-icon{font-size:1.2rem;margin-bottom:.3rem}
+.si-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,3.5vw,2.3rem);color:var(--blue);line-height:1}
+.si-lbl{font-size:.52rem;font-weight:700;color:rgba(0,0,0,.28);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem;text-align:center}
+
+/* RACES */
+.rs{padding:4rem 1.5rem;max-width:860px;margin:0 auto}
+.sec-ttl{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.03em;margin-bottom:1.2rem;color:var(--black)}
+.sec-ttl em{color:var(--blue);font-style:normal}
+
+.feat-card{background:rgba(0,71,171,.04);border:2px solid rgba(0,71,171,.35);border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.feat-card::before{content:'★ GRAN FINAL';position:absolute;top:0;right:0;background:var(--blue);color:#fff;font-size:.5rem;font-weight:800;letter-spacing:.1em;padding:.2rem .65rem;border-radius:0 14px 0 8px}
+.feat-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.feat-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(0,71,171,.12);line-height:1}
+.feat-time{font-size:.75rem;font-weight:700;color:var(--blue)}
+.feat-title{font-weight:700;font-size:1.05rem;margin:.15rem 0;color:var(--black)}
+.feat-cuad{font-size:.72rem;color:rgba(0,0,0,.38)}
+.feat-dist{margin-left:auto;background:rgba(0,71,171,.08);border:1px solid rgba(0,71,171,.25);color:var(--blue);font-size:.78rem;font-weight:700;padding:.3rem .8rem;border-radius:6px;white-space:nowrap}
+
+.derby-card{background:rgba(245,197,24,.06);border:1.5px solid rgba(245,197,24,.5);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;position:relative}
+.derby-card::before{content:'🏇 DERBY';position:absolute;top:0;right:0;background:var(--gold);color:#000;font-size:.5rem;font-weight:800;letter-spacing:.1em;padding:.2rem .65rem;border-radius:0 12px 0 7px}
+.derby-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--black);margin-bottom:.6rem;letter-spacing:.04em}
+.derby-horses{display:flex;flex-wrap:wrap;gap:.5rem}
+.dh{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:.4rem .8rem;font-size:.72rem;font-weight:700;color:var(--black)}
+
+.race-list{display:flex;flex-direction:column;gap:.45rem}
+.ri{display:flex;align-items:center;gap:.9rem;padding:.75rem 1rem;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:10px;transition:all .18s;cursor:default;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.ri:hover{border-color:rgba(0,71,171,.2);box-shadow:0 4px 20px rgba(0,71,171,.07);transform:translateX(4px)}
+.ri .rn{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:rgba(0,0,0,.1);min-width:2.2rem;line-height:1}
+.ri .horse-pair{font-size:.83rem;font-weight:600;flex:1;color:var(--black)}
+.ri .horse-pair small{color:rgba(0,0,0,.35);font-size:.7rem}
+.ri .dist{font-size:.65rem;font-weight:700;color:var(--blue);white-space:nowrap;background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.18);border-radius:5px;padding:.18rem .5rem}
+
+/* QR BLOCK */
+.qr-block{margin:2rem 1.5rem 3rem;background:#fff;border:2px solid rgba(0,71,171,.2);border-radius:20px;padding:2.5rem;display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;box-shadow:0 4px 30px rgba(0,71,171,.07)}
+.qr-block img{width:140px;height:140px;border-radius:12px;border:2px solid rgba(0,71,171,.3)}
+.qr-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.04em;color:var(--black)}
+.qr-h em{color:var(--blue);font-style:normal}
+.qr-p{color:rgba(0,0,0,.38);font-size:.82rem;margin:.35rem 0}
+.btn-b{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;font-weight:800;font-size:.82rem;letter-spacing:.06em;padding:.7rem 1.6rem;border-radius:10px;text-decoration:none;margin:.4rem;transition:box-shadow .2s,transform .12s}
+.btn-b:hover{box-shadow:0 8px 30px rgba(0,71,171,.35);transform:translateY(-2px)}
+.btn-o{display:inline-flex;align-items:center;gap:.4rem;background:transparent;border:1px solid rgba(0,71,171,.3);color:var(--blue);font-weight:700;font-size:.75rem;letter-spacing:.06em;padding:.62rem 1.4rem;border-radius:10px;text-decoration:none;margin:.4rem;transition:all .2s}
+.btn-o:hover{background:rgba(0,71,171,.06);border-color:var(--blue)}
+
+footer{text-align:center;padding:2rem 1.5rem 4rem;border-top:3px solid var(--blue);background:#f8f9ff}
+footer p{font-size:.7rem;color:rgba(0,0,0,.28);letter-spacing:.06em}
+footer em{color:var(--blue);font-style:normal}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:640px){
+  .vs-grid{grid-template-columns:1fr 50px 1fr}
+  .vname{font-size:clamp(1.8rem,7vw,3.5rem)}
+  .stats{flex-wrap:wrap}.si{min-width:33%}
+  .nav-links a:not(.nav-pill){display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nl">Plan de <em>Ayala</em></div>
+  <div class="nav-links">
+    <a href="mano-a-mano.html">Gran Final</a>
+    <a href="races.html">Programa</a>
+    <a href="video-ad.html">Video</a>
+    <a href="flyer-digital.html">Flyer</a>
+    <a href="races.html" class="nav-pill">🏁 Gran Final</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-l"></div>
+    <div class="hero-bg-r"></div>
+  </div>
+  <div class="hero-over"></div>
+  <div class="hero-body">
+    <div class="eyebrow">📍 Plan de Ayala · Sábado 20 Junio 2026</div>
+    <div class="hero-title">Plan de<em>Ayala</em></div>
+    <div class="hero-sub">Gran Final · Nva. Tia vs Carmelita</div>
+    <div class="badge-row">
+      <div class="badge b">⭐ Gran Final</div>
+      <div class="badge g">🏇 Derby de Ponis</div>
+      <div class="badge">🎙️ La Patrona Photography</div>
+      <div class="badge">💪 Titanium Suplementos</div>
+    </div>
+  </div>
+</section>
+
+<div class="cd-strip" id="cdStrip">
+  <div class="cd-unit"><div class="cd-n" id="cdD">--</div><div class="cd-l">Días</div></div>
+  <div class="cd-unit"><div class="cd-n" id="cdH">--</div><div class="cd-l">Horas</div></div>
+  <div class="cd-unit"><div class="cd-n" id="cdM">--</div><div class="cd-l">Min</div></div>
+  <div class="cd-unit"><div class="cd-n" id="cdS">--</div><div class="cd-l">Seg</div></div>
+</div>
+
+<section class="vs-wrap reveal">
+  <div class="vs-grid">
+    <div class="vh l">
+      <div class="ph"></div>
+      <div class="gr"></div>
+      <div class="inf">
+        <div class="vtag">NVA. TIA</div>
+        <div class="vname"><em>Gran</em></div>
+        <div class="vcuad">Plan de Ayala</div>
+        <div class="vbadge">
+          <span>Gran Final · Jun 20</span>
+          <strong>VS</strong>
+        </div>
+      </div>
+    </div>
+    <div class="vc">
+      <div class="vs-t">VS</div>
+      <div class="vs-d">GRAN<br>FINAL</div>
+    </div>
+    <div class="vh r">
+      <div class="ph"></div>
+      <div class="gr"></div>
+      <div class="inf">
+        <div class="vtag">CARMELITA</div>
+        <div class="vname"><em>Final</em></div>
+        <div class="vcuad">Plan de Ayala</div>
+        <div class="vbadge" style="align-items:flex-end">
+          <span>Gran Final · Jun 20</span>
+          <strong>VS</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats reveal">
+  <div class="si"><div class="si-icon">⭐</div><div class="si-val">Gran</div><div class="si-lbl">Final</div></div>
+  <div class="si"><div class="si-icon">🏇</div><div class="si-val">50</div><div class="si-lbl">V.C. Derby</div></div>
+  <div class="si"><div class="si-icon">🐎</div><div class="si-val">20+</div><div class="si-lbl">Caballos</div></div>
+  <div class="si"><div class="si-icon">📍</div><div class="si-val">Jun</div><div class="si-lbl">20, 2026</div></div>
+  <div class="si"><div class="si-icon">🎙️</div><div class="si-val">Live</div><div class="si-lbl">Cobertura</div></div>
+</div>
+
+<section class="rs">
+  <div class="sec-ttl reveal">Gran <em>Final</em></div>
+  <div class="feat-card reveal">
+    <div class="feat-row">
+      <div class="feat-num">★</div>
+      <div>
+        <div class="feat-time">GRAN FINAL · 20 de Junio 2026</div>
+        <div class="feat-title">Nva. Tia vs Carmelita</div>
+        <div class="feat-cuad">Plan de Ayala · El Duelo Más Esperado</div>
+      </div>
+      <div class="feat-dist">GRAN FINAL</div>
+    </div>
+  </div>
+
+  <div class="sec-ttl reveal" style="margin-top:2rem">Derby de <em>Ponis</em></div>
+  <div class="derby-card reveal">
+    <div class="derby-title">Derby de Ponis · 50 V.C.</div>
+    <div class="derby-horses">
+      <div class="dh">🐎 La Tachuela — C. Alguien</div>
+      <div class="dh">🐎 El Canelo — C. Armón</div>
+      <div class="dh">🐎 El Goliath</div>
+      <div class="dh">🐎 El Pájaro Loco</div>
+    </div>
+  </div>
+
+  <div class="sec-ttl reveal" style="margin-top:2rem">Programa de <em>Carreras</em></div>
+  <div class="race-list reveal" id="raceList"></div>
+</section>
+
+<div class="qr-block reveal">
+  <img id="qrImg" alt="QR">
+  <div>
+    <div class="qr-h">¡No <em>Faltes!</em></div>
+    <div class="qr-p">Sábado 20 de Junio · Plan de Ayala</div>
+    <div style="margin-top:.75rem">
+      <a href="video-ad.html" class="btn-b">▶ Ver Video</a>
+      <a href="races.html" class="btn-o">🏁 Programa</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Patrocinadores: <em>Titanium Suplementos Equinos · Alto Desempeño · PDC</em></p>
+  <p style="margin-top:.3rem">📸 La Patrona Photography · Cobertura Especial</p>
+</footer>
+
+<script>
+const EVENT=new Date('2026-06-20T10:00:00');
+function tick(){
+  const diff=EVENT-new Date();
+  if(diff<=0){document.getElementById('cdStrip').innerHTML='<div style="width:100%;padding:1.5rem;text-align:center;font-family:\'Bebas Neue\',sans-serif;font-size:2.5rem;color:#0047AB">¡HOY ES EL DÍA! 🏁</div>';return;}
+  const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
+  ['cdD','cdH','cdM','cdS'].forEach((id,i)=>document.getElementById(id).textContent=String([d,h,m,s][i]).padStart(2,'0'));
+}
+tick();setInterval(tick,1000);
+
+const SITE='https://guttix1.github.io/Digital-flyer-/events/plan-de-ayala-jun20/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=0047AB&format=png&margin=10`;
+
+const RACES=[
+  {h:'El Talachero','d':'150 V.C.'},
+  {h:'El Menonita vs El Mamut','d':'180–200 V.C.'},
+  {h:'El Frujolito vs La Payasita','d':'200 V.C.'},
+  {h:'Alfredito vs La Hechicera','d':'200 V.C.'},
+  {h:'El Niño vs La Pendeja','d':'200 V.C.'},
+  {h:'La Muñeca vs El Mariachi','d':'200 V.C.'},
+  {h:'El Píchorl vs La India','d':'200 V.C.'},
+  {h:'Camelia La Texana vs La Tarahumara','d':'125 V.C.'},
+  {h:'Moro Carbonero vs La Morena','d':'200 V.C.'},
+  {h:'El Goliath vs El 40','d':'150 V.C.'},
+  {h:'Las Patitas Cortas','d':'225 V.C.'},
+  {h:'El Coronita vs La Pobre Madre','d':'200 V.C.'},
+  {h:'Baca Peñitas','d':'180 V.C.'},
+  {h:'Juniors','d':'200 V.C.'},
+  {h:'La Sultán vs La Morreña','d':'200 V.C.'},
+];
+const list=document.getElementById('raceList');
+RACES.forEach((r,i)=>{
+  const el=document.createElement('div');el.className='ri';
+  el.innerHTML=`<div class="rn">${String(i+1).padStart(2,'0')}</div><div class="horse-pair">${r.h}</div><div class="dist">${r.d}</div>`;
+  list.appendChild(el);
+});
+
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

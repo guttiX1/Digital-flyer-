@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nva. Tia vs Carmelita · Gran Final · Jun 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--black:#0a0a1a;--white:#fff}
+body{background:#e8ecf4;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Bebas Neue',sans-serif;padding:1rem}
+
+.poster{position:relative;width:min(460px,100vw);aspect-ratio:9/16;overflow:hidden;border-radius:4px;background:#fff;box-shadow:0 0 0 1px rgba(0,71,171,.25),0 20px 60px rgba(0,0,0,.18),0 60px 160px rgba(0,0,0,.12)}
+
+/* Blue/gold accent bars */
+.top-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--blue) 0%,var(--gold) 50%,var(--blue) 100%);z-index:100;box-shadow:0 0 14px rgba(0,71,171,.4)}
+.bot-bar{position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--blue) 0%,var(--gold) 50%,var(--blue) 100%);z-index:100}
+
+/* TOP HEADER */
+.top-content{position:absolute;top:0;left:0;right:0;height:21%;z-index:50;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(.5rem,1.6vw,.8rem);text-align:center;gap:clamp(.1rem,.4vw,.2rem);border-bottom:2.5px solid var(--blue)}
+.tc-org{font-family:'Inter',sans-serif;font-size:clamp(.27rem,.82vw,.42rem);font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(0,0,0,.28)}
+.tc-pre{font-family:'Inter',sans-serif;font-size:clamp(.25rem,.78vw,.38rem);font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,71,171,.75)}
+.tc-ttl{font-size:clamp(1.3rem,4.2vw,2rem);letter-spacing:.07em;line-height:.92;color:var(--black)}
+.tc-ttl em{color:var(--blue);font-style:normal}
+.tc-rule{width:44px;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:.1rem auto}
+.tc-tag{font-family:'Inter',sans-serif;font-size:clamp(.25rem,.78vw,.38rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.32);font-style:italic}
+
+/* PHOTO PANELS */
+.panel-clip-l{position:absolute;top:21%;bottom:27%;left:0;width:50%;overflow:hidden;pointer-events:none}
+.panel-clip-r{position:absolute;top:21%;bottom:27%;right:0;width:50%;overflow:hidden;pointer-events:none}
+.panel-l,.panel-r{position:absolute;inset:0;overflow:visible}
+
+.panel-l .horse{
+  position:absolute;inset:-4% -10% -4% -18%;
+  background:url(h1.jpg) 60% 12%/contain no-repeat #fff;
+  transform:scaleX(-1);
+  filter:brightness(.96) contrast(1.1) saturate(1.12);
+}
+.panel-r .horse{
+  position:absolute;inset:-4% -18% -4% -10%;
+  background:url(h2.jpg) 40% 12%/contain no-repeat #fff;
+  transform:scaleX(-1);
+  filter:brightness(.93) contrast(1.12) saturate(1.1);
+}
+
+/* BLUE DIVIDER */
+.divider{position:absolute;top:20%;bottom:26%;left:50%;transform:translateX(-50%);width:2.5px;z-index:40;background:linear-gradient(180deg,transparent 0%,rgba(0,71,171,.5) 8%,var(--blue) 25%,var(--blue) 75%,rgba(0,71,171,.5) 92%,transparent 100%);box-shadow:0 0 12px rgba(0,71,171,.6),0 0 30px rgba(0,71,171,.25)}
+
+/* HORSE NAMES */
+.names{position:absolute;top:21%;bottom:27%;left:0;right:0;z-index:45;pointer-events:none}
+.nm-l{position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);left:clamp(.4rem,1.3vw,.65rem);max-width:46%}
+.nm-r{position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);right:clamp(.4rem,1.3vw,.65rem);max-width:46%;text-align:right}
+.nm-tag{display:inline-block;background:var(--blue);color:#fff;font-family:'Inter',sans-serif;font-size:clamp(.24rem,.75vw,.36rem);font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.12rem .42rem;border-radius:3px;margin-bottom:clamp(.1rem,.4vw,.18rem)}
+.nm-r .nm-tag{float:right;clear:both}
+.nm-horse{font-size:clamp(1.3rem,4.3vw,2.1rem);line-height:.84;color:var(--black);letter-spacing:.04em;text-shadow:0 2px 12px rgba(255,255,255,.9),0 0 30px rgba(255,255,255,1)}
+.nm-horse em{color:var(--blue);font-style:normal;display:block}
+.nm-cuad{display:block;clear:both;font-family:'Inter',sans-serif;font-size:clamp(.22rem,.7vw,.33rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.38);margin-top:clamp(.1rem,.35vw,.16rem)}
+
+/* VS DIAMOND */
+.vs-wrap{position:absolute;top:21%;bottom:27%;left:50%;transform:translateX(-50%);z-index:50;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.16rem,.55vw,.28rem)}
+.vs-diamond{width:clamp(44px,12vw,60px);height:clamp(44px,12vw,60px);background:#fff;border:2.5px solid var(--blue);transform:rotate(45deg);flex-shrink:0;box-shadow:0 0 16px rgba(0,71,171,.5),0 0 40px rgba(0,71,171,.18),0 4px 20px rgba(0,0,0,.08)}
+.vs-diamond-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg)}
+.vs-t{font-size:clamp(.85rem,2.6vw,1.3rem);color:var(--blue);line-height:1}
+.vs-sub{font-family:'Inter',sans-serif;font-size:clamp(.2rem,.65vw,.3rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,71,171,.6);background:rgba(0,71,171,.06);border:1px solid rgba(0,71,171,.2);border-radius:4px;padding:.12rem .4rem;text-align:center}
+
+/* BOTTOM */
+.bot-content{position:absolute;bottom:0;left:0;right:0;height:28%;z-index:50;background:#fff;border-top:2.5px solid var(--blue);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(.7rem,2.2vw,1rem) clamp(.4rem,1.3vw,.65rem);gap:clamp(.2rem,.72vw,.34rem)}
+.mam-hl{text-align:center;font-size:clamp(.8rem,2.6vw,1.28rem);letter-spacing:.2em;color:var(--black);line-height:1}
+.mam-hl em{color:var(--blue);font-style:normal}
+.chips{display:flex;align-items:center;justify-content:center;gap:clamp(.2rem,.75vw,.38rem)}
+.chip{display:flex;flex-direction:column;align-items:center;background:rgba(0,71,171,.05);border:1px solid rgba(0,71,171,.2);border-radius:5px;padding:clamp(.14rem,.5vw,.26rem) clamp(.28rem,.95vw,.48rem)}
+.chip span{font-family:'Inter',sans-serif;font-size:clamp(.19rem,.64vw,.3rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)}
+.chip strong{font-size:clamp(.56rem,1.75vw,.88rem);color:var(--blue);line-height:1}
+.hr{height:1px;background:rgba(0,71,171,.1)}
+.date-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.date-block .dm{font-size:clamp(.82rem,2.7vw,1.32rem);line-height:.9;color:var(--black);letter-spacing:.03em}
+.date-block .dm em{color:var(--blue);font-style:normal}
+.date-block .dl{font-family:'Inter',sans-serif;font-size:clamp(.21rem,.7vw,.32rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.32);margin-top:clamp(.07rem,.25vw,.12rem)}
+.gold-pill{background:var(--gold);color:#000;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:clamp(.9rem,3vw,1.4rem);padding:clamp(.08rem,.3vw,.18rem) clamp(.42rem,1.4vw,.65rem);border-radius:6px;line-height:1.1;box-shadow:0 4px 16px rgba(245,197,24,.4)}
+.qr-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.sponsors-txt{font-family:'Inter',sans-serif;font-size:clamp(.18rem,.62vw,.29rem);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(0,0,0,.22)}
+.sponsors-txt em{color:var(--blue);font-style:normal}
+.qr-unit{display:flex;align-items:center;gap:clamp(.14rem,.5vw,.25rem)}
+.qr-unit img{width:clamp(38px,10.5vw,52px);height:clamp(38px,10.5vw,52px);border-radius:5px;border:1.5px solid rgba(0,71,171,.3);display:block}
+.scan{font-family:'Inter',sans-serif;font-size:clamp(.19rem,.62vw,.28rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.28);text-align:right;line-height:1.5}
+
+.page-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(0,71,171,.04) 0%,transparent 60%)}
+.links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-top:.7rem}
+.links a{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,71,171,.65);text-decoration:none;background:rgba(0,71,171,.06);border:1px solid rgba(0,71,171,.18);padding:.26rem .62rem;border-radius:6px;transition:all .15s}
+.links a:hover{background:rgba(0,71,171,.12);color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+<div class="poster">
+  <div class="top-bar"></div>
+  <div class="bot-bar"></div>
+  <div class="panel-clip-l"><div class="panel-l"><div class="horse"></div></div></div>
+  <div class="panel-clip-r"><div class="panel-r"><div class="horse"></div></div></div>
+  <div class="divider"></div>
+  <div class="names">
+    <div class="nm-l">
+      <div class="nm-tag">Nva. Tia</div>
+      <div class="nm-horse"><em>Gran</em></div>
+      <div class="nm-cuad">Plan de Ayala</div>
+    </div>
+    <div class="nm-r">
+      <div class="nm-tag">Carmelita</div>
+      <div class="nm-horse"><em>Final</em></div>
+      <div class="nm-cuad">Plan de Ayala</div>
+    </div>
+  </div>
+  <div class="vs-wrap">
+    <div class="vs-diamond"><div class="vs-diamond-inner"><div class="vs-t">VS</div></div></div>
+    <div class="vs-sub">Gran Final</div>
+  </div>
+  <div class="top-content">
+    <div class="tc-org">Plan de Ayala · 20 de Junio 2026</div>
+    <div class="tc-pre">Presenta</div>
+    <div class="tc-ttl">Gran <em>Final</em></div>
+    <div class="tc-rule"></div>
+    <div class="tc-tag">"El Duelo Más Esperado del Año"</div>
+  </div>
+  <div class="bot-content">
+    <div class="mam-hl"><em>Nva. Tia</em> vs <em>Carmelita</em></div>
+    <div class="chips">
+      <div class="chip"><span>Evento</span><strong>Gran Final</strong></div>
+      <div class="chip"><span>Derby</span><strong>50 V.C.</strong></div>
+      <div class="chip"><span>Caballos</span><strong>20+</strong></div>
+    </div>
+    <div class="hr"></div>
+    <div class="date-row">
+      <div class="date-block">
+        <div class="dm">Sáb · <em>20 Jun</em> · 2026</div>
+        <div class="dl">📍 Plan de Ayala · Gran Final</div>
+      </div>
+      <div class="gold-pill">⭐ FINAL</div>
+    </div>
+    <div class="hr"></div>
+    <div class="qr-row">
+      <div class="sponsors-txt"><em>Titanium</em> · Alto Desempeño · PDC<br>📸 La Patrona Photography</div>
+      <div class="qr-unit">
+        <div class="scan">Escanea<br>el sitio</div>
+        <img id="qrImg" alt="QR">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="links">
+  <a href="site.html">🏠 Sitio</a>
+  <a href="flyer-digital.html">📋 Flyer</a>
+  <a href="races.html">🏁 Programa</a>
+  <a href="video-ad.html">▶ Video</a>
+</div>
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/plan-de-ayala-jun20/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=0047AB&format=png&margin=6`;
+</script>
+</body>
+</html>

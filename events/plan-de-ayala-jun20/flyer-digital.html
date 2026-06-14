@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flyer · Plan de Ayala · Jun 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--black:#0a0a1a}
+body{background:#dde3ef;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',sans-serif;padding:1rem}
+.poster{position:relative;width:min(480px,100vw);aspect-ratio:9/16;overflow:hidden;border-radius:16px;box-shadow:0 0 0 1px rgba(0,71,171,.2),0 40px 120px rgba(0,0,0,.25);background:#fff}
+.p-bg{position:absolute;inset:0;background:url(flyer.jpg) center 8%/cover no-repeat}
+.p-over{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.5) 18%,rgba(255,255,255,.12) 40%,rgba(255,255,255,.12) 60%,rgba(255,255,255,.6) 72%,rgba(255,255,255,.97) 100%)}
+.p-topbar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));box-shadow:0 0 16px rgba(0,71,171,.4);z-index:10}
+.p-botbar{position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));z-index:10}
+.p-header{position:absolute;top:0;left:0;right:0;padding:clamp(.9rem,3vw,1.4rem) clamp(.9rem,3vw,1.4rem) 0;display:flex;align-items:flex-start;justify-content:space-between;z-index:5}
+.p-venue-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.5vw,1.6rem);letter-spacing:.06em;line-height:1;color:var(--black)}
+.p-venue-name em{color:var(--blue);font-style:normal}
+.p-date-pill{background:var(--blue);color:#fff;font-size:clamp(.42rem,1.3vw,.58rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .7rem;border-radius:999px;white-space:nowrap;margin-top:.18rem}
+.p-count{position:absolute;top:clamp(.9rem,3vw,1.4rem);right:clamp(.9rem,3vw,1.4rem);z-index:5;background:rgba(255,255,255,.9);border:1.5px solid rgba(0,71,171,.4);border-radius:8px;padding:clamp(.25rem,.9vw,.38rem) clamp(.5rem,1.6vw,.7rem);text-align:center;backdrop-filter:blur(4px)}
+.p-count-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.2vw,1.5rem);color:var(--blue);line-height:1}
+.p-count-lbl{font-size:clamp(.3rem,.95vw,.42rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.p-main{position:absolute;top:50%;left:0;right:0;transform:translateY(-60%);text-align:center;padding:0 clamp(.8rem,2.5vw,1.2rem);z-index:5}
+.p-event-tag{display:inline-block;background:rgba(255,255,255,.88);border:1.5px solid rgba(0,71,171,.4);border-radius:999px;font-size:clamp(.4rem,1.2vw,.56rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);padding:.2rem .72rem;margin-bottom:clamp(.35rem,1vw,.6rem)}
+.p-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,7.5vw,3.8rem);line-height:.82;color:var(--black);letter-spacing:.04em}
+.p-title em{color:var(--blue);font-style:normal;display:block}
+.p-rule{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:.45rem auto}
+.p-vs-row{display:flex;align-items:center;justify-content:center;gap:clamp(.25rem,.9vw,.45rem);margin-top:clamp(.3rem,1vw,.5rem)}
+.p-horse{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5.5vw,2.7rem);line-height:.88;color:var(--black);text-shadow:0 2px 15px rgba(255,255,255,.95)}
+.p-horse em{color:var(--blue);font-style:normal;display:block}
+.p-vs{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.8vw,1.9rem);color:var(--blue);padding:0 clamp(.15rem,.5vw,.3rem);flex-shrink:0}
+.p-race-strip{display:flex;align-items:center;justify-content:center;gap:clamp(.35rem,1.2vw,.6rem);margin-top:clamp(.5rem,1.6vw,.8rem)}
+.p-race-chip{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.88);border:1px solid rgba(0,71,171,.3);border-radius:8px;padding:clamp(.25rem,.8vw,.4rem) clamp(.45rem,1.5vw,.7rem);backdrop-filter:blur(4px)}
+.p-race-chip span{font-size:clamp(.32rem,1vw,.46rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.p-race-chip strong{font-family:'Bebas Neue',sans-serif;font-size:clamp(.85rem,2.6vw,1.3rem);color:var(--blue);line-height:1}
+.p-bottom{position:absolute;bottom:0;left:0;right:0;padding:clamp(.7rem,2.2vw,1.1rem) clamp(.9rem,3vw,1.4rem) clamp(.8rem,2.5vw,1.1rem);display:flex;flex-direction:column;gap:clamp(.4rem,1.3vw,.6rem);z-index:5}
+.p-big-date{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,5vw,2.4rem);line-height:.88;color:var(--black)}
+.p-big-date em{color:var(--blue);font-style:normal}
+.p-location{font-size:clamp(.4rem,1.2vw,.56rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-top:.2rem}
+.p-pills{display:flex;gap:clamp(.22rem,.75vw,.36rem);flex-wrap:wrap}
+.p-pill{font-size:clamp(.32rem,1vw,.46rem);font-weight:700;background:rgba(0,71,171,.06);border:1px solid rgba(0,71,171,.18);border-radius:999px;padding:clamp(.16rem,.55vw,.25rem) clamp(.4rem,1.3vw,.62rem);color:rgba(0,0,0,.5);white-space:nowrap}
+.p-qr-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;border-top:1px solid rgba(0,71,171,.12);padding-top:clamp(.38rem,1.2vw,.56rem)}
+.p-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:clamp(.16rem,.55vw,.26rem)}
+.p-qr-wrap img{width:clamp(52px,14vw,72px);height:clamp(52px,14vw,72px);border-radius:6px;border:1.5px solid rgba(0,71,171,.3);display:block}
+.p-scan{font-size:clamp(.28rem,.9vw,.4rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.25);text-align:center}
+.p-sponsor{text-align:center;font-size:clamp(.3rem,.95vw,.44rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.2)}
+.p-sponsor em{color:var(--blue);font-style:normal}
+.p-gold-label{background:var(--gold);color:#000;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.8vw,1.9rem);padding:.08rem clamp(.5rem,1.8vw,.85rem);border-radius:8px;line-height:1.1;box-shadow:0 4px 16px rgba(245,197,24,.4)}
+.page-label{text-align:center;margin-bottom:.75rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.3);font-family:'Inter',sans-serif}
+.page-links{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+.page-links a{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,71,171,.7);text-decoration:none;background:rgba(0,71,171,.06);border:1px solid rgba(0,71,171,.2);padding:.3rem .75rem;border-radius:6px;font-family:'Inter',sans-serif;transition:all .15s}
+.page-links a:hover{background:rgba(0,71,171,.12);color:var(--blue)}
+</style>
+</head>
+<body>
+<div>
+  <div class="page-label">📋 Flyer Digital · Plan de Ayala</div>
+  <div class="poster">
+    <div class="p-bg"></div>
+    <div class="p-over"></div>
+    <div class="p-topbar"></div>
+    <div class="p-header">
+      <div>
+        <div class="p-venue-name">Plan de <em>Ayala</em></div>
+        <div class="p-date-pill">Sábado 20 Junio 2026</div>
+      </div>
+    </div>
+    <div class="p-count">
+      <div class="p-count-num">Gran</div>
+      <div class="p-count-lbl">Final</div>
+    </div>
+    <div class="p-main">
+      <div class="p-event-tag">⭐ Gran Final · El Duelo del Año</div>
+      <div class="p-title">Nva. Tia<em>vs Carmelita</em></div>
+      <div class="p-rule"></div>
+      <div class="p-race-strip">
+        <div class="p-race-chip"><span>Evento</span><strong>Gran Final</strong></div>
+        <div class="p-race-chip"><span>Derby</span><strong>50 V.C.</strong></div>
+        <div class="p-race-chip"><span>Caballos</span><strong>20+</strong></div>
+      </div>
+    </div>
+    <div class="p-bottom">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div class="p-big-date">Sáb · <em>20 Jun</em> · 2026</div>
+          <div class="p-location">📍 Plan de Ayala · Gran Final</div>
+        </div>
+        <div class="p-gold-label">⭐ FINAL</div>
+      </div>
+      <div class="p-pills">
+        <div class="p-pill">💪 Titanium Suplementos</div>
+        <div class="p-pill">🏇 Derby de Ponis 50 V.C.</div>
+        <div class="p-pill">📸 La Patrona Photography</div>
+      </div>
+      <div class="p-qr-row">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(.9rem,3vw,1.4rem);color:var(--blue)">Alto Desempeño · PDC</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(.3rem,.95vw,.44rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.28)">Patrocinadores oficiales</div>
+        </div>
+        <div class="p-qr-wrap">
+          <img id="qrImg" alt="QR">
+          <div class="p-scan">Escanea<br>el sitio</div>
+        </div>
+      </div>
+      <div class="p-sponsor">Cobertura: <em>La Patrona Photography</em></div>
+    </div>
+    <div class="p-botbar"></div>
+  </div>
+  <div class="page-links">
+    <a href="site.html">🏠 Sitio</a>
+    <a href="races.html">🏁 Programa</a>
+    <a href="video-ad.html">▶ Video</a>
+    <a href="mano-a-mano.html">⚔ Gran Final</a>
+  </div>
+</div>
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/plan-de-ayala-jun20/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=0047AB&format=png&margin=8`;
+</script>
+</body>
+</html>

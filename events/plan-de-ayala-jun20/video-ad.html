@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Ad · Gran Final · Plan de Ayala</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--black:#0a0a1a;--white:#fff}
+
+body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Bebas Neue',sans-serif;padding:.5rem}
+
+/* ── STAGE ── */
+.stage{
+  position:relative;width:min(360px,90vw);aspect-ratio:9/16;
+  overflow:hidden;border-radius:6px;
+  background:#fff;
+  box-shadow:0 0 0 1px rgba(0,71,171,.25),0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(0,71,171,.12);
+}
+
+/* ── SCENES ── */
+.scene{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  opacity:0;pointer-events:none;
+  background:#fff;
+}
+.scene.on{opacity:1;pointer-events:auto}
+
+/* ── PROGRESS BAR ── */
+.prog{position:absolute;top:0;left:0;right:0;height:3px;z-index:200;background:rgba(0,0,0,.1)}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .1s linear}
+
+/* ── GLOBAL OVERLAY ELEMENTS ── */
+.top-bar{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));z-index:150;box-shadow:0 0 12px rgba(0,71,171,.4)}
+.bot-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));z-index:150}
+
+/* ─────────────────────────────────────
+   SCENE 1 — INTRO / VENUE REVEAL
+───────────────────────────────────── */
+#s1{background:#fff}
+#s1 .bg-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+#s1 .bg-l{background:url(h1.jpg) 50% 20%/cover no-repeat;filter:brightness(.85) saturate(1.1);animation:s1zoom 6s ease-out both}
+#s1 .bg-r{background:url(h2.jpg) 50% 20%/cover no-repeat;transform:scaleX(-1);filter:brightness(.85) saturate(1.1);animation:s1zoom 6s ease-out both}
+#s1 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.65) 40%,rgba(255,255,255,.35) 60%,#fff 100%)}
+#s1 .s1-center{position:relative;z-index:5}
+#s1 .s1-org{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);animation:fadeUp .6s .3s both}
+#s1 .s1-ttl{font-size:clamp(3rem,14vw,5.5rem);line-height:.82;color:var(--black);animation:fadeUp .6s .5s both;text-shadow:0 4px 20px rgba(255,255,255,.8)}
+#s1 .s1-ttl em{color:var(--blue);font-style:normal;display:block}
+#s1 .s1-rule{width:50px;height:2.5px;background:var(--gold);margin:.5rem auto;border-radius:2px;animation:expandW .5s .9s both}
+#s1 .s1-date{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.45);animation:fadeUp .5s 1s both}
+
+@keyframes s1zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes expandW{from{width:0;opacity:0}to{width:50px;opacity:1}}
+
+/* ─────────────────────────────────────
+   SCENE 2 — HORSE 1 (3D REVEAL)
+───────────────────────────────────── */
+#s2{background:#fff;perspective:900px}
+#s2 .bg{position:absolute;inset:0;background:url(h1.jpg) 50% 15%/cover no-repeat;animation:kbZ2 5s ease-out both}
+#s2 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.5) 35%,rgba(255,255,255,.15) 60%,rgba(255,255,255,.6) 100%)}
+#s2 .card-3d{
+  position:relative;z-index:5;
+  background:rgba(255,255,255,.85);border:2px solid rgba(0,71,171,.25);
+  border-radius:16px;padding:1.2rem 1.8rem;backdrop-filter:blur(8px);
+  transform-style:preserve-3d;
+  animation:card3dIn .7s .3s cubic-bezier(.22,1,.36,1) both;
+}
+#s2 .tag{font-family:'Inter',sans-serif;font-size:.48rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--blue);padding:.15rem .55rem;border-radius:4px;display:inline-block;margin-bottom:.4rem;animation:fadeUp .4s .7s both}
+#s2 .h-name{font-size:clamp(2.4rem,10vw,4rem);line-height:.82;color:var(--black);animation:fadeUp .5s .8s both}
+#s2 .h-name em{color:var(--blue);font-style:normal;display:block}
+#s2 .h-cuad{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-top:.4rem;animation:fadeUp .4s .95s both}
+#s2 .stats-row{display:flex;gap:.6rem;margin-top:.8rem;justify-content:center;animation:fadeUp .4s 1.1s both}
+#s2 .stat-chip{background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.2);border-radius:8px;padding:.4rem .7rem;text-align:center}
+#s2 .stat-chip strong{font-size:1.1rem;color:var(--blue);display:block;line-height:1}
+#s2 .stat-chip span{font-family:'Inter',sans-serif;font-size:.38rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)}
+
+#s2 .glow-ring{
+  position:absolute;inset:-20%;z-index:1;
+  background:radial-gradient(ellipse at 50% 30%,rgba(0,71,171,.08) 0%,transparent 60%);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes kbZ2{from{transform:scale(1.14)}to{transform:scale(1)}}
+@keyframes card3dIn{from{opacity:0;transform:perspective(800px) rotateX(25deg) translateY(40px)}to{opacity:1;transform:perspective(800px) rotateX(0) translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* particles */
+.particles{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.p{position:absolute;border-radius:50%;animation:pFloat var(--dur,3s) var(--del,0s) ease-in-out infinite both}
+@keyframes pFloat{0%{transform:translateY(100%) translateX(var(--dx,0px));opacity:0}20%{opacity:.7}80%{opacity:.5}100%{transform:translateY(-20%) translateX(calc(var(--dx,0px)*-1));opacity:0}}
+
+/* ─────────────────────────────────────
+   SCENE 3 — HORSE 2 (MIRROR 3D)
+───────────────────────────────────── */
+#s3{background:#fff;perspective:900px}
+#s3 .bg{position:absolute;inset:0;background:url(h2.jpg) 50% 15%/cover no-repeat;transform:scaleX(-1);animation:kbZ2 5s ease-out both}
+#s3 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.5) 35%,rgba(255,255,255,.15) 60%,rgba(255,255,255,.6) 100%)}
+#s3 .card-3d{
+  position:relative;z-index:5;
+  background:rgba(255,255,255,.85);border:2px solid rgba(245,197,24,.4);
+  border-radius:16px;padding:1.2rem 1.8rem;backdrop-filter:blur(8px);
+  animation:card3dInR .7s .3s cubic-bezier(.22,1,.36,1) both;
+}
+#s3 .tag{font-family:'Inter',sans-serif;font-size:.48rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#000;background:var(--gold);padding:.15rem .55rem;border-radius:4px;display:inline-block;margin-bottom:.4rem;animation:fadeUp .4s .7s both}
+#s3 .h-name{font-size:clamp(2.4rem,10vw,4rem);line-height:.82;color:var(--black);animation:fadeUp .5s .8s both}
+#s3 .h-name em{color:#cc8800;font-style:normal;display:block}
+#s3 .h-cuad{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-top:.4rem;animation:fadeUp .4s .95s both}
+#s3 .stats-row{display:flex;gap:.6rem;margin-top:.8rem;justify-content:center;animation:fadeUp .4s 1.1s both}
+#s3 .stat-chip{background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.35);border-radius:8px;padding:.4rem .7rem;text-align:center}
+#s3 .stat-chip strong{font-size:1.1rem;color:#8B6200;display:block;line-height:1}
+#s3 .stat-chip span{font-family:'Inter',sans-serif;font-size:.38rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3)}
+#s3 .glow-ring{position:absolute;inset:-20%;z-index:1;background:radial-gradient(ellipse at 50% 30%,rgba(245,197,24,.1) 0%,transparent 60%);animation:pulse 2s ease-in-out infinite}
+
+@keyframes card3dInR{from{opacity:0;transform:perspective(800px) rotateX(-25deg) translateY(40px)}to{opacity:1;transform:perspective(800px) rotateX(0) translateY(0)}}
+
+/* ─────────────────────────────────────
+   SCENE 4 — VS SPLIT (3D ROTATION)
+───────────────────────────────────── */
+#s4{background:#fff}
+#s4 .bg-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+#s4 .bg-l{background:url(h1.jpg) 50% 20%/cover no-repeat;filter:brightness(.9) saturate(1.1)}
+#s4 .bg-r{background:url(h2.jpg) 50% 20%/cover no-repeat;transform:scaleX(-1);filter:brightness(.9) saturate(1.1)}
+#s4 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.55) 30%,rgba(255,255,255,.25) 55%,rgba(255,255,255,.55) 80%,#fff 100%)}
+#s4 .split-line{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(180deg,transparent,var(--blue) 20%,var(--gold) 50%,var(--blue) 80%,transparent);z-index:10;box-shadow:0 0 20px rgba(0,71,171,.4);animation:lineDrop .5s .2s both}
+#s4 .diamond{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(45deg);
+  width:70px;height:70px;
+  background:#fff;border:3px solid var(--blue);
+  z-index:15;
+  box-shadow:0 0 20px rgba(0,71,171,.5),0 0 50px rgba(0,71,171,.2);
+  animation:diamondPop .5s .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+#s4 .diamond-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg)}
+#s4 .vs-t{font-size:2rem;color:var(--blue);line-height:1;text-shadow:0 0 15px rgba(0,71,171,.6)}
+#s4 .nm-l{position:absolute;bottom:22%;left:4%;z-index:12;text-align:left;animation:slideInL .5s .5s both}
+#s4 .nm-r{position:absolute;bottom:22%;right:4%;z-index:12;text-align:right;animation:slideInR .5s .5s both}
+#s4 .h-n{font-size:clamp(1.6rem,6.5vw,2.6rem);line-height:.85;color:var(--black);text-shadow:0 2px 12px rgba(255,255,255,.9)}
+#s4 .h-n em{color:var(--blue);font-style:normal;display:block}
+#s4 .nm-r .h-n em{color:#cc8800}
+#s4 .tag-s{display:inline-block;font-family:'Inter',sans-serif;font-size:.4rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.1rem .4rem;border-radius:3px;margin-bottom:.25rem}
+#s4 .tag-b{background:var(--blue);color:#fff}
+#s4 .tag-g{background:var(--gold);color:#000}
+#s4 .bottom-band{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--blue);padding:.6rem .8rem;z-index:12;animation:slideUp .4s .7s both}
+#s4 .bottom-band .dist{font-size:clamp(1rem,4vw,1.8rem);color:var(--blue);letter-spacing:.12em}
+#s4 .bottom-band .sub{font-family:'Inter',sans-serif;font-size:.45rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.35)}
+
+@keyframes lineDrop{from{scaleY:0;opacity:0}to{scaleY:1;opacity:1}}
+@keyframes diamondPop{from{opacity:0;transform:translate(-50%,-50%) rotate(45deg) scale(0)}to{opacity:1;transform:translate(-50%,-50%) rotate(45deg) scale(1)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+@keyframes slideInR{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ─────────────────────────────────────
+   SCENE 5 — DERBY DE PONIS (3D CARDS)
+───────────────────────────────────── */
+#s5{background:#fff;perspective:1200px}
+#s5 .bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(245,197,24,.08) 0%,transparent 60%)}
+#s5 .s5-ttl{font-size:clamp(2rem,8vw,3.2rem);color:var(--black);line-height:.88;position:relative;z-index:2;animation:fadeUp .5s .2s both}
+#s5 .s5-ttl em{color:var(--gold);font-style:normal;display:block}
+#s5 .gold-line{width:50px;height:2.5px;background:linear-gradient(90deg,var(--gold),var(--blue));margin:.45rem auto;border-radius:2px;animation:expandW .4s .5s both;position:relative;z-index:2}
+#s5 .poni-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;padding:.6rem;position:relative;z-index:2}
+#s5 .poni-card{
+  background:#fff;border:1.5px solid rgba(245,197,24,.35);border-radius:12px;padding:.7rem;text-align:center;
+  transform-style:preserve-3d;
+  animation:cardFlip .5s var(--d,0s) cubic-bezier(.22,1,.36,1) both;
+}
+#s5 .poni-num{font-family:'Inter',sans-serif;font-size:.38rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.25)}
+#s5 .poni-name{font-size:clamp(1.1rem,4.5vw,1.7rem);color:var(--black);line-height:.88}
+#s5 .poni-name em{color:#cc8800;font-style:normal;display:block}
+#s5 .poni-bar{height:3px;background:rgba(245,197,24,.15);border-radius:999px;overflow:hidden;margin-top:.4rem}
+#s5 .poni-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),#ffdd44)}
+
+@keyframes cardFlip{from{opacity:0;transform:perspective(600px) rotateY(-40deg) scale(.9)}to{opacity:1;transform:perspective(600px) rotateY(0) scale(1)}}
+
+/* ─────────────────────────────────────
+   SCENE 6 — FECHA / DETAILS
+───────────────────────────────────── */
+#s6{background:#fff}
+#s6 .bg-photo{position:absolute;inset:0;background:url(h1.jpg) 50% 15%/cover no-repeat;opacity:.07;animation:kbZ2 5s ease-out both}
+#s6 .bg-photo2{position:absolute;inset:0;background:url(h2.jpg) 50% 15%/cover no-repeat;transform:scaleX(-1);opacity:.07;animation:kbZ2 5s ease-out both}
+#s6 .content{position:relative;z-index:5;padding:1.5rem}
+#s6 .pre{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,71,171,.6);animation:fadeUp .4s .2s both}
+#s6 .big-date{font-size:clamp(3rem,13vw,5.5rem);line-height:.82;color:var(--black);animation:fadeUp .5s .35s both}
+#s6 .big-date em{color:var(--blue);font-style:normal;display:block}
+#s6 .rule{width:55px;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold));margin:.55rem auto;border-radius:2px;animation:expandW .4s .6s both}
+#s6 .venue{font-size:clamp(1.2rem,5vw,2rem);letter-spacing:.1em;color:rgba(0,0,0,.55);animation:fadeUp .4s .7s both}
+#s6 .info-chips{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin-top:.9rem;animation:fadeUp .4s .85s both}
+#s6 .chip{background:#fff;border:1.5px solid rgba(0,71,171,.2);border-radius:8px;padding:.4rem .7rem;font-family:'Inter',sans-serif;font-size:.48rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.5)}
+#s6 .chip em{color:var(--blue);font-style:normal}
+#s6 .sponsors{margin-top:1rem;animation:fadeUp .4s 1s both}
+#s6 .sp-label{font-family:'Inter',sans-serif;font-size:.42rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.25);margin-bottom:.35rem}
+#s6 .sp-names{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center}
+#s6 .sp{font-family:'Inter',sans-serif;font-size:.42rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);background:rgba(0,71,171,.04);border:1px solid rgba(0,71,171,.12);padding:.2rem .5rem;border-radius:5px}
+#s6 .lightning{
+  position:absolute;top:8%;right:8%;z-index:10;
+  animation:lBolt .15s steps(1) infinite;
+  font-size:2.5rem;opacity:0;
+}
+@keyframes lBolt{0%{opacity:0}5%{opacity:.4}10%{opacity:0}15%{opacity:.3}100%{opacity:0}}
+
+/* ─────────────────────────────────────
+   SCENE 7 — CTA / QR
+───────────────────────────────────── */
+#s7{background:#fff}
+#s7 .bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,71,171,.04) 0%,transparent 65%)}
+#s7 .content{position:relative;z-index:5;padding:1.8rem 1.5rem}
+#s7 .flag{font-size:3.5rem;animation:flagBounce 1s .2s cubic-bezier(.34,1.56,.64,1) both}
+#s7 .cta-ttl{font-size:clamp(2.4rem,10vw,3.8rem);line-height:.82;color:var(--black);animation:fadeUp .5s .5s both}
+#s7 .cta-ttl em{color:var(--blue);font-style:normal;display:block}
+#s7 .rule{width:55px;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold));margin:.55rem auto;border-radius:2px;animation:expandW .4s .8s both}
+#s7 .qr-box{
+  background:rgba(255,255,255,.95);border:2px solid rgba(0,71,171,.25);
+  border-radius:14px;padding:1rem;margin:1rem auto 0;display:inline-flex;
+  flex-direction:column;align-items:center;gap:.5rem;
+  box-shadow:0 8px 30px rgba(0,71,171,.12);
+  animation:card3dIn .6s .9s cubic-bezier(.22,1,.36,1) both;
+}
+#s7 .qr-box img{width:110px;height:110px;border-radius:8px;border:2px solid rgba(0,71,171,.25);display:block}
+#s7 .scan-lbl{font-family:'Inter',sans-serif;font-size:.42rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.3)}
+#s7 .social{font-size:clamp(1.2rem,5vw,1.8rem);color:var(--blue);letter-spacing:.04em;animation:fadeUp .4s 1.3s both}
+#s7 .tagline{font-family:'Inter',sans-serif;font-size:.48rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.25);margin-top:.6rem;animation:fadeUp .4s 1.4s both}
+
+@keyframes flagBounce{from{opacity:0;transform:scale(0) rotate(-15deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+
+/* ── FLASH TRANSITION ── */
+.flash{position:fixed;inset:0;background:#fff;z-index:300;pointer-events:none;opacity:0}
+.flash.go{animation:doFlash .35s ease-out both}
+@keyframes doFlash{0%{opacity:.9}100%{opacity:0}}
+
+/* ── CONTROLS ── */
+.controls{margin-top:.6rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.08em;border:none;cursor:pointer;padding:.38rem .9rem;border-radius:6px;background:rgba(0,71,171,.08);color:var(--blue);transition:background .15s}
+.btn:hover{background:rgba(0,71,171,.16)}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:#003a8e}
+.scene-counter{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.35)}
+
+.links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
+.links a{font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,71,171,.6);text-decoration:none;background:rgba(0,71,171,.06);border:1px solid rgba(0,71,171,.18);padding:.24rem .55rem;border-radius:5px;transition:all .15s}
+.links a:hover{background:rgba(0,71,171,.12);color:var(--blue)}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="top-bar"></div>
+  <div class="bot-bar"></div>
+  <div class="prog"><div class="prog-fill" id="pf"></div></div>
+
+  <!-- SCENE 1 — INTRO -->
+  <div class="scene on" id="s1">
+    <div class="bg-split">
+      <div class="bg-l"></div>
+      <div class="bg-r"></div>
+    </div>
+    <div class="bg-over"></div>
+    <div class="s1-center">
+      <div class="s1-org">Plan de Ayala · Carreras de Caballos</div>
+      <div class="s1-ttl">Gran<em>Final</em></div>
+      <div class="s1-rule"></div>
+      <div class="s1-date">Sábado · 20 de Junio · 2026</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 — HORSE 1 -->
+  <div class="scene" id="s2">
+    <div class="bg"></div>
+    <div class="bg-over"></div>
+    <div class="glow-ring"></div>
+    <div class="particles" id="p2"></div>
+    <div class="card-3d">
+      <div class="tag">GRAN · Local</div>
+      <div class="h-name">Nva.<em>Tia</em></div>
+      <div class="h-cuad">Cuadra Local · Plan de Ayala</div>
+      <div class="stats-row">
+        <div class="stat-chip"><strong>50</strong><span>Vale Cordel</span></div>
+        <div class="stat-chip"><strong>90</strong><span>Vel. Rating</span></div>
+        <div class="stat-chip"><strong>#1</strong><span>Favorita</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 — HORSE 2 -->
+  <div class="scene" id="s3">
+    <div class="bg"></div>
+    <div class="bg-over"></div>
+    <div class="glow-ring"></div>
+    <div class="particles" id="p3"></div>
+    <div class="card-3d">
+      <div class="tag">FINAL · Visitante</div>
+      <div class="h-name">Car<em>melita</em></div>
+      <div class="h-cuad">Cuadra Visitante</div>
+      <div class="stats-row">
+        <div class="stat-chip"><strong>50</strong><span>Vale Cordel</span></div>
+        <div class="stat-chip"><strong>87</strong><span>Vel. Rating</span></div>
+        <div class="stat-chip"><strong>#2</strong><span>Retadora</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4 — VS SPLIT -->
+  <div class="scene" id="s4">
+    <div class="bg-split">
+      <div class="bg-l"></div>
+      <div class="bg-r"></div>
+    </div>
+    <div class="bg-over"></div>
+    <div class="split-line"></div>
+    <div class="diamond"><div class="diamond-inner"><div class="vs-t">VS</div></div></div>
+    <div class="names" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:11;pointer-events:none">
+      <div class="nm-l" style="position:absolute;bottom:22%;left:4%">
+        <div class="tag-s tag-b">GRAN</div>
+        <div class="h-n">Nva.<em>Tia</em></div>
+      </div>
+      <div class="nm-r" style="position:absolute;bottom:22%;right:4%">
+        <div class="tag-s tag-g">FINAL</div>
+        <div class="h-n" style="text-align:right">Car<em>melita</em></div>
+      </div>
+    </div>
+    <div class="bottom-band" style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--blue);padding:.6rem .8rem;z-index:12;text-align:center">
+      <div class="dist">50 Vale Cordel · Gran Final</div>
+      <div class="sub">Sábado 20 Jun 2026 · Plan de Ayala</div>
+    </div>
+  </div>
+
+  <!-- SCENE 5 — DERBY DE PONIS -->
+  <div class="scene" id="s5">
+    <div class="bg"></div>
+    <div class="s5-ttl">Derby de<em>Ponis</em></div>
+    <div class="gold-line"></div>
+    <div class="poni-grid">
+      <div class="poni-card" style="--d:.35s">
+        <div class="poni-num">PONI #1</div>
+        <div class="poni-name">La<em>Tachuela</em></div>
+        <div class="poni-bar"><div class="poni-fill" style="width:88%"></div></div>
+      </div>
+      <div class="poni-card" style="--d:.5s">
+        <div class="poni-num">PONI #2</div>
+        <div class="poni-name">El<em>Canelo</em></div>
+        <div class="poni-bar"><div class="poni-fill" style="width:82%"></div></div>
+      </div>
+      <div class="poni-card" style="--d:.65s">
+        <div class="poni-num">PONI #3</div>
+        <div class="poni-name">El<em>Goliath</em></div>
+        <div class="poni-bar"><div class="poni-fill" style="width:79%"></div></div>
+      </div>
+      <div class="poni-card" style="--d:.8s">
+        <div class="poni-num">PONI #4</div>
+        <div class="poni-name">El Pájaro<em>Loco</em></div>
+        <div class="poni-bar"><div class="poni-fill" style="width:85%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 6 — DATE & DETAILS -->
+  <div class="scene" id="s6">
+    <div class="bg-photo"></div>
+    <div class="bg-photo2"></div>
+    <div class="lightning">⚡</div>
+    <div class="content">
+      <div class="pre">Mark Your Calendar</div>
+      <div class="big-date">Sáb<em>20 Jun</em></div>
+      <div class="rule"></div>
+      <div class="venue">Plan de Ayala</div>
+      <div class="info-chips">
+        <div class="chip">🏆 Gran Final</div>
+        <div class="chip">🎠 Derby Ponis</div>
+        <div class="chip">🏁 17 Carreras</div>
+        <div class="chip">50 <em>V.C.</em></div>
+        <div class="chip">Vale Cordel</div>
+      </div>
+      <div class="sponsors">
+        <div class="sp-label">Patrocinadores Oficiales</div>
+        <div class="sp-names">
+          <span class="sp">Titanium</span>
+          <span class="sp">Alto Desempeño</span>
+          <span class="sp">PDC</span>
+          <span class="sp">La Patrona Photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7 — CTA / QR -->
+  <div class="scene" id="s7">
+    <div class="bg"></div>
+    <div class="content">
+      <div class="flag">🏆</div>
+      <div class="cta-ttl">¡Que Gane<em>el Mejor!</em></div>
+      <div class="rule"></div>
+      <div class="qr-box">
+        <img id="qrImg" alt="QR">
+        <div class="scan-lbl">Escanea · Sitio Oficial</div>
+      </div>
+      <div class="social">@carrerasplanaposta</div>
+      <div class="tagline">La Pasión Corre en Plan de Ayala</div>
+    </div>
+  </div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<div class="controls">
+  <button class="btn" id="btnPrev">◀</button>
+  <button class="btn primary" id="btnPlay">▶ PLAY</button>
+  <button class="btn" id="btnNext">▶</button>
+  <span class="scene-counter" id="scCtr">1 / 7</span>
+</div>
+<div class="links">
+  <a href="site.html">🏠 Sitio</a>
+  <a href="flyer-digital.html">📋 Flyer</a>
+  <a href="races.html">🏁 Programa</a>
+  <a href="mano-a-mano.html">⚔ Mano a Mano</a>
+</div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/plan-de-ayala-jun20/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=0047AB&format=png&margin=8`;
+
+/* ── PARTICLES ── */
+function mkParticles(id,col){
+  const c=document.getElementById(id);
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='p';
+    const size=(Math.random()*4+2)+'px';
+    p.style.cssText=`width:${size};height:${size};background:${col};bottom:${Math.random()*20}%;left:${Math.random()*100}%;--dx:${(Math.random()-0.5)*60}px;--dur:${(Math.random()*2+2).toFixed(1)}s;--del:${(Math.random()*2).toFixed(1)}s;opacity:0`;
+    c.appendChild(p);
+  }
+}
+mkParticles('p2','rgba(0,71,171,.35)');
+mkParticles('p3','rgba(245,197,24,.5)');
+
+/* ── SCENE ENGINE ── */
+const SCENES=['s1','s2','s3','s4','s5','s6','s7'];
+const DURS=[4500,4500,4500,4500,4000,4500,99999];
+let cur=0,playing=false,paused=false,start=0,elapsed=0,pfill=0;
+let raf=null;
+
+function showScene(idx){
+  SCENES.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    el.classList.toggle('on',i===idx);
+    if(i===idx){void el.offsetWidth}
+  });
+  document.getElementById('scCtr').textContent=`${idx+1} / ${SCENES.length}`;
+  pfill=0;
+  document.getElementById('pf').style.width='0%';
+}
+
+function doFlash(cb){
+  const f=document.getElementById('flash');
+  f.classList.remove('go');
+  void f.offsetWidth;
+  f.classList.add('go');
+  setTimeout(cb,120);
+}
+
+function goTo(idx){
+  doFlash(()=>{
+    cur=idx;
+    showScene(cur);
+    elapsed=0;
+    start=performance.now();
+  });
+}
+
+function tick(t){
+  if(!playing||paused)return;
+  const dt=elapsed+(t-start);
+  const dur=DURS[cur];
+  const isLast=cur===SCENES.length-1;
+  if(dt>=dur){
+    if(isLast){pfill=100;document.getElementById('pf').style.width='100%';document.getElementById('btnPlay').textContent='↺ REPLAY';paused=true;return;}
+    goTo(cur+1);
+    elapsed=0;start=t;raf=requestAnimationFrame(tick);return;
+  }
+  pfill=Math.min((dt/dur)*100,100);
+  document.getElementById('pf').style.width=pfill+'%';
+  raf=requestAnimationFrame(tick);
+}
+
+function play(){
+  playing=true;paused=false;
+  document.getElementById('btnPlay').textContent='⏸ PAUSA';
+  start=performance.now();elapsed=0;
+  if(raf)cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(tick);
+}
+
+function pause(){
+  paused=true;
+  elapsed+=performance.now()-start;
+  document.getElementById('btnPlay').textContent='▶ PLAY';
+}
+
+document.getElementById('btnPlay').addEventListener('click',()=>{
+  if(paused&&pfill>=99){cur=0;showScene(0);pfill=0;elapsed=0;paused=false;playing=false;document.getElementById('btnPlay').textContent='▶ PLAY';return;}
+  if(!playing||paused){play();}else{pause();playing=true;}
+});
+
+document.getElementById('btnPrev').addEventListener('click',()=>{
+  if(cur>0){const p=paused;pause();goTo(cur-1);if(!p)setTimeout(play,200);}
+});
+document.getElementById('btnNext').addEventListener('click',()=>{
+  if(cur<SCENES.length-1){const p=paused;pause();goTo(cur+1);if(!p)setTimeout(play,200);}
+});
+
+showScene(0);
+</script>
+</body>
+</html>
