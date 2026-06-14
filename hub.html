@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventos · CarrerasOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#f5f5f5;font-family:'Inter',sans-serif;color:#0a0a1a;min-height:100vh}
+
+header{background:#fff;border-bottom:3px solid #0047AB;padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;color:#0a0a1a}
+.logo em{color:#0047AB;font-style:normal}
+.logo-sub{font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-top:.1rem}
+
+main{max-width:960px;margin:0 auto;padding:2rem 1.2rem 4rem}
+
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.04em;color:#0a0a1a;margin-bottom:.3rem}
+.page-title em{color:#0047AB;font-style:normal}
+.page-sub{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:2rem}
+
+.event-card{background:#fff;border-radius:18px;overflow:hidden;margin-bottom:1.5rem;box-shadow:0 2px 20px rgba(0,0,0,.06);border:1.5px solid rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s}
+.event-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.1);transform:translateY(-2px)}
+
+.ec-header{padding:1.4rem 1.5rem 1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(0,0,0,.06)}
+.ec-date-badge{flex-shrink:0;text-align:center;background:var(--accent,#0047AB);color:#fff;border-radius:10px;padding:.5rem .8rem;min-width:62px}
+.ec-date-badge .day{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;line-height:1}
+.ec-date-badge .mon{font-size:.45rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.85}
+.ec-info{flex:1}
+.ec-org{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.25rem}
+.ec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);line-height:.9;color:#0a0a1a;letter-spacing:.03em}
+.ec-title em{font-style:normal}
+.ec-location{font-size:.65rem;font-weight:600;color:rgba(0,0,0,.38);margin-top:.35rem;letter-spacing:.04em}
+.ec-tag{display:inline-block;font-size:.48rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.16rem .5rem;border-radius:4px;margin-top:.4rem}
+
+.ec-links{display:flex;flex-wrap:wrap;gap:.45rem;padding:1rem 1.5rem 1.2rem}
+.ec-link{display:flex;align-items:center;gap:.35rem;text-decoration:none;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.42rem .9rem;border-radius:8px;border:1.5px solid;transition:all .15s;white-space:nowrap}
+.ec-link:hover{filter:brightness(.92)}
+
+/* ── THEME: BLUE (Plan de Ayala) ── */
+.theme-blue{--accent:#0047AB}
+.theme-blue .ec-title em{color:#0047AB}
+.theme-blue .ec-tag{background:rgba(0,71,171,.08);color:#0047AB;border:1px solid rgba(0,71,171,.2)}
+.theme-blue .ec-link{background:rgba(0,71,171,.05);border-color:rgba(0,71,171,.2);color:#0047AB}
+.theme-blue .ec-link.primary{background:#0047AB;color:#fff;border-color:#0047AB}
+
+/* ── THEME: RED (Évora) ── */
+.theme-red{--accent:#CC1414}
+.theme-red .ec-title em{color:#CC1414}
+.theme-red .ec-tag{background:rgba(204,20,20,.07);color:#CC1414;border:1px solid rgba(204,20,20,.2)}
+.theme-red .ec-link{background:rgba(204,20,20,.05);border-color:rgba(204,20,20,.18);color:#CC1414}
+.theme-red .ec-link.primary{background:#CC1414;color:#fff;border-color:#CC1414}
+
+/* ── THEME: GOLD (Los Amigos) ── */
+.theme-gold{--accent:#B8930A}
+.theme-gold .ec-title em{color:#B8930A}
+.theme-gold .ec-tag{background:rgba(245,197,24,.1);color:#8B6200;border:1px solid rgba(245,197,24,.35)}
+.theme-gold .ec-link{background:rgba(245,197,24,.07);border-color:rgba(245,197,24,.3);color:#8B6200}
+.theme-gold .ec-link.primary{background:#B8930A;color:#fff;border-color:#B8930A}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.2);border-top:1px solid rgba(0,0,0,.07)}
+footer em{color:#0047AB;font-style:normal}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Carreras<em>OS</em></div>
+    <div class="logo-sub">Cobertura Digital</div>
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Eventos <em>Activos</em></div>
+  <div class="page-sub">Todos los eventos · Selecciona para ver páginas</div>
+
+  <!-- ── PLAN DE AYALA JUN 20 ── -->
+  <div class="event-card theme-blue">
+    <div class="ec-header">
+      <div class="ec-date-badge" style="background:#0047AB">
+        <div class="day">20</div>
+        <div class="mon">Jun 2026</div>
+      </div>
+      <div class="ec-info">
+        <div class="ec-org">Plan de Ayala · Carreras de Caballos</div>
+        <div class="ec-title">Gran <em>Final</em></div>
+        <div class="ec-location">📍 Plan de Ayala · Sábado</div>
+        <div class="ec-tag">🏆 Gran Final · Derby de Ponis · 17 Carreras</div>
+      </div>
+    </div>
+    <div class="ec-links">
+      <a class="ec-link primary" href="events/plan-de-ayala-jun20/site.html">🏠 Sitio</a>
+      <a class="ec-link" href="events/plan-de-ayala-jun20/flyer-digital.html">📋 Flyer</a>
+      <a class="ec-link" href="events/plan-de-ayala-jun20/mano-a-mano.html">⚔ Mano a Mano</a>
+      <a class="ec-link" href="events/plan-de-ayala-jun20/races.html">🏁 Programa</a>
+      <a class="ec-link" href="events/plan-de-ayala-jun20/infographic.html">📊 Infographic</a>
+      <a class="ec-link" href="events/plan-de-ayala-jun20/video-ad.html">▶ Video Ad</a>
+    </div>
+  </div>
+
+  <!-- ── CARRILES DEL ÉVORA JUN 21 ── -->
+  <div class="event-card theme-red">
+    <div class="ec-header">
+      <div class="ec-date-badge" style="background:#CC1414">
+        <div class="day">21</div>
+        <div class="mon">Jun 2026</div>
+      </div>
+      <div class="ec-info">
+        <div class="ec-org">Carriles del Évora · Cerro Agudo</div>
+        <div class="ec-title">Taste <em>Cerro Agudo</em></div>
+        <div class="ec-location">📍 Cerro Agudo · Domingo</div>
+        <div class="ec-tag">⭐ Gran Avance · El Ayudante vs El Chango · 4 Carreras</div>
+      </div>
+    </div>
+    <div class="ec-links">
+      <a class="ec-link primary" href="events/carriles-evora-jun21/site.html">🏠 Sitio</a>
+      <a class="ec-link" href="events/carriles-evora-jun21/flyer-digital.html">📋 Flyer</a>
+      <a class="ec-link" href="events/carriles-evora-jun21/mano-a-mano.html">⚔ Mano a Mano</a>
+      <a class="ec-link" href="events/carriles-evora-jun21/races.html">🏁 Programa</a>
+      <a class="ec-link" href="events/carriles-evora-jun21/infographic.html">📊 Infographic</a>
+      <a class="ec-link" href="events/carriles-evora-jun21/video-ad.html">▶ Video Ad</a>
+    </div>
+  </div>
+
+  <!-- ── CARRIL LOS AMIGOS JUN 14 ── -->
+  <div class="event-card theme-gold">
+    <div class="ec-header">
+      <div class="ec-date-badge" style="background:#B8930A">
+        <div class="day">14</div>
+        <div class="mon">Jun 2026</div>
+      </div>
+      <div class="ec-info">
+        <div class="ec-org">Carril Los Amigos · Belton, Missouri</div>
+        <div class="ec-title">Gran <em>Carrera</em></div>
+        <div class="ec-location">📍 Belton, Missouri · Domingo</div>
+        <div class="ec-tag">⭐ El Ruso vs El Gringo · 350 YDS · 18 Carreras</div>
+      </div>
+    </div>
+    <div class="ec-links">
+      <a class="ec-link primary" href="events/carril-los-amigos-jun14/site.html">🏠 Sitio</a>
+      <a class="ec-link" href="events/carril-los-amigos-jun14/flyer-digital.html">📋 Flyer</a>
+      <a class="ec-link" href="events/carril-los-amigos-jun14/mano-a-mano.html">⚔ Mano a Mano</a>
+      <a class="ec-link" href="events/carril-los-amigos-jun14/races.html">🏁 Programa</a>
+      <a class="ec-link" href="events/carril-los-amigos-jun14/video-ad.html">▶ Video Ad</a>
+    </div>
+  </div>
+
+</main>
+
+<footer><em>CarrerasOS</em> · Cobertura Especial · 2026</footer>
+</body>
+</html>
