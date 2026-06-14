@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa · Plan de Ayala · Jun 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0047AB;--gold:#F5C518;--black:#0a0a1a}
+body{background:#fff;color:var(--black);font-family:'Inter',sans-serif;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:3px solid var(--blue)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}.nl em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:rgba(0,0,0,.4);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.btn-back{background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.25);color:var(--blue);padding:.32rem .8rem;border-radius:6px}
+.page-hero{padding:5rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden;background:#f8f9ff;border-bottom:3px solid var(--blue)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,71,171,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,71,171,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,7rem);line-height:.88;letter-spacing:.03em;position:relative;z-index:1;color:var(--black)}
+.page-hero h1 em{color:var(--blue);font-style:normal;display:block}
+.page-hero .sub{color:rgba(0,0,0,.35);font-size:.88rem;margin-top:.8rem;letter-spacing:.1em;text-transform:uppercase;position:relative;z-index:1}
+
+.race-list{padding:1.2rem 1.5rem 5rem;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:.6rem}
+.race-card{background:#fff;border:1.5px solid rgba(0,0,0,.07);border-radius:14px;padding:1.1rem 1.3rem;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04);opacity:0;transform:translateX(-16px);transition:opacity .35s ease,transform .35s ease,border-color .2s,box-shadow .2s;cursor:default}
+.race-card.in{opacity:1;transform:none}
+.race-card:hover{border-color:rgba(0,71,171,.22);box-shadow:0 6px 24px rgba(0,71,171,.08);transform:translateX(3px)}
+.race-card.featured{border-color:rgba(0,71,171,.38);background:rgba(0,71,171,.03)}
+.race-card.derby{border-color:rgba(245,197,24,.5);background:rgba(245,197,24,.04)}
+.race-card.featured::before{content:'★ GRAN FINAL';position:absolute;top:0;right:0;background:var(--blue);color:#fff;font-size:.5rem;font-weight:800;letter-spacing:.1em;padding:.2rem .6rem;border-radius:0 12px 0 7px;font-family:'Inter',sans-serif}
+.race-card.derby::before{content:'🏇 DERBY';position:absolute;top:0;right:0;background:var(--gold);color:#000;font-size:.5rem;font-weight:800;letter-spacing:.1em;padding:.2rem .6rem;border-radius:0 12px 0 7px;font-family:'Inter',sans-serif}
+.race-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(0,71,171,.15);transition:background .2s}
+.race-card:hover::after{background:rgba(0,71,171,.5)}
+.race-card.featured::after{background:var(--blue)}
+.race-card.derby::after{background:var(--gold)}
+.rc-head{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem}
+.rc-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(0,0,0,.1);line-height:1;min-width:2.4rem}
+.rc-type{font-size:.6rem;font-weight:800;color:var(--blue);letter-spacing:.1em;text-transform:uppercase}
+.rc-dist{margin-left:auto;background:rgba(0,71,171,.07);border:1px solid rgba(0,71,171,.2);color:var(--blue);font-size:.7rem;font-weight:700;padding:.22rem .65rem;border-radius:5px}
+.race-card.derby .rc-dist{background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.4);color:#7a6000}
+.matchup{display:grid;grid-template-columns:1fr auto 1fr;gap:.7rem;align-items:center}
+.hs{display:flex;flex-direction:column}
+.hs.r{align-items:flex-end;text-align:right}
+.hn{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3vw,1.6rem);line-height:.92;color:var(--black);letter-spacing:.03em}
+.hc{font-size:.62rem;font-weight:600;color:rgba(0,0,0,.32);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+.vs-b{background:var(--blue);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;padding:.12rem .38rem;border-radius:4px;line-height:1}
+.race-card.derby .vs-b{background:var(--gold);color:#000}
+
+/* Derby special layout */
+.derby-horses{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+.dh-pill{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:7px;padding:.32rem .65rem;font-size:.7rem;font-weight:700;color:var(--black)}
+
+.foot-strip{background:#f8f9ff;border-top:3px solid var(--blue);padding:1.5rem;text-align:center}
+.foot-strip p{font-size:.72rem;color:rgba(0,0,0,.3);letter-spacing:.07em}
+.foot-strip strong{color:var(--blue)}
+@media(max-width:600px){
+  .matchup{grid-template-columns:1fr 34px 1fr}
+  .hn{font-size:clamp(.9rem,3vw,1.3rem)}
+  .nav-links a:not(.btn-back){display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nl">Plan de <em>Ayala</em></div>
+  <div class="nav-links">
+    <a href="site.html" class="btn-back">← Sitio</a>
+    <a href="infographic.html">Info</a>
+    <a href="video-ad.html">Video</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="grid-bg"></div>
+  <h1>Programa<br><em>Oficial</em></h1>
+  <div class="sub">Sábado 20 de Junio, 2026 · Plan de Ayala · Gran Final</div>
+</div>
+<div class="race-list" id="raceList"></div>
+<div class="foot-strip">
+  <p>Patrocinadores: <strong>Titanium Suplementos · Alto Desempeño · PDC</strong></p>
+  <p style="margin-top:.35rem">📸 <strong>La Patrona Photography</strong> · Cobertura Especial</p>
+</div>
+<script>
+const RACES=[
+  {type:'Gran Final',h1:'Nva. Tia',c1:'Plan de Ayala',h2:'Carmelita',c2:'Plan de Ayala',dist:'Gran Final',featured:true},
+  {type:'Derby',derby:true,horses:[{n:'La Tachuela',c:'C. Alguien'},{n:'El Canelo',c:'C. Armón'},{n:'El Goliath',c:''},{n:'El Pájaro Loco',c:''}],dist:'50 V.C.'},
+  {type:'Carrera',h1:'El Talachero',c1:'',h2:'',c2:'',dist:'150 V.C.'},
+  {type:'Carrera',h1:'El Menonita',c1:'',h2:'El Mamut',c2:'',dist:'180–200 V.C.'},
+  {type:'Carrera',h1:'El Frujolito',c1:'',h2:'La Payasita',c2:'',dist:'200 V.C.'},
+  {type:'Carrera',h1:'Alfredito',c1:'',h2:'La Hechicera',c2:'C. Los Matos',dist:'200 V.C.'},
+  {type:'Carrera',h1:'El Niño',c1:'',h2:'La Pendeja',c2:'',dist:'200 V.C.'},
+  {type:'Carrera',h1:'La Muñeca',c1:'C. Ibarra',h2:'El Mariachi',c2:'C. Gaming',dist:'200 V.C.'},
+  {type:'Carrera',h1:'El Píchorl',c1:'',h2:'La India',c2:'',dist:'200 V.C.'},
+  {type:'Carrera',h1:'Camelia La Texana',c1:'',h2:'La Tarahumara',c2:'C. Los Aves',dist:'125 V.C.'},
+  {type:'Carrera',h1:'Moro Carbonero',c1:'C. Los Aves',h2:'La Morena',c2:'',dist:'200 V.C.'},
+  {type:'Carrera',h1:'El Goliath',c1:'',h2:'El 40',c2:'',dist:'150 V.C.'},
+  {type:'Carrera',h1:'Las Patitas Cortas',c1:'',h2:'',c2:'',dist:'225 V.C.'},
+  {type:'Carrera',h1:'El Coronita',c1:'',h2:'La Pobre Madre',c2:'',dist:'200 V.C.'},
+  {type:'Carrera',h1:'Baca Peñitas',c1:'',h2:'',c2:'',dist:'180 V.C.'},
+  {type:'Carrera',h1:'La Sultán',c1:'',h2:'La Morreña',c2:'',dist:'200 V.C.'},
+];
+const list=document.getElementById('raceList');
+RACES.forEach((r,i)=>{
+  const card=document.createElement('div');
+  card.className='race-card'+(r.featured?' featured':r.derby?' derby':'');
+  if(r.derby){
+    card.innerHTML=`<div class="rc-head"><div class="rc-num">🏇</div><div class="rc-type">Derby de Ponis</div><div class="rc-dist">${r.dist}</div></div><div class="derby-horses">${r.horses.map(h=>`<div class="dh-pill">${h.n}${h.c?' · '+h.c:''}</div>`).join('')}</div>`;
+  } else {
+    card.innerHTML=`<div class="rc-head"><div class="rc-num">${String(i).padStart(2,'0')}</div><div class="rc-type">${r.type}</div><div class="rc-dist">${r.dist}</div></div>${r.h2?`<div class="matchup"><div class="hs"><div class="hn">${r.h1}</div>${r.c1?`<div class="hc">${r.c1}</div>`:''}</div><div class="vs-b">VS</div><div class="hs r"><div class="hn">${r.h2}</div>${r.c2?`<div class="hc">${r.c2}</div>`:''}</div></div>`:`<div style="font-weight:700;font-size:.9rem;margin-top:.2rem">${r.h1}</div>`}`;
+  }
+  list.appendChild(card);
+  setTimeout(()=>card.classList.add('in'),i*50);
+});
+</script>
+</body>
+</html>
