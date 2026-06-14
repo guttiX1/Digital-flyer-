@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice AI — Free</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080810;--surface:#0f0f1a;--s2:#161625;--border:#1e1e32;
+  --accent:#8B5CF6;--green:#22C55E;--red:#EF4444;--text:#eee;--muted:#555;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,sans-serif;overflow:hidden}
+
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.o1{width:500px;height:500px;top:-120px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(139,92,246,.14) 0%,transparent 70%)}
+.o2{width:280px;height:280px;bottom:-40px;right:0;background:radial-gradient(circle,rgba(34,197,94,.07) 0%,transparent 70%)}
+
+.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;max-width:680px;margin:0 auto;padding:1.2rem 1.4rem}
+
+/* header */
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:.55rem}
+.logo-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#22D3EE);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 0 18px rgba(139,92,246,.35)}
+.logo-name{font-size:1rem;font-weight:800}
+.logo-sub{font-size:.58rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.hdr-right{display:flex;align-items:center;gap:.5rem}
+.pill{font-size:.62rem;font-weight:700;padding:.2rem .6rem;border-radius:999px;border:1px solid;letter-spacing:.06em}
+.pill.free{color:var(--green);border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.07)}
+.pill.local{color:#38BDF8;border-color:rgba(56,189,248,.3);background:rgba(56,189,248,.06)}
+.cfg-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:.3rem .65rem;font-size:.7rem;cursor:pointer;transition:all .15s}
+.cfg-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* settings panel */
+.settings{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;margin-bottom:.8rem;display:none;flex-direction:column;gap:.7rem;flex-shrink:0}
+.settings.open{display:flex}
+.set-row{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem}
+.set-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.set-input{background:var(--s2);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:.45rem .75rem;font-size:.8rem;outline:none;width:100%;transition:border-color .15s;font-family:inherit}
+.set-input:focus{border-color:var(--accent)}
+.set-select{background:var(--s2);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:.45rem .75rem;font-size:.8rem;outline:none;width:100%}
+.set-hint{font-size:.65rem;color:var(--muted);line-height:1.5;grid-column:span 2}
+.set-hint a{color:var(--accent);text-decoration:none}
+
+/* chat */
+.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:.75rem;padding:.3rem 0;scroll-behavior:smooth}
+.chat::-webkit-scrollbar{width:3px}
+.chat::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+.msg{display:flex;gap:.65rem;max-width:88%;animation:in .28s cubic-bezier(.22,1,.36,1) both}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg.ai{align-self:flex-start}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.msg.user .av{background:linear-gradient(135deg,#3B82F6,var(--accent))}
+.msg.ai .av{background:linear-gradient(135deg,var(--accent),#22D3EE);box-shadow:0 0 10px rgba(139,92,246,.3)}
+.bubble{border-radius:14px;padding:.6rem .9rem;font-size:.87rem;line-height:1.65}
+.msg.user .bubble{background:rgba(59,130,246,.13);border:1px solid rgba(59,130,246,.18);border-bottom-right-radius:3px}
+.msg.ai .bubble{background:var(--s2);border:1px solid var(--border);border-bottom-left-radius:3px}
+
+.typing{display:flex;gap:.3rem;align-items:center;padding:.3rem 0}
+.typing span{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:dot 1.2s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{transform:scale(.7);opacity:.3}30%{transform:scale(1.1);opacity:1}}
+
+/* empty */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:.5rem;pointer-events:none}
+.empty-icon{font-size:3.5rem;opacity:.12}
+.empty-t{font-size:1rem;font-weight:700;opacity:.25}
+.empty-s{font-size:.75rem;color:var(--muted);max-width:240px;line-height:1.7}
+
+/* waveform */
+.wv{display:flex;align-items:center;justify-content:center;gap:2.5px;height:36px;flex-shrink:0;margin:.4rem 0}
+.wv-b{width:2.5px;border-radius:99px;background:var(--accent);opacity:.25;transition:height .06s,opacity .06s}
+.wv-b.on{opacity:.85}
+
+/* mic */
+.bottom{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:.6rem 0 .2rem}
+.mic-btn{
+  width:74px;height:74px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),#22D3EE);
+  font-size:1.8rem;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 0 rgba(139,92,246,.4);transition:transform .12s;
+}
+.mic-btn:hover{transform:scale(1.05);box-shadow:0 0 28px rgba(139,92,246,.45)}
+.mic-btn.rec{background:linear-gradient(135deg,var(--red),#f97316);animation:mp 1s ease-in-out infinite}
+.mic-btn.think{animation:spin 1.8s linear infinite}
+@keyframes mp{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}50%{box-shadow:0 0 0 14px rgba(239,68,68,0)}}
+@keyframes spin{to{filter:hue-rotate(360deg)}}
+.mic-lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mic-lbl.rec{color:var(--red)}
+.mic-lbl.think{color:#38BDF8}
+
+.text-row{display:flex;gap:.45rem;width:100%}
+.text-in{flex:1;background:var(--s2);border:1px solid var(--border);color:var(--text);border-radius:11px;padding:.6rem .9rem;font-size:.84rem;outline:none;transition:border-color .15s;font-family:inherit}
+.text-in:focus{border-color:var(--accent)}
+.text-in::placeholder{color:var(--muted)}
+.send-btn{background:var(--accent);color:#fff;border:none;border-radius:11px;padding:.6rem 1rem;font-size:.9rem;cursor:pointer;transition:filter .12s}
+.send-btn:hover{filter:brightness(1.15)}
+
+.err{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:9px;padding:.65rem .9rem;font-size:.75rem;color:#f87171;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div>
+
+<div class="app">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🤖</div>
+      <div>
+        <div class="logo-name">Voice AI</div>
+        <div class="logo-sub">100% Free · Local</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <span class="pill free">FREE</span>
+      <span class="pill local">LOCAL</span>
+      <button class="cfg-btn" onclick="toggleSettings()">⚙ Settings</button>
+      <button class="cfg-btn" onclick="clearChat()" style="color:var(--red)">Clear</button>
+    </div>
+  </header>
+
+  <!-- SETTINGS -->
+  <div class="settings" id="settings">
+    <div class="set-row">
+      <span class="set-label">AI Model</span>
+      <select class="set-select" id="modelSel">
+        <option value="llama3.2">llama3.2 (3B · fast · 2GB)</option>
+        <option value="llama3.2:1b">llama3.2:1b (1B · fastest · 1GB)</option>
+        <option value="llama3.1:8b">llama3.1:8b (8B · smarter · 5GB)</option>
+        <option value="mistral">mistral (7B · good · 4GB)</option>
+        <option value="gemma2:2b">gemma2:2b (2B · tiny)</option>
+      </select>
+    </div>
+    <div class="set-row">
+      <span class="set-label">Voice</span>
+      <select class="set-select" id="voiceSel"></select>
+    </div>
+    <div class="set-row">
+      <span class="set-label">Language</span>
+      <select class="set-select" id="langSel">
+        <option value="en-US">English (US)</option>
+        <option value="es-MX">Español (México)</option>
+        <option value="es-ES">Español (España)</option>
+        <option value="fr-FR">Français</option>
+        <option value="pt-BR">Português (BR)</option>
+      </select>
+    </div>
+    <div class="set-row">
+      <span class="set-label">Ollama URL</span>
+      <input class="set-input" id="ollamaUrl" value="http://localhost:11434" placeholder="http://localhost:11434">
+    </div>
+    <div class="set-row">
+      <span class="set-hint">
+        Need Ollama? <a href="https://ollama.com" target="_blank">ollama.com</a> → install → run: <code style="background:#111;padding:.1rem .3rem;border-radius:3px">ollama pull llama3.2</code>
+      </span>
+    </div>
+  </div>
+
+  <div id="errBox" class="err" style="display:none"></div>
+
+  <!-- CHAT -->
+  <div class="chat" id="chat">
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">🎙</div>
+      <div class="empty-t">Tap the mic and speak</div>
+      <div class="empty-s">Powered by Ollama + Llama 3 running on your Mac. Free forever.</div>
+    </div>
+  </div>
+
+  <!-- WAVEFORM -->
+  <div class="wv" id="wv"></div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+    <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎙</button>
+    <div class="mic-lbl" id="micLbl">Tap to speak</div>
+    <div class="text-row">
+      <input class="text-in" id="textIn" placeholder="Or type here and press Enter…"
+             onkeydown="if(event.key==='Enter')sendText()">
+      <button class="send-btn" onclick="sendText()">↑</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const OLLAMA_DEFAULT = 'http://localhost:11434';
+let convo = JSON.parse(localStorage.getItem('voiceConvo') || '[]');
+let recog, recording = false, busy = false;
+let analyser, animId;
+
+/* ── WAVEFORM ── */
+const wvEl = document.getElementById('wv');
+for (let i = 0; i < 30; i++) { const b = document.createElement('div'); b.className='wv-b'; wvEl.appendChild(b); }
+const bars = wvEl.querySelectorAll('.wv-b');
+function idleBars(){
+  cancelAnimationFrame(animId); let t=0;
+  (function f(){bars.forEach((b,i)=>{const h=4+Math.sin(t*1.8+i*.5)*2.5;b.style.height=h+'px';b.classList.remove('on')});t+=.035;animId=requestAnimationFrame(f)})();
+}
+function liveBars(){
+  cancelAnimationFrame(animId);
+  const buf=new Uint8Array(analyser.frequencyBinCount);
+  (function f(){analyser.getByteFrequencyData(buf);const sl=Math.floor(buf.length/bars.length);
+  bars.forEach((b,i)=>{const v=buf[i*sl]/255;b.style.height=(4+v*30)+'px';b.classList.toggle('on',v>.05)});animId=requestAnimationFrame(f)})();
+}
+idleBars();
+
+/* ── VOICES ── */
+function loadVoices(){
+  const sel=document.getElementById('voiceSel'); sel.innerHTML='';
+  speechSynthesis.getVoices().filter(v=>v.lang.startsWith(getLang().slice(0,2))||v.lang.startsWith('en')).forEach(v=>{
+    const o=document.createElement('option'); o.value=v.name; o.textContent=`${v.name} (${v.lang})`; sel.appendChild(o);
+  });
+  /* prefer a good macOS voice */
+  const prefer=['Samantha','Karen','Moira','Fiona','Daniel','Alex'];
+  for(const p of prefer){ const o=[...sel.options].find(o=>o.value.includes(p)); if(o){sel.value=o.value;break;} }
+}
+speechSynthesis.onvoiceschanged=loadVoices; loadVoices();
+
+function getLang(){ return document.getElementById('langSel')?.value||'en-US'; }
+function getModel(){ return document.getElementById('modelSel')?.value||'llama3.2'; }
+function getOllamaUrl(){ return (document.getElementById('ollamaUrl')?.value||OLLAMA_DEFAULT).replace(/\/$/,''); }
+function getVoiceName(){ return document.getElementById('voiceSel')?.value||''; }
+
+/* ── SETTINGS ── */
+function toggleSettings(){
+  const s=document.getElementById('settings'); s.classList.toggle('open');
+}
+
+/* ── MIC ── */
+function toggleMic(){
+  if(busy) return;
+  if(recording){ stopRec(); return; }
+  startRec();
+}
+
+function startRec(){
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){
+    showErr('Speech recognition not supported — use Chrome or Edge'); return;
+  }
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  recog = new SR();
+  recog.lang = getLang();
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+
+  /* live waveform via mic */
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    const ctx=new AudioContext(); analyser=ctx.createAnalyser(); analyser.fftSize=64;
+    ctx.createMediaStreamSource(stream).connect(analyser);
+    liveBars();
+    recog._stream=stream;
+  }).catch(()=>{});
+
+  recog.onresult = e => {
+    const text = e.results[0][0].transcript.trim();
+    if(text) handleUserText(text);
+  };
+  recog.onerror = e => { showErr('Speech error: '+e.error); setIdle(); };
+  recog.onend = () => { if(recording){ setIdle(); } };
+
+  recog.start();
+  recording=true;
+  document.getElementById('micBtn').className='mic-btn rec';
+  document.getElementById('micBtn').textContent='⏹';
+  document.getElementById('micLbl').textContent='Listening…';
+  document.getElementById('micLbl').className='mic-lbl rec';
+}
+
+function stopRec(){
+  if(recog){ recog.stop(); try{ recog._stream?.getTracks().forEach(t=>t.stop()); }catch(e){} }
+  recording=false;
+}
+
+function setIdle(){
+  recording=false; busy=false;
+  document.getElementById('micBtn').className='mic-btn';
+  document.getElementById('micBtn').textContent='🎙';
+  document.getElementById('micLbl').textContent='Tap to speak';
+  document.getElementById('micLbl').className='mic-lbl';
+  idleBars();
+}
+function setThinking(){
+  busy=true; recording=false;
+  document.getElementById('micBtn').className='mic-btn think';
+  document.getElementById('micBtn').textContent='⏳';
+  document.getElementById('micLbl').textContent='Thinking…';
+  document.getElementById('micLbl').className='mic-lbl think';
+  idleBars();
+}
+
+/* ── TEXT SEND ── */
+function sendText(){
+  const inp=document.getElementById('textIn'); const t=inp.value.trim(); if(!t||busy) return;
+  inp.value=''; handleUserText(t);
+}
+
+/* ── CORE FLOW ── */
+async function handleUserText(text){
+  stopRec(); setThinking();
+  hideErr();
+  document.getElementById('emptyState').style.display='none';
+  addBubble('user',text);
+
+  convo.push({role:'user',content:text});
+  if(convo.length>30) convo=convo.slice(-30);
+  localStorage.setItem('voiceConvo',JSON.stringify(convo));
+
+  const typingEl=addTyping();
+
+  try{
+    const aiText=await askOllama(text);
+    typingEl.remove();
+    addBubble('ai',aiText);
+    convo.push({role:'assistant',content:aiText});
+    localStorage.setItem('voiceConvo',JSON.stringify(convo));
+    speak(aiText);
+  }catch(e){
+    typingEl.remove();
+    showErr(e.message+' — Is Ollama running? Try: ollama serve');
+    setIdle();
+  }
+}
+
+async function askOllama(userText){
+  const url=getOllamaUrl();
+  const messages=[
+    {role:'system',content:'You are a helpful, friendly voice assistant. Keep responses concise — 1-3 sentences. You are talking to someone on a Mac.'},
+    ...convo.slice(-18)
+  ];
+  const r=await fetch(`${url}/api/chat`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:getModel(),messages,stream:false})
+  });
+  if(!r.ok) throw new Error(`Ollama error ${r.status} — model not found? Run: ollama pull ${getModel()}`);
+  const j=await r.json();
+  return j.message?.content?.trim()||'';
+}
+
+/* ── TTS ── */
+function speak(text){
+  speechSynthesis.cancel();
+  const utt=new SpeechSynthesisUtterance(text);
+  const voiceName=getVoiceName();
+  if(voiceName){
+    const v=speechSynthesis.getVoices().find(v=>v.name===voiceName);
+    if(v) utt.voice=v;
+  }
+  utt.lang=getLang();
+  utt.rate=1.05; utt.pitch=1;
+  utt.onend=()=>setIdle();
+  utt.onerror=()=>setIdle();
+  speechSynthesis.speak(utt);
+}
+
+/* ── UI HELPERS ── */
+function addBubble(role,text){
+  const chat=document.getElementById('chat');
+  const d=document.createElement('div'); d.className=`msg ${role}`;
+  d.innerHTML=`<div class="av">${role==='user'?'👤':'🤖'}</div><div class="bubble">${esc(text)}</div>`;
+  chat.appendChild(d); chat.scrollTop=chat.scrollHeight;
+  return d;
+}
+function addTyping(){
+  const chat=document.getElementById('chat');
+  const d=document.createElement('div'); d.className='msg ai';
+  d.innerHTML=`<div class="av">🤖</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  chat.appendChild(d); chat.scrollTop=chat.scrollHeight;
+  return d;
+}
+function showErr(msg){ const e=document.getElementById('errBox'); e.textContent=msg; e.style.display='block'; }
+function hideErr(){ document.getElementById('errBox').style.display='none'; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function clearChat(){
+  convo=[]; localStorage.removeItem('voiceConvo');
+  const c=document.getElementById('chat');
+  c.innerHTML=`<div class="empty" id="emptyState"><div class="empty-icon">🎙</div><div class="empty-t">Tap the mic and speak</div><div class="empty-s">Powered by Ollama + Llama 3 running on your Mac. Free forever.</div></div>`;
+  speechSynthesis.cancel();
+}
+
+/* ── SPACEBAR ── */
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target===document.body&&!busy){e.preventDefault();if(!recording)startRec();}});
+document.addEventListener('keyup',e=>{if(e.code==='Space'&&e.target===document.body&&recording){e.preventDefault();stopRec();}});
+
+/* load saved convo on startup */
+if(convo.length){ document.getElementById('emptyState').style.display='none'; convo.forEach(m=>addBubble(m.role,m.content)); }
+</script>
+</body>
+</html>
