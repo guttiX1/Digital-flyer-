@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic · Taste Cerro Agudo · Jun 21</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#CC1414;--dark-red:#8B0000;--black:#0d0d0d;--white:#fff}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--black);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:2px solid var(--red)}
+.nl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}.nl em{color:var(--red);font-style:normal}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:rgba(0,0,0,.4);text-decoration:none;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--red)}
+.btn-back{background:rgba(204,20,20,.07);border:1px solid rgba(204,20,20,.25);color:var(--red);padding:.32rem .8rem;border-radius:6px}
+
+.hero{position:relative;min-height:52vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:5rem 1.5rem 3rem}
+.hero-bg{position:absolute;inset:0;background:url(flyer.jpg) center 10%/cover no-repeat;filter:brightness(1.1) saturate(.7) opacity(.12)}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,transparent 55%)}
+.hero-content{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:.4rem;background:rgba(204,20,20,.07);border:1px solid rgba(204,20,20,.22);padding:.26rem .9rem;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,6rem);line-height:.88;letter-spacing:.03em;color:var(--black)}
+.hero h1 em{color:var(--red);font-style:normal}
+
+/* Countdown */
+.cd-section{padding:2.5rem 1.5rem;text-align:center;background:#fafafa;border-bottom:1px solid rgba(204,20,20,.08)}
+.cd-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.8rem;font-weight:700}
+.cd-wrap{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+.cd-unit{position:relative;width:96px;height:96px}
+.cd-ring{width:96px;height:96px}
+.cd-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;line-height:1;color:var(--red)}
+.cd-lbl{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-top:.1rem;font-weight:700}
+circle{transition:stroke-dashoffset 1s linear}
+
+/* Stats */
+.stats-section{padding:2.5rem 1.5rem}
+.container{max-width:1000px;margin:0 auto}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin-bottom:2rem}
+.stat-card{background:#fff;border:1.5px solid rgba(204,20,20,.12);border-radius:16px;padding:1.4rem 1rem;text-align:center;transition:border-color .2s,transform .2s,box-shadow .2s;cursor:default;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.stat-card:hover{border-color:rgba(204,20,20,.4);transform:translateY(-4px);box-shadow:0 8px 30px rgba(204,20,20,.1)}
+.stat-icon{font-size:1.8rem;margin-bottom:.45rem}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--red);line-height:1}
+.stat-lbl{font-size:.65rem;color:rgba(0,0,0,.38);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;font-weight:700}
+
+/* VS Card */
+.vs-section{padding:1.5rem 1.5rem 2.5rem}
+.vs-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);margin-bottom:1.2rem;text-align:center;letter-spacing:.03em}
+.vs-title em{color:var(--red);font-style:normal}
+.vs-card{background:#fff;border:2px solid rgba(204,20,20,.2);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;box-shadow:0 4px 30px rgba(204,20,20,.08)}
+.vc-horse{padding:2rem;position:relative;overflow:hidden}
+.vc-horse .bg{position:absolute;inset:0;background-image:url(flyer.jpg);background-size:300%;opacity:.06}
+.vc-left .bg{background-position:15% 8%}
+.vc-right .bg{background-position:85% 8%}
+.vc-horse .content{position:relative;z-index:1}
+.vc-tag{display:inline-block;background:var(--red);color:#fff;font-size:.55rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;margin-bottom:.5rem}
+.vc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);line-height:.92;margin-bottom:.3rem;color:var(--black)}
+.vc-name em{color:var(--red);font-style:normal}
+.vc-cuadra{font-size:.72rem;color:rgba(0,0,0,.35);text-transform:uppercase;letter-spacing:.07em;margin-bottom:1rem;font-weight:600}
+.vc-right{text-align:right}
+.hype-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.3rem}
+.hype-bar{height:5px;background:rgba(0,0,0,.06);border-radius:999px;overflow:hidden;margin-bottom:.5rem}
+.hype-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--red),#ff4444);transition:width 1.3s cubic-bezier(.22,1,.36,1);width:0}
+.vc-right .hype-fill{background:linear-gradient(270deg,var(--red),#cc6600)}
+.vc-right .hype-bar{direction:rtl}
+.vc-center{padding:1.5rem .8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:#fafafa;min-width:72px;border-left:1.5px solid rgba(204,20,20,.1);border-right:1.5px solid rgba(204,20,20,.1)}
+.vc-vs{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--red);line-height:1}
+.vc-dist{font-size:.62rem;color:rgba(0,0,0,.3);letter-spacing:.07em;text-align:center;font-weight:700}
+
+/* Timeline */
+.timeline-section{padding:2rem 1.5rem}
+.tl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:1.5rem;letter-spacing:.03em}
+.tl-title em{color:var(--red);font-style:normal}
+.timeline{position:relative;padding-left:72px}
+.timeline::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--red) 0%,rgba(204,20,20,.1) 100%)}
+.tl-item{position:relative;margin-bottom:.65rem;padding:.75rem 1rem;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;transition:border-color .2s,box-shadow .2s;cursor:default}
+.tl-item:hover{border-color:rgba(204,20,20,.25);box-shadow:0 4px 20px rgba(204,20,20,.06)}
+.tl-item.featured-tl{border-color:rgba(204,20,20,.35);background:rgba(204,20,20,.03)}
+.tl-dot{position:absolute;left:-42px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:rgba(204,20,20,.15);border:2px solid rgba(204,20,20,.3)}
+.tl-item.featured-tl .tl-dot{background:var(--red);border-color:var(--red);box-shadow:0 0 14px rgba(204,20,20,.5)}
+.tl-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.tl-num{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:rgba(0,0,0,.1);line-height:1;min-width:2rem}
+.tl-name{font-weight:700;font-size:.85rem;flex:1;line-height:1.3;color:var(--black)}
+.tl-dist{font-size:.6rem;background:rgba(204,20,20,.07);border:1px solid rgba(204,20,20,.18);padding:.14rem .45rem;border-radius:4px;color:var(--red);white-space:nowrap;font-weight:700}
+.tl-cond{font-size:.56rem;color:rgba(0,0,0,.3);font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.04em}
+
+/* QR Strip */
+.qr-strip{margin:2rem 1.5rem;background:#fff;border:2px solid rgba(204,20,20,.2);border-radius:20px;padding:2rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;box-shadow:0 4px 30px rgba(204,20,20,.07)}
+.qr-strip img{width:130px;height:130px;border-radius:10px;border:2px solid rgba(204,20,20,.3)}
+.qr-strip h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--black)}
+.qr-strip p{color:rgba(0,0,0,.38);font-size:.8rem;margin:.3rem 0}
+.qr-strip .social{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red)}
+.btn-cta{display:inline-flex;align-items:center;gap:.4rem;background:var(--red);color:#fff;font-weight:800;padding:.7rem 1.6rem;border-radius:10px;text-decoration:none;font-size:.82rem;letter-spacing:.06em;margin-top:.8rem;transition:box-shadow .2s,transform .12s}
+.btn-cta:hover{box-shadow:0 10px 30px rgba(204,20,20,.3);transform:translateY(-2px)}
+
+footer{text-align:center;padding:2rem 1.5rem 4rem;border-top:2px solid var(--red);background:#fff}
+footer p{font-size:.7rem;color:rgba(0,0,0,.3);letter-spacing:.06em}
+footer em{color:var(--red);font-style:normal}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:600px){
+  .vs-card{grid-template-columns:1fr 54px 1fr}
+  .vc-horse{padding:1.2rem}
+  .nav-links a:not(.btn-back){display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nl">Carriles del <em>Évora</em></div>
+  <div class="nav-links">
+    <a href="site.html" class="btn-back">← Sitio</a>
+    <a href="races.html">Programa</a>
+    <a href="video-ad.html">Video</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="eyebrow">📊 Infographic Oficial</div>
+    <h1>Taste<br><em>Cerro Agudo</em></h1>
+  </div>
+</div>
+
+<section class="cd-section reveal">
+  <div class="cd-label">Faltan para el Gran Avance</div>
+  <div class="cd-wrap">
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rD" cx="50" cy="50" r="42" fill="none" stroke="#CC1414" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdD">--</span><span class="cd-lbl">Días</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rH" cx="50" cy="50" r="42" fill="none" stroke="#CC1414" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdH">--</span><span class="cd-lbl">Horas</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rM" cx="50" cy="50" r="42" fill="none" stroke="#CC1414" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdM">--</span><span class="cd-lbl">Min</span></div>
+    </div>
+    <div class="cd-unit">
+      <svg class="cd-ring" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="5"/>
+        <circle id="rS" cx="50" cy="50" r="42" fill="none" stroke="#E63030" stroke-width="5" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="cd-inner"><span class="cd-num" id="cdS">--</span><span class="cd-lbl">Seg</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-icon">🏁</div><div class="stat-num" data-target="4">0</div><div class="stat-lbl">Carreras</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">📏</div><div class="stat-num">200</div><div class="stat-lbl">Máx. Metros</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">⏱️</div><div class="stat-num">10</div><div class="stat-lbl">Seg Máx</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🐎</div><div class="stat-num">8+</div><div class="stat-lbl">Caballos</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">📍</div><div class="stat-num">Cerro</div><div class="stat-lbl">Agudo</div></div>
+      <div class="stat-card reveal"><div class="stat-icon">🎙️</div><div class="stat-num">Live</div><div class="stat-lbl">Cobertura</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="vs-section">
+  <div class="container">
+    <div class="vs-title reveal">Carrera <em>Estelar</em> · 3ra</div>
+    <div class="vs-card reveal" id="vsCard">
+      <div class="vc-horse vc-left">
+        <div class="bg"></div>
+        <div class="content">
+          <div class="vc-tag">Local</div>
+          <div class="vc-name">El <em>Ayudante</em></div>
+          <div class="vc-cuadra">C. Tepantitla</div>
+          <div class="hype-label">Velocidad</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="85"></div></div>
+          <div class="hype-label">Experiencia</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="80"></div></div>
+          <div class="hype-label">Hype Local</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="92"></div></div>
+        </div>
+      </div>
+      <div class="vc-center">
+        <div class="vc-vs">VS</div>
+        <div class="vc-dist">200 MTS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:rgba(0,0,0,.2)">#3</div>
+        <div class="vc-dist">10 SEG</div>
+      </div>
+      <div class="vc-horse vc-right">
+        <div class="bg"></div>
+        <div class="content">
+          <div class="vc-tag">Visitante</div>
+          <div class="vc-name">El <em>Chango</em></div>
+          <div class="vc-cuadra">C. San Pedro</div>
+          <div class="hype-label">Velocidad</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="82"></div></div>
+          <div class="hype-label">Experiencia</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="78"></div></div>
+          <div class="hype-label">Hype Visitante</div>
+          <div class="hype-bar"><div class="hype-fill" data-w="88"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="tl-title reveal">Programa <em>Completo</em></div>
+    <div class="timeline reveal" id="timeline"></div>
+  </div>
+</section>
+
+<div class="qr-strip reveal">
+  <img id="qrImg" alt="QR">
+  <div>
+    <h3>¡Que Gane el Mejor!</h3>
+    <p>Domingo 21 de Junio 2026 · Cerro Agudo</p>
+    <div class="social">@carriles_evora30</div>
+    <a href="site.html" class="btn-cta">🏁 Ver Sitio Completo</a>
+  </div>
+</div>
+
+<footer>
+  <p><em>La Pasión se Vive en Cerro Agudo</em></p>
+  <p style="margin-top:.3rem">Carriles del Évora · Cobertura Especial</p>
+</footer>
+
+<script>
+const EVENT=new Date('2026-06-21T10:00:00');
+const CIRC=263.9;
+function setRing(id,val,max){document.getElementById(id).style.strokeDashoffset=CIRC-(val/max)*CIRC}
+function tick(){
+  const diff=EVENT-new Date();
+  if(diff<=0)return;
+  const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
+  document.getElementById('cdD').textContent=String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent=String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent=String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+  setRing('rD',d,7);setRing('rH',h,24);setRing('rM',m,60);setRing('rS',s,60);
+}
+tick();setInterval(tick,1000);
+
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carriles-evora-jun21/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=CC1414&format=png&margin=8`;
+
+const RACES=[
+  {num:1,title:'El Dólar vs La Licenciada',cuadras:'C. La Huerta vs C. Élenes',dist:'180 MTS',cond:'Vale Cordel · Choca Pierde'},
+  {num:2,title:'El Burrito vs La Micaila',cuadras:'C. Los Güeros vs C. Tamazula',dist:'150 MTS',cond:'Choca Pierde'},
+  {num:3,title:'El Ayudante vs El Chango Malo',cuadras:'C. Tepantitla vs C. San Pedro',dist:'200 MTS',cond:'Vale Cordel · Choca Pierde',featured:true},
+  {num:4,title:'La 22 vs Zota de Oro',cuadras:'C. La Loma vs C. Mazo',dist:'150 MTS',cond:'Choca Pierde'},
+];
+const tl=document.getElementById('timeline');
+RACES.forEach(r=>{
+  const el=document.createElement('div');
+  el.className='tl-item'+(r.featured?' featured-tl':'');
+  el.innerHTML=`<div class="tl-dot"></div><div class="tl-row"><span class="tl-num">0${r.num}</span><span class="tl-name">${r.title}<br><small style="font-weight:600;color:rgba(0,0,0,.3);font-size:.62rem">${r.cuadras}</small></span><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.2rem"><span class="tl-dist">${r.dist}</span><span class="tl-cond">${r.cond}</span></div></div>`;
+  tl.appendChild(el);
+});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-target]').forEach(el=>{
+      const target=parseInt(el.dataset.target),start=performance.now();
+      const run=t=>{const p=Math.min((t-start)/1000,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(run);};
+      requestAnimationFrame(run);
+    });
+    e.target.querySelectorAll('.hype-fill[data-w]').forEach(bar=>{
+      setTimeout(()=>{bar.style.width=bar.dataset.w+'%';},350);
+    });
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('#vsCard .hype-fill').forEach(bar=>{
+  new IntersectionObserver(([e])=>{if(e.isIntersecting)setTimeout(()=>{bar.style.width=bar.dataset.w+'%';},400);},{threshold:0.25}).observe(bar);
+});
+</script>
+</body>
+</html>

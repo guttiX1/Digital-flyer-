@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flyer · Taste Cerro Agudo · Jun 21</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#CC1414;--dark-red:#8B0000;--black:#0d0d0d;--white:#fff}
+body{background:#f0f0f0;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',sans-serif;padding:1rem}
+
+.poster{
+  position:relative;width:min(480px,100vw);aspect-ratio:9/16;
+  overflow:hidden;border-radius:16px;
+  box-shadow:0 0 0 1px rgba(204,20,20,.2),0 40px 120px rgba(0,0,0,.35);
+  background:#fff;
+}
+
+/* BG photo */
+.p-bg{
+  position:absolute;inset:0;
+  background:url(flyer.jpg) center 8%/cover no-repeat;
+}
+
+/* Overlay: heavy white at top and bottom, transparent in middle */
+.p-over{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,.92) 0%,
+    rgba(255,255,255,.5) 20%,
+    rgba(255,255,255,.15) 42%,
+    rgba(255,255,255,.15) 58%,
+    rgba(255,255,255,.6) 72%,
+    rgba(255,255,255,.96) 100%
+  );
+}
+
+/* Red top/bottom bars */
+.p-topbar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--red);box-shadow:0 0 16px rgba(204,20,20,.5);z-index:10}
+.p-botbar{position:absolute;bottom:0;left:0;right:0;height:5px;background:var(--red);z-index:10}
+
+/* Header */
+.p-header{
+  position:absolute;top:0;left:0;right:0;
+  padding:clamp(.9rem,3vw,1.4rem) clamp(.9rem,3vw,1.4rem) 0;
+  display:flex;align-items:flex-start;justify-content:space-between;z-index:5;
+}
+.p-venue-name{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.5vw,1.6rem);
+  letter-spacing:.06em;line-height:1;color:var(--black);
+}
+.p-venue-name em{color:var(--red);font-style:normal}
+.p-date-pill{
+  background:var(--red);color:#fff;
+  font-size:clamp(.42rem,1.3vw,.58rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:.28rem .7rem;border-radius:999px;white-space:nowrap;margin-top:.15rem;
+}
+
+/* Race count badge */
+.p-count{
+  position:absolute;top:clamp(.9rem,3vw,1.4rem);right:clamp(.9rem,3vw,1.4rem);z-index:5;
+  background:rgba(255,255,255,.9);border:1.5px solid rgba(204,20,20,.4);
+  border-radius:8px;padding:clamp(.25rem,.9vw,.38rem) clamp(.5rem,1.6vw,.7rem);text-align:center;
+  backdrop-filter:blur(4px);
+}
+.p-count-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.2vw,1.5rem);color:var(--red);line-height:1}
+.p-count-lbl{font-size:clamp(.3rem,.95vw,.42rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+
+/* Main center content */
+.p-main{
+  position:absolute;top:50%;left:0;right:0;transform:translateY(-62%);
+  text-align:center;padding:0 clamp(.8rem,2.5vw,1.2rem);z-index:5;
+}
+.p-event-tag{
+  display:inline-block;background:rgba(255,255,255,.88);
+  border:1.5px solid rgba(204,20,20,.4);border-radius:999px;
+  font-size:clamp(.4rem,1.2vw,.56rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--red);padding:.2rem .72rem;margin-bottom:clamp(.35rem,1vw,.6rem);
+}
+.p-title{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3.5rem);
+  line-height:.85;color:var(--black);letter-spacing:.04em;
+  text-shadow:0 2px 20px rgba(255,255,255,.9);
+}
+.p-title em{color:var(--red);font-style:normal;display:block}
+.p-rule{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);margin:.45rem auto}
+.p-subtitle{
+  font-size:clamp(.8rem,2.6vw,1.3rem);font-family:'Bebas Neue',sans-serif;
+  letter-spacing:.12em;color:rgba(0,0,0,.55);
+}
+
+/* Race strip */
+.p-race-strip{
+  display:flex;align-items:center;justify-content:center;gap:clamp(.35rem,1.2vw,.6rem);
+  margin-top:clamp(.5rem,1.6vw,.8rem);
+}
+.p-race-chip{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.88);border:1px solid rgba(204,20,20,.3);
+  border-radius:8px;padding:clamp(.25rem,.8vw,.4rem) clamp(.45rem,1.5vw,.7rem);
+  backdrop-filter:blur(4px);
+}
+.p-race-chip span{font-size:clamp(.32rem,1vw,.46rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.p-race-chip strong{font-family:'Bebas Neue',sans-serif;font-size:clamp(.85rem,2.6vw,1.3rem);color:var(--red);line-height:1}
+
+/* Featured matchup */
+.p-vs-row{
+  display:flex;align-items:center;justify-content:center;gap:clamp(.25rem,.9vw,.45rem);
+  margin-top:clamp(.3rem,1vw,.5rem);
+}
+.p-horse{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5.5vw,2.7rem);
+  line-height:.88;color:var(--black);text-shadow:0 2px 15px rgba(255,255,255,.95);
+}
+.p-horse em{color:var(--red);font-style:normal;display:block}
+.p-vs{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.5vw,1.8rem);
+  color:var(--red);text-shadow:0 0 20px rgba(204,20,20,.3);
+  padding:0 clamp(.15rem,.5vw,.3rem);flex-shrink:0;
+}
+.p-cuadras{
+  display:flex;justify-content:space-between;margin-top:clamp(.25rem,.8vw,.4rem);
+  padding:0 clamp(.1rem,.4vw,.2rem);
+}
+.p-cuadra{font-size:clamp(.35rem,1.05vw,.5rem);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.p-cuadra.r{text-align:right}
+
+/* Bottom */
+.p-bottom{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:clamp(.7rem,2.2vw,1.1rem) clamp(.9rem,3vw,1.4rem) clamp(.8rem,2.5vw,1.1rem);
+  display:flex;flex-direction:column;gap:clamp(.4rem,1.3vw,.6rem);z-index:5;
+}
+.p-info-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.p-big-date{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,5vw,2.4rem);
+  line-height:.88;color:var(--black);
+}
+.p-big-date em{color:var(--red);font-style:normal}
+.p-location{
+  font-size:clamp(.4rem,1.2vw,.56rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,0,0,.4);margin-top:.2rem;
+}
+.p-pills{display:flex;gap:clamp(.22rem,.75vw,.36rem);flex-wrap:wrap}
+.p-pill{
+  font-size:clamp(.32rem,1vw,.46rem);font-weight:700;
+  background:rgba(204,20,20,.06);border:1px solid rgba(204,20,20,.18);
+  border-radius:999px;padding:clamp(.16rem,.55vw,.25rem) clamp(.4rem,1.3vw,.62rem);
+  color:rgba(0,0,0,.5);white-space:nowrap;
+}
+.p-qr-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  border-top:1px solid rgba(204,20,20,.15);padding-top:clamp(.38rem,1.2vw,.56rem);
+}
+.p-social{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(.95rem,3.2vw,1.55rem);
+  color:var(--red);letter-spacing:.04em;line-height:1;
+}
+.p-social-sub{
+  font-size:clamp(.32rem,.95vw,.44rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.3);margin-top:.1rem;
+}
+.p-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:clamp(.16rem,.55vw,.26rem)}
+.p-qr-wrap img{
+  width:clamp(52px,14vw,72px);height:clamp(52px,14vw,72px);
+  border-radius:6px;border:1.5px solid rgba(204,20,20,.3);display:block;
+}
+.p-scan{
+  font-size:clamp(.28rem,.9vw,.4rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.25);text-align:center;
+}
+.p-tagline{
+  text-align:center;font-size:clamp(.3rem,.95vw,.44rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--red);opacity:.7;
+}
+
+/* page */
+.page-label{text-align:center;margin-bottom:.75rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.3);font-family:'Inter',sans-serif}
+.page-links{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+.page-links a{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(204,20,20,.7);text-decoration:none;background:rgba(204,20,20,.06);border:1px solid rgba(204,20,20,.2);padding:.3rem .75rem;border-radius:6px;font-family:'Inter',sans-serif;transition:all .15s}
+.page-links a:hover{background:rgba(204,20,20,.12);color:var(--red)}
+</style>
+</head>
+<body>
+<div>
+  <div class="page-label">📋 Flyer Digital · Carriles del Évora</div>
+  <div class="poster">
+    <div class="p-bg"></div>
+    <div class="p-over"></div>
+    <div class="p-topbar"></div>
+
+    <!-- Header -->
+    <div class="p-header">
+      <div>
+        <div class="p-venue-name">Carriles del <em>Évora</em></div>
+        <div class="p-date-pill">Domingo 21 Junio 2026</div>
+      </div>
+    </div>
+
+    <!-- Race count -->
+    <div class="p-count">
+      <div class="p-count-num">4</div>
+      <div class="p-count-lbl">Carreras</div>
+    </div>
+
+    <!-- Main -->
+    <div class="p-main">
+      <div class="p-event-tag">⭐ Gran Avance · 4 Carreras</div>
+      <div class="p-title">Taste<em>Cerro Agudo</em></div>
+      <div class="p-rule"></div>
+      <div class="p-subtitle">Carrera Estelar · 3ra Carrera</div>
+      <div class="p-vs-row">
+        <div class="p-horse">El<em>Ayudante</em></div>
+        <div class="p-vs">VS</div>
+        <div class="p-horse" style="text-align:right">El<em>Chango</em></div>
+      </div>
+      <div class="p-cuadras">
+        <div class="p-cuadra">C. Tepantitla</div>
+        <div class="p-cuadra r">C. San Pedro</div>
+      </div>
+      <div class="p-race-strip">
+        <div class="p-race-chip"><span>Carrera</span><strong>#3</strong></div>
+        <div class="p-race-chip"><span>Distancia</span><strong>200 MTS</strong></div>
+        <div class="p-race-chip"><span>Tiempo</span><strong>10 SEG</strong></div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="p-bottom">
+      <div class="p-info-row">
+        <div>
+          <div class="p-big-date">Dom · <em>21 Jun</em> · 2026</div>
+          <div class="p-location">📍 Carriles del Évora · Cerro Agudo</div>
+        </div>
+      </div>
+      <div class="p-pills">
+        <div class="p-pill">🏇 4 Carreras al Pico</div>
+        <div class="p-pill">Vale Cordel donde Indica</div>
+        <div class="p-pill">El que Choca Pierde</div>
+      </div>
+      <div class="p-qr-row">
+        <div>
+          <div class="p-social">@carriles_evora30</div>
+          <div class="p-social-sub">Cobertura Especial</div>
+        </div>
+        <div class="p-qr-wrap">
+          <img id="qrImg" alt="QR">
+          <div class="p-scan">Escanea<br>el sitio</div>
+        </div>
+      </div>
+      <div class="p-tagline">La Pasión se Vive en Cerro Agudo</div>
+    </div>
+    <div class="p-botbar"></div>
+  </div>
+  <div class="page-links">
+    <a href="site.html">🏠 Sitio</a>
+    <a href="races.html">🏁 Programa</a>
+    <a href="video-ad.html">▶ Video</a>
+    <a href="mano-a-mano.html">⚔ Mano a Mano</a>
+  </div>
+</div>
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carriles-evora-jun21/site.html';
+document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=CC1414&format=png&margin=8`;
+</script>
+</body>
+</html>

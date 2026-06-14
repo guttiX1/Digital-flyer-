@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Ayudante vs El Chango Malo · Mano a Mano · Jun 21</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#CC1414;--dark-red:#8B0000;--black:#0d0d0d;--white:#fff}
+body{
+  background:#e8e8e8;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;font-family:'Bebas Neue',sans-serif;padding:1rem;
+}
+
+.poster{
+  position:relative;width:min(460px,100vw);aspect-ratio:9/16;
+  overflow:hidden;border-radius:4px;background:#fff;
+  box-shadow:0 0 0 1px rgba(204,20,20,.3),0 20px 60px rgba(0,0,0,.18),0 60px 160px rgba(0,0,0,.12);
+}
+
+/* Red accent bars */
+.top-bar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--red);z-index:100;box-shadow:0 0 14px rgba(204,20,20,.5)}
+.bot-bar{position:absolute;bottom:0;left:0;right:0;height:5px;background:var(--red);z-index:100}
+
+/* ── TOP HEADER ── */
+.top-content{
+  position:absolute;top:0;left:0;right:0;height:22%;z-index:50;
+  background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(.5rem,1.6vw,.8rem);text-align:center;
+  gap:clamp(.1rem,.4vw,.2rem);
+  border-bottom:2px solid var(--red);
+}
+.tc-org{
+  font-family:'Inter',sans-serif;font-size:clamp(.28rem,.85vw,.44rem);
+  font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(0,0,0,.3);
+}
+.tc-pre{
+  font-family:'Inter',sans-serif;font-size:clamp(.26rem,.8vw,.4rem);
+  font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(204,20,20,.85);
+}
+.tc-ttl{font-size:clamp(1.3rem,4.2vw,2rem);letter-spacing:.07em;line-height:.92;color:var(--black)}
+.tc-ttl em{color:var(--red);font-style:normal}
+.tc-rule{width:44px;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);margin:.1rem auto}
+.tc-tag{
+  font-family:'Inter',sans-serif;font-size:clamp(.26rem,.8vw,.4rem);
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.35);font-style:italic;
+}
+
+/* ── PHOTO ZONE ── */
+.panel-clip-l{position:absolute;top:22%;bottom:27%;left:0;width:50%;overflow:hidden;pointer-events:none}
+.panel-clip-r{position:absolute;top:22%;bottom:27%;right:0;width:50%;overflow:hidden;pointer-events:none}
+.panel-l{position:absolute;inset:0;overflow:visible}
+.panel-r{position:absolute;inset:0;overflow:visible}
+
+.panel-l .horse{
+  position:absolute;inset:-4% -10% -4% -18%;
+  background:url(flyer.jpg) 12% 8%/340% no-repeat #fff;
+  filter:contrast(1.15) saturate(1.2) brightness(1.05);
+}
+.panel-r .horse{
+  position:absolute;inset:-4% -18% -4% -10%;
+  background:url(flyer.jpg) 88% 8%/340% no-repeat #fff;
+  filter:contrast(1.15) saturate(1.2) brightness(1.05);
+}
+
+/* ── RED DIVIDER ── */
+.divider{
+  position:absolute;top:21%;bottom:26%;
+  left:50%;transform:translateX(-50%);
+  width:2.5px;z-index:40;
+  background:linear-gradient(180deg,
+    transparent 0%,rgba(204,20,20,.5) 8%,
+    var(--red) 25%,var(--red) 75%,
+    rgba(204,20,20,.5) 92%,transparent 100%);
+  box-shadow:0 0 12px rgba(204,20,20,.7),0 0 30px rgba(204,20,20,.3);
+}
+
+/* ── HORSE NAMES ── */
+.names{position:absolute;top:22%;bottom:27%;left:0;right:0;z-index:45;pointer-events:none}
+.nm-l{position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);left:clamp(.4rem,1.3vw,.65rem);max-width:46%}
+.nm-r{position:absolute;bottom:clamp(.4rem,1.3vw,.7rem);right:clamp(.4rem,1.3vw,.65rem);max-width:46%;text-align:right}
+.nm-tag{
+  display:inline-block;background:var(--red);color:#fff;
+  font-family:'Inter',sans-serif;font-size:clamp(.24rem,.75vw,.36rem);font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+  padding:.12rem .42rem;border-radius:3px;margin-bottom:clamp(.1rem,.4vw,.18rem);
+}
+.nm-r .nm-tag{float:right;clear:both}
+.nm-horse{
+  font-size:clamp(1.3rem,4.3vw,2.1rem);line-height:.84;color:var(--black);
+  letter-spacing:.04em;
+  text-shadow:0 2px 12px rgba(255,255,255,.95),0 0 30px rgba(255,255,255,1);
+}
+.nm-horse em{color:var(--red);font-style:normal;display:block}
+.nm-cuad{
+  display:block;clear:both;font-family:'Inter',sans-serif;
+  font-size:clamp(.23rem,.72vw,.34rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.4);margin-top:clamp(.1rem,.35vw,.16rem);
+}
+
+/* ── VS DIAMOND ── */
+.vs-wrap{
+  position:absolute;top:22%;bottom:27%;
+  left:50%;transform:translateX(-50%);
+  z-index:50;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(.16rem,.55vw,.28rem);
+}
+.vs-diamond{
+  width:clamp(42px,11.5vw,58px);height:clamp(42px,11.5vw,58px);
+  background:#fff;border:2.5px solid var(--red);
+  transform:rotate(45deg);flex-shrink:0;
+  box-shadow:0 0 16px rgba(204,20,20,.5),0 0 40px rgba(204,20,20,.2),0 4px 20px rgba(0,0,0,.1);
+}
+.vs-diamond-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg)}
+.vs-t{font-size:clamp(.85rem,2.6vw,1.3rem);color:var(--red);text-shadow:0 0 12px rgba(204,20,20,.7);line-height:1}
+.vs-dist{
+  font-family:'Inter',sans-serif;font-size:clamp(.22rem,.7vw,.34rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(204,20,20,.7);background:rgba(204,20,20,.06);border:1px solid rgba(204,20,20,.25);
+  border-radius:4px;padding:.14rem .42rem;text-align:center;
+}
+
+/* ── BOTTOM DETAILS ── */
+.bot-content{
+  position:absolute;bottom:0;left:0;right:0;height:28%;z-index:50;
+  background:#fff;border-top:2px solid var(--red);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(.7rem,2.2vw,1rem) clamp(.4rem,1.3vw,.65rem);
+  gap:clamp(.22rem,.75vw,.36rem);
+}
+.mam-hl{text-align:center;font-size:clamp(.8rem,2.6vw,1.3rem);letter-spacing:.2em;color:var(--black);line-height:1}
+.mam-hl em{color:var(--red);font-style:normal}
+
+.chips{display:flex;align-items:center;justify-content:center;gap:clamp(.22rem,.78vw,.4rem)}
+.chip{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(204,20,20,.05);border:1px solid rgba(204,20,20,.22);
+  border-radius:5px;padding:clamp(.14rem,.5vw,.26rem) clamp(.3rem,1vw,.5rem);
+}
+.chip span{font-family:'Inter',sans-serif;font-size:clamp(.2rem,.66vw,.31rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.32)}
+.chip strong{font-size:clamp(.58rem,1.8vw,.9rem);color:var(--red);line-height:1}
+
+.hr{height:1px;background:rgba(204,20,20,.12)}
+
+.date-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.date-block .dm{font-size:clamp(.85rem,2.8vw,1.35rem);line-height:.9;color:var(--black);letter-spacing:.03em}
+.date-block .dm em{color:var(--red);font-style:normal}
+.date-block .dl{
+  font-family:'Inter',sans-serif;font-size:clamp(.22rem,.72vw,.33rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(0,0,0,.32);margin-top:clamp(.07rem,.25vw,.12rem);
+}
+.nota{
+  font-family:'Inter',sans-serif;font-size:clamp(.2rem,.65vw,.3rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(0,0,0,.28);text-align:center;
+}
+.nota em{color:var(--red);font-style:normal}
+
+.qr-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.social .sn{font-size:clamp(.78rem,2.5vw,1.22rem);color:var(--red);letter-spacing:.03em;line-height:1}
+.social .sl{font-family:'Inter',sans-serif;font-size:clamp(.2rem,.66vw,.3rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.28);margin-top:.1rem}
+.qr-unit{display:flex;align-items:center;gap:clamp(.14rem,.5vw,.26rem)}
+.qr-unit img{width:clamp(38px,10.5vw,52px);height:clamp(38px,10.5vw,52px);border-radius:5px;border:1.5px solid rgba(204,20,20,.35);display:block}
+.scan{font-family:'Inter',sans-serif;font-size:clamp(.19rem,.62vw,.29rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.28);text-align:right;line-height:1.5}
+.tagline{
+  text-align:center;font-family:'Inter',sans-serif;font-size:clamp(.19rem,.62vw,.29rem);
+  font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(204,20,20,.5);
+}
+
+/* page */
+.page-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(204,20,20,.04) 0%,transparent 60%)}
+.links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-top:.7rem}
+.links a{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(204,20,20,.6);text-decoration:none;background:rgba(204,20,20,.06);border:1px solid rgba(204,20,20,.18);padding:.26rem .62rem;border-radius:6px;transition:all .15s}
+.links a:hover{background:rgba(204,20,20,.12);color:var(--red)}
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+<div class="poster">
+  <div class="top-bar"></div>
+  <div class="bot-bar"></div>
+
+  <!-- PHOTOS from flyer.jpg cropped left/right -->
+  <div class="panel-clip-l"><div class="panel-l"><div class="horse"></div></div></div>
+  <div class="panel-clip-r"><div class="panel-r"><div class="horse"></div></div></div>
+
+  <div class="divider"></div>
+
+  <!-- NAMES -->
+  <div class="names">
+    <div class="nm-l">
+      <div class="nm-tag">Local</div>
+      <div class="nm-horse">El<em>Ayudante</em></div>
+      <div class="nm-cuad">C. Tepantitla</div>
+    </div>
+    <div class="nm-r">
+      <div class="nm-tag">Visitante</div>
+      <div class="nm-horse">El<em>Chango</em></div>
+      <div class="nm-cuad">C. San Pedro</div>
+    </div>
+  </div>
+
+  <!-- VS -->
+  <div class="vs-wrap">
+    <div class="vs-diamond">
+      <div class="vs-diamond-inner"><div class="vs-t">VS</div></div>
+    </div>
+    <div class="vs-dist">200 MTS</div>
+  </div>
+
+  <!-- TOP HEADER -->
+  <div class="top-content">
+    <div class="tc-org">Carriles del Évora · Cerro Agudo</div>
+    <div class="tc-pre">Presenta</div>
+    <div class="tc-ttl">Taste <em>Cerro Agudo</em></div>
+    <div class="tc-rule"></div>
+    <div class="tc-tag">"Gran Avance · 21 de Junio 2026"</div>
+  </div>
+
+  <!-- BOTTOM DETAILS -->
+  <div class="bot-content">
+    <div class="mam-hl"><em>Mano a Mano</em> · 3ra Carrera Estelar</div>
+    <div class="chips">
+      <div class="chip"><span>Carrera</span><strong>#3</strong></div>
+      <div class="chip"><span>Distancia</span><strong>200 MTS</strong></div>
+      <div class="chip"><span>Tiempo</span><strong>10 SEG</strong></div>
+      <div class="chip"><span>Regla</span><strong>Al Pico</strong></div>
+    </div>
+    <div class="hr"></div>
+    <div class="date-row">
+      <div class="date-block">
+        <div class="dm">Dom · <em>21 Jun</em> · 2026</div>
+        <div class="dl">📍 Carriles del Évora · Cerro Agudo</div>
+      </div>
+    </div>
+    <div class="nota">Vale Cordel · <em>El que Choca Pierde</em></div>
+    <div class="hr"></div>
+    <div class="qr-row">
+      <div class="social">
+        <div class="sn">@carriles_evora30</div>
+        <div class="sl">Cobertura Especial</div>
+      </div>
+      <div class="qr-unit">
+        <div class="scan">Escanea<br>el sitio</div>
+        <img id="qrImg" alt="QR">
+      </div>
+    </div>
+    <div class="tagline">La Pasión se Vive en Cerro Agudo</div>
+  </div>
+</div>
+
+<div class="links">
+  <a href="site.html">🏠 Sitio</a>
+  <a href="flyer-digital.html">📋 Flyer</a>
+  <a href="races.html">🏁 Programa</a>
+  <a href="video-ad.html">▶ Video</a>
+</div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carriles-evora-jun21/site.html';
+document.getElementById('qrImg').src=
+  `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(SITE)}&bgcolor=ffffff&color=CC1414&format=png&margin=6`;
+</script>
+</body>
+</html>
