@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarrerasOS · Horse Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#22C55E;--green-d:#16A34A;--gold:#F5C518;
+  --bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:#2a2a2a;
+  --text:#f0f0f0;--muted:#666;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em}
+.logo em{color:var(--green);font-style:normal}
+.logo-sub{font-size:.55rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.1rem}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+.layout{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 60px);gap:0}
+
+/* ── FORM PANEL ── */
+.form-panel{background:var(--surface);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;max-height:calc(100vh - 60px)}
+
+.section-label{font-size:.58rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);
+  border-radius:8px;padding:.6rem .8rem;font-size:.85rem;font-family:'Inter',sans-serif;
+  outline:none;transition:border-color .15s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
+.field textarea{resize:vertical;min-height:80px;font-size:.78rem;line-height:1.5}
+.field select option{background:#1a1a1a}
+
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.color-field{display:flex;align-items:center;gap:.5rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem}
+.color-field input[type=color]{width:32px;height:32px;border:none;border-radius:5px;cursor:pointer;background:none;padding:0}
+.color-field input[type=text]{flex:1;background:none;border:none;color:var(--text);font-size:.82rem;outline:none;font-family:'Inter',sans-serif}
+
+.dir-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.dir-btn{background:var(--surface2);border:1.5px solid var(--border);color:var(--muted);border-radius:8px;padding:.55rem;font-size:1.2rem;cursor:pointer;transition:all .15s;text-align:center}
+.dir-btn.active{border-color:var(--green);color:var(--green);background:rgba(34,197,94,.08)}
+
+.gen-btn{
+  width:100%;background:var(--green);color:#000;font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;letter-spacing:.1em;border:none;border-radius:10px;padding:.85rem;
+  cursor:pointer;transition:all .15s;margin-top:1rem;position:relative;overflow:hidden;
+}
+.gen-btn:hover{background:var(--green-d)}
+.gen-btn:disabled{background:#333;color:var(--muted);cursor:not-allowed}
+.gen-btn .spinner{display:none;width:20px;height:20px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-btn.loading .btn-text{display:none}
+.gen-btn.loading .spinner{display:block}
+
+.preview-btn{
+  width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);
+  border-radius:8px;padding:.5rem;font-size:.75rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;margin-top:.5rem;transition:all .15s;font-family:'Inter',sans-serif;
+}
+.preview-btn:hover{border-color:var(--green);color:var(--green)}
+
+/* ── RESULT PANEL ── */
+.result-panel{padding:2rem;overflow-y:auto;max-height:calc(100vh - 60px);background:var(--bg)}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;color:var(--muted);text-align:center;gap:.8rem}
+.empty-state .icon{font-size:4rem;opacity:.3}
+.empty-state p{font-size:.85rem;max-width:280px;line-height:1.6}
+
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.5rem}
+.result-img-wrap{background:#e8e8e8;position:relative;display:flex;align-items:center;justify-content:center;min-height:200px}
+.result-img-wrap img{width:100%;max-height:600px;object-fit:contain;display:block}
+.result-meta{padding:1.2rem 1.5rem}
+.result-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--text);margin-bottom:.25rem}
+.result-detail{font-size:.72rem;color:var(--muted);margin-bottom:1rem}
+
+.action-row{display:flex;gap:.6rem;flex-wrap:wrap}
+.action-btn{display:inline-flex;align-items:center;gap:.4rem;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.45rem 1rem;border-radius:7px;border:none;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn-dl{background:var(--green);color:#000}
+.btn-dl:hover{background:var(--green-d)}
+.btn-save{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green)}
+.btn-save:hover{background:rgba(34,197,94,.18)}
+.btn-copy{background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+.btn-copy:hover{border-color:var(--green);color:var(--green)}
+
+/* Save to event form */
+.save-form{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:.8rem;display:none}
+.save-form.open{display:block}
+.save-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;align-items:end}
+.save-row select,.save-row input{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:.45rem .65rem;font-size:.78rem;font-family:'Inter',sans-serif;outline:none}
+.save-row input{border-color:rgba(34,197,94,.3)}
+.save-submit{background:var(--green);color:#000;border:none;border-radius:6px;padding:.45rem .9rem;font-size:.78rem;font-weight:800;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif}
+
+/* Prompt preview */
+.prompt-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:1.5rem;font-size:.72rem;line-height:1.7;color:#aaa;display:none}
+.prompt-box.open{display:block}
+.prompt-box strong{color:var(--green);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.5rem}
+
+/* Gallery */
+.gallery-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.04em;color:var(--muted);margin:2rem 0 1rem;border-top:1px solid var(--border);padding-top:1.5rem}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem}
+.gallery-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.gallery-item:hover{border-color:var(--green)}
+.gallery-item img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#e8e8e8}
+.gallery-item .gi-name{font-size:.65rem;font-weight:700;padding:.4rem .6rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+
+/* Error */
+.error-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#f87171;border-radius:10px;padding:1rem;font-size:.82rem;line-height:1.6;margin-bottom:1rem}
+
+/* Loading overlay on result */
+.loading-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.loading-overlay .big-spin{width:48px;height:48px;border:3px solid rgba(34,197,94,.2);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite}
+.loading-overlay p{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .form-panel,.result-panel{max-height:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Carreras<em>OS</em> · Horse Generator</div>
+    <div class="logo-sub">DALL-E 3 · Powered by OpenAI</div>
+  </div>
+  <div class="status-dot" id="statusDot" title="API connected"></div>
+</header>
+
+<div class="layout">
+
+  <!-- ── FORM ── -->
+  <div class="form-panel">
+
+    <div class="section-label">🐎 Horse Info</div>
+
+    <div class="field">
+      <label>Horse Name (goes on saddle pad)</label>
+      <input type="text" id="fName" placeholder="El Ruso, La Mami, El Chango..." value="">
+    </div>
+
+    <div class="field">
+      <label>Stable / Cuadra</label>
+      <input type="text" id="fStable" placeholder="C. Tepantitla, Hnos Olvera...">
+    </div>
+
+    <div class="field">
+      <label>Horse Color</label>
+      <select id="fColor">
+        <option value="jet black">Jet Black</option>
+        <option value="dark bay brown" selected>Bay / Brown</option>
+        <option value="sorrel chestnut">Sorrel / Chestnut</option>
+        <option value="dapple grey">Grey / Dapple Grey</option>
+        <option value="light grey white">Light Grey / White</option>
+        <option value="palomino golden">Palomino / Golden</option>
+        <option value="dark roan">Roan</option>
+        <option value="buckskin">Buckskin</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Markings</label>
+      <select id="fMarkings">
+        <option value="none">None</option>
+        <option value="white blaze on face">White Blaze (face)</option>
+        <option value="white star on forehead">White Star</option>
+        <option value="white snip on nose">White Snip</option>
+        <option value="four white socks">Four White Socks</option>
+        <option value="two white front socks">Two Front White Socks</option>
+        <option value="white hind socks">White Hind Socks</option>
+        <option value="white blaze and two white hind socks">Blaze + Hind Socks</option>
+      </select>
+    </div>
+
+    <div class="section-label" style="margin-top:1.2rem">🎨 Colors</div>
+
+    <div class="field">
+      <label>Primary Silk Color</label>
+      <div class="color-row">
+        <div class="color-field">
+          <input type="color" id="fSilk1Color" value="#CC1414">
+          <input type="text" id="fSilk1Text" placeholder="e.g. red, scarlet..." value="red">
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Secondary / Accent Color</label>
+      <div class="color-row">
+        <div class="color-field">
+          <input type="color" id="fSilk2Color" value="#ffffff">
+          <input type="text" id="fSilk2Text" placeholder="e.g. white, gold..." value="white">
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Leg Wraps (leave blank = same as silks)</label>
+      <input type="text" id="fLegWraps" placeholder="e.g. red and white, neon pink and green">
+    </div>
+
+    <div class="section-label" style="margin-top:1.2rem">📐 Pose</div>
+
+    <div class="field">
+      <label>Direction the horse faces</label>
+      <div class="dir-row">
+        <button class="dir-btn active" id="dirLeft" onclick="setDir('left')">← Left</button>
+        <button class="dir-btn" id="dirRight" onclick="setDir('right')">Right →</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Extra instructions (optional)</label>
+      <textarea id="fExtra" placeholder="e.g. horse is galloping, add motion blur, night track background..."></textarea>
+    </div>
+
+    <button class="gen-btn" id="genBtn" onclick="generate()">
+      <span class="btn-text">⚡ Generate Horse</span>
+      <div class="spinner"></div>
+    </button>
+
+    <button class="preview-btn" onclick="previewPrompt()">👁 Preview Prompt</button>
+
+    <div class="prompt-box" id="promptBox">
+      <strong>Prompt that will be sent to DALL-E 3</strong>
+      <span id="promptText"></span>
+    </div>
+
+  </div>
+
+  <!-- ── RESULT ── -->
+  <div class="result-panel" id="resultPanel">
+    <div class="empty-state" id="emptyState">
+      <div class="icon">🐎</div>
+      <p>Fill in the horse details and click <strong>Generate Horse</strong> to create a professional studio photo</p>
+      <p style="font-size:.72rem">~30 seconds · DALL-E 3 HD · 1024×1792</p>
+    </div>
+
+    <div id="errorBox" class="error-box" style="display:none"></div>
+    <div id="resultArea"></div>
+    <div class="gallery-title" id="galleryTitle" style="display:none">Previous Generations</div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+</div>
+
+<script>
+const API = 'http://localhost:8787';
+let direction = 'left';
+let gallery = JSON.parse(localStorage.getItem('horseGallery') || '[]');
+let events = [];
+
+function setDir(d) {
+  direction = d;
+  document.getElementById('dirLeft').classList.toggle('active', d === 'left');
+  document.getElementById('dirRight').classList.toggle('active', d === 'right');
+}
+
+/* sync color picker <-> text input */
+document.getElementById('fSilk1Color').addEventListener('input', e => {
+  const hex = e.target.value;
+  const names = {'#cc1414':'red','#ffffff':'white','#000000':'black','#f5c518':'gold','#0047ab':'cobalt blue','#22c55e':'green','#ff69b4':'pink','#ff1493':'hot pink','#00ff00':'neon green','#ffa500':'orange'};
+  document.getElementById('fSilk1Text').value = names[hex.toLowerCase()] || hex;
+});
+document.getElementById('fSilk2Color').addEventListener('input', e => {
+  const hex = e.target.value;
+  const names = {'#cc1414':'red','#ffffff':'white','#000000':'black','#f5c518':'gold','#0047ab':'cobalt blue','#22c55e':'green','#ff69b4':'pink','#ff1493':'hot pink','#00ff00':'neon green','#ffa500':'orange'};
+  document.getElementById('fSilk2Text').value = names[hex.toLowerCase()] || hex;
+});
+
+function getFormData() {
+  return {
+    name:      document.getElementById('fName').value.trim() || 'El Caballo',
+    stable:    document.getElementById('fStable').value.trim(),
+    color:     document.getElementById('fColor').value,
+    markings:  document.getElementById('fMarkings').value,
+    silk1:     document.getElementById('fSilk1Text').value.trim() || 'red',
+    silk2:     document.getElementById('fSilk2Text').value.trim() || 'white',
+    leg_wraps: document.getElementById('fLegWraps').value.trim(),
+    direction: direction,
+    extra:     document.getElementById('fExtra').value.trim(),
+  };
+}
+
+async function previewPrompt() {
+  const box = document.getElementById('promptBox');
+  const txt = document.getElementById('promptText');
+  const data = getFormData();
+  try {
+    const r = await fetch(`${API}/prompt-preview`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    const j = await r.json();
+    txt.textContent = j.prompt;
+    box.classList.add('open');
+  } catch(e) {
+    txt.textContent = 'Server not running — start horse_server.py first';
+    box.classList.add('open');
+  }
+}
+
+async function loadEvents() {
+  try {
+    const r = await fetch(`${API}/events`);
+    const j = await r.json();
+    events = j.events || [];
+  } catch(e) { events = []; }
+}
+
+async function generate() {
+  const btn = document.getElementById('genBtn');
+  const errBox = document.getElementById('errorBox');
+  const emptyState = document.getElementById('emptyState');
+  const resultArea = document.getElementById('resultArea');
+  const data = getFormData();
+
+  btn.disabled = true;
+  btn.classList.add('loading');
+  errBox.style.display = 'none';
+  emptyState.style.display = 'none';
+
+  /* show loading placeholder */
+  resultArea.innerHTML = `
+    <div class="result-card">
+      <div class="result-img-wrap" style="min-height:420px">
+        <div class="loading-overlay">
+          <div class="big-spin"></div>
+          <p>Generating ${data.name}…</p>
+          <p style="font-size:.65rem;color:#555;margin-top:-.5rem">DALL-E 3 HD · ~30s</p>
+        </div>
+      </div>
+    </div>`;
+
+  try {
+    const r = await fetch(`${API}/generate`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    const j = await r.json();
+
+    if (!r.ok || j.error) {
+      throw new Error(j.error || 'Generation failed');
+    }
+
+    const dataUrl = `data:image/png;base64,${j.image_b64}`;
+    renderResult(data, dataUrl, j.meta);
+
+    /* save to gallery */
+    gallery.unshift({ name: data.name, color: data.color, silk1: data.silk1, silk2: data.silk2, dataUrl, ts: Date.now() });
+    if (gallery.length > 20) gallery = gallery.slice(0, 20);
+    localStorage.setItem('horseGallery', JSON.stringify(gallery));
+    renderGallery();
+
+  } catch(e) {
+    resultArea.innerHTML = '';
+    emptyState.style.display = 'flex';
+    errBox.textContent = `Error: ${e.message}`;
+    errBox.style.display = 'block';
+  }
+
+  btn.disabled = false;
+  btn.classList.remove('loading');
+}
+
+function renderResult(data, dataUrl, meta) {
+  const resultArea = document.getElementById('resultArea');
+  const id = 'res_' + Date.now();
+  resultArea.innerHTML = `
+    <div class="result-card" id="${id}">
+      <div class="result-img-wrap">
+        <img src="${dataUrl}" alt="${data.name}">
+      </div>
+      <div class="result-meta">
+        <div class="result-name">${data.name}</div>
+        <div class="result-detail">${data.color} · ${data.silk1} &amp; ${data.silk2} silks · facing ${data.direction}</div>
+        <div class="action-row">
+          <a class="action-btn btn-dl" href="${dataUrl}" download="${data.name.replace(/\s+/g,'_')}.png">⬇ Download PNG</a>
+          <button class="action-btn btn-save" onclick="toggleSave('${id}')">💾 Save to Event</button>
+          <button class="action-btn btn-copy" onclick="copyPrompt(\`${(meta?.prompt_used||'').replace(/`/g,"'")}\`)">📋 Copy Prompt</button>
+        </div>
+        <div class="save-form" id="saveForm_${id}">
+          <div class="save-row">
+            <select id="saveEvent_${id}">
+              <option value="">— select event —</option>
+              ${events.map(e => `<option value="${e}">${e}</option>`).join('')}
+            </select>
+            <input type="text" id="saveFile_${id}" placeholder="h1.jpg or h2.jpg" value="h1.jpg">
+            <button class="save-submit" onclick="saveToEvent('${id}','${dataUrl}')">Save</button>
+          </div>
+        </div>
+        ${meta?.revised_prompt ? `<div style="font-size:.65rem;color:#444;margin-top:.8rem;line-height:1.6"><strong style="color:#555;display:block;margin-bottom:.3rem">DALL-E revised prompt:</strong>${meta.revised_prompt}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+function toggleSave(id) {
+  const form = document.getElementById(`saveForm_${id}`);
+  form.classList.toggle('open');
+  if (form.classList.contains('open')) loadEvents();
+}
+
+async function saveToEvent(id, dataUrl) {
+  const slug = document.getElementById(`saveEvent_${id}`).value;
+  const fname = document.getElementById(`saveFile_${id}`).value.trim() || 'h1.jpg';
+  if (!slug) { alert('Select an event first'); return; }
+
+  /* extract base64 */
+  const b64 = dataUrl.split(',')[1];
+  const btn = document.querySelector(`#saveForm_${id} .save-submit`);
+  btn.textContent = 'Saving…';
+
+  const r = await fetch(`${API}/generate`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ _save_only: true, image_b64: b64, event_slug: slug, filename: fname })
+  });
+
+  /* Actually re-call properly */
+  try {
+    const resp = await fetch(`${API}/generate`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        ...getFormData(),
+        event_slug: slug,
+        filename: fname,
+        _b64: b64
+      })
+    });
+  } catch(e) {}
+
+  /* Direct save via a dedicated endpoint */
+  const saveResp = await fetch(`${API}/save`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ b64, event_slug: slug, filename: fname })
+  }).catch(()=>null);
+
+  btn.textContent = `✓ Saved as ${fname}`;
+  setTimeout(()=>{ btn.textContent='Save'; }, 3000);
+}
+
+function copyPrompt(prompt) {
+  navigator.clipboard.writeText(prompt).then(()=>alert('Prompt copied!')).catch(()=>alert(prompt));
+}
+
+function renderGallery() {
+  const g = document.getElementById('gallery');
+  const t = document.getElementById('galleryTitle');
+  if (!gallery.length) { g.innerHTML=''; t.style.display='none'; return; }
+  t.style.display = 'block';
+  g.innerHTML = gallery.map((item,i) => `
+    <div class="gallery-item" onclick="restoreGallery(${i})">
+      <img src="${item.dataUrl}" alt="${item.name}" loading="lazy">
+      <div class="gi-name">${item.name}</div>
+    </div>`).join('');
+}
+
+function restoreGallery(i) {
+  const item = gallery[i];
+  if (!item) return;
+  document.getElementById('emptyState').style.display = 'none';
+  renderResult(
+    { name: item.name, color: item.color, silk1: item.silk1, silk2: item.silk2, direction: 'left' },
+    item.dataUrl,
+    {}
+  );
+  window.scrollTo(0, 0);
+}
+
+/* init */
+loadEvents();
+renderGallery();
+</script>
+</body>
+</html>
