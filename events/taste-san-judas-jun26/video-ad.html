@@ -68,42 +68,43 @@
   #particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 
   /* SCENE 1 — INTRO */
-  .s1-brand { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; color: rgba(34,197,94,0.8); text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeInUp 0.8s 0.3s both; }
+  .s1-brand { font-size: 0.7rem; font-weight: 800; letter-spacing: 4px; color: rgba(34,197,94,0.9); text-transform: uppercase; margin-bottom: 1rem; animation: fadeInUp 0.3s 0.05s both; }
   .s1-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(3rem, 12vw, 5.5rem);
     line-height: 0.9; color: var(--green);
     text-shadow: 0 0 60px rgba(34,197,94,0.7), 0 0 120px rgba(34,197,94,0.3);
-    animation: zoomIn 1s 0.5s both;
+    animation: zoomIn 0.45s 0.15s both;
     letter-spacing: 2px;
   }
-  .s1-sub { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 4px; margin-top: 0.5rem; animation: fadeInUp 0.8s 1s both; }
-  .s1-date { font-size: 0.9rem; color: rgba(240,240,240,0.6); margin-top: 1.5rem; animation: fadeInUp 0.8s 1.3s both; }
-  .s1-tiger { font-size: 4rem; margin-top: 1rem; animation: bounceIn 1s 1.5s both; }
+  .s1-sub { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 4px; margin-top: 0.3rem; animation: fadeInUp 0.35s 0.35s both; }
+  .s1-date { font-size: 0.9rem; color: rgba(240,240,240,0.6); margin-top: 1rem; animation: fadeInUp 0.3s 0.5s both; }
+  .s1-tiger { font-size: 4rem; margin-top: 0.5rem; animation: bounceIn 0.5s 0.65s both; }
 
   /* SCENE 2/3/4 — HORSE REVEALS */
-  .horse-reveal-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(34,197,94,0.05) 0%, rgba(0,0,0,0.95) 60%); }
-  .hr-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; color: var(--green); text-transform: uppercase; animation: fadeInUp 0.6s 0.2s both; }
-  .hr-icon { font-size: 5rem; margin: 1rem 0; animation: scaleIn3D 0.8s 0.4s both; filter: drop-shadow(0 0 30px rgba(34,197,94,0.5)); }
+  .horse-scene-img { position: absolute; inset: 0; background-size: cover; background-repeat: no-repeat; z-index: 0; }
+  .horse-scene-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.72) 62%, rgba(0,0,0,0.97) 100%); z-index: 1; }
+  .horse-reveal-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 1.5rem; text-align: center; }
+  .hr-label { font-size: 0.62rem; font-weight: 800; letter-spacing: 3px; color: var(--green); text-transform: uppercase; animation: fadeInUp 0.35s 0.05s both; margin-bottom: 0.3rem; }
   .hr-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 12vw, 5rem);
-    color: var(--white); line-height: 1; letter-spacing: 2px;
-    animation: slideInLeft 0.7s 0.6s both;
-    text-shadow: 0 0 40px rgba(255,255,255,0.2);
+    font-size: clamp(3.5rem, 14vw, 6rem);
+    color: var(--white); line-height: 0.9; letter-spacing: 2px;
+    animation: slideInLeft 0.4s 0.1s both;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.9), 0 0 60px rgba(34,197,94,0.3);
   }
   .hr-cuadra {
     display: inline-block;
-    background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4);
-    color: var(--green); font-size: 0.8rem; font-weight: 700;
+    background: rgba(34,197,94,0.18); border: 1px solid rgba(34,197,94,0.5);
+    color: var(--green); font-size: 0.78rem; font-weight: 700;
     letter-spacing: 2px; text-transform: uppercase;
-    padding: 0.4rem 1.2rem; border-radius: 30px; margin-top: 0.8rem;
-    animation: fadeInUp 0.6s 0.9s both;
+    padding: 0.3rem 1rem; border-radius: 30px; margin-top: 0.5rem;
+    animation: fadeInUp 0.35s 0.18s both;
   }
-  .hr-bar-wrap { width: 100%; max-width: 280px; margin: 1.5rem auto 0; animation: fadeInUp 0.6s 1.1s both; }
-  .hr-bar-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
-  .hr-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--green), #16a34a); width: 0; transition: width 1.5s ease 1.3s; }
-  .hr-tag { font-size: 0.65rem; color: rgba(240,240,240,0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.4rem; }
+  .hr-bar-wrap { width: 100%; max-width: 260px; margin: 0.9rem auto 0; animation: fadeInUp 0.35s 0.25s both; }
+  .hr-bar-track { height: 7px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+  .hr-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--green), #16a34a); width: 0; transition: width 1.2s ease 0.35s; }
+  .hr-tag { font-size: 0.6rem; color: rgba(240,240,240,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.35rem; }
 
   /* SCENE 5 — THREE WAY */
   .s5-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, rgba(0,0,0,0.97) 70%); }
@@ -246,51 +247,48 @@
 
     <!-- SCENE 2: EL WUASON -->
     <div class="scene" id="scene2">
-      <div class="horse-reveal-bg"></div>
-      <div style="position:absolute;inset:0;background:url('flyer.jpg') center/cover;opacity:0.06;"></div>
-      <div class="scene-content">
-        <div class="hr-label">Contendiente #1 · El Favorito</div>
-        <div class="hr-icon">🐴</div>
-        <div class="hr-name">El Wuason</div>
-        <div class="hr-cuadra">C BR</div>
+      <div class="horse-scene-img" style="background-image:url('flyer.jpg');background-position:20% center;"></div>
+      <div class="horse-scene-gradient"></div>
+      <div class="horse-reveal-content">
+        <div class="hr-label">🐯 Contendiente #1 · El Favorito</div>
+        <div class="hr-name" style="color:var(--green)">EL WUASON</div>
+        <div class="hr-cuadra">Cuadra BR</div>
         <div class="hr-bar-wrap">
-          <div class="hr-tag">Rating de Velocidad</div>
-          <div class="hr-bar-track"><div class="hr-bar-fill" style="width:92%"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.4);margin-top:0.3rem"><span>0</span><span>92 / 100</span></div>
+          <div class="hr-tag">Velocidad Rating</div>
+          <div class="hr-bar-track"><div class="hr-bar-fill" data-width="92"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.45);margin-top:0.3rem"><span>Velocidad</span><span style="color:var(--green);font-weight:800">92/100</span></div>
         </div>
       </div>
     </div>
 
     <!-- SCENE 3: LA D7 -->
     <div class="scene" id="scene3">
-      <div class="horse-reveal-bg"></div>
-      <div style="position:absolute;inset:0;background:url('flyer.jpg') center/cover;opacity:0.06;"></div>
-      <div class="scene-content">
-        <div class="hr-label">Contendiente #2 · La Retadora</div>
-        <div class="hr-icon">🐴</div>
-        <div class="hr-name">La D7</div>
-        <div class="hr-cuadra">C Regis de Jahuara</div>
+      <div class="horse-scene-img" style="background-image:url('flyer.jpg');background-position:50% center;"></div>
+      <div class="horse-scene-gradient" style="background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.1) 35%,rgba(245,197,24,0.12) 55%,rgba(0,0,0,0.97) 100%);"></div>
+      <div class="horse-reveal-content">
+        <div class="hr-label">🐯 Contendiente #2 · La Retadora</div>
+        <div class="hr-name" style="color:var(--gold)">LA D7</div>
+        <div class="hr-cuadra" style="border-color:rgba(245,197,24,0.5);color:var(--gold);background:rgba(245,197,24,0.15)">C Regis de Jahuara</div>
         <div class="hr-bar-wrap">
-          <div class="hr-tag">Rating de Velocidad</div>
-          <div class="hr-bar-track"><div class="hr-bar-fill" style="width:88%"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.4);margin-top:0.3rem"><span>0</span><span>88 / 100</span></div>
+          <div class="hr-tag">Velocidad Rating</div>
+          <div class="hr-bar-track"><div class="hr-bar-fill" data-width="88" style="background:linear-gradient(90deg,var(--gold),#d97706)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.45);margin-top:0.3rem"><span>Velocidad</span><span style="color:var(--gold);font-weight:800">88/100</span></div>
         </div>
       </div>
     </div>
 
     <!-- SCENE 4: EL PING PONG -->
     <div class="scene" id="scene4">
-      <div class="horse-reveal-bg"></div>
-      <div style="position:absolute;inset:0;background:url('flyer.jpg') center/cover;opacity:0.06;"></div>
-      <div class="scene-content">
-        <div class="hr-label">Contendiente #3 · El Sorpresa</div>
-        <div class="hr-icon">🐴</div>
-        <div class="hr-name">El Ping Pong</div>
-        <div class="hr-cuadra">C Garañones/RP</div>
+      <div class="horse-scene-img" style="background-image:url('flyer.jpg');background-position:80% center;"></div>
+      <div class="horse-scene-gradient" style="background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.1) 35%,rgba(239,68,68,0.1) 55%,rgba(0,0,0,0.97) 100%);"></div>
+      <div class="horse-reveal-content">
+        <div class="hr-label">🐯 Contendiente #3 · El Sorpresa</div>
+        <div class="hr-name" style="color:#f87171">EL PING PONG</div>
+        <div class="hr-cuadra" style="border-color:rgba(239,68,68,0.5);color:#f87171;background:rgba(239,68,68,0.15)">C Garañones/RP</div>
         <div class="hr-bar-wrap">
-          <div class="hr-tag">Rating de Velocidad</div>
-          <div class="hr-bar-track"><div class="hr-bar-fill" style="width:86%"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.4);margin-top:0.3rem"><span>0</span><span>86 / 100</span></div>
+          <div class="hr-tag">Velocidad Rating</div>
+          <div class="hr-bar-track"><div class="hr-bar-fill" data-width="86" style="background:linear-gradient(90deg,#ef4444,#f97316)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:rgba(240,240,240,0.45);margin-top:0.3rem"><span>Velocidad</span><span style="color:#f87171;font-weight:800">86/100</span></div>
         </div>
       </div>
     </div>
@@ -448,7 +446,7 @@ function animateParticles() {
 animateParticles();
 
 // AD CONTROLLER
-const SCENE_DURATIONS = [5000, 4500, 4500, 4500, 5000, 5500, 0]; // 0 = stop on QR
+const SCENE_DURATIONS = [2500, 2800, 2800, 2800, 3000, 3200, 0]; // 0 = stop on QR
 const scenes = document.querySelectorAll('.scene');
 const dots = document.querySelectorAll('.s-dot');
 const progressFill = document.getElementById('progressFill');
@@ -480,6 +478,12 @@ function showScene(idx) {
   dots[idx].classList.add('active');
   currentScene = idx;
   durationLabel.textContent = `Escena ${idx + 1} de 7 · ${sceneNames[idx]}`;
+  // Trigger hype bar fills
+  setTimeout(() => {
+    scenes[idx].querySelectorAll('.hr-bar-fill[data-width]').forEach(el => {
+      el.style.width = el.dataset.width + '%';
+    });
+  }, 350);
 
   // Gold flash transition
   goldFlash.style.transition = 'opacity 0.1s';
