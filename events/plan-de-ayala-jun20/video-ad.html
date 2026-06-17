@@ -42,8 +42,8 @@ body{background:#111;display:flex;flex-direction:column;align-items:center;justi
 ───────────────────────────────────── */
 #s1{background:#fff}
 #s1 .bg-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
-#s1 .bg-l{background:url(h1.jpg) 50% 20%/cover no-repeat;filter:brightness(.85) saturate(1.1);animation:s1zoom 6s ease-out both}
-#s1 .bg-r{background:url(h2.jpg) 50% 20%/cover no-repeat;transform:scaleX(-1);filter:brightness(.85) saturate(1.1);animation:s1zoom 6s ease-out both}
+#s1 .bg-l{background:url(h1.jpg) center bottom/contain no-repeat #fff;filter:brightness(.88) saturate(1.1);animation:s1zoom 6s ease-out both}
+#s1 .bg-r{background:url(h2.jpg) center bottom/contain no-repeat #fff;transform:scaleX(-1);filter:brightness(.88) saturate(1.1);animation:s1zoom 6s ease-out both}
 #s1 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.65) 40%,rgba(255,255,255,.35) 60%,#fff 100%)}
 #s1 .s1-center{position:relative;z-index:5}
 #s1 .s1-org{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);animation:fadeUp .6s .3s both}
@@ -60,7 +60,7 @@ body{background:#111;display:flex;flex-direction:column;align-items:center;justi
    SCENE 2 — HORSE 1 (3D REVEAL)
 ───────────────────────────────────── */
 #s2{background:#fff;perspective:900px}
-#s2 .bg{position:absolute;inset:0;background:url(h1.jpg) 50% 15%/cover no-repeat;animation:kbZ2 5s ease-out both}
+#s2 .bg{position:absolute;inset:0;background:url(h1.jpg) center bottom/contain no-repeat #fff;animation:kbZ2 5s ease-out both}
 #s2 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.5) 35%,rgba(255,255,255,.15) 60%,rgba(255,255,255,.6) 100%)}
 #s2 .card-3d{
   position:relative;z-index:5;
@@ -97,7 +97,7 @@ body{background:#111;display:flex;flex-direction:column;align-items:center;justi
    SCENE 3 — HORSE 2 (MIRROR 3D)
 ───────────────────────────────────── */
 #s3{background:#fff;perspective:900px}
-#s3 .bg{position:absolute;inset:0;background:url(h2.jpg) 50% 15%/cover no-repeat;transform:scaleX(-1);animation:kbZ2 5s ease-out both}
+#s3 .bg{position:absolute;inset:0;background:url(h2.jpg) center bottom/contain no-repeat #fff;transform:scaleX(-1);animation:kbZ2 5s ease-out both}
 #s3 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.5) 35%,rgba(255,255,255,.15) 60%,rgba(255,255,255,.6) 100%)}
 #s3 .card-3d{
   position:relative;z-index:5;
@@ -122,8 +122,8 @@ body{background:#111;display:flex;flex-direction:column;align-items:center;justi
 ───────────────────────────────────── */
 #s4{background:#fff}
 #s4 .bg-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
-#s4 .bg-l{background:url(h1.jpg) 50% 20%/cover no-repeat;filter:brightness(.9) saturate(1.1)}
-#s4 .bg-r{background:url(h2.jpg) 50% 20%/cover no-repeat;transform:scaleX(-1);filter:brightness(.9) saturate(1.1)}
+#s4 .bg-l{background:url(h1.jpg) center bottom/contain no-repeat #fff;filter:brightness(.92) saturate(1.1)}
+#s4 .bg-r{background:url(h2.jpg) center bottom/contain no-repeat #fff;transform:scaleX(-1);filter:brightness(.92) saturate(1.1)}
 #s4 .bg-over{position:absolute;inset:0;background:linear-gradient(0deg,#fff 0%,rgba(255,255,255,.55) 30%,rgba(255,255,255,.25) 55%,rgba(255,255,255,.55) 80%,#fff 100%)}
 #s4 .split-line{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(180deg,transparent,var(--blue) 20%,var(--gold) 50%,var(--blue) 80%,transparent);z-index:10;box-shadow:0 0 20px rgba(0,71,171,.4);animation:lineDrop .5s .2s both}
 #s4 .diamond{
@@ -181,8 +181,8 @@ body{background:#111;display:flex;flex-direction:column;align-items:center;justi
    SCENE 6 — FECHA / DETAILS
 ───────────────────────────────────── */
 #s6{background:#fff}
-#s6 .bg-photo{position:absolute;inset:0;background:url(h1.jpg) 50% 15%/cover no-repeat;opacity:.07;animation:kbZ2 5s ease-out both}
-#s6 .bg-photo2{position:absolute;inset:0;background:url(h2.jpg) 50% 15%/cover no-repeat;transform:scaleX(-1);opacity:.07;animation:kbZ2 5s ease-out both}
+#s6 .bg-photo{position:absolute;inset:0;background:url(h1.jpg) center bottom/contain no-repeat #fff;opacity:.1;animation:kbZ2 5s ease-out both}
+#s6 .bg-photo2{position:absolute;inset:0;background:url(h2.jpg) center bottom/contain no-repeat #fff;transform:scaleX(-1);opacity:.1;animation:kbZ2 5s ease-out both}
 #s6 .content{position:relative;z-index:5;padding:1.5rem}
 #s6 .pre{font-family:'Inter',sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(0,71,171,.6);animation:fadeUp .4s .2s both}
 #s6 .big-date{font-size:clamp(3rem,13vw,5.5rem);line-height:.82;color:var(--black);animation:fadeUp .5s .35s both}
