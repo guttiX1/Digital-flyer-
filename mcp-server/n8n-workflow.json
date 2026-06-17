@@ -1,0 +1,219 @@
+{
+  "name": "CarrerasOS — Auto Merch Pipeline",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Schedule — Daily Trend Scan",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": { "interval": [{ "field": "hours", "hoursInterval": 6 }] }
+      },
+      "position": [100, 300]
+    },
+    {
+      "id": "fb-hunter",
+      "name": "Facebook Hunter",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v19.0/search",
+        "queryParameters": {
+          "parameters": [
+            { "name": "q", "value": "carreras de caballos" },
+            { "name": "type", "value": "post" },
+            { "name": "fields", "value": "message,reactions.summary(true),shares,created_time" },
+            { "name": "access_token", "value": "={{ $env.FB_ACCESS_TOKEN }}" }
+          ]
+        }
+      },
+      "position": [300, 200]
+    },
+    {
+      "id": "tiktok-hunter",
+      "name": "TikTok Hashtag Monitor",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "https://open.tiktokapis.com/v2/research/hashtag/query/",
+        "queryParameters": {
+          "parameters": [
+            { "name": "hashtag_name", "value": "carrerasdecaballos" },
+            { "name": "fields", "value": "id,video_count,view_count" }
+          ]
+        },
+        "headers": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{ $env.TIKTOK_TOKEN }}" }
+          ]
+        }
+      },
+      "position": [300, 400]
+    },
+    {
+      "id": "merge-sources",
+      "name": "Merge Data Sources",
+      "type": "n8n-nodes-base.merge",
+      "parameters": { "mode": "combine", "combinationMode": "multiplex" },
+      "position": [500, 300]
+    },
+    {
+      "id": "extract-entities",
+      "name": "Claude — Extract Entities & Score",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "headers": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "body": {
+          "model": "claude-haiku-4-5-20251001",
+          "max_tokens": 1024,
+          "messages": [{
+            "role": "user",
+            "content": "Extract horse names, cuadra names, and trending phrases from these horse racing posts. Return JSON array: [{topic, type, mentions, sentiment}]\n\nPosts:\n{{ JSON.stringify($json.data) }}"
+          }]
+        }
+      },
+      "position": [700, 300]
+    },
+    {
+      "id": "upsert-trends",
+      "name": "Seed Trends to CarrerasOS DB",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/trends/seed",
+        "body": "={{ $json.content[0].text }}"
+      },
+      "position": [900, 300]
+    },
+    {
+      "id": "threshold-check",
+      "name": "Score >= 300? (Worth Designing)",
+      "type": "n8n-nodes-base.if",
+      "parameters": {
+        "conditions": {
+          "number": [{ "value1": "={{ $json.score }}", "operation": "largerEqual", "value2": 300 }]
+        }
+      },
+      "position": [1100, 300]
+    },
+    {
+      "id": "auto-brief",
+      "name": "Auto-Generate Design Brief",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/designs/generate",
+        "body": {
+          "topic": "={{ $json.topic }}",
+          "style": "distressed_racing",
+          "product_types": ["shirt", "hoodie"]
+        }
+      },
+      "position": [1300, 200]
+    },
+    {
+      "id": "notify-owner",
+      "name": "Notify — Review Brief",
+      "type": "n8n-nodes-base.emailSend",
+      "parameters": {
+        "toEmail": "gutti925@gmail.com",
+        "subject": "🐎 New Design Brief Ready — {{ $json.topic }}",
+        "text": "CarrerasOS auto-generated a design brief for: {{ $json.topic }}\n\nScore: {{ $json.score }}\nBrief: {{ $json.brief }}\n\nImage prompt for Kittl/FLUX:\n{{ $json.image_prompt }}\n\nApprove or modify in your Claude Desktop chat."
+      },
+      "position": [1500, 200]
+    },
+    {
+      "id": "sales-check",
+      "name": "Weekly Sales Feedback",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": { "interval": [{ "field": "weeks", "weeksInterval": 1 }] }
+      },
+      "position": [100, 600]
+    },
+    {
+      "id": "pull-sales",
+      "name": "Pull Etsy Sales",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "https://openapi.etsy.com/v3/application/shops/{{ $env.ETSY_SHOP_ID }}/transactions",
+        "headers": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ETSY_API_KEY }}" },
+            { "name": "Authorization", "value": "Bearer {{ $env.ETSY_ACCESS_TOKEN }}" }
+          ]
+        }
+      },
+      "position": [300, 600]
+    },
+    {
+      "id": "store-sales",
+      "name": "Store Sales in CarrerasOS DB",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/sales/sync",
+        "body": "={{ JSON.stringify($json) }}"
+      },
+      "position": [500, 600]
+    },
+    {
+      "id": "sales-report",
+      "name": "Claude — Weekly Insights",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "headers": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "body": {
+          "model": "claude-sonnet-4-6",
+          "max_tokens": 512,
+          "messages": [{
+            "role": "user",
+            "content": "You're the CarrerasOS sales analyst. Give a 3-bullet weekly summary from these sales. What's winning, what to drop, what to make more of.\n\nSales: {{ JSON.stringify($json) }}"
+          }]
+        }
+      },
+      "position": [700, 600]
+    },
+    {
+      "id": "email-weekly",
+      "name": "Weekly Report Email",
+      "type": "n8n-nodes-base.emailSend",
+      "parameters": {
+        "toEmail": "gutti925@gmail.com",
+        "subject": "📊 CarrerasOS Weekly — What's Selling",
+        "text": "={{ $json.content[0].text }}"
+      },
+      "position": [900, 600]
+    }
+  ],
+  "connections": {
+    "Schedule — Daily Trend Scan": { "main": [[{ "node": "fb-hunter" }, { "node": "tiktok-hunter" }]] },
+    "Facebook Hunter":             { "main": [[{ "node": "merge-sources" }]] },
+    "TikTok Hashtag Monitor":      { "main": [[{ "node": "merge-sources" }]] },
+    "Merge Data Sources":          { "main": [[{ "node": "extract-entities" }]] },
+    "Claude — Extract Entities & Score": { "main": [[{ "node": "upsert-trends" }]] },
+    "Seed Trends to CarrerasOS DB":      { "main": [[{ "node": "threshold-check" }]] },
+    "Score >= 300? (Worth Designing)":   { "true": [[{ "node": "auto-brief" }]] },
+    "Auto-Generate Design Brief":        { "main": [[{ "node": "notify-owner" }]] },
+    "Weekly Sales Feedback":             { "main": [[{ "node": "pull-sales" }]] },
+    "Pull Etsy Sales":                   { "main": [[{ "node": "store-sales" }]] },
+    "Store Sales in CarrerasOS DB":      { "main": [[{ "node": "sales-report" }]] },
+    "Claude — Weekly Insights":          { "main": [[{ "node": "email-weekly" }]] }
+  }
+}

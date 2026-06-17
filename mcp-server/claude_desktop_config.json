@@ -1,0 +1,22 @@
+{
+  "_comment": "Paste the 'carrerasos' block into your Claude Desktop config at:",
+  "_mac":     "~/Library/Application Support/Claude/claude_desktop_config.json",
+  "_windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+
+  "mcpServers": {
+    "carrerasos": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/Digital-flyer-/mcp-server/dist/index.js"],
+      "env": {
+        "ANTHROPIC_API_KEY": "YOUR_KEY_HERE",
+        "PRINTIFY_API_KEY": "",
+        "PRINTIFY_SHOP_ID": "",
+        "ETSY_API_KEY": "",
+        "ETSY_SHOP_ID": "",
+        "ETSY_ACCESS_TOKEN": "",
+        "DB_PATH": "/ABSOLUTE/PATH/TO/Digital-flyer-/carrerasos.db",
+        "DESIGNS_DIR": "/ABSOLUTE/PATH/TO/Digital-flyer-/output/designs"
+      }
+    }
+  }
+}
