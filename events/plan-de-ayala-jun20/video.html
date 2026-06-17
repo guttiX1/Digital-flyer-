@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>GRAN FINAL — Plan de Ayala 20 de Junio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pink:   #ff2d9f;
+    --green:  #39ff14;
+    --purple: #7c3aed;
+    --gold:   #f5c518;
+    --white:  #ffffff;
+    --black:  #000000;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  /* ── STAGE ── */
+  #stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── SCENES ── */
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+  }
+  .scene.active { opacity: 1; pointer-events: auto; }
+
+  /* ── FLASH OVERLAY ── */
+  #flash {
+    position: fixed; inset: 0; z-index: 999;
+    background: #fff; opacity: 0; pointer-events: none;
+    transition: opacity 0.05s;
+  }
+
+  /* ── SHAKE ── */
+  @keyframes shake {
+    0%,100%{transform:translate(0,0)}
+    20%{transform:translate(-6px,4px)}
+    40%{transform:translate(6px,-4px)}
+    60%{transform:translate(-4px,6px)}
+    80%{transform:translate(4px,-2px)}
+  }
+  .shake { animation: shake 0.3s ease; }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 0 — COUNTDOWN (black, pulse dot)     */
+  /* ─────────────────────────────────────────── */
+  #s0 { background: #000; flex-direction: column; gap: 24px; }
+  #s0 .pulse-ring {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 3px solid #fff;
+    animation: pulse-ring 0.8s ease-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  #s0 .tagline {
+    color: #666; font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase;
+    animation: fadeIn 0.6s ease;
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 1 — DATE SLAM                        */
+  /* ─────────────────────────────────────────── */
+  #s1 { background: #000; }
+  #s1 .date-text {
+    font-size: clamp(80px, 22vw, 220px);
+    font-weight: 900; color: #fff;
+    letter-spacing: -0.04em; line-height: 0.85;
+    text-align: center;
+    animation: slamIn 0.25s cubic-bezier(.17,.67,.3,1.4) forwards;
+  }
+  #s1 .date-sub {
+    font-size: clamp(16px, 3.5vw, 32px); color: #555;
+    letter-spacing: 0.5em; text-transform: uppercase; text-align: center;
+    margin-top: 12px;
+    animation: fadeUp 0.4s 0.2s ease both;
+  }
+  #s1 .wrap { flex-direction: column; display: flex; align-items: center; }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 2 — LOCATION                         */
+  /* ─────────────────────────────────────────── */
+  #s2 { background: #0a0a0a; flex-direction: column; gap: 8px; }
+  #s2 .loc-label {
+    font-size: clamp(11px, 2vw, 14px); color: #444;
+    letter-spacing: 0.45em; text-transform: uppercase;
+    animation: fadeIn 0.3s ease;
+  }
+  #s2 .loc-name {
+    font-size: clamp(48px, 14vw, 140px); font-weight: 900;
+    color: #fff; letter-spacing: -0.03em; text-align: center;
+    animation: slamIn 0.3s cubic-bezier(.17,.67,.3,1.4) forwards;
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 3 — HORSE 1 (La Mami)               */
+  /* ─────────────────────────────────────────── */
+  #s3 { background: #000; overflow: hidden; }
+  #s3 .bg-color {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0d0019 0%, #1a0033 50%, #0d0019 100%);
+  }
+  #s3 .speed-lines {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  #s3 .speed-line {
+    position: absolute; top: 50%; right: 0;
+    height: 1px; background: linear-gradient(to left, transparent, var(--pink));
+    transform-origin: right center;
+    animation: speedLine 0.4s ease-out forwards;
+  }
+  @keyframes speedLine {
+    from { width: 0; opacity: 1; }
+    to   { width: 80%; opacity: 0; }
+  }
+  #s3 .horse-img {
+    position: absolute; right: -5%; bottom: 0;
+    height: 90%; object-fit: contain;
+    animation: rideIn 0.5s cubic-bezier(.17,.67,.3,1.2) forwards;
+    filter: drop-shadow(0 0 40px rgba(255,45,159,0.6));
+  }
+  @keyframes rideIn {
+    from { transform: translateX(40%) scale(0.85); opacity: 0; }
+    to   { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  #s3 .horse-info {
+    position: absolute; left: 5%; bottom: 10%;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  #s3 .horse-name {
+    font-size: clamp(52px, 14vw, 130px); font-weight: 900;
+    color: var(--pink); letter-spacing: -0.03em; line-height: 0.9;
+    text-shadow: 0 0 60px rgba(255,45,159,0.8);
+    animation: slamLeft 0.3s 0.2s cubic-bezier(.17,.67,.3,1.3) both;
+  }
+  #s3 .horse-sub {
+    font-size: clamp(14px, 3vw, 22px); color: var(--green);
+    letter-spacing: 0.35em; text-transform: uppercase;
+    animation: fadeUp 0.4s 0.35s ease both;
+  }
+  #s3 .team-tag {
+    font-size: clamp(11px, 2vw, 15px); color: #666;
+    letter-spacing: 0.5em; text-transform: uppercase;
+    animation: fadeIn 0.4s 0.5s ease both;
+  }
+  @keyframes slamLeft {
+    from { transform: translateX(-60px); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 4 — HORSE 2 (La Reyna)              */
+  /* ─────────────────────────────────────────── */
+  #s4 { background: #000; overflow: hidden; }
+  #s4 .bg-color {
+    position: absolute; inset: 0;
+    background: linear-gradient(225deg, #0a0019 0%, #1a0050 50%, #0a0019 100%);
+  }
+  #s4 .horse-img {
+    position: absolute; left: -5%; bottom: 0;
+    height: 90%; object-fit: contain;
+    animation: rideInLeft 0.5s cubic-bezier(.17,.67,.3,1.2) forwards;
+    filter: drop-shadow(0 0 40px rgba(124,58,237,0.7)) scaleX(-1);
+    transform: scaleX(-1);
+  }
+  @keyframes rideInLeft {
+    from { transform: scaleX(-1) translateX(-40%) scale(0.85); opacity: 0; }
+    to   { transform: scaleX(-1) translateX(0) scale(1); opacity: 1; }
+  }
+  #s4 .horse-info {
+    position: absolute; right: 5%; bottom: 10%;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  }
+  #s4 .horse-name {
+    font-size: clamp(52px, 14vw, 130px); font-weight: 900;
+    color: var(--gold); letter-spacing: -0.03em; line-height: 0.9;
+    text-shadow: 0 0 60px rgba(245,197,24,0.8);
+    text-align: right;
+    animation: slamRight 0.3s 0.2s cubic-bezier(.17,.67,.3,1.3) both;
+  }
+  #s4 .horse-sub {
+    font-size: clamp(14px, 3vw, 22px); color: var(--purple);
+    letter-spacing: 0.35em; text-transform: uppercase;
+    animation: fadeUp 0.4s 0.35s ease both;
+  }
+  #s4 .team-tag {
+    font-size: clamp(11px, 2vw, 15px); color: #666;
+    letter-spacing: 0.5em; text-transform: uppercase;
+    animation: fadeIn 0.4s 0.5s ease both;
+  }
+  @keyframes slamRight {
+    from { transform: translateX(60px); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 5 — DUEL SPLIT                       */
+  /* ─────────────────────────────────────────── */
+  #s5 { background: #000; overflow: hidden; }
+  #s5 .left-half {
+    position: absolute; left: 0; top: 0; width: 50%; height: 100%;
+    background: linear-gradient(135deg, #1a0033, #0d001a);
+    display: flex; align-items: flex-end; justify-content: center;
+    animation: slideFromLeft 0.35s cubic-bezier(.17,.67,.3,1.2) both;
+  }
+  #s5 .right-half {
+    position: absolute; right: 0; top: 0; width: 50%; height: 100%;
+    background: linear-gradient(225deg, #1a0050, #0a0019);
+    display: flex; align-items: flex-end; justify-content: center;
+    animation: slideFromRight 0.35s cubic-bezier(.17,.67,.3,1.2) both;
+  }
+  @keyframes slideFromLeft {
+    from { transform: translateX(-100%); } to { transform: translateX(0); }
+  }
+  @keyframes slideFromRight {
+    from { transform: translateX(100%); } to { transform: translateX(0); }
+  }
+  #s5 .left-half img {
+    height: 88%; object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(255,45,159,0.7));
+    transform: scaleX(1);
+  }
+  #s5 .right-half img {
+    height: 88%; object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(124,58,237,0.7));
+    transform: scaleX(-1);
+  }
+  #s5 .vs-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; display: flex; flex-direction: column; align-items: center;
+    animation: vsSlam 0.25s 0.3s cubic-bezier(.17,.67,.3,1.5) both;
+  }
+  #s5 .vs-text {
+    font-size: clamp(70px, 18vw, 180px); font-weight: 900;
+    color: #fff; letter-spacing: -0.05em; line-height: 1;
+    text-shadow:
+      0 0 30px rgba(255,255,255,0.9),
+      0 0 80px rgba(255,255,255,0.5);
+  }
+  @keyframes vsSlam {
+    from { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+    to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+  #s5 .divider {
+    position: absolute; top: 0; left: 50%; width: 2px; height: 100%;
+    background: linear-gradient(to bottom, transparent, #fff 30%, #fff 70%, transparent);
+    z-index: 9;
+  }
+  #s5 .left-label {
+    position: absolute; top: 8%; left: 4%;
+    font-size: clamp(14px, 3vw, 20px); color: var(--pink);
+    letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;
+    animation: fadeIn 0.4s 0.5s ease both;
+  }
+  #s5 .right-label {
+    position: absolute; top: 8%; right: 4%;
+    font-size: clamp(14px, 3vw, 20px); color: var(--gold);
+    letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; text-align: right;
+    animation: fadeIn 0.4s 0.5s ease both;
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 6 — GRAN FINAL                       */
+  /* ─────────────────────────────────────────── */
+  #s6 { background: #000; flex-direction: column; gap: 0; overflow: hidden; }
+  #s6 .gf-top {
+    font-size: clamp(12px, 2.5vw, 18px); color: #444;
+    letter-spacing: 0.6em; text-transform: uppercase;
+    animation: fadeIn 0.3s ease both;
+  }
+  #s6 .gf-gran {
+    font-size: clamp(80px, 22vw, 240px); font-weight: 900;
+    color: var(--white); letter-spacing: -0.04em; line-height: 0.88;
+    animation: slamIn 0.3s cubic-bezier(.17,.67,.3,1.4) both;
+  }
+  #s6 .gf-final {
+    font-size: clamp(80px, 22vw, 240px); font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--purple), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.04em; line-height: 0.88;
+    animation: slamIn 0.3s 0.15s cubic-bezier(.17,.67,.3,1.4) both;
+  }
+  #s6 .gf-sub {
+    font-size: clamp(13px, 2.5vw, 18px); color: #555;
+    letter-spacing: 0.4em; text-transform: uppercase; margin-top: 20px;
+    animation: fadeUp 0.4s 0.3s ease both;
+  }
+  #s6 .lightning {
+    position: absolute; inset: 0; pointer-events: none;
+    animation: lightningFlash 2s 0.5s ease infinite;
+  }
+  @keyframes lightningFlash {
+    0%,90%,100% { opacity: 0; }
+    92% { opacity: 0.06; }
+    94% { opacity: 0; }
+    96% { opacity: 0.04; }
+  }
+  #s6 .lightning::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.15), transparent 70%);
+  }
+
+  /* ─────────────────────────────────────────── */
+  /* SCENE 7 — CINEMATIC END CARD               */
+  /* ─────────────────────────────────────────── */
+  #s7 { background: #000; flex-direction: column; align-items: center; justify-content: center; }
+  #s7 .end-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 25% 50%, rgba(255,45,159,0.12), transparent),
+      radial-gradient(ellipse 60% 50% at 75% 50%, rgba(124,58,237,0.12), transparent);
+  }
+  #s7 .horses-row {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    height: 65%; overflow: hidden;
+  }
+  #s7 .horses-row .h-left {
+    height: 100%; object-fit: contain;
+    margin-left: -2%;
+    filter: drop-shadow(0 0 50px rgba(255,45,159,0.5));
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  #s7 .horses-row .h-right {
+    height: 100%; object-fit: contain;
+    transform: scaleX(-1);
+    margin-right: -2%;
+    filter: drop-shadow(0 0 50px rgba(124,58,237,0.5));
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  #s7 .end-content {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    text-align: center;
+  }
+  #s7 .end-date {
+    font-size: clamp(11px, 2vw, 15px); color: #555;
+    letter-spacing: 0.55em; text-transform: uppercase;
+    animation: fadeIn 0.4s 0.2s ease both;
+  }
+  #s7 .end-event {
+    font-size: clamp(36px, 10vw, 100px); font-weight: 900;
+    color: #fff; letter-spacing: -0.03em; line-height: 0.9; text-align: center;
+    animation: slamIn 0.35s 0.3s cubic-bezier(.17,.67,.3,1.3) both;
+  }
+  #s7 .end-vs {
+    display: flex; align-items: center; gap: 16px; margin-top: 4px;
+    animation: fadeUp 0.4s 0.5s ease both;
+  }
+  #s7 .end-team1 {
+    font-size: clamp(16px, 4vw, 36px); font-weight: 800;
+    color: var(--pink); letter-spacing: 0.02em;
+  }
+  #s7 .end-vsword {
+    font-size: clamp(12px, 2.5vw, 20px); color: #444;
+    letter-spacing: 0.2em; font-weight: 600;
+  }
+  #s7 .end-team2 {
+    font-size: clamp(16px, 4vw, 36px); font-weight: 800;
+    color: var(--gold); letter-spacing: 0.02em;
+  }
+  #s7 .end-loc {
+    font-size: clamp(11px, 2vw, 14px); color: #444;
+    letter-spacing: 0.4em; text-transform: uppercase; margin-top: 8px;
+    animation: fadeIn 0.5s 0.65s ease both;
+  }
+  #s7 .cta-btn {
+    margin-top: 24px; padding: 14px 36px; border-radius: 100px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #fff; font-size: clamp(13px, 2vw, 17px); font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; border: none;
+    cursor: pointer;
+    animation: fadeUp 0.5s 0.8s ease both;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  #s7 .cta-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 40px rgba(255,45,159,0.5);
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress {
+    position: fixed; bottom: 0; left: 0; height: 2px; z-index: 100;
+    background: linear-gradient(to right, var(--pink), var(--purple), var(--gold));
+    transition: width 0.12s linear;
+  }
+
+  /* ── SKIP ── */
+  #skip-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5); padding: 8px 20px; border-radius: 100px;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; backdrop-filter: blur(10px);
+    transition: all 0.2s;
+  }
+  #skip-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ── REPLAY ── */
+  #replay-btn {
+    display: none;
+    position: fixed; bottom: 20px; right: 20px; z-index: 200;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7); padding: 8px 20px; border-radius: 100px;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; backdrop-filter: blur(10px);
+  }
+
+  /* ── SHARED KEYFRAMES ── */
+  @keyframes slamIn {
+    from { transform: scale(1.6); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+  @keyframes fadeUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* ── NOISE overlay ── */
+  #noise {
+    position: fixed; inset: 0; z-index: 50; pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* ── SOUND NOTE ── */
+  #soundNote {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.4); padding: 6px 18px; border-radius: 100px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    backdrop-filter: blur(8px); z-index: 100;
+    animation: fadeIn 0.5s 1s ease both;
+  }
+
+  /* Cinematic letterbox bars */
+  #bars-top, #bars-bot {
+    position: fixed; left: 0; right: 0; z-index: 60;
+    background: #000; pointer-events: none;
+  }
+  #bars-top { top: 0; height: clamp(20px, 4vh, 40px); }
+  #bars-bot { bottom: 0; height: clamp(20px, 4vh, 40px); }
+</style>
+</head>
+<body>
+
+<div id="flash"></div>
+<div id="noise"></div>
+<div id="bars-top"></div>
+<div id="bars-bot"></div>
+<div id="progress" style="width:0%"></div>
+<div id="soundNote">🔊 Sube el volumen</div>
+
+<div id="stage">
+
+  <!-- S0: Intro pulse -->
+  <div class="scene active" id="s0">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="pulse-ring"></div>
+      <div class="tagline">20 de junio · Plan de Ayala</div>
+    </div>
+  </div>
+
+  <!-- S1: Date slam -->
+  <div class="scene" id="s1">
+    <div class="wrap">
+      <div class="date-text">20</div>
+      <div class="date-sub">de junio</div>
+    </div>
+  </div>
+
+  <!-- S2: Location -->
+  <div class="scene" id="s2">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <div class="loc-label">Rancho</div>
+      <div class="loc-name">PLAN DE<br>AYALA</div>
+    </div>
+  </div>
+
+  <!-- S3: La Mami -->
+  <div class="scene" id="s3">
+    <div class="bg-color"></div>
+    <div class="speed-lines" id="speedLines3"></div>
+    <img class="horse-img" src="h1.jpg" alt="La Mami">
+    <div class="horse-info">
+      <div class="team-tag">Nueva Tía</div>
+      <div class="horse-name">LA<br>MAMI</div>
+      <div class="horse-sub">La retadora</div>
+    </div>
+  </div>
+
+  <!-- S4: La Reyna -->
+  <div class="scene" id="s4">
+    <div class="bg-color"></div>
+    <img class="horse-img" src="h2.jpg" alt="La Reyna">
+    <div class="horse-info">
+      <div class="team-tag">Carmelita</div>
+      <div class="horse-name">LA<br>REYNA</div>
+      <div class="horse-sub">La campeona</div>
+    </div>
+  </div>
+
+  <!-- S5: Duel split -->
+  <div class="scene" id="s5">
+    <div class="left-half">
+      <img src="h1.jpg" alt="La Mami">
+    </div>
+    <div class="right-half">
+      <img src="h2.jpg" alt="La Reyna">
+    </div>
+    <div class="divider"></div>
+    <div class="left-label">NVA. TÍA<br><span style="font-size:0.6em;color:#555;letter-spacing:0.4em">LA MAMI</span></div>
+    <div class="right-label">CARMELITA<br><span style="font-size:0.6em;color:#555;letter-spacing:0.4em">LA REYNA</span></div>
+    <div class="vs-center">
+      <div class="vs-text">VS</div>
+    </div>
+  </div>
+
+  <!-- S6: Gran Final -->
+  <div class="scene" id="s6">
+    <div class="lightning"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div class="gf-top">La disputa del año</div>
+      <div class="gf-gran">GRAN</div>
+      <div class="gf-final">FINAL</div>
+      <div class="gf-sub">Plan de Ayala · 20 de Junio</div>
+    </div>
+  </div>
+
+  <!-- S7: End card -->
+  <div class="scene" id="s7">
+    <div class="end-bg"></div>
+    <div class="horses-row">
+      <img class="h-left" src="h1.jpg" alt="La Mami">
+      <img class="h-right" src="h2.jpg" alt="La Reyna">
+    </div>
+    <div class="end-content">
+      <div class="end-date">20 de junio · Gran Final</div>
+      <div class="end-event">CARRERAS<br>DE CABALLOS</div>
+      <div class="end-vs">
+        <span class="end-team1">NVA. TÍA</span>
+        <span class="end-vsword">vs</span>
+        <span class="end-team2">CARMELITA</span>
+      </div>
+      <div class="end-loc">Plan de Ayala · Derby de Ponis 50 V.C.</div>
+      <a href="../../../index.html" class="cta-btn">Ver Programa Completo</a>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+
+<button id="skip-btn" onclick="goToScene(7)">Saltar →</button>
+<button id="replay-btn" onclick="location.reload()">↩ Ver de Nuevo</button>
+
+<script>
+const SCENES = [
+  { id: 's0', dur: 1200 },
+  { id: 's1', dur: 900  },
+  { id: 's2', dur: 900  },
+  { id: 's3', dur: 1400 },
+  { id: 's4', dur: 1400 },
+  { id: 's5', dur: 2200 },
+  { id: 's6', dur: 2000 },
+  { id: 's7', dur: Infinity },
+];
+
+const TOTAL_TIME = SCENES.slice(0,-1).reduce((a,b) => a + b.dur, 0);
+let current = 0;
+let elapsed = 0;
+let timer = null;
+
+const flash = document.getElementById('flash');
+
+function doFlash(intensity = 0.9) {
+  flash.style.opacity = intensity;
+  flash.style.transition = 'opacity 0.04s';
+  setTimeout(() => {
+    flash.style.opacity = 0;
+    flash.style.transition = 'opacity 0.25s';
+  }, 40);
+}
+
+function shakeStage() {
+  const s = document.getElementById('stage');
+  s.classList.remove('shake');
+  void s.offsetWidth;
+  s.classList.add('shake');
+}
+
+function buildSpeedLines(containerId, count = 12) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  c.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const l = document.createElement('div');
+    l.className = 'speed-line';
+    l.style.top = (Math.random() * 100) + '%';
+    l.style.animationDelay = (Math.random() * 0.3) + 's';
+    l.style.animationDuration = (0.3 + Math.random() * 0.3) + 's';
+    l.style.opacity = Math.random() * 0.6 + 0.2;
+    c.appendChild(l);
+  }
+}
+
+function goToScene(idx) {
+  if (idx >= SCENES.length) return;
+  clearTimeout(timer);
+
+  const prev = document.getElementById(SCENES[current].id);
+  if (prev) prev.classList.remove('active');
+
+  current = idx;
+  const next = document.getElementById(SCENES[current].id);
+  if (next) next.classList.add('active');
+
+  // Scene entry effects
+  if (idx === 1 || idx === 2 || idx === 6) { doFlash(0.8); shakeStage(); }
+  if (idx === 3) { doFlash(0.6); buildSpeedLines('speedLines3', 14); }
+  if (idx === 4) { doFlash(0.6); shakeStage(); }
+  if (idx === 5) { doFlash(0.95); shakeStage(); }
+
+  // Progress bar
+  if (idx < SCENES.length - 1) {
+    const pct = (elapsed / TOTAL_TIME) * 100;
+    document.getElementById('progress').style.width = Math.min(pct, 98) + '%';
+  } else {
+    document.getElementById('progress').style.width = '100%';
+    document.getElementById('skip-btn').style.display = 'none';
+    document.getElementById('replay-btn').style.display = 'block';
+  }
+
+  if (SCENES[current].dur !== Infinity) {
+    elapsed += SCENES[current].dur;
+    timer = setTimeout(() => goToScene(current + 1), SCENES[current].dur);
+  }
+}
+
+// Extra mid-scene flashes for intensity on duel screen
+function extraFlashes() {
+  setTimeout(() => { if (current === 5) { doFlash(0.3); } }, 800);
+  setTimeout(() => { if (current === 5) { doFlash(0.2); } }, 1400);
+}
+
+// Start
+window.addEventListener('load', () => {
+  timer = setTimeout(() => {
+    goToScene(1);
+    setTimeout(extraFlashes, 2000 + 900 + 900);
+    setTimeout(() => { if (current === 5) doFlash(0.4); }, 2000+900+900+1400+1400+800);
+  }, SCENES[0].dur);
+});
+
+// Tap to advance
+document.getElementById('stage').addEventListener('click', () => {
+  if (current < SCENES.length - 1) goToScene(current + 1);
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') goToScene(current + 1);
+  if (e.key === 'r' || e.key === 'R') location.reload();
+});
+</script>
+</body>
+</html>
