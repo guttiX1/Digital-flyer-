@@ -26,21 +26,23 @@ body{background:#e8ecf4;display:flex;flex-direction:column;align-items:center;ju
 .tc-tag{font-family:'Inter',sans-serif;font-size:clamp(.25rem,.78vw,.38rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.32);font-style:italic}
 
 /* PHOTO PANELS */
-.panel-clip-l{position:absolute;top:21%;bottom:27%;left:0;width:50%;overflow:hidden;pointer-events:none}
-.panel-clip-r{position:absolute;top:21%;bottom:27%;right:0;width:50%;overflow:hidden;pointer-events:none}
-.panel-l,.panel-r{position:absolute;inset:0;overflow:visible}
+.panel-clip-l{position:absolute;top:21%;bottom:27%;left:0;width:50%;overflow:hidden;pointer-events:none;background:#fff}
+.panel-clip-r{position:absolute;top:21%;bottom:27%;right:0;width:50%;overflow:hidden;pointer-events:none;background:#fff}
+.panel-l,.panel-r{position:absolute;inset:0}
 
-.panel-l .horse{
-  position:absolute;inset:-4% -10% -4% -18%;
-  background:url(h1.jpg) 60% 12%/contain no-repeat #fff;
-  transform:scaleX(-1);
-  filter:brightness(.96) contrast(1.1) saturate(1.12);
+.panel-l img{
+  position:absolute;bottom:0;left:50%;
+  transform:translateX(-48%);
+  height:100%;width:auto;
+  object-fit:contain;object-position:bottom center;
+  filter:brightness(.97) contrast(1.08) saturate(1.12);
 }
-.panel-r .horse{
-  position:absolute;inset:-4% -18% -4% -10%;
-  background:url(h2.jpg) 40% 12%/contain no-repeat #fff;
-  transform:scaleX(-1);
-  filter:brightness(.93) contrast(1.12) saturate(1.1);
+.panel-r img{
+  position:absolute;bottom:0;right:50%;
+  transform:translateX(48%) scaleX(-1);
+  height:100%;width:auto;
+  object-fit:contain;object-position:bottom center;
+  filter:brightness(.94) contrast(1.1) saturate(1.1);
 }
 
 /* BLUE DIVIDER */
@@ -95,18 +97,18 @@ body{background:#e8ecf4;display:flex;flex-direction:column;align-items:center;ju
 <div class="poster">
   <div class="top-bar"></div>
   <div class="bot-bar"></div>
-  <div class="panel-clip-l"><div class="panel-l"><div class="horse"></div></div></div>
-  <div class="panel-clip-r"><div class="panel-r"><div class="horse"></div></div></div>
+  <div class="panel-clip-l"><div class="panel-l"><img src="h1.jpg" alt="La Mami"></div></div>
+  <div class="panel-clip-r"><div class="panel-r"><img src="h2.jpg" alt="La Reyna"></div></div>
   <div class="divider"></div>
   <div class="names">
     <div class="nm-l">
       <div class="nm-tag">Nva. Tia</div>
-      <div class="nm-horse"><em>Gran</em></div>
+      <div class="nm-horse"><em>La Mami</em></div>
       <div class="nm-cuad">Plan de Ayala</div>
     </div>
     <div class="nm-r">
       <div class="nm-tag">Carmelita</div>
-      <div class="nm-horse"><em>Final</em></div>
+      <div class="nm-horse"><em>La Reyna</em></div>
       <div class="nm-cuad">Plan de Ayala</div>
     </div>
   </div>
