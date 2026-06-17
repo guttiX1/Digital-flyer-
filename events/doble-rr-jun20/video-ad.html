@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Gran Final · Doble RR · 20 Junio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#CC0000;--dred:#8B0000;--gold:#F5C518;--black:#050505;--white:#fff;
+}
+html,body{width:100%;height:100%;background:var(--black);overflow:hidden;
+  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+
+#cvs{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+#stage{position:fixed;inset:0;z-index:1;display:flex;align-items:center;justify-content:center}
+
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;opacity:0;pointer-events:none;overflow:hidden}
+.scene.on{opacity:1}
+
+#flash{position:fixed;inset:0;z-index:999;background:#fff;opacity:0;pointer-events:none}
+#prog{position:fixed;bottom:0;left:0;height:3px;z-index:100;
+  background:linear-gradient(90deg,var(--red),var(--gold));width:0%;transition:width .1s linear}
+
+@keyframes shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-8px,5px)}40%{transform:translate(8px,-5px)}60%{transform:translate(-5px,7px)}80%{transform:translate(4px,-3px)}}
+.shake{animation:shake .35s ease}
+
+/* SPEED LINES */
+.speedlines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.sl{position:absolute;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;animation:slFly .4s ease-out forwards}
+@keyframes slFly{from{transform:translateX(-110vw);opacity:.8}to{transform:translateX(110vw);opacity:0}}
+
+/* ── S0 IGNITION ── */
+#s0{background:var(--black)}
+#s0 .ig-pre{font-size:clamp(11px,2vw,14px);color:rgba(245,197,24,.5);letter-spacing:.6em;
+  text-transform:uppercase;animation:aFadeIn .8s ease both}
+#s0 .ig-line{width:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:14px auto;animation:aExpandW .7s .3s ease both}
+#s0 .ig-logo{font-size:clamp(70px,19vw,180px);font-weight:900;color:var(--red);
+  letter-spacing:-.06em;text-shadow:0 0 60px rgba(204,0,0,.8);
+  animation:aSpinIn .6s .4s cubic-bezier(.17,.67,.3,1.4) both}
+
+/* ── S1 GRAN FINAL 3D ── */
+#s1{background:var(--black);perspective:700px}
+#s1 .gf-gran{font-size:clamp(72px,20vw,210px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.82;
+  text-shadow:0 0 80px rgba(204,0,0,.9),0 0 160px rgba(204,0,0,.4);
+  animation:aRotX90in .4s cubic-bezier(.17,.67,.3,1.4) both}
+#s1 .gf-final{font-size:clamp(72px,20vw,210px);font-weight:900;
+  background:linear-gradient(135deg,var(--gold) 0%,#fff 45%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.04em;line-height:.82;
+  filter:drop-shadow(0 0 30px rgba(245,197,24,.8));
+  animation:aRotXneg90in .4s .15s cubic-bezier(.17,.67,.3,1.4) both}
+#s1 .gf-rule{width:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:14px auto;animation:aExpandW .5s .45s ease both}
+#s1 .gf-sub{font-size:clamp(11px,2vw,15px);color:rgba(255,255,255,.3);
+  letter-spacing:.5em;text-transform:uppercase;animation:aFadeUp .4s .55s ease both}
+
+/* ── S2 DOBLE RR ── */
+#s2{background:var(--black)}
+#s2 .rr-badge{width:clamp(100px,25vw,200px);height:clamp(100px,25vw,200px);
+  border:3px solid var(--red);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 60px rgba(204,0,0,.5),inset 0 0 30px rgba(204,0,0,.1);
+  animation:aSpinIn .55s cubic-bezier(.17,.67,.3,1.5) both}
+#s2 .rr-letters{font-size:clamp(52px,14vw,130px);font-weight:900;color:var(--red);
+  letter-spacing:-.06em;line-height:1;
+  text-shadow:0 0 30px rgba(204,0,0,.8)}
+#s2 .rr-name{font-size:clamp(28px,7.5vw,72px);font-weight:900;color:var(--white);
+  letter-spacing:.12em;margin-top:14px;animation:aFadeUp .4s .35s ease both}
+#s2 .rr-tc{font-size:clamp(11px,2.2vw,16px);color:var(--gold);
+  letter-spacing:.5em;text-transform:uppercase;animation:aFadeUp .4s .5s ease both}
+
+/* ── S3 DATE ── */
+#s3{background:var(--black)}
+#s3 .d20{font-size:clamp(110px,30vw,300px);font-weight:900;color:var(--white);
+  letter-spacing:-.05em;line-height:.8;
+  text-shadow:0 0 100px rgba(204,0,0,1),0 0 40px rgba(204,0,0,.5);
+  animation:aZpop .35s cubic-bezier(.17,.67,.3,1.5) both}
+#s3 .dde{font-size:clamp(13px,2.5vw,20px);color:rgba(255,255,255,.3);
+  letter-spacing:.6em;text-transform:uppercase;animation:aFadeIn .3s .15s ease both}
+#s3 .djunio{font-size:clamp(56px,15vw,145px);font-weight:900;color:var(--red);
+  letter-spacing:.04em;line-height:.88;
+  text-shadow:0 0 50px rgba(204,0,0,.9);
+  animation:aSlamIn .35s .15s cubic-bezier(.17,.67,.3,1.4) both}
+#s3 .ddist{font-size:clamp(16px,3.5vw,28px);color:var(--gold);
+  letter-spacing:.28em;text-transform:uppercase;margin-top:10px;
+  animation:aFadeUp .4s .4s ease both}
+
+/* ── S4-S7 HORSE CARDS ── */
+.hscene{background:var(--black)}
+.hscene .hbg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(204,0,0,.12),transparent)}
+.hscene .hwrap{position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;gap:clamp(8px,1.5vw,14px)}
+.hscene .hnumrow{display:flex;align-items:center;gap:clamp(12px,3vw,20px)}
+.hscene .hnum{width:clamp(52px,13vw,88px);height:clamp(52px,13vw,88px);
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  font-size:clamp(28px,7.5vw,52px);font-weight:900;color:#fff;
+  box-shadow:0 0 40px rgba(204,0,0,.7);
+  animation:aNumSlam .35s cubic-bezier(.17,.67,.3,1.5) both}
+.hscene .hname{font-size:clamp(44px,12vw,120px);font-weight:900;color:var(--white);
+  letter-spacing:-.02em;line-height:.88;
+  animation:aFlipY .4s .12s cubic-bezier(.22,1,.36,1) both;
+  text-shadow:0 2px 30px rgba(255,255,255,.2)}
+.hscene .hcuad{font-size:clamp(11px,2.2vw,16px);color:rgba(255,255,255,.3);
+  letter-spacing:.35em;text-transform:uppercase;animation:aFadeIn .3s .32s ease both}
+.hscene .htime{font-size:clamp(60px,16vw,155px);font-weight:900;
+  background:linear-gradient(135deg,var(--gold),#fff8d0,var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.02em;line-height:.88;
+  filter:drop-shadow(0 0 25px rgba(245,197,24,.9));
+  animation:aZpop .45s .25s cubic-bezier(.17,.67,.3,1.4) both}
+.hscene .hsec{font-size:clamp(14px,3vw,22px);color:rgba(245,197,24,.5);
+  letter-spacing:.2em;margin-left:6px;align-self:flex-end;margin-bottom:8px}
+.hscene .hbar{width:75%;height:3px;background:rgba(255,255,255,.08);
+  border-radius:999px;overflow:hidden;margin-top:4px;animation:aFadeIn .3s .4s ease both}
+.hscene .hfill{height:100%;background:linear-gradient(90deg,var(--dred),var(--red),var(--gold));
+  border-radius:999px;transform:scaleX(0);transform-origin:left;
+  animation:aBarGrow .6s .45s ease both}
+.htime-row{display:flex;align-items:baseline}
+
+/* ── S8 LINEUP ── */
+#s8{background:var(--black)}
+#s8 .lttl{font-size:clamp(12px,2.5vw,18px);color:var(--gold);
+  letter-spacing:.55em;text-transform:uppercase;margin-bottom:clamp(10px,2vw,18px);
+  animation:aFadeIn .3s ease both}
+#s8 .lgrid{display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(7px,1.8vw,14px);padding:0 clamp(10px,3vw,20px);
+  width:100%;max-width:500px;perspective:900px}
+.lcard{background:rgba(255,255,255,.04);border:1px solid rgba(245,197,24,.18);
+  border-radius:8px;padding:clamp(9px,2vw,16px);
+  display:flex;align-items:center;gap:clamp(8px,1.8vw,12px);
+  position:relative;overflow:hidden;
+  animation:aCardFlip .45s var(--d,0s) cubic-bezier(.22,1,.36,1) both}
+.lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--gold))}
+.ln{width:clamp(30px,7.5vw,46px);height:clamp(30px,7.5vw,46px);
+  background:var(--red);border-radius:4px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(17px,4vw,26px);font-weight:900;color:#fff}
+.li{flex:1;min-width:0}
+.lname{font-size:clamp(14px,3.5vw,22px);font-weight:900;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.lcuad{font-size:clamp(9px,1.7vw,12px);color:rgba(255,255,255,.28);
+  letter-spacing:.2em;text-transform:uppercase;margin-top:2px}
+.lt{font-size:clamp(16px,3.8vw,24px);font-weight:900;color:var(--gold);flex-shrink:0}
+
+/* ── S9 EXPLOSION ── */
+#s9{background:var(--black)}
+#s9 .ebg{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(204,0,0,.35) 0%,transparent 60%);
+  animation:aPulse 1.2s ease infinite}
+#s9 .egran{font-size:clamp(76px,21vw,230px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.8;
+  text-shadow:0 0 100px rgba(204,0,0,1),0 0 200px rgba(204,0,0,.5);
+  animation:aBigSlam .3s cubic-bezier(.17,.67,.3,1.5) both}
+#s9 .efinal{font-size:clamp(76px,21vw,230px);font-weight:900;
+  background:linear-gradient(135deg,var(--gold) 0%,#fff 40%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.04em;line-height:.8;
+  filter:drop-shadow(0 0 50px rgba(245,197,24,.9));
+  animation:aBigSlam .3s .1s cubic-bezier(.17,.67,.3,1.5) both}
+#s9 .edist{font-size:clamp(16px,3.8vw,32px);color:var(--gold);
+  letter-spacing:.3em;text-transform:uppercase;margin-top:14px;
+  animation:aFadeUp .4s .3s ease both}
+#s9 .edate{font-size:clamp(26px,6.5vw,60px);font-weight:900;color:var(--white);
+  letter-spacing:.04em;animation:aFadeUp .4s .42s ease both}
+#s9 .eline{width:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:12px auto;animation:aExpandW .5s .5s ease both}
+
+/* ── S10 END CARD ── */
+#s10{background:var(--black)}
+#s10 .e10bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 80%,rgba(139,0,0,.2),transparent)}
+#s10 .e10wrap{position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;gap:clamp(7px,1.4vw,12px);text-align:center;
+  padding:0 clamp(16px,5vw,32px)}
+#s10 .e10nope{font-size:clamp(20px,5.5vw,52px);font-weight:900;color:var(--red);
+  letter-spacing:.01em;line-height:.9;
+  text-shadow:0 0 40px rgba(204,0,0,.7);
+  animation:aSlamIn .4s .1s cubic-bezier(.17,.67,.3,1.3) both}
+#s10 .e10rr{font-size:clamp(52px,14vw,130px);font-weight:900;color:var(--white);
+  letter-spacing:-.03em;line-height:.85;animation:aFadeUp .4s .3s ease both}
+#s10 .e10rr em{color:var(--gold);font-style:normal}
+#s10 .e10tc{font-size:clamp(11px,2.2vw,16px);color:rgba(255,255,255,.3);
+  letter-spacing:.45em;text-transform:uppercase;animation:aFadeIn .4s .44s ease both}
+#s10 .e10pills{display:flex;gap:clamp(8px,2vw,14px);margin-top:4px;
+  animation:aFadeUp .4s .55s ease both}
+#s10 .e10red{background:var(--red);padding:clamp(7px,1.4vw,11px) clamp(18px,4vw,30px);
+  border-radius:100px;font-size:clamp(18px,4.5vw,38px);font-weight:900;color:#fff;
+  letter-spacing:.04em;box-shadow:0 0 30px rgba(204,0,0,.6)}
+#s10 .e10gold{background:var(--gold);padding:clamp(7px,1.4vw,11px) clamp(14px,3.5vw,26px);
+  border-radius:100px;font-size:clamp(14px,3.5vw,30px);font-weight:900;color:#000;
+  letter-spacing:.04em}
+#s10 .e10tag{font-size:clamp(10px,2vw,15px);color:rgba(255,255,255,.25);
+  letter-spacing:.5em;text-transform:uppercase;margin-top:2px;
+  animation:aFadeIn .5s .7s ease both}
+#s10 .e10chk{height:clamp(14px,3.5vw,22px);width:100%;margin-top:10px;
+  background:repeating-conic-gradient(#fff 0% 25%,#000 0% 50%) 0 0 / 22px 22px;
+  opacity:.7;animation:aFadeIn .4s .8s ease both}
+
+/* skip/replay */
+#skip,#replay{position:fixed;bottom:16px;right:16px;z-index:200;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.45);padding:7px 18px;border-radius:100px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  font-family:-apple-system,sans-serif}
+#replay{display:none}
+
+/* shared keyframes */
+@keyframes aFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes aFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes aExpandW{from{width:0;opacity:0}to{opacity:1}}
+@keyframes aSpinIn{from{transform:perspective(700px) rotateY(360deg) scale(.4);opacity:0}to{transform:perspective(700px) rotateY(0) scale(1);opacity:1}}
+@keyframes aRotX90in{from{transform:perspective(600px) rotateX(90deg) translateZ(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes aRotXneg90in{from{transform:perspective(600px) rotateX(-90deg) translateZ(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes aZpop{from{transform:perspective(600px) translateZ(-350px) scale(.2);opacity:0}to{transform:none;opacity:1}}
+@keyframes aSlamIn{from{transform:scale(2.2);opacity:0}to{transform:none;opacity:1}}
+@keyframes aBigSlam{from{transform:scale(2.5);opacity:0}to{transform:none;opacity:1}}
+@keyframes aNumSlam{from{transform:translateX(-90px) scale(.5);opacity:0}to{transform:none;opacity:1}}
+@keyframes aFlipY{from{transform:perspective(600px) rotateY(-85deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes aBarGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes aCardFlip{from{transform:perspective(700px) rotateY(-60deg) translateZ(-80px);opacity:0}to{transform:none;opacity:1}}
+@keyframes aPulse{0%,100%{opacity:.5}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<canvas id="cvs"></canvas>
+<div id="flash"></div>
+<div id="prog"></div>
+
+<div id="stage">
+
+<!-- S0: IGNITION -->
+<div class="scene on" id="s0">
+  <div class="speedlines" id="sl0"></div>
+  <div class="ig-pre">Velocidad · Pasión · Adrenalina</div>
+  <div class="ig-line"></div>
+  <div class="ig-logo">RR</div>
+</div>
+
+<!-- S1: GRAN FINAL 3D -->
+<div class="scene" id="s1">
+  <div class="speedlines" id="sl1"></div>
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="gf-gran">GRAN</div>
+    <div class="gf-final">FINAL</div>
+    <div class="gf-rule"></div>
+    <div class="gf-sub">Doble RR Training Center</div>
+  </div>
+</div>
+
+<!-- S2: DOBLE RR -->
+<div class="scene" id="s2">
+  <div class="rr-badge"><div class="rr-letters">RR</div></div>
+  <div class="rr-name">DOBLE RR</div>
+  <div class="rr-tc">Training Center</div>
+</div>
+
+<!-- S3: 20 DE JUNIO -->
+<div class="scene" id="s3">
+  <div class="speedlines" id="sl3"></div>
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="d20">20</div>
+    <div class="dde">de</div>
+    <div class="djunio">JUNIO</div>
+    <div class="ddist">🏁 300 Yards · Gran Final</div>
+  </div>
+</div>
+
+<!-- S4: EL ARIAT -->
+<div class="scene hscene" id="s4">
+  <div class="hbg"></div>
+  <div class="speedlines" id="sl4"></div>
+  <div class="hwrap">
+    <div class="hnumrow">
+      <div class="hnum">1</div>
+      <div class="hname">EL ARIAT</div>
+    </div>
+    <div class="hcuad">Cuadra Ballezano</div>
+    <div class="htime-row"><div class="htime">15.20</div><div class="hsec">seg</div></div>
+    <div class="hbar"><div class="hfill" style="width:97%"></div></div>
+  </div>
+</div>
+
+<!-- S5: EL OCHO -->
+<div class="scene hscene" id="s5">
+  <div class="hbg"></div>
+  <div class="speedlines" id="sl5"></div>
+  <div class="hwrap">
+    <div class="hnumrow">
+      <div class="hnum">2</div>
+      <div class="hname">EL OCHO</div>
+    </div>
+    <div class="hcuad">Cuadra R/O</div>
+    <div class="htime-row"><div class="htime">15.26</div><div class="hsec">seg</div></div>
+    <div class="hbar"><div class="hfill" style="width:90%"></div></div>
+  </div>
+</div>
+
+<!-- S6: EL MENCHITO -->
+<div class="scene hscene" id="s6">
+  <div class="hbg"></div>
+  <div class="speedlines" id="sl6"></div>
+  <div class="hwrap">
+    <div class="hnumrow">
+      <div class="hnum">3</div>
+      <div class="hname">EL MENCHITO</div>
+    </div>
+    <div class="hcuad">Cuadra Diaz</div>
+    <div class="htime-row"><div class="htime">15.30</div><div class="hsec">seg</div></div>
+    <div class="hbar"><div class="hfill" style="width:85%"></div></div>
+  </div>
+</div>
+
+<!-- S7: EL F7 -->
+<div class="scene hscene" id="s7">
+  <div class="hbg"></div>
+  <div class="speedlines" id="sl7"></div>
+  <div class="hwrap">
+    <div class="hnumrow">
+      <div class="hnum">4</div>
+      <div class="hname">EL F7</div>
+    </div>
+    <div class="hcuad">Cuadra Potosina</div>
+    <div class="htime-row"><div class="htime">15.32</div><div class="hsec">seg</div></div>
+    <div class="hbar"><div class="hfill" style="width:82%"></div></div>
+  </div>
+</div>
+
+<!-- S8: LINEUP GRID -->
+<div class="scene" id="s8">
+  <div class="lttl">Los Contendientes</div>
+  <div class="lgrid">
+    <div class="lcard" style="--d:.08s"><div class="ln">1</div><div class="li"><div class="lname">El Ariat</div><div class="lcuad">Ballezano</div></div><div class="lt">15.20</div></div>
+    <div class="lcard" style="--d:.18s"><div class="ln">2</div><div class="li"><div class="lname">El Ocho</div><div class="lcuad">R/O</div></div><div class="lt">15.26</div></div>
+    <div class="lcard" style="--d:.28s"><div class="ln">3</div><div class="li"><div class="lname">El Menchito</div><div class="lcuad">Diaz</div></div><div class="lt">15.30</div></div>
+    <div class="lcard" style="--d:.38s"><div class="ln">4</div><div class="li"><div class="lname">El F7</div><div class="lcuad">Potosina</div></div><div class="lt">15.32</div></div>
+  </div>
+</div>
+
+<!-- S9: EXPLOSION -->
+<div class="scene" id="s9">
+  <div class="ebg"></div>
+  <div class="speedlines" id="sl9"></div>
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:2">
+    <div class="egran">GRAN</div>
+    <div class="efinal">FINAL</div>
+    <div class="eline"></div>
+    <div class="edist">300 Yards</div>
+    <div class="edate">20 de Junio</div>
+  </div>
+</div>
+
+<!-- S10: END CARD -->
+<div class="scene" id="s10">
+  <div class="e10bg"></div>
+  <div class="e10wrap">
+    <div class="e10nope">¡No Te Lo Puedes Perder!</div>
+    <div class="e10rr">Doble <em>RR</em></div>
+    <div class="e10tc">Training Center</div>
+    <div class="e10pills">
+      <div class="e10red">20 Jun</div>
+      <div class="e10gold">300 YD</div>
+    </div>
+    <div class="e10tag">Velocidad · Pasión · Adrenalina</div>
+    <div class="e10chk"></div>
+  </div>
+</div>
+
+</div>
+
+<button id="skip" onclick="jump(SCENES.length-1)">Saltar →</button>
+<button id="replay" onclick="location.reload()">↩ Replay</button>
+
+<script>
+/* ── CANVAS PARTICLES ── */
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H,parts=[];
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight}
+resize();addEventListener('resize',resize);
+
+class Spark{
+  constructor(x,y,col,vx,vy){
+    this.x=x;this.y=y;
+    this.vx=vx??(Math.random()-.5)*14;
+    this.vy=vy??(Math.random()-.5)*14-5;
+    this.life=1;this.decay=.018+Math.random()*.025;
+    this.r=2+Math.random()*4;
+    this.col=col??`hsl(${35+Math.random()*20},100%,${55+Math.random()*25}%)`;
+    this.trail=[];
+  }
+  tick(){
+    this.trail.push({x:this.x,y:this.y});
+    if(this.trail.length>7)this.trail.shift();
+    this.vx*=.97;this.vy+=.35;
+    this.x+=this.vx;this.y+=this.vy;
+    this.life-=this.decay;
+    return this.life>0;
+  }
+  draw(){
+    ctx.save();
+    if(this.trail.length>1){
+      ctx.beginPath();ctx.moveTo(this.trail[0].x,this.trail[0].y);
+      for(let i=1;i<this.trail.length;i++)ctx.lineTo(this.trail[i].x,this.trail[i].y);
+      ctx.strokeStyle=this.col.replace('hsl(','hsla(').replace(')',`,${this.life*.35})`);
+      ctx.lineWidth=this.r*this.life*.6;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r*this.life,0,Math.PI*2);
+    ctx.fillStyle=this.col.replace('hsl(','hsla(').replace(')',`,${this.life})`);
+    ctx.fill();ctx.restore();
+  }
+}
+
+function burst(x,y,n,cols){
+  for(let i=0;i<n;i++){
+    const a=(Math.PI*2/n)*i+Math.random()*.6,sp=5+Math.random()*14;
+    const c=cols?cols[i%cols.length]:null;
+    parts.push(new Spark(x,y,c,Math.cos(a)*sp,Math.sin(a)*sp-4));
+  }
+}
+function rain(n){
+  for(let i=0;i<n;i++)
+    parts.push(new Spark(Math.random()*W,-10,
+      Math.random()<.5?'hsl(45,100%,60%)':'hsl(0,100%,55%)',
+      (Math.random()-.5)*5,5+Math.random()*9));
+}
+
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  parts=parts.filter(p=>{const ok=p.tick();if(ok)p.draw();return ok});
+  requestAnimationFrame(loop);
+})();
+
+/* ── SPEED LINES ── */
+function mkLines(id,n=12){
+  const c=document.getElementById(id);if(!c)return;c.innerHTML='';
+  for(let i=0;i<n;i++){
+    const l=document.createElement('div');l.className='sl';
+    l.style.cssText=`top:${Math.random()*100}%;width:${15+Math.random()*25}%;height:${1+Math.random()*2}px;animation-delay:${Math.random()*.35}s;animation-duration:${.3+Math.random()*.2}s;opacity:${.3+Math.random()*.5}`;
+    c.appendChild(l);
+  }
+}
+
+/* ── FLASH + SHAKE ── */
+const flashEl=document.getElementById('flash');
+function flash(v=.95){
+  flashEl.style.cssText='transition:none;opacity:'+v;
+  requestAnimationFrame(()=>{flashEl.style.cssText='transition:opacity .3s ease;opacity:0'});
+}
+function shake(){
+  const s=document.getElementById('stage');
+  s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');
+}
+
+/* ── SCENE ENGINE ── */
+const SCENES=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10'];
+const DURS=  [1600, 2100, 1800, 2000, 1900, 1900, 1900, 1900, 3600, 2600, Infinity];
+const TOTAL=DURS.slice(0,-1).reduce((a,b)=>a+b,0);
+let cur=0,timer=null,t0=null;
+
+function show(i){
+  SCENES.forEach((id,j)=>{
+    const el=document.getElementById(id);
+    el.classList.remove('on');
+    if(i===j){void el.offsetWidth;el.classList.add('on')}
+  });
+}
+
+function onEnter(i){
+  const cx=W/2,cy=H*.45;
+  const RED='hsl(0,100%,50%)',GOLD='hsl(45,100%,60%)';
+  if(i===0){burst(cx,cy,20,[GOLD,'#fff',RED]);mkLines('sl0',8)}
+  if(i===1){flash(.92);shake();mkLines('sl1',14);burst(cx,cy,35,[RED,GOLD,'#fff'])}
+  if(i===2){flash(.75);shake();burst(cx,cy,25,[RED,'#fff'])}
+  if(i===3){flash(.96);shake();mkLines('sl3',16);burst(cx,cy,45,[GOLD,RED])}
+  if(i>=4&&i<=7){flash(.72);mkLines('sl'+i,11);burst(cx*1.3,cy,18,[RED,GOLD])}
+  if(i===8){flash(.65);shake()}
+  if(i===9){
+    flash(1);shake();mkLines('sl9',22);
+    setTimeout(()=>burst(cx,cy,70,[RED,GOLD,'#fff',RED]),80);
+    setTimeout(()=>burst(cx,cy,50,[GOLD,'#fff']),380);
+    let rt=0,ri=setInterval(()=>{rain(6);if((rt+=120)>2200)clearInterval(ri)},120);
+  }
+  if(i===10){
+    flash(.85);
+    setTimeout(()=>{burst(W*.15,H*.25,22,[RED,GOLD]);burst(W*.85,H*.25,22,[RED,GOLD])},200);
+    let st=0,si=setInterval(()=>{
+      burst(Math.random()*W,Math.random()*H*.6,4,[RED,GOLD]);
+      if((st+=450)>5000)clearInterval(si);
+    },450);
+  }
+}
+
+function updateProg(){
+  if(!t0||cur>=SCENES.length-1)return;
+  const p=Math.min(((performance.now()-t0)/TOTAL)*100,100);
+  document.getElementById('prog').style.width=p+'%';
+  requestAnimationFrame(updateProg);
+}
+
+function goTo(i){
+  clearTimeout(timer);cur=i;
+  show(i);onEnter(i);
+  if(DURS[i]!==Infinity){
+    timer=setTimeout(()=>goTo(i+1),DURS[i]);
+  } else {
+    document.getElementById('prog').style.width='100%';
+    document.getElementById('skip').style.display='none';
+    document.getElementById('replay').style.display='block';
+  }
+}
+
+function jump(i){goTo(i)}
+
+window.addEventListener('load',()=>{
+  t0=performance.now();
+  goTo(0);updateProg();
+  setTimeout(()=>burst(W/2,H/2,18,['hsl(45,100%,60%)','#fff']),300);
+});
+
+document.getElementById('stage').addEventListener('click',()=>{
+  if(cur<SCENES.length-1)jump(cur+1);
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')jump(cur+1);
+  if(e.key==='r'||e.key==='R')location.reload();
+});
+</script>
+</body>
+</html>
