@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rancho El Palomino · 4 de Julio · Chicago</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#f4f4f4;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden}
+
+/* ── NAV ── */
+.top-nav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.4rem;padding:.6rem 1rem;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,.09);
+  box-shadow:0 2px 10px rgba(0,0,0,.07)
+}
+.nav-venue .l1{font-size:.62rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#111;line-height:1.2}
+.nav-venue .l2{font-size:.52rem;font-weight:600;color:#888;letter-spacing:.05em;text-transform:uppercase}
+.nav-pills{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.np{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .68rem;border-radius:999px;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-decoration:none;border:1.5px solid transparent;white-space:nowrap;cursor:pointer}
+.np-gold{background:rgba(255,184,0,.13);border-color:rgba(255,184,0,.45);color:#a06d00}
+.np-fb{background:#1877F2;color:#fff}
+.np-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.np-vid{background:#FFD200;color:#111}
+.nav-date{font-size:.62rem;font-weight:800;color:#555;white-space:nowrap}
+
+/* ── TICKER ── */
+.ticker{background:#111;padding:.52rem 0;overflow:hidden;border-bottom:2px solid #FFD200;user-select:none}
+.ticker-track{display:flex;white-space:nowrap;animation:scroll 20s linear infinite}
+.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.14em;color:#FFD200;padding:0 1.6rem}
+.ticker-track span::after{content:'|';color:rgba(255,208,0,.28);margin-left:1.6rem}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:75vw;max-height:96vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url(flyer.jpg) center top/cover no-repeat;animation:hzoom 14s ease-out both}
+@keyframes hzoom{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+.hero-over{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 36%,rgba(0,0,0,.08) 68%,rgba(0,0,0,.35) 100%)}
+.hero-body{position:relative;z-index:2;padding:2rem 1.2rem 1.6rem;animation:fadeup .9s .15s both}
+@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,208,0,.14);border:1px solid rgba(255,208,0,.4);color:#FFD200;padding:.22rem .72rem;border-radius:999px;font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.65rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,15vw,10rem);line-height:.82;color:#FFD200;text-shadow:0 4px 40px rgba(0,0,0,.85),0 0 100px rgba(255,208,0,.18)}
+.hero-title em{color:#fff;font-style:normal;display:block;font-size:.62em}
+.hero-sub{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin:.55rem 0 .95rem}
+.hero-badges{display:flex;gap:.4rem;flex-wrap:wrap}
+.hb{padding:.3rem .75rem;border-radius:8px;font-size:.68rem;font-weight:800;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
+.hb.gold{background:#FFD200;color:#111;border-color:#FFD200}
+
+/* ── COUNTDOWN ── */
+.countdown{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,.07);box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.cd-u{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.1rem .5rem;border-right:1px solid rgba(0,0,0,.06)}
+.cd-u:last-child{border-right:none}
+.cd-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,4rem);color:#FFB800;line-height:1}
+.cd-l{font-size:.46rem;font-weight:800;color:#bbb;letter-spacing:.14em;text-transform:uppercase;margin-top:.15rem}
+
+/* ── STATS ── */
+.stats{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,.06)}
+.st{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem .4rem;border-right:1px solid rgba(0,0,0,.05)}
+.st:last-child{border-right:none}
+.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,3.2rem);color:#FFB800;line-height:1}
+.st-l{font-size:.46rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase;margin-top:.15rem;text-align:center}
+
+/* ── SECTION HEADER ── */
+.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.4rem 1rem .75rem}
+.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.5),transparent)}
+.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.1em;white-space:nowrap;color:#111}
+
+/* ── HORSE CARDS ── */
+.horses-row{display:flex;gap:.75rem;padding:.2rem 1rem 1.2rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.horses-row::-webkit-scrollbar{display:none}
+.hc{flex:0 0 44vw;max-width:186px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.09);border:1px solid rgba(0,0,0,.06)}
+.hc-img{width:100%;aspect-ratio:3/4;background:url(flyer.jpg) center/cover no-repeat;position:relative}
+.hc-img-over{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,transparent 55%)}
+.hc-body{padding:.7rem .8rem .8rem}
+.hc-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;line-height:1;color:#111}
+.hc-cuad{font-size:.58rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin:.12rem 0 .5rem}
+.hc-tag{display:inline-block;border:1.5px solid #FFB800;color:#a07000;font-size:.56rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .65rem;border-radius:999px}
+
+/* ── RACE ROWS ── */
+.race-list{padding:.2rem .8rem 1.2rem;display:flex;flex-direction:column;gap:.55rem}
+.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid rgba(0,0,0,.07);box-shadow:0 1px 8px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .18s,border-color .18s}
+.rr:hover,.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.16);border-color:rgba(255,184,0,.38)}
+
+.rr-top{display:flex;align-items:center;gap:.65rem;padding:.82rem .9rem}
+.horse-ico{width:32px;height:32px;flex-shrink:0;opacity:.55}
+.rr-names{flex:1;min-width:0}
+.rr-n1{font-size:.83rem;font-weight:900;color:#111;letter-spacing:.01em;line-height:1.15}
+.rr-cuad{font-size:.56rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.08rem}
+.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:#FF8C00;flex-shrink:0;padding:0 .1rem}
+.rr-right{display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;flex-shrink:0}
+.rr-dist{font-size:.62rem;font-weight:700;color:#777}
+.rr-estelar{font-size:.48rem;font-weight:800;color:#FFB800;letter-spacing:.1em;text-transform:uppercase}
+.rr-num{width:26px;height:26px;border-radius:50%;background:#FFB800;color:#111;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;flex-shrink:0}
+
+/* ── DUEL EXPAND ── */
+.rr-duel{display:none;background:#0e0e0e}
+.rr.open .rr-duel{display:block}
+.duel-grid{display:grid;grid-template-columns:1fr 52px 1fr;min-height:190px}
+.dh{position:relative;overflow:hidden}
+.dh-bg{position:absolute;inset:0;background:url(flyer.jpg) center/cover no-repeat;filter:brightness(.65) saturate(1.4)}
+.dh.dl .dh-bg{background-position:22% center}
+.dh.dr .dh-bg{background-position:78% center}
+.dh-ov{position:absolute;inset:0}
+.dh.dl .dh-ov{background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
+.dh.dr .dh-ov{background:linear-gradient(270deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
+.dh-info{position:absolute;bottom:0;left:0;right:0;padding:1rem .85rem}
+.dh.dr .dh-info{text-align:right}
+.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,4.5vw,2.8rem);color:#fff;line-height:.88;text-shadow:0 3px 20px rgba(0,0,0,1)}
+.dh-sub{font-size:.56rem;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-top:.25rem}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;border-left:1px solid rgba(255,208,0,.18);border-right:1px solid rgba(255,208,0,.18)}
+.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#FFD200;text-shadow:0 0 40px rgba(255,208,0,.5);line-height:1}
+.duel-hit{font-size:.5rem;font-weight:800;color:rgba(255,208,0,.5);letter-spacing:.1em;text-align:center;margin-top:.3rem;text-transform:uppercase}
+.ver-mas{display:block;width:100%;padding:.68rem;text-align:center;font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#a07000;background:rgba(255,184,0,.07);border-top:1px solid rgba(255,184,0,.14);text-transform:uppercase}
+
+/* ── SOCIAL FOOTER ── */
+.sf-bar{display:flex;align-items:center;justify-content:center;gap:.65rem;background:#111;padding:1rem 1.5rem;margin:1rem .8rem 2.5rem;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.14)}
+.sf-play{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid #FF3B30;flex-shrink:0}
+.sf-txt{color:#fff;font-size:.82rem;font-weight:600}
+.sf-num{color:#FFD200;font-weight:900}
+
+/* tagline */
+.tagline{text-align:center;padding:.6rem 1.5rem 0;font-size:.68rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
+
+@media(max-width:400px){
+  .nav-pills .np-fb,.nav-pills .np-ig{display:none}
+  .hc{flex:0 0 60vw}
+  .rr-dist{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="top-nav">
+  <div class="nav-venue">
+    <div class="l1">Rancho El Palomino</div>
+    <div class="l2">Chicago, Illinois</div>
+  </div>
+  <div class="nav-pills">
+    <span class="np np-gold">👑 Pesos Pesados</span>
+    <span class="np np-fb">f Facebook</span>
+    <span class="np np-ig">📷 Instagram</span>
+    <span class="np np-vid">▶ Video</span>
+  </div>
+  <div class="nav-date">4 JUL 2026</div>
+</nav>
+
+<!-- ── TICKER ── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>CRISTO REY</span><span>ARAÑA</span><span>PISCES</span><span>ESPERANZA</span><span>DEL FIERRO</span><span>ESPERANZADO</span>
+    <span>CRISTO REY</span><span>ARAÑA</span><span>PISCES</span><span>ESPERANZA</span><span>DEL FIERRO</span><span>ESPERANZADO</span>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-over"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">📍 Chicago, Illinois · 4 de Julio 2026</div>
+    <div class="hero-title">RANCHO<br><em>EL PALOMINO</em></div>
+    <div class="hero-sub">El Carril de los Pesos Pesados · 4 HITs</div>
+    <div class="hero-badges">
+      <div class="hb gold">4 HITs</div>
+      <div class="hb">🏆 Pesos Pesados</div>
+      <div class="hb">🎆 4 de Julio</div>
+      <div class="hb">🐎 de Chicago</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COUNTDOWN ── -->
+<div class="countdown" id="cdStrip">
+  <div class="cd-u"><div class="cd-n" id="cdD">--</div><div class="cd-l">Días</div></div>
+  <div class="cd-u"><div class="cd-n" id="cdH">--</div><div class="cd-l">Hrs</div></div>
+  <div class="cd-u"><div class="cd-n" id="cdM">--</div><div class="cd-l">Min</div></div>
+  <div class="cd-u"><div class="cd-n" id="cdS">--</div><div class="cd-l">Seg</div></div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="st"><div class="st-n">4</div><div class="st-l">Carreras</div></div>
+  <div class="st"><div class="st-n">8</div><div class="st-l">Caballos</div></div>
+  <div class="st"><div class="st-n">5</div><div class="st-l">Cuadras</div></div>
+  <div class="st"><div class="st-n" id="siguiendo">—</div><div class="st-l">Siguiendo</div></div>
+</div>
+
+<!-- ── HORSE CARDS ── -->
+<div class="sec-hd"><span>LOS CABALLOS DEL EVENTO</span></div>
+<div class="horses-row">
+
+  <div class="hc">
+    <div class="hc-img" style="background-position:18% center"><div class="hc-img-over"></div></div>
+    <div class="hc-body">
+      <div class="hc-name">CRISTO REY</div>
+      <div class="hc-cuad">A &amp; B</div>
+      <div class="hc-tag">HIT 1 · HIT 2</div>
+    </div>
+  </div>
+
+  <div class="hc">
+    <div class="hc-img" style="background-position:40% center"><div class="hc-img-over"></div></div>
+    <div class="hc-body">
+      <div class="hc-name">ARAÑA</div>
+      <div class="hc-cuad">A</div>
+      <div class="hc-tag">HIT 1</div>
+    </div>
+  </div>
+
+  <div class="hc">
+    <div class="hc-img" style="background-position:58% center"><div class="hc-img-over"></div></div>
+    <div class="hc-body">
+      <div class="hc-name">PISCES</div>
+      <div class="hc-cuad">A &amp; B</div>
+      <div class="hc-tag">HIT 2 · HIT 3</div>
+    </div>
+  </div>
+
+  <div class="hc">
+    <div class="hc-img" style="background-position:75% center"><div class="hc-img-over"></div></div>
+    <div class="hc-body">
+      <div class="hc-name">ESPERANZADO</div>
+      <div class="hc-cuad">A</div>
+      <div class="hc-tag">HIT 4</div>
+    </div>
+  </div>
+
+  <div class="hc">
+    <div class="hc-img" style="background-position:88% center"><div class="hc-img-over"></div></div>
+    <div class="hc-body">
+      <div class="hc-name">DEL FIERRO</div>
+      <div class="hc-cuad">C</div>
+      <div class="hc-tag">HIT 4</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── RACE LIST ── -->
+<div class="sec-hd"><span>LAS CARRERAS</span></div>
+<div class="race-list" id="raceList"></div>
+
+<!-- tagline -->
+<p class="tagline">¡Donde corren los mejores, solo los mejores ganan!</p>
+
+<!-- ── SOCIAL FOOTER ── -->
+<div class="sf-bar">
+  <div class="sf-play"></div>
+  <div class="sf-txt"><span class="sf-num" id="sfNum">—</span> personas siguiendo este evento</div>
+</div>
+
+<script>
+/* ── countdown ── */
+const EVT = new Date('2026-07-04T12:00:00');
+function tick() {
+  const diff = EVT - Date.now();
+  if (diff <= 0) {
+    document.getElementById('cdStrip').innerHTML =
+      '<div style="width:100%;padding:1.4rem;text-align:center;font-family:\'Bebas Neue\',sans-serif;font-size:2rem;color:#FFB800">¡HOY ES EL DÍA! 🏁</div>';
+    return;
+  }
+  const d = Math.floor(diff / 864e5),
+        h = Math.floor((diff % 864e5) / 36e5),
+        m = Math.floor((diff % 36e5) / 6e4),
+        s = Math.floor((diff % 6e4) / 1e3);
+  document.getElementById('cdD').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+/* ── follower count ── */
+const base = 2400 + Math.floor(Math.random() * 80);
+document.getElementById('siguiendo').textContent = base.toLocaleString();
+document.getElementById('sfNum').textContent = (base + Math.floor(Math.random() * 4)).toLocaleString();
+
+/* ── horse SVG silhouette ── */
+const SVG = `<svg viewBox="0 0 48 40" xmlns="http://www.w3.org/2000/svg" class="horse-ico" aria-hidden="true">
+  <path fill="#ccc" d="M42 5c-1.2 0-2.3.6-3 1.5L37.5 8c-.6.9-1.8 1.2-2.7.6l-1.2-.7C31.8 7 30 7 28.2 7.7L26 8.8c-.7.4-1.2 1-1.2 1.8v1.8c0 1-.8 1.8-1.8 1.8H21c-1.3 0-2.4 1-2.4 2.4V20c0 .7-.5 1.4-1.2 1.7l-3.6 1.4c-.7.3-1.2 1-1.2 1.7v6.8c0 .7-.5 1.2-1.2 1.2H9.6c-.7 0-1.2.5-1.2 1.2v1.2c0 .7.5 1.2 1.2 1.2h2.4c.5 0 .9-.3 1.1-.7l.6-1.2c.2-.5.7-.7 1.1-.7h1.2c.5 0 .9.3 1.1.7l.6 1.2c.2.5.7.7 1.1.7h2.4c.5 0 .9-.3 1.1-.7l.6-1.2c.2-.5.7-.7 1.1-.7h1.2c.5 0 .9.3 1.1.7l.6 1.2c.2.5.7.7 1.1.7h3.6c.7 0 1.2-.5 1.2-1.2v-2.4c0-1 .6-1.8 1.5-2.1l4.2-1.5c.6-.2 1.1-.7 1.3-1.3l1.2-3.6c.2-.6.7-1 1.3-1.2l2.4-.6c.6-.2 1.1-.6 1.2-1.2l.6-4.2c.1-.6 0-1.2-.3-1.8L44.5 7c-.4-.7-1-.1-1.7-1.3A2.4 2.4 0 0 0 42 5z"/>
+</svg>`;
+
+/* ── races ── */
+const RACES = [
+  {n:1, label:'HIT 1', h1:'CRISTO REY A', c1:'',          h2:'ARAÑA A',        c2:'', dist:''},
+  {n:2, label:'HIT 2', h1:'CRISTO REY B', c1:'',          h2:'PISCES A',       c2:'', dist:''},
+  {n:3, label:'HIT 3', h1:'ESPERANZA / SM B', c1:'',      h2:'PISCES B',       c2:'', dist:''},
+  {n:4, label:'HIT 4', h1:'ESPERANZADO / A',  c1:'',      h2:'DEL FIERRO C',   c2:'', dist:''},
+];
+
+const list = document.getElementById('raceList');
+
+RACES.forEach(r => {
+  const div = document.createElement('div');
+  div.className = 'rr';
+  div.innerHTML = `
+    <div class="rr-top">
+      ${SVG}
+      <div class="rr-names">
+        <div class="rr-n1">${r.h1}</div>
+        ${r.c1 ? `<div class="rr-cuad">${r.c1}</div>` : ''}
+      </div>
+      <div class="rr-vs">VS</div>
+      <div class="rr-names" style="text-align:right">
+        <div class="rr-n1">${r.h2}</div>
+        ${r.c2 ? `<div class="rr-cuad" style="text-align:right">${r.c2}</div>` : ''}
+      </div>
+      ${SVG}
+      <div class="rr-right">
+        ${r.dist ? `<div class="rr-dist">${r.dist}</div>` : ''}
+        <div class="rr-num">${r.n}</div>
+      </div>
+    </div>
+    <div class="rr-duel">
+      <div class="duel-grid">
+        <div class="dh dl">
+          <div class="dh-bg"></div>
+          <div class="dh-ov"></div>
+          <div class="dh-info">
+            <div class="dh-name">${r.h1.replace(' / ','<br>')}</div>
+            ${r.c1 ? `<div class="dh-sub">${r.c1}</div>` : ''}
+          </div>
+        </div>
+        <div class="duel-mid">
+          <div class="duel-vs">VS</div>
+          <div class="duel-hit">${r.label}</div>
+        </div>
+        <div class="dh dr">
+          <div class="dh-bg"></div>
+          <div class="dh-ov"></div>
+          <div class="dh-info">
+            <div class="dh-name">${r.h2.replace(' / ','<br>')}</div>
+            ${r.c2 ? `<div class="dh-sub">${r.c2}</div>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="ver-mas">VER MÁS</div>
+    </div>
+  `;
+  div.querySelector('.rr-top').addEventListener('click', () => {
+    const wasOpen = div.classList.contains('open');
+    document.querySelectorAll('.rr.open').forEach(el => el.classList.remove('open'));
+    if (!wasOpen) div.classList.add('open');
+  });
+  list.appendChild(div);
+});
+</script>
+</body>
+</html>
