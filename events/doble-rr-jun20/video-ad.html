@@ -6,10 +6,7 @@
 <title>Gran Final · Doble RR · Colorado</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --red:#CC0000;--dred:#8B0000;--gold:#D4A017;
-  --dark:#000;--offwhite:#FAFAF7;--white:#fff;
-}
+:root{--red:#CC0000;--dred:#8B0000;--gold:#D4A017;--white:#fff}
 html,body{width:100%;height:100%;background:#000;overflow:hidden;
   font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
   -webkit-font-smoothing:antialiased}
@@ -29,22 +26,18 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 @keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-8px,5px)}40%{transform:translate(8px,-6px)}60%{transform:translate(-6px,7px)}80%{transform:translate(5px,-3px)}}
 .shake{animation:shake .28s ease}
 
-/* SPEED LINES */
 .speedlines{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5}
 .sl{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
   opacity:0;animation:slFly .32s ease-out forwards}
-.hscene .sl{background:linear-gradient(90deg,transparent,rgba(204,0,0,.22),transparent)}
 @keyframes slFly{from{transform:translateX(-110vw);opacity:.8}to{transform:translateX(110vw);opacity:0}}
 
-/* PHOTO BG */
 .pbg{position:absolute;inset:0;background-size:cover;background-position:center;
-  filter:brightness(.7) contrast(1.12) saturate(1.15);
-  animation:kbZoom 4s linear forwards}
+  filter:brightness(.7) contrast(1.12) saturate(1.15);animation:kbZoom 4s linear forwards}
 @keyframes kbZoom{from{transform:scale(1.1)}to{transform:scale(1)}}
 .pov{position:absolute;inset:0;
   background:linear-gradient(160deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.22) 45%,rgba(0,0,0,.82) 100%)}
 
-/* ── S0 DONDE LA VELOCIDAD ── */
+/* S0 */
 #s0{background:#000}
 #s0 .s0pre{font-size:clamp(10px,2vw,13px);color:rgba(255,255,255,.28);letter-spacing:.65em;
   text-transform:uppercase;animation:aFadeIn .3s ease both}
@@ -52,18 +45,17 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   letter-spacing:-.04em;line-height:.82;text-align:center;
   animation:aBigSlam .26s .04s cubic-bezier(.17,.67,.3,1.7) both}
 
-/* ── S1 DEFINE LEYENDAS ── */
+/* S1 */
 #s1{background:#000}
 #s1 .s1big{font-size:clamp(50px,14vw,148px);font-weight:900;color:var(--red);
   letter-spacing:-.04em;line-height:.82;text-align:center;
   text-shadow:0 0 100px rgba(204,0,0,.7),4px 6px 0 rgba(100,0,0,.4);
   animation:aBigSlam .26s cubic-bezier(.17,.67,.3,1.7) both}
 
-/* ── S2 RR LOGO ── */
+/* S2 */
 #s2{background:#000}
 #s2 .s2rr{font-size:clamp(120px,35vw,420px);font-weight:900;color:var(--white);
-  letter-spacing:-.07em;line-height:.8;
-  text-shadow:0 0 140px rgba(255,255,255,.12);
+  letter-spacing:-.07em;line-height:.8;text-shadow:0 0 140px rgba(255,255,255,.12);
   animation:aSpinIn .52s cubic-bezier(.17,.67,.3,1.4) both}
 #s2 .s2rule{height:3px;background:linear-gradient(90deg,transparent,var(--red),var(--gold),transparent);
   width:70%;margin:10px auto;animation:aScaleX .5s .45s ease both;transform-origin:center}
@@ -72,7 +64,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 #s2 .s2co{font-size:clamp(11px,2.2vw,15px);color:var(--gold);letter-spacing:.5em;
   text-transform:uppercase;font-weight:700;margin-top:5px;animation:aFadeIn .3s .65s ease both}
 
-/* ── S3 ACTION: ¿CON QUIÉN VAS? ── */
+/* S3 */
 #s3{background:#000}
 #s3 .s3content{position:relative;z-index:10;display:flex;flex-direction:column;
   align-items:center;text-align:center;gap:clamp(5px,1.2vw,10px);
@@ -87,38 +79,16 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 #s3 .s3num{width:clamp(38px,10vw,62px);height:clamp(38px,10vw,62px);
   background:var(--red);display:flex;align-items:center;justify-content:center;
   border-radius:5px;font-size:clamp(22px,6vw,40px);font-weight:900;color:#fff;
-  box-shadow:0 4px 24px rgba(204,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
+  box-shadow:0 4px 24px rgba(204,0,0,.55)}
 
-/* ── HORSE REVEAL SCENES ── */
-.hscene{background:var(--offwhite)}
-.hscene .himg-wrap{position:absolute;inset:0;display:flex;align-items:flex-end;
-  justify-content:flex-end;overflow:hidden}
-.hscene .himg-wrap img{width:62%;height:82%;object-fit:contain;object-position:bottom right;
-  animation:aHorseRide .55s cubic-bezier(.17,.67,.3,1.2) both}
-@keyframes aHorseRide{from{transform:translateX(32%) scale(.88);opacity:0}to{transform:none;opacity:1}}
-.hscene .hinfo{position:absolute;left:0;bottom:0;top:0;width:52%;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(16px,4vw,32px);z-index:2}
-.hscene .hnum{width:clamp(44px,11vw,72px);height:clamp(44px,11vw,72px);background:var(--red);
-  display:flex;align-items:center;justify-content:center;
-  font-size:clamp(24px,6.5vw,46px);font-weight:900;color:#fff;
-  margin-bottom:clamp(8px,2vw,14px);box-shadow:3px 4px 0 rgba(139,0,0,.3);
-  animation:aNumSlam .35s cubic-bezier(.17,.67,.3,1.5) both}
-.hscene .hname{font-size:clamp(28px,8vw,78px);font-weight:900;color:#0a0a0a;
-  letter-spacing:-.02em;line-height:.86;animation:aFlipY .4s .1s cubic-bezier(.22,1,.36,1) both}
-.hscene .hcuad{font-size:clamp(9px,1.8vw,13px);color:rgba(0,0,0,.32);
-  letter-spacing:.3em;text-transform:uppercase;margin-top:5px;animation:aFadeIn .3s .26s ease both}
-.hscene .htime{font-size:clamp(40px,11vw,108px);font-weight:900;color:var(--red);
-  letter-spacing:-.02em;line-height:.88;margin-top:clamp(8px,2vw,14px);
-  text-shadow:2px 4px 0 rgba(139,0,0,.2);animation:aZpop .45s .22s cubic-bezier(.17,.67,.3,1.4) both}
-.hscene .hsec{font-size:clamp(11px,2.3vw,17px);color:rgba(0,0,0,.3);letter-spacing:.2em;
-  animation:aFadeIn .3s .38s ease both}
-.hscene .hbar{width:85%;height:3px;background:rgba(0,0,0,.08);border-radius:999px;
-  overflow:hidden;margin-top:8px;animation:aFadeIn .3s .38s ease both}
-.hscene .hfill{height:100%;background:linear-gradient(90deg,var(--dred),var(--red),var(--gold));
-  transform:scaleX(0);transform-origin:left;animation:aBarGrow .65s .42s ease both}
+/* S5 S6 S7 — pure image, no extra styles needed */
+#s5,#s6,#s7{background:#f0ede8;padding:0}
+#s5 img,#s6 img,#s7 img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  animation:aFadeIn .18s ease both}
 
-/* ── S8 ¡CUATRO CUADRAS! ── */
+/* S8 */
 #s8{background:#000}
 #s8 .s8a{font-size:clamp(54px,15vw,165px);font-weight:900;color:var(--white);
   letter-spacing:-.04em;line-height:.82;text-align:center;
@@ -127,20 +97,19 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   letter-spacing:-.04em;line-height:.82;text-align:center;
   animation:aBigSlam .26s .1s cubic-bezier(.17,.67,.3,1.7) both}
 
-/* ── S9 UNA SOLA CORONA ── */
+/* S9 */
 #s9{background:var(--red)}
 #s9 .s9big{font-size:clamp(48px,13.5vw,148px);font-weight:900;color:var(--white);
   letter-spacing:-.04em;line-height:.82;text-align:center;
   text-shadow:0 0 100px rgba(0,0,0,.3),3px 5px 0 rgba(100,0,0,.4);
   animation:aBigSlam .28s cubic-bezier(.17,.67,.3,1.7) both}
 
-/* ── S10 GRAN FINAL EXPLOSION (photo bg) ── */
+/* S10 */
 #s10{background:#000}
 #s10 .gfc{position:relative;z-index:10;display:flex;flex-direction:column;
   align-items:center;text-align:center;gap:0}
 #s10 .gfgran{font-size:clamp(84px,24vw,290px);font-weight:900;color:var(--white);
-  letter-spacing:-.04em;line-height:.76;
-  animation:aBigSlam .26s cubic-bezier(.17,.67,.3,1.7) both}
+  letter-spacing:-.04em;line-height:.76;animation:aBigSlam .26s cubic-bezier(.17,.67,.3,1.7) both}
 #s10 .gffinal{font-size:clamp(84px,24vw,290px);font-weight:900;color:var(--red);
   letter-spacing:-.04em;line-height:.76;
   text-shadow:4px 8px 0 rgba(139,0,0,.55),0 0 120px rgba(204,0,0,.7);
@@ -152,13 +121,13 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 #s10 .gfdate{font-size:clamp(22px,6vw,58px);font-weight:900;color:rgba(255,255,255,.82);
   animation:aFadeUp .4s .48s ease both}
 
-/* ── S11 END CARD ── */
+/* S11 END CARD */
 #s11{background:#000;overflow:hidden}
 #s11 .ebg{position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 55%,rgba(204,0,0,.18) 0%,transparent 62%)}
 #s11 .ehorses{position:absolute;bottom:0;left:0;right:0;height:78%;
   display:flex;align-items:flex-end;justify-content:space-between;overflow:hidden}
-#s11 .ehorses img{height:100%;width:25%;object-fit:contain;object-position:bottom center;
+#s11 .ehorses img{height:100%;width:33%;object-fit:contain;object-position:bottom center;
   opacity:.4;filter:brightness(.72) contrast(1.06);
   animation:aFadeUp .9s var(--d,.1s) ease both}
 #s11 .egrad{position:absolute;bottom:0;left:0;right:0;height:72%;
@@ -184,15 +153,12 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 #s11 .egold{background:var(--gold);padding:clamp(8px,1.6vw,12px) clamp(16px,4vw,30px);
   border-radius:100px;font-size:clamp(14px,3.8vw,30px);font-weight:900;color:#000;
   box-shadow:0 4px 22px rgba(212,160,23,.45)}
-#s11 .eloc{font-size:clamp(9px,1.7vw,12px);color:rgba(255,255,255,.25);
-  letter-spacing:.45em;text-transform:uppercase;margin-top:3px;animation:aFadeIn .4s .62s ease both}
 #s11 .eco{font-size:clamp(28px,7.5vw,85px);font-weight:900;color:var(--gold);
   letter-spacing:.1em;line-height:.88;text-shadow:0 0 55px rgba(212,160,23,.55);
   animation:aFadeIn .5s .7s ease both}
 #s11 .etag{font-size:clamp(9px,1.7vw,11px);color:rgba(255,255,255,.16);
   letter-spacing:.45em;text-transform:uppercase;margin-top:5px;animation:aFadeIn .5s .88s ease both}
 
-/* CONTROLS */
 #skip,#replay{position:fixed;bottom:16px;right:16px;z-index:200;
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
   color:rgba(255,255,255,.35);padding:7px 18px;border-radius:100px;
@@ -200,15 +166,12 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   font-family:-apple-system,sans-serif}
 #replay{display:none}
 
-/* KEYFRAMES */
 @keyframes aFadeIn{from{opacity:0}to{opacity:1}}
 @keyframes aFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes aSpinIn{from{transform:perspective(700px) rotateY(360deg) scale(.35);opacity:0}to{transform:none;opacity:1}}
 @keyframes aZpop{from{transform:perspective(600px) translateZ(-380px) scale(.15);opacity:0}to{transform:none;opacity:1}}
 @keyframes aSlamIn{from{transform:scale(2.4);opacity:0}to{transform:none;opacity:1}}
 @keyframes aBigSlam{from{transform:scale(3);opacity:0}to{transform:none;opacity:1}}
-@keyframes aNumSlam{from{transform:translateX(-90px) scale(.45);opacity:0}to{transform:none;opacity:1}}
-@keyframes aFlipY{from{transform:perspective(600px) rotateY(-88deg);opacity:0}to{transform:none;opacity:1}}
 @keyframes aBarGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes aScaleX{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
 </style>
@@ -221,20 +184,20 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
 
 <div id="stage">
 
-<!-- S0: DONDE LA VELOCIDAD -->
+<!-- S0 -->
 <div class="scene on" id="s0">
   <div class="speedlines" id="sl0"></div>
   <div class="s0pre">Doble RR Training Center · Colorado</div>
   <div class="s0big">DONDE LA<br>VELOCIDAD</div>
 </div>
 
-<!-- S1: DEFINE LEYENDAS -->
+<!-- S1 -->
 <div class="scene" id="s1">
   <div class="speedlines" id="sl1"></div>
   <div class="s1big">DEFINE<br>LEYENDAS</div>
 </div>
 
-<!-- S2: RR LOGO -->
+<!-- S2 -->
 <div class="scene" id="s2">
   <div class="speedlines" id="sl2"></div>
   <div class="s2rr">RR</div>
@@ -243,7 +206,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   <div class="s2co">🏔 Colorado</div>
 </div>
 
-<!-- S3: ACTION SHOT + ¿CON QUIÉN VAS? -->
+<!-- S3 -->
 <div class="scene" id="s3">
   <div class="pbg" style="background-image:url(action1.jpg)"></div>
   <div class="pov"></div>
@@ -260,51 +223,34 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   </div>
 </div>
 
-<!-- S4: EL ARIAT -->
-<div class="scene hscene" id="s4">
-  <div class="speedlines" id="sl4"></div>
-  <div class="himg-wrap"><img src="h1.jpg" alt="El Ariat"></div>
-  <div class="hinfo">
-    <div class="hnum">1</div>
-    <div class="hname">EL<br>ARIAT</div>
-    <div class="hcuad">Cuadra Ballezano</div>
-    <div class="htime">15.20</div>
-    <div class="hsec">segundos</div>
-    <div class="hbar"><div class="hfill" style="width:97%"></div></div>
-  </div>
+<!-- S5: EL OCHO — your image, nothing on top -->
+<div class="scene" id="s5">
+  <img src="h2.jpg" alt="El Ocho">
 </div>
 
-<!-- S5: EL OCHO — full card image -->
-<div class="scene" id="s5" style="background:#f5f5f0">
-  <div class="speedlines" id="sl5"></div>
-  <img src="h2.jpg" style="width:100%;height:100%;object-fit:contain;object-position:center;animation:aFadeIn .22s ease both">
+<!-- S6: EL MENCHITO — your image, nothing on top -->
+<div class="scene" id="s6">
+  <img src="h3.jpg" alt="El Menchito">
 </div>
 
-<!-- S6: EL MENCHITO — full card image -->
-<div class="scene" id="s6" style="background:#f5f5f0">
-  <div class="speedlines" id="sl6"></div>
-  <img src="h3.jpg" style="width:100%;height:100%;object-fit:contain;object-position:center;animation:aFadeIn .22s ease both">
+<!-- S7: EL F7 — your image, nothing on top -->
+<div class="scene" id="s7">
+  <img src="h4.jpg" alt="El F7">
 </div>
 
-<!-- S7: EL F7 — full card image -->
-<div class="scene" id="s7" style="background:#f5f5f0">
-  <div class="speedlines" id="sl7"></div>
-  <img src="h4.jpg" style="width:100%;height:100%;object-fit:contain;object-position:center;animation:aFadeIn .22s ease both">
-</div>
-
-<!-- S8: ¡CUATRO CUADRAS! -->
+<!-- S8 -->
 <div class="scene" id="s8">
   <div class="speedlines" id="sl8"></div>
   <div class="s8a">¡CUATRO</div>
   <div class="s8b">CUADRAS!</div>
 </div>
 
-<!-- S9: UNA SOLA CORONA -->
+<!-- S9 -->
 <div class="scene" id="s9">
   <div class="s9big">UNA SOLA<br>CORONA</div>
 </div>
 
-<!-- S10: GRAN FINAL EXPLOSION (action bg) -->
+<!-- S10 -->
 <div class="scene" id="s10">
   <div class="pbg" style="background-image:url(action2.jpg)"></div>
   <div class="pov"></div>
@@ -318,14 +264,13 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   </div>
 </div>
 
-<!-- S11: END CARD -->
+<!-- S11 END CARD — 3 horses (no El Ariat) -->
 <div class="scene" id="s11">
   <div class="ebg"></div>
   <div class="ehorses">
-    <img src="h1.jpg" style="--d:.12s">
-    <img src="h2.jpg" style="--d:.28s">
-    <img src="h3.jpg" style="--d:.44s">
-    <img src="h4.jpg" style="--d:.6s">
+    <img src="h2.jpg" style="--d:.12s">
+    <img src="h3.jpg" style="--d:.32s">
+    <img src="h4.jpg" style="--d:.52s">
   </div>
   <div class="egrad"></div>
   <div class="econtent">
@@ -337,7 +282,6 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
       <div class="ered">20 JUN</div>
       <div class="egold">300 YD</div>
     </div>
-    <div class="eloc">Velocidad · Pasión · Adrenalina</div>
     <div class="eco">COLORADO</div>
     <div class="etag">Donde La Velocidad Define Leyendas</div>
   </div>
@@ -422,8 +366,9 @@ function shake(){
   s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');
 }
 
-const SCENES=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11'];
-const DURS=  [550,  620,  1250, 2000, 2000, 2000, 2000, 2000, 850, 780, 2700, Infinity];
+// No s4 — El Ariat removed
+const SCENES=['s0','s1','s2','s3','s5','s6','s7','s8','s9','s10','s11'];
+const DURS=  [550,  620, 1250, 2000, 2000, 2000, 2000, 850,  780, 2700, Infinity];
 const TOTAL=DURS.slice(0,-1).reduce((a,b)=>a+b,0);
 let cur=0,timer=null,t0=null;
 const RED='hsl(0,90%,40%)',GOLD='hsl(40,90%,50%)',WHT='hsl(0,0%,100%)';
@@ -446,17 +391,18 @@ function onEnter(i){
     burst(W*.15,cy,18,[RED,GOLD]);burst(W*.85,cy,18,[RED,GOLD]);
     setTimeout(()=>burst(cx,H*.3,12,[WHT,GOLD]),250);
   }
-  if(i>=4&&i<=7){flash(.62);mkLines('sl'+i,12);burst(cx*1.45,cy,15,[RED,GOLD])}
-  if(i===8){flash(1);shake();mkLines('sl8',22);burst(cx,cy,70,[WHT,GOLD,RED,'#ff6666'])}
-  if(i===9){rflash(.9);shake();burst(cx,cy,55,[WHT,'hsl(0,100%,75%)',GOLD])}
-  if(i===10){
+  // i=4 s5, i=5 s6, i=6 s7 — just a clean flash, no speedlines/particles on the photos
+  if(i===4||i===5||i===6){flash(.55)}
+  if(i===7){flash(1);shake();mkLines('sl8',22);burst(cx,cy,70,[WHT,GOLD,RED,'#ff6666'])}
+  if(i===8){rflash(.9);shake();burst(cx,cy,55,[WHT,'hsl(0,100%,75%)',GOLD])}
+  if(i===9){
     flash(1);shake();mkLines('sl10',26);
     setTimeout(()=>burst(cx,cy,100,[RED,GOLD,WHT,'#b8860b','#ff4444']),50);
     setTimeout(()=>burst(cx,cy,80,[GOLD,WHT,'#fffbe6']),320);
     setTimeout(()=>{shake();burst(cx,H*.25,50,[RED,WHT])},680);
     setTimeout(()=>{burst(W*.2,cy,30,[RED,GOLD]);burst(W*.8,cy,30,[RED,GOLD])},1100);
   }
-  if(i===11){
+  if(i===10){
     flash(.92);
     setTimeout(()=>{
       burst(W*.08,H*.18,35,[RED,GOLD]);burst(W*.92,H*.18,35,[RED,GOLD]);
