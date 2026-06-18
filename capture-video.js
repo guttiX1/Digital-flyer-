@@ -4,13 +4,13 @@ const path = require('path');
 const fs = require('fs');
 
 const FFMPEG = require('ffmpeg-static');
-const HTML = `file://${path.resolve(__dirname, 'events/rancho-el-palomino-jul4/video-ad.html')}`;
+const HTML = `file://${path.resolve(__dirname, 'events/rey-de-reyes-jun14/video-ad.html')}`;
 const FRAMES_DIR = '/tmp/vid-frames';
-const AUDIO_PATH = path.resolve(__dirname, 'events/rancho-el-palomino-jul4/commentator.mp3');
+const AUDIO_PATH = path.resolve(__dirname, 'events/rey-de-reyes-jun14/commentator.mp3');
 const AUDIO = fs.existsSync(AUDIO_PATH) ? AUDIO_PATH : null;
-const OUT_VIDEO = path.resolve(__dirname, 'events/rancho-el-palomino-jul4/rancho-el-palomino.mp4');
+const OUT_VIDEO = path.resolve(__dirname, 'events/rey-de-reyes-jun14/rey-de-reyes.mp4');
 
-const DURATION_MS = 20500; // 20s ad
+const DURATION_MS = 32000; // 30s video-ad
 const WIDTH = 540;
 const HEIGHT = 960;
 
@@ -33,13 +33,13 @@ fs.mkdirSync(FRAMES_DIR, { recursive: true });
   await page.goto(HTML, { waitUntil: 'load' });
 
   await page.evaluate(() => {
-    ['skip','replay','prog'].forEach(id => {
+    // Auto-click play overlay if present (generator-style ads)
+    const playOverlay = document.getElementById('play-overlay');
+    if (playOverlay) playOverlay.click();
+    ['skip','replay'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = 'none';
     });
-    // Also hide canvas particles to keep it clean
-    const cvs = document.getElementById('cvs');
-    if (cvs) cvs.style.display = 'none';
   });
 
   await new Promise(r => setTimeout(r, 200));

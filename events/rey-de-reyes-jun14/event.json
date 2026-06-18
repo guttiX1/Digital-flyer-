@@ -1,0 +1,55 @@
+{
+  "event_name": "El Rey de Reyes de la Montaña",
+  "event_type": "Gran Carrera",
+  "slug": "rey-de-reyes-jun14",
+  "date_iso": "2026-06-14T12:00:00",
+  "date_display": "Domingo · Junio 14, 2026",
+  "venue": "La Pista",
+  "city": "Colorado, USA",
+  "format": "10 Carreras",
+  "distance": "137–328 Yds",
+  "prize": "$48,250",
+  "tagline": "El Rey de Reyes de la Montaña",
+  "horse_left": {
+    "name": "LA REYNA",
+    "cuadra": "La Campeona",
+    "record": "12-9-2",
+    "win_pct": 75,
+    "speed_rating": 92,
+    "image": "h-la-reyna.jpg",
+    "tag": "La Campeona"
+  },
+  "horse_right": {
+    "name": "EL EREY",
+    "cuadra": "De Reyes",
+    "record": "11-8-1",
+    "win_pct": 73,
+    "speed_rating": 89,
+    "image": "h-el-erey.jpg",
+    "tag": "El Rey"
+  },
+  "featured_race": {
+    "label": "Carrera La Estelar",
+    "num": 7,
+    "h1": "CAOS",
+    "h2": "REY PUERRO",
+    "cuadra": "Cdra. Charly",
+    "dist": "246 × 273 Yds",
+    "image_h1": "h-caos.jpg",
+    "image_h2": "h-rey-puerro.jpg",
+    "stats_h1": {"record":"12-9-2","best_time":"13.421","speed_index":112,"earnings":"$48,250"},
+    "stats_h2": {"record":"11-8-1","best_time":"13.387","speed_index":114,"earnings":"$32,600"}
+  },
+  "races": [
+    {"num":1,"h1":"POCA LUZ","c1":"Cdra. Ramirez","h2":"CHIKLIN","c2":"Cdra. Con Chuy","dist":"137 yds","img1":"cuadra-mtz.jpg","img2":"cristo-rey.jpg"},
+    {"num":2,"h1":"CALCAMONIA","c1":"Cdra. El Alazan","h2":"VALENTINA","c2":"Cdra. 3 Hermanos","dist":"219 yds","img1":"la-reyna.jpg","img2":"cuadra-esperanza.jpg"},
+    {"num":3,"h1":"AGUILA","c1":"Cdra. Con Chuy","h2":"BLACK JACK","c2":"Cdra. Con Chuy","dist":"164 yds","img1":"cristo-rey.jpg","img2":"la-tepada.jpg"},
+    {"num":4,"h1":"DRAMATICA","c1":"Cdra. Ramirez","h2":"VIEJITO","c2":"Cdra. Cafetero","dist":"164 yds","img1":"la-reyna.jpg","img2":"cuadra-mtz.jpg"},
+    {"num":5,"h1":"VOLCAN","c1":"Cdra. Cafetero","h2":"EMA","c2":"Cdra. GDA","dist":"219 yds","img1":"gutierrez.jpg","img2":"cuadra-esperanza.jpg"},
+    {"num":6,"h1":"PICO BLANCO","c1":"Cdra. Cafetero","h2":"CAÑERO","c2":"Cdra. Con Chuy","dist":"328 yds","img1":"el-chigon.jpg","img2":"cuadra-mtz.jpg"},
+    {"num":7,"h1":"CAOS","c1":"Cdra. Charly","h2":"REY PUERRO","c2":"Cdra. Charly","dist":"246×273 yds","img1":"la-mami.jpg","img2":"aries.jpg","featured":true},
+    {"num":8,"h1":"RAYITO","c1":"Cdra. Chichinero","h2":"TRAKALOSA","c2":"Cdra. GDA","dist":"273 yds","img1":"la-tepada.jpg","img2":"pisces.jpg"},
+    {"num":9,"h1":"SECRETO","c1":"Cdra. Charly","h2":"CANTINELAS","c2":"","dist":"219 yds","img1":"pisces.jpg","img2":"gutierrez.jpg"},
+    {"num":10,"h1":"TIGRE REAL","c1":"Cdra. El Rey","h2":"MONTAÑES","c2":"Cdra. La Montaña","dist":"180 yds","img1":"aries.jpg","img2":"la-mami.jpg"}
+  ]
+}
