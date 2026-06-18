@@ -81,6 +81,37 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   border-radius:5px;font-size:clamp(22px,6vw,40px);font-weight:900;color:#fff;
   box-shadow:0 4px 24px rgba(204,0,0,.55)}
 
+/* S4 EL ARIAT — original HTML card */
+#s4{background:#F5F2EE}
+#s4 .himg-wrap{position:absolute;inset:0;display:flex;align-items:flex-end;
+  justify-content:flex-end;overflow:hidden}
+#s4 .himg-wrap img{width:62%;height:82%;object-fit:contain;object-position:bottom right;
+  animation:aHorseRide .55s cubic-bezier(.17,.67,.3,1.2) both}
+@keyframes aHorseRide{from{transform:translateX(32%) scale(.88);opacity:0}to{transform:none;opacity:1}}
+#s4 .hinfo{position:absolute;left:0;bottom:0;top:0;width:52%;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(16px,4vw,32px);z-index:2}
+#s4 .hnum{width:clamp(44px,11vw,72px);height:clamp(44px,11vw,72px);background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(24px,6.5vw,46px);font-weight:900;color:#fff;
+  margin-bottom:clamp(8px,2vw,14px);box-shadow:3px 4px 0 rgba(139,0,0,.3);
+  animation:aNumSlam .35s cubic-bezier(.17,.67,.3,1.5) both}
+@keyframes aNumSlam{from{transform:translateX(-90px) scale(.45);opacity:0}to{transform:none;opacity:1}}
+#s4 .hname{font-size:clamp(28px,8vw,78px);font-weight:900;color:#0a0a0a;
+  letter-spacing:-.02em;line-height:.86;animation:aFlipY .4s .1s cubic-bezier(.22,1,.36,1) both}
+@keyframes aFlipY{from{transform:perspective(600px) rotateY(-88deg);opacity:0}to{transform:none;opacity:1}}
+#s4 .hcuad{font-size:clamp(9px,1.8vw,13px);color:rgba(0,0,0,.32);
+  letter-spacing:.3em;text-transform:uppercase;margin-top:5px;animation:aFadeIn .3s .26s ease both}
+#s4 .htime{font-size:clamp(40px,11vw,108px);font-weight:900;color:var(--red);
+  letter-spacing:-.02em;line-height:.88;margin-top:clamp(8px,2vw,14px);
+  text-shadow:2px 4px 0 rgba(139,0,0,.2);animation:aZpop .45s .22s cubic-bezier(.17,.67,.3,1.4) both}
+#s4 .hsec{font-size:clamp(11px,2.3vw,17px);color:rgba(0,0,0,.3);letter-spacing:.2em;
+  animation:aFadeIn .3s .38s ease both}
+#s4 .hbar{width:85%;height:3px;background:rgba(0,0,0,.08);border-radius:999px;
+  overflow:hidden;margin-top:8px;animation:aFadeIn .3s .38s ease both}
+#s4 .hfill{height:100%;background:linear-gradient(90deg,var(--dred),var(--red),var(--gold));
+  transform:scaleX(0);transform-origin:left;animation:aBarGrow .65s .42s ease both}
+
 /* S5 S6 S7 — pure image, no extra styles needed */
 #s5,#s6,#s7{background:#f0ede8;padding:0}
 #s5 img,#s6 img,#s7 img{
@@ -220,6 +251,19 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
       <div class="s3num">3</div>
       <div class="s3num">4</div>
     </div>
+  </div>
+</div>
+
+<!-- S4: EL ARIAT — original HTML card -->
+<div class="scene" id="s4">
+  <div class="himg-wrap"><img src="h1.jpg?v=3" alt="El Ariat"></div>
+  <div class="hinfo">
+    <div class="hnum">1</div>
+    <div class="hname">EL<br>ARIAT</div>
+    <div class="hcuad">Cuadra Ballezano</div>
+    <div class="htime">15.20</div>
+    <div class="hsec">segundos</div>
+    <div class="hbar"><div class="hfill"></div></div>
   </div>
 </div>
 
@@ -366,9 +410,8 @@ function shake(){
   s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');
 }
 
-// No s4 — El Ariat removed
-const SCENES=['s0','s1','s2','s3','s5','s6','s7','s8','s9','s10','s11'];
-const DURS=  [550,  620, 1250, 2000, 2000, 2000, 2000, 850,  780, 2700, Infinity];
+const SCENES=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11'];
+const DURS=  [550,  620, 1250, 2000, 2000, 2000, 2000, 2000, 850,  780, 2700, Infinity];
 const TOTAL=DURS.slice(0,-1).reduce((a,b)=>a+b,0);
 let cur=0,timer=null,t0=null;
 const RED='hsl(0,90%,40%)',GOLD='hsl(40,90%,50%)',WHT='hsl(0,0%,100%)';
@@ -391,18 +434,19 @@ function onEnter(i){
     burst(W*.15,cy,18,[RED,GOLD]);burst(W*.85,cy,18,[RED,GOLD]);
     setTimeout(()=>burst(cx,H*.3,12,[WHT,GOLD]),250);
   }
-  // i=4 s5, i=5 s6, i=6 s7 — just a clean flash, no speedlines/particles on the photos
-  if(i===4||i===5||i===6){flash(.55)}
-  if(i===7){flash(1);shake();mkLines('sl8',22);burst(cx,cy,70,[WHT,GOLD,RED,'#ff6666'])}
-  if(i===8){rflash(.9);shake();burst(cx,cy,55,[WHT,'hsl(0,100%,75%)',GOLD])}
-  if(i===9){
+  if(i===4){flash(.62);burst(cx*1.45,cy,15,[RED,GOLD])}
+  // i=5 s5, i=6 s6, i=7 s7 — clean flash only, no overlays on the photos
+  if(i===5||i===6||i===7){flash(.55)}
+  if(i===8){flash(1);shake();mkLines('sl8',22);burst(cx,cy,70,[WHT,GOLD,RED,'#ff6666'])}
+  if(i===9){rflash(.9);shake();burst(cx,cy,55,[WHT,'hsl(0,100%,75%)',GOLD])}
+  if(i===10){
     flash(1);shake();mkLines('sl10',26);
     setTimeout(()=>burst(cx,cy,100,[RED,GOLD,WHT,'#b8860b','#ff4444']),50);
     setTimeout(()=>burst(cx,cy,80,[GOLD,WHT,'#fffbe6']),320);
     setTimeout(()=>{shake();burst(cx,H*.25,50,[RED,WHT])},680);
     setTimeout(()=>{burst(W*.2,cy,30,[RED,GOLD]);burst(W*.8,cy,30,[RED,GOLD])},1100);
   }
-  if(i===10){
+  if(i===11){
     flash(.92);
     setTimeout(()=>{
       burst(W*.08,H*.18,35,[RED,GOLD]);burst(W*.92,H*.18,35,[RED,GOLD]);
