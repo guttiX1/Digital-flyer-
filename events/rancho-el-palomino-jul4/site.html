@@ -1,355 +1,1156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rancho El Palomino · 4 de Julio · Chicago</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:#f4f4f4;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rancho El Palomino · 4 de Julio 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #FFB800;
+      --gold-dark: #e6a600;
+      --black: #111111;
+      --white: #ffffff;
+      --gray-bg: #f4f4f4;
+      --gray-card: #f8f8f8;
+      --gray-border: #e0e0e0;
+      --text-primary: #111111;
+      --text-secondary: #666666;
+      --orange: #FF6B00;
+    }
 
-/* ── NAV ── */
-.top-nav{
-  position:sticky;top:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
-  gap:.4rem;padding:.6rem 1rem;
-  background:#fff;
-  border-bottom:1px solid rgba(0,0,0,.09);
-  box-shadow:0 2px 10px rgba(0,0,0,.07)
-}
-.nav-venue .l1{font-size:.62rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:#111;line-height:1.2}
-.nav-venue .l2{font-size:.52rem;font-weight:600;color:#888;letter-spacing:.05em;text-transform:uppercase}
-.nav-pills{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
-.np{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .68rem;border-radius:999px;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-decoration:none;border:1.5px solid transparent;white-space:nowrap;cursor:pointer}
-.np-gold{background:rgba(255,184,0,.13);border-color:rgba(255,184,0,.45);color:#a06d00}
-.np-fb{background:#1877F2;color:#fff}
-.np-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
-.np-vid{background:#FFD200;color:#111}
-.nav-date{font-size:.62rem;font-weight:800;color:#555;white-space:nowrap}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── TICKER ── */
-.ticker{background:#111;padding:.52rem 0;overflow:hidden;border-bottom:2px solid #FFD200;user-select:none}
-.ticker-track{display:flex;white-space:nowrap;animation:scroll 20s linear infinite}
-.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.14em;color:#FFD200;padding:0 1.6rem}
-.ticker-track span::after{content:'|';color:rgba(255,208,0,.28);margin-left:1.6rem}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    html { scroll-behavior: smooth; }
 
-/* ── HERO ── */
-.hero{position:relative;min-height:75vw;max-height:96vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url(flyer.jpg) center top/cover no-repeat;animation:hzoom 14s ease-out both}
-@keyframes hzoom{from{transform:scale(1.12)}to{transform:scale(1.02)}}
-.hero-over{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 36%,rgba(0,0,0,.08) 68%,rgba(0,0,0,.35) 100%)}
-.hero-body{position:relative;z-index:2;padding:2rem 1.2rem 1.6rem;animation:fadeup .9s .15s both}
-@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,208,0,.14);border:1px solid rgba(255,208,0,.4);color:#FFD200;padding:.22rem .72rem;border-radius:999px;font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.65rem}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,15vw,10rem);line-height:.82;color:#FFD200;text-shadow:0 4px 40px rgba(0,0,0,.85),0 0 100px rgba(255,208,0,.18)}
-.hero-title em{color:#fff;font-style:normal;display:block;font-size:.62em}
-.hero-sub{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin:.55rem 0 .95rem}
-.hero-badges{display:flex;gap:.4rem;flex-wrap:wrap}
-.hb{padding:.3rem .75rem;border-radius:8px;font-size:.68rem;font-weight:800;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
-.hb.gold{background:#FFD200;color:#111;border-color:#FFD200}
+    body {
+      background: var(--gray-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
 
-/* ── COUNTDOWN ── */
-.countdown{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,.07);box-shadow:0 1px 8px rgba(0,0,0,.05)}
-.cd-u{flex:1;display:flex;flex-direction:column;align-items:center;padding:1.1rem .5rem;border-right:1px solid rgba(0,0,0,.06)}
-.cd-u:last-child{border-right:none}
-.cd-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,4rem);color:#FFB800;line-height:1}
-.cd-l{font-size:.46rem;font-weight:800;color:#bbb;letter-spacing:.14em;text-transform:uppercase;margin-top:.15rem}
+    /* ===== STICKY NAV ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 
-/* ── STATS ── */
-.stats{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,.06)}
-.st{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem .4rem;border-right:1px solid rgba(0,0,0,.05)}
-.st:last-child{border-right:none}
-.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,3.2rem);color:#FFB800;line-height:1}
-.st-l{font-size:.46rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase;margin-top:.15rem;text-align:center}
+    .nav-left {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
 
-/* ── SECTION HEADER ── */
-.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.4rem 1rem .75rem}
-.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.5),transparent)}
-.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.1em;white-space:nowrap;color:#111}
+    .nav-left .venue-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+    }
 
-/* ── HORSE CARDS ── */
-.horses-row{display:flex;gap:.75rem;padding:.2rem 1rem 1.2rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.horses-row::-webkit-scrollbar{display:none}
-.hc{flex:0 0 44vw;max-width:186px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.09);border:1px solid rgba(0,0,0,.06)}
-.hc-img{width:100%;aspect-ratio:3/4;background:url(flyer.jpg) center/cover no-repeat;position:relative}
-.hc-img-over{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,transparent 55%)}
-.hc-body{padding:.7rem .8rem .8rem}
-.hc-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;line-height:1;color:#111}
-.hc-cuad{font-size:.58rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin:.12rem 0 .5rem}
-.hc-tag{display:inline-block;border:1.5px solid #FFB800;color:#a07000;font-size:.56rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .65rem;border-radius:999px}
+    .nav-left .venue-city {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
 
-/* ── RACE ROWS ── */
-.race-list{padding:.2rem .8rem 1.2rem;display:flex;flex-direction:column;gap:.55rem}
-.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid rgba(0,0,0,.07);box-shadow:0 1px 8px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .18s,border-color .18s}
-.rr:hover,.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.16);border-color:rgba(255,184,0,.38)}
+    .nav-center {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-.rr-top{display:flex;align-items:center;gap:.65rem;padding:.82rem .9rem}
-.horse-ico{width:32px;height:32px;flex-shrink:0;opacity:.55}
-.rr-names{flex:1;min-width:0}
-.rr-n1{font-size:.83rem;font-weight:900;color:#111;letter-spacing:.01em;line-height:1.15}
-.rr-cuad{font-size:.56rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.08rem}
-.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:#FF8C00;flex-shrink:0;padding:0 .1rem}
-.rr-right{display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;flex-shrink:0}
-.rr-dist{font-size:.62rem;font-weight:700;color:#777}
-.rr-estelar{font-size:.48rem;font-weight:800;color:#FFB800;letter-spacing:.1em;text-transform:uppercase}
-.rr-num{width:26px;height:26px;border-radius:50%;background:#FFB800;color:#111;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;flex-shrink:0}
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s;
+    }
 
-/* ── DUEL EXPAND ── */
-.rr-duel{display:none;background:#0e0e0e}
-.rr.open .rr-duel{display:block}
-.duel-grid{display:grid;grid-template-columns:1fr 52px 1fr;min-height:190px}
-.dh{position:relative;overflow:hidden}
-.dh-bg{position:absolute;inset:0;background:url(flyer.jpg) center/cover no-repeat;filter:brightness(.65) saturate(1.4)}
-.dh.dl .dh-bg{background-position:22% center}
-.dh.dr .dh-bg{background-position:78% center}
-.dh-ov{position:absolute;inset:0}
-.dh.dl .dh-ov{background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
-.dh.dr .dh-ov{background:linear-gradient(270deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
-.dh-info{position:absolute;bottom:0;left:0;right:0;padding:1rem .85rem}
-.dh.dr .dh-info{text-align:right}
-.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,4.5vw,2.8rem);color:#fff;line-height:.88;text-shadow:0 3px 20px rgba(0,0,0,1)}
-.dh-sub{font-size:.56rem;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-top:.25rem}
-.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;border-left:1px solid rgba(255,208,0,.18);border-right:1px solid rgba(255,208,0,.18)}
-.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#FFD200;text-shadow:0 0 40px rgba(255,208,0,.5);line-height:1}
-.duel-hit{font-size:.5rem;font-weight:800;color:rgba(255,208,0,.5);letter-spacing:.1em;text-align:center;margin-top:.3rem;text-transform:uppercase}
-.ver-mas{display:block;width:100%;padding:.68rem;text-align:center;font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#a07000;background:rgba(255,184,0,.07);border-top:1px solid rgba(255,184,0,.14);text-transform:uppercase}
+    .nav-pill:hover { transform: scale(1.05); }
 
-/* ── SOCIAL FOOTER ── */
-.sf-bar{display:flex;align-items:center;justify-content:center;gap:.65rem;background:#111;padding:1rem 1.5rem;margin:1rem .8rem 2.5rem;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.14)}
-.sf-play{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid #FF3B30;flex-shrink:0}
-.sf-txt{color:#fff;font-size:.82rem;font-weight:600}
-.sf-num{color:#FFD200;font-weight:900}
+    .nav-pill.gold {
+      background: var(--gold);
+      color: var(--black);
+    }
 
-/* tagline */
-.tagline{text-align:center;padding:.6rem 1.5rem 0;font-size:.68rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
+    .nav-pill.fb {
+      background: #1877F2;
+      color: #fff;
+    }
 
-@media(max-width:400px){
-  .nav-pills .np-fb,.nav-pills .np-ig{display:none}
-  .hc{flex:0 0 60vw}
-  .rr-dist{display:none}
-}
-</style>
+    .nav-pill.ig {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+    }
+
+    .nav-pill.yt {
+      background: #FF0000;
+      color: #fff;
+    }
+
+    .nav-right {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ===== GOLD TICKER ===== */
+    .ticker-bar {
+      background: var(--black);
+      color: var(--gold);
+      padding: 7px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker-scroll 28s linear infinite;
+    }
+
+    .ticker-inner span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      padding: 0 28px;
+    }
+
+    .ticker-inner span.sep {
+      color: rgba(255,184,0,0.4);
+      padding: 0 4px;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('flyer.jpg');
+      background-size: cover;
+      background-position: center top;
+      animation: hero-zoom 12s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+
+    @keyframes hero-zoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.07); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.25) 0%,
+        rgba(0,0,0,0.45) 50%,
+        rgba(0,0,0,0.80) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 24px 80px;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 10vw, 96px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 0.95;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(22px, 4vw, 32px);
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 6px;
+      margin-bottom: 28px;
+    }
+
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 24px;
+    }
+
+    .hero-badge.gold-badge {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+
+    /* ===== COUNTDOWN ===== */
+    .countdown-section {
+      background: var(--white);
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .countdown-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 72px;
+    }
+
+    .cd-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 10vw, 80px);
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+
+    .cd-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 60px;
+      color: var(--gold);
+      opacity: 0.3;
+      align-self: flex-start;
+      padding-top: 4px;
+    }
+
+    /* ===== STATS STRIP ===== */
+    .stats-strip {
+      background: var(--black);
+      padding: 18px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 28px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .stat-desc {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+
+    /* ===== HORSE CARDS ===== */
+    .cards-section {
+      padding: 40px 0 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+
+    .section-line.right {
+      background: linear-gradient(to left, var(--gold), transparent);
+    }
+
+    .cards-scroll {
+      display: flex;
+      gap: 14px;
+      padding: 4px 24px 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .cards-scroll::-webkit-scrollbar { display: none; }
+
+    .horse-card {
+      flex: 0 0 150px;
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.10);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .horse-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    }
+
+    .horse-card-img-wrap {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .horse-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .horse-card-body {
+      padding: 10px 10px 12px;
+    }
+
+    .horse-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .horse-card-cuadra {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .horse-card-hit {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    /* ===== RACE LIST ===== */
+    .races-section {
+      padding: 40px 0 48px;
+    }
+
+    .race-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 16px;
+    }
+
+    .rr {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 2px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .rr:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(255,184,0,0.18);
+    }
+
+    .rr.open {
+      border-color: var(--gold);
+    }
+
+    .rr-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 8px;
+    }
+
+    .rr-horse-side {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .rr-horse-side.right {
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .horse-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .rr-horse-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 1.5px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .rr-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .vs-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--orange);
+      letter-spacing: 2px;
+    }
+
+    .hit-badge {
+      width: 32px;
+      height: 32px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      color: var(--black);
+      letter-spacing: 1px;
+      font-weight: 900;
+    }
+
+    .rr-chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      opacity: 0.4;
+      transition: transform 0.3s;
+    }
+
+    .rr.open .rr-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* ===== DUEL PANEL ===== */
+    .rr-duel {
+      display: none;
+      grid-template-columns: 1fr 80px 1fr;
+      min-height: 260px;
+      border-top: 1px solid var(--gray-border);
+    }
+
+    .rr.open .rr-duel {
+      display: grid;
+    }
+
+    .duel-horse {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .duel-horse img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .duel-horse.mirror img {
+      transform: scaleX(-1);
+    }
+
+    .duel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.45) 0%,
+        transparent 40%,
+        transparent 55%,
+        rgba(0,0,0,0.65) 100%
+      );
+      z-index: 1;
+    }
+
+    .duel-name {
+      position: absolute;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--white);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      z-index: 2;
+      padding: 0 8px;
+    }
+
+    .duel-center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      gap: 6px;
+      padding: 12px 0;
+    }
+
+    .duel-vs {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--gold);
+      letter-spacing: 3px;
+    }
+
+    .duel-hit {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 2px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 32px 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 32px;
+    }
+
+    .footer-pill .play-icon {
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .nav-center { display: none; }
+      .stat-item { padding: 0 14px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav class="top-nav">
-  <div class="nav-venue">
-    <div class="l1">Rancho El Palomino</div>
-    <div class="l2">Chicago, Illinois</div>
-  </div>
-  <div class="nav-pills">
-    <span class="np np-gold">👑 Pesos Pesados</span>
-    <span class="np np-fb">f Facebook</span>
-    <span class="np np-ig">📷 Instagram</span>
-    <span class="np np-vid">▶ Video</span>
-  </div>
-  <div class="nav-date">4 JUL 2026</div>
-</nav>
-
-<!-- ── TICKER ── -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span>CRISTO REY</span><span>ARAÑA</span><span>PISCES</span><span>ESPERANZA</span><span>DEL FIERRO</span><span>ESPERANZADO</span>
-    <span>CRISTO REY</span><span>ARAÑA</span><span>PISCES</span><span>ESPERANZA</span><span>DEL FIERRO</span><span>ESPERANZADO</span>
-  </div>
-</div>
-
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-over"></div>
-  <div class="hero-body">
-    <div class="hero-eyebrow">📍 Chicago, Illinois · 4 de Julio 2026</div>
-    <div class="hero-title">RANCHO<br><em>EL PALOMINO</em></div>
-    <div class="hero-sub">El Carril de los Pesos Pesados · 4 HITs</div>
-    <div class="hero-badges">
-      <div class="hb gold">4 HITs</div>
-      <div class="hb">🏆 Pesos Pesados</div>
-      <div class="hb">🎆 4 de Julio</div>
-      <div class="hb">🐎 de Chicago</div>
+  <!-- STICKY NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <span class="venue-name">Rancho El Palomino</span>
+      <span class="venue-city">Chicago, IL</span>
     </div>
-  </div>
-</section>
+    <div class="nav-center">
+      <span class="nav-pill gold">4 HITs · Pesos Pesados</span>
+      <a href="#" class="nav-pill fb">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook
+      </a>
+      <a href="#" class="nav-pill ig">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="#" class="nav-pill yt">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+        Video
+      </a>
+    </div>
+    <div class="nav-right">4 JUL 2026</div>
+  </nav>
 
-<!-- ── COUNTDOWN ── -->
-<div class="countdown" id="cdStrip">
-  <div class="cd-u"><div class="cd-n" id="cdD">--</div><div class="cd-l">Días</div></div>
-  <div class="cd-u"><div class="cd-n" id="cdH">--</div><div class="cd-l">Hrs</div></div>
-  <div class="cd-u"><div class="cd-n" id="cdM">--</div><div class="cd-l">Min</div></div>
-  <div class="cd-u"><div class="cd-n" id="cdS">--</div><div class="cd-l">Seg</div></div>
-</div>
-
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="st"><div class="st-n">4</div><div class="st-l">Carreras</div></div>
-  <div class="st"><div class="st-n">8</div><div class="st-l">Caballos</div></div>
-  <div class="st"><div class="st-n">5</div><div class="st-l">Cuadras</div></div>
-  <div class="st"><div class="st-n" id="siguiendo">—</div><div class="st-l">Siguiendo</div></div>
-</div>
-
-<!-- ── HORSE CARDS ── -->
-<div class="sec-hd"><span>LOS CABALLOS DEL EVENTO</span></div>
-<div class="horses-row">
-
-  <div class="hc">
-    <div class="hc-img" style="background-position:18% center"><div class="hc-img-over"></div></div>
-    <div class="hc-body">
-      <div class="hc-name">CRISTO REY</div>
-      <div class="hc-cuad">A &amp; B</div>
-      <div class="hc-tag">HIT 1 · HIT 2</div>
+  <!-- GOLD TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-inner" id="ticker">
+      <span>CRISTO REY</span><span class="sep">✦</span>
+      <span>PISCES</span><span class="sep">✦</span>
+      <span>CUADRA ESPERANZA</span><span class="sep">✦</span>
+      <span>LA TEPADA</span><span class="sep">✦</span>
+      <span>EL CHIGON</span><span class="sep">✦</span>
+      <span>CUADRA GUTIERREZ</span><span class="sep">✦</span>
+      <span>LA MAMI</span><span class="sep">✦</span>
+      <span>ARIES</span><span class="sep">✦</span>
+      <span>LA REYNA</span><span class="sep">✦</span>
+      <span>CUADRA MTZ</span><span class="sep">✦</span>
+      <!-- Duplicate for seamless loop -->
+      <span>CRISTO REY</span><span class="sep">✦</span>
+      <span>PISCES</span><span class="sep">✦</span>
+      <span>CUADRA ESPERANZA</span><span class="sep">✦</span>
+      <span>LA TEPADA</span><span class="sep">✦</span>
+      <span>EL CHIGON</span><span class="sep">✦</span>
+      <span>CUADRA GUTIERREZ</span><span class="sep">✦</span>
+      <span>LA MAMI</span><span class="sep">✦</span>
+      <span>ARIES</span><span class="sep">✦</span>
+      <span>LA REYNA</span><span class="sep">✦</span>
+      <span>CUADRA MTZ</span><span class="sep">✦</span>
     </div>
   </div>
 
-  <div class="hc">
-    <div class="hc-img" style="background-position:40% center"><div class="hc-img-over"></div></div>
-    <div class="hc-body">
-      <div class="hc-name">ARAÑA</div>
-      <div class="hc-cuad">A</div>
-      <div class="hc-tag">HIT 1</div>
-    </div>
-  </div>
-
-  <div class="hc">
-    <div class="hc-img" style="background-position:58% center"><div class="hc-img-over"></div></div>
-    <div class="hc-body">
-      <div class="hc-name">PISCES</div>
-      <div class="hc-cuad">A &amp; B</div>
-      <div class="hc-tag">HIT 2 · HIT 3</div>
-    </div>
-  </div>
-
-  <div class="hc">
-    <div class="hc-img" style="background-position:75% center"><div class="hc-img-over"></div></div>
-    <div class="hc-body">
-      <div class="hc-name">ESPERANZADO</div>
-      <div class="hc-cuad">A</div>
-      <div class="hc-tag">HIT 4</div>
-    </div>
-  </div>
-
-  <div class="hc">
-    <div class="hc-img" style="background-position:88% center"><div class="hc-img-over"></div></div>
-    <div class="hc-body">
-      <div class="hc-name">DEL FIERRO</div>
-      <div class="hc-cuad">C</div>
-      <div class="hc-tag">HIT 4</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ── RACE LIST ── -->
-<div class="sec-hd"><span>LAS CARRERAS</span></div>
-<div class="race-list" id="raceList"></div>
-
-<!-- tagline -->
-<p class="tagline">¡Donde corren los mejores, solo los mejores ganan!</p>
-
-<!-- ── SOCIAL FOOTER ── -->
-<div class="sf-bar">
-  <div class="sf-play"></div>
-  <div class="sf-txt"><span class="sf-num" id="sfNum">—</span> personas siguiendo este evento</div>
-</div>
-
-<script>
-/* ── countdown ── */
-const EVT = new Date('2026-07-04T12:00:00');
-function tick() {
-  const diff = EVT - Date.now();
-  if (diff <= 0) {
-    document.getElementById('cdStrip').innerHTML =
-      '<div style="width:100%;padding:1.4rem;text-align:center;font-family:\'Bebas Neue\',sans-serif;font-size:2rem;color:#FFB800">¡HOY ES EL DÍA! 🏁</div>';
-    return;
-  }
-  const d = Math.floor(diff / 864e5),
-        h = Math.floor((diff % 864e5) / 36e5),
-        m = Math.floor((diff % 36e5) / 6e4),
-        s = Math.floor((diff % 6e4) / 1e3);
-  document.getElementById('cdD').textContent = String(d).padStart(2,'0');
-  document.getElementById('cdH').textContent = String(h).padStart(2,'0');
-  document.getElementById('cdM').textContent = String(m).padStart(2,'0');
-  document.getElementById('cdS').textContent = String(s).padStart(2,'0');
-}
-tick(); setInterval(tick, 1000);
-
-/* ── follower count ── */
-const base = 2400 + Math.floor(Math.random() * 80);
-document.getElementById('siguiendo').textContent = base.toLocaleString();
-document.getElementById('sfNum').textContent = (base + Math.floor(Math.random() * 4)).toLocaleString();
-
-/* ── horse SVG silhouette ── */
-const SVG = `<svg viewBox="0 0 48 40" xmlns="http://www.w3.org/2000/svg" class="horse-ico" aria-hidden="true">
-  <path fill="#ccc" d="M42 5c-1.2 0-2.3.6-3 1.5L37.5 8c-.6.9-1.8 1.2-2.7.6l-1.2-.7C31.8 7 30 7 28.2 7.7L26 8.8c-.7.4-1.2 1-1.2 1.8v1.8c0 1-.8 1.8-1.8 1.8H21c-1.3 0-2.4 1-2.4 2.4V20c0 .7-.5 1.4-1.2 1.7l-3.6 1.4c-.7.3-1.2 1-1.2 1.7v6.8c0 .7-.5 1.2-1.2 1.2H9.6c-.7 0-1.2.5-1.2 1.2v1.2c0 .7.5 1.2 1.2 1.2h2.4c.5 0 .9-.3 1.1-.7l.6-1.2c.2-.5.7-.7 1.1-.7h1.2c.5 0 .9.3 1.1.7l.6 1.2c.2.5.7.7 1.1.7h2.4c.5 0 .9-.3 1.1-.7l.6-1.2c.2-.5.7-.7 1.1-.7h1.2c.5 0 .9.3 1.1.7l.6 1.2c.2.5.7.7 1.1.7h3.6c.7 0 1.2-.5 1.2-1.2v-2.4c0-1 .6-1.8 1.5-2.1l4.2-1.5c.6-.2 1.1-.7 1.3-1.3l1.2-3.6c.2-.6.7-1 1.3-1.2l2.4-.6c.6-.2 1.1-.6 1.2-1.2l.6-4.2c.1-.6 0-1.2-.3-1.8L44.5 7c-.4-.7-1-.1-1.7-1.3A2.4 2.4 0 0 0 42 5z"/>
-</svg>`;
-
-/* ── races ── */
-const RACES = [
-  {n:1, label:'HIT 1', h1:'CRISTO REY A', c1:'',          h2:'ARAÑA A',        c2:'', dist:''},
-  {n:2, label:'HIT 2', h1:'CRISTO REY B', c1:'',          h2:'PISCES A',       c2:'', dist:''},
-  {n:3, label:'HIT 3', h1:'ESPERANZA / SM B', c1:'',      h2:'PISCES B',       c2:'', dist:''},
-  {n:4, label:'HIT 4', h1:'ESPERANZADO / A',  c1:'',      h2:'DEL FIERRO C',   c2:'', dist:''},
-];
-
-const list = document.getElementById('raceList');
-
-RACES.forEach(r => {
-  const div = document.createElement('div');
-  div.className = 'rr';
-  div.innerHTML = `
-    <div class="rr-top">
-      ${SVG}
-      <div class="rr-names">
-        <div class="rr-n1">${r.h1}</div>
-        ${r.c1 ? `<div class="rr-cuad">${r.c1}</div>` : ''}
-      </div>
-      <div class="rr-vs">VS</div>
-      <div class="rr-names" style="text-align:right">
-        <div class="rr-n1">${r.h2}</div>
-        ${r.c2 ? `<div class="rr-cuad" style="text-align:right">${r.c2}</div>` : ''}
-      </div>
-      ${SVG}
-      <div class="rr-right">
-        ${r.dist ? `<div class="rr-dist">${r.dist}</div>` : ''}
-        <div class="rr-num">${r.n}</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">RANCHO EL PALOMINO · CHICAGO, IL</div>
+      <h1 class="hero-title">CARRERAS<br><span>DE CABALLOS</span></h1>
+      <div class="hero-subtitle">PESOS PESADOS</div>
+      <div class="hero-badges">
+        <span class="hero-badge gold-badge">4 HITs</span>
+        <span class="hero-badge">Pesos Pesados</span>
+        <span class="hero-badge">4 de Julio 2026</span>
+        <span class="hero-badge">Chicago, IL</span>
       </div>
     </div>
-    <div class="rr-duel">
-      <div class="duel-grid">
-        <div class="dh dl">
-          <div class="dh-bg"></div>
-          <div class="dh-ov"></div>
-          <div class="dh-info">
-            <div class="dh-name">${r.h1.replace(' / ','<br>')}</div>
-            ${r.c1 ? `<div class="dh-sub">${r.c1}</div>` : ''}
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <div class="countdown-label">Faltan para el evento</div>
+    <div class="countdown-grid">
+      <div class="cd-unit">
+        <div class="cd-number" id="cd-days">00</div>
+        <div class="cd-label">Días</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number" id="cd-hours">00</div>
+        <div class="cd-label">Horas</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number" id="cd-mins">00</div>
+        <div class="cd-label">Minutos</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-number" id="cd-secs">00</div>
+        <div class="cd-label">Segundos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-number">4</div>
+      <div class="stat-desc">Carreras</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">10</div>
+      <div class="stat-desc">Caballos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5</div>
+      <div class="stat-desc">Cuadras</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="followers">2,437</div>
+      <div class="stat-desc">Siguiendo</div>
+    </div>
+  </div>
+
+  <!-- HORSE CARDS -->
+  <section class="cards-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2>LOS CABALLOS</h2>
+      <div class="section-line right"></div>
+    </div>
+    <div class="cards-scroll">
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="cristo-rey.jpg" alt="Cristo Rey" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Cristo Rey</div>
+          <div class="horse-card-cuadra">Cuadra Cristo Rey</div>
+          <div class="horse-card-hit">HIT 1 · HIT 2</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="pisces.jpg" alt="Pisces" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Pisces</div>
+          <div class="horse-card-cuadra">Cuadra Pisces</div>
+          <div class="horse-card-hit">HIT 2 · HIT 3</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="esperanza.jpg" alt="Cuadra Esperanza" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Esperanza</div>
+          <div class="horse-card-cuadra">Cuadra Esperanza</div>
+          <div class="horse-card-hit">HIT 3 · HIT 4</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="la-tepada.jpg" alt="La Tepada" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">La Tepada</div>
+          <div class="horse-card-cuadra">Cuadra La Tepada</div>
+          <div class="horse-card-hit">En Cartel</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="el-chigon.jpg" alt="El Chigon" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">El Chigon</div>
+          <div class="horse-card-cuadra">Cuadra El Chigon</div>
+          <div class="horse-card-hit">En Cartel</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="gutierrez.jpg" alt="Cuadra Gutierrez" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Gutierrez</div>
+          <div class="horse-card-cuadra">Cuadra Gutierrez</div>
+          <div class="horse-card-hit">HIT 4</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="la-mami.jpg" alt="La Mami" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">La Mami</div>
+          <div class="horse-card-cuadra">Cuadra La Mami</div>
+          <div class="horse-card-hit">En Cartel</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="aries.jpg" alt="Aries" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Aries</div>
+          <div class="horse-card-cuadra">Cuadra Aries</div>
+          <div class="horse-card-hit">HIT 1</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="la-reyna.jpg" alt="La Reyna" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">La Reyna</div>
+          <div class="horse-card-cuadra">Cuadra La Reyna</div>
+          <div class="horse-card-hit">HIT 4</div>
+        </div>
+      </div>
+
+      <div class="horse-card">
+        <div class="horse-card-img-wrap">
+          <img src="cuadra-mtz.jpg" alt="Cuadra MTZ" loading="lazy" />
+        </div>
+        <div class="horse-card-body">
+          <div class="horse-card-name">Cuadra MTZ</div>
+          <div class="horse-card-cuadra">Cuadra MTZ</div>
+          <div class="horse-card-hit">En Cartel</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RACE LIST -->
+  <section class="races-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2>LAS CARRERAS</h2>
+      <div class="section-line right"></div>
+    </div>
+
+    <div class="race-rows">
+
+      <!-- HIT 1 -->
+      <div class="rr" id="rr1">
+        <div class="rr-top" onclick="toggleRace('rr1')">
+          <div class="rr-horse-side left">
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+            <div class="rr-horse-name">CRISTO REY A</div>
+          </div>
+          <div class="rr-center">
+            <div class="vs-badge">VS</div>
+            <div class="hit-badge">H1</div>
+          </div>
+          <div class="rr-horse-side right">
+            <div class="rr-horse-name">ARAÑA A</div>
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+          </div>
+          <svg class="rr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="rr-duel">
+          <div class="duel-horse">
+            <img src="cristo-rey.jpg" alt="Cristo Rey" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">CRISTO REY A</div>
+          </div>
+          <div class="duel-center-col">
+            <div class="duel-vs">VS</div>
+            <div class="duel-hit">HIT 1</div>
+          </div>
+          <div class="duel-horse mirror">
+            <img src="aries.jpg" alt="Araña A" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">ARAÑA A</div>
           </div>
         </div>
-        <div class="duel-mid">
-          <div class="duel-vs">VS</div>
-          <div class="duel-hit">${r.label}</div>
+      </div>
+
+      <!-- HIT 2 -->
+      <div class="rr" id="rr2">
+        <div class="rr-top" onclick="toggleRace('rr2')">
+          <div class="rr-horse-side left">
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+            <div class="rr-horse-name">CRISTO REY B</div>
+          </div>
+          <div class="rr-center">
+            <div class="vs-badge">VS</div>
+            <div class="hit-badge">H2</div>
+          </div>
+          <div class="rr-horse-side right">
+            <div class="rr-horse-name">PISCES A</div>
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+          </div>
+          <svg class="rr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
         </div>
-        <div class="dh dr">
-          <div class="dh-bg"></div>
-          <div class="dh-ov"></div>
-          <div class="dh-info">
-            <div class="dh-name">${r.h2.replace(' / ','<br>')}</div>
-            ${r.c2 ? `<div class="dh-sub">${r.c2}</div>` : ''}
+        <div class="rr-duel">
+          <div class="duel-horse">
+            <img src="cristo-rey.jpg" alt="Cristo Rey B" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">CRISTO REY B</div>
+          </div>
+          <div class="duel-center-col">
+            <div class="duel-vs">VS</div>
+            <div class="duel-hit">HIT 2</div>
+          </div>
+          <div class="duel-horse mirror">
+            <img src="pisces.jpg" alt="Pisces A" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">PISCES A</div>
           </div>
         </div>
       </div>
-      <div class="ver-mas">VER MÁS</div>
+
+      <!-- HIT 3 -->
+      <div class="rr" id="rr3">
+        <div class="rr-top" onclick="toggleRace('rr3')">
+          <div class="rr-horse-side left">
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+            <div class="rr-horse-name">ESPERANZA/SM B</div>
+          </div>
+          <div class="rr-center">
+            <div class="vs-badge">VS</div>
+            <div class="hit-badge">H3</div>
+          </div>
+          <div class="rr-horse-side right">
+            <div class="rr-horse-name">PISCES B</div>
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+          </div>
+          <svg class="rr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="rr-duel">
+          <div class="duel-horse">
+            <img src="esperanza.jpg" alt="Esperanza/SM B" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">ESPERANZA / SM B</div>
+          </div>
+          <div class="duel-center-col">
+            <div class="duel-vs">VS</div>
+            <div class="duel-hit">HIT 3</div>
+          </div>
+          <div class="duel-horse mirror">
+            <img src="pisces.jpg" alt="Pisces B" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">PISCES B</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIT 4 -->
+      <div class="rr" id="rr4">
+        <div class="rr-top" onclick="toggleRace('rr4')">
+          <div class="rr-horse-side left">
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+            <div class="rr-horse-name">ESPERANZADO/A</div>
+          </div>
+          <div class="rr-center">
+            <div class="vs-badge">VS</div>
+            <div class="hit-badge">H4</div>
+          </div>
+          <div class="rr-horse-side right">
+            <div class="rr-horse-name">DEL FIERRO C</div>
+            <svg class="horse-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+              <path d="M8 36c2-4 5-7 9-8l3-6 4-2 2-6 5 1 3-4h4l-1 5-4 2-1 4 3 2-1 5-4 1-2 4-8 2H8z" fill="#FFB800" opacity="0.8"/>
+            </svg>
+          </div>
+          <svg class="rr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="rr-duel">
+          <div class="duel-horse">
+            <img src="la-reyna.jpg" alt="Esperanzado/A" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">ESPERANZADO/A</div>
+          </div>
+          <div class="duel-center-col">
+            <div class="duel-vs">VS</div>
+            <div class="duel-hit">HIT 4</div>
+          </div>
+          <div class="duel-horse mirror">
+            <img src="gutierrez.jpg" alt="Del Fierro C" />
+            <div class="duel-overlay"></div>
+            <div class="duel-name">DEL FIERRO C</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  `;
-  div.querySelector('.rr-top').addEventListener('click', () => {
-    const wasOpen = div.classList.contains('open');
-    document.querySelectorAll('.rr.open').forEach(el => el.classList.remove('open'));
-    if (!wasOpen) div.classList.add('open');
-  });
-  list.appendChild(div);
-});
-</script>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-pill">
+      <span class="play-icon">&#9654;</span>
+      <span id="footer-followers">2,437</span> personas siguiendo este evento
+    </div>
+    <div class="footer-copy">Rancho El Palomino &middot; Chicago, IL &middot; 4 de Julio 2026</div>
+  </footer>
+
+  <script>
+    // ---- Countdown ----
+    var eventDate = new Date('2026-07-04T12:00:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      var now = new Date();
+      var diff = eventDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent = '00';
+        document.getElementById('cd-secs').textContent = '00';
+        return;
+      }
+
+      var days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ---- Random follower count ----
+    var base = Math.floor(Math.random() * (2480 - 2400 + 1)) + 2400;
+    var formatted = base.toLocaleString('en-US');
+    document.getElementById('followers').textContent = formatted;
+    document.getElementById('footer-followers').textContent = formatted;
+
+    // ---- Race row toggle ----
+    function toggleRace(id) {
+      var el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+  </script>
 </body>
 </html>

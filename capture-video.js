@@ -4,12 +4,13 @@ const path = require('path');
 const fs = require('fs');
 
 const FFMPEG = require('ffmpeg-static');
-const HTML = `file://${path.resolve(__dirname, 'events/doble-rr-jun20/video-ad.html')}`;
+const HTML = `file://${path.resolve(__dirname, 'events/rancho-el-palomino-jul4/video-ad.html')}`;
 const FRAMES_DIR = '/tmp/vid-frames';
-const AUDIO = path.resolve(__dirname, 'events/doble-rr-jun20/commentator.mp3');
-const OUT_VIDEO = path.resolve(__dirname, 'events/doble-rr-jun20/gran-final-doble-rr.mp4');
+const AUDIO_PATH = path.resolve(__dirname, 'events/rancho-el-palomino-jul4/commentator.mp3');
+const AUDIO = fs.existsSync(AUDIO_PATH) ? AUDIO_PATH : null;
+const OUT_VIDEO = path.resolve(__dirname, 'events/rancho-el-palomino-jul4/rancho-el-palomino.mp4');
 
-const DURATION_MS = 17000; // match audio length (16.67s)
+const DURATION_MS = 20500; // 20s ad
 const WIDTH = 540;
 const HEIGHT = 960;
 
@@ -88,20 +89,27 @@ fs.mkdirSync(FRAMES_DIR, { recursive: true });
     interpolated,
   ]);
 
-  // Step 3: add audio
-  console.log('\nMerging audio...');
-  await ffmpegRun([
-    '-y',
-    '-i', interpolated,
-    '-i', AUDIO,
-    '-vf', 'scale=1080:1920:flags=lanczos',
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '15',
-    '-c:a', 'aac', '-b:a', '192k',
-    '-pix_fmt', 'yuv420p',
-    '-shortest',
-    '-movflags', '+faststart',
-    OUT_VIDEO,
-  ]);
+  // Step 3: scale (+ optional audio merge)
+  if (AUDIO) {
+    console.log('\nMerging audio...');
+    await ffmpegRun([
+      '-y', '-i', interpolated, '-i', AUDIO,
+      '-vf', 'scale=1080:1920:flags=lanczos',
+      '-c:v', 'libx264', '-preset', 'slow', '-crf', '15',
+      '-c:a', 'aac', '-b:a', '192k',
+      '-pix_fmt', 'yuv420p', '-shortest', '-movflags', '+faststart',
+      OUT_VIDEO,
+    ]);
+  } else {
+    console.log('\nScaling to 1080×1920 (no audio)...');
+    await ffmpegRun([
+      '-y', '-i', interpolated,
+      '-vf', 'scale=1080:1920:flags=lanczos',
+      '-c:v', 'libx264', '-preset', 'slow', '-crf', '15',
+      '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+      OUT_VIDEO,
+    ]);
+  }
 
   const mb = (fs.statSync(OUT_VIDEO).size/1024/1024).toFixed(1);
   console.log(`\n✅ ${OUT_VIDEO} (${mb} MB)`);
