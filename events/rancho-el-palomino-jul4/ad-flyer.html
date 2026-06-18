@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rancho El Palomino · 4 de Julio 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Full-bleed background */
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url('flyer.jpg') center center / cover no-repeat;
+      filter: brightness(0.28);
+    }
+
+    /* Gold center vignette glow */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse 70% 60% at 50% 45%,
+        rgba(255, 210, 0, 0.12) 0%,
+        rgba(255, 140, 0, 0.06) 40%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Main content wrapper */
+    .wrapper {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ── TOP PILL BADGE ── */
+    .badge-pill {
+      background: rgba(255, 210, 0, 0.18);
+      border: 1px solid #FFD200;
+      color: #FFD200;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.1rem;
+    }
+
+    /* ── MAIN TITLE ── */
+    .title-block {
+      text-align: center;
+      line-height: 0.82;
+      margin-bottom: 0.5rem;
+    }
+    .title-rancho {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: #ffffff;
+      display: block;
+      letter-spacing: 0.04em;
+    }
+    .title-el-palomino {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: #FFD200;
+      display: block;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SUBTITLE ── */
+    .subtitle {
+      font-size: 0.68rem;
+      font-variant: small-caps;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #FFD200;
+      opacity: 0.85;
+      text-align: center;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── DATE BLOCK ── */
+    .date-block {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1.6rem;
+      position: relative;
+    }
+
+    .gold-rule {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #FFD200, transparent);
+      margin: 0.5rem 0;
+    }
+
+    .date-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7.5rem;
+      color: #FFD200;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 40px rgba(255, 210, 0, 0.5), 0 0 80px rgba(255, 210, 0, 0.2);
+      display: block;
+    }
+
+    .date-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.12em;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    /* ── RACES SECTION ── */
+    .races-section {
+      width: 100%;
+      margin-bottom: 1.6rem;
+    }
+
+    .races-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .race-row {
+      display: grid;
+      grid-template-columns: 28px 1fr auto 28px auto 1fr;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 210, 0, 0.15);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.55rem;
+      backdrop-filter: blur(8px);
+    }
+
+    /* HIT number circle */
+    .hit-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #FFD200;
+      color: #0a0a0a;
+      font-size: 0.48rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+    .hit-badge .hit-label { font-size: 0.42rem; letter-spacing: 0.05em; }
+    .hit-badge .hit-num { font-size: 0.75rem; font-weight: 900; }
+
+    /* Horse image in race row */
+    .horse-img-sm {
+      width: 60px;
+      height: 52px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.9);
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .horse-img-sm.flipped {
+      transform: scaleX(-1);
+    }
+
+    /* Horse name */
+    .horse-name {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .horse-name-right {
+      text-align: center;
+    }
+
+    /* VS */
+    .vs-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: #FF8C00;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* ── HORSE STRIP ── */
+    .horse-strip {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .horse-strip-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .horse-strip-img {
+      width: 68px;
+      height: 62px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 210, 0, 0.3);
+      padding: 2px;
+    }
+
+    /* ── TAGLINE FOOTER ── */
+    .tagline {
+      font-size: 0.62rem;
+      font-style: italic;
+      font-weight: 600;
+      color: #FFD200;
+      opacity: 0.8;
+      text-align: center;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      padding: 0 0.5rem;
+    }
+
+    /* Top decorative line */
+    .top-line {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+    .top-line hr {
+      flex: 1;
+      border: none;
+      height: 1px;
+      background: rgba(255, 210, 0, 0.4);
+    }
+    .top-line span {
+      color: #FFD200;
+      font-size: 0.9rem;
+    }
+
+    /* Bottom star divider */
+    .star-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin: 1rem 0;
+    }
+    .star-divider hr {
+      flex: 1;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,210,0,0.5), transparent);
+    }
+    .star-divider span {
+      color: #FFD200;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="bg-glow"></div>
+
+  <div class="wrapper">
+
+    <!-- Top decorative line -->
+    <div class="top-line">
+      <hr><span>★</span><hr>
+    </div>
+
+    <!-- Pill badge -->
+    <div class="badge-pill">PESOS PESADOS · CHICAGO</div>
+
+    <!-- Main title -->
+    <div class="title-block">
+      <span class="title-rancho">RANCHO</span>
+      <span class="title-el-palomino">EL PALOMINO</span>
+    </div>
+
+    <!-- Subtitle -->
+    <div class="subtitle">El Carril de los Pesos Pesados</div>
+
+    <!-- Date block -->
+    <div class="date-block">
+      <hr class="gold-rule">
+      <span class="date-main">4 DE JULIO</span>
+      <span class="date-sub">2026 · CHICAGO, IL</span>
+      <hr class="gold-rule" style="margin-top:0.6rem;">
+    </div>
+
+    <!-- Race card rows -->
+    <div class="races-section">
+      <div class="races-label">Programa de Carreras</div>
+
+      <!-- HIT 1 -->
+      <div class="race-row">
+        <div class="hit-badge">
+          <span class="hit-label">HIT</span>
+          <span class="hit-num">1</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="cristo-rey.jpg" class="horse-img-sm" alt="Cristo Rey A">
+          <div class="horse-name">CRISTO REY A</div>
+        </div>
+        <div class="vs-text">VS</div>
+        <div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="aries.jpg" class="horse-img-sm flipped" alt="Araña A">
+          <div class="horse-name horse-name-right">ARAÑA A</div>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- HIT 2 -->
+      <div class="race-row">
+        <div class="hit-badge">
+          <span class="hit-label">HIT</span>
+          <span class="hit-num">2</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="cristo-rey.jpg" class="horse-img-sm" alt="Cristo Rey B">
+          <div class="horse-name">CRISTO REY B</div>
+        </div>
+        <div class="vs-text">VS</div>
+        <div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="pisces.jpg" class="horse-img-sm flipped" alt="Pisces A">
+          <div class="horse-name horse-name-right">PISCES A</div>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- HIT 3 -->
+      <div class="race-row">
+        <div class="hit-badge">
+          <span class="hit-label">HIT</span>
+          <span class="hit-num">3</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="esperanza.jpg" class="horse-img-sm" alt="Esperanza/SM B">
+          <div class="horse-name">ESPERANZA/SM B</div>
+        </div>
+        <div class="vs-text">VS</div>
+        <div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="pisces.jpg" class="horse-img-sm flipped" alt="Pisces B">
+          <div class="horse-name horse-name-right">PISCES B</div>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- HIT 4 -->
+      <div class="race-row">
+        <div class="hit-badge">
+          <span class="hit-label">HIT</span>
+          <span class="hit-num">4</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="la-reyna.jpg" class="horse-img-sm" alt="Esperanzado/A">
+          <div class="horse-name">ESPERANZADO/A</div>
+        </div>
+        <div class="vs-text">VS</div>
+        <div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <img src="gutierrez.jpg" class="horse-img-sm flipped" alt="Del Fierro C">
+          <div class="horse-name horse-name-right">DEL FIERRO C</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+
+    <!-- Star divider -->
+    <div class="star-divider">
+      <hr><span>✦</span><span>✦</span><span>✦</span><hr>
+    </div>
+
+    <!-- Horse strip -->
+    <div class="horse-strip">
+      <div class="horse-strip-item">
+        <img src="cristo-rey.jpg" class="horse-strip-img" alt="Cristo Rey">
+      </div>
+      <div class="horse-strip-item">
+        <img src="pisces.jpg" class="horse-strip-img" alt="Pisces">
+      </div>
+      <div class="horse-strip-item">
+        <img src="esperanza.jpg" class="horse-strip-img" alt="Esperanza">
+      </div>
+      <div class="horse-strip-item">
+        <img src="la-reyna.jpg" class="horse-strip-img" alt="La Reyna">
+      </div>
+      <div class="horse-strip-item">
+        <img src="aries.jpg" class="horse-strip-img" alt="Aries">
+      </div>
+    </div>
+
+    <!-- Tagline -->
+    <div class="tagline">¡DONDE CORREN LOS MEJORES,<br>SOLO LOS MEJORES GANAN!</div>
+
+    <!-- Bottom line -->
+    <div class="top-line" style="margin-top:1.2rem;margin-bottom:0;">
+      <hr><span>★</span><hr>
+    </div>
+
+  </div>
+</body>
+</html>
