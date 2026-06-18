@@ -9,7 +9,7 @@ const FRAMES_DIR = '/tmp/vid-frames';
 const AUDIO = path.resolve(__dirname, 'events/doble-rr-jun20/commentator.mp3');
 const OUT_VIDEO = path.resolve(__dirname, 'events/doble-rr-jun20/gran-final-doble-rr.mp4');
 
-const DURATION_MS = 15000;
+const DURATION_MS = 17000; // match audio length (16.67s)
 const WIDTH = 540;
 const HEIGHT = 960;
 
