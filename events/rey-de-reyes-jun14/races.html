@@ -8,121 +8,178 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#f4f4f4;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden}
+body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden}
 
-.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;padding:.6rem 1rem;background:#fff;border-bottom:1px solid rgba(0,0,0,.09);box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.nav-l .l1{font-size:.62rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;line-height:1.2}
-.nav-l .l2{font-size:.52rem;font-weight:600;color:#888;letter-spacing:.05em;text-transform:uppercase}
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:2px solid #FFD200;padding:.65rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;box-shadow:0 3px 16px rgba(0,0,0,.1)}
+.nav-brand{display:flex;align-items:center;gap:.5rem}
+.nav-crown{width:28px;height:22px;flex-shrink:0}
+.nav-l .l1{font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:.06em;color:#111;line-height:1.1}
+.nav-l .l2{font-size:.5rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
 .nav-pills{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
-.np{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .68rem;border-radius:999px;font-size:.6rem;font-weight:700;text-decoration:none;border:1.5px solid transparent;white-space:nowrap}
-.np-gold{background:rgba(255,184,0,.13);border-color:rgba(255,184,0,.45);color:#a06d00}
-.np-site{background:#111;color:#fff}
-.nav-date{font-size:.62rem;font-weight:800;color:#555;white-space:nowrap}
+.np{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .68rem;border-radius:999px;font-size:.58rem;font-weight:700;text-decoration:none;border:1.5px solid transparent;white-space:nowrap;cursor:pointer}
+.np-gold{background:#FFD200;color:#111}
+.np-dark{background:#111;color:#fff}
+.nav-date{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#FFD200;white-space:nowrap}
 
-.ticker{background:#111;padding:.5rem 0;overflow:hidden;border-bottom:2px solid #FFD200}
+/* ── TICKER ── */
+.ticker{background:#111;padding:.5rem 0;overflow:hidden;border-bottom:1px solid rgba(255,208,0,.2)}
 .t-track{display:flex;white-space:nowrap;animation:scroll 22s linear infinite}
-.t-track span{font-family:'Bebas Neue',sans-serif;font-size:.88rem;letter-spacing:.14em;color:#FFD200;padding:0 1.4rem}
-.t-track span::after{content:'|';color:rgba(255,208,0,.28);margin-left:1.4rem}
+.t-track span{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.16em;color:#FFD200;padding:0 1.4rem}
+.t-track span::after{content:'◆';color:rgba(255,208,0,.3);margin-left:1.4rem;font-size:.5rem;vertical-align:middle}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-.hero-mini{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);padding:1.6rem 1.2rem 1.4rem;text-align:center;border-bottom:3px solid #FFD200}
-.hero-eyebrow{display:inline-block;background:rgba(255,208,0,.15);border:1px solid rgba(255,208,0,.35);color:#FFD200;padding:.22rem .8rem;border-radius:999px;font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.55rem}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,8vw,5rem);color:#FFD200;line-height:.88;text-shadow:0 0 60px rgba(255,208,0,.25)}
-.hero-title em{color:#fff;font-style:normal;display:block;font-size:.6em}
-.hero-sub{font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem}
+/* ── HERO BANNER ── */
+.hero-banner{background:#111;padding:2rem 1.2rem 2.4rem;text-align:center;position:relative;overflow:hidden}
+.hero-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(255,208,0,.18) 0%,transparent 65%)}
+/* Crown SVG */
+.crown-wrap{margin-bottom:.6rem;position:relative;z-index:1}
+.crown-svg{width:clamp(56px,14vw,90px);height:auto;filter:drop-shadow(0 0 18px rgba(255,208,0,.7)) drop-shadow(0 0 40px rgba(255,208,0,.35))}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,12vw,7rem);line-height:.86;color:#FFD200;letter-spacing:.02em;text-shadow:0 0 60px rgba(255,208,0,.3),0 4px 0 rgba(100,70,0,.5);position:relative;z-index:1}
+.hero-title em{color:#fff;font-style:normal;display:block;font-size:.6em;letter-spacing:.06em}
+.hero-sub{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.14em;text-transform:uppercase;margin:.6rem 0 1rem;position:relative;z-index:1}
+.hero-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(255,208,0,.6),transparent);max-width:300px;margin:.5rem auto;position:relative;z-index:1}
+.hero-badges{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.hb{padding:.32rem .85rem;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.06em}
+.hb-gold{background:#FFD200;color:#111}
+.hb-out{border:1px solid rgba(255,208,0,.35);color:rgba(255,208,0,.7)}
 
-.stats{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,.06)}
-.st{flex:1;display:flex;flex-direction:column;align-items:center;padding:.9rem .4rem;border-right:1px solid rgba(0,0,0,.05)}
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:2px solid #f0f0f0}
+.st{display:flex;flex-direction:column;align-items:center;padding:.9rem .4rem;border-right:1px solid #f0f0f0}
 .st:last-child{border-right:none}
-.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,2.8rem);color:#FFB800;line-height:1}
-.st-l{font-size:.44rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase;margin-top:.12rem;text-align:center}
+.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,3rem);color:#FFB800;line-height:1}
+.st-l{font-size:.44rem;font-weight:800;color:#bbb;letter-spacing:.14em;text-transform:uppercase;margin-top:.1rem;text-align:center}
 
-/* Feature estelar card */
-.estelar-card{margin:.8rem;background:#111;border-radius:16px;overflow:hidden;border:2px solid #FFD200;box-shadow:0 8px 40px rgba(255,208,0,.15)}
-.ec-label{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:rgba(255,208,0,.1);border-bottom:1px solid rgba(255,208,0,.2)}
-.ec-label span{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;color:#FFD200}
-.ec-dist{font-size:.6rem;font-weight:700;color:rgba(255,208,0,.6);letter-spacing:.08em}
-.ec-grid{display:grid;grid-template-columns:1fr auto 1fr;min-height:200px}
-.ec-h{position:relative;overflow:hidden}
-.ec-h img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
-.ec-h.l img{object-position:20% top}
-.ec-h.r img{object-position:80% top;transform:scaleX(-1)}
-.ec-ov{position:absolute;inset:0}
-.ec-h.l .ec-ov{background:linear-gradient(90deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.3) 55%,transparent 100%)}
-.ec-h.r .ec-ov{background:linear-gradient(270deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.3) 55%,transparent 100%)}
-.ec-info{position:absolute;bottom:0;padding:.85rem}
-.ec-h.r .ec-info{right:0;text-align:right}
-.ec-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,3.2rem);color:#fff;line-height:.88;text-shadow:0 4px 20px rgba(0,0,0,1)}
-.ec-cuad{font-size:.55rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem}
-.ec-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;border-left:1px solid rgba(255,208,0,.2);border-right:1px solid rgba(255,208,0,.2);padding:0 .6rem}
-.ec-vs{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#FFD200;text-shadow:0 0 30px rgba(255,208,0,.5)}
-.ec-num{font-size:.5rem;font-weight:800;color:rgba(255,208,0,.5);letter-spacing:.1em;text-align:center;margin-top:.2rem;text-transform:uppercase}
-.ec-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,208,0,.12)}
-.ec-stat{padding:.55rem .9rem;border-right:1px solid rgba(255,255,255,.05)}
-.ec-stat:nth-child(even){border-right:none;text-align:right}
-.ec-stat-lbl{font-size:.44rem;font-weight:800;color:rgba(255,255,255,.28);letter-spacing:.1em;text-transform:uppercase}
-.ec-stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#FFD200;line-height:1.1}
+/* ── ESTELAR FEATURE ── */
+.estelar-wrap{padding:.8rem .8rem 0}
+.estelar-label{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.star-badge{background:#FFD200;color:#111;font-family:'Bebas Neue',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.18rem .6rem;border-radius:5px}
+.estelar-label-txt{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#111}
+.estelar-label-dist{margin-left:auto;font-size:.62rem;font-weight:700;color:#888}
 
-/* Race list */
-.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.3rem 1rem .7rem}
-.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.5),transparent)}
-.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;white-space:nowrap}
+.ec{border-radius:16px;overflow:hidden;border:2px solid #FFD200;box-shadow:0 6px 32px rgba(255,208,0,.12);background:#fff}
+.ec-duel{display:grid;grid-template-columns:1fr 54px 1fr;min-height:220px}
+.ec-side{position:relative;background:#fff;overflow:hidden}
+.ec-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
+.ec-side.l img{transform:none}
+.ec-side.r img{transform:scaleX(-1)}
+/* subtle colored bg behind each horse */
+.ec-side.l{background:#fafafa}
+.ec-side.r{background:#fafafa}
+.ec-name-strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 100%);padding:.7rem .7rem .55rem}
+.ec-hn{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,4.5vw,2.4rem);color:#fff;line-height:.9;text-shadow:0 2px 12px rgba(0,0,0,1)}
+.ec-cuad{font-size:.52rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.18rem}
+.ec-side.r .ec-name-strip{text-align:right}
+.ec-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#111;border-left:1.5px solid #FFD200;border-right:1.5px solid #FFD200;gap:.1rem}
+.ec-vs{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#FFD200;line-height:1;text-shadow:0 0 20px rgba(255,208,0,.5)}
+.ec-cn{font-family:'Bebas Neue',sans-serif;font-size:.7rem;color:rgba(255,208,0,.45);letter-spacing:.1em}
 
-.race-list{padding:.2rem .8rem 1.5rem;display:flex;flex-direction:column;gap:.55rem}
-.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid rgba(0,0,0,.07);box-shadow:0 1px 8px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .18s,border-color .18s}
-.rr:hover,.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.16);border-color:rgba(255,184,0,.38)}
-.rr.feat{border-color:rgba(255,208,0,.5);box-shadow:0 2px 20px rgba(255,208,0,.12)}
+.ec-stats{display:grid;grid-template-columns:1fr 1fr;background:#fafafa;border-top:1px solid #f0f0f0}
+.ec-stat{padding:.6rem .9rem}
+.ec-stat:first-child{border-right:1px solid #f0f0f0}
+.ec-stat:nth-child(2){text-align:right}
+.ec-stat-lbl{font-size:.44rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase}
+.ec-stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#111;line-height:1.1}
+.ec-more-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #f0f0f0}
+.ec-ms{padding:.5rem .6rem;border-right:1px solid #f0f0f0;text-align:center}
+.ec-ms:last-child{border-right:none}
+.ec-ms-lbl{font-size:.42rem;font-weight:800;color:#ccc;letter-spacing:.1em;text-transform:uppercase}
+.ec-ms-val{font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:#FFB800;line-height:1.1}
+
+/* ── HORSE CARDS ROW ── */
+.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.4rem 1rem .8rem}
+.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.5),transparent)}
+.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;white-space:nowrap;color:#111}
+
+.horses-scroll{display:flex;gap:.75rem;padding:.2rem 1rem 1rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.horses-scroll::-webkit-scrollbar{display:none}
+
+.hc{flex:0 0 42vw;max-width:170px;background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.hc-img{width:100%;aspect-ratio:3/4;background:#f8f8f8;position:relative;overflow:hidden}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:top center}
+.hc-body{padding:.65rem .75rem .75rem;border-top:1.5px solid #f0f0f0}
+.hc-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.03em;line-height:1;color:#111}
+.hc-cuad{font-size:.54rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin:.1rem 0 .45rem}
+.hc-tag{display:inline-block;border:1.5px solid #FFB800;color:#9a6800;font-size:.52rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .6rem;border-radius:999px}
+
+/* ── RACE LIST ── */
+.race-list{padding:.2rem .8rem 1.4rem;display:flex;flex-direction:column;gap:.55rem}
+.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 1px 6px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .18s,border-color .18s}
+.rr:hover,.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.18);border-color:rgba(255,184,0,.45)}
+.rr.feat{border-color:#FFD200;box-shadow:0 2px 18px rgba(255,208,0,.14)}
 
 .rr-top{display:flex;align-items:center;gap:.6rem;padding:.78rem .85rem}
-.rr-num-badge{width:28px;height:28px;border-radius:50%;background:#FFB800;color:#111;font-family:'Bebas Neue',sans-serif;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.rr-feat-badge{background:#FFB800;color:#111;font-size:.44rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:4px;margin-left:-.2rem}
-.rr-ico{width:38px;height:38px;flex-shrink:0;border-radius:8px;overflow:hidden;background:#f0f0f0}
-.rr-ico img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.rr-badge{width:30px;height:30px;border-radius:50%;background:#111;color:#FFD200;font-family:'Bebas Neue',sans-serif;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rr.feat .rr-badge{background:#FFD200;color:#111}
+.feat-tag{background:#FFD200;color:#111;font-size:.44rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.14rem .5rem;border-radius:4px;flex-shrink:0}
+.rr-ico{width:40px;height:40px;flex-shrink:0;border-radius:9px;overflow:hidden;background:#f8f8f8;border:1px solid #ebebeb}
+.rr-ico img{width:100%;height:100%;object-fit:contain;object-position:top center}
 .rr-names{flex:1;min-width:0}
-.rr-n1{font-size:.83rem;font-weight:900;color:#111;line-height:1.15}
-.rr-cuad{font-size:.55rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.06rem}
+.rr-n1{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:#111;line-height:1.1;letter-spacing:.02em}
+.rr-cuad{font-size:.53rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.05rem}
 .rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#FF8C00;flex-shrink:0}
-.rr-dist{font-size:.6rem;font-weight:700;color:#777;white-space:nowrap;margin-left:auto}
+.rr-dist{font-size:.58rem;font-weight:700;color:#aaa;white-space:nowrap;margin-left:auto}
 
-.rr-duel{display:none;background:#0e0e0e}
+/* expanded duel */
+.rr-duel{display:none;border-top:1.5px solid #f0f0f0}
 .rr.open .rr-duel{display:block}
-.duel-grid{display:grid;grid-template-columns:1fr 48px 1fr;min-height:180px}
-.dh{position:relative;overflow:hidden}
-.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.duel-grid{display:grid;grid-template-columns:1fr 50px 1fr;min-height:200px;background:#fff}
+.dh{position:relative;overflow:hidden;background:#f8f8f8}
+.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
 .dh.dr img{transform:scaleX(-1)}
-.dh-ov{position:absolute;inset:0}
-.dh.dl .dh-ov{background:linear-gradient(90deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.35) 55%,transparent 100%)}
-.dh.dr .dh-ov{background:linear-gradient(270deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.35) 55%,transparent 100%)}
-.dh-info{position:absolute;bottom:0;padding:.85rem}
-.dh.dr .dh-info{right:0;text-align:right}
-.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,4vw,2.4rem);color:#fff;line-height:.9;text-shadow:0 3px 20px rgba(0,0,0,1)}
-.dh-cuad{font-size:.52rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem}
-.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;border-left:1px solid rgba(255,208,0,.18);border-right:1px solid rgba(255,208,0,.18)}
-.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#FFD200;text-shadow:0 0 30px rgba(255,208,0,.4)}
-.duel-cn{font-size:.46rem;font-weight:800;color:rgba(255,208,0,.45);letter-spacing:.1em;text-align:center;margin-top:.25rem;text-transform:uppercase}
+/* subtle tint per side */
+.dh.dl{background:#f5f5f5}
+.dh.dr{background:#f5f5f5}
+.dh-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);padding:.75rem .75rem .6rem}
+.dh.dr .dh-info{text-align:right}
+.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,3.8vw,2.2rem);color:#fff;line-height:.9;text-shadow:0 2px 14px rgba(0,0,0,1)}
+.dh-cuad{font-size:.5rem;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-top:.18rem}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#111;border-left:1.5px solid #FFD200;border-right:1.5px solid #FFD200}
+.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:#FFD200;text-shadow:0 0 20px rgba(255,208,0,.45)}
+.duel-cn{font-family:'Bebas Neue',sans-serif;font-size:.55rem;color:rgba(255,208,0,.4);letter-spacing:.1em;text-align:center;margin-top:.2rem;text-transform:uppercase}
 
-.sf-bar{display:flex;align-items:center;justify-content:center;gap:.65rem;background:#111;padding:1rem 1.5rem;margin:1rem .8rem 2.5rem;border-radius:16px}
+/* ── QR SECTION ── */
+.qr-section{margin:1rem .8rem 2.5rem;background:#111;border-radius:18px;padding:1.8rem 1.5rem;display:flex;gap:1.4rem;align-items:center;box-shadow:0 8px 40px rgba(0,0,0,.15)}
+.qr-img{width:100px;height:100px;border-radius:10px;border:2px solid rgba(255,208,0,.4);flex-shrink:0}
+.qr-text{}
+.qr-headline{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#FFD200;letter-spacing:.04em;line-height:.95;margin-bottom:.4rem}
+.qr-sub{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase;line-height:1.5}
+.qr-url{font-size:.58rem;font-weight:700;color:rgba(255,208,0,.5);letter-spacing:.04em;margin-top:.5rem;word-break:break-all}
+
+.sf-bar{display:flex;align-items:center;justify-content:center;gap:.65rem;background:#111;padding:1rem 1.5rem;margin:0 .8rem 2.5rem;border-radius:14px}
 .sf-play{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid #FF3B30}
 .sf-txt{color:#fff;font-size:.82rem;font-weight:600}
 .sf-num{color:#FFD200;font-weight:900}
 
-@media(max-width:400px){.rr-dist{display:none}}
+@media(max-width:400px){.rr-dist{display:none}.np-dark{display:none}}
 </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav class="nav">
-  <div class="nav-l">
-    <div class="l1">El Rey de Reyes</div>
-    <div class="l2">La Pista · Colorado</div>
+  <div class="nav-brand">
+    <!-- Crown SVG -->
+    <svg class="nav-crown" viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 26h32v3H4zM4 24l5-14 7 8 4-12 4 12 7-8 5 14z" fill="#FFD200"/>
+      <circle cx="4" cy="10" r="2.5" fill="#FFD200"/>
+      <circle cx="20" cy="4" r="2.5" fill="#FFD200"/>
+      <circle cx="36" cy="10" r="2.5" fill="#FFD200"/>
+    </svg>
+    <div class="nav-l">
+      <div class="l1">El Rey de Reyes · La Pista</div>
+      <div class="l2">Colorado, USA</div>
+    </div>
   </div>
   <div class="nav-pills">
-    <span class="np np-gold">⭐ 10 Carreras</span>
-    <a class="np np-site" href="site.html">← Sitio</a>
+    <a class="np np-gold" href="races.html">⭐ Programa</a>
+    <a class="np np-dark" href="site.html">Sitio</a>
   </div>
-  <div class="nav-date">14 JUN 2026</div>
+  <div class="nav-date">14 JUN</div>
 </nav>
 
+<!-- ── TICKER ── -->
 <div class="ticker">
   <div class="t-track">
     <span>CAOS</span><span>REY PUERRO</span><span>LA REYNA</span><span>EL EREY</span><span>POCA LUZ</span><span>CHIKLIN</span><span>AGUILA</span><span>DRAMATICA</span><span>VOLCAN</span><span>TRAKALOSA</span>
@@ -130,12 +187,32 @@ body{background:#f4f4f4;color:#111;font-family:-apple-system,'Inter',sans-serif;
   </div>
 </div>
 
-<div class="hero-mini">
-  <div class="hero-eyebrow">📍 La Pista · Colorado, USA · 14 Junio 2026</div>
+<!-- ── HERO BANNER ── -->
+<div class="hero-banner">
+  <div class="crown-wrap">
+    <svg class="crown-svg" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 72h100v8H10z" fill="#FFD200"/>
+      <path d="M10 68L26 22l24 28L60 4l10 46 24-28 16 46z" fill="#FFD200"/>
+      <circle cx="10" cy="18" r="7" fill="#FFD200"/>
+      <circle cx="60" cy="6" r="7" fill="#FFD200"/>
+      <circle cx="110" cy="18" r="7" fill="#FFD200"/>
+      <!-- gems -->
+      <circle cx="35" cy="68" r="3" fill="#fff" opacity=".7"/>
+      <circle cx="60" cy="68" r="3" fill="#fff" opacity=".7"/>
+      <circle cx="85" cy="68" r="3" fill="#fff" opacity=".7"/>
+    </svg>
+  </div>
   <div class="hero-title">EL REY DE REYES<br><em>DE LA MONTAÑA</em></div>
-  <div class="hero-sub">Programa Completo · 10 Carreras</div>
+  <div class="hero-rule"></div>
+  <div class="hero-sub">La Pista · Colorado, USA · Domingo 14 Junio 2026</div>
+  <div class="hero-badges">
+    <div class="hb hb-gold">10 Carreras</div>
+    <div class="hb hb-out">137 – 328 Yds</div>
+    <div class="hb hb-out">14 Junio 2026</div>
+  </div>
 </div>
 
+<!-- ── STATS ── -->
 <div class="stats">
   <div class="st"><div class="st-n">10</div><div class="st-l">Carreras</div></div>
   <div class="st"><div class="st-n">20</div><div class="st-l">Caballos</div></div>
@@ -143,47 +220,94 @@ body{background:#f4f4f4;color:#111;font-family:-apple-system,'Inter',sans-serif;
   <div class="st"><div class="st-n" id="sfn">2,342</div><div class="st-l">Siguiendo</div></div>
 </div>
 
-<!-- ESTELAR FEATURED CARD -->
-<div class="estelar-card">
-  <div class="ec-label">
-    <span>⭐ Carrera La Estelar · #7</span>
-    <span class="ec-dist">246 × 273 YDS</span>
+<!-- ── ESTELAR CARD ── -->
+<div class="estelar-wrap">
+  <div class="estelar-label">
+    <span class="star-badge">⭐ ESTELAR</span>
+    <span class="estelar-label-txt">Carrera #7</span>
+    <span class="estelar-label-dist">246 × 273 Yds</span>
   </div>
-  <div class="ec-grid">
-    <div class="ec-h l">
-      <img src="la-mami.jpg" alt="CAOS">
-      <div class="ec-ov"></div>
-      <div class="ec-info">
-        <div class="ec-name">CAOS</div>
-        <div class="ec-cuad">Cdra. Charly</div>
+  <div class="ec">
+    <div class="ec-duel">
+      <div class="ec-side l">
+        <img src="h-caos.jpg" alt="CAOS">
+        <div class="ec-name-strip">
+          <div class="ec-hn">CAOS</div>
+          <div class="ec-cuad">Cdra. Charly</div>
+        </div>
+      </div>
+      <div class="ec-mid">
+        <div class="ec-vs">VS</div>
+        <div class="ec-cn">C.7</div>
+      </div>
+      <div class="ec-side r">
+        <img src="h-rey-puerro.jpg" alt="REY PUERRO">
+        <div class="ec-name-strip">
+          <div class="ec-hn">REY PUERRO</div>
+          <div class="ec-cuad">Cdra. Charly</div>
+        </div>
       </div>
     </div>
-    <div class="ec-mid">
-      <div class="ec-vs">VS</div>
-      <div class="ec-num">Carrera<br>7</div>
-    </div>
-    <div class="ec-h r">
-      <img src="aries.jpg" alt="REY PUERRO">
-      <div class="ec-ov"></div>
-      <div class="ec-info">
-        <div class="ec-name">REY PUERRO</div>
-        <div class="ec-cuad">Cdra. Charly</div>
+    <div class="ec-stats">
+      <div class="ec-stat">
+        <div class="ec-stat-lbl">Registro</div>
+        <div class="ec-stat-val">12 · 9 · 2</div>
+      </div>
+      <div class="ec-stat">
+        <div class="ec-stat-lbl">Registro</div>
+        <div class="ec-stat-val">11 · 8 · 1</div>
       </div>
     </div>
-  </div>
-  <div class="ec-stats">
-    <div class="ec-stat"><div class="ec-stat-lbl">Registro</div><div class="ec-stat-val">12-9-2</div></div>
-    <div class="ec-stat"><div class="ec-stat-lbl">Registro</div><div class="ec-stat-val">11-8-1</div></div>
-    <div class="ec-stat"><div class="ec-stat-lbl">Mejor Tiempo</div><div class="ec-stat-val">13.421</div></div>
-    <div class="ec-stat"><div class="ec-stat-lbl">Mejor Tiempo</div><div class="ec-stat-val">13.387</div></div>
-    <div class="ec-stat"><div class="ec-stat-lbl">Vel. Index</div><div class="ec-stat-val">112</div></div>
-    <div class="ec-stat"><div class="ec-stat-lbl">Vel. Index</div><div class="ec-stat-val">114</div></div>
+    <div class="ec-more-stats">
+      <div class="ec-ms"><div class="ec-ms-lbl">Mejor T.</div><div class="ec-ms-val">13.421</div></div>
+      <div class="ec-ms" style="background:#fafafa"><div class="ec-ms-lbl">Vel. Index</div><div class="ec-ms-val" style="color:#111">112 vs 114</div></div>
+      <div class="ec-ms"><div class="ec-ms-lbl">Mejor T.</div><div class="ec-ms-val">13.387</div></div>
+    </div>
   </div>
 </div>
 
-<!-- FULL RACE LIST -->
+<!-- ── HORSE CARDS ── -->
+<div class="sec-hd"><span>LOS CABALLOS</span></div>
+<div class="horses-scroll">
+  <div class="hc">
+    <div class="hc-img"><img src="h-la-reyna.jpg" alt="LA REYNA"></div>
+    <div class="hc-body"><div class="hc-name">LA REYNA</div><div class="hc-cuad">La Campeona</div><div class="hc-tag">Título</div></div>
+  </div>
+  <div class="hc">
+    <div class="hc-img"><img src="h-el-erey.jpg" alt="EL EREY"></div>
+    <div class="hc-body"><div class="hc-name">EL EREY</div><div class="hc-cuad">De Reyes</div><div class="hc-tag">Título</div></div>
+  </div>
+  <div class="hc">
+    <div class="hc-img"><img src="h-caos.jpg" alt="CAOS"></div>
+    <div class="hc-body"><div class="hc-name">CAOS</div><div class="hc-cuad">Cdra. Charly</div><div class="hc-tag">⭐ Estelar</div></div>
+  </div>
+  <div class="hc">
+    <div class="hc-img"><img src="h-rey-puerro.jpg" alt="REY PUERRO"></div>
+    <div class="hc-body"><div class="hc-name">REY PUERRO</div><div class="hc-cuad">Cdra. Charly</div><div class="hc-tag">⭐ Estelar</div></div>
+  </div>
+  <div class="hc">
+    <div class="hc-img"><img src="cristo-rey.jpg" alt="AGUILA"></div>
+    <div class="hc-body"><div class="hc-name">AGUILA</div><div class="hc-cuad">Cdra. Con Chuy</div><div class="hc-tag">Carrera 3</div></div>
+  </div>
+  <div class="hc">
+    <div class="hc-img"><img src="la-tepada.jpg" alt="DRAMATICA"></div>
+    <div class="hc-body"><div class="hc-name">DRAMATICA</div><div class="hc-cuad">Cdra. Ramirez</div><div class="hc-tag">Carrera 4</div></div>
+  </div>
+</div>
+
+<!-- ── RACE LIST ── -->
 <div class="sec-hd"><span>PROGRAMA COMPLETO</span></div>
 <div class="race-list" id="raceList"></div>
+
+<!-- ── QR CODE ── -->
+<div class="qr-section">
+  <img class="qr-img" id="qrImg" alt="QR">
+  <div class="qr-text">
+    <div class="qr-headline">Escanea &amp;<br>Comparte</div>
+    <div class="qr-sub">El Rey de Reyes<br>de la Montaña</div>
+    <div class="qr-url">guttix1.github.io/Digital-flyer-/events/rey-de-reyes-jun14/races.html</div>
+  </div>
+</div>
 
 <div class="sf-bar">
   <div class="sf-play"></div>
@@ -195,17 +319,21 @@ const base = 2340 + Math.floor(Math.random() * 8);
 document.getElementById('sfn').textContent = base.toLocaleString();
 document.getElementById('sfn2').textContent = (base + 1).toLocaleString();
 
+const SITE = 'https://guttix1.github.io/Digital-flyer-/events/rey-de-reyes-jun14/races.html';
+document.getElementById('qrImg').src =
+  `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(SITE)}&bgcolor=111111&color=FFD200&format=png&margin=8`;
+
 const RACES = [
-  {n:1,  h1:'POCA LUZ',    c1:'Cdra. Ramirez',    h2:'CHIKLIN',    c2:'Cdra. Con Chuy', dist:'137 yds', i1:'cuadra-mtz.jpg',   i2:'cristo-rey.jpg'},
-  {n:2,  h1:'CALCAMONIA',  c1:'Cdra. El Alazan',  h2:'VALENTINA',  c2:'Cdra. 3 Hermanos',dist:'219 yds',i1:'la-reyna.jpg',     i2:'cuadra-esperanza.jpg'},
-  {n:3,  h1:'AGUILA',      c1:'Cdra. Con Chuy',   h2:'BLACK JACK', c2:'Cdra. Con Chuy', dist:'164 yds', i1:'cristo-rey.jpg',   i2:'la-tepada.jpg'},
-  {n:4,  h1:'DRAMATICA',   c1:'Cdra. Ramirez',    h2:'VIEJITO',    c2:'Cdra. Cafetero', dist:'164 yds', i1:'la-reyna.jpg',     i2:'cuadra-mtz.jpg'},
-  {n:5,  h1:'VOLCAN',      c1:'Cdra. Cafetero',   h2:'EMA',        c2:'Cdra. GDA',      dist:'219 yds', i1:'gutierrez.jpg',    i2:'cuadra-esperanza.jpg'},
-  {n:6,  h1:'PICO BLANCO', c1:'Cdra. Cafetero',   h2:'CAÑERO',     c2:'Cdra. Con Chuy', dist:'328 yds', i1:'el-chigon.jpg',    i2:'cuadra-mtz.jpg'},
-  {n:7,  h1:'CAOS',        c1:'Cdra. Charly',     h2:'REY PUERRO', c2:'Cdra. Charly',   dist:'246×273 yds',i1:'la-mami.jpg',  i2:'aries.jpg', feat:true},
-  {n:8,  h1:'RAYITO',      c1:'Cdra. Chichinero', h2:'TRAKALOSA',  c2:'Cdra. GDA',      dist:'273 yds', i1:'la-tepada.jpg',   i2:'pisces.jpg'},
-  {n:9,  h1:'SECRETO',     c1:'Cdra. Charly',     h2:'CANTINELAS', c2:'',               dist:'219 yds', i1:'pisces.jpg',      i2:'gutierrez.jpg'},
-  {n:10, h1:'TIGRE REAL',  c1:'Cdra. El Rey',     h2:'MONTAÑES',   c2:'Cdra. La Montaña',dist:'180 yds',i1:'aries.jpg',      i2:'la-mami.jpg'},
+  {n:1,  h1:'POCA LUZ',    c1:'Cdra. Ramirez',    h2:'CHIKLIN',    c2:'Cdra. Con Chuy',  dist:'137 yds', i1:'cuadra-mtz.jpg',   i2:'cristo-rey.jpg'},
+  {n:2,  h1:'CALCAMONIA',  c1:'Cdra. El Alazan',  h2:'VALENTINA',  c2:'Cdra. 3 Hermanos',dist:'219 yds', i1:'la-reyna.jpg',     i2:'cuadra-esperanza.jpg'},
+  {n:3,  h1:'AGUILA',      c1:'Cdra. Con Chuy',   h2:'BLACK JACK', c2:'Cdra. Con Chuy',  dist:'164 yds', i1:'cristo-rey.jpg',   i2:'la-tepada.jpg'},
+  {n:4,  h1:'DRAMATICA',   c1:'Cdra. Ramirez',    h2:'VIEJITO',    c2:'Cdra. Cafetero',  dist:'164 yds', i1:'la-reyna.jpg',     i2:'cuadra-mtz.jpg'},
+  {n:5,  h1:'VOLCAN',      c1:'Cdra. Cafetero',   h2:'EMA',        c2:'Cdra. GDA',       dist:'219 yds', i1:'gutierrez.jpg',    i2:'cuadra-esperanza.jpg'},
+  {n:6,  h1:'PICO BLANCO', c1:'Cdra. Cafetero',   h2:'CAÑERO',     c2:'Cdra. Con Chuy',  dist:'328 yds', i1:'el-chigon.jpg',    i2:'cuadra-mtz.jpg'},
+  {n:7,  h1:'CAOS',        c1:'Cdra. Charly',     h2:'REY PUERRO', c2:'Cdra. Charly',    dist:'246×273', i1:'h-caos.jpg',       i2:'h-rey-puerro.jpg', feat:true},
+  {n:8,  h1:'RAYITO',      c1:'Cdra. Chichinero', h2:'TRAKALOSA',  c2:'Cdra. GDA',       dist:'273 yds', i1:'la-tepada.jpg',    i2:'pisces.jpg'},
+  {n:9,  h1:'SECRETO',     c1:'Cdra. Charly',     h2:'CANTINELAS', c2:'',                dist:'219 yds', i1:'pisces.jpg',       i2:'gutierrez.jpg'},
+  {n:10, h1:'TIGRE REAL',  c1:'Cdra. El Rey',     h2:'MONTAÑES',   c2:'Cdra. La Montaña',dist:'180 yds', i1:'aries.jpg',        i2:'la-mami.jpg'},
 ];
 
 const list = document.getElementById('raceList');
@@ -214,8 +342,8 @@ RACES.forEach(r => {
   d.className = 'rr' + (r.feat ? ' feat' : '');
   d.innerHTML = `
     <div class="rr-top">
-      <div class="rr-num-badge">${r.n}</div>
-      ${r.feat ? '<span class="rr-feat-badge">⭐ ESTELAR</span>' : ''}
+      <div class="rr-badge">${r.n}</div>
+      ${r.feat ? '<span class="feat-tag">⭐ ESTELAR</span>' : ''}
       <div class="rr-ico"><img src="${r.i1}" alt="${r.h1}"></div>
       <div class="rr-names">
         <div class="rr-n1">${r.h1}</div>
@@ -233,7 +361,6 @@ RACES.forEach(r => {
       <div class="duel-grid">
         <div class="dh dl">
           <img src="${r.i1}" alt="${r.h1}">
-          <div class="dh-ov"></div>
           <div class="dh-info"><div class="dh-name">${r.h1}</div><div class="dh-cuad">${r.c1}</div></div>
         </div>
         <div class="duel-mid">
@@ -242,7 +369,6 @@ RACES.forEach(r => {
         </div>
         <div class="dh dr">
           <img src="${r.i2}" alt="${r.h2}">
-          <div class="dh-ov"></div>
           <div class="dh-info"><div class="dh-name">${r.h2}</div><div class="dh-cuad">${r.c2}</div></div>
         </div>
       </div>
