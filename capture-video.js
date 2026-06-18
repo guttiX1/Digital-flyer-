@@ -10,7 +10,7 @@ const AUDIO_PATH = path.resolve(__dirname, 'events/rey-de-reyes-jun14/commentato
 const AUDIO = fs.existsSync(AUDIO_PATH) ? AUDIO_PATH : null;
 const OUT_VIDEO = path.resolve(__dirname, 'events/rey-de-reyes-jun14/rey-de-reyes.mp4');
 
-const DURATION_MS = 32000; // 30s video-ad
+const DURATION_MS = 18500; // 11.5s scenes + 4s end card
 const WIDTH = 540;
 const HEIGHT = 960;
 

@@ -1,154 +1,490 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>El Rey de Reyes de la Montaña · Video Ad</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>El Rey de Reyes de la Montaña · Jun 14</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#F5C518;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
-body{background:#000;color:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden;height:100svh;display:flex;align-items:center;justify-content:center}
-.ad{position:relative;width:100%;max-width:420px;aspect-ratio:9/16;background:#000;overflow:hidden;border-radius:24px;box-shadow:0 40px 100px -20px rgba(0,0,0,.9)}
-@media(min-width:600px){.ad{max-width:380px}}
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:32px;text-align:center;opacity:0;transition:opacity .6s ease;pointer-events:none}
-.scene.active{opacity:1;pointer-events:auto}
-.s-eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
-.s-h1{font-size:clamp(2rem,8vw,3.2rem);font-weight:700;letter-spacing:-.035em;line-height:1;
-  background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,.65) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.s-h1 .gold{background:linear-gradient(160deg,var(--gold),#FF8C00);-webkit-background-clip:text;background-clip:text}
-.s-p{margin-top:14px;font-size:14px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.55}
-.s-big{font-size:clamp(3rem,14vw,6rem);font-weight:800;letter-spacing:-.05em;line-height:.9}
-.vs-badge{font-size:clamp(2rem,9vw,4rem);font-weight:800;letter-spacing:-.04em;
-  background:linear-gradient(180deg,#fff 0%,var(--gold) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-row{display:flex;gap:24px;justify-content:center;margin-top:20px}
-.stat{text-align:center}.stat-n{font-size:2.2rem;font-weight:700;color:var(--gold);letter-spacing:-.04em}
-.stat-l{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px}
-.play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:50;cursor:pointer;transition:opacity .3s}
-.play-btn:hover{background:rgba(0,0,0,.4)}
-.play-circle{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);
-  display:flex;align-items:center;justify-content:center;font-size:28px;backdrop-filter:blur(10px)}
-.prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.1)}
-.prog-fill{height:100%;background:var(--gold);width:0;transition:width .1s linear}
-.scene-bg{position:absolute;inset:0;z-index:0}
-.scene-content{position:relative;z-index:1}
-.bg-glow-l{position:absolute;left:-20%;top:10%;width:60%;height:70%;
-  background:radial-gradient(ellipse,rgba(255,255,255,.08) 0%,transparent 65%);filter:blur(60px)}
-.bg-glow-r{position:absolute;right:-20%;bottom:10%;width:60%;height:70%;
-  background:radial-gradient(ellipse,rgba(245,197,24,.1) 0%,transparent 65%);filter:blur(60px)}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#FFD200;--dgold:#b8960a;--purple:#7B2FBE;--red:#CC0000;--white:#fff}
+html,body{width:100%;height:100%;background:#000;overflow:hidden;
+  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+
+#cvs{position:fixed;inset:0;z-index:0;pointer-events:none}
+#stage{position:fixed;inset:0;z-index:1}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;opacity:0;pointer-events:none;overflow:hidden}
+.scene.on{opacity:1}
+
+#flash{position:fixed;inset:0;z-index:999;background:#fff;opacity:0;pointer-events:none}
+#pflash{position:fixed;inset:0;z-index:998;background:#7B2FBE;opacity:0;pointer-events:none}
+#gflash{position:fixed;inset:0;z-index:997;background:#FFD200;opacity:0;pointer-events:none}
+#prog{position:fixed;bottom:0;left:0;height:4px;z-index:100;
+  background:linear-gradient(90deg,var(--purple),var(--gold));width:0%;
+  box-shadow:0 0 10px rgba(255,210,0,.7)}
+
+@keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-8px,5px)}40%{transform:translate(8px,-6px)}60%{transform:translate(-6px,7px)}80%{transform:translate(5px,-3px)}}
+.shake{animation:shake .28s ease}
+
+.speedlines{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5}
+.sl{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  opacity:0;animation:slFly .32s ease-out forwards}
+@keyframes slFly{from{transform:translateX(-110vw);opacity:.9}to{transform:translateX(110vw);opacity:0}}
+
+.pbg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:brightness(.68) contrast(1.15) saturate(1.2);animation:kbZoom 4s linear forwards}
+@keyframes kbZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.pov{position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.2) 45%,rgba(0,0,0,.85) 100%)}
+
+/* ── S0 ── */
+#s0{background:#000}
+#s0 .s0pre{font-size:clamp(10px,2vw,13px);color:rgba(255,255,255,.3);letter-spacing:.65em;
+  text-transform:uppercase;animation:aFadeIn .3s ease both}
+#s0 .s0big{font-size:clamp(52px,15vw,160px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.82;text-align:center;
+  animation:aBigSlam .26s .04s cubic-bezier(.17,.67,.3,1.7) both}
+
+/* ── S1 ── */
+#s1{background:#000}
+#s1 .s1king{font-size:clamp(52px,15vw,160px);font-weight:900;color:var(--gold);
+  letter-spacing:-.04em;line-height:.82;text-align:center;
+  text-shadow:0 0 120px rgba(255,210,0,.7),4px 6px 0 rgba(100,70,0,.4);
+  animation:aBigSlam .26s cubic-bezier(.17,.67,.3,1.7) both}
+
+/* ── S2 ── */
+#s2{background:#000}
+#s2 .s2crown{font-size:clamp(56px,16vw,200px);line-height:1;
+  animation:aSpinIn .52s cubic-bezier(.17,.67,.3,1.4) both;text-align:center}
+#s2 .s2rule{height:3px;background:linear-gradient(90deg,transparent,var(--purple),var(--gold),transparent);
+  width:72%;margin:8px auto;animation:aScaleX .5s .45s ease both;transform-origin:center}
+#s2 .s2title{font-size:clamp(18px,5vw,54px);font-weight:900;color:var(--white);
+  letter-spacing:.04em;text-transform:uppercase;text-align:center;
+  animation:aFadeIn .4s .5s ease both}
+#s2 .s2sub{font-size:clamp(10px,2vw,13px);color:rgba(255,255,255,.28);letter-spacing:.55em;
+  text-transform:uppercase;animation:aFadeIn .4s .62s ease both}
+#s2 .s2date{font-size:clamp(13px,3vw,22px);color:var(--gold);letter-spacing:.4em;
+  text-transform:uppercase;font-weight:700;margin-top:6px;animation:aFadeIn .3s .75s ease both}
+
+/* ── S3 ── */
+#s3{background:#000}
+#s3 .s3content{position:relative;z-index:10;display:flex;flex-direction:column;
+  align-items:center;text-align:center;gap:clamp(5px,1.2vw,10px);
+  padding:0 clamp(16px,5vw,32px)}
+#s3 .s3pre{font-size:clamp(10px,2vw,13px);color:rgba(255,255,255,.32);letter-spacing:.6em;
+  text-transform:uppercase;animation:aFadeIn .3s ease both}
+#s3 .s3q{font-size:clamp(40px,11.5vw,122px);font-weight:900;color:var(--white);
+  letter-spacing:-.03em;line-height:.86;animation:aSlamIn .35s .08s cubic-bezier(.17,.67,.3,1.4) both}
+#s3 .s3q em{color:var(--gold);font-style:normal}
+#s3 .s3nums{display:flex;gap:clamp(10px,2.8vw,22px);margin-top:clamp(8px,2vw,16px);
+  animation:aFadeUp .4s .3s ease both}
+#s3 .s3num{width:clamp(38px,10vw,62px);height:clamp(38px,10vw,62px);
+  background:var(--purple);display:flex;align-items:center;justify-content:center;
+  border-radius:5px;font-size:clamp(22px,6vw,40px);font-weight:900;color:#fff;
+  box-shadow:0 4px 24px rgba(123,47,190,.6)}
+
+/* ── S4 S5 S6 S7 — horse cards ── */
+#s4,#s5,#s6,#s7{background:#f5f2ee;padding:0}
+#s4 img,#s5 img,#s6 img,#s7 img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  animation:aHorsePunch .38s cubic-bezier(.17,.67,.3,1.15) both}
+@keyframes aHorsePunch{
+  0%{transform:scale(1.2) translateY(5%);opacity:0;filter:brightness(1.9)}
+  60%{filter:brightness(1.0)}
+  100%{transform:scale(1) translateY(0);opacity:1;filter:brightness(1)}
+}
+/* name overlay on horse cards */
+.hcard-label{position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 100%);
+  padding:clamp(16px,4vw,36px) clamp(12px,3vw,24px) clamp(10px,2.5vw,20px);
+  z-index:2}
+.hcard-name{font-size:clamp(28px,8vw,88px);font-weight:900;color:#fff;
+  letter-spacing:-.03em;line-height:.88;animation:aFadeUp .35s .2s ease both}
+.hcard-cuad{font-size:clamp(9px,2vw,14px);color:rgba(255,255,255,.45);
+  letter-spacing:.22em;text-transform:uppercase;margin-top:4px;
+  animation:aFadeIn .3s .38s ease both}
+
+/* ── S8 ── */
+#s8{background:#000}
+#s8 .s8star{font-size:clamp(40px,11vw,120px);line-height:1;
+  animation:aZpop .38s cubic-bezier(.17,.67,.3,1.4) both;text-align:center}
+#s8 .s8label{font-size:clamp(14px,3.5vw,32px);font-weight:700;color:var(--gold);
+  letter-spacing:.25em;text-transform:uppercase;margin-top:4px;
+  animation:aFadeIn .3s .22s ease both;text-align:center}
+#s8 .s8dist{font-size:clamp(10px,2vw,14px);color:rgba(255,255,255,.3);letter-spacing:.4em;
+  text-transform:uppercase;margin-top:6px;animation:aFadeIn .3s .38s ease both;text-align:center}
+
+/* ── S9 ── */
+#s9{background:var(--purple)}
+#s9 .s9a{font-size:clamp(48px,13.5vw,148px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.82;text-align:center;
+  text-shadow:0 0 100px rgba(0,0,0,.3),3px 5px 0 rgba(50,0,100,.4);
+  animation:aBigSlam .28s cubic-bezier(.17,.67,.3,1.7) both}
+#s9 .s9vs{font-size:clamp(22px,6vw,60px);font-weight:900;color:var(--gold);
+  letter-spacing:.08em;animation:aFadeIn .3s .18s ease both;text-align:center}
+#s9 .s9b{font-size:clamp(48px,13.5vw,148px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.82;text-align:center;
+  text-shadow:0 0 100px rgba(0,0,0,.3),3px 5px 0 rgba(50,0,100,.4);
+  animation:aBigSlam .28s .1s cubic-bezier(.17,.67,.3,1.7) both}
+
+/* ── S10 ── */
+#s10{background:#000}
+#s10 .s10pre{font-size:clamp(10px,2vw,13px);color:rgba(255,255,255,.3);letter-spacing:.6em;
+  text-transform:uppercase;animation:aFadeIn .3s ease both;text-align:center}
+#s10 .s10r{font-size:clamp(80px,23vw,280px);font-weight:900;color:var(--gold);
+  letter-spacing:-.04em;line-height:.76;text-align:center;
+  text-shadow:4px 8px 0 rgba(100,70,0,.45),0 0 130px rgba(255,210,0,.55);
+  animation:aBigSlam .26s .04s cubic-bezier(.17,.67,.3,1.7) both}
+#s10 .s10rr{font-size:clamp(80px,23vw,280px);font-weight:900;color:var(--white);
+  letter-spacing:-.04em;line-height:.76;text-align:center;
+  animation:aBigSlam .26s .14s cubic-bezier(.17,.67,.3,1.7) both}
+#s10 .s10rule{height:4px;width:0;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--purple),transparent);
+  margin:14px auto;animation:aScaleX .5s .3s ease both;transform-origin:center}
+#s10 .s10sub{font-size:clamp(13px,3vw,24px);color:var(--gold);letter-spacing:.35em;
+  text-transform:uppercase;font-weight:700;animation:aFadeUp .4s .42s ease both;text-align:center}
+#s10 .s10loc{font-size:clamp(22px,6vw,58px);font-weight:900;color:rgba(255,255,255,.82);
+  animation:aFadeUp .4s .52s ease both;text-align:center}
+
+/* ── S11 END CARD ── */
+#s11{background:#000;overflow:hidden}
+#s11 .ebg{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,rgba(123,47,190,.22) 0%,transparent 60%)}
+#s11 .eglow{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 20%,rgba(255,210,0,.08) 0%,transparent 55%)}
+#s11 .ehorses{position:absolute;bottom:0;left:0;right:0;height:76%;
+  display:flex;align-items:flex-end;justify-content:space-between;overflow:hidden}
+#s11 .ehorses img{height:100%;width:25%;object-fit:contain;object-position:bottom center;
+  opacity:.38;filter:brightness(.7) contrast(1.08);
+  animation:aFadeUp .9s var(--d,.1s) ease both}
+#s11 .egrad{position:absolute;bottom:0;left:0;right:0;height:75%;
+  background:linear-gradient(to top,#000 24%,rgba(0,0,0,.84) 52%,transparent 100%)}
+#s11 .econtent{position:relative;z-index:3;display:flex;flex-direction:column;
+  align-items:center;text-align:center;padding:0 clamp(16px,5vw,32px);gap:clamp(2px,.7vw,5px)}
+#s11 .etease{font-size:clamp(10px,1.9vw,13px);color:rgba(255,255,255,.28);
+  letter-spacing:.6em;text-transform:uppercase;animation:aFadeIn .4s .05s ease both}
+#s11 .eslogan{font-size:clamp(14px,3.5vw,34px);font-weight:900;color:var(--gold);
+  letter-spacing:.03em;line-height:.94;text-transform:uppercase;
+  animation:aSlamIn .45s .16s cubic-bezier(.17,.67,.3,1.3) both}
+#s11 .erey{font-size:clamp(56px,16vw,178px);font-weight:900;color:var(--gold);
+  letter-spacing:-.04em;line-height:.78;
+  text-shadow:3px 5px 0 rgba(100,70,0,.45),0 0 70px rgba(255,210,0,.5);
+  animation:aZpop .38s .28s cubic-bezier(.17,.67,.3,1.4) both}
+#s11 .emontana{font-size:clamp(22px,6vw,66px);font-weight:900;color:rgba(255,255,255,.88);
+  letter-spacing:-.02em;line-height:.82;animation:aZpop .38s .38s cubic-bezier(.17,.67,.3,1.4) both}
+#s11 .epills{display:flex;gap:clamp(8px,2vw,14px);margin-top:8px;
+  animation:aFadeUp .4s .52s ease both;align-items:center;justify-content:center;flex-wrap:wrap}
+#s11 .epurp{background:var(--purple);padding:clamp(8px,1.6vw,12px) clamp(22px,5.5vw,40px);
+  border-radius:100px;font-size:clamp(18px,4.8vw,40px);font-weight:900;color:#fff;
+  box-shadow:0 4px 30px rgba(123,47,190,.65)}
+#s11 .egold{background:var(--gold);padding:clamp(8px,1.6vw,12px) clamp(16px,4vw,30px);
+  border-radius:100px;font-size:clamp(14px,3.8vw,30px);font-weight:900;color:#000;
+  box-shadow:0 4px 22px rgba(255,210,0,.5)}
+#s11 .eco{font-size:clamp(28px,7.5vw,85px);font-weight:900;color:rgba(255,255,255,.85);
+  letter-spacing:.06em;line-height:.9;
+  animation:aFadeIn .5s .7s ease both}
+#s11 .etag{font-size:clamp(9px,1.7vw,11px);color:rgba(255,255,255,.16);
+  letter-spacing:.45em;text-transform:uppercase;margin-top:5px;animation:aFadeIn .5s .9s ease both}
+
+#skip,#replay{position:fixed;bottom:16px;right:16px;z-index:200;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.3);padding:7px 18px;border-radius:100px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  font-family:-apple-system,sans-serif}
+#replay{display:none}
+
+@keyframes aFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes aFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes aSpinIn{from{transform:perspective(700px) rotateY(360deg) scale(.35);opacity:0}to{transform:none;opacity:1}}
+@keyframes aZpop{from{transform:perspective(600px) translateZ(-380px) scale(.15);opacity:0}to{transform:none;opacity:1}}
+@keyframes aSlamIn{from{transform:scale(2.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes aBigSlam{from{transform:scale(3);opacity:0}to{transform:none;opacity:1}}
+@keyframes aScaleX{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
 </style>
 </head>
 <body>
-<div class="ad" id="ad">
-  <div id="play-overlay" class="play-btn">
-    <div class="play-circle">▶</div>
-  </div>
-  <div class="prog"><div class="prog-fill" id="prog"></div></div>
+<canvas id="cvs"></canvas>
+<div id="flash"></div>
+<div id="pflash"></div>
+<div id="gflash"></div>
+<div id="prog"></div>
 
-  <!-- Scene 1 -->
-  <div class="scene" id="s1">
-    <div class="scene-bg"><div class="bg-glow-l"></div><div class="bg-glow-r"></div></div>
-    <div class="scene-content">
-      <p class="s-eye">Gran Carrera</p>
-      <h1 class="s-big">⚡</h1>
-      <h2 class="s-h1" style="margin-top:12px">El Rey de Reyes de la Montaña</h2>
-      <p class="s-p">La Campeona</p>
-    </div>
-  </div>
+<div id="stage">
 
-  <!-- Scene 2 -->
-  <div class="scene" id="s2">
-    <div class="scene-bg"><div class="bg-glow-r"></div></div>
-    <div class="scene-content">
-      <p class="s-eye">El Rival</p>
-      <h1 class="s-big">🌑</h1>
-      <h2 class="s-h1" style="margin-top:12px">EL EREY</h2>
-      <p class="s-p">De Reyes · 11-8-1</p>
-    </div>
-  </div>
+<!-- S0 · Teaser -->
+<div class="scene on" id="s0">
+  <div class="speedlines" id="sl0"></div>
+  <div class="s0pre">La Pista · Colorado, USA</div>
+  <div class="s0big">DONDE NACE<br>EL REY</div>
+</div>
 
-  <!-- Scene 3 - VS -->
-  <div class="scene" id="s3">
-    <div class="scene-bg"><div class="bg-glow-l"></div><div class="bg-glow-r"></div></div>
-    <div class="scene-content">
-      <h2 class="s-h1">LA</h2>
-      <div class="vs-badge" style="margin:12px 0">VS</div>
-      <h2 class="s-h1">EL</h2>
-      <p class="s-p" style="margin-top:20px">10 Carreras · 137–328 Yds</p>
-    </div>
-  </div>
+<!-- S1 · Gold slam -->
+<div class="scene" id="s1">
+  <div class="speedlines" id="sl1"></div>
+  <div class="s1king">EL REY<br>DE REYES</div>
+</div>
 
-  <!-- Scene 4 - Stats -->
-  <div class="scene" id="s4">
-    <div class="scene-content">
-      <p class="s-eye">Las Cifras</p>
-      <div class="stat-row">
-        <div class="stat"><div class="stat-n">75%</div><div class="stat-l">Win %</div></div>
-        <div class="stat"><div class="stat-n">92</div><div class="stat-l">Speed</div></div>
-        <div class="stat"><div class="stat-n">$48,250</div><div class="stat-l">Premio</div></div>
-      </div>
-    </div>
-  </div>
+<!-- S2 · Crown + full title -->
+<div class="scene" id="s2">
+  <div class="speedlines" id="sl2"></div>
+  <div class="s2crown">👑</div>
+  <div class="s2rule"></div>
+  <div class="s2title">El Rey de Reyes</div>
+  <div class="s2sub">de la Montaña</div>
+  <div class="s2date">14 de Junio · La Pista · Colorado</div>
+</div>
 
-  <!-- Scene 5 - Event details -->
-  <div class="scene" id="s5">
-    <div class="scene-bg"><div class="bg-glow-l"></div></div>
-    <div class="scene-content">
-      <p class="s-eye">El Evento</p>
-      <h2 class="s-h1">La Pista</h2>
-      <p class="s-p" style="margin-top:12px;font-size:16px;color:rgba(255,255,255,.75)">Colorado, USA</p>
-      <p class="s-p">Domingo · Junio 14, 2026</p>
-    </div>
-  </div>
-
-  <!-- Scene 6 - CTA -->
-  <div class="scene" id="s6">
-    <div class="scene-bg"><div class="bg-glow-l"></div><div class="bg-glow-r"></div></div>
-    <div class="scene-content">
-      <p class="s-eye">No Te Pierdas</p>
-      <h2 class="s-h1"><span class="gold">El Rey de Reyes de la Montaña</span></h2>
-      <p class="s-p" style="margin-top:16px">Domingo · Junio 14, 2026</p>
-      <div style="margin-top:24px;padding:14px 36px;background:#fff;color:#000;border-radius:100px;
-        font-size:14px;font-weight:700;letter-spacing:-.01em;display:inline-block">
-        Confirma Tu Lugar
-      </div>
+<!-- S3 · 10 Carreras callout -->
+<div class="scene" id="s3">
+  <div class="pbg" style="background-image:url(flyer.jpg)"></div>
+  <div class="pov"></div>
+  <div class="speedlines" id="sl3"></div>
+  <div class="s3content">
+    <div class="s3pre">La Pista · Colorado · 14 Junio 2026</div>
+    <div class="s3q">10 <em>Carreras</em><br>Una Sola Corona</div>
+    <div class="s3nums">
+      <div class="s3num">1</div>
+      <div class="s3num">2</div>
+      <div class="s3num">3</div>
+      <div class="s3num" style="background:var(--gold);color:#000;box-shadow:0 4px 24px rgba(255,210,0,.5)">7</div>
     </div>
   </div>
 </div>
 
+<!-- S4 · LA REYNA -->
+<div class="scene" id="s4">
+  <img src="h-la-reyna.jpg" alt="LA REYNA">
+  <div class="hcard-label">
+    <div class="hcard-name">LA REYNA</div>
+    <div class="hcard-cuad">La Campeona · La Pista</div>
+  </div>
+</div>
+
+<!-- S5 · EL EREY -->
+<div class="scene" id="s5">
+  <img src="h-el-erey.jpg" alt="EL EREY">
+  <div class="hcard-label">
+    <div class="hcard-name">EL EREY</div>
+    <div class="hcard-cuad">De Reyes · La Pista</div>
+  </div>
+</div>
+
+<!-- S6 · CAOS -->
+<div class="scene" id="s6">
+  <img src="h-caos.jpg" alt="CAOS">
+  <div class="hcard-label">
+    <div class="hcard-name">CAOS</div>
+    <div class="hcard-cuad">Cdra. Charly · Estelar</div>
+  </div>
+</div>
+
+<!-- S7 · REY PUERRO -->
+<div class="scene" id="s7">
+  <img src="h-rey-puerro.jpg" alt="REY PUERRO">
+  <div class="hcard-label">
+    <div class="hcard-name">REY PUERRO</div>
+    <div class="hcard-cuad">Cdra. Charly · Estelar</div>
+  </div>
+</div>
+
+<!-- S8 · Estelar callout -->
+<div class="scene" id="s8">
+  <div class="speedlines" id="sl8"></div>
+  <div class="s8star">⭐</div>
+  <div class="s8label">Carrera La Estelar · #7</div>
+  <div class="s8dist">246 × 273 Yardas · Cdra. Charly</div>
+</div>
+
+<!-- S9 · CAOS vs REY PUERRO purple slam -->
+<div class="scene" id="s9">
+  <div class="speedlines" id="sl9"></div>
+  <div class="s9a">CAOS</div>
+  <div class="s9vs">VS</div>
+  <div class="s9b">REY PUERRO</div>
+</div>
+
+<!-- S10 · Grand reveal -->
+<div class="scene" id="s10">
+  <div class="speedlines" id="sl10"></div>
+  <div class="s10pre">La Pista · Colorado</div>
+  <div class="s10r">EL REY</div>
+  <div class="s10rr">DE REYES</div>
+  <div class="s10rule"></div>
+  <div class="s10sub">De la Montaña</div>
+  <div class="s10loc">14 de Junio · 2026</div>
+</div>
+
+<!-- S11 · END CARD -->
+<div class="scene" id="s11">
+  <div class="ebg"></div>
+  <div class="eglow"></div>
+  <div class="ehorses">
+    <img src="h-la-reyna.jpg" style="--d:.08s">
+    <img src="h-caos.jpg" style="--d:.22s">
+    <img src="h-rey-puerro.jpg" style="--d:.38s">
+    <img src="h-el-erey.jpg" style="--d:.54s">
+  </div>
+  <div class="egrad"></div>
+  <div class="econtent">
+    <div class="etease">La Pista · Colorado, USA</div>
+    <div class="eslogan">El Rey de Reyes<br>de la Montaña</div>
+    <div class="erey">EL REY</div>
+    <div class="emontana">DE REYES</div>
+    <div class="epills">
+      <div class="epurp">14 JUN</div>
+      <div class="egold">10 Carreras</div>
+    </div>
+    <div class="eco">COLORADO</div>
+    <div class="etag">La Pista · Donde Los Reyes Compiten</div>
+  </div>
+</div>
+
+</div>
+
+<button id="skip" onclick="jump(SCENES.length-1)">Saltar →</button>
+<button id="replay" onclick="location.reload()">↩ Replay</button>
+
 <script>
-var scenes=[null,'s1','s2','s3','s4','s5','s6'];
-var durations=[0,5000,5000,5000,5000,5000,5000];
-var current=0,timer=null,elapsed=0,total=30000,running=false;
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H,parts=[];
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight}
+resize();addEventListener('resize',resize);
 
-document.getElementById('play-overlay').onclick=function(){
-  this.style.display='none';
-  showScene(1);running=true;
-  var last=Date.now();
-  (function tick(){
-    if(!running)return;
-    var now=Date.now();elapsed+=now-last;last=now;
-    document.getElementById('prog').style.width=(elapsed/total*100)+'%';
-    requestAnimationFrame(tick);
-  })();
-  advance();
-};
-
-function showScene(n){
-  document.querySelectorAll('.scene').forEach(function(s){s.classList.remove('active')});
-  var el=document.getElementById('s'+n);
-  if(el)el.classList.add('active');
-  current=n;
-  clearTimeout(timer);
-  if(n<scenes.length-1)timer=setTimeout(function(){showScene(n+1)},durations[n]||5000);
-  else timer=setTimeout(function(){
-    elapsed=0;current=0;running=false;
-    document.querySelectorAll('.scene').forEach(function(s){s.classList.remove('active')});
-    document.getElementById('prog').style.width='0';
-    document.getElementById('play-overlay').style.display='flex';
-  },durations[n]||5000);
+class Spark{
+  constructor(x,y,col,vx,vy){
+    this.x=x;this.y=y;
+    this.vx=vx??(Math.random()-.5)*16;
+    this.vy=vy??(Math.random()-.5)*16-5;
+    this.life=1;this.decay=.016+Math.random()*.02;
+    this.r=3+Math.random()*8;
+    this.col=col??`hsl(${45+Math.random()*15},90%,${50+Math.random()*20}%)`;
+    this.trail=[];
+  }
+  tick(){
+    this.trail.push({x:this.x,y:this.y});
+    if(this.trail.length>8)this.trail.shift();
+    this.vx*=.97;this.vy+=.28;
+    this.x+=this.vx;this.y+=this.vy;
+    this.life-=this.decay;
+    return this.life>0;
+  }
+  draw(){
+    ctx.save();
+    if(this.trail.length>1){
+      ctx.beginPath();ctx.moveTo(this.trail[0].x,this.trail[0].y);
+      for(let i=1;i<this.trail.length;i++)ctx.lineTo(this.trail[i].x,this.trail[i].y);
+      ctx.strokeStyle=this.col.replace('hsl(','hsla(').replace(')',`,${this.life*.4})`);
+      ctx.lineWidth=this.r*this.life*.6;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r*this.life,0,Math.PI*2);
+    ctx.fillStyle=this.col.replace('hsl(','hsla(').replace(')',`,${this.life})`);
+    ctx.fill();ctx.restore();
+  }
 }
-function advance(){showScene(current<6?current+1:1)}
+function burst(x,y,n,cols){
+  for(let i=0;i<n;i++){
+    const a=(Math.PI*2/n)*i+Math.random()*.5,sp=7+Math.random()*18;
+    parts.push(new Spark(x,y,cols?cols[i%cols.length]:null,Math.cos(a)*sp,Math.sin(a)*sp-4));
+  }
+}
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  parts=parts.filter(p=>{const ok=p.tick();if(ok)p.draw();return ok});
+  requestAnimationFrame(loop);
+})();
+
+function mkLines(id,n=14){
+  const c=document.getElementById(id);if(!c)return;c.innerHTML='';
+  for(let i=0;i<n;i++){
+    const l=document.createElement('div');l.className='sl';
+    l.style.cssText=`top:${Math.random()*100}%;width:${12+Math.random()*30}%;animation-delay:${Math.random()*.28}s;animation-duration:${.26+Math.random()*.16}s`;
+    c.appendChild(l);
+  }
+}
+
+const flashEl=document.getElementById('flash');
+const pflashEl=document.getElementById('pflash');
+const gflashEl=document.getElementById('gflash');
+function flash(v=.95){flashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{flashEl.style.cssText='transition:opacity .24s ease;opacity:0'})}
+function pflash(v=.75){pflashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{pflashEl.style.cssText='transition:opacity .3s ease;opacity:0'})}
+function gflash(v=.65){gflashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{gflashEl.style.cssText='transition:opacity .28s ease;opacity:0'})}
+function shake(){const s=document.getElementById('stage');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake')}
+
+const SCENES=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11'];
+const DURS=  [650,  750,  1200, 1600, 1200, 1200, 1200, 1200, 900, 800, 1800, Infinity];
+const TOTAL=DURS.slice(0,-1).reduce((a,b)=>a+b,0);
+let cur=0,timer=null,t0=null;
+const GOLD='hsl(45,95%,52%)',PURP='hsl(270,60%,55%)',WHT='hsl(0,0%,100%)';
+
+function show(i){
+  SCENES.forEach((id,j)=>{
+    const el=document.getElementById(id);
+    el.classList.remove('on');
+    if(i===j){void el.offsetWidth;el.classList.add('on')}
+  });
+}
+function onEnter(i){
+  const cx=W/2,cy=H*.45;
+  if(i===0){flash(.45);mkLines('sl0',10);burst(cx,cy,10,[GOLD,PURP])}
+  if(i===1){gflash(.9);shake();mkLines('sl1',20);burst(cx,cy,40,[GOLD,WHT,'#ffe066'])}
+  if(i===2){flash(.92);shake();mkLines('sl2',16);burst(cx,cy,30,[GOLD,PURP,WHT])}
+  if(i===3){
+    flash(.72);mkLines('sl3',20);
+    burst(W*.15,cy,18,[PURP,GOLD]);burst(W*.85,cy,18,[PURP,GOLD]);
+    setTimeout(()=>burst(cx,H*.3,14,[WHT,GOLD]),260);
+  }
+  if(i===4||i===5||i===6||i===7){
+    flash(.88);shake();
+    setTimeout(()=>{
+      burst(W*.12,H*.1,24,[GOLD,PURP,WHT]);
+      burst(W*.88,H*.1,24,[GOLD,PURP,WHT]);
+    },55);
+  }
+  if(i===8){flash(1);shake();mkLines('sl8',22);burst(cx,cy,75,[WHT,GOLD,PURP,'#ffee55'])}
+  if(i===9){pflash(.9);shake();mkLines('sl9',18);burst(cx,cy,55,[WHT,'hsl(270,80%,75%)',GOLD])}
+  if(i===10){
+    flash(1);shake();mkLines('sl10',28);
+    setTimeout(()=>burst(cx,cy,100,[GOLD,PURP,WHT,'#b8960a','#ffee55']),50);
+    setTimeout(()=>burst(cx,cy,80,[GOLD,WHT,'#fffbe6']),320);
+    setTimeout(()=>{shake();burst(cx,H*.25,50,[PURP,WHT])},680);
+    setTimeout(()=>{burst(W*.2,cy,30,[GOLD,PURP]);burst(W*.8,cy,30,[GOLD,PURP])},1100);
+  }
+  if(i===11){
+    gflash(.88);
+    setTimeout(()=>{
+      burst(W*.08,H*.16,35,[GOLD,PURP]);burst(W*.92,H*.16,35,[GOLD,PURP]);
+      burst(cx,H*.38,24,[GOLD,WHT]);
+    },120);
+    setTimeout(()=>{burst(W*.3,H*.08,22,[GOLD,PURP]);burst(W*.7,H*.08,22,[GOLD,PURP])},480);
+    setTimeout(()=>burst(cx,cy,20,[WHT,GOLD]),760);
+  }
+}
+function updateProg(){
+  if(!t0||cur>=SCENES.length-1)return;
+  document.getElementById('prog').style.width=Math.min(((performance.now()-t0)/TOTAL)*100,100)+'%';
+  requestAnimationFrame(updateProg);
+}
+function goTo(i){
+  clearTimeout(timer);cur=i;show(i);onEnter(i);
+  if(DURS[i]!==Infinity)timer=setTimeout(()=>goTo(i+1),DURS[i]);
+  else{
+    document.getElementById('prog').style.width='100%';
+    document.getElementById('skip').style.display='none';
+    document.getElementById('replay').style.display='block';
+  }
+}
+function jump(i){goTo(i)}
+window.addEventListener('load',()=>{
+  t0=performance.now();goTo(0);updateProg();
+  setTimeout(()=>burst(W/2,H/2,20,[GOLD,PURP]),200);
+});
+document.getElementById('stage').addEventListener('click',()=>{if(cur<SCENES.length-1)goTo(cur+1)});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')goTo(cur+1);
+  if(e.key==='r'||e.key==='R')location.reload();
+});
 </script>
-</body></html>
+</body>
+</html>
