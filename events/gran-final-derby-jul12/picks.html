@@ -3,236 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Gran Final del Derby 2026 · Mis Picks</title>
+<title>Gran Final del Derby 2026 · Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#f5f5f5;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;padding-bottom:80px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden;padding-bottom:80px}
 
 /* NAV */
-.nav{background:#fff;border-bottom:3px solid #FFD200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.nav-title{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#111}
-.nav-sub{font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:1px}
-.picks-badge{background:#FFD200;color:#000;font-size:11px;font-weight:900;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+.nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:3px solid #FFD200;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;box-shadow:0 3px 16px rgba(0,0,0,.08)}
+.nav-l .l1{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.06em;color:#111}
+.nav-l .l2{font-size:.5rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
+.nav-badge{background:#FFD200;color:#000;font-size:.65rem;font-weight:900;padding:.3rem .8rem;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
+
+/* TICKER */
+.ticker{background:#FFD200;padding:.45rem 0;overflow:hidden}
+.t-track{display:flex;white-space:nowrap;animation:scroll 20s linear infinite}
+.t-track span{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.16em;color:#111;padding:0 1.4rem}
+.t-track span::after{content:'◆';color:rgba(0,0,0,.2);margin-left:1.4rem;font-size:.5rem;vertical-align:middle}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* HERO */
-.hero{background:#111;padding:20px 16px;text-align:center;border-bottom:3px solid #FFD200}
-.hero-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#FFD200;opacity:.8;margin-bottom:6px}
-.hero-title{font-size:26px;font-weight:900;text-transform:uppercase;color:#fff;line-height:1.05;letter-spacing:.5px}
-.hero-title span{color:#FFD200}
-.hero-date{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+.hero{position:relative;overflow:hidden}
+.hero img{width:100%;display:block;max-height:55vw;object-fit:cover;object-position:top center}
+.hero-fade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(255,255,255,.95) 100%)}
+.hero-text{position:absolute;bottom:0;left:0;right:0;padding:1rem 1rem .8rem;text-align:center}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,7vw,3.5rem);color:#111;line-height:.9;letter-spacing:.03em}
+.hero-title span{color:#FF6B00}
+.hero-sub{font-size:.62rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-top:.3rem}
 
-/* SECTION */
-.section-label{padding:14px 16px 8px;font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#888}
+/* STATS BAR */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid #f0f0f0;background:#fff}
+.st{display:flex;flex-direction:column;align-items:center;padding:.8rem .3rem;border-right:1px solid #f0f0f0}
+.st:last-child{border-right:none}
+.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,2.5rem);color:#FFD200;line-height:1}
+.st-l{font-size:.42rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem;text-align:center}
 
-/* RACE CARD */
-.races{padding:0 12px;display:flex;flex-direction:column;gap:8px}
-.race{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #e8e8e8;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.race.picked{border-color:#FFD200;box-shadow:0 2px 12px rgba(255,210,0,.2)}
-.race.special{border-color:#FF6B00}
+/* SECTION HEAD */
+.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.2rem 1rem .7rem}
+.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.4),transparent)}
+.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;white-space:nowrap;color:#111}
 
-.race-header{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #f0f0f0}
-.race-num{width:26px;height:26px;border-radius:50%;background:#111;color:#FFD200;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.race.special .race-num{background:#FF6B00;color:#fff}
-.race-type{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#aaa}
-.race.special .race-type{color:#FF6B00}
-.race-dist{margin-left:auto;font-size:10px;font-weight:700;color:#bbb}
+/* RACE CARDS */
+.race-list{padding:0 .75rem;display:flex;flex-direction:column;gap:.6rem}
 
-/* PICK BUTTONS */
-.horses{display:grid;gap:0}
-.horses.two{grid-template-columns:1fr auto 1fr}
-.horses.three{grid-template-columns:1fr auto 1fr auto 1fr}
+.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 1px 6px rgba(0,0,0,.05);transition:border-color .2s,box-shadow .2s}
+.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.15);border-color:rgba(255,210,0,.4)}
+.rr.picked{border-color:#FFD200}
+.rr.special{border-color:#FF6B00;box-shadow:0 2px 12px rgba(255,107,0,.1)}
 
-.pick-btn{display:flex;flex-direction:column;align-items:center;padding:14px 8px 12px;cursor:pointer;background:transparent;border:none;color:inherit;width:100%;transition:background .15s}
-.pick-btn:active{background:#fafafa}
+.rr-top{display:flex;align-items:center;gap:.6rem;padding:.78rem .85rem;cursor:pointer}
+.rr-badge{width:30px;height:30px;border-radius:50%;background:#111;color:#FFD200;font-family:'Bebas Neue',sans-serif;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rr.special .rr-badge{background:#FF6B00;color:#fff}
+.spec-tag{background:#FF6B00;color:#fff;font-size:.44rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.14rem .5rem;border-radius:4px;flex-shrink:0}
+.rr-names{flex:1;min-width:0}
+.rr-n1{font-family:'Bebas Neue',sans-serif;font-size:.88rem;color:#111;line-height:1.1;letter-spacing:.02em}
+.rr-cuad{font-size:.52rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.05rem}
+.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#FF6B00;flex-shrink:0}
+.rr-dist{font-size:.56rem;font-weight:700;color:#bbb;white-space:nowrap;margin-left:auto}
 
-.horse-circle{width:62px;height:62px;border-radius:50%;background:#f5f5f5;border:2.5px solid #e8e8e8;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .2s,box-shadow .2s;flex-shrink:0}
-.horse-circle .init{font-size:18px;font-weight:900;color:#ccc}
-.horse-name{font-size:10.5px;font-weight:800;text-transform:uppercase;color:#333;text-align:center;line-height:1.2;letter-spacing:.3px}
-.horse-cuadra{font-size:8.5px;color:#aaa;text-align:center;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-.pick-dot{width:16px;height:16px;border-radius:50%;border:2px solid #ddd;margin-top:7px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+/* EXPANDED DUEL WITH PICKS */
+.rr-duel{display:none;border-top:1.5px solid #f0f0f0}
+.rr.open .rr-duel{display:block}
 
-/* SELECTED */
-.pick-btn.selected .horse-circle{border-color:#FFD200;transform:scale(1.06);box-shadow:0 0 14px rgba(255,210,0,.3);background:#fffbeb}
-.pick-btn.selected .horse-name{color:#111;font-weight:900}
-.pick-btn.selected .pick-dot{border-color:#FFD200;background:#FFD200}
-.pick-btn.selected .pick-dot::after{content:'✓';font-size:9px;color:#000;font-weight:900}
+.duel-grid{display:grid;min-height:170px}
+.duel-grid.two{grid-template-columns:1fr 44px 1fr}
+.duel-grid.three{grid-template-columns:1fr 34px 1fr 34px 1fr}
 
-/* DIMMED */
-.pick-btn.dimmed .horse-circle{opacity:.35;filter:grayscale(.6)}
-.pick-btn.dimmed .horse-name{color:#bbb}
+.dh{position:relative;overflow:hidden;background:#f8f8f8;cursor:pointer;transition:background .15s}
+.dh:active{background:#f0f0f0}
+.dh-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#ddd}
+.dh-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);padding:.7rem .65rem .55rem}
+.dh.dr .dh-info{text-align:right}
+.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.5vw,2rem);color:#fff;line-height:.9;text-shadow:0 2px 8px rgba(0,0,0,1)}
+.dh-cuad{font-size:.48rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem}
+.pick-ring{position:absolute;inset:0;border:4px solid transparent;pointer-events:none;transition:border-color .2s;border-radius:0}
+.dh.selected .pick-ring{border-color:#FFD200}
+.dh.dimmed{opacity:.45;filter:grayscale(.5)}
+.dh.selected .dh-init{color:#FFD200}
+.pick-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;opacity:0;transition:opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.dh.selected .pick-check{opacity:1}
 
-/* VS */
-.vs-bar{display:flex;align-items:center;justify-content:center;width:32px;padding:0;background:transparent}
-.vs-bar span{font-size:9px;font-weight:900;color:#ccc;letter-spacing:1px;writing-mode:vertical-lr}
-.race.special .vs-bar span{color:#FF6B00}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;gap:.05rem}
+.rr.special .duel-mid{background:#FF6B00}
+.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#000;line-height:1}
+.duel-cn{font-family:'Bebas Neue',sans-serif;font-size:.5rem;color:rgba(0,0,0,.4);letter-spacing:.1em;text-transform:uppercase}
 
 /* MY PICKS */
-.picks-panel{margin:16px 12px 0;background:#fff;border-radius:16px;border:1.5px solid #FFD200;overflow:hidden;box-shadow:0 4px 20px rgba(255,210,0,.1)}
-.picks-panel-head{background:#FFD200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.picks-panel-head h3{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#000}
-.picks-count{font-size:11px;font-weight:700;color:rgba(0,0,0,.5)}
-.picks-rows{padding:8px 16px 12px}
-.pick-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f5f5f5}
-.pick-row:last-child{border:none}
-.pr-num{font-size:10px;font-weight:800;color:#FFD200;min-width:18px}
-.pr-name{font-size:11.5px;font-weight:800;text-transform:uppercase;color:#111;flex:1}
-.pr-name.empty{font-size:11px;color:#ccc;font-weight:400;text-transform:none}
-.pr-check{width:16px;height:16px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:9px;opacity:0;transition:opacity .2s}
-.pick-row.done .pr-check{opacity:1}
-.pick-row.done .pr-name{color:#FFD200}
+.picks-panel{margin:1.2rem .75rem 0;background:#fff;border-radius:16px;border:2px solid #FFD200;overflow:hidden;box-shadow:0 4px 20px rgba(255,210,0,.1)}
+.picks-head{background:#FFD200;padding:.9rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.picks-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:#000}
+.picks-head .cnt{font-size:.65rem;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px}
+.picks-rows{padding:.5rem 1rem .9rem}
+.prow{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid #f5f5f5}
+.prow:last-child{border:none}
+.prow .pn{font-size:.62rem;font-weight:800;color:#FFD200;min-width:16px}
+.prow .pname{font-size:.72rem;font-weight:800;text-transform:uppercase;color:#111;flex:1;letter-spacing:.3px}
+.prow .pname.empty{color:#ccc;font-weight:400;text-transform:none;font-size:.68rem}
+.prow .pcheck{width:16px;height:16px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:900;opacity:0;flex-shrink:0;transition:opacity .15s}
+.prow.done .pcheck{opacity:1}
+.prow.done .pname{color:#111}
 
 /* SHARE */
-.share-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 12px 0;background:#111;color:#FFD200;border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;width:calc(100% - 24px);transition:background .15s}
-.share-btn:active{background:#222}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.9rem .75rem 0;width:calc(100% - 1.5rem);background:#111;color:#FFD200;border:none;border-radius:12px;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;cursor:pointer;transition:background .15s}
+.share-btn:active{background:#333}
 
 /* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#111;color:#FFD200;font-size:12px;font-weight:800;padding:10px 20px;border-radius:30px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999;letter-spacing:.5px;text-transform:uppercase}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#111;color:#FFD200;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.08em;padding:.6rem 1.2rem;border-radius:30px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div>
-    <div class="nav-title">Gran Final del Derby 2026</div>
-    <div class="nav-sub">12 de Julio · El Carril de los Campeones</div>
+  <div class="nav-l">
+    <div class="l1">Gran Final del Derby 2026</div>
+    <div class="l2">El Carril de los Campeones · 12 Jul</div>
   </div>
-  <div class="picks-badge" id="navBadge">0/10</div>
+  <div class="nav-badge" id="navBadge">0 / 10 Picks</div>
 </nav>
 
-<div class="hero">
-  <div class="hero-tag">El Gran Duelo de Campeones</div>
-  <div class="hero-title">Elige tu<br><span>Ganador</span></div>
-  <div class="hero-date">Domingo · 12 de Julio 2026</div>
+<div class="ticker">
+  <div class="t-track">
+    <span>EL BANDIDO</span><span>LA CORITA</span><span>EL CENTELLA</span><span>LA ZOTA</span><span>EL JUNIOR</span><span>EL BLING BLING</span><span>EL BIG PAPI</span><span>EL CUATRERO</span><span>EL RELÁMPAGO</span><span>EL CHOLO</span>
+    <span>EL BANDIDO</span><span>LA CORITA</span><span>EL CENTELLA</span><span>LA ZOTA</span><span>EL JUNIOR</span><span>EL BLING BLING</span><span>EL BIG PAPI</span><span>EL CUATRERO</span><span>EL RELÁMPAGO</span><span>EL CHOLO</span>
+  </div>
 </div>
 
-<div class="section-label">Programa · 10 Carreras</div>
+<div class="hero">
+  <img src="flyer.jpg" alt="Gran Final del Derby 2026">
+  <div class="hero-fade"></div>
+  <div class="hero-text">
+    <div class="hero-title">Elige tu <span>Ganador</span></div>
+    <div class="hero-sub">Toca cada carrera · Selecciona tu pick</div>
+  </div>
+</div>
 
-<div class="races" id="raceList"></div>
+<div class="stats">
+  <div class="st"><div class="st-n">10</div><div class="st-l">Carreras</div></div>
+  <div class="st"><div class="st-n">22</div><div class="st-l">Caballos</div></div>
+  <div class="st"><div class="st-n">300</div><div class="st-l">Max VTP</div></div>
+  <div class="st"><div class="st-n" id="sfn">1,847</div><div class="st-l">Siguiendo</div></div>
+</div>
 
-<!-- MY PICKS -->
+<div class="sec-hd"><span>PROGRAMA COMPLETO — TUS PICKS</span></div>
+<div class="race-list" id="raceList"></div>
+
 <div class="picks-panel">
-  <div class="picks-panel-head">
+  <div class="picks-head">
     <h3>Mis Picks</h3>
-    <span class="picks-count" id="picksCount">0 de 10</span>
+    <span class="cnt" id="picksCnt">0 DE 10</span>
   </div>
   <div class="picks-rows" id="pickRows"></div>
 </div>
 
-<button class="share-btn" onclick="sharepicks()">🏆 Compartir mis Picks</button>
+<button class="share-btn" onclick="sharePicks()">🏆 Compartir mis Picks</button>
 
 <div class="toast" id="toast"></div>
 
 <script>
 const RACES = [
   {n:1, type:'Gran Final del Derby 2026', special:true, dist:'',
-    horses:[
-      {name:'EL BANDIDO', cuadra:'C. Aguirre'},
-      {name:'LA CORITA',  cuadra:'C. El Viejo Paulino'},
-      {name:'EL CENTELLA',cuadra:'C. Tecolotes'}
-    ]},
+   horses:[{name:'EL BANDIDO',cuadra:'C. Aguirre'},{name:'LA CORITA',cuadra:'C. El Viejo Paulino'},{name:'EL CENTELLA',cuadra:'C. Tecolotes'}]},
   {n:2, type:'Carrera', dist:'',
-    horses:[
-      {name:'TAPADO', cuadra:'C. Tecolotes'},
-      {name:'TAPADO', cuadra:''}
-    ]},
-  {n:3, type:'Carrera de Campeones 🔥', special:true, dist:'300 VTP',
-    horses:[
-      {name:'LA ZOTA',   cuadra:'C. Pilar'},
-      {name:'EL JUNIOR', cuadra:'C. Pilar'}
-    ]},
+   horses:[{name:'TAPADO',cuadra:'C. Tecolotes'},{name:'TAPADO',cuadra:''}]},
+  {n:3, type:'Carrera de Campeones', special:true, dist:'300 VTP',
+   horses:[{name:'LA ZOTA',cuadra:'C. Pilar'},{name:'EL JUNIOR',cuadra:'C. Pilar'}]},
   {n:4, type:'Carrera', dist:'225 VTP',
-    horses:[
-      {name:'LA BANDIDA', cuadra:''},
-      {name:'EL 19',      cuadra:''}
-    ]},
+   horses:[{name:'LA BANDIDA',cuadra:''},{name:'EL 19',cuadra:''}]},
   {n:5, type:'Carrera', dist:'200 VTP',
-    horses:[
-      {name:'EL MANGO LOCO', cuadra:'C. Tecolotes'},
-      {name:'REMOLINO',      cuadra:'C. Águila'}
-    ]},
+   horses:[{name:'EL MANGO LOCO',cuadra:'C. Tecolotes'},{name:'REMOLINO',cuadra:'C. Águila'}]},
   {n:6, type:'Carrera', dist:'',
-    horses:[
-      {name:'LA NELY',  cuadra:'C. Tecolotes'},
-      {name:'EL JUDIO', cuadra:''}
-    ]},
-  {n:7, type:'Carrera de Revancha 🔥', special:true, dist:'300 VTP',
-    horses:[
-      {name:'EL CUATRERO',  cuadra:'C. Mi Familia'},
-      {name:'EL RELÁMPAGO', cuadra:'C. Prado'}
-    ]},
+   horses:[{name:'LA NELY',cuadra:'C. Tecolotes'},{name:'EL JUDIO',cuadra:''}]},
+  {n:7, type:'Carrera de Revancha', special:true, dist:'300 VTP',
+   horses:[{name:'EL CUATRERO',cuadra:'C. Mi Familia'},{name:'EL RELÁMPAGO',cuadra:'C. Prado'}]},
   {n:8, type:'Carrera', dist:'',
-    horses:[
-      {name:'EL RESCATADO', cuadra:'C. Avila'},
-      {name:'LA PRIMA',     cuadra:'C. Prado'}
-    ]},
+   horses:[{name:'EL RESCATADO',cuadra:'C. Avila'},{name:'LA PRIMA',cuadra:'C. Prado'}]},
   {n:9, type:'Carrera', dist:'',
-    horses:[
-      {name:'LA PRINCESA', cuadra:'C. Catrina'},
-      {name:'EL RUFY',     cuadra:''}
-    ]},
+   horses:[{name:'LA PRINCESA',cuadra:'C. Catrina'},{name:'EL RUFY',cuadra:''}]},
   {n:10, type:'Carrera', dist:'250 VTP',
-    horses:[
-      {name:'EL CHOLO',   cuadra:'C. Tecolotes'},
-      {name:'LA CATRINA', cuadra:'C. Bravo'}
-    ]},
+   horses:[{name:'EL CHOLO',cuadra:'C. Tecolotes'},{name:'LA CATRINA',cuadra:'C. Bravo'}]},
 ];
 
 const picks = {};
 
-function initials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2); }
+function initials(n){ return n.split(' ').map(w=>w[0]).join('').slice(0,2); }
 
 function buildRaces(){
   const list = document.getElementById('raceList');
   RACES.forEach(r => {
     const card = document.createElement('div');
-    card.className = 'race' + (r.special ? ' special' : '');
-    card.id = `race-${r.n}`;
+    card.className = 'rr' + (r.special ? ' special' : '');
+    card.id = `rr-${r.n}`;
 
     const cols = r.horses.length === 3 ? 'three' : 'two';
-    let horsesHTML = '';
-    r.horses.forEach((h, i) => {
-      if(i > 0){
-        horsesHTML += `<div class="vs-bar"><span>VS</span></div>`;
-      }
-      horsesHTML += `
-        <button class="pick-btn" id="pbtn-${r.n}-${i}" onclick="pick(${r.n},${i})">
-          <div class="horse-circle"><span class="init">${initials(h.name)}</span></div>
-          <div class="horse-name">${h.name}</div>
-          <div class="horse-cuadra">${h.cuadra}</div>
-          <div class="pick-dot"></div>
-        </button>`;
+
+    let duelsHTML = '';
+    r.horses.forEach((h,i)=>{
+      if(i>0) duelsHTML += `<div class="duel-mid"><div class="duel-vs">VS</div><div class="duel-cn">C${r.n}</div></div>`;
+      duelsHTML += `
+        <div class="dh ${i===r.horses.length-1?'dr':'dl'}" id="dh-${r.n}-${i}" onclick="pick(${r.n},${i})">
+          <div class="dh-init">${initials(h.name)}</div>
+          <div class="pick-ring"></div>
+          <div class="pick-check">✓</div>
+          <div class="dh-info">
+            <div class="dh-name">${h.name}</div>
+            <div class="dh-cuad">${h.cuadra}</div>
+          </div>
+        </div>`;
     });
 
+    const firstH = r.horses[0];
+    const lastH = r.horses[r.horses.length-1];
+
     card.innerHTML = `
-      <div class="race-header">
-        <div class="race-num">${r.n}</div>
-        <div class="race-type">${r.type}</div>
-        ${r.dist ? `<div class="race-dist">${r.dist}</div>` : ''}
+      <div class="rr-top">
+        <div class="rr-badge">${r.n}</div>
+        ${r.special?'<span class="spec-tag">🔥 ESPECIAL</span>':''}
+        <div class="rr-names">
+          <div class="rr-n1">${firstH.name}</div>
+          <div class="rr-cuad">${firstH.cuadra}</div>
+        </div>
+        <div class="rr-vs">VS</div>
+        <div class="rr-names" style="text-align:right">
+          <div class="rr-n1">${lastH.name}</div>
+          <div class="rr-cuad">${lastH.cuadra}</div>
+        </div>
+        ${r.dist?`<div class="rr-dist">${r.dist}</div>`:''}
       </div>
-      <div class="horses ${cols}">${horsesHTML}</div>`;
+      <div class="rr-duel">
+        <div class="duel-grid ${cols}">${duelsHTML}</div>
+      </div>`;
+
+    card.querySelector('.rr-top').addEventListener('click',()=>{
+      const was = card.classList.contains('open');
+      document.querySelectorAll('.rr.open').forEach(el=>el.classList.remove('open'));
+      if(!was) card.classList.add('open');
+    });
+
     list.appendChild(card);
   });
 }
 
 function pick(raceNum, idx){
-  const r = RACES.find(x => x.n === raceNum);
+  const r = RACES.find(x=>x.n===raceNum);
   const isRepick = picks[raceNum]?.idx === idx;
 
   if(isRepick){
     delete picks[raceNum];
-    r.horses.forEach((_,i) => {
-      document.getElementById(`pbtn-${raceNum}-${i}`)?.classList.remove('selected','dimmed');
+    r.horses.forEach((_,i)=>{
+      document.getElementById(`dh-${raceNum}-${i}`)?.classList.remove('selected','dimmed');
     });
-    document.getElementById(`race-${raceNum}`)?.classList.remove('picked');
+    document.getElementById(`rr-${raceNum}`)?.classList.remove('picked');
   } else {
-    picks[raceNum] = {idx, name: r.horses[idx].name, cuadra: r.horses[idx].cuadra};
-    r.horses.forEach((_,i) => {
-      const btn = document.getElementById(`pbtn-${raceNum}-${i}`);
-      btn?.classList.toggle('selected', i === idx);
-      btn?.classList.toggle('dimmed', i !== idx);
+    picks[raceNum] = {idx, name:r.horses[idx].name, cuadra:r.horses[idx].cuadra};
+    r.horses.forEach((_,i)=>{
+      const el = document.getElementById(`dh-${raceNum}-${i}`);
+      el?.classList.toggle('selected', i===idx);
+      el?.classList.toggle('dimmed', i!==idx);
     });
-    document.getElementById(`race-${raceNum}`)?.classList.add('picked');
+    document.getElementById(`rr-${raceNum}`)?.classList.add('picked');
     toast(`★ ${picks[raceNum].name}`);
   }
   updatePanel();
@@ -240,47 +270,39 @@ function pick(raceNum, idx){
 
 function updatePanel(){
   const count = Object.keys(picks).length;
-  document.getElementById('navBadge').textContent = `${count}/10`;
-  document.getElementById('picksCount').textContent = `${count} de 10`;
-
+  document.getElementById('navBadge').textContent = `${count} / 10 Picks`;
+  document.getElementById('picksCnt').textContent = `${count} DE 10`;
   const rows = document.getElementById('pickRows');
   rows.innerHTML = '';
-  RACES.forEach(r => {
+  RACES.forEach(r=>{
     const p = picks[r.n];
     const row = document.createElement('div');
-    row.className = 'pick-row' + (p ? ' done' : '');
-    row.innerHTML = `
-      <span class="pr-num">${r.n}</span>
-      <span class="pr-name${p?'':' empty'}">${p ? p.name : '— sin selección'}</span>
-      <div class="pr-check">✓</div>`;
+    row.className = 'prow'+(p?' done':'');
+    row.innerHTML = `<span class="pn">${r.n}</span><span class="pname${p?'':' empty'}">${p?p.name:'— sin selección'}</span><div class="pcheck">✓</div>`;
     rows.appendChild(row);
   });
 }
 
-function sharepicks(){
+function sharePicks(){
   const count = Object.keys(picks).length;
-  if(!count){ toast('¡Elige tus picks primero!'); return; }
+  if(!count){toast('¡Elige tus picks primero!');return;}
   let txt = '🏆 Mis Picks — Gran Final del Derby 2026\n📅 12 de Julio · El Carril de los Campeones\n\n';
-  RACES.forEach(r => {
+  RACES.forEach(r=>{
     const p = picks[r.n];
-    txt += `C${r.n}: ${p ? '★ '+p.name : '—'}\n`;
+    txt += `C${r.n}: ${p?'★ '+p.name:'—'}\n`;
   });
   txt += '\nhttps://guttix1.github.io/Digital-flyer-/events/gran-final-derby-jul12/picks.html';
-  if(navigator.share){
-    navigator.share({title:'Mis Picks · Derby 2026', text: txt}).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{});
-  }
+  if(navigator.share){navigator.share({title:'Mis Picks · Derby 2026',text:txt}).catch(()=>{});}
+  else{navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{});}
 }
 
 function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._t);
-  t._t = setTimeout(()=>t.classList.remove('show'), 1600);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600);
 }
 
+document.getElementById('sfn').textContent=(1840+Math.floor(Math.random()*15)).toLocaleString();
 buildRaces();
 updatePanel();
 </script>
