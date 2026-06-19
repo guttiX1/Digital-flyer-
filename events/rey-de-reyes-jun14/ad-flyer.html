@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El Rey de Reyes — Flyer</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;min-height:100%;background:#111;display:flex;align-items:center;justify-content:center}
+
+  /* ── CARD ── */
+  .card{
+    width:540px;
+    background:#0a0a0a;
+    position:relative;
+    overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:#fff;
+  }
+
+  /* ── GOLD BORDER FRAME ── */
+  .card::before{
+    content:'';
+    position:absolute;inset:0;
+    border:3px solid #FFD200;
+    z-index:100;pointer-events:none;
+  }
+  .card::after{
+    content:'';
+    position:absolute;inset:6px;
+    border:1px solid rgba(255,210,0,.25);
+    z-index:100;pointer-events:none;
+  }
+
+  /* ── HERO ── */
+  .hero{
+    position:relative;
+    height:300px;
+    background:#000;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:url('flyer.jpg') center/cover no-repeat;
+    filter:brightness(.45) saturate(1.2);
+  }
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,.1) 0%,
+      rgba(0,0,0,.0) 40%,
+      rgba(10,10,10,.95) 100%);
+  }
+
+  /* gold glow strips */
+  .glow-strip-top{
+    position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent,#FFD200,transparent);
+  }
+
+  .hero-content{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-end;
+    padding:0 20px 24px;
+    text-align:center;
+  }
+
+  /* crown */
+  .crown-wrap{margin-bottom:10px}
+  .crown-wrap svg{width:72px;height:48px;filter:drop-shadow(0 0 12px #FFD200)}
+
+  .venue-badge{
+    font-size:10px;letter-spacing:3px;text-transform:uppercase;
+    color:#FFD200;margin-bottom:8px;opacity:.9;
+  }
+
+  .event-title{
+    font-size:28px;font-weight:900;text-transform:uppercase;
+    line-height:1.05;
+    background:linear-gradient(180deg,#fff 0%,#FFD200 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    text-shadow:none;
+    filter:drop-shadow(0 2px 16px rgba(255,210,0,.5));
+    margin-bottom:4px;
+  }
+
+  .subtitle{
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    color:rgba(255,255,255,.55);margin-bottom:0;
+  }
+
+  /* ── INFO STRIP ── */
+  .info-strip{
+    display:flex;justify-content:space-around;align-items:center;
+    background:linear-gradient(135deg,#FFD200,#FF9500);
+    padding:10px 16px;
+    gap:4px;
+  }
+  .info-item{text-align:center;flex:1}
+  .info-item .label{
+    font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:rgba(0,0,0,.6);display:block;margin-bottom:2px;
+  }
+  .info-item .value{
+    font-size:13px;font-weight:900;color:#000;
+    text-transform:uppercase;line-height:1.1;
+  }
+  .info-divider{
+    width:1px;height:32px;background:rgba(0,0,0,.2);flex-shrink:0;
+  }
+
+  /* ── HORSES DUEL ── */
+  .horses{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    gap:0;
+    background:#111;
+    border-top:1px solid rgba(255,210,0,.15);
+  }
+  .horse-side{
+    background:#fff;
+    position:relative;
+    height:200px;
+    overflow:hidden;
+  }
+  .horse-side img{
+    width:100%;height:100%;
+    object-fit:contain;object-position:bottom center;
+  }
+  .horse-side.right img{transform:scaleX(-1)}
+  .horse-label{
+    position:absolute;bottom:0;left:0;right:0;
+    background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
+    padding:20px 10px 8px;
+    text-align:center;
+  }
+  .horse-label .hname{
+    font-size:13px;font-weight:900;text-transform:uppercase;
+    color:#FFD200;line-height:1.1;
+  }
+  .horse-label .hcuadra{
+    font-size:9px;letter-spacing:1px;text-transform:uppercase;
+    color:rgba(255,255,255,.65);margin-top:2px;
+  }
+
+  .vs-col{
+    display:flex;align-items:center;justify-content:center;
+    background:#0a0a0a;
+    width:52px;
+    position:relative;
+  }
+  .vs-col::before,.vs-col::after{
+    content:'';position:absolute;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,210,0,.4),transparent);
+  }
+  .vs-col::before{top:30%}.vs-col::after{bottom:30%}
+  .vs-text{
+    font-size:11px;font-weight:900;letter-spacing:2px;
+    color:#FFD200;writing-mode:vertical-lr;
+    text-transform:uppercase;
+    filter:drop-shadow(0 0 8px rgba(255,210,0,.6));
+  }
+
+  /* ── ESTELAR BADGE ── */
+  .estelar{
+    background:linear-gradient(135deg,#1a1a1a,#111);
+    border-top:1px solid rgba(255,210,0,.15);
+    border-bottom:1px solid rgba(255,210,0,.15);
+    padding:14px 20px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .estelar-badge{
+    flex-shrink:0;
+    background:linear-gradient(135deg,#FFD200,#FF9500);
+    color:#000;font-size:8px;font-weight:900;
+    letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 10px;border-radius:4px;
+    text-align:center;line-height:1.3;
+  }
+  .estelar-info{flex:1}
+  .estelar-race{
+    font-size:9px;letter-spacing:2px;text-transform:uppercase;
+    color:rgba(255,255,255,.45);margin-bottom:3px;
+  }
+  .estelar-matchup{
+    font-size:16px;font-weight:900;text-transform:uppercase;
+    color:#fff;letter-spacing:.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .estelar-matchup .vs-sm{font-size:10px;color:#FFD200;opacity:.8}
+  .estelar-dist{
+    font-size:10px;color:#FFD200;margin-top:3px;opacity:.8;
+  }
+  .estelar-prize{
+    flex-shrink:0;text-align:right;
+  }
+  .estelar-prize .amount{
+    font-size:18px;font-weight:900;color:#FFD200;
+    line-height:1;
+  }
+  .estelar-prize .plabel{
+    font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
+    color:rgba(255,255,255,.4);margin-top:2px;
+  }
+
+  /* ── RACE LIST ── */
+  .race-list{
+    padding:12px 16px;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:6px;
+    background:#0d0d0d;
+  }
+  .race-row{
+    background:#181818;
+    border:1px solid rgba(255,210,0,.1);
+    border-radius:6px;
+    padding:7px 10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .race-row.featured{
+    grid-column:1/-1;
+    background:linear-gradient(135deg,rgba(255,210,0,.12),rgba(255,149,0,.06));
+    border-color:rgba(255,210,0,.4);
+  }
+  .race-num{
+    font-size:9px;font-weight:800;color:#FFD200;
+    letter-spacing:.5px;min-width:24px;
+    opacity:.8;
+  }
+  .race-names{flex:1}
+  .race-names .rh{
+    font-size:10px;font-weight:800;text-transform:uppercase;
+    color:#fff;line-height:1.2;
+  }
+  .race-names .rh .sep{color:#FFD200;margin:0 4px;opacity:.7}
+  .race-dist{
+    font-size:9px;color:rgba(255,255,255,.35);
+    letter-spacing:.3px;flex-shrink:0;
+  }
+
+  /* ── QR SECTION ── */
+  .qr-section{
+    background:#0a0a0a;
+    border-top:1px solid rgba(255,210,0,.15);
+    padding:20px 20px 16px;
+    display:flex;align-items:center;gap:18px;
+  }
+  .qr-box{
+    flex-shrink:0;
+    background:#fff;
+    padding:6px;
+    border-radius:6px;
+    border:2px solid #FFD200;
+  }
+  .qr-box img{width:90px;height:90px;display:block}
+  .qr-text{flex:1}
+  .qr-cta{
+    font-size:15px;font-weight:900;text-transform:uppercase;
+    color:#FFD200;letter-spacing:.5px;line-height:1.1;
+    margin-bottom:6px;
+  }
+  .qr-sub{
+    font-size:10px;color:rgba(255,255,255,.45);
+    line-height:1.5;letter-spacing:.3px;
+  }
+  .qr-url{
+    font-size:9px;color:rgba(255,210,0,.45);
+    word-break:break-all;margin-top:6px;
+    font-family:monospace;
+  }
+
+  /* ── FOOTER ── */
+  .footer{
+    background:#FFD200;
+    padding:8px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .footer-left{
+    font-size:9px;font-weight:900;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(0,0,0,.6);
+  }
+  .footer-right{
+    font-size:11px;font-weight:900;color:#000;
+    letter-spacing:.5px;text-transform:uppercase;
+  }
+
+  @media(max-width:560px){
+    .card{width:100%}
+    .event-title{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="glow-strip-top"></div>
+    <div class="hero-content">
+      <div class="crown-wrap">
+        <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 64h100v10H10z" fill="#FFD200"/>
+          <path d="M10 60L28 16l22 28L60 2l10 42 22-28 18 44z" fill="#FFD200"/>
+          <circle cx="10" cy="13" r="7" fill="#FFD200"/>
+          <circle cx="60" cy="4" r="7" fill="#FFD200"/>
+          <circle cx="110" cy="13" r="7" fill="#FFD200"/>
+          <circle cx="35" cy="64" r="3.5" fill="#fff" opacity=".8"/>
+          <circle cx="60" cy="64" r="3.5" fill="#fff" opacity=".8"/>
+          <circle cx="85" cy="64" r="3.5" fill="#fff" opacity=".8"/>
+        </svg>
+      </div>
+      <div class="venue-badge">La Pista · Colorado, USA</div>
+      <div class="event-title">El Rey de Reyes<br>de la Montaña</div>
+      <div class="subtitle">Gran Carrera · 10 Carreras · $48,250 en Premios</div>
+    </div>
+  </div>
+
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="info-item">
+      <span class="label">Fecha</span>
+      <span class="value">Jun 14, 2026</span>
+    </div>
+    <div class="info-divider"></div>
+    <div class="info-item">
+      <span class="label">Día</span>
+      <span class="value">Domingo</span>
+    </div>
+    <div class="info-divider"></div>
+    <div class="info-item">
+      <span class="label">Inicio</span>
+      <span class="value">12:00 PM</span>
+    </div>
+    <div class="info-divider"></div>
+    <div class="info-item">
+      <span class="label">Carreras</span>
+      <span class="value">10</span>
+    </div>
+  </div>
+
+  <!-- HORSES DUEL -->
+  <div class="horses">
+    <div class="horse-side left">
+      <img src="h-la-reyna.jpg" alt="LA REYNA">
+      <div class="horse-label">
+        <div class="hname">LA REYNA</div>
+        <div class="hcuadra">La Campeona</div>
+      </div>
+    </div>
+    <div class="vs-col">
+      <div class="vs-text">VS</div>
+    </div>
+    <div class="horse-side right">
+      <img src="h-el-erey.jpg" alt="EL EREY">
+      <div class="horse-label">
+        <div class="hname">EL EREY</div>
+        <div class="hcuadra">De Reyes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTELAR RACE -->
+  <div class="estelar">
+    <div class="estelar-badge">Carrera<br>Estelar<br>#7</div>
+    <div class="estelar-info">
+      <div class="estelar-race">La Gran Final</div>
+      <div class="estelar-matchup">
+        CAOS <span class="vs-sm">vs</span> REY PUERRO
+      </div>
+      <div class="estelar-dist">246 × 273 Yds · Cdra. Charly</div>
+    </div>
+    <div class="estelar-prize">
+      <div class="amount">$48,250</div>
+      <div class="plabel">Premio</div>
+    </div>
+  </div>
+
+  <!-- RACE LIST -->
+  <div class="race-list">
+    <div class="race-row">
+      <span class="race-num">C·1</span>
+      <div class="race-names"><div class="rh">Poca Luz <span class="sep">v</span> Chiklin</div></div>
+      <span class="race-dist">137 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·2</span>
+      <div class="race-names"><div class="rh">Calcamonia <span class="sep">v</span> Valentina</div></div>
+      <span class="race-dist">219 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·3</span>
+      <div class="race-names"><div class="rh">Aguila <span class="sep">v</span> Black Jack</div></div>
+      <span class="race-dist">164 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·4</span>
+      <div class="race-names"><div class="rh">Dramatica <span class="sep">v</span> Viejito</div></div>
+      <span class="race-dist">164 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·5</span>
+      <div class="race-names"><div class="rh">Volcan <span class="sep">v</span> Ema</div></div>
+      <span class="race-dist">219 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·6</span>
+      <div class="race-names"><div class="rh">Pico Blanco <span class="sep">v</span> Cañero</div></div>
+      <span class="race-dist">328 yds</span>
+    </div>
+    <div class="race-row featured">
+      <span class="race-num">★ 7</span>
+      <div class="race-names"><div class="rh">CAOS <span class="sep">v</span> REY PUERRO</div></div>
+      <span class="race-dist">246×273</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·8</span>
+      <div class="race-names"><div class="rh">Rayito <span class="sep">v</span> Trakalosa</div></div>
+      <span class="race-dist">273 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·9</span>
+      <div class="race-names"><div class="rh">Secreto <span class="sep">v</span> Cantinelas</div></div>
+      <span class="race-dist">219 yds</span>
+    </div>
+    <div class="race-row">
+      <span class="race-num">C·10</span>
+      <div class="race-names"><div class="rh">Tigre Real <span class="sep">v</span> Montañes</div></div>
+      <span class="race-dist">180 yds</span>
+    </div>
+  </div>
+
+  <!-- QR CODE -->
+  <div class="qr-section">
+    <div class="qr-box">
+      <img id="qrImg" src="" alt="QR Code">
+    </div>
+    <div class="qr-text">
+      <div class="qr-cta">Ver Programa<br>Completo</div>
+      <div class="qr-sub">Escanea el código QR para ver<br>todas las carreras, caballos y<br>estadísticas en tu celular</div>
+      <div class="qr-url" id="qrUrl"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">La Pista · Colorado</div>
+    <div class="footer-right">Domingo · Junio 14, 2026</div>
+  </div>
+
+</div>
+
+<script>
+  const SITE = 'https://guttix1.github.io/Digital-flyer-/events/rey-de-reyes-jun14/races.html';
+  document.getElementById('qrImg').src =
+    `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(SITE)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+  document.getElementById('qrUrl').textContent = SITE;
+</script>
+
+</body>
+</html>
