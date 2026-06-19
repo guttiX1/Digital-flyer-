@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=540,initial-scale=1">
+<title>Carreras Sánchez · Video Ad</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:540px;height:960px;overflow:hidden;background:#0a0a0a;font-family:-apple-system,sans-serif}
+
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .25s}
+.scene.active{opacity:1;pointer-events:auto}
+
+/* ── S1: TITLE BLAST ── */
+#s1{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#s1 .evt-label{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,210,0,.6);margin-bottom:12px}
+#s1 .evt-title{font-size:80px;font-weight:900;text-transform:uppercase;text-align:center;line-height:.88;color:#FFD200;letter-spacing:2px;animation:aTitleIn .5s cubic-bezier(.17,.67,.3,1.15) both}
+#s1 .evt-sub{font-size:16px;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase;margin-top:18px}
+@keyframes aTitleIn{from{transform:scale(1.4);opacity:0;filter:blur(8px)}to{transform:scale(1);opacity:1;filter:blur(0)}}
+
+/* ── S2: DATE/VENUE ── */
+#s2{background:#FFD200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+#s2 .date-big{font-size:100px;font-weight:900;color:#111;line-height:.85;text-align:center;animation:aPop .4s cubic-bezier(.17,.67,.3,1.15) both}
+#s2 .date-sub{font-size:18px;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:3px;text-transform:uppercase}
+#s2 .venue-tag{background:#111;color:#FFD200;font-size:14px;font-weight:800;letter-spacing:2px;padding:8px 24px;border-radius:30px;text-transform:uppercase}
+@keyframes aPop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ── S3: FLYER SHOWCASE ── */
+#s3{background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#s3 img{width:100%;height:100%;object-fit:cover;animation:aZoomIn 1.6s ease-out both}
+#s3::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.7) 100%)}
+#s3 .overlay-text{position:absolute;bottom:60px;left:0;right:0;text-align:center;z-index:2}
+#s3 .overlay-text h2{font-size:40px;font-weight:900;text-transform:uppercase;color:#FFD200;letter-spacing:2px;animation:aSlideUp .4s ease both}
+@keyframes aZoomIn{from{transform:scale(1.15)}to{transform:scale(1)}}
+@keyframes aSlideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ── S4-S7: HORSE PUNCH ── */
+#s4,#s5,#s6,#s7{background:#f5f2ee}
+#s4 img,#s5 img,#s6 img,#s7 img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  animation:aHorsePunch .38s cubic-bezier(.17,.67,.3,1.15) both}
+@keyframes aHorsePunch{0%{transform:scale(1.2) translateY(4%);opacity:0;filter:brightness(1.8)}60%{filter:brightness(1)}100%{transform:scale(1) translateY(0);opacity:1;filter:brightness(1)}}
+.hcard-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent);padding:clamp(16px,4vw,36px) 24px 20px;z-index:2}
+.hcard-name{font-size:clamp(32px,8vw,56px);font-weight:900;text-transform:uppercase;color:#fff;line-height:.88;text-shadow:0 2px 20px rgba(0,0,0,1)}
+.hcard-cuadra{font-size:13px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;margin-top:6px}
+.hcard-tag{display:inline-block;background:#FFD200;color:#000;font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-top:8px}
+
+/* ── S8: PROGRAM ── */
+#s8{background:#fff;display:flex;flex-direction:column;padding:50px 32px 32px}
+#s8 .prog-title{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#FFD200;margin-bottom:20px;font-weight:800}
+#s8 .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1}
+#s8 .prog-row{background:#f8f8f8;border-radius:10px;padding:10px 12px;border-left:3px solid #FFD200}
+#s8 .prog-row.sp{border-left-color:#FF6B00;background:#fff8f5}
+#s8 .prog-num{font-size:10px;font-weight:800;color:#FFD200;letter-spacing:1px;margin-bottom:3px}
+#s8 .prog-row.sp .prog-num{color:#FF6B00}
+#s8 .prog-names{font-size:11px;font-weight:800;text-transform:uppercase;color:#111;line-height:1.2}
+#s8 .prog-dist{font-size:9px;color:#bbb;margin-top:2px}
+
+/* ── S9: GRAN AGARRON ── */
+#s9{background:#111;display:grid;grid-template-columns:1fr 60px 1fr;min-height:960px}
+#s9 .side{position:relative;overflow:hidden;background:#1a1a1a}
+#s9 .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center;animation:aHorsePunch .38s cubic-bezier(.17,.67,.3,1.15) both}
+#s9 .side.r img{transform:scaleX(-1)}
+#s9 .side.r.active img{animation:aHorsePunchR .38s cubic-bezier(.17,.67,.3,1.15) both}
+@keyframes aHorsePunchR{0%{transform:scaleX(-1) scale(1.2) translateY(4%);opacity:0}100%{transform:scaleX(-1) scale(1) translateY(0);opacity:1}}
+#s9 .name-strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);padding:40px 16px 20px}
+#s9 .side.r .name-strip{text-align:right}
+#s9 .sname{font-size:36px;font-weight:900;text-transform:uppercase;color:#fff;line-height:.9;text-shadow:0 2px 16px #000}
+#s9 .scuad{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+#s9 .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;z-index:2}
+#s9 .mid .vs{font-size:28px;font-weight:900;color:#000}
+#s9 .mid .dist{font-size:9px;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px;margin-top:4px;text-transform:uppercase}
+#s9 .top-label{position:absolute;top:20px;left:0;right:0;text-align:center;z-index:3}
+#s9 .top-label span{background:#FF6B00;color:#fff;font-size:12px;font-weight:800;letter-spacing:2px;padding:6px 18px;border-radius:20px;text-transform:uppercase}
+
+/* ── S10: END CARD ── */
+#s10{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#s10::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,210,0,.15),transparent 65%)}
+#s10 .end-title{font-size:58px;font-weight:900;text-transform:uppercase;color:#FFD200;text-align:center;line-height:.88;letter-spacing:2px;animation:aFadeIn .6s ease both;position:relative;z-index:1}
+#s10 .end-date{font-size:18px;color:rgba(255,255,255,.5);letter-spacing:3px;text-transform:uppercase;position:relative;z-index:1}
+#s10 .qr-wrap{background:#fff;padding:10px;border-radius:12px;border:3px solid #FFD200;position:relative;z-index:1;animation:aFadeIn .6s .3s ease both;opacity:0}
+#s10 .qr-wrap img{width:120px;height:120px;display:block;border-radius:6px}
+#s10 .scan-label{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1}
+@keyframes aFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* FLASH */
+.flash{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0}
+.flash.go{animation:aFlash .18s ease}
+@keyframes aFlash{0%{opacity:.9}100%{opacity:0}}
+
+/* PARTICLES */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:100}
+canvas{position:absolute;inset:0}
+</style>
+</head>
+<body>
+
+<div id="s1" class="scene active">
+  <div class="evt-label">Domingo · 21 de Junio 2026</div>
+  <div class="evt-title">CARRERAS<br>SÁNCHEZ</div>
+  <div class="evt-sub">El Evento del Año</div>
+</div>
+
+<div id="s2" class="scene">
+  <div class="date-big">21<br>JUN</div>
+  <div class="date-sub">Domingo 2026</div>
+  <div class="venue-tag">Programa Completo</div>
+</div>
+
+<div id="s3" class="scene">
+  <img src="flyer.jpg" alt="Carreras">
+  <div class="overlay-text"><h2>20+ Carreras</h2></div>
+</div>
+
+<div id="s4" class="scene">
+  <img src="la-mami.jpg" alt="CDA CEBAS">
+  <div class="hcard-label">
+    <div class="hcard-name">CDA CEBAS</div>
+    <div class="hcard-cuadra">Gran Agarrón</div>
+    <div class="hcard-tag">⭐ Estelar · 275 Yds</div>
+  </div>
+</div>
+
+<div id="s5" class="scene">
+  <img src="h-rey-puerro.jpg" alt="CDA AGUILARES">
+  <div class="hcard-label">
+    <div class="hcard-name">CDA AGUILARES</div>
+    <div class="hcard-cuadra">Gran Agarrón</div>
+    <div class="hcard-tag">⭐ Rival · 275 Yds</div>
+  </div>
+</div>
+
+<div id="s6" class="scene">
+  <img src="gutierrez.jpg" alt="ROBO RANCHERO">
+  <div class="hcard-label">
+    <div class="hcard-name">ROBO RANCHERO</div>
+    <div class="hcard-cuadra">Gran Tercia</div>
+    <div class="hcard-tag">12:30 PM · 275 Yds</div>
+  </div>
+</div>
+
+<div id="s7" class="scene">
+  <img src="h-caos.jpg" alt="CDA CEBAS vs AGUILARES">
+  <div class="hcard-label">
+    <div class="hcard-name">20+ CARRERAS</div>
+    <div class="hcard-cuadra">Tapados · Claiming · Revancha</div>
+    <div class="hcard-tag">330 Yds Max</div>
+  </div>
+</div>
+
+<div id="s8" class="scene">
+  <div class="prog-title">Programa · Domingo 21 Jun</div>
+  <div class="prog-grid">
+    <div class="prog-row"><div class="prog-num">10:40 AM</div><div class="prog-names">CDA CEBAS vs CONV. NUEVA</div><div class="prog-dist">200 Yds · Tapados</div></div>
+    <div class="prog-row"><div class="prog-num">11:00 AM</div><div class="prog-names">AGUILARES vs YACKY</div><div class="prog-dist">250 Yds · Tapados</div></div>
+    <div class="prog-row"><div class="prog-num">11:30 AM</div><div class="prog-names">MENDOZA vs LA VIRGEN</div><div class="prog-dist">100 Yds · Tapados</div></div>
+    <div class="prog-row"><div class="prog-num">11:40 AM</div><div class="prog-names">CEBAS vs ROJAS</div><div class="prog-dist">275 Yds · Tapados</div></div>
+    <div class="prog-row"><div class="prog-num">12:00 PM</div><div class="prog-names">AGUILARES vs YACKY</div><div class="prog-dist">250/275 Yds</div></div>
+    <div class="prog-row"><div class="prog-num">12:15 PM</div><div class="prog-names">HMW vs RANCHO HUMILDE</div><div class="prog-dist">150 Yds · Tapados</div></div>
+    <div class="prog-row sp"><div class="prog-num">12:30 PM</div><div class="prog-names">GRAN TERCIA</div><div class="prog-dist">275 Yds · Especial</div></div>
+    <div class="prog-row sp"><div class="prog-num">2:30 PM</div><div class="prog-names">GRAN AGARRÓN ⭐</div><div class="prog-dist">275 Yds · Estelar</div></div>
+    <div class="prog-row"><div class="prog-num">3:20 PM</div><div class="prog-names">CLAIMING</div><div class="prog-dist">330 Yds</div></div>
+    <div class="prog-row sp"><div class="prog-num">Y MÁS</div><div class="prog-names">20+ CARRERAS</div><div class="prog-dist">Todo el Día</div></div>
+  </div>
+</div>
+
+<div id="s9" class="scene">
+  <div class="top-label"><span>⭐ Gran Agarrón · 2:30 PM</span></div>
+  <div class="side l">
+    <img src="h-caos.jpg" alt="CDA CEBAS">
+    <div class="name-strip">
+      <div class="sname">CDA<br>CEBAS</div>
+      <div class="scuad">Tapados</div>
+    </div>
+  </div>
+  <div class="mid">
+    <div class="vs">VS</div>
+    <div class="dist">275 Yds</div>
+  </div>
+  <div class="side r">
+    <img src="h-rey-puerro.jpg" alt="CDA AGUILARES">
+    <div class="name-strip">
+      <div class="sname">CDA<br>AGUILARES</div>
+      <div class="scuad">Tapados</div>
+    </div>
+  </div>
+</div>
+
+<div id="s10" class="scene">
+  <div class="end-title">CARRERAS<br>SÁNCHEZ</div>
+  <div class="end-date">Dom · 21 Junio 2026</div>
+  <div class="qr-wrap">
+    <img id="qrEnd" src="" alt="QR">
+  </div>
+  <div class="scan-label">Escanea · Elige tus Picks</div>
+</div>
+
+<div class="flash" id="flash"></div>
+<div id="particles"><canvas id="cvs"></canvas></div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+document.getElementById('qrEnd').src=`https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(SITE)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+
+const scenes=document.querySelectorAll('.scene');
+const DURS=[700,800,1400,1300,1300,1300,1300,2000,1800,Infinity];
+let cur=0;
+
+// particles
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+cvs.width=540;cvs.height=960;
+const particles=[];
+function burst(x,y,color='#FFD200',n=22){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2,sp=2+Math.random()*6;
+    particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,decay:.025+Math.random()*.02,r:2+Math.random()*3,color});
+  }
+}
+function animPart(){
+  ctx.clearRect(0,0,540,960);
+  for(let i=particles.length-1;i>=0;i--){
+    const p=particles[i];
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life-=p.decay;
+    if(p.life<=0){particles.splice(i,1);continue;}
+    ctx.globalAlpha=p.life;ctx.fillStyle=p.color;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(animPart);
+}
+animPart();
+
+function flash(color='#fff'){
+  const f=document.getElementById('flash');
+  f.style.background=color;
+  f.classList.remove('go');
+  void f.offsetWidth;
+  f.classList.add('go');
+}
+
+function goTo(i){
+  scenes[cur].classList.remove('active');
+  cur=i;
+  scenes[cur].classList.add('active');
+  // re-trigger animations
+  const imgs=scenes[cur].querySelectorAll('img');
+  imgs.forEach(img=>{img.style.animation='none';void img.offsetWidth;img.style.animation='';});
+  const anims=scenes[cur].querySelectorAll('[style*="animation"],[class*="anim"]');
+
+  // flash + burst on scene change
+  const colors=['#fff','#FFD200','#fff','#FFD200','#fff','#FFD200','#fff','#fff','#FFD200','#FFD200'];
+  flash(colors[i]||'#fff');
+  burst(270,480,i%2===0?'#FFD200':'#FF6B00',20);
+
+  if(DURS[cur]!==Infinity) setTimeout(()=>goTo((cur+1)%scenes.length),DURS[cur]);
+}
+
+setTimeout(()=>goTo(1),DURS[0]);
+</script>
+</body>
+</html>

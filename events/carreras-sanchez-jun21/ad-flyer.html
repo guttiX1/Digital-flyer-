@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000}
+.wrap{position:relative;display:inline-block;width:100%}
+img.flyer{width:100%;display:block}
+.qr{
+  position:absolute;
+  bottom:16px;right:16px;
+  background:#fff;
+  padding:5px;
+  border-radius:8px;
+  border:3px solid #FFD200;
+  box-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+.qr img{width:90px;height:90px;display:block;border-radius:4px}
+.qr-label{
+  text-align:center;
+  font-family:-apple-system,sans-serif;
+  font-size:7px;font-weight:800;
+  color:#111;letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-top:3px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="flyer" src="flyer.jpg" alt="Carreras Sanchez Jun 21">
+  <div class="qr">
+    <img id="qr" src="" alt="QR">
+    <div class="qr-label">Mis Picks</div>
+  </div>
+</div>
+<script>
+const url='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+</script>
+</body>
+</html>
