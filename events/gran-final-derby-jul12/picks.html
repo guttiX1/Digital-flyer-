@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Gran Final del Derby 2026 · Mis Picks</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#f5f5f5;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;padding-bottom:80px}
+
+/* NAV */
+.nav{background:#fff;border-bottom:3px solid #FFD200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.nav-title{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#111}
+.nav-sub{font-size:9px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:1px}
+.picks-badge{background:#FFD200;color:#000;font-size:11px;font-weight:900;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+
+/* HERO */
+.hero{background:#111;padding:20px 16px;text-align:center;border-bottom:3px solid #FFD200}
+.hero-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#FFD200;opacity:.8;margin-bottom:6px}
+.hero-title{font-size:26px;font-weight:900;text-transform:uppercase;color:#fff;line-height:1.05;letter-spacing:.5px}
+.hero-title span{color:#FFD200}
+.hero-date{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+
+/* SECTION */
+.section-label{padding:14px 16px 8px;font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#888}
+
+/* RACE CARD */
+.races{padding:0 12px;display:flex;flex-direction:column;gap:8px}
+.race{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #e8e8e8;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.race.picked{border-color:#FFD200;box-shadow:0 2px 12px rgba(255,210,0,.2)}
+.race.special{border-color:#FF6B00}
+
+.race-header{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #f0f0f0}
+.race-num{width:26px;height:26px;border-radius:50%;background:#111;color:#FFD200;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.race.special .race-num{background:#FF6B00;color:#fff}
+.race-type{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#aaa}
+.race.special .race-type{color:#FF6B00}
+.race-dist{margin-left:auto;font-size:10px;font-weight:700;color:#bbb}
+
+/* PICK BUTTONS */
+.horses{display:grid;gap:0}
+.horses.two{grid-template-columns:1fr auto 1fr}
+.horses.three{grid-template-columns:1fr auto 1fr auto 1fr}
+
+.pick-btn{display:flex;flex-direction:column;align-items:center;padding:14px 8px 12px;cursor:pointer;background:transparent;border:none;color:inherit;width:100%;transition:background .15s}
+.pick-btn:active{background:#fafafa}
+
+.horse-circle{width:62px;height:62px;border-radius:50%;background:#f5f5f5;border:2.5px solid #e8e8e8;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .2s,box-shadow .2s;flex-shrink:0}
+.horse-circle .init{font-size:18px;font-weight:900;color:#ccc}
+.horse-name{font-size:10.5px;font-weight:800;text-transform:uppercase;color:#333;text-align:center;line-height:1.2;letter-spacing:.3px}
+.horse-cuadra{font-size:8.5px;color:#aaa;text-align:center;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.pick-dot{width:16px;height:16px;border-radius:50%;border:2px solid #ddd;margin-top:7px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+
+/* SELECTED */
+.pick-btn.selected .horse-circle{border-color:#FFD200;transform:scale(1.06);box-shadow:0 0 14px rgba(255,210,0,.3);background:#fffbeb}
+.pick-btn.selected .horse-name{color:#111;font-weight:900}
+.pick-btn.selected .pick-dot{border-color:#FFD200;background:#FFD200}
+.pick-btn.selected .pick-dot::after{content:'✓';font-size:9px;color:#000;font-weight:900}
+
+/* DIMMED */
+.pick-btn.dimmed .horse-circle{opacity:.35;filter:grayscale(.6)}
+.pick-btn.dimmed .horse-name{color:#bbb}
+
+/* VS */
+.vs-bar{display:flex;align-items:center;justify-content:center;width:32px;padding:0;background:transparent}
+.vs-bar span{font-size:9px;font-weight:900;color:#ccc;letter-spacing:1px;writing-mode:vertical-lr}
+.race.special .vs-bar span{color:#FF6B00}
+
+/* MY PICKS */
+.picks-panel{margin:16px 12px 0;background:#fff;border-radius:16px;border:1.5px solid #FFD200;overflow:hidden;box-shadow:0 4px 20px rgba(255,210,0,.1)}
+.picks-panel-head{background:#FFD200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.picks-panel-head h3{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#000}
+.picks-count{font-size:11px;font-weight:700;color:rgba(0,0,0,.5)}
+.picks-rows{padding:8px 16px 12px}
+.pick-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f5f5f5}
+.pick-row:last-child{border:none}
+.pr-num{font-size:10px;font-weight:800;color:#FFD200;min-width:18px}
+.pr-name{font-size:11.5px;font-weight:800;text-transform:uppercase;color:#111;flex:1}
+.pr-name.empty{font-size:11px;color:#ccc;font-weight:400;text-transform:none}
+.pr-check{width:16px;height:16px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:9px;opacity:0;transition:opacity .2s}
+.pick-row.done .pr-check{opacity:1}
+.pick-row.done .pr-name{color:#FFD200}
+
+/* SHARE */
+.share-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 12px 0;background:#111;color:#FFD200;border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;width:calc(100% - 24px);transition:background .15s}
+.share-btn:active{background:#222}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#111;color:#FFD200;font-size:12px;font-weight:800;padding:10px 20px;border-radius:30px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999;letter-spacing:.5px;text-transform:uppercase}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div>
+    <div class="nav-title">Gran Final del Derby 2026</div>
+    <div class="nav-sub">12 de Julio · El Carril de los Campeones</div>
+  </div>
+  <div class="picks-badge" id="navBadge">0/10</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">El Gran Duelo de Campeones</div>
+  <div class="hero-title">Elige tu<br><span>Ganador</span></div>
+  <div class="hero-date">Domingo · 12 de Julio 2026</div>
+</div>
+
+<div class="section-label">Programa · 10 Carreras</div>
+
+<div class="races" id="raceList"></div>
+
+<!-- MY PICKS -->
+<div class="picks-panel">
+  <div class="picks-panel-head">
+    <h3>Mis Picks</h3>
+    <span class="picks-count" id="picksCount">0 de 10</span>
+  </div>
+  <div class="picks-rows" id="pickRows"></div>
+</div>
+
+<button class="share-btn" onclick="sharepicks()">🏆 Compartir mis Picks</button>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const RACES = [
+  {n:1, type:'Gran Final del Derby 2026', special:true, dist:'',
+    horses:[
+      {name:'EL BANDIDO', cuadra:'C. Aguirre'},
+      {name:'LA CORITA',  cuadra:'C. El Viejo Paulino'},
+      {name:'EL CENTELLA',cuadra:'C. Tecolotes'}
+    ]},
+  {n:2, type:'Carrera', dist:'',
+    horses:[
+      {name:'TAPADO', cuadra:'C. Tecolotes'},
+      {name:'TAPADO', cuadra:''}
+    ]},
+  {n:3, type:'Carrera de Campeones 🔥', special:true, dist:'300 VTP',
+    horses:[
+      {name:'LA ZOTA',   cuadra:'C. Pilar'},
+      {name:'EL JUNIOR', cuadra:'C. Pilar'}
+    ]},
+  {n:4, type:'Carrera', dist:'225 VTP',
+    horses:[
+      {name:'LA BANDIDA', cuadra:''},
+      {name:'EL 19',      cuadra:''}
+    ]},
+  {n:5, type:'Carrera', dist:'200 VTP',
+    horses:[
+      {name:'EL MANGO LOCO', cuadra:'C. Tecolotes'},
+      {name:'REMOLINO',      cuadra:'C. Águila'}
+    ]},
+  {n:6, type:'Carrera', dist:'',
+    horses:[
+      {name:'LA NELY',  cuadra:'C. Tecolotes'},
+      {name:'EL JUDIO', cuadra:''}
+    ]},
+  {n:7, type:'Carrera de Revancha 🔥', special:true, dist:'300 VTP',
+    horses:[
+      {name:'EL CUATRERO',  cuadra:'C. Mi Familia'},
+      {name:'EL RELÁMPAGO', cuadra:'C. Prado'}
+    ]},
+  {n:8, type:'Carrera', dist:'',
+    horses:[
+      {name:'EL RESCATADO', cuadra:'C. Avila'},
+      {name:'LA PRIMA',     cuadra:'C. Prado'}
+    ]},
+  {n:9, type:'Carrera', dist:'',
+    horses:[
+      {name:'LA PRINCESA', cuadra:'C. Catrina'},
+      {name:'EL RUFY',     cuadra:''}
+    ]},
+  {n:10, type:'Carrera', dist:'250 VTP',
+    horses:[
+      {name:'EL CHOLO',   cuadra:'C. Tecolotes'},
+      {name:'LA CATRINA', cuadra:'C. Bravo'}
+    ]},
+];
+
+const picks = {};
+
+function initials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2); }
+
+function buildRaces(){
+  const list = document.getElementById('raceList');
+  RACES.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'race' + (r.special ? ' special' : '');
+    card.id = `race-${r.n}`;
+
+    const cols = r.horses.length === 3 ? 'three' : 'two';
+    let horsesHTML = '';
+    r.horses.forEach((h, i) => {
+      if(i > 0){
+        horsesHTML += `<div class="vs-bar"><span>VS</span></div>`;
+      }
+      horsesHTML += `
+        <button class="pick-btn" id="pbtn-${r.n}-${i}" onclick="pick(${r.n},${i})">
+          <div class="horse-circle"><span class="init">${initials(h.name)}</span></div>
+          <div class="horse-name">${h.name}</div>
+          <div class="horse-cuadra">${h.cuadra}</div>
+          <div class="pick-dot"></div>
+        </button>`;
+    });
+
+    card.innerHTML = `
+      <div class="race-header">
+        <div class="race-num">${r.n}</div>
+        <div class="race-type">${r.type}</div>
+        ${r.dist ? `<div class="race-dist">${r.dist}</div>` : ''}
+      </div>
+      <div class="horses ${cols}">${horsesHTML}</div>`;
+    list.appendChild(card);
+  });
+}
+
+function pick(raceNum, idx){
+  const r = RACES.find(x => x.n === raceNum);
+  const isRepick = picks[raceNum]?.idx === idx;
+
+  if(isRepick){
+    delete picks[raceNum];
+    r.horses.forEach((_,i) => {
+      document.getElementById(`pbtn-${raceNum}-${i}`)?.classList.remove('selected','dimmed');
+    });
+    document.getElementById(`race-${raceNum}`)?.classList.remove('picked');
+  } else {
+    picks[raceNum] = {idx, name: r.horses[idx].name, cuadra: r.horses[idx].cuadra};
+    r.horses.forEach((_,i) => {
+      const btn = document.getElementById(`pbtn-${raceNum}-${i}`);
+      btn?.classList.toggle('selected', i === idx);
+      btn?.classList.toggle('dimmed', i !== idx);
+    });
+    document.getElementById(`race-${raceNum}`)?.classList.add('picked');
+    toast(`★ ${picks[raceNum].name}`);
+  }
+  updatePanel();
+}
+
+function updatePanel(){
+  const count = Object.keys(picks).length;
+  document.getElementById('navBadge').textContent = `${count}/10`;
+  document.getElementById('picksCount').textContent = `${count} de 10`;
+
+  const rows = document.getElementById('pickRows');
+  rows.innerHTML = '';
+  RACES.forEach(r => {
+    const p = picks[r.n];
+    const row = document.createElement('div');
+    row.className = 'pick-row' + (p ? ' done' : '');
+    row.innerHTML = `
+      <span class="pr-num">${r.n}</span>
+      <span class="pr-name${p?'':' empty'}">${p ? p.name : '— sin selección'}</span>
+      <div class="pr-check">✓</div>`;
+    rows.appendChild(row);
+  });
+}
+
+function sharepicks(){
+  const count = Object.keys(picks).length;
+  if(!count){ toast('¡Elige tus picks primero!'); return; }
+  let txt = '🏆 Mis Picks — Gran Final del Derby 2026\n📅 12 de Julio · El Carril de los Campeones\n\n';
+  RACES.forEach(r => {
+    const p = picks[r.n];
+    txt += `C${r.n}: ${p ? '★ '+p.name : '—'}\n`;
+  });
+  txt += '\nhttps://guttix1.github.io/Digital-flyer-/events/gran-final-derby-jul12/picks.html';
+  if(navigator.share){
+    navigator.share({title:'Mis Picks · Derby 2026', text: txt}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{});
+  }
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'), 1600);
+}
+
+buildRaces();
+updatePanel();
+</script>
+</body>
+</html>
