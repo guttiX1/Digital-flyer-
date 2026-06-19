@@ -12,105 +12,145 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:3px solid #FFD200;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;box-shadow:0 3px 16px rgba(0,0,0,.08)}
-.nav-l .l1{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.06em;color:#111}
-.nav-l .l2{font-size:.5rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
-.nav-badge{background:#FFD200;color:#000;font-size:.65rem;font-weight:900;padding:.3rem .8rem;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
+.nav-l .l1{font-family:'Bebas Neue',sans-serif;font-size:.88rem;letter-spacing:.06em;color:#111;line-height:1.1}
+.nav-l .l2{font-size:.48rem;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase}
+.nav-badge{background:#FFD200;color:#000;font-size:.62rem;font-weight:900;padding:.3rem .8rem;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
 
 /* TICKER */
 .ticker{background:#FFD200;padding:.45rem 0;overflow:hidden}
-.t-track{display:flex;white-space:nowrap;animation:scroll 20s linear infinite}
+.t-track{display:flex;white-space:nowrap;animation:scroll 22s linear infinite}
 .t-track span{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.16em;color:#111;padding:0 1.4rem}
 .t-track span::after{content:'◆';color:rgba(0,0,0,.2);margin-left:1.4rem;font-size:.5rem;vertical-align:middle}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* HERO */
-.hero{position:relative;overflow:hidden}
-.hero img{width:100%;display:block;max-height:55vw;object-fit:cover;object-position:top center}
-.hero-fade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(255,255,255,.95) 100%)}
-.hero-text{position:absolute;bottom:0;left:0;right:0;padding:1rem 1rem .8rem;text-align:center}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,7vw,3.5rem);color:#111;line-height:.9;letter-spacing:.03em}
+.hero{position:relative;overflow:hidden;background:#111}
+.hero img.bg{width:100%;display:block;max-height:62vw;object-fit:cover;object-position:top center;opacity:.6}
+.hero-fade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,#fff 100%)}
+.hero-text{position:absolute;bottom:0;left:0;right:0;padding:1rem 1rem .9rem;text-align:center}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,8vw,4rem);color:#111;line-height:.88;letter-spacing:.02em}
 .hero-title span{color:#FF6B00}
-.hero-sub{font-size:.62rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-top:.3rem}
+.hero-sub{font-size:.62rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-top:.4rem}
 
-/* STATS BAR */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid #f0f0f0;background:#fff}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid #f0f0f0}
 .st{display:flex;flex-direction:column;align-items:center;padding:.8rem .3rem;border-right:1px solid #f0f0f0}
 .st:last-child{border-right:none}
 .st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,2.5rem);color:#FFD200;line-height:1}
 .st-l{font-size:.42rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem;text-align:center}
 
-/* SECTION HEAD */
+/* ESTELAR */
+.estelar-wrap{padding:.8rem .8rem 0}
+.estelar-label{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.star-badge{background:#FF6B00;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.18rem .6rem;border-radius:5px}
+.estelar-label-txt{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#111}
+.estelar-label-dist{margin-left:auto;font-size:.62rem;font-weight:700;color:#888}
+.ec{border-radius:16px;overflow:hidden;border:2px solid #FF6B00;box-shadow:0 6px 32px rgba(255,107,0,.12);background:#fff}
+.ec-duel{display:grid;grid-template-columns:1fr 54px 1fr;min-height:220px}
+.ec-side{position:relative;background:#f8f8f8;overflow:hidden;cursor:pointer;transition:background .15s}
+.ec-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
+.ec-side.r img{transform:scaleX(-1)}
+.ec-name-strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 100%);padding:.7rem .7rem .55rem}
+.ec-side.r .ec-name-strip{text-align:right}
+.ec-hn{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,4.5vw,2.4rem);color:#fff;line-height:.9;text-shadow:0 2px 12px rgba(0,0,0,1)}
+.ec-cuad{font-size:.52rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.18rem}
+.ec-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FF6B00;border-left:1.5px solid #FF6B00;border-right:1.5px solid #FF6B00;gap:.1rem}
+.ec-vs{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1}
+.ec-cn{font-family:'Bebas Neue',sans-serif;font-size:.7rem;color:rgba(255,255,255,.6);letter-spacing:.1em}
+/* pick states on estelar */
+.ec-side.selected{background:#fffbeb}
+.ec-side.selected img{filter:brightness(1.05)}
+.ec-side.dimmed{opacity:.4;filter:grayscale(.5)}
+.ec-check{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#000;opacity:0;transition:opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.ec-side.selected .ec-check{opacity:1}
+
+.ec-stats{display:grid;grid-template-columns:1fr 1fr;background:#fafafa;border-top:1px solid #f0f0f0}
+.ec-stat{padding:.6rem .9rem}
+.ec-stat:first-child{border-right:1px solid #f0f0f0}
+.ec-stat:nth-child(2){text-align:right}
+.ec-stat-lbl{font-size:.44rem;font-weight:800;color:#bbb;letter-spacing:.12em;text-transform:uppercase}
+.ec-stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#111;line-height:1.1}
+
+/* HORSE SCROLL */
 .sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.2rem 1rem .7rem}
 .sec-hd::before,.sec-hd::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.4),transparent)}
 .sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;white-space:nowrap;color:#111}
+.horses-scroll{display:flex;gap:.75rem;padding:.2rem 1rem 1rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.horses-scroll::-webkit-scrollbar{display:none}
+.hc{flex:0 0 38vw;max-width:150px;background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.hc-img{width:100%;aspect-ratio:3/4;background:#f8f8f8;overflow:hidden}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:top center}
+.hc-body{padding:.6rem .7rem .7rem;border-top:1.5px solid #f0f0f0}
+.hc-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.03em;line-height:1;color:#111}
+.hc-cuad{font-size:.52rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin:.1rem 0 .4rem}
+.hc-tag{display:inline-block;border:1.5px solid #FFD200;color:#9a6800;font-size:.5rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:999px}
 
-/* RACE CARDS */
-.race-list{padding:0 .75rem;display:flex;flex-direction:column;gap:.6rem}
-
-.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 1px 6px rgba(0,0,0,.05);transition:border-color .2s,box-shadow .2s}
-.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.15);border-color:rgba(255,210,0,.4)}
+/* RACE LIST */
+.race-list{padding:.2rem .8rem 1.2rem;display:flex;flex-direction:column;gap:.55rem}
+.rr{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #ebebeb;box-shadow:0 1px 6px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .18s,border-color .18s}
+.rr:hover,.rr.open{box-shadow:0 4px 22px rgba(255,184,0,.15);border-color:rgba(255,210,0,.4)}
 .rr.picked{border-color:#FFD200}
-.rr.special{border-color:#FF6B00;box-shadow:0 2px 12px rgba(255,107,0,.1)}
-
-.rr-top{display:flex;align-items:center;gap:.6rem;padding:.78rem .85rem;cursor:pointer}
+.rr.special{border-color:rgba(255,107,0,.35)}
+.rr-top{display:flex;align-items:center;gap:.6rem;padding:.78rem .85rem}
 .rr-badge{width:30px;height:30px;border-radius:50%;background:#111;color:#FFD200;font-family:'Bebas Neue',sans-serif;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .rr.special .rr-badge{background:#FF6B00;color:#fff}
 .spec-tag{background:#FF6B00;color:#fff;font-size:.44rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.14rem .5rem;border-radius:4px;flex-shrink:0}
+.rr-ico{width:40px;height:40px;flex-shrink:0;border-radius:9px;overflow:hidden;background:#f8f8f8;border:1px solid #ebebeb}
+.rr-ico img{width:100%;height:100%;object-fit:contain;object-position:top center}
 .rr-names{flex:1;min-width:0}
 .rr-n1{font-family:'Bebas Neue',sans-serif;font-size:.88rem;color:#111;line-height:1.1;letter-spacing:.02em}
 .rr-cuad{font-size:.52rem;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-top:.05rem}
-.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#FF6B00;flex-shrink:0}
+.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FF6B00;flex-shrink:0}
 .rr-dist{font-size:.56rem;font-weight:700;color:#bbb;white-space:nowrap;margin-left:auto}
 
-/* EXPANDED DUEL WITH PICKS */
+/* EXPANDED DUEL */
 .rr-duel{display:none;border-top:1.5px solid #f0f0f0}
 .rr.open .rr-duel{display:block}
-
-.duel-grid{display:grid;min-height:170px}
-.duel-grid.two{grid-template-columns:1fr 44px 1fr}
-.duel-grid.three{grid-template-columns:1fr 34px 1fr 34px 1fr}
-
-.dh{position:relative;overflow:hidden;background:#f8f8f8;cursor:pointer;transition:background .15s}
-.dh:active{background:#f0f0f0}
-.dh-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#ddd}
-.dh-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);padding:.7rem .65rem .55rem}
+.duel-grid{display:grid;grid-template-columns:1fr 50px 1fr;min-height:190px;background:#fff}
+.duel-grid.three{grid-template-columns:1fr 36px 1fr 36px 1fr}
+.dh{position:relative;overflow:hidden;background:#f8f8f8;cursor:pointer}
+.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
+.dh.dr img{transform:scaleX(-1)}
+.dh-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.68),transparent);padding:.7rem .65rem .55rem}
 .dh.dr .dh-info{text-align:right}
-.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.5vw,2rem);color:#fff;line-height:.9;text-shadow:0 2px 8px rgba(0,0,0,1)}
+.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.5vw,2rem);color:#fff;line-height:.9;text-shadow:0 2px 10px rgba(0,0,0,1)}
 .dh-cuad{font-size:.48rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem}
-.pick-ring{position:absolute;inset:0;border:4px solid transparent;pointer-events:none;transition:border-color .2s;border-radius:0}
-.dh.selected .pick-ring{border-color:#FFD200}
-.dh.dimmed{opacity:.45;filter:grayscale(.5)}
-.dh.selected .dh-init{color:#FFD200}
-.pick-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;opacity:0;transition:opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.dh.selected .pick-check{opacity:1}
-
-.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;gap:.05rem}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;border-left:1.5px solid #FFD200;border-right:1.5px solid #FFD200}
 .rr.special .duel-mid{background:#FF6B00}
-.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#000;line-height:1}
-.duel-cn{font-family:'Bebas Neue',sans-serif;font-size:.5rem;color:rgba(0,0,0,.4);letter-spacing:.1em;text-transform:uppercase}
+.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#000;line-height:1}
+.rr.special .duel-vs{color:#fff}
+.duel-cn{font-family:'Bebas Neue',sans-serif;font-size:.5rem;color:rgba(0,0,0,.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.15rem}
+.rr.special .duel-cn{color:rgba(255,255,255,.5)}
+/* pick states */
+.dh.selected{background:#fffbeb}
+.dh.dimmed{opacity:.38;filter:grayscale(.6)}
+.dh-check{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#000;opacity:0;transition:opacity .2s;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.dh.selected .dh-check{opacity:1}
 
 /* MY PICKS */
-.picks-panel{margin:1.2rem .75rem 0;background:#fff;border-radius:16px;border:2px solid #FFD200;overflow:hidden;box-shadow:0 4px 20px rgba(255,210,0,.1)}
-.picks-head{background:#FFD200;padding:.9rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.picks-panel{margin:1rem .8rem 0;background:#fff;border-radius:16px;border:2px solid #FFD200;overflow:hidden;box-shadow:0 4px 20px rgba(255,210,0,.1)}
+.picks-head{background:#FFD200;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between}
 .picks-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:#000}
-.picks-head .cnt{font-size:.65rem;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px}
+.picks-head .cnt{font-size:.62rem;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px}
 .picks-rows{padding:.5rem 1rem .9rem}
 .prow{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid #f5f5f5}
 .prow:last-child{border:none}
-.prow .pn{font-size:.62rem;font-weight:800;color:#FFD200;min-width:16px}
-.prow .pname{font-size:.72rem;font-weight:800;text-transform:uppercase;color:#111;flex:1;letter-spacing:.3px}
+.prow .pn{font-size:.6rem;font-weight:800;color:#FFD200;min-width:16px}
+.prow .pname{font-size:.7rem;font-weight:800;text-transform:uppercase;color:#111;flex:1;letter-spacing:.3px}
 .prow .pname.empty{color:#ccc;font-weight:400;text-transform:none;font-size:.68rem}
 .prow .pcheck{width:16px;height:16px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:900;opacity:0;flex-shrink:0;transition:opacity .15s}
 .prow.done .pcheck{opacity:1}
 .prow.done .pname{color:#111}
 
 /* SHARE */
-.share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.9rem .75rem 0;width:calc(100% - 1.5rem);background:#111;color:#FFD200;border:none;border-radius:12px;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;cursor:pointer;transition:background .15s}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.9rem .8rem 0;width:calc(100% - 1.6rem);background:#111;color:#FFD200;border:none;border-radius:12px;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;cursor:pointer;transition:background .15s}
 .share-btn:active{background:#333}
 
 /* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#111;color:#FFD200;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.08em;padding:.6rem 1.2rem;border-radius:30px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:380px){.rr-dist{display:none}}
 </style>
 </head>
 <body>
@@ -118,7 +158,7 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 <nav class="nav">
   <div class="nav-l">
     <div class="l1">Gran Final del Derby 2026</div>
-    <div class="l2">El Carril de los Campeones · 12 Jul</div>
+    <div class="l2">El Carril de los Campeones · 12 de Julio</div>
   </div>
   <div class="nav-badge" id="navBadge">0 / 10 Picks</div>
 </nav>
@@ -131,11 +171,11 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 </div>
 
 <div class="hero">
-  <img src="flyer.jpg" alt="Gran Final del Derby 2026">
+  <img class="bg" src="flyer.jpg" alt="Gran Final del Derby 2026">
   <div class="hero-fade"></div>
   <div class="hero-text">
-    <div class="hero-title">Elige tu <span>Ganador</span></div>
-    <div class="hero-sub">Toca cada carrera · Selecciona tu pick</div>
+    <div class="hero-title">Gran Final<br><span>del Derby 2026</span></div>
+    <div class="hero-sub">El Gran Duelo de Campeones · 12 de Julio 2026</div>
   </div>
 </div>
 
@@ -143,12 +183,59 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
   <div class="st"><div class="st-n">10</div><div class="st-l">Carreras</div></div>
   <div class="st"><div class="st-n">22</div><div class="st-l">Caballos</div></div>
   <div class="st"><div class="st-n">300</div><div class="st-l">Max VTP</div></div>
-  <div class="st"><div class="st-n" id="sfn">1,847</div><div class="st-l">Siguiendo</div></div>
+  <div class="st"><div class="st-n" id="sfn">2,104</div><div class="st-l">Siguiendo</div></div>
 </div>
 
-<div class="sec-hd"><span>PROGRAMA COMPLETO — TUS PICKS</span></div>
+<!-- ESTELAR: Carrera de Campeones C3 -->
+<div class="estelar-wrap">
+  <div class="estelar-label">
+    <span class="star-badge">🔥 ESTELAR</span>
+    <span class="estelar-label-txt">Carrera de Campeones · C3</span>
+    <span class="estelar-label-dist">300 VTP</span>
+  </div>
+  <div class="ec">
+    <div class="ec-duel">
+      <div class="ec-side l" id="ec-0" onclick="pickEstelar(0)">
+        <img src="la-mami.jpg" alt="LA ZOTA">
+        <div class="ec-check">✓</div>
+        <div class="ec-name-strip">
+          <div class="ec-hn">LA ZOTA</div>
+          <div class="ec-cuad">C. Pilar</div>
+        </div>
+      </div>
+      <div class="ec-mid"><div class="ec-vs">VS</div><div class="ec-cn">C.3</div></div>
+      <div class="ec-side r" id="ec-1" onclick="pickEstelar(1)">
+        <img src="aries.jpg" alt="EL JUNIOR">
+        <div class="ec-check">✓</div>
+        <div class="ec-name-strip">
+          <div class="ec-hn">EL JUNIOR</div>
+          <div class="ec-cuad">C. Pilar</div>
+        </div>
+      </div>
+    </div>
+    <div class="ec-stats">
+      <div class="ec-stat"><div class="ec-stat-lbl">Cuadra</div><div class="ec-stat-val">C. Pilar</div></div>
+      <div class="ec-stat"><div class="ec-stat-lbl">Cuadra</div><div class="ec-stat-val">C. Pilar</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HORSE SCROLL -->
+<div class="sec-hd"><span>LOS CABALLOS</span></div>
+<div class="horses-scroll">
+  <div class="hc"><div class="hc-img"><img src="la-mami.jpg" alt="EL BANDIDO"></div><div class="hc-body"><div class="hc-name">EL BANDIDO</div><div class="hc-cuad">C. Aguirre</div><div class="hc-tag">Derby C.1</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="cristo-rey.jpg" alt="LA CORITA"></div><div class="hc-body"><div class="hc-name">LA CORITA</div><div class="hc-cuad">C. El Viejo Paulino</div><div class="hc-tag">Derby C.1</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="pisces.jpg" alt="EL CENTELLA"></div><div class="hc-body"><div class="hc-name">EL CENTELLA</div><div class="hc-cuad">C. Tecolotes</div><div class="hc-tag">Derby C.1</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="la-mami.jpg" alt="LA ZOTA"></div><div class="hc-body"><div class="hc-name">LA ZOTA</div><div class="hc-cuad">C. Pilar</div><div class="hc-tag">🔥 Estelar</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="aries.jpg" alt="EL JUNIOR"></div><div class="hc-body"><div class="hc-name">EL JUNIOR</div><div class="hc-cuad">C. Pilar</div><div class="hc-tag">🔥 Estelar</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="gutierrez.jpg" alt="EL BLING BLING"></div><div class="hc-body"><div class="hc-name">EL BLING BLING</div><div class="hc-cuad">C. Rubiales</div><div class="hc-tag">Carrera 11</div></div></div>
+</div>
+
+<!-- RACE LIST -->
+<div class="sec-hd"><span>PROGRAMA — TUS PICKS</span></div>
 <div class="race-list" id="raceList"></div>
 
+<!-- MY PICKS -->
 <div class="picks-panel">
   <div class="picks-head">
     <h3>Mis Picks</h3>
@@ -158,114 +245,122 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 </div>
 
 <button class="share-btn" onclick="sharePicks()">🏆 Compartir mis Picks</button>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const RACES = [
   {n:1, type:'Gran Final del Derby 2026', special:true, dist:'',
-   horses:[{name:'EL BANDIDO',cuadra:'C. Aguirre'},{name:'LA CORITA',cuadra:'C. El Viejo Paulino'},{name:'EL CENTELLA',cuadra:'C. Tecolotes'}]},
-  {n:2, type:'Carrera', dist:'',
-   horses:[{name:'TAPADO',cuadra:'C. Tecolotes'},{name:'TAPADO',cuadra:''}]},
-  {n:3, type:'Carrera de Campeones', special:true, dist:'300 VTP',
-   horses:[{name:'LA ZOTA',cuadra:'C. Pilar'},{name:'EL JUNIOR',cuadra:'C. Pilar'}]},
-  {n:4, type:'Carrera', dist:'225 VTP',
-   horses:[{name:'LA BANDIDA',cuadra:''},{name:'EL 19',cuadra:''}]},
-  {n:5, type:'Carrera', dist:'200 VTP',
-   horses:[{name:'EL MANGO LOCO',cuadra:'C. Tecolotes'},{name:'REMOLINO',cuadra:'C. Águila'}]},
-  {n:6, type:'Carrera', dist:'',
-   horses:[{name:'LA NELY',cuadra:'C. Tecolotes'},{name:'EL JUDIO',cuadra:''}]},
-  {n:7, type:'Carrera de Revancha', special:true, dist:'300 VTP',
-   horses:[{name:'EL CUATRERO',cuadra:'C. Mi Familia'},{name:'EL RELÁMPAGO',cuadra:'C. Prado'}]},
-  {n:8, type:'Carrera', dist:'',
-   horses:[{name:'EL RESCATADO',cuadra:'C. Avila'},{name:'LA PRIMA',cuadra:'C. Prado'}]},
-  {n:9, type:'Carrera', dist:'',
-   horses:[{name:'LA PRINCESA',cuadra:'C. Catrina'},{name:'EL RUFY',cuadra:''}]},
-  {n:10, type:'Carrera', dist:'250 VTP',
-   horses:[{name:'EL CHOLO',cuadra:'C. Tecolotes'},{name:'LA CATRINA',cuadra:'C. Bravo'}]},
+   h1:'EL BANDIDO', c1:'C. Aguirre', i1:'la-mami.jpg',
+   h2:'LA CORITA',  c2:'C. El Viejo Paulino', i2:'cristo-rey.jpg',
+   h3:'EL CENTELLA',c3:'C. Tecolotes', i3:'pisces.jpg'},
+  {n:2,  type:'Carrera', dist:'', h1:'TAPADO',       c1:'C. Tecolotes',  i1:'gutierrez.jpg',       h2:'TAPADO',       c2:'',              i2:'cuadra-mtz.jpg'},
+  {n:3,  type:'Carrera de Campeones 🔥', special:true, dist:'300 VTP', h1:'LA ZOTA', c1:'C. Pilar', i1:'la-mami.jpg', h2:'EL JUNIOR', c2:'C. Pilar', i2:'aries.jpg'},
+  {n:4,  type:'Carrera', dist:'225 VTP', h1:'LA BANDIDA',    c1:'',              i1:'la-reyna.jpg',        h2:'EL 19',        c2:'',              i2:'cuadra-esperanza.jpg'},
+  {n:5,  type:'Carrera', dist:'200 VTP', h1:'EL MANGO LOCO', c1:'C. Tecolotes',  i1:'el-chigon.jpg',       h2:'REMOLINO',     c2:'C. Águila',     i2:'cuadra-mtz.jpg'},
+  {n:6,  type:'Carrera', dist:'', h1:'LA NELY',       c1:'C. Tecolotes',  i1:'la-reyna.jpg',        h2:'EL JUDIO',     c2:'',              i2:'la-tepada.jpg'},
+  {n:7,  type:'Carrera de Revancha 🔥', special:true, dist:'300 VTP', h1:'EL CUATRERO', c1:'C. Mi Familia', i1:'gutierrez.jpg', h2:'EL RELÁMPAGO', c2:'C. Prado', i2:'cristo-rey.jpg'},
+  {n:8,  type:'Carrera', dist:'', h1:'EL RESCATADO',  c1:'C. Avila',      i1:'cuadra-mtz.jpg',      h2:'LA PRIMA',     c2:'C. Prado',      i2:'cuadra-esperanza.jpg'},
+  {n:9,  type:'Carrera', dist:'', h1:'LA PRINCESA',   c1:'C. Catrina',    i1:'la-reyna.jpg',        h2:'EL RUFY',      c2:'',              i2:'pisces.jpg'},
+  {n:10, type:'Carrera', dist:'250 VTP', h1:'EL CHOLO', c1:'C. Tecolotes', i1:'el-chigon.jpg', h2:'LA CATRINA', c2:'C. Bravo', i2:'la-tepada.jpg'},
 ];
 
 const picks = {};
 
-function initials(n){ return n.split(' ').map(w=>w[0]).join('').slice(0,2); }
-
 function buildRaces(){
   const list = document.getElementById('raceList');
   RACES.forEach(r => {
+    const isTriple = !!r.h3;
     const card = document.createElement('div');
-    card.className = 'rr' + (r.special ? ' special' : '');
+    card.className = 'rr'+(r.special?' special':'');
     card.id = `rr-${r.n}`;
 
-    const cols = r.horses.length === 3 ? 'three' : 'two';
-
-    let duelsHTML = '';
-    r.horses.forEach((h,i)=>{
-      if(i>0) duelsHTML += `<div class="duel-mid"><div class="duel-vs">VS</div><div class="duel-cn">C${r.n}</div></div>`;
-      duelsHTML += `
-        <div class="dh ${i===r.horses.length-1?'dr':'dl'}" id="dh-${r.n}-${i}" onclick="pick(${r.n},${i})">
-          <div class="dh-init">${initials(h.name)}</div>
-          <div class="pick-ring"></div>
-          <div class="pick-check">✓</div>
-          <div class="dh-info">
-            <div class="dh-name">${h.name}</div>
-            <div class="dh-cuad">${h.cuadra}</div>
+    const duels = isTriple
+      ? `<div class="duel-grid three">
+          <div class="dh dl" id="dh-${r.n}-0" onclick="pick(${r.n},0)">
+            <img src="${r.i1}" alt="${r.h1}"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h1}</div><div class="dh-cuad">${r.c1}</div></div>
+          </div>
+          <div class="duel-mid"><div class="duel-vs">VS</div></div>
+          <div class="dh" id="dh-${r.n}-1" onclick="pick(${r.n},1)">
+            <img src="${r.i2}" alt="${r.h2}"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h2}</div><div class="dh-cuad">${r.c2}</div></div>
+          </div>
+          <div class="duel-mid"><div class="duel-vs">VS</div></div>
+          <div class="dh dr" id="dh-${r.n}-2" onclick="pick(${r.n},2)">
+            <img src="${r.i3}" alt="${r.h3}"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h3}</div><div class="dh-cuad">${r.c3}</div></div>
+          </div>
+        </div>`
+      : `<div class="duel-grid">
+          <div class="dh dl" id="dh-${r.n}-0" onclick="pick(${r.n},0)">
+            <img src="${r.i1}" alt="${r.h1}"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h1}</div><div class="dh-cuad">${r.c1}</div></div>
+          </div>
+          <div class="duel-mid"><div class="duel-vs">VS</div><div class="duel-cn">C${r.n}</div></div>
+          <div class="dh dr" id="dh-${r.n}-1" onclick="pick(${r.n},1)">
+            <img src="${r.i2}" alt="${r.h2}"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h2}</div><div class="dh-cuad">${r.c2}</div></div>
           </div>
         </div>`;
-    });
-
-    const firstH = r.horses[0];
-    const lastH = r.horses[r.horses.length-1];
 
     card.innerHTML = `
       <div class="rr-top">
         <div class="rr-badge">${r.n}</div>
-        ${r.special?'<span class="spec-tag">🔥 ESPECIAL</span>':''}
-        <div class="rr-names">
-          <div class="rr-n1">${firstH.name}</div>
-          <div class="rr-cuad">${firstH.cuadra}</div>
-        </div>
+        ${r.special?'<span class="spec-tag">🔥</span>':''}
+        <div class="rr-ico"><img src="${r.i1}" alt="${r.h1}"></div>
+        <div class="rr-names"><div class="rr-n1">${r.h1}</div><div class="rr-cuad">${r.c1}</div></div>
         <div class="rr-vs">VS</div>
-        <div class="rr-names" style="text-align:right">
-          <div class="rr-n1">${lastH.name}</div>
-          <div class="rr-cuad">${lastH.cuadra}</div>
-        </div>
+        <div class="rr-names" style="text-align:right"><div class="rr-n1">${isTriple?r.h3:r.h2}</div><div class="rr-cuad">${isTriple?r.c3:r.c2}</div></div>
+        <div class="rr-ico"><img src="${isTriple?r.i3:r.i2}" alt="${isTriple?r.h3:r.h2}"></div>
         ${r.dist?`<div class="rr-dist">${r.dist}</div>`:''}
       </div>
-      <div class="rr-duel">
-        <div class="duel-grid ${cols}">${duelsHTML}</div>
-      </div>`;
+      <div class="rr-duel">${duels}</div>`;
 
     card.querySelector('.rr-top').addEventListener('click',()=>{
       const was = card.classList.contains('open');
       document.querySelectorAll('.rr.open').forEach(el=>el.classList.remove('open'));
       if(!was) card.classList.add('open');
     });
-
     list.appendChild(card);
   });
 }
 
 function pick(raceNum, idx){
   const r = RACES.find(x=>x.n===raceNum);
+  const total = r.h3 ? 3 : 2;
   const isRepick = picks[raceNum]?.idx === idx;
 
   if(isRepick){
     delete picks[raceNum];
-    r.horses.forEach((_,i)=>{
-      document.getElementById(`dh-${raceNum}-${i}`)?.classList.remove('selected','dimmed');
-    });
+    for(let i=0;i<total;i++) document.getElementById(`dh-${raceNum}-${i}`)?.classList.remove('selected','dimmed');
     document.getElementById(`rr-${raceNum}`)?.classList.remove('picked');
   } else {
-    picks[raceNum] = {idx, name:r.horses[idx].name, cuadra:r.horses[idx].cuadra};
-    r.horses.forEach((_,i)=>{
+    const names = [r.h1,r.h2,r.h3||null];
+    const cuadras = [r.c1,r.c2,r.c3||''];
+    picks[raceNum] = {idx, name:names[idx], cuadra:cuadras[idx]};
+    for(let i=0;i<total;i++){
       const el = document.getElementById(`dh-${raceNum}-${i}`);
-      el?.classList.toggle('selected', i===idx);
-      el?.classList.toggle('dimmed', i!==idx);
-    });
+      el?.classList.toggle('selected',i===idx);
+      el?.classList.toggle('dimmed',i!==idx);
+    }
     document.getElementById(`rr-${raceNum}`)?.classList.add('picked');
     toast(`★ ${picks[raceNum].name}`);
   }
   updatePanel();
+}
+
+function pickEstelar(idx){
+  pick(3, idx);
+  // sync estelar card ui
+  [0,1].forEach(i=>{
+    const el = document.getElementById(`ec-${i}`);
+    if(!el) return;
+    el.classList.remove('selected','dimmed');
+    if(picks[3]){
+      el.classList.toggle('selected', i===idx);
+      el.classList.toggle('dimmed', i!==idx);
+    }
+  });
 }
 
 function updatePanel(){
@@ -286,12 +381,9 @@ function updatePanel(){
 function sharePicks(){
   const count = Object.keys(picks).length;
   if(!count){toast('¡Elige tus picks primero!');return;}
-  let txt = '🏆 Mis Picks — Gran Final del Derby 2026\n📅 12 de Julio · El Carril de los Campeones\n\n';
-  RACES.forEach(r=>{
-    const p = picks[r.n];
-    txt += `C${r.n}: ${p?'★ '+p.name:'—'}\n`;
-  });
-  txt += '\nhttps://guttix1.github.io/Digital-flyer-/events/gran-final-derby-jul12/picks.html';
+  let txt='🏆 Mis Picks — Gran Final del Derby 2026\n📅 12 de Julio · El Carril de los Campeones\n\n';
+  RACES.forEach(r=>{const p=picks[r.n];txt+=`C${r.n}: ${p?'★ '+p.name:'—'}\n`;});
+  txt+='\nhttps://guttix1.github.io/Digital-flyer-/events/gran-final-derby-jul12/picks.html';
   if(navigator.share){navigator.share({title:'Mis Picks · Derby 2026',text:txt}).catch(()=>{});}
   else{navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{});}
 }
@@ -302,7 +394,7 @@ function toast(msg){
   clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600);
 }
 
-document.getElementById('sfn').textContent=(1840+Math.floor(Math.random()*15)).toLocaleString();
+document.getElementById('sfn').textContent=(2098+Math.floor(Math.random()*12)).toLocaleString();
 buildRaces();
 updatePanel();
 </script>
