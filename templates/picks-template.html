@@ -8,7 +8,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden;padding-bottom:140px}
+body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden;padding-bottom:80px}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:3px solid #FFD200;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;box-shadow:0 3px 16px rgba(0,0,0,.08)}
@@ -151,51 +151,6 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(max-width:380px){.rr-dist{display:none}}
-
-/* ── ADS ── */
-.ad-slot{margin:.9rem .8rem 0;border-radius:14px;overflow:hidden;display:block;text-decoration:none}
-/* CarrerasOS ad */
-.ad-carrerasos{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);border:1.5px solid rgba(255,210,0,.25);padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem}
-.ad-carrerasos .ad-icon{width:44px;height:44px;background:#FFD200;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#000;letter-spacing:.04em;flex-shrink:0}
-.ad-carrerasos .ad-text{}
-.ad-carrerasos .ad-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#FFD200;line-height:1}
-.ad-carrerasos .ad-desc{font-size:.58rem;color:rgba(255,255,255,.45);letter-spacing:.05em;text-transform:uppercase;margin-top:.2rem}
-.ad-carrerasos .ad-cta{margin-left:auto;background:#FFD200;color:#000;font-size:.58rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .75rem;border-radius:20px;white-space:nowrap;flex-shrink:0}
-/* Appear here ad */
-.ad-appear{background:#f8f8f8;border:1.5px dashed #ddd;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem}
-.ad-appear .ad-plus{width:36px;height:36px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#ccc;flex-shrink:0}
-.ad-appear .ad-text .ad-name{font-size:.75rem;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:.08em}
-.ad-appear .ad-text .ad-desc{font-size:.58rem;color:#ccc;margin-top:.15rem}
-.ad-appear .ad-cta-ghost{margin-left:auto;border:1.5px solid #ddd;color:#bbb;font-size:.56rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:20px;white-space:nowrap;flex-shrink:0}
-
-/* ── MUSIC PLAYER ── */
-.music-bar{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#111;
-  border-top:2px solid #FFD200;
-  padding:.6rem 1rem;
-  display:flex;align-items:center;gap:.75rem;
-  z-index:300;
-  box-shadow:0 -4px 24px rgba(0,0,0,.3);
-}
-.music-art{
-  width:40px;height:40px;border-radius:8px;
-  background:linear-gradient(135deg,#FFD200,#FF6B00);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;flex-shrink:0;
-  animation:spin-art 8s linear infinite;
-  animation-play-state:paused;
-}
-.music-bar.playing .music-art{animation-play-state:running}
-@keyframes spin-art{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}
-.music-info{flex:1;min-width:0}
-.music-title{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#FFD200;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.music-artist{font-size:.56rem;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:.15rem}
-.music-controls{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
-.music-btn{background:none;border:none;color:#FFD200;font-size:1.1rem;cursor:pointer;padding:.3rem;display:flex;align-items:center;justify-content:center;transition:opacity .15s}
-.music-btn:active{opacity:.6}
-.music-btn.muted{color:rgba(255,255,255,.3)}
-.music-progress{position:absolute;bottom:0;left:0;height:2px;background:#FFD200;width:0%;transition:width .5s linear;opacity:.5}
 </style>
 </head>
 <body>
@@ -290,45 +245,6 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 </div>
 
 <button class="share-btn" onclick="sharePicks()">🏆 Compartir mis Picks</button>
-
-<!-- AD: CarrerasOS -->
-<a class="ad-slot ad-carrerasos" href="#" onclick="return false">
-  <div class="ad-icon">C<span style="color:#FF6B00">OS</span></div>
-  <div class="ad-text">
-    <div class="ad-name">CarrerasOS</div>
-    <div class="ad-desc">Tu plataforma de carreras de caballos</div>
-  </div>
-  <div class="ad-cta">Descargar</div>
-</a>
-
-<!-- AD: Appear Here -->
-<a class="ad-slot ad-appear" href="mailto:gutti925@gmail.com" onclick="return false">
-  <div class="ad-plus">+</div>
-  <div class="ad-text">
-    <div class="ad-name">Tu negocio aquí</div>
-    <div class="ad-desc">Llega a miles de fanáticos de las carreras</div>
-  </div>
-  <div class="ad-cta-ghost">Anúnciate</div>
-</a>
-
-<!-- MUSIC PLAYER -->
-<div class="music-bar" id="musicBar">
-  <div class="music-progress" id="musicProgress"></div>
-  <div class="music-art">🎵</div>
-  <div class="music-info">
-    <div class="music-title" id="musicTitle">Cargando...</div>
-    <div class="music-artist" id="musicArtist">—</div>
-  </div>
-  <div class="music-controls">
-    <button class="music-btn" id="playBtn" onclick="togglePlay()">▶</button>
-    <button class="music-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
-  </div>
-</div>
-
-<audio id="audio" preload="auto" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -481,55 +397,6 @@ function toast(msg){
 document.getElementById('sfn').textContent=(2098+Math.floor(Math.random()*12)).toLocaleString();
 buildRaces();
 updatePanel();
-
-// ── MUSIC PLAYER ──
-const audio = document.getElementById('audio');
-const playBtn = document.getElementById('playBtn');
-const muteBtn = document.getElementById('muteBtn');
-const musicBar = document.getElementById('musicBar');
-const musicProgress = document.getElementById('musicProgress');
-
-// Song info — update these when you upload music.mp3
-const SONG = { title: 'Subir canción...', artist: 'Sube un archivo music.mp3' };
-document.getElementById('musicTitle').textContent = SONG.title;
-document.getElementById('musicArtist').textContent = SONG.artist;
-
-audio.volume = 0.7;
-
-// Auto-play on first user interaction
-let started = false;
-function tryPlay(){
-  if(started) return;
-  started = true;
-  audio.play().then(()=>{
-    playBtn.textContent = '⏸';
-    musicBar.classList.add('playing');
-  }).catch(()=>{});
-}
-document.addEventListener('click', tryPlay, {once:true});
-document.addEventListener('touchstart', tryPlay, {once:true});
-
-function togglePlay(){
-  if(audio.paused){
-    audio.play().then(()=>{ playBtn.textContent='⏸'; musicBar.classList.add('playing'); }).catch(()=>{});
-  } else {
-    audio.pause();
-    playBtn.textContent='▶';
-    musicBar.classList.remove('playing');
-  }
-}
-
-function toggleMute(){
-  audio.muted = !audio.muted;
-  muteBtn.textContent = audio.muted ? '🔇' : '🔊';
-  muteBtn.classList.toggle('muted', audio.muted);
-}
-
-audio.addEventListener('timeupdate', ()=>{
-  if(!audio.duration) return;
-  musicProgress.style.width = (audio.currentTime / audio.duration * 100) + '%';
-});
-audio.addEventListener('ended', ()=>{ musicProgress.style.width='0%'; });
 </script>
 </body>
 </html>
