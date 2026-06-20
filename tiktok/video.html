@@ -607,22 +607,40 @@ for (let i = 0; i < 30; i++) {
   dirtEl.appendChild(s);
 }
 
-// ── Caption data (45 seconds @ ~3-4s per line) ──────────────────────────────
-// UPDATE THESE with actual lyrics from the song!
+// ── Caption data — timings are from real audio analysis (VAD) ────────────────
+// Slots 1-8 below match actual vocal segments detected in the song.
+// Replace each "[ ... ]" text with the real lyric line.
+// Intro is 0–14.8s (music only, no caption needed — or add a title card).
 const captions = [
-  { start:  0.0, end:  3.5, lines: ['🎵 Aura Dorada'], style: 'gold' },
-  { start:  3.5, end:  7.0, lines: ['El campeón', 'de la pista'], style: 'normal' },
-  { start:  7.0, end: 10.5, lines: ['Con su aura', 'que brilla'], style: 'highlight' },
-  { start: 10.5, end: 14.0, lines: ['Nadie lo para', 'en el carril'], style: 'normal' },
-  { start: 14.0, end: 17.5, lines: ['Corre veloz', '💨 como el viento'], style: 'gold' },
-  { start: 17.5, end: 21.0, lines: ['Su cuadra orgullosa', 'lo aplaude'], style: 'normal' },
-  { start: 21.0, end: 24.5, lines: ['300 metros', 'de gloria'], style: 'highlight' },
-  { start: 24.5, end: 28.0, lines: ['El pueblo entero', 'lo conoce'], style: 'normal' },
-  { start: 28.0, end: 31.5, lines: ['¡AURA DORADA!', '🏆'], style: 'gold' },
-  { start: 31.5, end: 35.0, lines: ['El más rápido', 'del estado'], style: 'normal' },
-  { start: 35.0, end: 38.5, lines: ['Su corazón', 'de campeón'], style: 'highlight' },
-  { start: 38.5, end: 42.0, lines: ['Que brille', 'su aura dorada'], style: 'gold' },
-  { start: 42.0, end: 45.0, lines: ['🐎 Para siempre', 'CAMPEÓN 🏆'], style: 'gold' },
+  // Intro title card (0 – 14.8s, no vocals)
+  { start:  0.0,  end: 14.8, lines: ['🎵 Aura Dorada'], style: 'gold' },
+
+  // Vocal segment 1  (14.8 – 16.8s)
+  { start: 14.8,  end: 16.8, lines: ['[ Línea 1 ]'], style: 'normal' },
+
+  // Vocal segment 2  (17.0 – 19.5s)
+  { start: 17.0,  end: 19.5, lines: ['[ Línea 2 ]'], style: 'normal' },
+
+  // Vocal segment 3  (20.0 – 23.8s)
+  { start: 20.0,  end: 23.8, lines: ['[ Línea 3 ]', '[ Línea 3b ]'], style: 'highlight' },
+
+  // Vocal segment 4  (24.2 – 25.2s, short)
+  { start: 24.2,  end: 25.2, lines: ['[ Línea 4 ]'], style: 'normal' },
+
+  // Vocal segment 5  (28.0 – 31.2s)
+  { start: 28.0,  end: 31.2, lines: ['[ Línea 5 ]', '[ Línea 5b ]'], style: 'gold' },
+
+  // Vocal segment 6  (31.5 – 34.5s)
+  { start: 31.5,  end: 34.5, lines: ['[ Línea 6 ]', '[ Línea 6b ]'], style: 'normal' },
+
+  // Vocal segment 7  (34.8 – 37.5s, first half of long segment)
+  { start: 34.8,  end: 37.5, lines: ['[ Línea 7 ]'], style: 'highlight' },
+
+  // Vocal segment 7b (37.5 – 40.5s, second half)
+  { start: 37.5,  end: 40.5, lines: ['[ Línea 7b ]'], style: 'highlight' },
+
+  // Vocal segment 8  (40.8 – 45.0s)
+  { start: 40.8,  end: 45.0, lines: ['[ Línea 8 ]', '[ Línea 8b ]'], style: 'gold' },
 ];
 
 // Build caption elements
