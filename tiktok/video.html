@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Aura Dorada – TikTok Video</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  }
+
+  /* TikTok 9:16 canvas */
+  #canvas {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    overflow: hidden;
+    background: #0a0a0a;
+    transform-origin: top left;
+  }
+
+  /* ── Background layers ── */
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 0%, #1a0a00 0%, transparent 70%),
+      radial-gradient(ellipse 80% 50% at 20% 80%, #1a0800 0%, transparent 60%),
+      linear-gradient(180deg, #0d0500 0%, #080808 40%, #050010 100%);
+  }
+
+  /* Particle dust */
+  .dust {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .dust span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #F5C518;
+    opacity: 0;
+    animation: floatDust var(--d) var(--delay) ease-in infinite;
+  }
+  @keyframes floatDust {
+    0%   { transform: translateY(100%) translateX(0px); opacity: 0; }
+    10%  { opacity: 0.6; }
+    80%  { opacity: 0.3; }
+    100% { transform: translateY(-120px) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* Gold shimmer lines */
+  .shimmer-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #F5C51855, #F5C518, #F5C51855, transparent);
+    animation: shimmerMove var(--sd) var(--sdelay) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes shimmerMove {
+    0%   { transform: translateY(0); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 0.5; }
+    100% { transform: translateY(-1920px); opacity: 0; }
+  }
+
+  /* ── Horse silhouette ── */
+  .horse-wrap {
+    position: absolute;
+    bottom: 580px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 760px;
+    height: 520px;
+    animation: horseGallop 0.3s ease-in-out infinite alternate;
+  }
+  @keyframes horseGallop {
+    from { transform: translateX(-50%) translateY(0px) rotate(-0.5deg); }
+    to   { transform: translateX(-50%) translateY(-12px) rotate(0.5deg); }
+  }
+
+  .horse-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 40px #F5C51888) drop-shadow(0 0 80px #F5C51844);
+  }
+
+  /* Ground glow */
+  .ground-glow {
+    position: absolute;
+    bottom: 550px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 80px;
+    background: radial-gradient(ellipse, #F5C51822 0%, transparent 70%);
+    animation: groundPulse 2s ease-in-out infinite alternate;
+  }
+  @keyframes groundPulse {
+    from { opacity: 0.5; width: 800px; }
+    to   { opacity: 1; width: 1000px; }
+  }
+
+  /* Dirt particles flying */
+  .dirt {
+    position: absolute;
+    bottom: 570px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 200px;
+    pointer-events: none;
+  }
+  .dirt span {
+    position: absolute;
+    background: #8B6914;
+    border-radius: 50%;
+    animation: dirtFly var(--dd) var(--ddelay) ease-out infinite;
+    opacity: 0;
+  }
+  @keyframes dirtFly {
+    0%   { transform: translate(0,0) scale(1); opacity: 0.8; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+  }
+
+  /* ── Speed lines ── */
+  .speed-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .speed-line {
+    position: absolute;
+    left: -200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #F5C51833, transparent);
+    border-radius: 2px;
+    animation: speedLine var(--sl) var(--sldelay) ease-in infinite;
+  }
+  @keyframes speedLine {
+    0%   { transform: translateX(-200px) scaleX(0); opacity: 0; }
+    30%  { opacity: 1; }
+    100% { transform: translateX(1400px) scaleX(1); opacity: 0; }
+  }
+
+  /* ── Top branding ── */
+  .top-brand {
+    position: absolute;
+    top: 120px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .brand-badge {
+    display: inline-block;
+    padding: 16px 48px;
+    border: 2px solid #F5C518;
+    border-radius: 60px;
+    background: rgba(245,197,24,0.08);
+    backdrop-filter: blur(8px);
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%,100% { box-shadow: 0 0 20px #F5C51840; }
+    50%      { box-shadow: 0 0 50px #F5C51880, 0 0 100px #F5C51840; }
+  }
+  .brand-text {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #F5C518;
+  }
+  .brand-sub {
+    font-size: 22px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 4px;
+    margin-top: 6px;
+  }
+
+  /* ── Title block ── */
+  .title-block {
+    position: absolute;
+    top: 320px;
+    left: 0; right: 0;
+    text-align: center;
+    padding: 0 80px;
+  }
+  .song-title {
+    font-size: 130px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    color: #fff;
+    text-shadow:
+      0 0 40px #F5C51888,
+      0 0 80px #F5C51844,
+      0 4px 0 rgba(0,0,0,0.8);
+    animation: titleShine 4s ease-in-out infinite alternate;
+  }
+  .song-title .gold { color: #F5C518; }
+
+  @keyframes titleShine {
+    from { text-shadow: 0 0 40px #F5C51888, 0 0 80px #F5C51844, 0 4px 0 rgba(0,0,0,0.8); }
+    to   { text-shadow: 0 0 80px #F5C518CC, 0 0 160px #F5C51866, 0 4px 0 rgba(0,0,0,0.8); }
+  }
+
+  /* ── Caption area ── */
+  .caption-area {
+    position: absolute;
+    bottom: 280px;
+    left: 60px;
+    right: 60px;
+    text-align: center;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .caption {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: captionIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .caption.active { display: flex; }
+
+  @keyframes captionIn {
+    from { transform: scale(0.85) translateY(20px); opacity: 0; }
+    to   { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .caption-line {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    text-align: center;
+    text-shadow:
+      0 0 30px rgba(245,197,24,0.6),
+      3px 3px 0 #000,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000;
+    letter-spacing: 1px;
+  }
+
+  .caption-line.gold-line {
+    color: #F5C518;
+    text-shadow:
+      0 0 40px rgba(245,197,24,0.8),
+      3px 3px 0 #000,
+      -1px -1px 0 #000;
+  }
+
+  .caption-highlight {
+    display: inline-block;
+    background: #F5C518;
+    color: #000;
+    padding: 4px 24px;
+    border-radius: 8px;
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  /* ── Progress bar ── */
+  .progress-bar {
+    position: absolute;
+    bottom: 180px;
+    left: 100px;
+    right: 100px;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #F5C518, #ff9500);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 12px #F5C518;
+  }
+
+  /* ── Bottom info bar ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .artist-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F5C518, #ff6b00);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 900;
+    color: #000;
+    border: 3px solid rgba(255,255,255,0.3);
+  }
+  .artist-name {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .artist-handle {
+    font-size: 28px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+  .music-note {
+    font-size: 50px;
+    animation: spin 4s linear infinite;
+    filter: drop-shadow(0 0 10px #F5C518);
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── Play overlay ── */
+  #play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  #play-overlay.hidden { display: none; }
+  .play-btn {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #F5C518;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    color: #000;
+    box-shadow: 0 0 60px #F5C51888, 0 0 120px #F5C51844;
+    animation: playPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes playPulse {
+    0%,100% { transform: scale(1); box-shadow: 0 0 60px #F5C51888, 0 0 120px #F5C51844; }
+    50%      { transform: scale(1.08); box-shadow: 0 0 80px #F5C518AA, 0 0 160px #F5C51866; }
+  }
+  .tap-label {
+    position: absolute;
+    bottom: 60px;
+    font-size: 42px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 3px;
+    font-weight: 600;
+  }
+
+  /* Flash on beat */
+  .beat-flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(245,197,24,0.15) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    animation: beatFlash 0s ease-out;
+  }
+  .beat-flash.pop {
+    animation: beatFlash 0.3s ease-out;
+  }
+  @keyframes beatFlash {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Corner decorations */
+  .corner {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-color: #F5C51866;
+    border-style: solid;
+  }
+  .corner.tl { top: 80px; left: 80px; border-width: 4px 0 0 4px; }
+  .corner.tr { top: 80px; right: 80px; border-width: 4px 4px 0 0; }
+  .corner.bl { bottom: 140px; left: 80px; border-width: 0 0 4px 4px; }
+  .corner.br { bottom: 140px; right: 80px; border-width: 0 4px 4px 0; }
+</style>
+</head>
+<body>
+
+<div id="canvas">
+
+  <!-- Background -->
+  <div class="bg-gradient"></div>
+
+  <!-- Corner decorations -->
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Shimmer lines -->
+  <div class="shimmer-line" style="--sd:6s;--sdelay:0s;top:1960px;"></div>
+  <div class="shimmer-line" style="--sd:8s;--sdelay:2s;top:1960px;"></div>
+  <div class="shimmer-line" style="--sd:7s;--sdelay:4s;top:1960px;"></div>
+  <div class="shimmer-line" style="--sd:9s;--sdelay:1s;top:1960px;"></div>
+  <div class="shimmer-line" style="--sd:5s;--sdelay:3s;top:1960px;"></div>
+
+  <!-- Speed lines -->
+  <div class="speed-lines" id="speed-lines"></div>
+
+  <!-- Dust particles -->
+  <div class="dust" id="dust"></div>
+
+  <!-- Beat flash -->
+  <div class="beat-flash" id="beat-flash"></div>
+
+  <!-- Ground glow -->
+  <div class="ground-glow"></div>
+
+  <!-- Horse SVG silhouette -->
+  <div class="horse-wrap">
+    <svg class="horse-svg" viewBox="0 0 600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Galloping horse silhouette -->
+      <g fill="#F5C518" opacity="0.92">
+        <!-- Body -->
+        <ellipse cx="300" cy="220" rx="180" ry="90" />
+        <!-- Neck -->
+        <path d="M380 160 Q420 100 400 60 Q380 40 360 55 Q340 70 350 110 Q360 140 370 160 Z"/>
+        <!-- Head -->
+        <path d="M395 65 Q430 30 445 45 Q460 60 440 85 Q420 100 400 90 Z"/>
+        <!-- Ear -->
+        <path d="M415 45 Q425 25 435 35 Q428 50 418 52 Z"/>
+        <!-- Mane -->
+        <path d="M375 75 Q390 55 410 60 Q395 75 385 90 Q370 85 375 75 Z" opacity="0.7"/>
+        <path d="M365 95 Q382 78 398 82 Q385 100 373 112 Q358 105 365 95 Z" opacity="0.7"/>
+        <!-- Tail -->
+        <path d="M120 200 Q60 160 50 200 Q60 240 80 260 Q100 240 120 220 Z" opacity="0.8"/>
+        <path d="M120 220 Q55 200 45 250 Q55 280 75 290 Q95 270 115 240 Z" opacity="0.6"/>
+        <!-- Front legs (gallop extended) -->
+        <path d="M340 295 Q330 350 315 390 Q310 400 320 402 Q330 404 338 395 Q348 360 355 310 Z"/>
+        <path d="M290 300 Q280 360 265 395 Q260 405 270 407 Q280 409 288 398 Q300 365 308 305 Z"/>
+        <!-- Rear legs -->
+        <path d="M220 290 Q230 340 235 385 Q233 395 223 396 Q213 397 210 387 Q205 350 215 295 Z"/>
+        <path d="M165 275 Q175 330 180 375 Q178 385 168 386 Q158 387 155 377 Q150 340 160 280 Z"/>
+        <!-- Hooves -->
+        <ellipse cx="325" cy="402" rx="16" ry="8"/>
+        <ellipse cx="275" cy="407" rx="16" ry="8"/>
+        <ellipse cx="220" cy="396" rx="16" ry="8"/>
+        <ellipse cx="163" cy="386" rx="16" ry="8"/>
+        <!-- Eye -->
+        <circle cx="432" cy="68" r="6" fill="#000"/>
+        <circle cx="434" cy="66" r="2" fill="#F5C518"/>
+        <!-- Nostril -->
+        <ellipse cx="446" cy="80" rx="4" ry="3" fill="#cc9900"/>
+      </g>
+      <!-- Gold glow under horse -->
+      <ellipse cx="300" cy="395" rx="200" ry="20" fill="#F5C518" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <!-- Dirt particles -->
+  <div class="dirt" id="dirt"></div>
+
+  <!-- Top branding -->
+  <div class="top-brand">
+    <div class="brand-badge">
+      <div class="brand-text">🐎 Aura Dorada</div>
+      <div class="brand-sub">CARRERAS DE CABALLOS</div>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-block">
+    <div class="song-title">
+      <span class="gold">AURA</span><br>DORADA
+    </div>
+  </div>
+
+  <!-- Caption area -->
+  <div class="caption-area" id="caption-area">
+    <!-- Captions injected by JS -->
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <div class="artist-info">
+      <div class="avatar">🐎</div>
+      <div>
+        <div class="artist-name">Aura Dorada</div>
+        <div class="artist-handle">@carrerasdecaballos</div>
+      </div>
+    </div>
+    <div class="music-note">♪</div>
+  </div>
+
+  <!-- Play overlay -->
+  <div id="play-overlay">
+    <div style="text-align:center">
+      <div class="play-btn">▶</div>
+      <div class="tap-label">TAP TO PLAY</div>
+    </div>
+  </div>
+
+  <!-- Hidden audio -->
+  <audio id="audio" src="aura_dorada.mp3" preload="auto"></audio>
+</div>
+
+<script>
+// ── Scale canvas to fit window ──────────────────────────────────────────────
+function scaleCanvas() {
+  const canvas = document.getElementById('canvas');
+  const scaleX = window.innerWidth / 1080;
+  const scaleY = window.innerHeight / 1920;
+  const scale = Math.min(scaleX, scaleY);
+  canvas.style.transform = `scale(${scale})`;
+  canvas.style.position = 'absolute';
+  canvas.style.left = `${(window.innerWidth - 1080 * scale) / 2}px`;
+  canvas.style.top = `${(window.innerHeight - 1920 * scale) / 2}px`;
+}
+scaleCanvas();
+window.addEventListener('resize', scaleCanvas);
+
+// ── Generate background particles ───────────────────────────────────────────
+const dustEl = document.getElementById('dust');
+for (let i = 0; i < 40; i++) {
+  const s = document.createElement('span');
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*30}%;
+    --d:${3+Math.random()*5}s;
+    --delay:${Math.random()*6}s;
+    --drift:${(Math.random()-0.5)*120}px;
+    width:${2+Math.random()*4}px;
+    height:${2+Math.random()*4}px;
+    opacity:${0.3+Math.random()*0.7};
+  `;
+  dustEl.appendChild(s);
+}
+
+// Speed lines
+const slEl = document.getElementById('speed-lines');
+for (let i = 0; i < 20; i++) {
+  const l = document.createElement('div');
+  l.className = 'speed-line';
+  l.style.cssText = `
+    top:${200+Math.random()*1400}px;
+    width:${200+Math.random()*400}px;
+    --sl:${1+Math.random()*2}s;
+    --sldelay:${Math.random()*4}s;
+    opacity:${0.3+Math.random()*0.4};
+  `;
+  slEl.appendChild(l);
+}
+
+// Dirt particles
+const dirtEl = document.getElementById('dirt');
+for (let i = 0; i < 30; i++) {
+  const s = document.createElement('span');
+  const size = 4 + Math.random() * 12;
+  s.style.cssText = `
+    left:${10+Math.random()*80}%;
+    bottom:${Math.random()*60}px;
+    width:${size}px;
+    height:${size}px;
+    --dd:${0.6+Math.random()*1.2}s;
+    --ddelay:${Math.random()*2}s;
+    --dx:${(Math.random()-0.5)*300}px;
+    --dy:${-(30+Math.random()*120)}px;
+  `;
+  dirtEl.appendChild(s);
+}
+
+// ── Caption data (45 seconds @ ~3-4s per line) ──────────────────────────────
+// UPDATE THESE with actual lyrics from the song!
+const captions = [
+  { start:  0.0, end:  3.5, lines: ['🎵 Aura Dorada'], style: 'gold' },
+  { start:  3.5, end:  7.0, lines: ['El campeón', 'de la pista'], style: 'normal' },
+  { start:  7.0, end: 10.5, lines: ['Con su aura', 'que brilla'], style: 'highlight' },
+  { start: 10.5, end: 14.0, lines: ['Nadie lo para', 'en el carril'], style: 'normal' },
+  { start: 14.0, end: 17.5, lines: ['Corre veloz', '💨 como el viento'], style: 'gold' },
+  { start: 17.5, end: 21.0, lines: ['Su cuadra orgullosa', 'lo aplaude'], style: 'normal' },
+  { start: 21.0, end: 24.5, lines: ['300 metros', 'de gloria'], style: 'highlight' },
+  { start: 24.5, end: 28.0, lines: ['El pueblo entero', 'lo conoce'], style: 'normal' },
+  { start: 28.0, end: 31.5, lines: ['¡AURA DORADA!', '🏆'], style: 'gold' },
+  { start: 31.5, end: 35.0, lines: ['El más rápido', 'del estado'], style: 'normal' },
+  { start: 35.0, end: 38.5, lines: ['Su corazón', 'de campeón'], style: 'highlight' },
+  { start: 38.5, end: 42.0, lines: ['Que brille', 'su aura dorada'], style: 'gold' },
+  { start: 42.0, end: 45.0, lines: ['🐎 Para siempre', 'CAMPEÓN 🏆'], style: 'gold' },
+];
+
+// Build caption elements
+const captionArea = document.getElementById('caption-area');
+captions.forEach((cap, i) => {
+  const div = document.createElement('div');
+  div.className = 'caption';
+  div.id = `cap-${i}`;
+  cap.lines.forEach(line => {
+    const p = document.createElement('p');
+    if (cap.style === 'gold') {
+      p.className = 'caption-line gold-line';
+      p.textContent = line;
+    } else if (cap.style === 'highlight') {
+      const span = document.createElement('span');
+      span.className = 'caption-highlight';
+      span.textContent = line;
+      p.appendChild(span);
+      p.style.fontSize = '0';
+    } else {
+      p.className = 'caption-line';
+      p.textContent = line;
+    }
+    div.appendChild(p);
+  });
+  captionArea.appendChild(div);
+});
+
+// ── Playback engine ──────────────────────────────────────────────────────────
+const audio = document.getElementById('audio');
+const progressFill = document.getElementById('progress-fill');
+const beatFlash = document.getElementById('beat-flash');
+const DURATION = 45;
+
+let activeCap = -1;
+let lastBeat = 0;
+
+audio.addEventListener('timeupdate', () => {
+  const t = audio.currentTime;
+
+  // Progress bar
+  progressFill.style.width = `${Math.min(t / DURATION * 100, 100)}%`;
+
+  // Caption switching
+  let found = -1;
+  for (let i = 0; i < captions.length; i++) {
+    if (t >= captions[i].start && t < captions[i].end) { found = i; break; }
+  }
+  if (found !== activeCap) {
+    if (activeCap >= 0) document.getElementById(`cap-${activeCap}`).classList.remove('active');
+    if (found >= 0) document.getElementById(`cap-${found}`).classList.add('active');
+    activeCap = found;
+
+    // Beat flash on caption change
+    beatFlash.classList.remove('pop');
+    void beatFlash.offsetWidth;
+    beatFlash.classList.add('pop');
+  }
+
+  // Stop at 45s
+  if (t >= DURATION) {
+    audio.pause();
+    audio.currentTime = 0;
+    progressFill.style.width = '0%';
+    document.getElementById('play-overlay').classList.remove('hidden');
+    if (activeCap >= 0) document.getElementById(`cap-${activeCap}`).classList.remove('active');
+    activeCap = -1;
+  }
+});
+
+// Play on tap
+document.getElementById('play-overlay').addEventListener('click', () => {
+  document.getElementById('play-overlay').classList.add('hidden');
+  audio.currentTime = 0;
+  audio.play().catch(() => {
+    document.getElementById('play-overlay').classList.remove('hidden');
+  });
+});
+</script>
+</body>
+</html>
