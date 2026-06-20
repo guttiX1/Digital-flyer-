@@ -152,17 +152,20 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 
 @media(max-width:380px){.rr-dist{display:none}}
 
-/* ── ADS ── */
-.ad-slot{margin:.9rem .8rem 0;border-radius:14px;overflow:hidden;display:block;text-decoration:none}
-/* CarrerasOS ad */
-.ad-carrerasos{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);border:1.5px solid rgba(255,210,0,.25);padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem}
-.ad-carrerasos .ad-icon{width:44px;height:44px;background:#FFD200;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#000;letter-spacing:.04em;flex-shrink:0}
-.ad-carrerasos .ad-text{}
-.ad-carrerasos .ad-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:#FFD200;line-height:1}
-.ad-carrerasos .ad-desc{font-size:.58rem;color:rgba(255,255,255,.45);letter-spacing:.05em;text-transform:uppercase;margin-top:.2rem}
-.ad-carrerasos .ad-cta{margin-left:auto;background:#FFD200;color:#000;font-size:.58rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .75rem;border-radius:20px;white-space:nowrap;flex-shrink:0}
-/* Appear here ad */
-.ad-appear{background:#f8f8f8;border:1.5px dashed #ddd;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem}
+/* ── FLIP AD ── */
+.flip-ad-wrap{margin:.9rem .8rem 0;perspective:1000px}
+.flip-ad{position:relative;width:100%;aspect-ratio:4/3;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);cursor:pointer;border-radius:14px}
+.flip-ad.flipped{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden}
+.flip-front img{width:100%;height:100%;object-fit:cover;display:block}
+.flip-back{background:linear-gradient(135deg,#111,#1c1c1c);border:2px solid #FFD200;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px}
+.flip-back .fb-badge{background:#FFD200;color:#000;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;padding:6px 18px;border-radius:20px;text-transform:uppercase}
+.flip-back .fb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:#FFD200;text-align:center;line-height:.88;letter-spacing:.04em}
+.flip-back .fb-prize{font-size:3.5rem;font-weight:900;color:#fff;text-align:center;line-height:1}
+.flip-back .fb-prize span{color:#FFD200}
+.flip-back .fb-sub{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;text-align:center}
+.flip-back .fb-cta{background:#FFD200;color:#000;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;padding:8px 28px;border-radius:30px;text-transform:uppercase;margin-top:4px}
+.ad-appear{background:#f8f8f8;border:1.5px dashed #ddd;padding:.9rem 1.1rem;margin:.9rem .8rem 0;border-radius:14px;display:flex;align-items:center;gap:.9rem;text-decoration:none}
 .ad-appear .ad-plus{width:36px;height:36px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#ccc;flex-shrink:0}
 .ad-appear .ad-text .ad-name{font-size:.75rem;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:.08em}
 .ad-appear .ad-text .ad-desc{font-size:.58rem;color:#ccc;margin-top:.15rem}
@@ -291,18 +294,21 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 
 <button class="share-btn" onclick="sharePicks()">🏆 Compartir mis Picks</button>
 
-<!-- AD: CarrerasOS -->
-<a class="ad-slot ad-carrerasos" href="#" onclick="return false">
-  <div class="ad-icon">C<span style="color:#FF6B00">OS</span></div>
-  <div class="ad-text">
-    <div class="ad-name">CarrerasOS</div>
-    <div class="ad-desc">Tu plataforma de carreras de caballos</div>
+<!-- PICK6 FLIP AD -->
+<div class="flip-ad-wrap">
+  <div class="flip-ad" id="flipAd" onclick="this.classList.toggle('flipped')">
+    <div class="flip-front"><img src="ad-pick6.jpg" alt="PICK6 Raspa y Gana"></div>
+    <div class="flip-back">
+      <div class="fb-badge">Carril Dos Hermanos</div>
+      <div class="fb-title">RASPA<br>Y GANA</div>
+      <div class="fb-prize"><span>$</span>3K</div>
+      <div class="fb-sub">Pick 6 · ¡Acierta las 6 Carreras!</div>
+      <div class="fb-cta">Solo $5 · Juega Ya</div>
+    </div>
   </div>
-  <div class="ad-cta">Descargar</div>
-</a>
+</div>
 
-<!-- AD: Appear Here -->
-<a class="ad-slot ad-appear" href="mailto:gutti925@gmail.com" onclick="return false">
+<a class="ad-appear" href="#" onclick="return false">
   <div class="ad-plus">+</div>
   <div class="ad-text">
     <div class="ad-name">Tu negocio aquí</div>
@@ -479,6 +485,7 @@ function toast(msg){
 }
 
 document.getElementById('sfn').textContent=(2098+Math.floor(Math.random()*12)).toLocaleString();
+setInterval(()=>document.getElementById('flipAd')?.classList.toggle('flipped'), 4000);
 buildRaces();
 updatePanel();
 
