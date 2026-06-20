@@ -508,11 +508,6 @@
     </div>
   </div>
 
-  <!-- Caption area -->
-  <div class="caption-area" id="caption-area">
-    <!-- Captions injected by JS -->
-  </div>
-
   <!-- Progress bar -->
   <div class="progress-bar">
     <div class="progress-fill" id="progress-fill"></div>
@@ -607,107 +602,20 @@ for (let i = 0; i < 30; i++) {
   dirtEl.appendChild(s);
 }
 
-// ── Caption data — timings are from real audio analysis (VAD) ────────────────
-// Slots 1-8 below match actual vocal segments detected in the song.
-// Replace each "[ ... ]" text with the real lyric line.
-// Intro is 0–14.8s (music only, no caption needed — or add a title card).
-const captions = [
-  // Intro title card (0 – 14.8s, no vocals)
-  { start:  0.0,  end: 14.8, lines: ['🎵 Aura Dorada'], style: 'gold' },
-
-  // Vocal segment 1  (14.8 – 16.8s)
-  { start: 14.8,  end: 16.8, lines: ['[ Línea 1 ]'], style: 'normal' },
-
-  // Vocal segment 2  (17.0 – 19.5s)
-  { start: 17.0,  end: 19.5, lines: ['[ Línea 2 ]'], style: 'normal' },
-
-  // Vocal segment 3  (20.0 – 23.8s)
-  { start: 20.0,  end: 23.8, lines: ['[ Línea 3 ]', '[ Línea 3b ]'], style: 'highlight' },
-
-  // Vocal segment 4  (24.2 – 25.2s, short)
-  { start: 24.2,  end: 25.2, lines: ['[ Línea 4 ]'], style: 'normal' },
-
-  // Vocal segment 5  (28.0 – 31.2s)
-  { start: 28.0,  end: 31.2, lines: ['[ Línea 5 ]', '[ Línea 5b ]'], style: 'gold' },
-
-  // Vocal segment 6  (31.5 – 34.5s)
-  { start: 31.5,  end: 34.5, lines: ['[ Línea 6 ]', '[ Línea 6b ]'], style: 'normal' },
-
-  // Vocal segment 7  (34.8 – 37.5s, first half of long segment)
-  { start: 34.8,  end: 37.5, lines: ['[ Línea 7 ]'], style: 'highlight' },
-
-  // Vocal segment 7b (37.5 – 40.5s, second half)
-  { start: 37.5,  end: 40.5, lines: ['[ Línea 7b ]'], style: 'highlight' },
-
-  // Vocal segment 8  (40.8 – 45.0s)
-  { start: 40.8,  end: 45.0, lines: ['[ Línea 8 ]', '[ Línea 8b ]'], style: 'gold' },
-];
-
-// Build caption elements
-const captionArea = document.getElementById('caption-area');
-captions.forEach((cap, i) => {
-  const div = document.createElement('div');
-  div.className = 'caption';
-  div.id = `cap-${i}`;
-  cap.lines.forEach(line => {
-    const p = document.createElement('p');
-    if (cap.style === 'gold') {
-      p.className = 'caption-line gold-line';
-      p.textContent = line;
-    } else if (cap.style === 'highlight') {
-      const span = document.createElement('span');
-      span.className = 'caption-highlight';
-      span.textContent = line;
-      p.appendChild(span);
-      p.style.fontSize = '0';
-    } else {
-      p.className = 'caption-line';
-      p.textContent = line;
-    }
-    div.appendChild(p);
-  });
-  captionArea.appendChild(div);
-});
-
 // ── Playback engine ──────────────────────────────────────────────────────────
 const audio = document.getElementById('audio');
 const progressFill = document.getElementById('progress-fill');
 const beatFlash = document.getElementById('beat-flash');
 const DURATION = 45;
 
-let activeCap = -1;
-let lastBeat = 0;
-
 audio.addEventListener('timeupdate', () => {
   const t = audio.currentTime;
-
-  // Progress bar
   progressFill.style.width = `${Math.min(t / DURATION * 100, 100)}%`;
-
-  // Caption switching
-  let found = -1;
-  for (let i = 0; i < captions.length; i++) {
-    if (t >= captions[i].start && t < captions[i].end) { found = i; break; }
-  }
-  if (found !== activeCap) {
-    if (activeCap >= 0) document.getElementById(`cap-${activeCap}`).classList.remove('active');
-    if (found >= 0) document.getElementById(`cap-${found}`).classList.add('active');
-    activeCap = found;
-
-    // Beat flash on caption change
-    beatFlash.classList.remove('pop');
-    void beatFlash.offsetWidth;
-    beatFlash.classList.add('pop');
-  }
-
-  // Stop at 45s
   if (t >= DURATION) {
     audio.pause();
     audio.currentTime = 0;
     progressFill.style.width = '0%';
     document.getElementById('play-overlay').classList.remove('hidden');
-    if (activeCap >= 0) document.getElementById(`cap-${activeCap}`).classList.remove('active');
-    activeCap = -1;
   }
 });
 
