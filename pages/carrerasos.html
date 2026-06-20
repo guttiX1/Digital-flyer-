@@ -7,1378 +7,1355 @@
 <title>CarrerasOS — Carreras. Reinventadas.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* ================================================================
-     RESET & BASE
-  ================================================================ */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --black: #0a0a0a;
-    --gold: #FFD200;
-    --orange: #FF6B00;
-    --white: #ffffff;
-    --gray: #8a8a8e;
-    --surface: #1c1c1e;
-    --surface2: #2c2c2e;
-    --max: 540px;
-    --radius: 20px;
-    --font-display: 'Bebas Neue', -apple-system, sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; overflow-x: hidden; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--black);
-    color: var(--white);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .container {
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 0 20px;
-    width: 100%;
-  }
-
-  /* ================================================================
-     SCROLL ANIMATION BASE STATES
-  ================================================================ */
-  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
-  .reveal-left.visible { opacity: 1; transform: translateX(0); }
-  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
-  .reveal-right.visible { opacity: 1; transform: translateX(0); }
-  .reveal-scale { opacity: 0; transform: scale(0.88); transition: opacity 0.6s cubic-bezier(.22,.61,.36,1), transform 0.6s cubic-bezier(.22,.61,.36,1); }
-  .reveal-scale.visible { opacity: 1; transform: scale(1); }
-
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.2s; }
-  .delay-3 { transition-delay: 0.3s; }
-  .delay-4 { transition-delay: 0.4s; }
-  .delay-5 { transition-delay: 0.5s; }
-
-  /* ================================================================
-     HERO SECTION
-  ================================================================ */
-  #hero {
-    position: relative;
-    min-height: 100svh;
-    background: var(--black);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 80px 20px 60px;
-  }
-
-  #hero-canvas {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .hero-orb {
-    position: absolute;
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 40% 40%, #FFD200 0%, #FF6B00 35%, transparent 70%);
-    filter: blur(80px);
-    opacity: 0.22;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    animation: orbPulse 6s ease-in-out infinite alternate;
-    z-index: 0;
-  }
-
-  @keyframes orbPulse {
-    0%  { opacity: 0.18; transform: translate(-50%, -60%) scale(1); }
-    100%{ opacity: 0.3;  transform: translate(-50%, -58%) scale(1.12); }
-  }
-
-  .hero-content { position: relative; z-index: 2; text-align: center; width: 100%; }
-
-  /* 3D App Icon */
-  .app-icon-wrapper {
-    perspective: 600px;
-    display: inline-block;
-    margin-bottom: 28px;
-  }
-
-  .app-icon {
-    width: 96px;
-    height: 96px;
-    background: linear-gradient(145deg, #FFD200 0%, #FF8C00 60%, #FF6B00 100%);
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 38px;
-    color: var(--black);
-    letter-spacing: -1px;
-    box-shadow:
-      0 0 0 1px rgba(255,210,0,0.3),
-      0 8px 24px rgba(255,107,0,0.45),
-      0 24px 60px rgba(255,107,0,0.2),
-      inset 0 1px 0 rgba(255,255,255,0.35),
-      inset 0 -1px 0 rgba(0,0,0,0.2);
-    animation: iconFloat 4s ease-in-out infinite;
-    transform-style: preserve-3d;
-    position: relative;
-  }
-
-  .app-icon::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(145deg, rgba(255,255,255,0.25) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  @keyframes iconFloat {
-    0%,100%{ transform: rotateX(10deg) rotateY(-8deg) translateY(0); }
-    50%    { transform: rotateX(-4deg) rotateY(8deg) translateY(-8px); }
-  }
-
-  .hero-logo {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 15vw, 80px);
-    line-height: 0.95;
-    letter-spacing: 2px;
-    background: linear-gradient(135deg, #fff 30%, #FFD200 60%, #FF8C00 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 16px;
-    text-shadow: none;
-  }
-
-  .hero-tagline {
-    font-family: var(--font-display);
-    font-size: clamp(28px, 8vw, 40px);
-    letter-spacing: 4px;
-    color: var(--gold);
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-
-  .hero-tagline .word {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    margin-right: 8px;
-  }
-  .hero-tagline .word.show { opacity: 1; transform: translateY(0); }
-
-  .hero-sub {
-    font-size: 16px;
-    color: rgba(255,255,255,0.65);
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    margin-bottom: 32px;
-    max-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
-  }
-
-  .hero-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin-bottom: 40px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 100px;
-    padding: 12px 20px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    overflow: hidden;
-    flex-wrap: nowrap;
-  }
-
-  .hero-stat {
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    white-space: nowrap;
-    letter-spacing: 0.2px;
-  }
-
-  .hero-stat-sep {
-    width: 1px;
-    height: 14px;
-    background: rgba(255,255,255,0.2);
-    margin: 0 12px;
-  }
-
-  .store-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .store-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    border-radius: 14px;
-    text-decoration: none;
-    transition: transform 0.25s cubic-bezier(.22,.61,.36,1), box-shadow 0.25s ease;
-    cursor: pointer;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    min-width: 148px;
-  }
-
-  .store-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0);
-    transition: background 0.2s;
-  }
-
-  .store-btn:hover { transform: translateY(-3px) scale(1.03); }
-  .store-btn:hover::after { background: rgba(255,255,255,0.06); }
-  .store-btn:active { transform: translateY(0) scale(0.98); }
-
-  .store-btn-apple {
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.1);
-  }
-
-  .store-btn-google {
-    background: var(--black);
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  }
-
-  .store-icon {
-    font-size: 26px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .store-text { text-align: left; }
-  .store-text-small { font-size: 9px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-  .store-text-big { font-size: 16px; font-weight: 700; display: block; line-height: 1.1; letter-spacing: -0.3px; }
-  .store-btn-apple .store-text-small { color: rgba(0,0,0,0.55); }
-  .store-btn-apple .store-text-big { color: #000; }
-  .store-btn-google .store-text-small { color: rgba(255,255,255,0.55); }
-  .store-btn-google .store-text-big { color: #fff; }
-
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    z-index: 2;
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-
-  .scroll-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 30px;
-    background: linear-gradient(to bottom, rgba(255,210,0,0.6), transparent);
-  }
-
-  @keyframes scrollBounce {
-    0%,100%{ transform: translateX(-50%) translateY(0); opacity: 0.7; }
-    50%    { transform: translateX(-50%) translateY(6px); opacity: 1; }
-  }
-
-  /* ================================================================
-     PHONE MOCKUP SECTION
-  ================================================================ */
-  #phone-section {
-    background: var(--white);
-    padding: 80px 20px;
-    overflow: hidden;
-  }
-
-  .phone-section-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--orange);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .phone-section-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 10vw, 52px);
-    color: var(--black);
-    text-align: center;
-    line-height: 1;
-    letter-spacing: 1px;
-    margin-bottom: 48px;
-  }
-
-  .phone-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-  }
-
-  /* Pure CSS iPhone */
-  .iphone-scene {
-    perspective: 1000px;
-    display: inline-block;
-  }
-
-  .iphone {
-    width: 240px;
-    height: 490px;
-    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #111 100%);
-    border-radius: 44px;
-    position: relative;
-    transform: rotateX(8deg) rotateY(-12deg);
-    transform-style: preserve-3d;
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.12),
-      0 0 0 2px rgba(0,0,0,0.8),
-      12px 24px 60px rgba(0,0,0,0.5),
-      -4px -4px 20px rgba(255,255,255,0.04),
-      inset 0 1px 0 rgba(255,255,255,0.15);
-    animation: phoneFloat 5s ease-in-out infinite;
-  }
-
-  @keyframes phoneFloat {
-    0%,100%{ transform: rotateX(8deg) rotateY(-12deg) translateY(0); }
-    50%    { transform: rotateX(4deg) rotateY(-8deg) translateY(-12px); }
-  }
-
-  /* Side buttons */
-  .iphone::before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 90px;
-    width: 3px;
-    height: 30px;
-    background: linear-gradient(to right, #1a1a1a, #333);
-    border-radius: 3px 0 0 3px;
-    box-shadow: 0 38px 0 #333, 0 74px 0 #333;
-  }
-
-  .iphone::after {
-    content: '';
-    position: absolute;
-    right: -3px;
-    top: 120px;
-    width: 3px;
-    height: 50px;
-    background: linear-gradient(to left, #1a1a1a, #333);
-    border-radius: 0 3px 3px 0;
-  }
-
-  /* Dynamic Island */
-  .dynamic-island {
-    position: absolute;
-    top: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90px;
-    height: 28px;
-    background: #000;
-    border-radius: 20px;
-    z-index: 10;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
-  }
-
-  /* Screen */
-  .iphone-screen {
-    position: absolute;
-    inset: 8px;
-    border-radius: 36px;
-    background: var(--black);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* App UI inside screen */
-  .app-screen {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 52px 14px 14px;
-    gap: 8px;
-  }
-
-  .app-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 4px;
-  }
-
-  .app-header-title {
-    font-family: var(--font-display);
-    font-size: 18px;
-    color: var(--gold);
-    letter-spacing: 1px;
-  }
-
-  .app-live-badge {
-    background: #ff3b30;
-    color: #fff;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 100px;
-    letter-spacing: 0.5px;
-    animation: livePulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes livePulse {
-    0%,100%{ opacity: 1; }
-    50%    { opacity: 0.6; }
-  }
-
-  .race-card-mini {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,210,0,0.2);
-    border-radius: 12px;
-    padding: 10px 12px;
-  }
-
-  .race-card-mini-title {
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-  }
-
-  .horse-pick-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 5px;
-  }
-
-  .horse-pick-name {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
-  }
-
-  .horse-pick-btn {
-    background: var(--gold);
-    color: var(--black);
-    font-size: 9px;
-    font-weight: 800;
-    padding: 3px 9px;
-    border-radius: 100px;
-    letter-spacing: 0.3px;
-  }
-
-  .horse-pick-btn.selected {
-    background: var(--orange);
-    color: #fff;
-  }
-
-  .pick-odds {
-    font-size: 9px;
-    color: rgba(255,255,255,0.4);
-    font-weight: 500;
-  }
-
-  .community-row {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 6px;
-  }
-
-  .comm-avatar {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gold);
-    font-size: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  .comm-text { font-size: 8px; color: rgba(255,255,255,0.45); }
-
-  .leaderboard-mini {
-    background: rgba(255,255,255,0.04);
-    border-radius: 10px;
-    padding: 8px 10px;
-    margin-top: 2px;
-  }
-
-  .lb-title { font-size: 8px; color: var(--gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 5px; }
-
-  .lb-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3px;
-  }
-
-  .lb-rank { font-size: 9px; color: var(--gold); font-weight: 800; width: 14px; }
-  .lb-name { font-size: 9px; color: rgba(255,255,255,0.75); flex: 1; padding-left: 4px; }
-  .lb-pts { font-size: 9px; color: var(--orange); font-weight: 700; }
-
-  /* Features list */
-  .phone-features {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    width: 100%;
-    max-width: 340px;
-  }
-
-  .phone-feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .feature-check {
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, #FFD200, #FF6B00);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(255,107,0,0.3);
-  }
-
-  .feature-text-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--black);
-    margin-bottom: 2px;
-  }
-
-  .feature-text-sub {
-    font-size: 13px;
-    color: rgba(10,10,10,0.5);
-    line-height: 1.4;
-  }
-
-  /* ================================================================
-     FEATURES SECTION
-  ================================================================ */
-  #features {
-    background: var(--black);
-    padding: 80px 20px;
-  }
-
-  .section-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 10vw, 52px);
-    text-align: center;
-    line-height: 1;
-    letter-spacing: 1px;
-    margin-bottom: 48px;
-  }
-
-  .features-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .feature-card {
-    border-radius: var(--radius);
-    padding: 24px;
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s cubic-bezier(.22,.61,.36,1), box-shadow 0.3s ease;
-  }
-
-  .feature-card:hover { transform: translateY(-4px); }
-
-  .feature-card.dark-card {
-    background: var(--surface);
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-  }
-
-  .feature-card.dark-card:hover {
-    box-shadow: 0 12px 40px rgba(255,210,0,0.1), 0 4px 24px rgba(0,0,0,0.4);
-    border-color: rgba(255,210,0,0.2);
-  }
-
-  .feature-card.light-card {
-    background: var(--white);
-    border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  }
-
-  .feature-card.light-card:hover {
-    box-shadow: 0 12px 40px rgba(255,107,0,0.15), 0 4px 24px rgba(0,0,0,0.08);
-  }
-
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,210,0,0.4), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .feature-card:hover::before { opacity: 1; }
-
-  .feature-emoji-box {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-    background: linear-gradient(135deg, rgba(255,210,0,0.15), rgba(255,107,0,0.1));
-    border: 1px solid rgba(255,210,0,0.2);
-  }
-
-  .feature-card.light-card .feature-emoji-box {
-    background: linear-gradient(135deg, rgba(255,210,0,0.12), rgba(255,107,0,0.08));
-  }
-
-  .feature-card-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .feature-card.dark-card .feature-card-title { color: var(--white); }
-  .feature-card.light-card .feature-card-title { color: var(--black); }
-
-  .feature-card-sub {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .feature-card.dark-card .feature-card-sub { color: rgba(255,255,255,0.55); }
-  .feature-card.light-card .feature-card-sub { color: rgba(10,10,10,0.55); }
-
-  /* ================================================================
-     SOCIAL PROOF SECTION
-  ================================================================ */
-  #social-proof {
-    background: linear-gradient(180deg, #0a0a0a 0%, #0f0d00 50%, #0a0a0a 100%);
-    padding: 80px 20px;
-    overflow: hidden;
-  }
-
-  .picks-counter-wrap {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .picks-big {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 14vw, 72px);
-    line-height: 1;
-    background: linear-gradient(135deg, #FFD200, #FF8C00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .picks-label {
-    font-size: 15px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.3px;
-  }
-
-  /* Scrolling avatar row */
-  .avatar-track-wrap {
-    overflow: hidden;
-    margin: 0 -20px;
-    margin-bottom: 36px;
-    position: relative;
-  }
-
-  .avatar-track-wrap::before,
-  .avatar-track-wrap::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 60px;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .avatar-track-wrap::before {
-    left: 0;
-    background: linear-gradient(to right, var(--black), transparent);
-  }
-
-  .avatar-track-wrap::after {
-    right: 0;
-    background: linear-gradient(to left, var(--black), transparent);
-  }
-
-  .avatar-track {
-    display: flex;
-    gap: 12px;
-    padding: 12px 20px;
-    width: max-content;
-    animation: scrollTrack 20s linear infinite;
-  }
-
-  @keyframes scrollTrack {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .avatar-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    flex-shrink: 0;
-    box-shadow: 0 0 12px rgba(255,210,0,0.2);
-  }
-
-  .stars-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .stars { font-size: 28px; letter-spacing: 2px; }
-  .rating-score {
-    font-family: var(--font-display);
-    font-size: 32px;
-    color: var(--gold);
-    letter-spacing: 1px;
-  }
-
-  .social-tagline {
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: clamp(24px, 7vw, 36px);
-    color: var(--white);
-    letter-spacing: 1px;
-    line-height: 1.2;
-  }
-
-  /* ================================================================
-     HOW IT WORKS
-  ================================================================ */
-  #how-it-works {
-    background: var(--white);
-    padding: 80px 20px;
-  }
-
-  .hiw-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--orange);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .hiw-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 10vw, 52px);
-    color: var(--black);
-    text-align: center;
-    line-height: 1;
-    letter-spacing: 1px;
-    margin-bottom: 52px;
-  }
-
-  .steps-list {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .step-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .step-number-wrap {
-    perspective: 400px;
-    flex-shrink: 0;
-  }
-
-  .step-number {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FFD200 0%, #FF6B00 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 30px;
-    color: var(--black);
-    box-shadow:
-      0 8px 24px rgba(255,107,0,0.35),
-      0 2px 6px rgba(0,0,0,0.15),
-      inset 0 1px 0 rgba(255,255,255,0.35);
-    transform: rotateX(10deg);
-    transition: transform 0.4s cubic-bezier(.22,.61,.36,1);
-  }
-
-  .step-item.visible .step-number {
-    transform: rotateX(0deg) rotateY(0deg);
-  }
-
-  .step-content-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--black);
-    margin-bottom: 6px;
-    line-height: 1.2;
-  }
-
-  .step-content-sub {
-    font-size: 14px;
-    color: rgba(10,10,10,0.5);
-    line-height: 1.5;
-  }
-
-  .step-connector {
-    width: 2px;
-    height: 32px;
-    background: linear-gradient(to bottom, rgba(255,107,0,0.4), rgba(255,107,0,0.1));
-    margin-left: 29px;
-  }
-
-  /* ================================================================
-     URGENCY / FOMO SECTION
-  ================================================================ */
-  #urgency {
-    background: var(--black);
-    padding: 80px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .urgency-glow {
-    position: absolute;
-    width: 400px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(255,210,0,0.12) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-
-  .urgency-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,107,0,0.15);
-    border: 1px solid rgba(255,107,0,0.35);
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--orange);
-    margin-bottom: 24px;
-    letter-spacing: 0.3px;
-  }
-
-  .fire-icon { animation: fireShake 0.5s ease-in-out infinite alternate; display: inline-block; }
-  @keyframes fireShake {
-    0%  { transform: rotate(-3deg) scale(1); }
-    100%{ transform: rotate(3deg) scale(1.1); }
-  }
-
-  .urgency-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 10vw, 56px);
-    line-height: 1.05;
-    letter-spacing: 1px;
-    margin-bottom: 36px;
-    position: relative;
-  }
-
-  /* Countdown */
-  .countdown-wrap {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-
-  .countdown-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .countdown-num {
-    font-family: var(--font-display);
-    font-size: 52px;
-    line-height: 1;
-    background: linear-gradient(135deg, #fff 0%, #FFD200 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-    min-width: 64px;
-    text-align: center;
-    background-color: rgba(255,255,255,0.05);
-    background-color: var(--surface);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 8px 12px;
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-
-  .countdown-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-
-  .countdown-sep {
-    font-family: var(--font-display);
-    font-size: 44px;
-    color: rgba(255,210,0,0.4);
-    margin-top: 4px;
-    align-self: flex-start;
-    margin-top: 12px;
-  }
-
-  .fomo-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-width: 380px;
-    margin: 0 auto;
-  }
-
-  .fomo-stat-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 14px 18px;
-    backdrop-filter: blur(12px);
-  }
-
-  .fomo-stat-label {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    font-weight: 500;
-  }
-
-  .fomo-stat-val {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--gold);
-  }
-
-  .beta-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, rgba(255,210,0,0.15), rgba(255,107,0,0.1));
-    border: 1px solid rgba(255,210,0,0.3);
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--gold);
-    margin-top: 24px;
-  }
-
-  .beta-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-    animation: betaPulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes betaPulse {
-    0%,100%{ opacity: 1; transform: scale(1); }
-    50%    { opacity: 0.4; transform: scale(0.8); }
-  }
-
-  /* ================================================================
-     FINAL CTA SECTION
-  ================================================================ */
-  #final-cta {
-    background: linear-gradient(180deg, #0a0a0a 0%, #0d0800 40%, #0a0a0a 100%);
-    padding: 100px 20px 80px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-orb-1 {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(255,210,0,0.1) 0%, transparent 70%);
-    top: 20%;
-    left: -80px;
-    pointer-events: none;
-  }
-
-  .cta-orb-2 {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(255,107,0,0.1) 0%, transparent 70%);
-    bottom: 20%;
-    right: -60px;
-    pointer-events: none;
-  }
-
-  .cta-big-logo {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 14vw, 80px);
-    letter-spacing: 3px;
-    background: linear-gradient(135deg, #fff 0%, #FFD200 40%, #FF8C00 70%, #fff 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s linear infinite;
-    display: block;
-    margin-bottom: 16px;
-    position: relative;
-  }
-
-  @keyframes shimmer {
-    0%  { background-position: 0% center; }
-    100%{ background-position: 200% center; }
-  }
-
-  .cta-sub {
-    font-size: 17px;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 40px;
-    line-height: 1.5;
-  }
-
-  .cta-sub strong { color: var(--gold); }
-
-  .cta-store-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
-    margin-bottom: 32px;
-  }
-
-  .cta-store-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 28px;
-    border-radius: 16px;
-    text-decoration: none;
-    width: 100%;
-    max-width: 280px;
-    transition: transform 0.3s cubic-bezier(.22,.61,.36,1), box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-store-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0);
-    transition: background 0.2s;
-  }
-
-  .cta-store-btn:hover {
-    transform: translateY(-5px) scale(1.03);
-  }
-
-  .cta-store-btn:hover::before { background: rgba(255,255,255,0.06); }
-  .cta-store-btn:active { transform: translateY(0) scale(0.98); }
-
-  .cta-apple-btn {
-    background: #fff;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.1);
-  }
-
-  .cta-google-btn {
-    background: var(--surface);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  }
-
-  .cta-store-icon { font-size: 32px; line-height: 1; }
-  .cta-store-text { text-align: left; }
-  .cta-store-small { font-size: 10px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
-  .cta-store-big { font-size: 18px; font-weight: 700; display: block; letter-spacing: -0.3px; }
-  .cta-apple-btn .cta-store-small { color: rgba(0,0,0,0.5); }
-  .cta-apple-btn .cta-store-big { color: #000; }
-  .cta-google-btn .cta-store-small { color: rgba(255,255,255,0.5); }
-  .cta-google-btn .cta-store-big { color: #fff; }
-
-  .cta-fine-print {
-    font-size: 12px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.5px;
-  }
-
-  .cta-fine-print a {
-    color: rgba(255,210,0,0.5);
-    text-decoration: none;
-  }
-
-  /* ================================================================
-     GLASS DIVIDER
-  ================================================================ */
-  .glass-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,210,0,0.3), rgba(255,107,0,0.2), transparent);
-    margin: 0;
-  }
-
-  /* ================================================================
-     MISC UTILS
-  ================================================================ */
-  .text-gold { color: var(--gold); }
-  .text-orange { color: var(--orange); }
-
-  /* Glow text effect */
-  .glow-text {
-    text-shadow: 0 0 40px rgba(255,210,0,0.4), 0 0 80px rgba(255,210,0,0.15);
-  }
-
-  /* ================================================================
-     SCROLLBAR
-  ================================================================ */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--black); }
-  ::-webkit-scrollbar-thumb { background: rgba(255,210,0,0.3); border-radius: 4px; }
-
-  /* ================================================================
-     MEDIA QUERIES
-  ================================================================ */
-  @media (min-width: 480px) {
-    .phone-wrapper { flex-direction: row; align-items: flex-start; gap: 40px; }
-    .phone-features { max-width: none; flex: 1; padding-top: 40px; }
-    .cta-store-buttons { flex-direction: row; justify-content: center; }
-    .cta-store-btn { width: auto; max-width: none; }
-  }
+/* ================================================================
+   RESET & BASE
+================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:    #FFD200;
+  --orange:  #FF6B00;
+  --dark:    #0a0a0a;
+  --dark2:   #111111;
+  --dark3:   #1c1c1e;
+  --dark4:   #2c2c2e;
+  --white:   #ffffff;
+  --gray:    #f5f5f7;
+  --muted:   #6e6e73;
+  --max:     540px;
+  --r:       20px;
+  --bebas:   'Bebas Neue', -apple-system, sans-serif;
+  --inter:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: var(--inter);
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 22px;
+  width: 100%;
+}
+
+/* ================================================================
+   SCROLL REVEALS
+================================================================ */
+.reveal       { opacity: 0; transform: translateY(36px);   transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+.reveal-left  { opacity: 0; transform: translateX(-56px);  transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+.reveal-right { opacity: 0; transform: translateX(56px);   transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+.reveal-scale { opacity: 0; transform: scale(0.88);        transition: opacity 0.6s cubic-bezier(.22,.61,.36,1), transform 0.6s cubic-bezier(.22,.61,.36,1); }
+
+.reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+  opacity: 1; transform: none;
+}
+
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+.d5 { transition-delay: 0.40s; }
+.d6 { transition-delay: 0.48s; }
+
+/* ================================================================
+   SECTION HELPERS
+================================================================ */
+.sec-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.sec-title {
+  font-family: var(--bebas);
+  font-size: clamp(38px, 11vw, 56px);
+  line-height: 1;
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
+}
+
+.sec-sub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  max-width: 400px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,210,0,0.25), rgba(255,107,0,0.15), transparent);
+}
+
+/* ================================================================
+   SECTION 1 — HERO
+================================================================ */
+#hero {
+  position: relative;
+  min-height: 100svh;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 88px 22px 70px;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-orb {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 40% 40%, rgba(255,210,0,0.22) 0%, rgba(255,107,0,0.14) 40%, transparent 70%);
+  filter: blur(70px);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: orbPulse 7s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes orbPulse {
+  0%   { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1;   transform: translate(-50%, -52%) scale(1.15); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+
+/* 3D App Icon */
+.app-icon-wrap {
+  perspective: 600px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.app-icon {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(145deg, #FFD200 0%, #FF8C00 55%, #FF6B00 100%);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--bebas);
+  font-size: 40px;
+  letter-spacing: -1px;
+  color: #000;
+  box-shadow:
+    0 0 0 1px rgba(255,210,0,0.35),
+    0 10px 32px rgba(255,107,0,0.5),
+    0 28px 70px rgba(255,107,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(0,0,0,0.25);
+  transform: rotateY(-90deg) scale(0.5);
+  animation: iconReveal 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+  position: relative;
+}
+
+.app-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(150deg, rgba(255,255,255,0.3) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+/* Continuous subtle 3D float after reveal */
+.app-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: iconFloat3d 4s ease-in-out infinite;
+}
+
+@keyframes iconReveal {
+  from { transform: rotateY(-90deg) scale(0.5); opacity: 0; }
+  to   { transform: rotateY(0deg)   scale(1);   opacity: 1; }
+}
+
+@keyframes iconFloat3d {
+  0%,100% { box-shadow: 0 0 0 1px rgba(255,210,0,0.35), 0 10px 32px rgba(255,107,0,0.5), 0 28px 70px rgba(255,107,0,0.22), inset 0 1px 0 rgba(255,255,255,0.4); }
+  50%     { box-shadow: 0 0 0 1px rgba(255,210,0,0.5),  0 16px 48px rgba(255,107,0,0.7), 0 36px 90px rgba(255,107,0,0.3),  inset 0 1px 0 rgba(255,255,255,0.4); }
+}
+
+/* Hero brand */
+.hero-brand {
+  font-family: var(--bebas);
+  font-size: clamp(64px, 18vw, 108px);
+  line-height: 0.92;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #fff 10%, #FFD200 45%, #FF8C00 70%, #FFD200 85%, #fff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: brandShimmer 5s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes brandShimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+
+/* Word-by-word tagline */
+.hero-tagline {
+  font-family: var(--bebas);
+  font-size: clamp(26px, 8vw, 40px);
+  letter-spacing: 5px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  min-height: 48px;
+}
+
+.hero-tagline .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,.61,.36,1);
+  margin-right: 8px;
+}
+
+.hero-tagline .word.show { opacity: 1; transform: translateY(0); }
+
+.hero-sub {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 32px;
+  line-height: 1.5;
+  max-width: 310px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 40px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  padding: 11px 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stat {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+.stat-sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(255,255,255,0.18);
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+/* Store buttons */
+.store-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.store-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  min-width: 150px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(.22,.61,.36,1), box-shadow 0.28s ease;
+}
+
+.store-btn:hover  { transform: translateY(-3px) scale(1.03); }
+.store-btn:active { transform: translateY(0) scale(0.97); }
+
+.store-apple {
+  background: #fff;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.3);
+}
+
+.store-google {
+  background: var(--dark3);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 4px 22px rgba(0,0,0,0.4);
+}
+
+.btn-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+.btn-txt  { text-align: left; }
+.btn-small { font-size: 9px;  font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
+.btn-big   { font-size: 16px; font-weight: 700; display: block; line-height: 1.15; letter-spacing: -0.2px; }
+
+.store-apple .btn-small { color: rgba(0,0,0,0.5); }
+.store-apple .btn-big   { color: #000; }
+.store-google .btn-small { color: rgba(255,255,255,0.5); }
+.store-google .btn-big   { color: #fff; }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 2;
+  opacity: 0.45;
+  animation: scrollBounce 2.2s ease-in-out infinite;
+}
+
+.scroll-dot  { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+.scroll-line { width: 1px; height: 28px; background: linear-gradient(to bottom, rgba(255,210,0,0.7), transparent); }
+
+@keyframes scrollBounce {
+  0%,100% { transform: translateX(-50%) translateY(0);   opacity: 0.4; }
+  50%     { transform: translateX(-50%) translateY(7px);  opacity: 0.8; }
+}
+
+/* ================================================================
+   SECTION 2 — PHONE MOCKUP
+================================================================ */
+#phone-section {
+  background: var(--white);
+  padding: 80px 22px;
+  overflow: hidden;
+}
+
+#phone-section .sec-label  { color: var(--orange); }
+#phone-section .sec-title  { color: #000; }
+#phone-section .sec-sub    { color: var(--muted); }
+
+.phone-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+/* CSS iPhone */
+.iphone-scene { perspective: 1000px; display: inline-block; }
+
+.iphone {
+  width: 238px;
+  height: 494px;
+  background: linear-gradient(155deg, #2d2d2d 0%, #1a1a1a 55%, #0f0f0f 100%);
+  border-radius: 46px;
+  position: relative;
+  transform: rotateX(8deg) rotateY(-12deg);
+  transform-style: preserve-3d;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.13),
+    0 0 0 2px rgba(0,0,0,0.85),
+    14px 28px 64px rgba(0,0,0,0.55),
+    -4px -4px 18px rgba(255,255,255,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+  animation: phoneFloat 5s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+  0%,100% { transform: rotateX(8deg) rotateY(-12deg) translateY(0);    }
+  50%     { transform: rotateX(4deg) rotateY(-7deg)  translateY(-13px); }
+}
+
+/* Volume + power buttons */
+.iphone::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 86px;
+  width: 3px;
+  height: 28px;
+  background: #2a2a2a;
+  border-radius: 3px 0 0 3px;
+  box-shadow: 0 36px 0 #2a2a2a, 0 72px 0 #2a2a2a;
+}
+
+.iphone::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 116px;
+  width: 3px;
+  height: 52px;
+  background: #2a2a2a;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Dynamic Island */
+.dyn-island {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: 28px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 10;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* Screen */
+.iphone-screen {
+  position: absolute;
+  inset: 8px;
+  border-radius: 38px;
+  background: #0d0d0d;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App content */
+.app-ui {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 54px 14px 14px;
+  gap: 7px;
+}
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.app-name {
+  font-family: var(--bebas);
+  font-size: 18px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.live-badge {
+  background: #ff3b30;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.55; }
+}
+
+.race-card {
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,210,0,0.18);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.rc-title {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 7px;
+}
+
+.pick-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.pick-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); }
+.pick-odds { font-size: 8.5px; color: rgba(255,255,255,0.35); font-weight: 500; }
+
+.pick-btn {
+  background: var(--gold);
+  color: #000;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.pick-btn.sel { background: var(--orange); color: #fff; }
+
+.comm-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.ca {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  font-size: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.comm-txt { font-size: 7.5px; color: rgba(255,255,255,0.4); }
+
+.lb-mini {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.lb-hd { font-size: 8px; color: var(--gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px; }
+
+.lb-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+.lb-rank { font-size: 9px; color: var(--gold); font-weight: 800; width: 14px; }
+.lb-name { font-size: 9px; color: rgba(255,255,255,0.75); flex: 1; padding-left: 4px; }
+.lb-pts  { font-size: 9px; color: var(--orange); font-weight: 700; }
+
+/* Feature list next to phone */
+.phone-feats {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 340px;
+  width: 100%;
+}
+
+.phone-feat {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.feat-icon {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, #FFD200, #FF6B00);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  box-shadow: 0 4px 14px rgba(255,107,0,0.35);
+}
+
+.feat-title { font-size: 15px; font-weight: 700; color: #000; margin-bottom: 2px; }
+.feat-sub   { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+/* ================================================================
+   SECTION 3 — FEATURES
+================================================================ */
+#features {
+  background: var(--dark2);
+  padding: 80px 22px;
+}
+
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.feat-card {
+  border-radius: var(--r);
+  padding: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(.22,.61,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.feat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,210,0,0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feat-card:hover::before { opacity: 1; }
+.feat-card:hover { transform: translateY(-4px); }
+
+.feat-card.dark {
+  background: var(--dark3);
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+.feat-card.dark:hover {
+  box-shadow: 0 12px 40px rgba(255,210,0,0.08), 0 4px 24px rgba(0,0,0,0.4);
+  border-color: rgba(255,210,0,0.22);
+}
+
+.feat-card.light {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.feat-card.light:hover {
+  box-shadow: 0 12px 40px rgba(255,107,0,0.14), 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.feat-ebox {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: linear-gradient(135deg, rgba(255,210,0,0.14), rgba(255,107,0,0.09));
+  border: 1px solid rgba(255,210,0,0.18);
+}
+
+.fc-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.fc-sub   { font-size: 14px; line-height: 1.5; }
+
+.feat-card.dark .fc-title { color: var(--white); }
+.feat-card.dark .fc-sub   { color: rgba(255,255,255,0.5); }
+.feat-card.light .fc-title { color: #000; }
+.feat-card.light .fc-sub   { color: rgba(0,0,0,0.5); }
+
+/* ================================================================
+   SECTION 4 — SOCIAL PROOF
+================================================================ */
+#social-proof {
+  background: linear-gradient(180deg, var(--dark) 0%, #0c0900 50%, var(--dark) 100%);
+  padding: 80px 22px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.picks-wrap { margin-bottom: 44px; }
+
+.picks-big {
+  font-family: var(--bebas);
+  font-size: clamp(60px, 16vw, 84px);
+  line-height: 1;
+  background: linear-gradient(135deg, #FFD200, #FF8C00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.picks-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* Scrolling avatar row */
+.av-track-outer {
+  overflow: hidden;
+  margin: 0 -22px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.av-track-outer::before,
+.av-track-outer::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.av-track-outer::before {
+  left: 0;
+  background: linear-gradient(to right, var(--dark), transparent);
+}
+
+.av-track-outer::after {
+  right: 0;
+  background: linear-gradient(to left, var(--dark), transparent);
+}
+
+.av-track {
+  display: flex;
+  gap: 12px;
+  padding: 12px 22px;
+  width: max-content;
+  animation: avScroll 22s linear infinite;
+}
+
+@keyframes avScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.av {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(255,210,0,0.2);
+}
+
+.stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.stars-text { font-size: 28px; letter-spacing: 3px; }
+
+.rating-score {
+  font-family: var(--bebas);
+  font-size: 36px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.social-headline {
+  font-family: var(--bebas);
+  font-size: clamp(28px, 8vw, 40px);
+  letter-spacing: 1px;
+  line-height: 1.2;
+  margin-bottom: 40px;
+  color: var(--white);
+}
+
+.social-headline span { color: var(--gold); }
+
+/* Scrolling testimonial ticker */
+.ticker-outer {
+  overflow: hidden;
+  margin: 0 -22px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.ticker-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: tickerScroll 32s linear infinite;
+  padding: 6px 22px;
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 100px;
+  padding: 10px 20px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  flex-shrink: 0;
+}
+
+.ticker-handle { color: var(--gold); font-weight: 700; margin-right: 6px; }
+
+/* ================================================================
+   SECTION 5 — HOW IT WORKS
+================================================================ */
+#how-it-works {
+  background: var(--white);
+  padding: 80px 22px;
+}
+
+#how-it-works .sec-label { color: var(--orange); }
+#how-it-works .sec-title { color: #000; }
+#how-it-works .sec-sub   { color: var(--muted); }
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 48px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.65s cubic-bezier(.22,.61,.36,1), transform 0.65s cubic-bezier(.22,.61,.36,1);
+}
+
+.step-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-num {
+  font-family: var(--bebas);
+  font-size: 74px;
+  line-height: 1;
+  background: linear-gradient(145deg, #FFD200, #FF6B00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+  width: 58px;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.step-body { padding-top: 12px; }
+.step-name { font-size: 20px; font-weight: 800; color: #000; margin-bottom: 5px; letter-spacing: -0.3px; }
+.step-desc { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+.step-sep {
+  height: 28px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,107,0,0.35), rgba(255,107,0,0.06));
+  margin-left: 28px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+/* ================================================================
+   SECTION 6 — URGENCY / COUNTDOWN
+================================================================ */
+#urgency {
+  background: var(--dark2);
+  padding: 80px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency-glow {
+  position: absolute;
+  width: 440px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,210,0,0.1) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.urgency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,107,0,0.14);
+  border: 1px solid rgba(255,107,0,0.35);
+  border-radius: 100px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 24px;
+  letter-spacing: 0.3px;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 0 0   rgba(255,107,0,0.3); }
+  50%     { box-shadow: 0 0 0 10px rgba(255,107,0,0);   }
+}
+
+.fire-icon { animation: fireShake 0.4s ease-in-out infinite alternate; display: inline-block; }
+
+@keyframes fireShake {
+  0%   { transform: rotate(-3deg) scale(1); }
+  100% { transform: rotate(3deg)  scale(1.1); }
+}
+
+.urgency-title {
+  font-family: var(--bebas);
+  font-size: clamp(36px, 11vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 1px;
+  margin-bottom: 36px;
+}
+
+.urgency-title .gold { color: var(--gold); }
+
+/* Countdown timer */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 44px;
+}
+
+.cd-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cd-num {
+  font-family: var(--bebas);
+  font-size: clamp(46px, 13vw, 64px);
+  line-height: 1;
+  color: var(--white);
+  background: var(--dark3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 7px 12px;
+  min-width: 68px;
+  text-align: center;
+  box-shadow: 0 4px 22px rgba(0,0,0,0.35);
+  background-clip: unset;
+  /* gold digit color */
+  background: linear-gradient(160deg, #1c1c1e, #111);
+  border: 1px solid rgba(255,210,0,0.12);
+}
+
+.cd-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.cd-sep {
+  font-family: var(--bebas);
+  font-size: 50px;
+  color: rgba(255,210,0,0.3);
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+/* FOMO counter rows */
+.fomo-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+  margin: 0 auto 24px;
+}
+
+.fomo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+
+.fomo-lbl { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500; }
+.fomo-val { font-size: 16px; font-weight: 800; color: var(--gold); }
+
+.online-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(76,175,80,0.12);
+  border: 1px solid rgba(76,175,80,0.28);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7bc87b;
+}
+
+.online-dot {
+  width: 8px;
+  height: 8px;
+  background: #4caf50;
+  border-radius: 50%;
+  animation: onlinePulse 1.4s ease-in-out infinite;
+}
+
+@keyframes onlinePulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%     { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ================================================================
+   SECTION 7 — FINAL CTA
+================================================================ */
+#final-cta {
+  background: var(--dark);
+  padding: 100px 22px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-orb-1, .cta-orb-2 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-orb-1 {
+  width: 340px; height: 340px;
+  background: radial-gradient(ellipse, rgba(255,210,0,0.1) 0%, transparent 70%);
+  top: 10%; left: -100px;
+}
+
+.cta-orb-2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(ellipse, rgba(255,107,0,0.1) 0%, transparent 70%);
+  bottom: 10%; right: -80px;
+}
+
+.cta-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,210,0,0.5);
+  margin-bottom: 14px;
+}
+
+.cta-brand {
+  font-family: var(--bebas);
+  font-size: clamp(60px, 17vw, 104px);
+  letter-spacing: 4px;
+  line-height: 0.92;
+  background: linear-gradient(135deg, #fff 5%, #FFD200 30%, #FF8C00 58%, #FFD200 78%, #fff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: ctaShimmer 3.5s linear infinite;
+  display: block;
+  margin-bottom: 12px;
+  position: relative;
+  filter: drop-shadow(0 0 40px rgba(255,210,0,0.18));
+}
+
+@keyframes ctaShimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+
+.cta-tagline {
+  font-family: var(--bebas);
+  font-size: clamp(20px, 6vw, 30px);
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 44px;
+}
+
+.cta-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.55;
+  margin-bottom: 40px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-sub strong { color: var(--gold); }
+
+/* Full-width store buttons for final section */
+.cta-store-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.cta-store-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  max-width: 290px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(.22,.61,.36,1), box-shadow 0.28s ease;
+}
+
+.cta-store-btn:hover  { transform: translateY(-5px) scale(1.03); }
+.cta-store-btn:active { transform: translateY(0) scale(0.97); }
+
+.cta-apple {
+  background: var(--white);
+  box-shadow: 0 8px 36px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.cta-google {
+  background: var(--dark3);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 8px 36px rgba(0,0,0,0.45);
+}
+
+.cta-btn-icon  { font-size: 30px; line-height: 1; flex-shrink: 0; }
+.cta-btn-txt   { text-align: left; }
+.cta-btn-small { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; display: block; }
+.cta-btn-big   { font-size: 18px; font-weight: 700; display: block; letter-spacing: -0.3px; }
+
+.cta-apple .cta-btn-small  { color: rgba(0,0,0,0.5); }
+.cta-apple .cta-btn-big    { color: #000; }
+.cta-google .cta-btn-small { color: rgba(255,255,255,0.5); }
+.cta-google .cta-btn-big   { color: #fff; }
+
+.cta-url {
+  font-family: var(--bebas);
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.18);
+}
+
+.cta-url a { color: rgba(255,210,0,0.45); text-decoration: none; transition: color 0.2s; }
+.cta-url a:hover { color: var(--gold); }
+
+/* ================================================================
+   FOOTER
+================================================================ */
+footer {
+  background: #050505;
+  padding: 22px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  font-family: var(--inter);
+}
+
+footer a { color: rgba(255,210,0,0.35); text-decoration: none; }
+
+/* ================================================================
+   CUSTOM SCROLLBAR
+================================================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: rgba(255,210,0,0.3); border-radius: 4px; }
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media (min-width: 480px) {
+  .phone-wrapper    { flex-direction: row; align-items: flex-start; gap: 40px; }
+  .phone-feats      { max-width: none; flex: 1; padding-top: 44px; }
+  .cta-store-btns   { flex-direction: row; justify-content: center; }
+  .cta-store-btn    { width: auto; max-width: none; }
+}
+
+@media (max-width: 380px) {
+  .cd-num       { min-width: 56px; font-size: 40px; }
+  .cd-sep       { font-size: 36px; }
+  .hero-stats   { flex-wrap: wrap; gap: 6px; }
+}
 </style>
 </head>
 <body>
 
 <!-- ================================================================
-     HERO
+     SECTION 1 — HERO
 ================================================================ -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-orb"></div>
 
   <div class="hero-content">
-    <div class="app-icon-wrapper reveal">
+    <div class="app-icon-wrap">
       <div class="app-icon">C<span style="font-size:22px;vertical-align:2px;opacity:0.75">OS</span></div>
     </div>
 
-    <h1 class="hero-logo reveal delay-1">CarrerasOS</h1>
+    <h1 class="hero-brand">CarrerasOS</h1>
 
-    <div class="hero-tagline reveal delay-2">
-      <span class="word">Carreras.</span>
-      <span class="word">Reinventadas.</span>
+    <div class="hero-tagline">
+      <span class="word">Carreras.</span><span class="word">Reinventadas.</span>
     </div>
 
-    <p class="hero-sub reveal delay-3">La plataforma #1 para fanáticos de las carreras de caballos</p>
+    <p class="hero-sub">La plataforma #1 para fanáticos de las carreras de caballos</p>
 
-    <div class="hero-stats reveal delay-4">
+    <div class="hero-stats reveal d4">
       <span class="hero-stat">10K+ Usuarios</span>
-      <span class="hero-stat-sep"></span>
+      <span class="stat-sep"></span>
       <span class="hero-stat">500+ Carreras</span>
-      <span class="hero-stat-sep"></span>
+      <span class="stat-sep"></span>
       <span class="hero-stat">$1M+ Premios</span>
     </div>
 
-    <div class="store-buttons reveal delay-5">
-      <a href="#" class="store-btn store-btn-apple">
-        <span class="store-icon">🍎</span>
-        <span class="store-text">
-          <span class="store-text-small">Descarga en el</span>
-          <span class="store-text-big">App Store</span>
+    <div class="store-btns reveal d5">
+      <a href="#" class="store-btn store-apple">
+        <span class="btn-icon">🍎</span>
+        <span class="btn-txt">
+          <span class="btn-small">Descarga en el</span>
+          <span class="btn-big">App Store</span>
         </span>
       </a>
-      <a href="#" class="store-btn store-btn-google">
-        <span class="store-icon">▶</span>
-        <span class="store-text">
-          <span class="store-text-small">Disponible en</span>
-          <span class="store-text-big">Google Play</span>
+      <a href="#" class="store-btn store-google">
+        <span class="btn-icon" style="font-size:22px;">▶</span>
+        <span class="btn-txt">
+          <span class="btn-small">Disponible en</span>
+          <span class="btn-big">Google Play</span>
         </span>
       </a>
     </div>
   </div>
 
-  <div class="hero-scroll-hint">
+  <div class="scroll-hint">
     <div class="scroll-dot"></div>
     <div class="scroll-line"></div>
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     PHONE MOCKUP SECTION
+     SECTION 2 — PHONE MOCKUP
 ================================================================ -->
 <section id="phone-section">
   <div class="container">
-    <div class="phone-section-label reveal">La App en Acción</div>
-    <h2 class="phone-section-title reveal delay-1">Todo en la<br>palma de<br>tu mano</h2>
+    <div class="reveal">
+      <p class="sec-label">La App en Acción</p>
+      <h2 class="sec-title">Todo en la<br>palma de<br>tu mano</h2>
+      <p class="sec-sub" style="margin-bottom:44px;">Picks, resultados en vivo, comunidad y leaderboard — todo en una sola pantalla.</p>
+    </div>
 
     <div class="phone-wrapper">
-      <!-- CSS iPhone -->
-      <div class="iphone-scene reveal-scale delay-1">
+      <!-- CSS-only iPhone mockup -->
+      <div class="iphone-scene reveal-scale d1">
         <div class="iphone">
-          <div class="dynamic-island"></div>
+          <div class="dyn-island"></div>
           <div class="iphone-screen">
-            <div class="app-screen">
-              <div class="app-header">
-                <span class="app-header-title">CarrerasOS</span>
-                <span class="app-live-badge">● EN VIVO</span>
+            <div class="app-ui">
+              <div class="app-bar">
+                <span class="app-name">CarrerasOS</span>
+                <span class="live-badge">● EN VIVO</span>
               </div>
 
               <!-- Race Card 1 -->
-              <div class="race-card-mini">
-                <div class="race-card-mini-title">🏇 CARRERA 3 — 400M</div>
-                <div class="horse-pick-row">
+              <div class="race-card">
+                <div class="rc-title">🏇 Carrera 3 — 400m · $5,000</div>
+                <div class="pick-row">
                   <div>
-                    <div class="horse-pick-name">El Relámpago</div>
+                    <div class="pick-name">El Relámpago</div>
                     <div class="pick-odds">7/2 odds</div>
                   </div>
-                  <span class="horse-pick-btn selected">✓ PICK</span>
+                  <span class="pick-btn sel">✓ PICK</span>
                 </div>
-                <div class="horse-pick-row">
+                <div class="pick-row">
                   <div>
-                    <div class="horse-pick-name">La Tormenta</div>
+                    <div class="pick-name">La Tormenta</div>
                     <div class="pick-odds">5/1 odds</div>
                   </div>
-                  <span class="horse-pick-btn">PICK</span>
+                  <span class="pick-btn">PICK</span>
                 </div>
-                <div class="horse-pick-row">
+                <div class="pick-row">
                   <div>
-                    <div class="horse-pick-name">Viento Negro</div>
+                    <div class="pick-name">Viento Negro</div>
                     <div class="pick-odds">3/1 odds</div>
                   </div>
-                  <span class="horse-pick-btn">PICK</span>
+                  <span class="pick-btn">PICK</span>
                 </div>
-                <div class="community-row">
-                  <div class="comm-avatar" style="background:#1a3a1a;color:#4caf50">JR</div>
-                  <div class="comm-avatar" style="background:#1a1a3a;color:#4d94ff">MC</div>
-                  <div class="comm-avatar" style="background:#3a1a1a;color:#ff5252">AL</div>
-                  <span class="comm-text">+847 picks esta carrera</span>
+                <div class="comm-row">
+                  <div class="ca" style="background:#1a3a1a;color:#7bc87b">JR</div>
+                  <div class="ca" style="background:#1a1a3a;color:#7b9bcb">MC</div>
+                  <div class="ca" style="background:#3a1a1a;color:#ff7b7b">AL</div>
+                  <span class="comm-txt">+847 picks esta carrera</span>
                 </div>
               </div>
 
               <!-- Race Card 2 -->
-              <div class="race-card-mini">
-                <div class="race-card-mini-title">🔥 CARRERA 4 — PRÓXIMA</div>
-                <div class="horse-pick-row">
+              <div class="race-card">
+                <div class="rc-title">🔥 Carrera 4 — Próxima · $8,000</div>
+                <div class="pick-row">
                   <div>
-                    <div class="horse-pick-name">Rey del Norte</div>
+                    <div class="pick-name">Rey del Norte</div>
                     <div class="pick-odds">2/1 odds</div>
                   </div>
-                  <span class="horse-pick-btn">PICK</span>
+                  <span class="pick-btn">PICK</span>
                 </div>
-                <div class="horse-pick-row">
+                <div class="pick-row">
                   <div>
-                    <div class="horse-pick-name">Sombra Fatal</div>
+                    <div class="pick-name">Sombra Fatal</div>
                     <div class="pick-odds">4/1 odds</div>
                   </div>
-                  <span class="horse-pick-btn">PICK</span>
+                  <span class="pick-btn">PICK</span>
                 </div>
               </div>
 
-              <!-- Leaderboard -->
-              <div class="leaderboard-mini">
-                <div class="lb-title">🏆 Top Picks Hoy</div>
+              <!-- Mini Leaderboard -->
+              <div class="lb-mini">
+                <div class="lb-hd">🏆 Top Picks Hoy</div>
                 <div class="lb-row">
                   <span class="lb-rank">1</span>
                   <span class="lb-name">R. Martinez</span>
@@ -1400,34 +1377,48 @@
         </div>
       </div>
 
-      <!-- Features List -->
-      <div class="phone-features">
-        <div class="phone-feature-item reveal delay-1">
-          <div class="feature-check">⚡</div>
+      <!-- Feature items next to phone -->
+      <div class="phone-feats">
+        <div class="phone-feat reveal d1">
+          <div class="feat-icon">⚡</div>
           <div>
-            <div class="feature-text-title">Resultados en vivo</div>
-            <div class="feature-text-sub">Actualización instantánea de cada carrera</div>
+            <div class="feat-title">Resultados en vivo</div>
+            <div class="feat-sub">Actualización instantánea de cada carrera</div>
           </div>
         </div>
-        <div class="phone-feature-item reveal delay-2">
-          <div class="feature-check">🎯</div>
+        <div class="phone-feat reveal d2">
+          <div class="feat-icon">🎯</div>
           <div>
-            <div class="feature-text-title">Picks inteligentes</div>
-            <div class="feature-text-sub">Estadísticas para hacer mejores elecciones</div>
+            <div class="feat-title">Picks inteligentes</div>
+            <div class="feat-sub">Estadísticas para hacer mejores elecciones</div>
           </div>
         </div>
-        <div class="phone-feature-item reveal delay-3">
-          <div class="feature-check">👥</div>
+        <div class="phone-feat reveal d3">
+          <div class="feat-icon">👥</div>
           <div>
-            <div class="feature-text-title">Comunidad activa</div>
-            <div class="feature-text-sub">Miles de fanáticos eligiendo en tiempo real</div>
+            <div class="feat-title">Comunidad activa</div>
+            <div class="feat-sub">Miles de fanáticos en tiempo real</div>
           </div>
         </div>
-        <div class="phone-feature-item reveal delay-4">
-          <div class="feature-check">🏆</div>
+        <div class="phone-feat reveal d4">
+          <div class="feat-icon">🏆</div>
           <div>
-            <div class="feature-text-title">Leaderboard global</div>
-            <div class="feature-text-sub">Compite y demuestra quién sabe más</div>
+            <div class="feat-title">Leaderboard global</div>
+            <div class="feat-sub">Compite y demuestra quién sabe más</div>
+          </div>
+        </div>
+        <div class="phone-feat reveal d5">
+          <div class="feat-icon">🔔</div>
+          <div>
+            <div class="feat-title">Notificaciones live</div>
+            <div class="feat-sub">Nunca te pierdas un resultado importante</div>
+          </div>
+        </div>
+        <div class="phone-feat reveal d6">
+          <div class="feat-icon">🆓</div>
+          <div>
+            <div class="feat-title">100% gratis</div>
+            <div class="feat-sub">Sin suscripción ni tarjeta requerida</div>
           </div>
         </div>
       </div>
@@ -1435,63 +1426,66 @@
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     FEATURES
+     SECTION 3 — FEATURES (6 cards, alternating dark/light)
 ================================================================ -->
 <section id="features">
   <div class="container">
-    <div class="section-label reveal">Características</div>
-    <h2 class="section-title reveal delay-1">Todo lo que<br><span class="text-gold">necesitas</span></h2>
+    <div class="reveal">
+      <p class="sec-label">Características</p>
+      <h2 class="sec-title">Todo lo que<br><span style="color:var(--gold)">necesitas</span></h2>
+      <p class="sec-sub" style="margin-bottom:40px;">Diseñado para los verdaderos fanáticos del deporte de los caballos.</p>
+    </div>
 
     <div class="features-grid">
 
-      <div class="feature-card dark-card reveal-left">
-        <div class="feature-emoji-box">🏇</div>
+      <div class="feat-card dark reveal-left">
+        <div class="feat-ebox">🏇</div>
         <div>
-          <div class="feature-card-title">Live Race Results</div>
-          <div class="feature-card-sub">Resultados en tiempo real — cada carrera, cada lugar, cada segundo. Sin retrasos, sin excusas.</div>
+          <div class="fc-title">Live Race Results</div>
+          <div class="fc-sub">Resultados en tiempo real — cada carrera, cada lugar, cada segundo. Sin retrasos, sin excusas.</div>
         </div>
       </div>
 
-      <div class="feature-card light-card reveal-right delay-1">
-        <div class="feature-emoji-box">🎯</div>
+      <div class="feat-card light reveal-right d1">
+        <div class="feat-ebox">🎯</div>
         <div>
-          <div class="feature-card-title">Pick Your Winners</div>
-          <div class="feature-card-sub">Elige tus ganadores antes de cada carrera. Sigue tus picks y construye tu récord.</div>
+          <div class="fc-title">Pick Your Winners</div>
+          <div class="fc-sub">Elige tus ganadores antes de cada carrera y construye tu récord de aciertos semana a semana.</div>
         </div>
       </div>
 
-      <div class="feature-card dark-card reveal-left delay-1">
-        <div class="feature-emoji-box">👥</div>
+      <div class="feat-card dark reveal-left d1">
+        <div class="feat-ebox">👥</div>
         <div>
-          <div class="feature-card-title">Community Picks</div>
-          <div class="feature-card-sub">Ve qué están eligiendo miles de fanáticos. La sabiduría de la multitud en tu bolsillo.</div>
+          <div class="fc-title">Community Picks</div>
+          <div class="fc-sub">Ve qué están eligiendo miles de fanáticos. La sabiduría de la multitud en tu bolsillo.</div>
         </div>
       </div>
 
-      <div class="feature-card light-card reveal-right delay-2">
-        <div class="feature-emoji-box">📊</div>
+      <div class="feat-card light reveal-right d2">
+        <div class="feat-ebox">📊</div>
         <div>
-          <div class="feature-card-title">Stats &amp; History</div>
-          <div class="feature-card-sub">Historial completo de carreras, resultados y estadísticas. Datos que te dan ventaja.</div>
+          <div class="fc-title">Stats &amp; History</div>
+          <div class="fc-sub">Historial completo de carreras, resultados y estadísticas. Datos que te dan ventaja real.</div>
         </div>
       </div>
 
-      <div class="feature-card dark-card reveal-left delay-2">
-        <div class="feature-emoji-box">🎵</div>
+      <div class="feat-card dark reveal-left d2">
+        <div class="feat-ebox">🎵</div>
         <div>
-          <div class="feature-card-title">Music &amp; Vibes</div>
-          <div class="feature-card-sub">Música exclusiva mientras disfrutas del evento. La experiencia completa, reinventada.</div>
+          <div class="fc-title">Music &amp; Vibes</div>
+          <div class="fc-sub">Música exclusiva mientras disfrutas del evento. La experiencia completa del día de carreras.</div>
         </div>
       </div>
 
-      <div class="feature-card light-card reveal-right delay-3">
-        <div class="feature-emoji-box">🏆</div>
+      <div class="feat-card light reveal-right d3">
+        <div class="feat-ebox">🏆</div>
         <div>
-          <div class="feature-card-title">Leaderboard</div>
-          <div class="feature-card-sub">Compite con la comunidad. Sube en el ranking y demuestra que tienes el ojo.</div>
+          <div class="fc-title">Leaderboard</div>
+          <div class="fc-sub">Compite con la comunidad cada semana. Sube en el ranking y demuestra que tienes el ojo.</div>
         </div>
       </div>
 
@@ -1499,110 +1493,95 @@
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     SOCIAL PROOF
+     SECTION 4 — SOCIAL PROOF
 ================================================================ -->
 <section id="social-proof">
   <div class="container">
-    <div class="picks-counter-wrap reveal">
+    <div class="reveal">
+      <p class="sec-label">Comunidad</p>
+      <h2 class="sec-title">La comunidad<br>más activa.</h2>
+    </div>
+
+    <!-- CountUp number -->
+    <div class="picks-wrap reveal d1">
       <span class="picks-big" id="picks-counter">0</span>
-      <div class="picks-label">picks hechos esta semana</div>
+      <div class="picks-sub">picks hechos esta semana</div>
     </div>
+  </div>
 
-    <!-- Scrolling avatars -->
-    <div class="avatar-track-wrap reveal delay-1">
-      <div class="avatar-track" id="avatar-track">
-        <!-- Duplicated for seamless loop -->
-        <div class="avatar-circle" style="background:#1a2a1a;color:#7bc87b">JR</div>
-        <div class="avatar-circle" style="background:#1a1a3a;color:#7b9bcb">MC</div>
-        <div class="avatar-circle" style="background:#2a1a1a;color:#cb7b7b">AL</div>
-        <div class="avatar-circle" style="background:#2a2a1a;color:#cbcb7b">RM</div>
-        <div class="avatar-circle" style="background:#1a2a2a;color:#7bcbcb">ES</div>
-        <div class="avatar-circle" style="background:#2a1a2a;color:#cb7bcb">FG</div>
-        <div class="avatar-circle" style="background:#1a1a1a;color:#FFD200">DV</div>
-        <div class="avatar-circle" style="background:#1a2a1a;color:#FF8C00">KL</div>
-        <div class="avatar-circle" style="background:#2a1a1a;color:#ff7b7b">PM</div>
-        <div class="avatar-circle" style="background:#1a2a2a;color:#7bd4cb">NR</div>
-        <div class="avatar-circle" style="background:#2a2a1a;color:#d4cb7b">TH</div>
-        <div class="avatar-circle" style="background:#1a1a2a;color:#9b7bcb">WO</div>
-        <!-- Duplicate set for loop -->
-        <div class="avatar-circle" style="background:#1a2a1a;color:#7bc87b">JR</div>
-        <div class="avatar-circle" style="background:#1a1a3a;color:#7b9bcb">MC</div>
-        <div class="avatar-circle" style="background:#2a1a1a;color:#cb7b7b">AL</div>
-        <div class="avatar-circle" style="background:#2a2a1a;color:#cbcb7b">RM</div>
-        <div class="avatar-circle" style="background:#1a2a2a;color:#7bcbcb">ES</div>
-        <div class="avatar-circle" style="background:#2a1a2a;color:#cb7bcb">FG</div>
-        <div class="avatar-circle" style="background:#1a1a1a;color:#FFD200">DV</div>
-        <div class="avatar-circle" style="background:#1a2a1a;color:#FF8C00">KL</div>
-        <div class="avatar-circle" style="background:#2a1a1a;color:#ff7b7b">PM</div>
-        <div class="avatar-circle" style="background:#1a2a2a;color:#7bd4cb">NR</div>
-        <div class="avatar-circle" style="background:#2a2a1a;color:#d4cb7b">TH</div>
-        <div class="avatar-circle" style="background:#1a1a2a;color:#9b7bcb">WO</div>
-      </div>
+  <!-- Scrolling avatar row (full bleed) -->
+  <div class="av-track-outer reveal d2">
+    <div class="av-track" id="av-track">
+      <!-- populated by JS -->
     </div>
+  </div>
 
-    <div class="stars-row reveal delay-2">
-      <span class="stars">★★★★★</span>
+  <div class="container">
+    <!-- Stars -->
+    <div class="stars-row reveal d3">
+      <span class="stars-text">★★★★★</span>
       <span class="rating-score">4.9</span>
     </div>
+    <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:32px;margin-top:4px;" class="reveal d3">2,341 reseñas en App Store &amp; Google Play</p>
 
-    <div class="social-tagline reveal delay-3 glow-text">
-      La app que <span class="text-gold">todos</span><br>están usando
+    <div class="social-headline reveal d4">
+      La app que <span>todos</span><br>están usando
+    </div>
+  </div>
+
+  <!-- Testimonial ticker (full bleed) -->
+  <div class="ticker-outer">
+    <div class="ticker-track" id="ticker-track">
+      <!-- populated by JS -->
     </div>
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     HOW IT WORKS
+     SECTION 5 — HOW IT WORKS
 ================================================================ -->
 <section id="how-it-works">
   <div class="container">
-    <div class="hiw-label reveal">Cómo Funciona</div>
-    <h2 class="hiw-title reveal delay-1">Tres pasos.<br><span style="color:var(--orange)">Así de fácil.</span></h2>
+    <div class="reveal">
+      <p class="sec-label">Cómo Funciona</p>
+      <h2 class="sec-title" style="color:#000;">Tres pasos.<br><span style="color:var(--orange)">Así de fácil.</span></h2>
+      <p class="sec-sub" style="margin-bottom:0;">Estar en el juego nunca fue tan sencillo.</p>
+    </div>
 
     <div class="steps-list">
 
-      <div class="step-item reveal delay-1">
-        <div>
-          <div class="step-number-wrap">
-            <div class="step-number">1</div>
-          </div>
-        </div>
-        <div>
-          <div class="step-content-title">Descarga CarrerasOS</div>
-          <div class="step-content-sub">Gratis en App Store y Google Play. Regístrate en 30 segundos — no necesitas tarjeta de crédito.</div>
+      <div style="height:44px;"></div>
+
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-name">Descarga gratis</div>
+          <div class="step-desc">Disponible en App Store y Google Play. Regístrate en 30 segundos — sin tarjeta de crédito, sin trampa.</div>
         </div>
       </div>
 
-      <div class="step-connector reveal"></div>
+      <div class="step-sep"></div>
 
-      <div class="step-item reveal delay-2">
-        <div>
-          <div class="step-number-wrap">
-            <div class="step-number">2</div>
-          </div>
-        </div>
-        <div>
-          <div class="step-content-title">Elige tus picks</div>
-          <div class="step-content-sub">Selecciona tus ganadores antes de cada carrera. Usa las estadísticas y los picks de la comunidad para decidir mejor.</div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-name">Elige tus picks</div>
+          <div class="step-desc">Selecciona tu ganador antes de cada carrera. Usa estadísticas y picks de la comunidad para decidir mejor.</div>
         </div>
       </div>
 
-      <div class="step-connector reveal"></div>
+      <div class="step-sep"></div>
 
-      <div class="step-item reveal delay-3">
-        <div>
-          <div class="step-number-wrap">
-            <div class="step-number">3</div>
-          </div>
-        </div>
-        <div>
-          <div class="step-content-title">Sigue los resultados en vivo</div>
-          <div class="step-content-sub">Mira los resultados en tiempo real, escala el leaderboard y comparte tus victorias con la comunidad.</div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-name">Sigue en vivo</div>
+          <div class="step-desc">Resultados instantáneos, leaderboard actualizado y highlights — todo mientras el evento ocurre.</div>
         </div>
       </div>
 
@@ -1610,10 +1589,10 @@
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     URGENCY / FOMO
+     SECTION 6 — URGENCY / COUNTDOWN
 ================================================================ -->
 <section id="urgency">
   <div class="urgency-glow"></div>
@@ -1624,143 +1603,152 @@
       Únete antes del próximo evento
     </div>
 
-    <h2 class="urgency-title reveal delay-1 glow-text">
-      El próximo<br>evento<br><span class="text-gold">arranca en</span>
+    <h2 class="urgency-title reveal d1">
+      El próximo evento<br>arranca en<br><span class="gold">…</span>
     </h2>
 
-    <div class="countdown-wrap reveal delay-2">
-      <div class="countdown-block">
-        <span class="countdown-num" id="cd-days">00</span>
-        <span class="countdown-label">Días</span>
+    <div class="countdown reveal d2">
+      <div class="cd-block">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-lbl">Días</span>
       </div>
-      <span class="countdown-sep">:</span>
-      <div class="countdown-block">
-        <span class="countdown-num" id="cd-hours">00</span>
-        <span class="countdown-label">Horas</span>
+      <span class="cd-sep">:</span>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-lbl">Horas</span>
       </div>
-      <span class="countdown-sep">:</span>
-      <div class="countdown-block">
-        <span class="countdown-num" id="cd-mins">00</span>
-        <span class="countdown-label">Min</span>
+      <span class="cd-sep">:</span>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-lbl">Min</span>
       </div>
-      <span class="countdown-sep">:</span>
-      <div class="countdown-block">
-        <span class="countdown-num" id="cd-secs">00</span>
-        <span class="countdown-label">Seg</span>
-      </div>
-    </div>
-
-    <div class="fomo-stats reveal delay-3">
-      <div class="fomo-stat-row">
-        <span class="fomo-stat-label">Registrados esta semana</span>
-        <span class="fomo-stat-val" id="reg-counter">0</span>
-      </div>
-      <div class="fomo-stat-row">
-        <span class="fomo-stat-label">Picks activos ahora</span>
-        <span class="fomo-stat-val" id="active-counter">0</span>
+      <span class="cd-sep">:</span>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-lbl">Seg</span>
       </div>
     </div>
 
-    <div class="beta-badge reveal delay-4">
-      <div class="beta-dot"></div>
-      Plazas limitadas en Beta — Únete ahora
+    <div class="fomo-rows reveal d3">
+      <div class="fomo-row">
+        <span class="fomo-lbl">Nuevos registros esta semana</span>
+        <span class="fomo-val" id="reg-count">0</span>
+      </div>
+      <div class="fomo-row">
+        <span class="fomo-lbl">Picks activos en este momento</span>
+        <span class="fomo-val" id="active-count">0</span>
+      </div>
+    </div>
+
+    <div class="reveal d4">
+      <div class="online-row">
+        <div class="online-dot"></div>
+        <span id="online-count">8,423</span>&nbsp;usuarios conectados ahora mismo
+      </div>
     </div>
 
   </div>
 </section>
 
-<div class="glass-divider"></div>
+<div class="divider"></div>
 
 <!-- ================================================================
-     FINAL CTA
+     SECTION 7 — FINAL CTA
 ================================================================ -->
 <section id="final-cta">
   <div class="cta-orb-1"></div>
   <div class="cta-orb-2"></div>
 
-  <div class="container">
-    <span class="cta-big-logo reveal">CarrerasOS</span>
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="cta-eyebrow reveal">La app que estabas esperando</p>
 
-    <p class="cta-sub reveal delay-1">
-      <strong>Descarga Gratis</strong> · Disponible para iOS y Android<br>
-      La experiencia que las carreras merecen.
+    <span class="cta-brand reveal d1">CarrerasOS</span>
+    <div class="cta-tagline reveal d2">Carreras. Reinventadas.</div>
+
+    <p class="cta-sub reveal d3">
+      <strong>Descarga gratis</strong> — iOS &amp; Android.<br>La experiencia que las carreras merecen.
     </p>
 
-    <div class="cta-store-buttons reveal delay-2">
-      <a href="#" class="cta-store-btn cta-apple-btn">
-        <span class="cta-store-icon">🍎</span>
-        <span class="cta-store-text">
-          <span class="cta-store-small">Descarga en el</span>
-          <span class="cta-store-big">App Store</span>
+    <div class="cta-store-btns reveal d4">
+      <a href="#" class="cta-store-btn cta-apple">
+        <span class="cta-btn-icon">🍎</span>
+        <span class="cta-btn-txt">
+          <span class="cta-btn-small">Descarga en el</span>
+          <span class="cta-btn-big">App Store</span>
         </span>
       </a>
-      <a href="#" class="cta-store-btn cta-google-btn">
-        <span class="cta-store-icon">▶</span>
-        <span class="cta-store-text">
-          <span class="cta-store-small">Disponible en</span>
-          <span class="cta-store-big">Google Play</span>
+      <a href="#" class="cta-store-btn cta-google">
+        <span class="cta-btn-icon" style="font-size:24px;">▶</span>
+        <span class="cta-btn-txt">
+          <span class="cta-btn-small">Disponible en</span>
+          <span class="cta-btn-big">Google Play</span>
         </span>
       </a>
     </div>
 
-    <div class="cta-fine-print reveal delay-3">
-      <a href="#">carrerasos.com</a> · Gratis · Sin compromisos
+    <div class="cta-url reveal d5">
+      <a href="https://carrerasos.com">carrerasos.com</a>
     </div>
   </div>
 </section>
 
+<footer>
+  <div class="container">
+    &copy; 2026 CarrerasOS &nbsp;·&nbsp;
+    <a href="#">Términos</a> &nbsp;·&nbsp;
+    <a href="#">Privacidad</a> &nbsp;·&nbsp;
+    <a href="https://carrerasos.com">carrerasos.com</a>
+  </div>
+</footer>
+
+
 <!-- ================================================================
-     JAVASCRIPT
+     JAVASCRIPT — zero external deps
 ================================================================ -->
 <script>
-(function() {
+(function () {
   'use strict';
 
-  /* ------------------------------------------------------------------
-     CANVAS PARTICLES
-  ------------------------------------------------------------------ */
+  /* ─── 1. CANVAS PARTICLES ─────────────────────────────────────── */
   const canvas = document.getElementById('hero-canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx    = canvas.getContext('2d');
   let W, H, particles = [];
 
-  function resize() {
+  function resizeCanvas() {
     W = canvas.width  = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
   }
-  resize();
-  window.addEventListener('resize', () => { resize(); initParticles(); });
+  resizeCanvas();
+  window.addEventListener('resize', function() { resizeCanvas(); initParticles(); }, { passive: true });
 
-  function Particle() {
-    this.reset();
-  }
+  function Particle() { this.reset(); }
 
-  Particle.prototype.reset = function() {
-    this.x  = Math.random() * W;
-    this.y  = Math.random() * H;
-    this.r  = Math.random() * 2.5 + 0.5;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4 - 0.2;
-    this.alpha = Math.random() * 0.5 + 0.1;
-    this.fadeDir = Math.random() > 0.5 ? 1 : -1;
-    // Gold or orange
-    this.color = Math.random() > 0.5 ? '255,210,0' : '255,107,0';
+  Particle.prototype.reset = function () {
+    this.x     = Math.random() * W;
+    this.y     = Math.random() * H;
+    this.r     = Math.random() * 2.4 + 0.4;
+    this.vx    = (Math.random() - 0.5) * 0.45;
+    this.vy    = (Math.random() - 0.5) * 0.45 - 0.18;
+    this.alpha = Math.random() * 0.5 + 0.08;
+    this.dir   = Math.random() > 0.5 ? 1 : -1;
+    this.color = Math.random() > 0.45 ? '255,210,0' : '255,107,0';
   };
 
-  Particle.prototype.update = function() {
+  Particle.prototype.update = function () {
     this.x += this.vx;
     this.y += this.vy;
-    this.alpha += this.fadeDir * 0.003;
-    if (this.alpha > 0.6) this.fadeDir = -1;
-    if (this.alpha < 0.05) this.fadeDir = 1;
-    if (this.x < -10 || this.x > W + 10 || this.y < -10 || this.y > H + 10) this.reset();
+    this.alpha += this.dir * 0.003;
+    if (this.alpha > 0.65) this.dir = -1;
+    if (this.alpha < 0.04) this.dir =  1;
+    if (this.x < -12 || this.x > W + 12 || this.y < -12 || this.y > H + 12) this.reset();
   };
 
-  Particle.prototype.draw = function() {
+  Particle.prototype.draw = function () {
     ctx.save();
     ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = 'rgba(' + this.color + ',1)';
-    ctx.shadowBlur = this.r * 4;
-    ctx.shadowColor = 'rgba(' + this.color + ',0.8)';
+    ctx.fillStyle   = 'rgba(' + this.color + ',1)';
+    ctx.shadowBlur  = this.r * 5;
+    ctx.shadowColor = 'rgba(' + this.color + ',0.75)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.fill();
@@ -1768,193 +1756,247 @@
   };
 
   function initParticles() {
-    const count = Math.min(80, Math.floor((W * H) / 8000));
-    particles = Array.from({ length: count }, () => new Particle());
+    var count = Math.min(90, Math.floor((W * H) / 7200));
+    particles = Array.from({ length: count }, function () { return new Particle(); });
   }
   initParticles();
 
-  function animateParticles() {
+  function loopParticles() {
     ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
+    particles.forEach(function (p) { p.update(); p.draw(); });
+    requestAnimationFrame(loopParticles);
   }
-  animateParticles();
+  loopParticles();
 
-  /* ------------------------------------------------------------------
-     INTERSECTION OBSERVER — SCROLL ANIMATIONS
-  ------------------------------------------------------------------ */
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  /* ─── 2. HERO TAGLINE — word by word ─────────────────────────── */
+  var words = document.querySelectorAll('.hero-tagline .word');
+  words.forEach(function (w, i) {
+    setTimeout(function () { w.classList.add('show'); }, 800 + i * 320);
+  });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  /* ─── 3. INTERSECTION OBSERVER — scroll reveals ──────────────── */
+  var revealEls = document.querySelectorAll(
+    '.reveal, .reveal-left, .reveal-right, .reveal-scale, .step-item'
+  );
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        io.unobserve(entry.target);
 
-        // Trigger countup when social proof comes in
-        if (entry.target.classList.contains('picks-big') || entry.target.id === 'picks-counter') {
-          countUp(document.getElementById('picks-counter'), 12847, 2000);
+        /* CountUp triggers */
+        if (entry.target.id === 'picks-counter') {
+          countUp(entry.target, 12847, 2200);
+        }
+        if (entry.target.id === 'reg-count') {
+          countUp(entry.target, 3241, 1900);
+          setTimeout(function () { startIncrement(entry.target, 3241, 4500); }, 2000);
+        }
+        if (entry.target.id === 'active-count') {
+          countUp(entry.target, 847, 1700);
+          setTimeout(function () { startFluctuate(entry.target, 847); }, 1800);
         }
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.14, rootMargin: '0px 0px -30px 0px' });
 
-  revealEls.forEach(el => observer.observe(el));
+  revealEls.forEach(function (el) { io.observe(el); });
 
-  // Hero elements trigger immediately
-  document.querySelectorAll('#hero .reveal').forEach(el => {
-    setTimeout(() => el.classList.add('visible'), 100);
+  /* Hero elements in immediately */
+  document.querySelectorAll('#hero .reveal, #hero .reveal-left, #hero .reveal-scale').forEach(function (el) {
+    setTimeout(function () { el.classList.add('visible'); }, 150);
   });
 
-  // Picks counter special observer
-  const picksEl = document.getElementById('picks-counter');
-  let picksStarted = false;
-  const picksObs = new IntersectionObserver((entries) => {
+  /* Dedicated picks observer */
+  var picksEl    = document.getElementById('picks-counter');
+  var picksStarted = false;
+  var picksObs = new IntersectionObserver(function (entries) {
     if (entries[0].isIntersecting && !picksStarted) {
       picksStarted = true;
       countUp(picksEl, 12847, 2200);
-    }
-  }, { threshold: 0.5 });
-  picksObs.observe(picksEl);
-
-  // Reg counter
-  const regEl = document.getElementById('reg-counter');
-  const activeEl = document.getElementById('active-counter');
-  let fomoStarted = false;
-  const fomoObs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !fomoStarted) {
-      fomoStarted = true;
-      countUp(regEl, 3241, 2000);
-      countUp(activeEl, 847, 1800);
-      // After reaching target, start auto-increment
-      setTimeout(() => startAutoIncrement(regEl, 3241), 2200);
-      setTimeout(() => startFluctuate(activeEl, 847), 2000);
+      picksObs.disconnect();
     }
   }, { threshold: 0.4 });
-  fomoObs.observe(document.getElementById('urgency'));
+  if (picksEl) picksObs.observe(picksEl);
 
-  /* ------------------------------------------------------------------
-     COUNT UP ANIMATION
-  ------------------------------------------------------------------ */
+  /* Urgency section counters */
+  var regEl    = document.getElementById('reg-count');
+  var activeEl = document.getElementById('active-count');
+  var fomoStarted = false;
+  var fomoObs = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting && !fomoStarted) {
+      fomoStarted = true;
+      countUp(regEl,    3241, 1900);
+      countUp(activeEl,  847, 1700);
+      setTimeout(function () { startIncrement(regEl,   3241, 4500); }, 2100);
+      setTimeout(function () { startFluctuate(activeEl, 847);       }, 1900);
+      fomoObs.disconnect();
+    }
+  }, { threshold: 0.3 });
+  var urgencyEl = document.getElementById('urgency');
+  if (urgencyEl) fomoObs.observe(urgencyEl);
+
+  /* ─── 4. COUNT-UP ANIMATION ───────────────────────────────────── */
   function countUp(el, target, duration) {
     if (!el) return;
-    const start = performance.now();
-    const startVal = parseInt(el.textContent.replace(/,/g, '')) || 0;
+    var start    = performance.now();
+    var startVal = 0;
 
-    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
     function frame(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const val = Math.round(startVal + (target - startVal) * easeOut(progress));
+      var elapsed  = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var val      = Math.round(startVal + (target - startVal) * easeOutCubic(progress));
       el.textContent = val.toLocaleString('es-MX');
       if (progress < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
   }
 
-  function startAutoIncrement(el, base) {
-    setInterval(() => {
-      const current = parseInt(el.textContent.replace(/,/g, '')) || base;
-      el.textContent = (current + 1).toLocaleString('es-MX');
-    }, 4200);
+  function startIncrement(el, base, interval) {
+    setInterval(function () {
+      var cur = parseInt(el.textContent.replace(/[^0-9]/g, ''), 10) || base;
+      el.textContent = (cur + 1).toLocaleString('es-MX');
+    }, interval || 4000);
   }
 
   function startFluctuate(el, base) {
-    setInterval(() => {
-      const delta = Math.floor(Math.random() * 5) - 1;
-      const current = parseInt(el.textContent.replace(/,/g, '')) || base;
-      const next = Math.max(base - 20, current + delta);
+    setInterval(function () {
+      var cur   = parseInt(el.textContent.replace(/[^0-9]/g, ''), 10) || base;
+      var delta = Math.floor(Math.random() * 5) - 1;
+      var next  = Math.max(base - 15, cur + delta);
       el.textContent = next.toLocaleString('es-MX');
-    }, 3000);
+    }, 3200);
   }
 
-  /* ------------------------------------------------------------------
-     HERO TAGLINE — WORD BY WORD
-  ------------------------------------------------------------------ */
-  const words = document.querySelectorAll('.hero-tagline .word');
-  words.forEach((w, i) => {
-    setTimeout(() => w.classList.add('show'), 900 + i * 300);
-  });
-
-  /* ------------------------------------------------------------------
-     COUNTDOWN TIMER
-  ------------------------------------------------------------------ */
-  // Target: next Saturday at noon
-  function getNextEventDate() {
-    const now = new Date();
-    const target = new Date(now);
-    // Find next Saturday
-    const daysUntilSat = (6 - now.getDay() + 7) % 7 || 7;
-    target.setDate(now.getDate() + daysUntilSat);
-    target.setHours(12, 0, 0, 0);
-    return target;
+  /* Slow user online counter */
+  var onlineEl = document.getElementById('online-count');
+  if (onlineEl) {
+    var onlineBase = 8423;
+    onlineEl.textContent = onlineBase.toLocaleString('es-MX');
+    setInterval(function () {
+      onlineBase += Math.floor(Math.random() * 3);
+      onlineEl.textContent = onlineBase.toLocaleString('es-MX');
+    }, 3700 + Math.random() * 2000);
   }
 
-  const eventTarget = getNextEventDate();
-
-  function updateCountdown() {
-    const now = new Date();
-    let diff = Math.max(0, eventTarget - now);
-
-    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff -= days * 1000 * 60 * 60 * 24;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff -= hours * 1000 * 60 * 60;
-    const mins  = Math.floor(diff / (1000 * 60));
-    diff -= mins * 1000 * 60;
-    const secs  = Math.floor(diff / 1000);
-
-    const pad = n => String(n).padStart(2, '0');
-    document.getElementById('cd-days').textContent  = pad(days);
-    document.getElementById('cd-hours').textContent = pad(hours);
-    document.getElementById('cd-mins').textContent  = pad(mins);
-    document.getElementById('cd-secs').textContent  = pad(secs);
+  /* ─── 5. COUNTDOWN TIMER ──────────────────────────────────────── */
+  function getNextSunday() {
+    var now  = new Date();
+    var day  = now.getDay();           // 0 = Sun
+    var diff = day === 0 ? 7 : 7 - day;
+    var next = new Date(now);
+    next.setDate(now.getDate() + diff);
+    next.setHours(14, 0, 0, 0);
+    return next;
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  var eventTarget = getNextSunday();
 
-  /* ------------------------------------------------------------------
-     PHONE MOCKUP TILT ON SCROLL
-  ------------------------------------------------------------------ */
-  const iphone = document.querySelector('.iphone');
+  function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+  function tickCd() {
+    var now  = Date.now();
+    var diff = Math.max(0, eventTarget - now);
+
+    var d = Math.floor(diff / 86400000);       diff -= d * 86400000;
+    var h = Math.floor(diff / 3600000);         diff -= h * 3600000;
+    var m = Math.floor(diff / 60000);           diff -= m * 60000;
+    var s = Math.floor(diff / 1000);
+
+    document.getElementById('cd-days').textContent  = pad(d);
+    document.getElementById('cd-hours').textContent = pad(h);
+    document.getElementById('cd-mins').textContent  = pad(m);
+    document.getElementById('cd-secs').textContent  = pad(s);
+
+    /* Update urgency title gold span */
+    var goldSpan = document.querySelector('.urgency-title .gold');
+    if (goldSpan) goldSpan.textContent = pad(d) + 'd ' + pad(h) + 'h';
+  }
+
+  tickCd();
+  setInterval(tickCd, 1000);
+
+  /* ─── 6. AVATAR TRACK — build DOM ────────────────────────────── */
+  var avatars = [
+    { init: 'JR', bg: '#1a3a1a', fg: '#7bc87b' },
+    { init: 'MC', bg: '#1a1a3a', fg: '#7b9bcb' },
+    { init: 'AL', bg: '#3a1a1a', fg: '#ff7b7b' },
+    { init: 'RM', bg: '#2a2a1a', fg: '#cbcb7b' },
+    { init: 'ES', bg: '#1a2a2a', fg: '#7bcbcb' },
+    { init: 'FG', bg: '#2a1a2a', fg: '#cb7bcb' },
+    { init: 'DV', bg: '#111',    fg: '#FFD200' },
+    { init: 'KL', bg: '#1a2a1a', fg: '#FF8C00' },
+    { init: 'PM', bg: '#2a1a1a', fg: '#ff9b7b' },
+    { init: 'NR', bg: '#1a2a2a', fg: '#7bd4cb' },
+    { init: 'TH', bg: '#2a2a1a', fg: '#d4cb7b' },
+    { init: 'WO', bg: '#1a1a2a', fg: '#9b7bcb' },
+  ];
+
+  var avTrack = document.getElementById('av-track');
+  if (avTrack) {
+    var avHtml = '';
+    // Double for seamless loop
+    [avatars, avatars].forEach(function (set) {
+      set.forEach(function (a) {
+        avHtml += '<div class="av" style="background:' + a.bg + ';color:' + a.fg + '">' + a.init + '</div>';
+      });
+    });
+    avTrack.innerHTML = avHtml;
+  }
+
+  /* ─── 7. TESTIMONIAL TICKER — build DOM ──────────────────────── */
+  var testimonials = [
+    { handle: '@juanramirez_mx',   text: 'Acerté 9 de 10 carreras esta semana con CarrerasOS 🔥' },
+    { handle: '@maricel_chx',      text: 'La comunidad está increíble, siempre hay tips buenos' },
+    { handle: '@elcharro88',       text: 'El leaderboard me tiene adicto, top 50 ya!' },
+    { handle: '@picks_pro_tx',     text: 'Nunca había seguido las carreras tan de cerca' },
+    { handle: '@norteñaforever',   text: 'La app que la comunidad necesitaba desde hace años' },
+    { handle: '@valeria_pcks',     text: 'Los stats de los caballos son brutales, muy detallados' },
+    { handle: '@carrerasfan99',    text: 'Me gané un premio en el ranking de la semana 🏆' },
+    { handle: '@jalisco_racing',   text: 'Live results en segundos, sin refreshear nada' },
+    { handle: '@el_tigre_picks',   text: 'Uso CarrerasOS en cada evento, imprescindible' },
+    { handle: '@reyna_caballos',   text: 'La mejor inversión fue descargar esta app. Es gratis jaja 😂' },
+  ];
+
+  var tickerTrack = document.getElementById('ticker-track');
+  if (tickerTrack) {
+    var tickHtml = '';
+    [testimonials, testimonials].forEach(function (set) {
+      set.forEach(function (t) {
+        tickHtml += '<div class="ticker-item"><span class="ticker-handle">' +
+          t.handle + '</span>' + t.text + '</div>';
+      });
+    });
+    tickerTrack.innerHTML = tickHtml;
+  }
+
+  /* ─── 8. PHONE MOCKUP PARALLAX TILT ON SCROLL ────────────────── */
+  var iphone = document.querySelector('.iphone');
   if (iphone) {
-    window.addEventListener('scroll', () => {
-      const phoneSection = document.getElementById('phone-section');
-      const rect = phoneSection.getBoundingClientRect();
-      const progress = 1 - (rect.top + rect.height * 0.5) / (window.innerHeight + rect.height * 0.5);
-      const clamped = Math.max(0, Math.min(1, progress));
-      const rx = 8 - clamped * 12;
-      const ry = -12 + clamped * 18;
-      iphone.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(0)`;
+    window.addEventListener('scroll', function () {
+      var sect = document.getElementById('phone-section');
+      if (!sect) return;
+      var rect     = sect.getBoundingClientRect();
+      var progress = 1 - (rect.top + rect.height * 0.5) / (window.innerHeight + rect.height * 0.5);
+      var clamped  = Math.max(0, Math.min(1, progress));
+      var rx = 8  - clamped * 14;
+      var ry = -12 + clamped * 22;
+      iphone.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(0)';
     }, { passive: true });
   }
 
-  /* ------------------------------------------------------------------
-     GLASSMORPHISM SHINE ON HOVER (feature cards)
-  ------------------------------------------------------------------ */
-  document.querySelectorAll('.feature-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width)  * 100;
-      const y = ((e.clientY - rect.top)  / rect.height) * 100;
-      card.style.setProperty('--mx', x + '%');
-      card.style.setProperty('--my', y + '%');
+  /* ─── 9. STORE BUTTON 3D TILT ─────────────────────────────────── */
+  document.querySelectorAll('.store-btn, .cta-store-btn').forEach(function (btn) {
+    btn.addEventListener('mousemove', function (e) {
+      var rect = btn.getBoundingClientRect();
+      var x = (e.clientX - rect.left  - rect.width  / 2) / (rect.width  / 2);
+      var y = (e.clientY - rect.top   - rect.height / 2) / (rect.height / 2);
+      btn.style.transform = 'perspective(240px) translateY(-3px) rotateX(' + (-y * 7) + 'deg) rotateY(' + (x * 7) + 'deg) scale(1.03)';
     });
-  });
-
-  /* ------------------------------------------------------------------
-     STORE BUTTONS — 3D LIFT
-  ------------------------------------------------------------------ */
-  document.querySelectorAll('.store-btn, .cta-store-btn').forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
-      const y = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
-      btn.style.transform = `translateY(-3px) perspective(200px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) scale(1.03)`;
-    });
-    btn.addEventListener('mouseleave', () => {
+    btn.addEventListener('mouseleave', function () {
       btn.style.transform = '';
     });
   });
