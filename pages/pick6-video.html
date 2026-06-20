@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=540,initial-scale=1">
+<title>Pick6 · Video Ad</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:540px;height:960px;overflow:hidden;background:#0a0a0a;font-family:-apple-system,sans-serif}
+
+.scene{position:absolute;inset:0;opacity:0;pointer-events:none}
+.scene.active{opacity:1;pointer-events:auto}
+
+/* S1 — TITLE BLAST */
+#s1{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+#s1 .pre{font-size:13px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,210,0,.55);margin-bottom:14px;animation:aFadeUp .5s ease both}
+#s1 .title{font-size:120px;font-weight:900;color:#FFD200;line-height:.82;text-align:center;letter-spacing:2px;animation:aBurst .55s cubic-bezier(.17,.67,.3,1.3) both;text-shadow:0 0 80px rgba(255,210,0,.6),0 0 160px rgba(255,210,0,.25)}
+#s1 .num{font-size:52px;font-weight:900;color:#fff;letter-spacing:4px;margin-top:6px;animation:aFadeUp .5s .2s ease both}
+#s1 .sub{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:18px;animation:aFadeUp .5s .35s ease both}
+@keyframes aBurst{from{transform:scale(2.2);opacity:0;filter:blur(12px)}to{transform:scale(1);opacity:1;filter:blur(0)}}
+@keyframes aFadeUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* S2 — PRIZE REVEAL */
+#s2{background:#FFD200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+#s2 .label{font-size:14px;font-weight:800;letter-spacing:4px;color:rgba(0,0,0,.45);text-transform:uppercase}
+#s2 .prize{font-size:160px;font-weight:900;color:#000;line-height:.8;letter-spacing:-4px;animation:aBounceIn .5s cubic-bezier(.17,.67,.3,1.4) both}
+#s2 .prize-sub{font-size:22px;font-weight:900;color:rgba(0,0,0,.5);letter-spacing:2px;text-transform:uppercase}
+#s2 .pills{display:flex;gap:10px;margin-top:16px}
+#s2 .pill{background:#000;color:#FFD200;font-size:12px;font-weight:800;letter-spacing:2px;padding:8px 18px;border-radius:30px;text-transform:uppercase}
+@keyframes aBounceIn{from{transform:scale(.4) translateY(40px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+
+/* S3 — CARD REVEAL */
+#s3{background:#111;display:flex;align-items:center;justify-content:center;perspective:800px}
+#s3 .card3d{width:380px;aspect-ratio:.65;transform-style:preserve-3d;animation:aCoinSpin 1.2s ease both}
+#s3 .card3d img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 60px rgba(255,210,0,.3)}
+#s3 .glow-ring{position:absolute;width:420px;aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,210,0,.2);animation:aPulseRing 1s ease infinite}
+@keyframes aCoinSpin{from{transform:rotateY(-90deg) scale(.8);opacity:0}to{transform:rotateY(0deg) scale(1);opacity:1}}
+@keyframes aPulseRing{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:1}}
+
+/* S4 — HOW TO PLAY */
+#s4{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;gap:20px}
+#s4 .s4-title{font-size:14px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:4px}
+.step{display:flex;align-items:center;gap:18px;width:100%;animation:aSlideL .4s ease both}
+.step:nth-child(3){animation-delay:.1s}
+.step:nth-child(4){animation-delay:.2s}
+.step .sn{width:52px;height:52px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#000;flex-shrink:0;box-shadow:0 4px 20px rgba(255,210,0,.4)}
+.step .st{flex:1}
+.step .st .sh{font-size:18px;font-weight:900;color:#111;line-height:1.1}
+.step .st .sd{font-size:12px;color:#aaa;margin-top:3px;letter-spacing:.3px}
+@keyframes aSlideL{from{transform:translateX(-40px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* S5 — SOCIAL PROOF */
+#s5{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;overflow:hidden}
+#s5 .sp-title{font-size:13px;letter-spacing:4px;color:rgba(255,210,0,.55);text-transform:uppercase}
+.winner-row{display:flex;gap:12px;animation:aScrollR 8s linear infinite;white-space:nowrap}
+.winner-chip{background:#1a1a1a;border:1px solid rgba(255,210,0,.2);border-radius:30px;padding:10px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.winner-chip .avatar{width:34px;height:34px;border-radius:50%;background:#FFD200;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#000}
+.winner-chip .wname{font-size:12px;font-weight:700;color:#fff}
+.winner-chip .wamt{font-size:13px;font-weight:900;color:#FFD200}
+@keyframes aScrollR{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#s5 .scarcity{display:flex;align-items:center;gap:10px;background:#1a1a1a;border:1.5px solid rgba(255,60,60,.35);border-radius:12px;padding:14px 22px}
+#s5 .scarcity .dot{width:10px;height:10px;border-radius:50%;background:#FF3B30;animation:aPulse 1s ease infinite}
+#s5 .scarcity span{font-size:14px;font-weight:800;color:#fff;letter-spacing:.3px}
+#s5 .scarcity span b{color:#FF3B30}
+@keyframes aPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+#s5 .cta-badge{background:linear-gradient(135deg,#FFD200,#FF9500);color:#000;font-size:22px;font-weight:900;letter-spacing:2px;padding:16px 40px;border-radius:50px;text-transform:uppercase;box-shadow:0 8px 40px rgba(255,210,0,.4)}
+
+/* S6 — DUEL SHOWCASE */
+#s6{background:#0a0a0a;display:grid;grid-template-columns:1fr 50px 1fr;height:960px}
+#s6 .side{position:relative;overflow:hidden;background:#111}
+#s6 .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center;animation:aHorsePunch .4s cubic-bezier(.17,.67,.3,1.15) both}
+#s6 .side.r img{transform:scaleX(-1)}
+#s6 .side.r.active img{animation:aHorsePunchR .4s cubic-bezier(.17,.67,.3,1.15) both}
+@keyframes aHorsePunch{from{transform:scale(1.25) translateY(5%);opacity:0;filter:brightness(2)}to{transform:scale(1) translateY(0);opacity:1;filter:brightness(1)}}
+@keyframes aHorsePunchR{from{transform:scaleX(-1) scale(1.25) translateY(5%);opacity:0}to{transform:scaleX(-1) scale(1) translateY(0);opacity:1}}
+#s6 .strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);padding:50px 16px 20px}
+#s6 .side.r .strip{text-align:right}
+#s6 .sname{font-size:30px;font-weight:900;text-transform:uppercase;color:#FFD200;line-height:.88;text-shadow:0 2px 16px #000}
+#s6 .scuad{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px}
+#s6 .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;z-index:2}
+#s6 .mid .vs{font-size:22px;font-weight:900;color:#000;writing-mode:vertical-lr}
+#s6 .top-tag{position:absolute;top:24px;left:0;right:0;text-align:center;z-index:5}
+#s6 .top-tag span{background:#FFD200;color:#000;font-size:12px;font-weight:900;letter-spacing:2px;padding:7px 20px;border-radius:20px;text-transform:uppercase}
+
+/* S7 — END CARD */
+#s7{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#s7::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,210,0,.18),transparent 65%)}
+#s7 .end-pre{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.3);text-transform:uppercase;position:relative;z-index:1}
+#s7 .end-title{font-size:90px;font-weight:900;color:#FFD200;line-height:.82;text-align:center;position:relative;z-index:1;animation:aFadeUp .5s ease both;text-shadow:0 0 60px rgba(255,210,0,.5)}
+#s7 .end-prize{font-size:28px;font-weight:900;color:#fff;position:relative;z-index:1;animation:aFadeUp .5s .15s ease both;opacity:0}
+#s7 .end-price{font-size:14px;color:rgba(255,255,255,.35);letter-spacing:3px;text-transform:uppercase;position:relative;z-index:1}
+#s7 .qr-wrap{background:#fff;padding:8px;border-radius:12px;border:3px solid #FFD200;position:relative;z-index:1;animation:aFadeUp .5s .3s ease both;opacity:0}
+#s7 .qr-wrap img{width:110px;height:110px;display:block;border-radius:6px}
+#s7 .scan{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1}
+#s7 .cta-final{background:#FFD200;color:#000;font-size:20px;font-weight:900;letter-spacing:2px;padding:14px 38px;border-radius:40px;text-transform:uppercase;position:relative;z-index:1;animation:aFadeUp .5s .45s ease both;opacity:0;box-shadow:0 8px 32px rgba(255,210,0,.4)}
+
+/* FLASH + PARTICLES */
+.flash{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0;background:#fff}
+.flash.go{animation:aFlash .18s ease}
+@keyframes aFlash{0%{opacity:.95}100%{opacity:0}}
+canvas#cvs{position:fixed;inset:0;pointer-events:none;z-index:100;width:540px;height:960px}
+</style>
+</head>
+<body>
+
+<canvas id="cvs"></canvas>
+<div class="flash" id="flash"></div>
+
+<div id="s1" class="scene active">
+  <div class="pre">Carril Dos Hermanos · Presenta</div>
+  <div class="title">PICK<br>6</div>
+  <div class="num">$3,000</div>
+  <div class="sub">¿Puedes Acertar las 6?</div>
+</div>
+
+<div id="s2" class="scene">
+  <div class="label">Premio Mayor</div>
+  <div class="prize">$3K</div>
+  <div class="prize-sub">Ganador del Día</div>
+  <div class="pills">
+    <div class="pill">6 Caballos</div>
+    <div class="pill">Solo $5</div>
+    <div class="pill">Un Ganador</div>
+  </div>
+</div>
+
+<div id="s3" class="scene">
+  <div class="glow-ring"></div>
+  <div class="card3d"><img src="pick6-card.jpg" alt="PICK6"></div>
+</div>
+
+<div id="s4" class="scene">
+  <div class="s4-title">Cómo Jugar</div>
+  <div class="step">
+    <div class="sn">1</div>
+    <div class="st"><div class="sh">Compra tu PICK6</div><div class="sd">Solo $5 por tarjeta</div></div>
+  </div>
+  <div class="step">
+    <div class="sn">2</div>
+    <div class="st"><div class="sh">Elige tus 6 Caballos</div><div class="sd">Un ganador por carrera</div></div>
+  </div>
+  <div class="step">
+    <div class="sn">3</div>
+    <div class="st"><div class="sh">¡Gana hasta $3,000!</div><div class="sd">Si aciertas las 6 te llevas todo</div></div>
+  </div>
+</div>
+
+<div id="s5" class="scene">
+  <div class="sp-title">Ganadores Recientes</div>
+  <div style="overflow:hidden;width:100%">
+    <div class="winner-row" id="wRow"></div>
+  </div>
+  <div class="scarcity">
+    <div class="dot"></div>
+    <span>Solo quedan <b>47</b> tarjetas disponibles</span>
+  </div>
+  <div class="cta-badge">JUGAR AHORA · $5</div>
+</div>
+
+<div id="s6" class="scene">
+  <div class="top-tag"><span>⭐ Pick 6 · Elige tu Ganador</span></div>
+  <div class="side l">
+    <img src="h-caos.jpg" alt="Caballo 1">
+    <div class="strip"><div class="sname">CABALLO<br>1</div><div class="scuad">Tu Pick</div></div>
+  </div>
+  <div class="mid"><div class="vs">VS</div></div>
+  <div class="side r">
+    <img src="h-rey-puerro.jpg" alt="Caballo 2">
+    <div class="strip"><div class="sname">CABALLO<br>2</div><div class="scuad">Tu Pick</div></div>
+  </div>
+</div>
+
+<div id="s7" class="scene">
+  <div class="end-pre">Carril Dos Hermanos</div>
+  <div class="end-title">PICK<br>SIX</div>
+  <div class="end-prize">$3,000 Premio</div>
+  <div class="end-price">Solo $5 · ¡Juega Hoy!</div>
+  <div class="qr-wrap"><img id="qrEnd" src="" alt="QR"></div>
+  <div class="scan">Escanea · Juega en Línea</div>
+  <div class="cta-final">JUGAR AHORA</div>
+</div>
+
+<script>
+const SITE='https://guttix1.github.io/Digital-flyer-/pages/pick6.html';
+document.getElementById('qrEnd').src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(SITE)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+
+// winners
+const winners=[
+  {i:'JG',n:'JuanG****',a:'$3,000'},
+  {i:'ML',n:'MariaL****',a:'$1,500'},
+  {i:'CR',n:'CarlosR****',a:'$2,200'},
+  {i:'PM',n:'PedroM****',a:'$3,000'},
+  {i:'LV',n:'LuisV****',a:'$800'},
+  {i:'AR',n:'AnaR****',a:'$3,000'},
+];
+const row=document.getElementById('wRow');
+[...winners,...winners].forEach(w=>{
+  row.innerHTML+=`<div class="winner-chip"><div class="avatar">${w.i}</div><div><div class="wname">${w.n}</div><div class="wamt">🏆 ${w.a}</div></div></div>`;
+});
+
+// particles
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+cvs.width=540;cvs.height=960;
+const pts=[];
+function burst(x,y,c='#FFD200',n=28){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2,s=3+Math.random()*7;
+    pts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,decay:.022+Math.random()*.018,r:2+Math.random()*4,c});
+  }
+}
+function animP(){
+  ctx.clearRect(0,0,540,960);
+  for(let i=pts.length-1;i>=0;i--){
+    const p=pts[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.18;p.life-=p.decay;
+    if(p.life<=0){pts.splice(i,1);continue;}
+    ctx.globalAlpha=p.life;ctx.fillStyle=p.c;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;requestAnimationFrame(animP);
+}
+animP();
+
+function flash(c='#fff'){
+  const f=document.getElementById('flash');
+  f.style.background=c;f.classList.remove('go');void f.offsetWidth;f.classList.add('go');
+}
+
+const scenes=document.querySelectorAll('.scene');
+const DURS=[700,900,1400,1600,1800,1600,Infinity];
+let cur=0;
+
+function goTo(i){
+  scenes[cur].classList.remove('active');
+  cur=i;
+  scenes[cur].classList.add('active');
+  // re-trigger CSS anims
+  scenes[cur].querySelectorAll('[class*="animation"]').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+  const colors=['#FFD200','#fff','#FFD200','#fff','#0a0a0a','#FFD200','#FFD200'];
+  flash(colors[i]||'#fff');
+  burst(270,480,i%2===0?'#FFD200':'#fff',24);
+  if(DURS[cur]!==Infinity) setTimeout(()=>goTo((cur+1)%scenes.length),DURS[cur]);
+}
+setTimeout(()=>goTo(1),DURS[0]);
+</script>
+</body>
+</html>
