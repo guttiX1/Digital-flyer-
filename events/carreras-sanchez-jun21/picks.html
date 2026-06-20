@@ -157,7 +157,7 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
     <div class="l1">Carreras Sánchez · Jun 21</div>
     <div class="l2">Domingo 21 de Junio 2026</div>
   </div>
-  <div class="nav-badge" id="navBadge">0 / 10 Picks</div>
+  <div class="nav-badge" id="navBadge">0 / 23 Picks</div>
 </nav>
 
 <div class="ticker">
@@ -280,16 +280,29 @@ body{background:#fff;color:#111;font-family:-apple-system,'Inter',sans-serif;ove
 
 <script>
 const RACES = [
-  {n:1,  time:'10:40', type:'Tapados',        special:false, dist:'200 Yds', h1:'CDA CEBAS',          c1:'Conveniente Nueva',    i1:'la-mami.jpg',    h2:'CDA CONV. NUEVA',   c2:'',              i2:'cuadra-mtz.jpg'},
-  {n:2,  time:'11:00', type:'Tapados',        special:false, dist:'250 Yds', h1:'CDA AGUILARES',      c1:'',                     i1:'aries.jpg',      h2:'CDA YACKY',         c2:'',              i2:'cristo-rey.jpg'},
-  {n:3,  time:'11:30', type:'Tapados',        special:false, dist:'100 Yds', h1:'CDA MENDOZA',        c1:'',                     i1:'gutierrez.jpg',  h2:'CDA LA VIRGEN',     c2:'',              i2:'la-reyna.jpg'},
-  {n:4,  time:'11:40', type:'Tapados',        special:false, dist:'275 Yds', h1:'CDA CEBAS',          c1:'',                     i1:'la-mami.jpg',    h2:'CDA ROJAS',         c2:'',              i2:'la-tepada.jpg'},
-  {n:5,  time:'12:00', type:'Tapados',        special:false, dist:'250/275 Yds', h1:'CDA AGUILARES',  c1:'',                     i1:'aries.jpg',      h2:'CDA YACKY',         c2:'',              i2:'cristo-rey.jpg'},
-  {n:6,  time:'12:15', type:'Tapados',        special:false, dist:'150 Yds', h1:'C. HMW',             c1:'',                     i1:'el-chigon.jpg',  h2:'C. RANCHO HUMILDE', c2:'',              i2:'pisces.jpg'},
-  {n:7,  time:'12:30', type:'Gran Tercia',    special:true,  dist:'275 Yds', h1:'ROBO RANCHERO',      c1:'',                     i1:'gutierrez.jpg',  h2:'TENIENTE',          c2:'',              i2:'cuadra-mtz.jpg'},
-  {n:8,  time:'1:00',  type:'Tapados',        special:false, dist:'250 Yds', h1:'CDA AGUILARES',      c1:'',                     i1:'aries.jpg',      h2:'CDA YACKY',         c2:'',              i2:'cristo-rey.jpg'},
-  {n:9,  time:'2:30',  type:'Gran Agarrón ⭐',special:true,  dist:'275 Yds', h1:'CDA CEBAS',          c1:'Tapados',              i1:'h-caos.jpg',     h2:'CDA AGUILARES',     c2:'Tapados',       i2:'h-rey-puerro.jpg'},
-  {n:10, time:'3:20',  type:'Claiming',       special:false, dist:'330 Yds', h1:'CDA PROVENZA',       c1:'',                     i1:'cuadra-esperanza.jpg', h2:'RIVAL',       c2:'',              i2:'cuadra-mtz.jpg'},
+  {n:1,  time:'10:40', type:'Tapados',           special:false, dist:'200 Yds',     h1:'CDA CEBAS',         c1:'',  i1:'la-mami.jpg',         h2:'CDA CONV. NUEVA',    c2:'',  i2:'cuadra-mtz.jpg'},
+  {n:2,  time:'11:00', type:'Tapados',           special:false, dist:'250 Yds',     h1:'CDA AGUILARES',     c1:'',  i1:'aries.jpg',           h2:'CDA YACKY',          c2:'',  i2:'cristo-rey.jpg'},
+  {n:3,  time:'11:30', type:'Tapados',           special:false, dist:'100 Yds',     h1:'CDA MENDOZA',       c1:'',  i1:'gutierrez.jpg',       h2:'CDA LA VIRGEN',      c2:'',  i2:'la-reyna.jpg'},
+  {n:4,  time:'11:40', type:'Tapados',           special:false, dist:'275 Yds',     h1:'CDA CEBAS',         c1:'',  i1:'la-mami.jpg',         h2:'CDA ROJAS',          c2:'',  i2:'la-tepada.jpg'},
+  {n:5,  time:'12:00', type:'Tapados',           special:false, dist:'250/275 Yds', h1:'CDA AGUILARES',     c1:'',  i1:'aries.jpg',           h2:'CDA YACKY',          c2:'',  i2:'cristo-rey.jpg'},
+  {n:6,  time:'12:15', type:'Tapados',           special:false, dist:'150 Yds',     h1:'C. HMW',            c1:'',  i1:'el-chigon.jpg',       h2:'C. RANCHO HUMILDE',  c2:'',  i2:'pisces.jpg'},
+  {n:7,  time:'12:30', type:'Gran Tercia',       special:true,  dist:'275 Yds',     h1:'ROBO RANCHERO',     c1:'',  i1:'gutierrez.jpg',       h2:'TENIENTE',           c2:'',  i2:'cuadra-mtz.jpg'},
+  {n:8,  time:'12:40', type:'Tapados',           special:false, dist:'250 Yds',     h1:'CDA AGUILARES',     c1:'',  i1:'aries.jpg',           h2:'CDA YACKY',          c2:'',  i2:'cristo-rey.jpg'},
+  {n:9,  time:'1:00',  type:'Tapados',           special:false, dist:'250 Yds',     h1:'CDA AGUILARES',     c1:'',  i1:'aries.jpg',           h2:'CDA YACKY',          c2:'',  i2:'cristo-rey.jpg'},
+  {n:10, time:'1:20',  type:'Tapados',           special:false, dist:'250 Yds',     h1:'LAS MORTAS',        c1:'',  i1:'la-tepada.jpg',       h2:'CDA RANCHO HUMILDE', c2:'',  i2:'pisces.jpg'},
+  {n:11, time:'1:40',  type:'Tapados',           special:false, dist:'250 Yds',     h1:'CDA ROJAS',         c1:'',  i1:'la-tepada.jpg',       h2:'CDA MORTAS',         c2:'',  i2:'cuadra-mtz.jpg'},
+  {n:12, time:'2:00',  type:'Cuartera',          special:false, dist:'250 Yds',     h1:'EL FORESTERO',      c1:'',  i1:'el-chigon.jpg',       h2:'EL LOCO',            c2:'',  i2:'gutierrez.jpg'},
+  {n:13, time:'2:15',  type:'Tapados',           special:false, dist:'250+ Yds',    h1:'CDA AGUILARES',     c1:'',  i1:'aries.jpg',           h2:'CDA YACKY',          c2:'',  i2:'cristo-rey.jpg'},
+  {n:14, time:'2:30',  type:'Gran Agarrón ⭐',   special:true,  dist:'275 Yds',     h1:'CDA CEBAS',         c1:'Tapados', i1:'h-caos.jpg',    h2:'CDA AGUILARES',      c2:'Tapados', i2:'h-rey-puerro.jpg'},
+  {n:15, time:'3:00',  type:'Tapados',           special:false, dist:'225/250 Yds', h1:'CDA SAN MIGUEL',    c1:'',  i1:'cuadra-mtz.jpg',      h2:'CDA VIA UNION',      c2:'',  i2:'cuadra-esperanza.jpg'},
+  {n:16, time:'3:20',  type:'Claiming',          special:false, dist:'330 Yds',     h1:'CDA PROVENZA',      c1:'Mini Chicas', i1:'cuadra-esperanza.jpg', h2:'RIVAL',   c2:'',  i2:'cuadra-mtz.jpg'},
+  {n:17, time:'3:40',  type:'2do Agarrón',       special:true,  dist:'175 Yds',     h1:'CDA AGUILARES',     c1:'3 Años / Mini Chicas', i1:'aries.jpg', h2:'RIVAL',     c2:'',  i2:'la-reyna.jpg'},
+  {n:18, time:'4:00',  type:'3 Años / Mini Chicas',special:false,dist:'250 Yds',   h1:'C1',                c1:'Clasificación', i1:'la-mami.jpg', h2:'C2-C3',         c2:'',  i2:'gutierrez.jpg'},
+  {n:19, time:'4:20',  type:'3 Años Maiden',     special:false, dist:'250 Yds',     h1:'MINI CHICAS',       c1:'Maiden', i1:'la-reyna.jpg',    h2:'RIVAL',              c2:'',  i2:'pisces.jpg'},
+  {n:20, time:'4:40',  type:'Tapados',           special:false, dist:'250 Yds',     h1:'CDA HUMMER',        c1:'',  i1:'el-chigon.jpg',       h2:'CDA GUZMAN',         c2:'',  i2:'cuadra-mtz.jpg'},
+  {n:21, time:'5:00',  type:'Año de Vida',       special:false, dist:'250 Yds',     h1:'CDA GARCIA',        c1:'',  i1:'gutierrez.jpg',       h2:'CDA VIEJA ESCUELA',  c2:'',  i2:'cuadra-esperanza.jpg'},
+  {n:22, time:'5:20',  type:'Ganadores Mini Chicas',special:false,dist:'250 Yds',  h1:'MINI CHICAS',       c1:'Ganadores', i1:'la-reyna.jpg',  h2:'RIVAL',              c2:'',  i2:'pisces.jpg'},
+  {n:23, time:'5:40',  type:'Gran Revancha',     special:true,  dist:'100 Yds',     h1:'LA LUZ DE LA HACIENDA',c1:'',i1:'la-mami.jpg',        h2:'RIVAL',              c2:'',  i2:'cristo-rey.jpg'},
 ];
 
 const picks = {};
@@ -350,24 +363,24 @@ function pick(raceNum,idx){
     document.getElementById(`rr-${raceNum}`)?.classList.add('picked');
     toast(`★ ${picks[raceNum].name}`);
   }
-  // sync estelar if race 9
-  if(raceNum===9){
+  // sync estelar if race 14
+  if(raceNum===14){
     [0,1].forEach(i=>{
       const el=document.getElementById(`ec-${i}`);
       if(!el)return;
       el.classList.remove('selected','dimmed');
-      if(picks[9]){el.classList.toggle('selected',i===idx);el.classList.toggle('dimmed',i!==idx);}
+      if(picks[14]){el.classList.toggle('selected',i===idx);el.classList.toggle('dimmed',i!==idx);}
     });
   }
   updatePanel();
 }
 
-function pickEstelar(idx){ pick(9,idx); }
+function pickEstelar(idx){ pick(14,idx); }
 
 function updatePanel(){
   const count=Object.keys(picks).length;
-  document.getElementById('navBadge').textContent=`${count} / 10 Picks`;
-  document.getElementById('picksCnt').textContent=`${count} DE 10`;
+  document.getElementById('navBadge').textContent=`${count} / 23 Picks`;
+  document.getElementById('picksCnt').textContent=`${count} DE 23`;
   const rows=document.getElementById('pickRows');
   rows.innerHTML='';
   RACES.forEach(r=>{
