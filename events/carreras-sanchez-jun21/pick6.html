@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pick6 · Carreras Sánchez · $5,000</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#F5C518;--dark:#0a0a0a;--card:rgba(255,255,255,.05)}
+body{background:var(--dark);color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ── CANVAS ── */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:1;background:linear-gradient(160deg,#F5C518 0%,#FF8C00 60%,#FF4500 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 40px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(255,255,255,.15) 0%,transparent 60%)}
+.hero-event{font-size:11px;font-weight:700;letter-spacing:5px;color:rgba(0,0,0,.5);text-transform:uppercase;margin-bottom:16px}
+.hero-p6{display:flex;align-items:center;justify-content:center;gap:0;line-height:1}
+.hero-pick{font-family:'Bebas Neue',sans-serif;font-size:120px;color:#000;letter-spacing:-4px}
+.hero-six{font-family:'Bebas Neue',sans-serif;font-size:150px;color:#fff;text-shadow:-4px 4px 0 #000;letter-spacing:-4px}
+.hero-prize{font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:.85;color:#000;animation:spin3d 4s ease-in-out infinite;margin:8px 0}
+@keyframes spin3d{0%,100%{transform:perspective(600px) rotateY(0deg)}50%{transform:perspective(600px) rotateY(18deg)}}
+.hero-prize-label{font-size:13px;font-weight:700;letter-spacing:4px;color:rgba(0,0,0,.5);text-transform:uppercase}
+.hero-entry{display:inline-block;background:#000;color:var(--gold);font-size:20px;font-weight:800;letter-spacing:3px;padding:10px 28px;border-radius:8px;margin-top:16px}
+.hero-arrow{margin-top:32px;font-size:28px;color:rgba(0,0,0,.4);animation:bounce .8s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ── PRIZE CARDS ── */
+.prize-section{position:relative;z-index:1;background:#111;padding:56px 20px}
+.section-label{text-align:center;font-size:11px;letter-spacing:5px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:8px}
+.section-title{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:48px;color:#fff;margin-bottom:32px}
+.prize-cards{display:flex;gap:12px;max-width:480px;margin:0 auto}
+.prize-card{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(245,197,24,.2);border-radius:16px;padding:24px 12px;text-align:center;backdrop-filter:blur(10px);transition:transform .3s,border-color .3s}
+.prize-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--gold)}
+.pc-icon{font-size:32px;margin-bottom:8px}
+.pc-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);line-height:1}
+.pc-label{font-size:10px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.4);margin-top:4px}
+.bote{text-align:center;margin-top:28px;font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold)}
+.bote span{color:#fff}
+
+/* ── HOW IT WORKS ── */
+.how-section{position:relative;z-index:1;background:#0a0a0a;padding:56px 24px}
+.steps{max-width:480px;margin:32px auto 0;display:flex;flex-direction:column;gap:24px}
+.step{display:flex;gap:20px;align-items:flex-start;opacity:0;transform:translateX(-30px);transition:opacity .5s,transform .5s}
+.step.visible{opacity:1;transform:translateX(0)}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--gold);color:#000;font-family:'Bebas Neue',sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body .step-title{font-weight:800;font-size:16px;color:#fff;margin-bottom:4px}
+.step-body .step-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* ── THE 6 RACES ── */
+.picks-section{position:relative;z-index:1;background:#111;padding:56px 20px}
+.picks-progress-bar{max-width:480px;margin:0 auto 28px;background:rgba(255,255,255,.08);border-radius:50px;height:8px;overflow:hidden}
+.picks-progress-fill{height:100%;background:var(--gold);border-radius:50px;width:0%;transition:width .4s ease}
+.picks-label{text-align:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;margin-bottom:20px}
+.race-cards{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.race-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;transition:border-color .3s}
+.race-card.picked{border-color:var(--gold);background:rgba(245,197,24,.06)}
+.rc-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rc-badge{background:var(--gold);color:#000;font-size:11px;font-weight:800;padding:3px 10px;border-radius:4px;letter-spacing:1px}
+.rc-name{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;flex:1}
+.rc-time{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px}
+.rc-dist{font-size:11px;color:var(--gold);font-weight:700;margin-left:6px}
+.rc-horses{display:flex;gap:8px}
+.pick-btn{flex:1;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px;-webkit-tap-highlight-color:transparent}
+.pick-btn:active{transform:scale(.96)}
+.pick-btn.selected{background:var(--gold);border-color:var(--gold);color:#000}
+.pick-btn.dimmed{opacity:.4}
+.rc-picked-badge{display:none;text-align:center;margin-top:8px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:2px}
+.race-card.picked .rc-picked-badge{display:block}
+
+/* ── SCRATCH CARDS ── */
+.scratch-section{position:relative;z-index:1;background:#0a0a0a;padding:56px 20px;overflow:hidden}
+.scratch-label{text-align:center;font-size:12px;letter-spacing:4px;color:rgba(255,255,255,.3);margin-bottom:8px;text-transform:uppercase}
+.scratch-cards{display:flex;gap:10px;max-width:480px;margin:24px auto 0;flex-wrap:wrap;justify-content:center}
+.scratch-wrap{position:relative;width:140px;height:90px;border-radius:10px;overflow:hidden;cursor:pointer;flex-shrink:0}
+.scratch-front{width:100%;height:100%;background:linear-gradient(135deg,#F5C518,#FF8C00);display:flex;align-items:center;justify-content:center;font-size:28px;border-radius:10px;position:relative;z-index:2;transition:transform .6s,opacity .6s}
+.scratch-back{position:absolute;inset:0;background:rgba(255,255,255,.05);border:1px solid rgba(245,197,24,.2);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;z-index:1}
+.scratch-back-text{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--gold);text-align:center;line-height:1.2}
+.scratch-back-sub{font-size:9px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:1px}
+.scratch-wrap.revealed .scratch-front{transform:rotateY(90deg);opacity:0}
+
+/* ── SOCIAL PROOF ── */
+.social-section{position:relative;z-index:1;background:#111;padding:56px 20px}
+.fans-count{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:90px;color:var(--gold);line-height:1}
+.fans-label{text-align:center;font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.3);margin-bottom:24px}
+.ticker-wrap{overflow:hidden;background:rgba(0,0,0,.4);border-top:1px solid rgba(245,197,24,.2);border-bottom:1px solid rgba(245,197,24,.2);padding:10px 0;margin-bottom:24px}
+.ticker-inner{display:flex;gap:40px;animation:ticker 14s linear infinite;white-space:nowrap;width:max-content}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-size:12px;font-weight:700;color:rgba(255,255,255,.6);flex-shrink:0}
+.ticker-item span{color:var(--gold)}
+.testimonials{display:flex;flex-direction:column;gap:12px;max-width:480px;margin:0 auto}
+.testi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.testi.visible{opacity:1;transform:translateY(0)}
+.testi-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#FF8C00);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.testi-name{font-weight:700;font-size:13px;color:#fff}
+.testi-loc{font-size:10px;color:rgba(255,255,255,.3)}
+.testi-stars{color:var(--gold);font-size:13px}
+.testi-text{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+
+/* ── FOMO COUNTDOWN ── */
+.fomo-section{position:relative;z-index:1;background:linear-gradient(135deg,#F5C518,#FF8C00);padding:56px 24px;text-align:center}
+.fomo-label{font-size:12px;font-weight:700;letter-spacing:4px;color:rgba(0,0,0,.5);margin-bottom:16px}
+.countdown-row{display:flex;justify-content:center;gap:16px;margin-bottom:24px}
+.cd-block{background:rgba(0,0,0,.15);border-radius:10px;padding:12px 16px;min-width:72px}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:#000;line-height:1}
+.cd-label{font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(0,0,0,.5)}
+.fomo-last{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#000;letter-spacing:2px;animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.fomo-bar-wrap{background:rgba(0,0,0,.15);border-radius:50px;height:10px;max-width:380px;margin:16px auto 8px;overflow:hidden}
+.fomo-bar-fill{height:100%;background:#000;border-radius:50px;width:77%}
+.fomo-sold{font-size:12px;font-weight:700;color:rgba(0,0,0,.6);letter-spacing:2px}
+
+/* ── CTA ── */
+.cta-section{position:relative;z-index:1;background:#000;padding:72px 24px;text-align:center}
+.cta-top{font-family:'Bebas Neue',sans-serif;font-size:64px;color:#fff;line-height:.9;margin-bottom:8px}
+.cta-prize{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--gold);margin-bottom:32px}
+.cta-btn{display:inline-block;background:var(--gold);color:#000;font-size:20px;font-weight:800;letter-spacing:2px;padding:18px 48px;border-radius:12px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 40px rgba(245,197,24,.3)}
+.cta-btn:hover,.cta-btn:active{transform:scale(1.04);box-shadow:0 0 60px rgba(245,197,24,.5)}
+.cta-or{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:3px;margin:20px 0}
+.cta-qr{width:160px;height:160px;background:#fff;border-radius:12px;padding:6px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.cta-qr img{width:100%;height:100%;border-radius:6px}
+.cta-scan{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:2px;margin-top:10px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--gold);color:#000;font-weight:800;font-size:13px;letter-spacing:1px;padding:10px 24px;border-radius:8px;opacity:0;transition:opacity .3s,transform .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-event">Carreras Sánchez · 21 de Junio · Colorado</div>
+  <div class="hero-p6">
+    <div class="hero-pick">PICK</div>
+    <div class="hero-six">6</div>
+  </div>
+  <div class="hero-prize">$5,000</div>
+  <div class="hero-prize-label">JACKPOT GARANTIZADO</div>
+  <div class="hero-entry">$100 ENTRADA</div>
+  <div class="hero-arrow">↓</div>
+</section>
+
+<!-- PRIZE CARDS -->
+<section class="prize-section">
+  <div class="section-label">El juego</div>
+  <div class="section-title">ASÍ FUNCIONA</div>
+  <div class="prize-cards">
+    <div class="prize-card">
+      <div class="pc-icon">🏆</div>
+      <div class="pc-num">$5K</div>
+      <div class="pc-label">JACKPOT</div>
+    </div>
+    <div class="prize-card">
+      <div class="pc-icon">🎫</div>
+      <div class="pc-num">$100</div>
+      <div class="pc-label">ENTRADA</div>
+    </div>
+    <div class="prize-card">
+      <div class="pc-icon">✓</div>
+      <div class="pc-num">6</div>
+      <div class="pc-label">PICKS</div>
+    </div>
+  </div>
+  <div class="bote">BOTE ACUMULADO <span id="boteAmt">$0</span></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-label">El proceso</div>
+  <div class="section-title">3 PASOS SIMPLES</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">REGÍSTRATE</div><div class="step-desc">Entra al sitio, compra tu boleto de $100 y reserva tu lugar antes de que se agoten.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">ELIGE 6 GANADORES</div><div class="step-desc">Selecciona al ganador de las 6 carreras especiales del programa de Carreras Sánchez.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">GANA $5,000</div><div class="step-desc">Si aciertas los 6 ganadores, te llevas el jackpot completo. ¡Sin dividir!</div></div></div>
+  </div>
+</section>
+
+<!-- THE 6 PICK RACES -->
+<section class="picks-section">
+  <div class="section-label">Las carreras</div>
+  <div class="section-title">TUS 6 PICKS</div>
+  <div class="picks-progress-bar"><div class="picks-progress-fill" id="picksFill"></div></div>
+  <div class="picks-label" id="picksLabel">0 / 6 PICKS SELECCIONADOS</div>
+  <div class="race-cards" id="raceCards"></div>
+</section>
+
+<!-- SCRATCH CARDS -->
+<section class="scratch-section">
+  <div class="section-label">Promoción</div>
+  <div class="section-title">RASPA Y DESCUBRE</div>
+  <div class="scratch-label">Toca para revelar tu carrera secreta</div>
+  <div class="scratch-cards" id="scratchCards"></div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-section">
+  <div class="fans-count" id="fansCount">0</div>
+  <div class="fans-label">FANS REGISTRADOS</div>
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="ticker"></div>
+  </div>
+  <div class="testimonials">
+    <div class="testi"><div class="testi-header"><div class="testi-avatar">🏆</div><div><div class="testi-name">Juan G.</div><div class="testi-loc">Pueblo, CO · <span class="testi-stars">★★★★★</span></div></div></div><div class="testi-text">"¡No lo podía creer! Gané los $5K con mis picks. La mejor experiencia en el carril."</div></div>
+    <div class="testi"><div class="testi-header"><div class="testi-avatar">🔥</div><div><div class="testi-name">María L.</div><div class="testi-loc">Colorado Springs · <span class="testi-stars">★★★★★</span></div></div></div><div class="testi-text">"El mejor sitio de picks del carril. Ya me registré para el domingo, ¡no me lo pierdo!"</div></div>
+    <div class="testi"><div class="testi-header"><div class="testi-avatar">🎯</div><div><div class="testi-name">Carlos R.</div><div class="testi-loc">Denver, CO · <span class="testi-stars">★★★★★</span></div></div></div><div class="testi-text">"Acerté 5 de 6 la última vez. Este domingo voy con todo, ¡ese pick6 es mío!"</div></div>
+  </div>
+</section>
+
+<!-- FOMO COUNTDOWN -->
+<section class="fomo-section">
+  <div class="fomo-label">CIERRA EN:</div>
+  <div class="countdown-row">
+    <div class="cd-block"><div class="cd-num" id="cdH">00</div><div class="cd-label">HORAS</div></div>
+    <div class="cd-block"><div class="cd-num" id="cdM">00</div><div class="cd-label">MIN</div></div>
+    <div class="cd-block"><div class="cd-num" id="cdS">00</div><div class="cd-label">SEG</div></div>
+  </div>
+  <div class="fomo-last">¡ÚLTIMOS LUGARES!</div>
+  <div class="fomo-bar-wrap"><div class="fomo-bar-fill"></div></div>
+  <div class="fomo-sold">23 DE 30 BOLETOS VENDIDOS</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-top">¿LISTO PARA</div>
+  <div class="cta-top">GANAR?</div>
+  <div class="cta-prize">$5,000 TE ESPERAN</div>
+  <a class="cta-btn" href="https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html">JUEGA AHORA →</a>
+  <div class="cta-or">O ESCANEA EL QR</div>
+  <div class="cta-qr"><img id="qr2" src="" alt="QR"></div>
+  <div class="cta-scan">guttix1.github.io/Digital-flyer-</div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// QR
+const picksUrl='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+document.getElementById('qr2').src=`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(picksUrl)}&bgcolor=000000&color=F5C518&format=png&margin=4`;
+
+// BG canvas particles
+const bgCanvas=document.getElementById('bgCanvas');
+const bgCtx=bgCanvas.getContext('2d');
+bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;});
+const bgParts=Array.from({length:50},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*3+1,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,a:Math.random()}));
+(function bgLoop(){
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  bgParts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>bgCanvas.width)p.vx*=-1;
+    if(p.y<0||p.y>bgCanvas.height)p.vy*=-1;
+    bgCtx.globalAlpha=p.a*.5;
+    bgCtx.fillStyle='#F5C518';
+    bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fill();
+  });
+  bgCtx.globalAlpha=1;
+  requestAnimationFrame(bgLoop);
+})();
+
+// Bote countup
+let boteN=0;
+const boteEl=document.getElementById('boteAmt');
+const boteIv=setInterval(()=>{boteEl.textContent='$'+boteN.toLocaleString();boteN+=200;if(boteN>5000){boteEl.textContent='$5,000';clearInterval(boteIv);}},40);
+
+// Fans countup (scroll triggered)
+const fansEl=document.getElementById('fansCount');
+let fansDone=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!fansDone){
+    fansDone=true;
+    let n=0;
+    const iv=setInterval(()=>{fansEl.textContent=n;n+=11;if(n>847){fansEl.textContent='847';clearInterval(iv);}},18);
+  }
+},{threshold:.3}).observe(fansEl);
+
+// Steps scroll
+document.querySelectorAll('.step').forEach((el,i)=>{
+  new IntersectionObserver(entries=>{if(entries[0].isIntersecting)setTimeout(()=>el.classList.add('visible'),i*150);},{threshold:.2}).observe(el);
+});
+// Testimonials scroll
+document.querySelectorAll('.testi').forEach((el,i)=>{
+  new IntersectionObserver(entries=>{if(entries[0].isIntersecting)setTimeout(()=>el.classList.add('visible'),i*150);},{threshold:.2}).observe(el);
+});
+
+// 6 Pick Races
+const RACES=[
+  {n:7, name:'GRAN TERCIA', time:'12:30 PM', dist:'275 Yds', h1:'ROBO RANCHERO', h2:'TENIENTE'},
+  {n:14,name:'GRAN AGARRÓN ⭐',time:'2:30 PM',dist:'275 Yds',h1:'CDA CEBAS',h2:'CDA AGUILARES'},
+  {n:16,name:'SEGUNDO AGARRÓN',time:'3:40 PM',dist:'175 Yds',h1:'POR REVELAR',h2:'POR REVELAR'},
+  {n:17,name:'CLAIMING MINI CHICAS',time:'3:20 PM',dist:'330 Yds',h1:'MINI A',h2:'MINI B'},
+  {n:22,name:'GANADORES MINI CHICAS',time:'5:20 PM',dist:'250 Yds',h1:'MINI CHICAS',h2:'RIVAL'},
+  {n:23,name:'GRAN REVANCHA',time:'5:40 PM',dist:'100 Yds',h1:'LA LUZ DE LA HACIENDA',h2:'RIVAL'}
+];
+const picks=new Array(6).fill(null);
+
+function renderRaces(){
+  const el=document.getElementById('raceCards');
+  el.innerHTML=RACES.map((r,i)=>`
+    <div class="race-card ${picks[i]!==null?'picked':''}" id="rc${i}">
+      <div class="rc-top">
+        <div class="rc-badge">C${r.n}</div>
+        <div class="rc-name">${r.name}</div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:10px">${r.time}<span class="rc-dist">${r.dist}</span></div>
+      <div class="rc-horses">
+        <div class="pick-btn ${picks[i]===0?'selected':picks[i]!==null?'dimmed':''}" onclick="doPick(${i},0)">${r.h1}</div>
+        <div class="pick-btn ${picks[i]===1?'selected':picks[i]!==null?'dimmed':''}" onclick="doPick(${i},1)">${r.h2}</div>
+      </div>
+      <div class="rc-picked-badge">✓ PICK GUARDADO</div>
+    </div>`).join('');
+}
+
+function doPick(raceIdx,horse){
+  picks[raceIdx]=horse;
+  renderRaces();
+  const done=picks.filter(p=>p!==null).length;
+  document.getElementById('picksFill').style.width=(done/6*100)+'%';
+  document.getElementById('picksLabel').textContent=`${done} / 6 PICKS SELECCIONADOS`;
+  if(done===6){
+    showToast('¡PICKS COMPLETOS! 🎉');
+    confettiBurst();
+  } else {
+    showToast('¡Pick guardado!');
+  }
+}
+renderRaces();
+
+function confettiBurst(){
+  const colors=['#F5C518','#FF8C00','#fff','#FF4444','#44FF88'];
+  for(let i=0;i<100;i++){
+    const x=Math.random()*window.innerWidth;
+    const p={x,y:-10,vx:(Math.random()-.5)*8,vy:Math.random()*6+2,color:colors[Math.floor(Math.random()*5)],life:80+Math.random()*40,maxLife:120,size:Math.random()*5+2};
+    bgParts.push(p);
+  }
+}
+
+// Scratch cards
+const SCRATCH_NAMES=['Gran Agarrón','Gran Tercia','Gran Revancha','Claiming','Ganadores','Revancha'];
+const SCRATCH_ICONS=['⭐','🔥','🏆','💥','🎯','⚡'];
+const sc=document.getElementById('scratchCards');
+SCRATCH_NAMES.forEach((name,i)=>{
+  sc.innerHTML+=`<div class="scratch-wrap" id="sw${i}" onclick="revealScratch(${i})">
+    <div class="scratch-front">${SCRATCH_ICONS[i]}</div>
+    <div class="scratch-back"><div class="scratch-back-text">${name}</div><div class="scratch-back-sub">¡Elige al ganador!</div></div>
+  </div>`;
+});
+function revealScratch(i){document.getElementById('sw'+i).classList.add('revealed');}
+
+// Ticker
+const wins=['Juan G. ganó <span>$200</span>','María L. ganó <span>$500</span>','Carlos R. ganó <span>$1,200</span>','Pedro M. acertó 5/6','Ana V. ganó <span>$200</span>','Luis H. ganó <span>$800</span>'];
+const tickerEl=document.getElementById('ticker');
+[...wins,...wins].forEach(w=>{
+  const d=document.createElement('div');d.className='ticker-item';d.innerHTML=w;tickerEl.appendChild(d);
+});
+
+// Countdown
+function updateCountdown(){
+  const target=new Date('2026-06-21T10:30:00');
+  const now=new Date();
+  const diff=Math.max(0,target-now);
+  const h=Math.floor(diff/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cdH').textContent=String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent=String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+// Toast
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+</script>
+</body>
+</html>

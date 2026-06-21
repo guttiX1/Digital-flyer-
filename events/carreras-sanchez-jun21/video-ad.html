@@ -2,262 +2,279 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=540,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Carreras Sánchez · Video Ad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:540px;height:960px;overflow:hidden;background:#0a0a0a;font-family:-apple-system,sans-serif}
+body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Oswald',sans-serif;overflow:hidden}
+.stage{position:relative;width:540px;height:960px;overflow:hidden;background:#000}
+canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.scene.active{opacity:1;z-index:2}
 
-.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .25s}
-.scene.active{opacity:1;pointer-events:auto}
+/* S1 - Blast */
+.s1{background:#000}
+.s1-inner{text-align:center;animation:s1boom .5s cubic-bezier(.17,.67,.51,1.4) forwards}
+@keyframes s1boom{from{transform:scale(0) rotate(-5deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
+.s1-brand{font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:.85;color:#fff;letter-spacing:-2px}
+.s1-brand span{color:#F5C518;display:block;font-size:130px}
+.s1-sep{width:200px;height:4px;background:#F5C518;margin:16px auto}
+.s1-tag{font-size:18px;letter-spacing:6px;color:rgba(255,255,255,.5);text-transform:uppercase}
 
-/* ── S1: TITLE BLAST ── */
-#s1{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center}
-#s1 .evt-label{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,210,0,.6);margin-bottom:12px}
-#s1 .evt-title{font-size:80px;font-weight:900;text-transform:uppercase;text-align:center;line-height:.88;color:#FFD200;letter-spacing:2px;animation:aTitleIn .5s cubic-bezier(.17,.67,.3,1.15) both}
-#s1 .evt-sub{font-size:16px;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase;margin-top:18px}
-@keyframes aTitleIn{from{transform:scale(1.4);opacity:0;filter:blur(8px)}to{transform:scale(1);opacity:1;filter:blur(0)}}
+/* S2 - Date gold */
+.s2{background:#F5C518}
+.s2-inner{text-align:center}
+.s2-day{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:8px;color:rgba(0,0,0,.4);margin-bottom:4px}
+.s2-date{font-family:'Bebas Neue',sans-serif;font-size:104px;line-height:.85;color:#000;letter-spacing:-3px}
+.s2-year{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(0,0,0,.25);letter-spacing:8px}
+.s2-venue{margin-top:20px;background:#000;color:#F5C518;font-size:16px;font-weight:700;letter-spacing:4px;padding:8px 24px;border-radius:4px}
 
-/* ── S2: DATE/VENUE ── */
-#s2{background:#FFD200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-#s2 .date-big{font-size:100px;font-weight:900;color:#111;line-height:.85;text-align:center;animation:aPop .4s cubic-bezier(.17,.67,.3,1.15) both}
-#s2 .date-sub{font-size:18px;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:3px;text-transform:uppercase}
-#s2 .venue-tag{background:#111;color:#FFD200;font-size:14px;font-weight:800;letter-spacing:2px;padding:8px 24px;border-radius:30px;text-transform:uppercase}
-@keyframes aPop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+/* S3 - 23 Carreras */
+.s3{background:#111}
+.s3-horse{position:absolute;left:0;top:0;width:280px;height:100%;object-fit:cover;object-position:center;opacity:.7}
+.s3-overlay{position:absolute;left:0;top:0;width:280px;height:100%;background:linear-gradient(to right,transparent 60%,#111)}
+.s3-right{position:absolute;right:0;top:0;width:320px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-right:20px}
+.s3-num{font-family:'Bebas Neue',sans-serif;font-size:200px;line-height:.8;color:#F5C518;text-shadow:0 0 60px rgba(245,197,24,.4)}
+.s3-label{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;letter-spacing:4px;margin-top:-8px}
+.s3-sub{font-size:14px;color:rgba(255,255,255,.4);letter-spacing:3px;margin-top:12px}
 
-/* ── S3: FLYER SHOWCASE ── */
-#s3{background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#s3 img{width:100%;height:100%;object-fit:cover;animation:aZoomIn 1.6s ease-out both}
-#s3::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.7) 100%)}
-#s3 .overlay-text{position:absolute;bottom:60px;left:0;right:0;text-align:center;z-index:2}
-#s3 .overlay-text h2{font-size:40px;font-weight:900;text-transform:uppercase;color:#FFD200;letter-spacing:2px;animation:aSlideUp .4s ease both}
-@keyframes aZoomIn{from{transform:scale(1.15)}to{transform:scale(1)}}
-@keyframes aSlideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* S4 - Gran Agarrón */
+.s4{background:#fff}
+.s4-inner{width:100%;padding:32px 24px;text-align:center}
+.s4-badge{background:#F5C518;color:#000;font-size:13px;font-weight:800;letter-spacing:3px;padding:6px 16px;border-radius:4px;display:inline-block;margin-bottom:14px}
+.s4-title{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#000;line-height:.95;letter-spacing:-1px;margin-bottom:16px}
+.s4-arena{display:flex;align-items:center;width:100%;height:260px}
+.s4-horse{flex:1;height:100%;object-fit:cover}
+.s4-horse.flip{transform:scaleX(-1)}
+.s4-vs{width:72px;flex-shrink:0;background:#000;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#F5C518;z-index:2;box-shadow:0 0 0 5px #fff}
+.s4-details{margin-top:12px;font-size:14px;color:#666;letter-spacing:2px}
 
-/* ── S4-S7: HORSE PUNCH ── */
-#s4,#s5,#s6,#s7{background:#f5f2ee}
-#s4 img,#s5 img,#s6 img,#s7 img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:contain;object-position:center;
-  animation:aHorsePunch .38s cubic-bezier(.17,.67,.3,1.15) both}
-@keyframes aHorsePunch{0%{transform:scale(1.2) translateY(4%);opacity:0;filter:brightness(1.8)}60%{filter:brightness(1)}100%{transform:scale(1) translateY(0);opacity:1;filter:brightness(1)}}
-.hcard-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent);padding:clamp(16px,4vw,36px) 24px 20px;z-index:2}
-.hcard-name{font-size:clamp(32px,8vw,56px);font-weight:900;text-transform:uppercase;color:#fff;line-height:.88;text-shadow:0 2px 20px rgba(0,0,0,1)}
-.hcard-cuadra{font-size:13px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;margin-top:6px}
-.hcard-tag{display:inline-block;background:#FFD200;color:#000;font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-top:8px}
+/* S5 - Split duel */
+.s5{background:#000}
+.s5-left{position:absolute;left:0;top:0;width:50%;height:100%;object-fit:cover}
+.s5-right{position:absolute;right:0;top:0;width:50%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.s5-divider{position:absolute;left:50%;top:0;width:4px;height:100%;background:#F5C518;transform:translateX(-50%)}
+.s5-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.7) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.7) 100%)}
+.s5-top{position:absolute;top:40px;left:0;right:0;text-align:center}
+.s5-top-label{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#F5C518;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.s5-bottom{position:absolute;bottom:60px;left:0;right:0;text-align:center}
+.s5-bottom-text{font-size:15px;color:#fff;letter-spacing:3px}
 
-/* ── S8: PROGRAM ── */
-#s8{background:#fff;display:flex;flex-direction:column;padding:50px 32px 32px}
-#s8 .prog-title{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#FFD200;margin-bottom:20px;font-weight:800}
-#s8 .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1}
-#s8 .prog-row{background:#f8f8f8;border-radius:10px;padding:10px 12px;border-left:3px solid #FFD200}
-#s8 .prog-row.sp{border-left-color:#FF6B00;background:#fff8f5}
-#s8 .prog-num{font-size:10px;font-weight:800;color:#FFD200;letter-spacing:1px;margin-bottom:3px}
-#s8 .prog-row.sp .prog-num{color:#FF6B00}
-#s8 .prog-names{font-size:11px;font-weight:800;text-transform:uppercase;color:#111;line-height:1.2}
-#s8 .prog-dist{font-size:9px;color:#bbb;margin-top:2px}
+/* S6 - $5000 prize */
+.s6{background:#000}
+.s6-inner{text-align:center;padding:40px 24px}
+.s6-prize{font-family:'Bebas Neue',sans-serif;font-size:160px;line-height:.85;background:linear-gradient(135deg,#F5C518,#FF8C00,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:prize3d 3s ease-in-out infinite}
+@keyframes prize3d{0%,100%{transform:perspective(500px) rotateY(0deg)}50%{transform:perspective(500px) rotateY(20deg)}}
+.s6-sub{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:4px;margin-top:-8px}
+.s6-pick6{margin-top:20px;font-size:14px;color:rgba(255,255,255,.6);letter-spacing:3px}
+.s6-entry{margin-top:12px;display:inline-block;background:#F5C518;color:#000;font-size:18px;font-weight:800;padding:10px 28px;border-radius:6px;letter-spacing:2px;animation:entrypop .4s .8s cubic-bezier(.17,.67,.51,1.4) both}
+@keyframes entrypop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
 
-/* ── S9: GRAN AGARRON ── */
-#s9{background:#111;display:grid;grid-template-columns:1fr 60px 1fr;min-height:960px}
-#s9 .side{position:relative;overflow:hidden;background:#1a1a1a}
-#s9 .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center;animation:aHorsePunch .38s cubic-bezier(.17,.67,.3,1.15) both}
-#s9 .side.r img{transform:scaleX(-1)}
-#s9 .side.r.active img{animation:aHorsePunchR .38s cubic-bezier(.17,.67,.3,1.15) both}
-@keyframes aHorsePunchR{0%{transform:scaleX(-1) scale(1.2) translateY(4%);opacity:0}100%{transform:scaleX(-1) scale(1) translateY(0);opacity:1}}
-#s9 .name-strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);padding:40px 16px 20px}
-#s9 .side.r .name-strip{text-align:right}
-#s9 .sname{font-size:36px;font-weight:900;text-transform:uppercase;color:#fff;line-height:.9;text-shadow:0 2px 16px #000}
-#s9 .scuad{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
-#s9 .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD200;z-index:2}
-#s9 .mid .vs{font-size:28px;font-weight:900;color:#000}
-#s9 .mid .dist{font-size:9px;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px;margin-top:4px;text-transform:uppercase}
-#s9 .top-label{position:absolute;top:20px;left:0;right:0;text-align:center;z-index:3}
-#s9 .top-label span{background:#FF6B00;color:#fff;font-size:12px;font-weight:800;letter-spacing:2px;padding:6px 18px;border-radius:20px;text-transform:uppercase}
+/* S7 - Social */
+.s7{background:#0a0a0a}
+.s7-inner{width:100%;padding:40px 24px;text-align:center}
+.s7-count{font-family:'Bebas Neue',sans-serif;font-size:90px;color:#F5C518;line-height:1}
+.s7-count-label{font-size:13px;color:rgba(255,255,255,.4);letter-spacing:4px;margin-bottom:24px}
+.pill{background:rgba(255,255,255,.06);border:1px solid rgba(245,197,24,.3);border-radius:50px;padding:12px 20px;margin:8px auto;max-width:420px;display:flex;align-items:center;gap:12px;opacity:0;animation:slipIn .4s ease forwards}
+.pill:nth-child(1){animation-delay:.2s}
+.pill:nth-child(2){animation-delay:.5s}
+.pill:nth-child(3){animation-delay:.8s}
+@keyframes slipIn{from{transform:translateX(-30px);opacity:0}to{transform:translateX(0);opacity:1}}
+.pill-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#F5C518,#FF8C00);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pill-text{text-align:left}
+.pill-name{font-size:13px;font-weight:700;color:#fff}
+.pill-quote{font-size:11px;color:rgba(255,255,255,.5)}
 
-/* ── S10: END CARD ── */
-#s10{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-#s10::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,210,0,.15),transparent 65%)}
-#s10 .end-title{font-size:58px;font-weight:900;text-transform:uppercase;color:#FFD200;text-align:center;line-height:.88;letter-spacing:2px;animation:aFadeIn .6s ease both;position:relative;z-index:1}
-#s10 .end-date{font-size:18px;color:rgba(255,255,255,.5);letter-spacing:3px;text-transform:uppercase;position:relative;z-index:1}
-#s10 .qr-wrap{background:#fff;padding:10px;border-radius:12px;border:3px solid #FFD200;position:relative;z-index:1;animation:aFadeIn .6s .3s ease both;opacity:0}
-#s10 .qr-wrap img{width:120px;height:120px;display:block;border-radius:6px}
-#s10 .scan-label{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1}
-@keyframes aFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* S8 - Races */
+.s8{background:#F5C518}
+.s8-inner{text-align:center;padding:40px 24px;width:100%}
+.s8-top{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#000;letter-spacing:4px;margin-bottom:16px}
+.s8-num{font-family:'Bebas Neue',sans-serif;font-size:140px;line-height:.85;color:#000}
+.s8-unit{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(0,0,0,.4);letter-spacing:4px}
+.s8-chips{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.s8-chip{background:#000;color:#F5C518;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;padding:12px 24px;border-radius:6px;opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s}
+.s8-chip.show{opacity:1;transform:translateY(0)}
+.s8-free{margin-top:16px;font-size:14px;font-weight:700;color:rgba(0,0,0,.6);letter-spacing:3px}
 
-/* FLASH */
-.flash{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0}
-.flash.go{animation:aFlash .18s ease}
-@keyframes aFlash{0%{opacity:.9}100%{opacity:0}}
-
-/* PARTICLES */
-#particles{position:fixed;inset:0;pointer-events:none;z-index:100}
-canvas{position:absolute;inset:0}
+/* S9 - End card */
+.s9{background:#000}
+.s9-inner{text-align:center;padding:30px 24px;width:100%}
+.s9-title{font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;line-height:.85;letter-spacing:-1px}
+.s9-title span{color:#F5C518}
+.s9-date{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,.4);letter-spacing:6px;margin:10px 0}
+.s9-qr-wrap{margin:20px auto;width:190px;height:190px;background:#fff;border-radius:12px;padding:6px;display:flex;align-items:center;justify-content:center}
+.s9-qr-wrap img{width:100%;height:100%;border-radius:6px}
+.s9-cta{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#F5C518;letter-spacing:4px;margin-top:12px}
+.s9-url{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:2px;margin-top:6px}
+.s9-replay{display:inline-block;margin-top:14px;background:#F5C518;color:#000;font-size:14px;font-weight:800;letter-spacing:2px;padding:10px 28px;border-radius:6px;cursor:pointer;border:none}
+.progress-bar{position:absolute;bottom:0;left:0;height:3px;background:#F5C518;transition:width .1s linear;z-index:99}
 </style>
 </head>
 <body>
+<div class="stage">
+  <canvas id="canvas"></canvas>
+  <div class="progress-bar" id="progress"></div>
 
-<div id="s1" class="scene active">
-  <div class="evt-label">Domingo · 21 de Junio 2026</div>
-  <div class="evt-title">CARRERAS<br>SÁNCHEZ</div>
-  <div class="evt-sub">El Evento del Año</div>
-</div>
-
-<div id="s2" class="scene">
-  <div class="date-big">21<br>JUN</div>
-  <div class="date-sub">Domingo 2026</div>
-  <div class="venue-tag">Programa Completo</div>
-</div>
-
-<div id="s3" class="scene">
-  <img src="flyer.jpg" alt="Carreras">
-  <div class="overlay-text"><h2>20+ Carreras</h2></div>
-</div>
-
-<div id="s4" class="scene">
-  <img src="la-mami.jpg" alt="CDA CEBAS">
-  <div class="hcard-label">
-    <div class="hcard-name">CDA CEBAS</div>
-    <div class="hcard-cuadra">Gran Agarrón</div>
-    <div class="hcard-tag">⭐ Estelar · 275 Yds</div>
-  </div>
-</div>
-
-<div id="s5" class="scene">
-  <img src="h-rey-puerro.jpg" alt="CDA AGUILARES">
-  <div class="hcard-label">
-    <div class="hcard-name">CDA AGUILARES</div>
-    <div class="hcard-cuadra">Gran Agarrón</div>
-    <div class="hcard-tag">⭐ Rival · 275 Yds</div>
-  </div>
-</div>
-
-<div id="s6" class="scene">
-  <img src="gutierrez.jpg" alt="ROBO RANCHERO">
-  <div class="hcard-label">
-    <div class="hcard-name">ROBO RANCHERO</div>
-    <div class="hcard-cuadra">Gran Tercia</div>
-    <div class="hcard-tag">12:30 PM · 275 Yds</div>
-  </div>
-</div>
-
-<div id="s7" class="scene">
-  <img src="h-caos.jpg" alt="CDA CEBAS vs AGUILARES">
-  <div class="hcard-label">
-    <div class="hcard-name">20+ CARRERAS</div>
-    <div class="hcard-cuadra">Tapados · Claiming · Revancha</div>
-    <div class="hcard-tag">330 Yds Max</div>
-  </div>
-</div>
-
-<div id="s8" class="scene">
-  <div class="prog-title">Programa · Domingo 21 Jun</div>
-  <div class="prog-grid">
-    <div class="prog-row"><div class="prog-num">10:40 AM</div><div class="prog-names">CDA CEBAS vs CONV. NUEVA</div><div class="prog-dist">200 Yds · Tapados</div></div>
-    <div class="prog-row"><div class="prog-num">11:00 AM</div><div class="prog-names">AGUILARES vs YACKY</div><div class="prog-dist">250 Yds · Tapados</div></div>
-    <div class="prog-row"><div class="prog-num">11:30 AM</div><div class="prog-names">MENDOZA vs LA VIRGEN</div><div class="prog-dist">100 Yds · Tapados</div></div>
-    <div class="prog-row"><div class="prog-num">11:40 AM</div><div class="prog-names">CEBAS vs ROJAS</div><div class="prog-dist">275 Yds · Tapados</div></div>
-    <div class="prog-row"><div class="prog-num">12:00 PM</div><div class="prog-names">AGUILARES vs YACKY</div><div class="prog-dist">250/275 Yds</div></div>
-    <div class="prog-row"><div class="prog-num">12:15 PM</div><div class="prog-names">HMW vs RANCHO HUMILDE</div><div class="prog-dist">150 Yds · Tapados</div></div>
-    <div class="prog-row sp"><div class="prog-num">12:30 PM</div><div class="prog-names">GRAN TERCIA</div><div class="prog-dist">275 Yds · Especial</div></div>
-    <div class="prog-row sp"><div class="prog-num">2:30 PM</div><div class="prog-names">GRAN AGARRÓN ⭐</div><div class="prog-dist">275 Yds · Estelar</div></div>
-    <div class="prog-row"><div class="prog-num">3:20 PM</div><div class="prog-names">CLAIMING</div><div class="prog-dist">330 Yds</div></div>
-    <div class="prog-row sp"><div class="prog-num">Y MÁS</div><div class="prog-names">20+ CARRERAS</div><div class="prog-dist">Todo el Día</div></div>
-  </div>
-</div>
-
-<div id="s9" class="scene">
-  <div class="top-label"><span>⭐ Gran Agarrón · 2:30 PM</span></div>
-  <div class="side l">
-    <img src="h-caos.jpg" alt="CDA CEBAS">
-    <div class="name-strip">
-      <div class="sname">CDA<br>CEBAS</div>
-      <div class="scuad">Tapados</div>
+  <div class="scene s1 active" id="s1">
+    <div class="s1-inner">
+      <div class="s1-brand">CARRERAS<span>SÁNCHEZ</span></div>
+      <div class="s1-sep"></div>
+      <div class="s1-tag">Colorado · 2026</div>
     </div>
   </div>
-  <div class="mid">
-    <div class="vs">VS</div>
-    <div class="dist">275 Yds</div>
+
+  <div class="scene s2" id="s2">
+    <div class="s2-inner">
+      <div class="s2-day">DOMINGO</div>
+      <div class="s2-date">21 DE<br>JUNIO</div>
+      <div class="s2-year">2026</div>
+      <div class="s2-venue">CARRIL #4 · COLORADO</div>
+    </div>
   </div>
-  <div class="side r">
-    <img src="h-rey-puerro.jpg" alt="CDA AGUILARES">
-    <div class="name-strip">
-      <div class="sname">CDA<br>AGUILARES</div>
-      <div class="scuad">Tapados</div>
+
+  <div class="scene s3" id="s3">
+    <img class="s3-horse" src="la-mami.jpg" alt="">
+    <div class="s3-overlay"></div>
+    <div class="s3-right">
+      <div class="s3-num" id="countNum">0</div>
+      <div class="s3-label">CARRERAS</div>
+      <div class="s3-sub">UN DÍA ÉPICO</div>
+    </div>
+  </div>
+
+  <div class="scene s4" id="s4">
+    <div class="s4-inner">
+      <div class="s4-badge">⭐ GRAN AGARRÓN · ESTELAR</div>
+      <div class="s4-title">CDA CEBAS<br>VS<br>CDA AGUILARES</div>
+      <div class="s4-arena">
+        <img class="s4-horse" src="h-caos.jpg" alt="CDA CEBAS">
+        <div class="s4-vs">VS</div>
+        <img class="s4-horse flip" src="h-rey-puerro.jpg" alt="CDA AGUILARES">
+      </div>
+      <div class="s4-details">275 YARDAS · 2:30 PM · CARRERA 14</div>
+    </div>
+  </div>
+
+  <div class="scene s5" id="s5">
+    <img class="s5-left" src="cristo-rey.jpg" alt="">
+    <img class="s5-right" src="aries.jpg" alt="">
+    <div class="s5-divider"></div>
+    <div class="s5-overlay"></div>
+    <div class="s5-top"><div class="s5-top-label">GRAN TERCIA</div></div>
+    <div class="s5-bottom"><div class="s5-bottom-text">12:30 PM · 275 YARDAS</div></div>
+  </div>
+
+  <div class="scene s6" id="s6">
+    <div class="s6-inner">
+      <div class="s6-prize">$5K</div>
+      <div class="s6-sub">EN PREMIOS</div>
+      <div class="s6-pick6">PICK 6 · ADIVINA 6 GANADORES</div>
+      <div class="s6-entry">$100 ENTRADA</div>
+    </div>
+  </div>
+
+  <div class="scene s7" id="s7">
+    <div class="s7-inner">
+      <div class="s7-count" id="fanCount">0</div>
+      <div class="s7-count-label">FANS REGISTRADOS</div>
+      <div class="pill"><div class="pill-avatar">🏆</div><div class="pill-text"><div class="pill-name">Juan G. — Pueblo, CO</div><div class="pill-quote">"¡Gané con mis picks! Increíble"</div></div></div>
+      <div class="pill"><div class="pill-avatar">🔥</div><div class="pill-text"><div class="pill-name">María L. — Colorado Springs</div><div class="pill-quote">"El mejor site del carril, ya me registré"</div></div></div>
+      <div class="pill"><div class="pill-avatar">🎯</div><div class="pill-text"><div class="pill-name">Carlos R. — Denver, CO</div><div class="pill-quote">"¡Gané $5,000! No me lo esperaba"</div></div></div>
+    </div>
+  </div>
+
+  <div class="scene s8" id="s8">
+    <div class="s8-inner">
+      <div class="s8-top">PROGRAMA COMPLETO</div>
+      <div class="s8-num">23</div>
+      <div class="s8-unit">CARRERAS</div>
+      <div class="s8-chips">
+        <div class="s8-chip" id="ch1">GRAN AGARRÓN ⭐</div>
+        <div class="s8-chip" id="ch2">GRAN TERCIA</div>
+        <div class="s8-chip" id="ch3">GRAN REVANCHA</div>
+      </div>
+      <div class="s8-free">¡TODOS LOS PICKS GRATIS!</div>
+    </div>
+  </div>
+
+  <div class="scene s9" id="s9">
+    <div class="s9-inner">
+      <div class="s9-title">CARRERAS<br><span>SÁNCHEZ</span></div>
+      <div class="s9-date">21 DE JUNIO · 2026</div>
+      <div class="s9-qr-wrap"><img id="qr" src="" alt="QR"></div>
+      <div class="s9-cta">HAZ TUS PICKS GRATIS</div>
+      <div class="s9-url">guttix1.github.io/Digital-flyer-</div>
+      <button class="s9-replay" onclick="startAd()">▶ REPLAY</button>
     </div>
   </div>
 </div>
-
-<div id="s10" class="scene">
-  <div class="end-title">CARRERAS<br>SÁNCHEZ</div>
-  <div class="end-date">Dom · 21 Junio 2026</div>
-  <div class="qr-wrap">
-    <img id="qrEnd" src="" alt="QR">
-  </div>
-  <div class="scan-label">Escanea · Elige tus Picks</div>
-</div>
-
-<div class="flash" id="flash"></div>
-<div id="particles"><canvas id="cvs"></canvas></div>
 
 <script>
-const SITE='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
-document.getElementById('qrEnd').src=`https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(SITE)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+const DURS=[2500,2200,2800,3000,2500,3000,3500,2800,5000];
+let curTimer=null;
 
-const scenes=document.querySelectorAll('.scene');
-const DURS=[700,800,1400,1300,1300,1300,1300,2000,1800,Infinity];
-let cur=0;
+const url='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&bgcolor=000000&color=F5C518&format=png&margin=6`;
 
-// particles
-const cvs=document.getElementById('cvs');
-const ctx=cvs.getContext('2d');
-cvs.width=540;cvs.height=960;
-const particles=[];
-function burst(x,y,color='#FFD200',n=22){
-  for(let i=0;i<n;i++){
-    const a=Math.random()*Math.PI*2,sp=2+Math.random()*6;
-    particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,decay:.025+Math.random()*.02,r:2+Math.random()*3,color});
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+canvas.width=540;canvas.height=960;
+let particles=[];
+
+function Particle(x,y,vx,vy,color,life){
+  return{x,y,vx,vy,color,life,maxLife:life,size:Math.random()*5+2,
+    update(){this.x+=this.vx;this.y+=this.vy;this.vy+=.15;this.life--;this.vx*=.97;},
+    draw(){ctx.globalAlpha=this.life/this.maxLife;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}};
+}
+
+function burst(x,y,count,colors){
+  for(let i=0;i<count;i++){
+    const a=(Math.PI*2*i/count)+Math.random()*.5;
+    const s=Math.random()*12+4;
+    particles.push(Particle(x,y,Math.cos(a)*s,Math.sin(a)*s-5,colors[Math.floor(Math.random()*colors.length)],Math.random()*40+30));
   }
 }
-function animPart(){
+
+function confettiBurst(){
+  const c=['#F5C518','#FF8C00','#fff','#FF4444','#44FF88'];
+  for(let i=0;i<120;i++)particles.push(Particle(Math.random()*540,-10,(Math.random()-.5)*8,Math.random()*6+2,c[Math.floor(Math.random()*c.length)],80+Math.random()*40));
+}
+
+(function loop(){
   ctx.clearRect(0,0,540,960);
-  for(let i=particles.length-1;i>=0;i--){
-    const p=particles[i];
-    p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life-=p.decay;
-    if(p.life<=0){particles.splice(i,1);continue;}
-    ctx.globalAlpha=p.life;ctx.fillStyle=p.color;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-  }
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{p.update();p.draw();});
   ctx.globalAlpha=1;
-  requestAnimationFrame(animPart);
-}
-animPart();
-
-function flash(color='#fff'){
-  const f=document.getElementById('flash');
-  f.style.background=color;
-  f.classList.remove('go');
-  void f.offsetWidth;
-  f.classList.add('go');
-}
+  requestAnimationFrame(loop);
+})();
 
 function goTo(i){
-  scenes[cur].classList.remove('active');
-  cur=i;
-  scenes[cur].classList.add('active');
-  // re-trigger animations
-  const imgs=scenes[cur].querySelectorAll('img');
-  imgs.forEach(img=>{img.style.animation='none';void img.offsetWidth;img.style.animation='';});
-  const anims=scenes[cur].querySelectorAll('[style*="animation"],[class*="anim"]');
-
-  // flash + burst on scene change
-  const colors=['#fff','#FFD200','#fff','#FFD200','#fff','#FFD200','#fff','#fff','#FFD200','#FFD200'];
-  flash(colors[i]||'#fff');
-  burst(270,480,i%2===0?'#FFD200':'#FF6B00',20);
-
-  if(DURS[cur]!==Infinity) setTimeout(()=>goTo((cur+1)%scenes.length),DURS[cur]);
+  document.querySelectorAll('.scene').forEach((s,j)=>s.classList.toggle('active',j===i));
+  if(i===0)setTimeout(()=>burst(270,480,80,['#F5C518','#FF8C00','#fff']),300);
+  if(i===2){let n=0;const el=document.getElementById('countNum');const iv=setInterval(()=>{el.textContent=n++;if(n>23)clearInterval(iv);},80);}
+  if(i===5)confettiBurst();
+  if(i===6){let n=0;const el=document.getElementById('fanCount');const iv=setInterval(()=>{el.textContent=n;n+=11;if(n>847){el.textContent=847;clearInterval(iv);}},18);}
+  if(i===7){
+    ['ch1','ch2','ch3'].forEach(id=>document.getElementById(id).classList.remove('show'));
+    setTimeout(()=>document.getElementById('ch1').classList.add('show'),200);
+    setTimeout(()=>document.getElementById('ch2').classList.add('show'),500);
+    setTimeout(()=>document.getElementById('ch3').classList.add('show'),800);
+  }
 }
 
-setTimeout(()=>goTo(1),DURS[0]);
+function startAd(){
+  if(curTimer)clearTimeout(curTimer);
+  particles=[];
+  goTo(0);
+  let t=DURS[0];
+  for(let i=1;i<DURS.length;i++){
+    (function(idx,delay){setTimeout(()=>goTo(idx),delay);})(i,t);
+    t+=DURS[i];
+  }
+}
+
+startAd();
 </script>
 </body>
 </html>
