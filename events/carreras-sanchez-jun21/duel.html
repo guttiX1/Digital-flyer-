@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gran Agarrón · CDA Cebas vs CDA Aguilares</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0;
+      font-family: 'Oswald', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 500px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── ANIMATED BACKGROUND ── */
+    .page::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 500px;
+      height: 100%;
+      background:
+        radial-gradient(ellipse 60% 40% at 25% 50%, rgba(245,197,24,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 75% 50%, rgba(245,197,24,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes glow {
+      0%, 100% {
+        text-shadow:
+          0 0 10px rgba(245,197,24,0.4),
+          0 0 30px rgba(245,197,24,0.2),
+          0 0 60px rgba(245,197,24,0.1);
+      }
+      50% {
+        text-shadow:
+          0 0 20px rgba(245,197,24,0.9),
+          0 0 50px rgba(245,197,24,0.5),
+          0 0 100px rgba(245,197,24,0.3);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245,197,24,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px 8px rgba(245,197,24,0.2); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-8px); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes floatMirror {
+      0%, 100% { transform: scaleX(-1) translateY(-8px); }
+      50% { transform: scaleX(-1) translateY(8px); }
+    }
+
+    @keyframes firePulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ── 1. HEADER STRIP ── */
+    .header-strip {
+      position: relative;
+      z-index: 2;
+      background: #111111;
+      border-bottom: 2px solid #F5C518;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-strip .h-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: #F5C518;
+    }
+    .header-strip .h-time {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: #F5C518;
+    }
+
+    /* ── 2. EVENT LABEL ── */
+    .event-label {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 24px 20px 8px;
+    }
+    .event-label .pre-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: #666666;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .event-label h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: #F5C518;
+      letter-spacing: 4px;
+      line-height: 1;
+      animation: glow 2.5s ease-in-out infinite;
+    }
+
+    /* ── 3. BADGE ROW ── */
+    .badge-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px 16px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      background: transparent;
+      border: 1.5px solid #F5C518;
+      color: #F5C518;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── 4. DUEL ARENA ── */
+    .duel-arena {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      padding: 0 12px;
+      min-height: 280px;
+    }
+
+    .horse-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .horse-col .horse-frame {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #1e1e1e;
+      position: relative;
+    }
+    .horse-col .horse-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      animation: float 4s ease-in-out infinite;
+      display: block;
+    }
+    .horse-col.right .horse-frame img {
+      animation: floatMirror 4s ease-in-out infinite;
+      transform: scaleX(-1);
+    }
+    .horse-col.right .horse-frame img:hover {
+      animation: floatMirror 4s ease-in-out infinite;
+    }
+
+    .horse-col .cuadra-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: #F5C518;
+      letter-spacing: 2px;
+      text-align: center;
+      line-height: 1.1;
+    }
+    .horse-col .cuadra-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #555555;
+      text-transform: uppercase;
+    }
+
+    /* VS CENTER */
+    .vs-center {
+      width: 72px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+    .vs-fire {
+      font-size: 22px;
+      animation: firePulse 1.2s ease-in-out infinite;
+    }
+    .vs-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2.5px solid #F5C518;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .vs-circle span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: #F5C518;
+      letter-spacing: 1px;
+    }
+    .race-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #666;
+    }
+
+    /* ── 5. COUNTDOWN ── */
+    .countdown-section {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px 20px 10px;
+      border-top: 1px solid #1e1e1e;
+      margin-top: 16px;
+    }
+    .countdown-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .countdown-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      color: #F5C518;
+      letter-spacing: 4px;
+      line-height: 1;
+    }
+    .countdown-display.past {
+      font-size: 32px;
+      color: #ff4444;
+    }
+
+    /* ── 6. PICK SECTION ── */
+    .pick-section {
+      position: relative;
+      z-index: 2;
+      padding: 18px 16px 10px;
+    }
+    .pick-title {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .pick-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .pick-btn {
+      flex: 1;
+      border: 2px solid #F5C518;
+      background: transparent;
+      color: #F5C518;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      padding: 14px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .pick-btn:hover {
+      background: rgba(245,197,24,0.1);
+    }
+    .pick-btn.selected {
+      background: #F5C518;
+      color: #111111;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #F5C518;
+      color: #111;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      padding: 10px 24px;
+      border-radius: 30px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 100;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── 7. QR SECTION ── */
+    .qr-section {
+      position: relative;
+      z-index: 2;
+      background: #111111;
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 18px 20px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .qr-section .qr-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: #F5C518;
+      margin-bottom: 12px;
+    }
+    .qr-section img#qr {
+      width: 120px;
+      height: 120px;
+      display: block;
+      margin: 0 auto 10px;
+      border: 2px solid #F5C518;
+      border-radius: 4px;
+    }
+    .qr-section .qr-sub {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #555;
+    }
+
+    /* ── 8. ANIMATED BOTTOM (confetti / fire) ── */
+    .animated-bottom {
+      position: relative;
+      z-index: 2;
+      height: 80px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #0a0a0a;
+    }
+    .fire-strip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .fire-strip span {
+      font-size: 24px;
+      animation: firePulse 1.5s ease-in-out infinite;
+    }
+    .fire-strip span:nth-child(2) { animation-delay: 0.2s; font-size: 32px; }
+    .fire-strip span:nth-child(3) { animation-delay: 0.4s; }
+    .fire-strip span:nth-child(4) { animation-delay: 0.15s; font-size: 32px; }
+    .fire-strip span:nth-child(5) { animation-delay: 0.35s; }
+
+    .confetti-container {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 1px;
+      animation: confettiFall linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 1. HEADER STRIP -->
+    <div class="header-strip">
+      <span class="h-label">CARRIL #4</span>
+      <span class="h-label">CARRERAS SÁNCHEZ · 21 JUN 2026</span>
+      <span class="h-time">2:30 PM</span>
+    </div>
+
+    <!-- 2. EVENT LABEL -->
+    <div class="event-label">
+      <div class="pre-label">Carrera Principal &middot; R.14</div>
+      <h1>GRAN AGARRÓN</h1>
+    </div>
+
+    <!-- 3. BADGE ROW -->
+    <div class="badge-row">
+      <span class="pill">275 YARDAS</span>
+      <span class="pill">TAPADOS</span>
+      <span class="pill">APERTURA ESPECIAL</span>
+    </div>
+
+    <!-- 4. DUEL ARENA -->
+    <div class="duel-arena">
+      <!-- LEFT: CDA CEBAS -->
+      <div class="horse-col left">
+        <div class="horse-frame">
+          <img src="h-caos.jpg" alt="CDA Cebas">
+        </div>
+        <div class="cuadra-name">CDA CEBAS</div>
+        <div class="cuadra-tag">Cuadra</div>
+      </div>
+
+      <!-- CENTER VS -->
+      <div class="vs-center">
+        <span class="vs-fire">&#128293;</span>
+        <div class="vs-circle">
+          <span>VS</span>
+        </div>
+        <span class="vs-fire">&#128293;</span>
+        <div class="race-num">R.14</div>
+      </div>
+
+      <!-- RIGHT: CDA AGUILARES -->
+      <div class="horse-col right">
+        <div class="horse-frame">
+          <img src="h-rey-puerro.jpg" alt="CDA Aguilares">
+        </div>
+        <div class="cuadra-name">CDA AGUILARES</div>
+        <div class="cuadra-tag">Cuadra</div>
+      </div>
+    </div>
+
+    <!-- 5. COUNTDOWN -->
+    <div class="countdown-section">
+      <div class="countdown-label">TIEMPO AL INICIO</div>
+      <div class="countdown-display" id="countdown">--h --m --s</div>
+    </div>
+
+    <!-- 6. PICK SECTION -->
+    <div class="pick-section">
+      <div class="pick-title">TU PICK &mdash; ¿CUÁL GANA?</div>
+      <div class="pick-buttons">
+        <button class="pick-btn" id="pick-left" onclick="selectPick('left')">
+          PICO<br>CDA CEBAS
+        </button>
+        <button class="pick-btn" id="pick-right" onclick="selectPick('right')">
+          PICO<br>CDA AGUILARES
+        </button>
+      </div>
+    </div>
+
+    <!-- 7. QR SECTION -->
+    <div class="qr-section">
+      <div class="qr-title">VER TODOS LOS PICKS</div>
+      <img id="qr" src="" alt="QR Code">
+      <div class="qr-sub">Todas las 23 carreras</div>
+    </div>
+
+    <!-- 8. ANIMATED BOTTOM -->
+    <div class="animated-bottom">
+      <div class="confetti-container" id="confetti"></div>
+      <div class="fire-strip">
+        <span>&#128293;</span>
+        <span>&#128293;</span>
+        <span>&#127864;</span>
+        <span>&#128293;</span>
+        <span>&#128293;</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">&#10003; ¡Pick guardado!</div>
+
+  <script>
+    // ── QR CODE ──
+    const url = 'https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+    document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(url)}&bgcolor=0a0a0a&color=F5C518&format=png&margin=4`;
+
+    // ── COUNTDOWN ──
+    function updateCountdown() {
+      const target = new Date('2026-06-21T14:30:00');
+      const now = new Date();
+      const diff = target - now;
+      const el = document.getElementById('countdown');
+
+      if (diff <= 0) {
+        el.textContent = '¡EN CURSO!';
+        el.classList.add('past');
+        return;
+      }
+
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+
+      el.textContent = `${h}h ${m}m ${s}s`;
+      el.classList.remove('past');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── PICKS ──
+    function selectPick(side) {
+      document.getElementById('pick-left').classList.remove('selected');
+      document.getElementById('pick-right').classList.remove('selected');
+      document.getElementById('pick-' + side).classList.add('selected');
+      showToast();
+    }
+
+    function showToast() {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    // ── CONFETTI ──
+    const colors = ['#F5C518', '#ffffff', '#ff6b35', '#ff4444', '#00ccff'];
+    const container = document.getElementById('confetti');
+    for (let i = 0; i < 18; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const left = Math.random() * 100;
+      const delay = Math.random() * 3;
+      const duration = 2.5 + Math.random() * 2;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.cssText = `
+        left: ${left}%;
+        background: ${color};
+        animation-duration: ${duration}s;
+        animation-delay: ${delay}s;
+        width: ${6 + Math.random() * 6}px;
+        height: ${6 + Math.random() * 6}px;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '1px'};
+      `;
+      container.appendChild(piece);
+    }
+  </script>
+</body>
+</html>

@@ -1,44 +1,420 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000}
-.wrap{position:relative;display:inline-block;width:100%}
-img.flyer{width:100%;display:block}
-.qr{
-  position:absolute;
-  bottom:16px;right:16px;
-  background:#fff;
-  padding:5px;
-  border-radius:8px;
-  border:3px solid #FFD200;
-  box-shadow:0 4px 16px rgba(0,0,0,.5);
-}
-.qr img{width:90px;height:90px;display:block;border-radius:4px}
-.qr-label{
-  text-align:center;
-  font-family:-apple-system,sans-serif;
-  font-size:7px;font-weight:800;
-  color:#111;letter-spacing:.5px;
-  text-transform:uppercase;
-  margin-top:3px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carreras Sánchez · Domingo 21 de Junio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e8e8e8;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 12px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .flyer {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    }
+
+    /* ── 1. TOP BAR ── */
+    .top-bar {
+      background: #111111;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .top-bar span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: #F5C518;
+    }
+    .top-bar .dot {
+      width: 5px;
+      height: 5px;
+      background: #F5C518;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+
+    /* ── 2. TITLE SECTION ── */
+    .title-section {
+      background: #ffffff;
+      text-align: center;
+      padding: 28px 20px 10px;
+    }
+    .title-section .event-title-top {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 0.88;
+      color: #111111;
+      letter-spacing: 3px;
+    }
+    .title-section .event-title-bottom {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 0.88;
+      color: #F5C518;
+      letter-spacing: 3px;
+    }
+    .title-section .subtitle {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: #888888;
+      text-transform: uppercase;
+    }
+
+    /* ── 3. DATE BAR ── */
+    .date-bar {
+      background: #F5C518;
+      padding: 14px 20px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    .date-bar .date-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: #111111;
+      letter-spacing: 2px;
+    }
+    .date-bar .date-sub {
+      font-size: 12px;
+      font-weight: 700;
+      color: #333333;
+      letter-spacing: 3px;
+      margin-top: 2px;
+    }
+
+    /* ── 4. HORSE IMAGE STRIP ── */
+    .image-strip {
+      display: flex;
+      height: 200px;
+      overflow: hidden;
+      border-top: 3px solid #111;
+      border-bottom: 3px solid #111;
+    }
+    .image-strip .horse-img {
+      width: 180px;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .image-strip .horse-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-strip .horse-img.mirror img {
+      transform: scaleX(-1);
+    }
+    .image-strip .center-panel {
+      flex: 1;
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 8px;
+    }
+    .image-strip .center-panel .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 68px;
+      color: #F5C518;
+      line-height: 1;
+    }
+    .image-strip .center-panel .race-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      color: #ffffff;
+      letter-spacing: 3px;
+    }
+    .image-strip .center-panel .divider-line {
+      width: 28px;
+      height: 2px;
+      background: #F5C518;
+      margin: 4px 0;
+      opacity: 0.7;
+    }
+
+    /* ── 5. FEATURED RACE ── */
+    .featured-race {
+      margin: 18px 16px;
+      border: 2.5px solid #F5C518;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .featured-race .badge {
+      background: #F5C518;
+      padding: 7px 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 2px;
+      color: #111111;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .featured-race .body {
+      padding: 14px 16px 12px;
+      background: #fff;
+    }
+    .featured-race .matchup {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: #111111;
+      line-height: 1.15;
+      letter-spacing: 1px;
+    }
+    .featured-race .matchup .vs-text {
+      color: #F5C518;
+      font-size: 20px;
+    }
+    .featured-race .details {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #888888;
+      letter-spacing: 2px;
+    }
+
+    /* ── 6. RACE SCHEDULE ── */
+    .schedule {
+      margin: 0 16px 18px;
+    }
+    .schedule .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 3px;
+      color: #333333;
+      border-bottom: 2px solid #F5C518;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    .race-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .race-row:last-child {
+      border-bottom: none;
+    }
+    .race-time {
+      font-size: 11px;
+      font-weight: 700;
+      color: #555;
+      letter-spacing: 0.5px;
+      min-width: 44px;
+    }
+    .race-dist {
+      background: #111111;
+      color: #F5C518;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .race-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #222;
+      flex: 1;
+      line-height: 1.25;
+    }
+    .race-row.highlight .race-name {
+      color: #b8860b;
+    }
+    .race-row.highlight .race-dist {
+      background: #F5C518;
+      color: #111;
+    }
+
+    /* ── 7. QR SECTION ── */
+    .qr-section {
+      background: #f7f7f7;
+      border-top: 2px solid #222222;
+      padding: 20px 20px 18px;
+      text-align: center;
+    }
+    .qr-section .qr-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: #111111;
+      margin-bottom: 12px;
+    }
+    .qr-section img#qr {
+      width: 140px;
+      height: 140px;
+      display: block;
+      margin: 0 auto 10px;
+      border: 3px solid #111;
+      border-radius: 4px;
+    }
+    .qr-section .qr-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #F5C518;
+      background: #111;
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .qr-section .qr-url {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-top: 6px;
+    }
+
+    /* ── 8. FOOTER ── */
+    .footer {
+      background: #111111;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #F5C518;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <img class="flyer" src="flyer.jpg" alt="Carreras Sanchez Jun 21">
-  <div class="qr">
-    <img id="qr" src="" alt="QR">
-    <div class="qr-label">Mis Picks</div>
+  <div class="flyer">
+
+    <!-- 1. TOP BAR -->
+    <div class="top-bar">
+      <span>CARRIL #4</span>
+      <div class="dot"></div>
+      <span>COLORADO</span>
+    </div>
+
+    <!-- 2. TITLE SECTION -->
+    <div class="title-section">
+      <div class="event-title-top">CARRERAS</div>
+      <div class="event-title-bottom">SÁNCHEZ</div>
+      <div class="subtitle">Gran Programa de Carreras</div>
+    </div>
+
+    <!-- 3. DATE BAR -->
+    <div class="date-bar">
+      <div class="date-main">DOMINGO · 21 DE JUNIO</div>
+      <div class="date-sub">10:40 AM &nbsp;·&nbsp; 23 CARRERAS</div>
+    </div>
+
+    <!-- 4. HORSE IMAGE STRIP -->
+    <div class="image-strip">
+      <div class="horse-img mirror">
+        <img src="la-mami.jpg" alt="La Mami">
+      </div>
+      <div class="center-panel">
+        <div class="big-num">23</div>
+        <div class="divider-line"></div>
+        <div class="race-label">CARRERAS</div>
+      </div>
+      <div class="horse-img">
+        <img src="cristo-rey.jpg" alt="Cristo Rey">
+      </div>
+    </div>
+
+    <!-- 5. FEATURED RACE -->
+    <div class="featured-race">
+      <div class="badge">&#11088; GRAN AGARRÓN</div>
+      <div class="body">
+        <div class="matchup">
+          CDA CEBAS <span class="vs-text">VS</span> CDA AGUILARES
+        </div>
+        <div class="details">2:30 PM &nbsp;·&nbsp; 275 YARDAS</div>
+      </div>
+    </div>
+
+    <!-- 6. RACE SCHEDULE -->
+    <div class="schedule">
+      <div class="section-title">PROGRAMA DESTACADO</div>
+
+      <div class="race-row">
+        <span class="race-time">10:40</span>
+        <span class="race-dist">200 YDS</span>
+        <span class="race-name">Tapados Apertura</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">11:00</span>
+        <span class="race-dist">250 YDS</span>
+        <span class="race-name">CDA Aguilares vs CDA Yacky</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">12:30</span>
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">Gran Tercia</span>
+      </div>
+      <div class="race-row highlight">
+        <span class="race-time">2:30</span>
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">&#11088; Gran Agarrón &mdash; CDA Cebas vs CDA Aguilares</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">3:40</span>
+        <span class="race-dist">175 YDS</span>
+        <span class="race-name">Segundo Agarrón</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">5:00</span>
+        <span class="race-dist">250 YDS</span>
+        <span class="race-name">Ganadores Mini Chicas</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">5:40</span>
+        <span class="race-dist">100 YDS</span>
+        <span class="race-name">Gran Revancha</span>
+      </div>
+    </div>
+
+    <!-- 7. QR SECTION -->
+    <div class="qr-section">
+      <div class="qr-title">HAZ TUS PICKS</div>
+      <img id="qr" src="" alt="QR Code">
+      <div class="qr-sub">ESCANEA &middot; ELIGE &middot; GANA</div>
+      <span class="qr-url">guttix1.github.io/Digital-flyer-</span>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <div class="footer">
+      <p>&copy;2026 CARRERAS SÁNCHEZ &nbsp;&middot;&nbsp; NO APUESTAS SIN LICENCIA</p>
+    </div>
+
   </div>
-</div>
-<script>
-const url='https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
-document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
-</script>
+
+  <script>
+    const url = 'https://guttix1.github.io/Digital-flyer-/events/carreras-sanchez-jun21/picks.html';
+    document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+  </script>
 </body>
 </html>
