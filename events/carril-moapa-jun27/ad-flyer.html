@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carreras Carril Moapa · Sábado 27 de Junio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 12px;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .flyer {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    }
+
+    /* ── 1. TOP BAR ── */
+    .top-bar {
+      background: #111111;
+      padding: 9px 20px;
+      text-align: center;
+    }
+    .top-bar span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #F5C518;
+    }
+
+    /* ── 2. HEADER ── */
+    .header {
+      background: #ffffff;
+      text-align: center;
+      padding: 20px 16px 16px;
+      border-bottom: 3px solid #F5C518;
+    }
+    .header .title-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 0.9;
+      color: #111111;
+      letter-spacing: 2px;
+    }
+    .header .title-venue {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      line-height: 0.92;
+      color: #F5C518;
+      letter-spacing: 2px;
+    }
+    .header .subtitle {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #999999;
+      text-transform: uppercase;
+    }
+
+    /* ── 3. DATE BAR ── */
+    .date-bar {
+      background: #F5C518;
+      padding: 12px 20px;
+      text-align: center;
+    }
+    .date-bar .date-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      color: #111111;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    .date-bar .date-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: #333333;
+      letter-spacing: 2px;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ── 4. HORSE STRIP ── */
+    .horse-strip {
+      display: flex;
+      height: 200px;
+      overflow: hidden;
+    }
+    .horse-strip .hs-img {
+      width: 180px;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .horse-strip .hs-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .horse-strip .hs-img.mirror img {
+      transform: scaleX(-1);
+    }
+    .horse-strip .center-panel {
+      flex: 1;
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 8px;
+    }
+    .horse-strip .center-panel .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: #F5C518;
+      line-height: 1;
+    }
+    .horse-strip .center-panel .race-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 9px;
+      color: #F5C518;
+      letter-spacing: 2px;
+    }
+
+    /* ── 5. ESTELAR BOX ── */
+    .estelar-box {
+      border: 2px solid #F5C518;
+      border-radius: 10px;
+      margin: 16px;
+      padding: 14px;
+    }
+    .estelar-badge {
+      display: inline-block;
+      background: #111111;
+      color: #F5C518;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .estelar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #111111;
+      letter-spacing: 1px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+    .estelar-sub {
+      font-size: 11px;
+      color: #888888;
+      margin-top: 5px;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    /* ── 6. RACE SCHEDULE ── */
+    .schedule {
+      padding: 0 16px 4px;
+    }
+    .race-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .race-row:last-child {
+      border-bottom: none;
+    }
+    .race-time {
+      font-size: 12px;
+      color: #888888;
+      min-width: 45px;
+      font-weight: 400;
+    }
+    .race-dist {
+      background: #111111;
+      color: #F5C518;
+      font-size: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .race-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111111;
+      flex: 1;
+      line-height: 1.25;
+    }
+    .race-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #b8860b;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .race-row.highlight {
+      background: #FFF8E1;
+      margin: 0 -16px;
+      padding: 7px 16px;
+      font-weight: 800;
+    }
+    .race-row.highlight .race-name {
+      font-weight: 800;
+      color: #111;
+    }
+    .race-row.highlight .race-dist {
+      background: #F5C518;
+      color: #111;
+    }
+
+    /* ── 7. QR SECTION ── */
+    .qr-section {
+      background: #f9f9f9;
+      border-top: 3px solid #F5C518;
+      padding: 16px;
+      text-align: center;
+    }
+    .qr-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+    .qr-img {
+      width: 140px;
+      height: 140px;
+      display: block;
+      margin: 0 auto 8px;
+      border: 3px solid #111111;
+      padding: 4px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .qr-sub {
+      font-size: 11px;
+      color: #888888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .qr-url {
+      font-size: 10px;
+      color: #F5C518;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    /* ── 8. FOOTER ── */
+    .footer {
+      background: #111111;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #F5C518;
+    }
+  </style>
+</head>
+<body>
+  <div class="flyer">
+
+    <!-- 1. TOP BAR -->
+    <div class="top-bar">
+      <span>CARRIL MOAPA · LAS ARENAS</span>
+    </div>
+
+    <!-- 2. HEADER -->
+    <div class="header">
+      <div class="title-main">CARRERAS</div>
+      <div class="title-venue">CARRIL MOAPA</div>
+      <div class="subtitle">Gran Programa de Carreras</div>
+    </div>
+
+    <!-- 3. DATE BAR -->
+    <div class="date-bar">
+      <div class="date-main">SÁBADO · 27 DE JUNIO</div>
+      <div class="date-sub">8:30 AM &nbsp;·&nbsp; 13 CARRERAS</div>
+    </div>
+
+    <!-- 4. HORSE STRIP -->
+    <div class="horse-strip">
+      <div class="hs-img mirror">
+        <img src="la-mami.jpg" alt="La Mami">
+      </div>
+      <div class="center-panel">
+        <div class="big-num">13</div>
+        <div class="race-label">CARRERAS</div>
+      </div>
+      <div class="hs-img">
+        <img src="h-caos.jpg" alt="El Caos">
+      </div>
+    </div>
+
+    <!-- 5. ESTELAR BOX -->
+    <div class="estelar-box">
+      <span class="estelar-badge">⭐ GRAN ESTELAR</span>
+      <div class="estelar-title">EL NOVENO vs CHINO ANTRAX</div>
+      <div class="estelar-sub">1:00 PM &nbsp;·&nbsp; 325 Yardas &nbsp;·&nbsp; CDA MISIONERO vs CDA TREBOL/SANDOVAL</div>
+    </div>
+
+    <!-- 6. RACE SCHEDULE -->
+    <div class="schedule">
+      <div class="race-row">
+        <span class="race-time">8:30</span>
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">EL H vs EL ALUCIN</span>
+        <span class="race-tag">APERTURA</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">11:00</span>
+        <span class="race-dist">150 MTS</span>
+        <span class="race-name">PEDRO NAVAJAS vs EL RATON</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">11:30</span>
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">EL COMANDANTE vs EL PANADERO</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">12:00</span>
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">EL TRUENO vs EL PARIENTE</span>
+      </div>
+      <div class="race-row highlight">
+        <span class="race-time">1:00</span>
+        <span class="race-dist">325 YDS</span>
+        <span class="race-name">EL NOVENO vs CHINO ANTRAX</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">1:30</span>
+        <span class="race-dist">300 YDS</span>
+        <span class="race-name">ABIERTA VEGAS Y UTAH</span>
+      </div>
+      <div class="race-row">
+        <span class="race-time">2:30</span>
+        <span class="race-dist">300 YDS</span>
+        <span class="race-name">LA LOQUITA vs EL ENCIMADO</span>
+      </div>
+    </div>
+
+    <!-- 7. QR SECTION -->
+    <div class="qr-section">
+      <div class="qr-title">HAZ TUS PICKS</div>
+      <img id="qr" class="qr-img" src="" alt="QR Code">
+      <div class="qr-sub">ESCANEA · ELIGE · GANA</div>
+      <span class="qr-url">guttix1.github.io/Digital-flyer-</span>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <div class="footer">
+      <p>&copy;2026 CARRIL MOAPA &nbsp;&middot;&nbsp; LAS ARENAS</p>
+    </div>
+
+  </div>
+
+  <script>
+    const url = 'https://guttix1.github.io/Digital-flyer-/events/carril-moapa-jun27/picks.html';
+    document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+  </script>
+</body>
+</html>
