@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carril Moapa · Video Ad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+.stage{position:relative;width:540px;height:960px;overflow:hidden;background:#000}
+canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:90;pointer-events:none;transition:opacity .35s ease}
+.scene{position:absolute;inset:0;opacity:0;z-index:1;overflow:hidden}
+.scene.active{opacity:1;z-index:2}
+.progress{position:absolute;bottom:0;left:0;height:3px;background:#F5C518;z-index:99;transition:width .12s linear}
+.replay-btn{position:absolute;bottom:16px;right:16px;z-index:95;background:rgba(245,197,24,.15);border:1.5px solid #F5C518;color:#F5C518;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;padding:8px 18px;border-radius:6px;cursor:pointer;opacity:0;transition:opacity .4s}
+.stage.done .replay-btn{opacity:1}
+
+/* ── ANIMATIONS ── */
+@keyframes slam{from{transform:scale(3.5) rotate(-4deg);opacity:0;filter:blur(24px)}60%{transform:scale(.94);opacity:1;filter:blur(0)}80%{transform:scale(1.03)}to{transform:scale(1);opacity:1}}
+@keyframes slamUp{from{transform:translateY(80px) scale(1.1);opacity:0;filter:blur(8px)}to{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}}
+@keyframes slamDown{from{transform:translateY(-80px) scale(1.1);opacity:0;filter:blur(8px)}to{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}}
+@keyframes slamLeft{from{transform:translateX(-100px);opacity:0;filter:blur(8px)}to{transform:translateX(0);opacity:1;filter:blur(0)}}
+@keyframes slamRight{from{transform:translateX(100px);opacity:0;filter:blur(8px)}to{transform:translateX(0);opacity:1;filter:blur(0)}}
+@keyframes bounceIn{from{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.25) rotate(2deg);opacity:1}80%{transform:scale(.96)}to{transform:scale(1);opacity:1}}
+@keyframes zoomHorse{from{transform:scale(1.5);opacity:.5}to{transform:scale(1);opacity:1}}
+@keyframes glow{0%,100%{text-shadow:0 0 20px rgba(245,197,24,.4),0 0 60px rgba(245,197,24,.15)}50%{text-shadow:0 0 40px rgba(245,197,24,1),0 0 100px rgba(245,197,24,.5),0 0 180px rgba(245,197,24,.25)}}
+@keyframes prize3d{0%,100%{transform:perspective(700px) rotateY(0deg) scale(1)}40%{transform:perspective(700px) rotateY(22deg) scale(1.04)}80%{transform:perspective(700px) rotateY(-10deg) scale(.98)}}
+@keyframes shake{10%{transform:translate(-9px,-4px) rotate(-1.5deg)}20%{transform:translate(9px,4px) rotate(1deg)}30%{transform:translate(-7px,2px) rotate(-.5deg)}40%{transform:translate(7px,-3px) rotate(.5deg)}50%{transform:translate(-4px,2px)}60%{transform:translate(4px,-1px)}70%{transform:translate(-2px,1px)}to{transform:translate(0,0) rotate(0)}}
+@keyframes drawH{from{width:0}to{width:100%}}
+@keyframes drawV{from{height:0}to{height:100%}}
+@keyframes fadeUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes pulseDot{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(245,197,24,.5)}50%{transform:scale(1.05);box-shadow:0 0 0 16px rgba(245,197,24,0)}}
+@keyframes chipIn{from{transform:translateX(120px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* glitch pseudo-element effect */
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;font-family:inherit;font-size:inherit;color:inherit}
+.glitch::before{color:#0ff;animation:g1 2.8s infinite .2s}
+.glitch::after{color:#ff2060;animation:g2 2.8s infinite .4s}
+@keyframes g1{0%,78%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}79%{clip-path:inset(25% 0 60% 0);transform:translate(-6px,1px)}81%{clip-path:inset(60% 0 20% 0);transform:translate(6px,-2px)}83%{clip-path:inset(5% 0 85% 0);transform:translate(-3px)}85%{clip-path:inset(100% 0 0 0)}}
+@keyframes g2{0%,72%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}73%{clip-path:inset(45% 0 40% 0);transform:translate(6px,-1px)}75%{clip-path:inset(15% 0 75% 0);transform:translate(-6px,2px)}77%{clip-path:inset(80% 0 5% 0);transform:translate(3px)}79%{clip-path:inset(100% 0 0 0)}}
+
+/* ── S1 BLAST ── */
+.s1{background:#000}
+.s1-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.s1-top{font-family:'Bebas Neue',sans-serif;font-size:130px;line-height:.88;color:#fff;letter-spacing:-3px;opacity:0}
+.s1-top span{color:#F5C518}
+.scene.active .s1-top{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .1s forwards}
+.s1-line{width:0;height:4px;background:linear-gradient(90deg,transparent,#F5C518,transparent);margin:14px auto;opacity:0}
+.scene.active .s1-line{opacity:1;animation:drawH .5s ease .65s forwards}
+.s1-sub{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:8px;color:rgba(255,255,255,.5);opacity:0}
+.scene.active .s1-sub{animation:fadeUp .5s ease .9s forwards}
+.s1-shake{position:absolute;inset:0;animation:none}
+.scene.active .s1-shake{animation:shake .5s ease .15s}
+
+/* ── S2 DATE ── */
+.s2{background:#F5C518}
+.s2-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0}
+.s2-day{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:10px;color:rgba(0,0,0,.35);opacity:0}
+.scene.active .s2-day{animation:slamLeft .4s ease .05s forwards}
+.s2-main{font-family:'Bebas Neue',sans-serif;font-size:120px;line-height:.82;color:#000;letter-spacing:-4px;opacity:0}
+.scene.active .s2-main{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .15s forwards}
+.s2-year{font-family:'Bebas Neue',sans-serif;font-size:44px;color:rgba(0,0,0,.22);letter-spacing:10px;opacity:0}
+.scene.active .s2-year{animation:fadeUp .4s ease .55s forwards}
+.s2-badge{background:#000;color:#F5C518;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:4px;padding:10px 24px;border-radius:4px;margin-top:18px;opacity:0}
+.scene.active .s2-badge{animation:slamUp .4s cubic-bezier(.17,.67,.51,1.3) .75s forwards}
+
+/* ── S3 RACE COUNT ── */
+.s3{background:#111}
+.s3-horse{position:absolute;left:0;top:0;width:60%;height:100%;object-fit:cover;opacity:0}
+.scene.active .s3-horse{animation:zoomHorse .7s ease .0s forwards}
+.s3-gradient{position:absolute;left:0;top:0;width:70%;height:100%;background:linear-gradient(to right,transparent 40%,#111 90%)}
+.s3-right{position:absolute;right:0;top:0;width:52%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.s3-num{font-family:'Bebas Neue',sans-serif;font-size:210px;line-height:.82;color:#F5C518;text-shadow:0 0 80px rgba(245,197,24,.3);opacity:0}
+.scene.active .s3-num{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .2s forwards}
+.s3-label{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:5px;color:#fff;opacity:0;margin-top:-4px}
+.scene.active .s3-label{animation:slamRight .4s ease .55s forwards}
+.s3-sub{font-size:13px;letter-spacing:4px;color:rgba(255,255,255,.35);opacity:0;margin-top:10px}
+.scene.active .s3-sub{animation:fadeUp .4s ease .85s forwards}
+
+/* ── S4 GRAN ESTELAR ── */
+.s4{background:#fff}
+.s4-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.s4-badge{background:#F5C518;color:#000;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;padding:6px 18px;border-radius:4px;opacity:0}
+.scene.active .s4-badge{animation:bounceIn .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards}
+.s4-title{font-family:'Bebas Neue',sans-serif;font-size:54px;line-height:.9;color:#000;letter-spacing:-1px;text-align:center;margin:12px 0;opacity:0}
+.scene.active .s4-title{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .2s forwards}
+.s4-arena{display:flex;align-items:center;width:100%;height:270px;margin:8px 0;position:relative}
+.s4-horse{flex:1;height:100%;object-fit:cover;opacity:0}
+.scene.active .s4-horse.l{animation:slamLeft .5s ease .4s forwards}
+.scene.active .s4-horse.r{animation:slamRightFlip .5s ease .4s forwards}
+.s4-horse.r{transform:scaleX(-1) translateX(-100px)}
+@keyframes slamRightFlip{from{transform:scaleX(-1) translateX(-100px);opacity:0}to{transform:scaleX(-1) translateX(0);opacity:1}}
+.s4-vs{width:76px;height:76px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:#F5C518;z-index:3;flex-shrink:0;box-shadow:0 0 0 4px #fff,0 0 0 7px #000;opacity:0}
+.scene.active .s4-vs{animation:bounceIn .5s cubic-bezier(.17,.67,.51,1.3) .65s forwards;animation-fill-mode:both}
+.s4-border{position:absolute;inset:-2px;border:3px solid #F5C518;opacity:0;pointer-events:none}
+.scene.active .s4-border{animation:fadeUp .3s ease .9s forwards}
+.s4-details{font-size:13px;letter-spacing:3px;color:#666;opacity:0;margin-top:8px}
+.scene.active .s4-details{animation:fadeUp .4s ease 1s forwards}
+.s4-names{display:flex;gap:0;width:100%;margin-top:6px}
+.s4-name{flex:1;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#000;opacity:0}
+.scene.active .s4-name.l{animation:slamLeft .4s ease .75s forwards}
+.scene.active .s4-name.r{animation:slamRight .4s ease .75s forwards}
+
+/* ── S5 SPLIT DUEL ── */
+.s5{background:#000}
+.s5-lhalf{position:absolute;left:0;top:0;width:50%;height:100%;object-fit:cover;transform:translateX(-100%)}
+.scene.active .s5-lhalf{animation:slideInLeft .5s cubic-bezier(.25,.46,.45,.94) .05s forwards}
+@keyframes slideInLeft{to{transform:translateX(0)}}
+.s5-rhalf{position:absolute;right:0;top:0;width:50%;height:100%;object-fit:cover;transform:translateX(100%);transform-origin:right center}
+.scene.active .s5-rhalf{animation:slideInRight .5s cubic-bezier(.25,.46,.45,.94) .05s forwards}
+@keyframes slideInRight{to{transform:translateX(0)}}
+.s5-divider{position:absolute;left:50%;top:0;width:4px;height:0;background:linear-gradient(to bottom,transparent,#F5C518 20%,#F5C518 80%,transparent);transform:translateX(-50%)}
+.scene.active .s5-divider{animation:drawV .4s ease .45s forwards}
+.s5-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.65) 0%,transparent 25%,transparent 72%,rgba(0,0,0,.75) 100%)}
+.s5-top{position:absolute;top:36px;left:0;right:0;text-align:center}
+.s5-name{font-family:'Bebas Neue',sans-serif;font-size:50px;color:#F5C518;text-shadow:0 3px 30px rgba(0,0,0,.8);opacity:0}
+.scene.active .s5-name{animation:slamDown .4s cubic-bezier(.17,.67,.51,1.3) .55s forwards}
+.s5-fire{position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;pointer-events:none;font-size:20px;opacity:0}
+.scene.active .s5-fire{animation:fadeUp .3s ease .7s forwards}
+.s5-bottom{position:absolute;bottom:50px;left:0;right:0;text-align:center}
+.s5-sub{font-size:14px;letter-spacing:4px;color:#fff;opacity:0}
+.scene.active .s5-sub{animation:fadeUp .4s ease .7s forwards}
+
+/* ── S6 PRIZE ── */
+.s6{background:#000}
+.s6-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.s6-dollar{font-family:'Bebas Neue',sans-serif;font-size:80px;color:#F5C518;opacity:0;line-height:1}
+.scene.active .s6-dollar{animation:slam .4s cubic-bezier(.17,.67,.51,1.3) .1s forwards}
+.s6-prize{font-family:'Bebas Neue',sans-serif;font-size:180px;line-height:.8;background:linear-gradient(135deg,#F5C518 0%,#FF8C00 50%,#FF4500 80%,#F5C518 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;opacity:0;animation:none}
+.scene.active .s6-prize{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .2s forwards, prize3d 3.5s ease .7s infinite, glow 2s ease .7s infinite}
+.s6-en{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:6px;color:#fff;opacity:0;margin-top:-8px}
+.scene.active .s6-en{animation:slamUp .4s ease .55s forwards}
+.s6-pick6{margin-top:16px;font-size:14px;letter-spacing:4px;color:rgba(255,255,255,.45);opacity:0}
+.scene.active .s6-pick6{animation:fadeUp .4s ease .75s forwards}
+.s6-entry{background:#F5C518;color:#000;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;padding:12px 32px;border-radius:6px;margin-top:14px;display:inline-block;opacity:0}
+.scene.active .s6-entry{animation:bounceIn .5s cubic-bezier(.17,.67,.51,1.3) 1s forwards}
+
+/* ── S7 SOCIAL ── */
+.s7{background:#0a0a0a}
+.s7-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.s7-count{font-family:'Bebas Neue',sans-serif;font-size:110px;color:#F5C518;line-height:1;opacity:0;animation:glow 2s ease infinite}
+.scene.active .s7-count{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards, glow 2s ease .55s infinite}
+.s7-count-label{font-size:12px;letter-spacing:5px;color:rgba(255,255,255,.3);margin-bottom:20px;opacity:0}
+.scene.active .s7-count-label{animation:fadeUp .4s ease .45s forwards}
+.pill{background:rgba(255,255,255,.04);border:1px solid rgba(245,197,24,.25);border-radius:50px;padding:12px 18px;margin:6px 0;display:flex;align-items:center;gap:12px;width:100%;max-width:430px;opacity:0}
+.scene.active .pill:nth-child(1){animation:slamLeft .4s ease .5s forwards}
+.scene.active .pill:nth-child(2){animation:slamLeft .4s ease .7s forwards}
+.scene.active .pill:nth-child(3){animation:slamLeft .4s ease .9s forwards}
+.pill-ico{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#F5C518,#FF8C00);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pill-info{text-align:left}
+.pill-name{font-size:13px;font-weight:700;color:#fff}
+.pill-quote{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+
+/* ── S8 RACE LINEUP ── */
+.s8{background:#F5C518}
+.s8-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.s8-over{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:rgba(0,0,0,.35);opacity:0}
+.scene.active .s8-over{animation:slamDown .4s ease .05s forwards}
+.s8-num{font-family:'Bebas Neue',sans-serif;font-size:200px;line-height:.82;color:#000;opacity:0}
+.scene.active .s8-num{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .1s forwards}
+.s8-unit{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:5px;color:rgba(0,0,0,.35);opacity:0;margin-top:-8px}
+.scene.active .s8-unit{animation:slamUp .35s ease .5s forwards}
+.s8-chips{display:flex;flex-direction:column;gap:9px;margin-top:18px;width:100%}
+.chip{background:#000;color:#F5C518;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;padding:11px 20px;border-radius:6px;opacity:0}
+.scene.active .chip:nth-child(1){animation:chipIn .4s cubic-bezier(.17,.67,.51,1.3) .6s forwards}
+.scene.active .chip:nth-child(2){animation:chipIn .4s cubic-bezier(.17,.67,.51,1.3) .8s forwards}
+.scene.active .chip:nth-child(3){animation:chipIn .4s cubic-bezier(.17,.67,.51,1.3) 1s forwards}
+.s8-free{margin-top:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:rgba(0,0,0,.5);opacity:0;animation:blink 1s ease infinite}
+.scene.active .s8-free{animation:fadeUp .4s ease 1.2s both, blink 1s ease 1.6s infinite}
+
+/* ── S9 END CARD ── */
+.s9{background:#000}
+.s9-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.s9-title{font-family:'Bebas Neue',sans-serif;font-size:78px;line-height:.88;letter-spacing:-1px;overflow:hidden;opacity:0}
+.s9-title .top-word{display:block;color:#fff;transform:translateY(-100%)}
+.s9-title .bot-word{display:block;color:#F5C518;transform:translateY(100%)}
+.scene.active .s9-title{opacity:1}
+.scene.active .s9-title .top-word{animation:slamDown .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards}
+.scene.active .s9-title .bot-word{animation:slamUp .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards}
+.s9-date{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:6px;color:rgba(255,255,255,.3);opacity:0;margin:8px 0}
+.scene.active .s9-date{animation:fadeUp .4s ease .45s forwards}
+.qr-wrap{width:196px;height:196px;background:#fff;border-radius:14px;padding:7px;margin:16px auto;opacity:0}
+.scene.active .qr-wrap{animation:bounceIn .5s cubic-bezier(.17,.67,.51,1.3) .55s forwards}
+.qr-wrap img{width:100%;height:100%;border-radius:8px}
+.s9-cta{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:#F5C518;opacity:0;animation:glow 2s ease infinite}
+.scene.active .s9-cta{animation:fadeUp .4s ease .85s both, glow 2s ease 1.3s infinite}
+.s9-url{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-top:8px;opacity:0}
+.scene.active .s9-url{animation:fadeUp .4s ease 1s forwards}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <canvas id="c"></canvas>
+  <div class="flash" id="flash"></div>
+  <div class="progress" id="prog"></div>
+
+  <!-- S1 -->
+  <div class="scene s1 active" id="s1">
+    <div class="s1-shake">
+      <div class="s1-content">
+        <div class="s1-top glitch" data-text="CARRIL">CARRIL<span>MOAPA</span></div>
+        <div class="s1-line"></div>
+        <div class="s1-sub">LAS ARENAS · 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="scene s2" id="s2">
+    <div class="s2-content">
+      <div class="s2-day">SÁBADO</div>
+      <div class="s2-main">27 DE<br>JUNIO</div>
+      <div class="s2-year">2026</div>
+      <div class="s2-badge">CARRIL MOAPA · COLORADO</div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="scene s3" id="s3">
+    <img class="s3-horse" src="la-mami.jpg" alt="">
+    <div class="s3-gradient"></div>
+    <div class="s3-right">
+      <div class="s3-num" id="s3n">0</div>
+      <div class="s3-label">CARRERAS</div>
+      <div class="s3-sub">UN DÍA ÉPICO</div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="scene s4" id="s4">
+    <div class="s4-content">
+      <div class="s4-badge">⭐ GRAN ESTELAR · R.10</div>
+      <div class="s4-title">EL NOVENO VS CHINO ANTRAX</div>
+      <div class="s4-arena">
+        <img class="s4-horse l" src="h-caos.jpg" alt="">
+        <div class="s4-vs">VS</div>
+        <img class="s4-horse r" src="h-rey-puerro.jpg" alt="">
+        <div class="s4-border"></div>
+      </div>
+      <div class="s4-names">
+        <div class="s4-name l">CDA MISIONERO</div>
+        <div class="s4-name r">CDA TREBOL/SANDOVAL</div>
+      </div>
+      <div class="s4-details">325 YARDAS · 1:00 PM · R.10</div>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="scene s5" id="s5">
+    <img class="s5-lhalf" src="cristo-rey.jpg" alt="">
+    <img class="s5-rhalf" src="aries.jpg" alt="">
+    <div class="s5-divider"></div>
+    <div class="s5-overlay"></div>
+    <div class="s5-fire">🔥<br>🔥<br>🔥</div>
+    <div class="s5-top"><div class="s5-name">EL COMANDANTE</div></div>
+    <div class="s5-bottom"><div class="s5-sub">11:30 AM · 275 YARDAS</div></div>
+  </div>
+
+  <!-- S6 -->
+  <div class="scene s6" id="s6">
+    <div class="s6-content">
+      <div class="s6-dollar">$</div>
+      <div class="s6-prize">5K</div>
+      <div class="s6-en">EN PREMIOS</div>
+      <div class="s6-pick6">PICK 6 · 13 CARRERAS</div>
+      <div class="s6-entry">$100 ENTRADA</div>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="scene s7" id="s7">
+    <div class="s7-content">
+      <div class="s7-count" id="s7n">0</div>
+      <div class="s7-count-label">FANS REGISTRADOS</div>
+      <div class="pill"><div class="pill-ico">🏆</div><div class="pill-info"><div class="pill-name">Juan G. — Pueblo, CO</div><div class="pill-quote">"¡Gané con mis picks! No lo podía creer"</div></div></div>
+      <div class="pill"><div class="pill-ico">🔥</div><div class="pill-info"><div class="pill-name">María L. — Colorado Springs</div><div class="pill-quote">"El mejor site del carril. Ya me registré"</div></div></div>
+      <div class="pill"><div class="pill-ico">🎯</div><div class="pill-info"><div class="pill-name">Carlos R. — Denver, CO</div><div class="pill-quote">"¡Gané en Moapa! El sábado fue épico"</div></div></div>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="scene s8" id="s8">
+    <div class="s8-content">
+      <div class="s8-over">PROGRAMA COMPLETO</div>
+      <div class="s8-num">13</div>
+      <div class="s8-unit">CARRERAS</div>
+      <div class="s8-chips">
+        <div class="chip">⭐ GRAN ESTELAR</div>
+        <div class="chip">🔥 EL COMANDANTE VS EL PANADERO</div>
+        <div class="chip">🏆 LA LOQUITA VS EL ENCIMADO</div>
+      </div>
+      <div class="s8-free">¡TODOS LOS PICKS GRATIS!</div>
+    </div>
+  </div>
+
+  <!-- S9 -->
+  <div class="scene s9" id="s9">
+    <div class="s9-content">
+      <div class="s9-title"><span class="top-word">CARRIL</span><span class="bot-word">MOAPA</span></div>
+      <div class="s9-date">27 DE JUNIO · 2026</div>
+      <div class="qr-wrap"><img id="qr" src="" alt="QR"></div>
+      <div class="s9-cta">HAZ TUS PICKS GRATIS</div>
+      <div class="s9-url">guttix1.github.io/Digital-flyer-</div>
+    </div>
+  </div>
+
+  <button class="replay-btn" onclick="startAd()">&#9654; REPLAY</button>
+</div>
+
+<script>
+// QR
+const PICKS_URL='https://guttix1.github.io/Digital-flyer-/events/carril-moapa-jun27/picks.html';
+document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PICKS_URL)}&bgcolor=000000&color=F5C518&format=png&margin=6`;
+
+// Canvas
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+cv.width=540;cv.height=960;
+let parts=[];
+
+class P{
+  constructor(x,y,vx,vy,col,life,size,gravity=.14){
+    Object.assign(this,{x,y,vx,vy,col,life,maxLife:life,size,gravity});
+  }
+  tick(){this.x+=this.vx;this.y+=this.vy;this.vy+=this.gravity;this.life--;this.vx*=.98;}
+  draw(){
+    cx.globalAlpha=(this.life/this.maxLife)**1.5;
+    cx.fillStyle=this.col;
+    cx.beginPath();cx.arc(this.x,this.y,this.size,0,Math.PI*2);cx.fill();
+  }
+}
+
+class Ring{
+  constructor(x,y,col){Object.assign(this,{x,y,col,r:0,alpha:1});}
+  tick(){this.r+=14;this.alpha-=.045;}
+  draw(){
+    if(this.alpha<=0)return;
+    cx.globalAlpha=this.alpha;cx.strokeStyle=this.col;cx.lineWidth=3;
+    cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.stroke();
+  }
+  get dead(){return this.alpha<=0;}
+}
+
+let rings=[];
+
+function burst(x,y,n,cols,speed=10,gravity=.14){
+  for(let i=0;i<n;i++){
+    const a=Math.PI*2*i/n+Math.random()*.4;
+    const s=Math.random()*speed+speed*.3;
+    parts.push(new P(x,y,Math.cos(a)*s,Math.sin(a)*s-speed*.4,
+      cols[i%cols.length],Math.random()*45+25,Math.random()*5+1.5,gravity));
+  }
+  rings.push(new Ring(x,y,'#F5C518'));
+  setTimeout(()=>rings.push(new Ring(x,y,'rgba(255,255,255,.6)')),120);
+}
+
+function confetti(n=160){
+  const c=['#F5C518','#FF8C00','#fff','#FF2060','#00E5FF','#44FF88'];
+  for(let i=0;i<n;i++){
+    parts.push(new P(
+      Math.random()*540,-10,
+      (Math.random()-.5)*9,Math.random()*7+2,
+      c[Math.floor(Math.random()*c.length)],
+      80+Math.random()*50,Math.random()*5+2,.2));
+  }
+}
+
+function sparks(x,y,n=30){
+  for(let i=0;i<n;i++){
+    const a=-Math.PI*.5+(Math.random()-.5)*1.8;
+    const s=Math.random()*14+5;
+    parts.push(new P(x,y,Math.cos(a)*s,Math.sin(a)*s,
+      i%2===0?'#F5C518':'#FF8C00',Math.random()*25+15,Math.random()*3+1,-.1));
+  }
+}
+
+(function loop(){
+  cx.clearRect(0,0,540,960);
+  parts=parts.filter(p=>{if(p.life>0){p.tick();p.draw();return true;}return false;});
+  rings=rings.filter(r=>{if(!r.dead){r.tick();r.draw();return true;}return false;});
+  cx.globalAlpha=1;cx.lineWidth=1;
+  requestAnimationFrame(loop);
+})();
+
+// Flash cut
+function flashCut(dur=60,col='#fff'){
+  const f=document.getElementById('flash');
+  f.style.background=col;f.style.transition='none';f.style.opacity='1';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    f.style.transition=`opacity ${dur}ms ease`;f.style.opacity='0';
+  }));
+}
+
+// Screen shake
+function shake(dur=400){
+  const s=document.getElementById('stage');
+  s.style.animation='none';s.offsetHeight;
+  s.style.animation=`shake ${dur}ms ease`;
+}
+
+// Reset scene CSS animations
+function activateScene(i){
+  const scenes=document.querySelectorAll('.scene');
+  scenes.forEach((s,j)=>{
+    s.classList.remove('active');
+    if(j===i){
+      s.offsetHeight;
+      s.classList.add('active');
+    }
+  });
+}
+
+// Per-scene enter effects
+function onEnter(i){
+  if(i===0){
+    flashCut(300);
+    setTimeout(()=>{burst(270,490,120,['#F5C518','#FF8C00','#fff','rgba(255,255,255,.5)'],13);shake(500);},200);
+  }
+  if(i===1){
+    flashCut(200,'#F5C518');
+    burst(270,960,80,['#000','rgba(0,0,0,.4)'],8,-.2);
+  }
+  if(i===2){
+    flashCut(150);
+    setTimeout(()=>{burst(540,480,50,['#F5C518','#FF8C00'],8);},400);
+    let n=0;const el=document.getElementById('s3n');
+    const iv=setInterval(()=>{el.textContent=n++;if(n>13)clearInterval(iv);},90);
+  }
+  if(i===3){
+    flashCut(180,'#fff');
+    setTimeout(()=>{burst(270,480,60,['#F5C518','#000'],8);shake(350);},700);
+  }
+  if(i===4){
+    flashCut(100);
+    setTimeout(()=>{sparks(270,0,40);},500);
+    setTimeout(()=>{rings.push(new Ring(270,480,'#F5C518'));},600);
+  }
+  if(i===5){
+    flashCut(80,'#F5C518');
+    setTimeout(()=>{confetti(180);burst(270,300,80,['#F5C518','#FF8C00','#FF2060','#fff'],14);shake(500);},200);
+  }
+  if(i===6){
+    flashCut(120);
+    let n=0;const el=document.getElementById('s7n');
+    const iv=setInterval(()=>{el.textContent=n;n+=7;if(n>623){el.textContent=623;clearInterval(iv);}},18);
+    setTimeout(()=>burst(270,150,60,['#F5C518','rgba(255,255,255,.4)'],7),400);
+  }
+  if(i===7){
+    flashCut(200,'#F5C518');
+    burst(270,960,60,['#000','rgba(0,0,0,.3)'],7,-.15);
+  }
+  if(i===8){
+    flashCut(150);
+    setTimeout(()=>{burst(270,500,100,['#F5C518','#FF8C00','#fff'],12);rings.push(new Ring(270,390,'#F5C518'));shake(400);},600);
+    document.getElementById('stage').classList.add('done');
+  }
+}
+
+// Timeline
+const DURS=[3000,2400,3000,3500,2800,3500,3800,3000,5500];
+let timers=[];
+
+function startAd(){
+  timers.forEach(clearTimeout);timers=[];
+  parts=[];rings=[];
+  document.getElementById('stage').classList.remove('done');
+  document.getElementById('prog').style.width='0%';
+  activateScene(0);onEnter(0);
+
+  let t=DURS[0];
+  const total=DURS.reduce((a,b)=>a+b,0);
+
+  DURS.forEach((d,i)=>{
+    if(i===0)return;
+    timers.push(setTimeout(()=>{activateScene(i);onEnter(i);},t));
+    t+=d;
+  });
+
+  // Progress bar
+  const start=Date.now();
+  (function tick(){
+    const el=document.getElementById('prog');
+    const pct=Math.min(100,(Date.now()-start)/total*100);
+    el.style.width=pct+'%';
+    if(pct<100)requestAnimationFrame(tick);
+  })();
+
+  // Loop
+  timers.push(setTimeout(startAd,total+300));
+}
+
+startAd();
+</script>
+</body>
+</html>
