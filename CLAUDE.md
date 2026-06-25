@@ -132,3 +132,94 @@ After pushing, reply with the live URLs for every generated page:
 - If the flyer is a multi-race event (not head-to-head), skip `duel.html` and generate `races.html` instead listing each race card.
 - If horse stats/records are not visible in the flyer, use reasonable placeholder values and note that they need to be verified.
 - Always use the **Pista Noir** design system (black bg, `#F5C518` gold accent, `-apple-system` font, glassmorphism cards).
+
+---
+
+## 🎬 TikTok Video Style — "Light Split" (USER'S APPROVED STYLE)
+
+**Canonical reference file:** `events/chango-malo-vs-comandante/tiktok-light.html`
+
+When the user asks for a TikTok video, promo clip, matchup video, or hype video — use THIS exact style. Do not use dark themes.
+
+### Design Spec
+
+| Property | Value |
+|----------|-------|
+| Canvas | 540×960 (recorded), upscaled to 1080×1920 for TikTok |
+| Background | `#f5f5f5` (light grey page), `#fff` (stats panel) |
+| Left team color | `#D0021B` (bold red) |
+| Right team color | `#0033CC` (bold blue) |
+| Font | `-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` |
+| Text on white | `#111` (near-black) |
+| Text on colored panels | `#fff` |
+| Gold accent | `#F5C518` (subtitles, labels) |
+
+### 3-Act Structure & Timeline
+
+**Act 1 — Title Card (0–2000ms)**
+- White background, `#111` horse names in huge bold type (left=red, right=blue)
+- Gold sub-labels under each name (cuadra, tag)
+- Centered "VS" badge in gold ring
+
+**Flash → Act 2 — Split Reveal (2000–5800ms)**
+- White flash at 2000ms (instant white overlay fading in 70ms → out in 140ms)
+- Two colored panels slide in from left/right using `clip-path` diagonal cut
+- Left panel: `#D0021B` red; Right panel: `#0033CC` blue
+- Horse images (AI bg-removed, duotone art) fill each panel
+- White "VS" badge in center, thin white divider line
+- Horse names and tags displayed on panels in white
+
+**Flash → Act 3 — Stats Breakdown (5800ms+)**
+- White flash at 5800ms
+- White stats page with red/blue banner strip at top
+- Stat rows cascade in one by one (6050ms → 8050ms), each with:
+  - Red bar on left (left horse value)
+  - Stat label in center (Victorias, Récord, Velocidad, Salida, Forma Actual, Mayor Victoria)
+  - Blue bar on right (right horse value)
+- Probability bar at 8700ms (red % vs blue %)
+- Team chips at 10000ms
+- CTA "¿Tú con quién vas?" at 10800ms
+- Footer info (venue, date, distance, prize) at 11500ms
+
+### Horse Image Pipeline
+1. Crop each horse from the flyer: `img.crop((x1, y1, x2, y2))`
+2. Remove background: `rembg` with U2-Net (`pip install "rembg[cpu]"`)
+3. Apply duotone art effect with Pillow:
+   - Red horse: `ImageEnhance.Color` → 0 (greyscale), then `ImageEnhance.Contrast` ×1.4, `ImageEnhance.Sharpness` ×1.8, then colorize red via `ImageOps.colorize(grey, '#330000', '#FF4444')`
+   - Blue horse: same but colorize `('#000033', '#4466FF')`
+4. Base64-embed both PNGs inline in the HTML
+
+### Recording Pipeline
+```bash
+# 1. Update rec-cdp.js to point to the new tiktok-light.html
+node rec-cdp.js          # captures ~12fps JPEG frames via CDP, encodes to 540x960 MP4
+
+# 2. Upscale to 1080x1920
+python3 - << 'EOF'
+import cv2
+src = 'events/<slug>/tiktok-light.mp4'
+out = 'events/<slug>/tiktok-light-1080.mp4'
+cap = cv2.VideoCapture(src)
+fps = cap.get(cv2.CAP_PROP_FPS)
+writer = cv2.VideoWriter(out, cv2.VideoWriter_fourcc(*'mp4v'), fps, (1080, 1920))
+while True:
+    ret, frame = cap.read()
+    if not ret: break
+    writer.write(cv2.resize(frame, (1080, 1920), interpolation=cv2.INTER_LANCZOS4))
+cap.release(); writer.release()
+EOF
+```
+
+### Key CSS Patterns
+```css
+body { background: #f5f5f5; margin: 0; font-family: -apple-system, sans-serif; }
+/* Split panels */
+.sp-l { background: #D0021B; clip-path: polygon(0 0, 52% 0, 48% 100%, 0 100%); }
+.sp-r { background: #0033CC; clip-path: polygon(52% 0, 100% 0, 100% 100%, 48% 100%); }
+/* Stats page */
+#l-stats { background: #fff; color: #111; }
+.bl { background: #D0021B; } /* left stat bar */
+.br { background: #0033CC; } /* right stat bar */
+/* Flash effect */
+#flash { position:fixed; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:999; }
+```
