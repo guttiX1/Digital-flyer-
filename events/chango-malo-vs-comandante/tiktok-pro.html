@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  width:540px;height:960px;overflow:hidden;
+  background:#07070e;
+  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  color:#fff;
+  position:relative;
+}
+
+/* ── PARTICLE CANVAS ── */
+#fx{position:absolute;top:0;left:0;width:540px;height:960px;pointer-events:none;z-index:0}
+
+/* ── SCENE ── */
+.scene{position:relative;z-index:1;width:540px;height:960px;display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+.hdr{
+  height:88px;
+  background:linear-gradient(90deg,#8b0000 0%,#1a1a2e 48%,#0a1628 52%,#0d2b6e 100%);
+  border-bottom:3px solid #F5C518;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateY(-40px);
+  transition:opacity 3s ease,transform 3s ease;
+}
+.hdr.on{opacity:1;transform:translateY(0)}
+.hdr::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 45%,rgba(245,197,24,.12) 48%,rgba(245,197,24,.12) 52%,transparent 55%);
+}
+.hdr-sub{font-size:10px;letter-spacing:5px;color:#F5C518;text-transform:uppercase;font-weight:700}
+.hdr-title{font-size:21px;font-weight:900;letter-spacing:2px;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+
+/* ── HORSES ── */
+.horses{display:flex;height:268px;position:relative;flex-shrink:0}
+
+.hcard{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;
+  padding-bottom:16px;position:relative;overflow:hidden;
+}
+
+.hcard.L{
+  background:linear-gradient(150deg,#3d0000 0%,#8b0000 45%,#c0392b 100%);
+  opacity:0;transform:translateX(-80px);
+  transition:opacity 3.5s ease,transform 3.5s ease;
+}
+.hcard.R{
+  background:linear-gradient(210deg,#000f3d 0%,#0d2b6e 45%,#1a56db 100%);
+  opacity:0;transform:translateX(80px);
+  transition:opacity 3.5s ease,transform 3.5s ease;
+}
+.hcard.on{opacity:1;transform:translateX(0)}
+
+/* diagonal divider between cards */
+.hcard.L::after{
+  content:'';position:absolute;right:-22px;top:0;bottom:0;width:44px;
+  background:linear-gradient(150deg,#3d0000,#c0392b);
+  transform:skewX(-8deg);
+  clip-path:polygon(50% 0,100% 0,50% 100%,0 100%);
+}
+
+/* large emoji horse */
+.hcard-emoji{font-size:110px;line-height:1;position:absolute;top:8px;opacity:.18;pointer-events:none}
+.hcard.L .hcard-emoji{right:-10px;transform:scaleX(-1)}
+.hcard.R .hcard-emoji{left:-10px}
+
+.rec-badge{
+  position:absolute;top:12px;
+  background:rgba(0,0,0,.55);border:1.5px solid rgba(255,255,255,.25);
+  border-radius:20px;padding:4px 12px;
+  font-size:13px;font-weight:800;letter-spacing:.5px;
+}
+.hcard.L .rec-badge{left:10px}
+.hcard.R .rec-badge{right:10px}
+
+.hcard-name{
+  font-size:17px;font-weight:900;text-transform:uppercase;
+  letter-spacing:.5px;text-align:center;z-index:2;
+  text-shadow:0 2px 10px rgba(0,0,0,.9);line-height:1.2;
+}
+.hcard-cuadra{
+  font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.6);
+  text-transform:uppercase;z-index:2;margin-top:4px;
+}
+.hcard-tag{
+  font-size:11px;font-weight:700;color:#F5C518;
+  letter-spacing:.5px;text-transform:uppercase;z-index:2;margin-top:6px;
+}
+
+/* ── VS ── */
+.vs{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0) rotate(-180deg);
+  transition:transform 3s cubic-bezier(.34,1.56,.64,1);
+  z-index:20;
+}
+.vs.on{transform:translate(-50%,-50%) scale(1) rotate(0deg)}
+.vs-ring{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,#F5C518,#f59e0b);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 4px #07070e,0 0 40px rgba(245,197,24,.7),0 0 80px rgba(245,197,24,.3);
+}
+.vs-text{font-size:26px;font-weight:900;color:#000;letter-spacing:-1px}
+
+/* ── STATS PANEL ── */
+.stats{
+  background:#0c0c18;border-top:1.5px solid rgba(245,197,24,.2);
+  flex:1;display:flex;flex-direction:column;
+}
+
+.stats-hdr{
+  display:flex;align-items:center;justify-content:center;
+  padding:7px;background:rgba(245,197,24,.07);
+  border-bottom:1px solid rgba(245,197,24,.15);
+  opacity:0;transition:opacity 2.5s ease;
+}
+.stats-hdr.on{opacity:1}
+.stats-hdr span{font-size:9px;letter-spacing:4px;color:#F5C518;text-transform:uppercase;font-weight:700}
+
+/* stat row */
+.sr{
+  display:flex;align-items:center;padding:8px 10px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  opacity:0;transform:translateY(12px);
+  transition:opacity 2.5s ease,transform 2.5s ease;
+}
+.sr.on{opacity:1;transform:translateY(0)}
+
+.sv{width:76px;font-size:14px;font-weight:800;letter-spacing:.5px}
+.sv.L{text-align:right;padding-right:8px;color:#ef4444}
+.sv.R{text-align:left;padding-left:8px;color:#3b82f6}
+
+.smid{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.slbl{font-size:8.5px;letter-spacing:2px;color:rgba(255,255,255,.45);text-transform:uppercase;font-weight:600}
+
+.bars{display:flex;width:100%;height:7px;border-radius:4px;overflow:hidden;gap:1px}
+.bl{background:linear-gradient(90deg,#7f1d1d,#ef4444);height:100%;border-radius:3px 0 0 3px;width:0;transition:width 3.5s ease}
+.br{background:linear-gradient(90deg,#1d4ed8,#1e3a8a);height:100%;border-radius:0 3px 3px 0;width:0;transition:width 3.5s ease}
+
+.stars{display:flex;gap:2px}
+.star{font-size:10px}
+.star.y{color:#F5C518}
+.star.g{color:rgba(255,255,255,.18)}
+
+/* ── PROB ── */
+.prob{
+  padding:10px 12px;background:#09090f;
+  border-top:1.5px solid rgba(245,197,24,.15);
+  opacity:0;transform:translateY(16px);
+  transition:opacity 2.5s ease,transform 2.5s ease;
+}
+.prob.on{opacity:1;transform:translateY(0)}
+.prob-lbl{text-align:center;margin-bottom:7px;font-size:9px;letter-spacing:3.5px;color:#F5C518;text-transform:uppercase;font-weight:700}
+.prob-track{display:flex;height:30px;border-radius:15px;overflow:hidden;background:#111124;box-shadow:inset 0 2px 6px rgba(0,0,0,.5)}
+.pbl{
+  background:linear-gradient(90deg,#8b0000,#dc2626);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px;
+  font-size:14px;font-weight:900;
+  width:0;transition:width 4s ease;border-radius:15px 0 0 15px;
+}
+.pbr{
+  background:linear-gradient(90deg,#1d4ed8,#1e3a8a);
+  display:flex;align-items:center;padding-left:10px;
+  font-size:14px;font-weight:900;
+  width:0;transition:width 4s ease;border-radius:0 15px 15px 0;
+}
+.prob-names{display:flex;justify-content:space-between;margin-top:5px}
+.prob-name{font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
+.chips{display:flex;gap:6px;justify-content:center;margin-top:8px;opacity:0;transition:opacity 2.5s ease}
+.chips.on{opacity:1}
+.chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:3px}
+.chip.r{border-color:#ef4444;color:#ef4444}
+.chip.g{border-color:#F5C518;color:#F5C518}
+
+/* ── CTA ── */
+.cta{
+  background:linear-gradient(90deg,#4a0000 0%,#0f0f1a 50%,#00133d 100%);
+  padding:10px 14px;border-top:2px solid rgba(245,197,24,.25);
+  opacity:0;transform:translateY(20px);
+  transition:opacity 2.5s ease,transform 2.5s ease;
+}
+.cta.on{opacity:1;transform:translateY(0)}
+.cta-q{text-align:center;font-size:17px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.cta-btns{display:flex;gap:10px}
+.cta-btn{
+  flex:1;padding:9px;border-radius:10px;
+  font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.cta-btn.r{background:linear-gradient(135deg,#b91c1c,#7f1d1d);box-shadow:0 4px 18px rgba(185,28,28,.45)}
+.cta-btn.b{background:linear-gradient(135deg,#1d4ed8,#1e3a8a);box-shadow:0 4px 18px rgba(29,78,216,.45)}
+
+/* ── FOOTER ── */
+.ftr{
+  background:#040408;padding:7px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid rgba(255,255,255,.05);
+  opacity:0;transition:opacity 2s ease;
+}
+.ftr.on{opacity:1}
+.fi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.fi-lbl{font-size:7.5px;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase}
+.fi-val{font-size:11px;font-weight:700;color:#F5C518}
+.fdiv{width:1px;height:28px;background:rgba(255,255,255,.08)}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="scene">
+
+  <!-- HEADER -->
+  <div class="hdr" id="hdr">
+    <div class="hdr-sub">Gran Mano a Mano · 325 Varas</div>
+    <div class="hdr-title">🏆 El Duelo del Año 🏆</div>
+  </div>
+
+  <!-- HORSES -->
+  <div class="horses">
+    <div class="hcard L" id="hL">
+      <span class="hcard-emoji">🐎</span>
+      <div class="rec-badge">18-2-1</div>
+      <div class="hcard-name">El Chango<br>Malo</div>
+      <div class="hcard-cuadra">Cuadra Doble M</div>
+      <div class="hcard-tag">👑 Racha 9 victorias</div>
+    </div>
+    <div class="hcard R" id="hR">
+      <span class="hcard-emoji">🐎</span>
+      <div class="rec-badge">15-3-0</div>
+      <div class="hcard-name">El<br>Comandante</div>
+      <div class="hcard-cuadra">Cuadra La Esperanza</div>
+      <div class="hcard-tag">⚡ Hambre de revancha</div>
+    </div>
+    <div class="vs" id="vs"><div class="vs-ring"><span class="vs-text">VS</span></div></div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-hdr" id="sHdr"><span>⚔ Comparativa ⚔</span></div>
+
+    <div class="sr" id="s1">
+      <div class="sv L">18</div>
+      <div class="smid">
+        <div class="slbl">Victorias</div>
+        <div class="bars"><div class="bl" id="b1l"></div><div class="br" id="b1r"></div></div>
+      </div>
+      <div class="sv R">15</div>
+    </div>
+
+    <div class="sr" id="s2">
+      <div class="sv L" style="font-size:12px">18-2-1</div>
+      <div class="smid">
+        <div class="slbl">Récord Carrera</div>
+        <div class="bars"><div class="bl" id="b2l"></div><div class="br" id="b2r"></div></div>
+      </div>
+      <div class="sv R" style="font-size:12px">15-3-0</div>
+    </div>
+
+    <div class="sr" id="s3">
+      <div class="sv L">98 mph</div>
+      <div class="smid">
+        <div class="slbl">Velocidad Punta</div>
+        <div class="bars"><div class="bl" id="b3l"></div><div class="br" id="b3r"></div></div>
+      </div>
+      <div class="sv R">95 mph</div>
+    </div>
+
+    <div class="sr" id="s4">
+      <div class="sv L" style="font-size:11px">
+        <div class="stars">
+          <span class="star y">★</span><span class="star y">★</span><span class="star y">★</span>
+          <span class="star y">★</span><span class="star y">★</span>
+        </div>
+      </div>
+      <div class="smid">
+        <div class="slbl">Salida</div>
+        <div class="bars"><div class="bl" id="b4l"></div><div class="br" id="b4r"></div></div>
+      </div>
+      <div class="sv R" style="font-size:11px">
+        <div class="stars">
+          <span class="star y">★</span><span class="star y">★</span><span class="star y">★</span>
+          <span class="star y">★</span><span class="star g">★</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sr" id="s5">
+      <div class="sv L" style="font-size:11px;line-height:1.3">🔥 En<br>Llamas</div>
+      <div class="smid">
+        <div class="slbl">Forma Actual</div>
+        <div class="bars"><div class="bl" id="b5l"></div><div class="br" id="b5r"></div></div>
+      </div>
+      <div class="sv R" style="font-size:11px;line-height:1.3">💪 Muy<br>Fuerte</div>
+    </div>
+
+    <div class="sr" id="s6">
+      <div class="sv L" style="font-size:12px">$45,000</div>
+      <div class="smid">
+        <div class="slbl">Mayor Victoria</div>
+        <div class="bars"><div class="bl" id="b6l"></div><div class="br" id="b6r"></div></div>
+      </div>
+      <div class="sv R" style="font-size:12px">$35,000</div>
+    </div>
+  </div>
+
+  <!-- PROBABILITY -->
+  <div class="prob" id="prob">
+    <div class="prob-lbl">⚡ Ventaja Psicológica ⚡</div>
+    <div class="prob-track">
+      <div class="pbl" id="pbl">62%</div>
+      <div class="pbr" id="pbr">38%</div>
+    </div>
+    <div class="prob-names">
+      <span class="prob-name">El Chango Malo</span>
+      <span class="prob-name">El Comandante</span>
+    </div>
+    <div class="chips" id="chips">
+      <div class="chip r">🔥 Favorito</div>
+      <div class="chip g">👑 Invicto 300+</div>
+      <div class="chip">💰 $75,000</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta" id="cta">
+    <div class="cta-q">¿Tú con quién vas?</div>
+    <div class="cta-btns">
+      <div class="cta-btn r">🔴 El Chango</div>
+      <div class="cta-btn b">🔵 El Coman</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ftr" id="ftr">
+    <div class="fi"><div class="fi-lbl">Fecha</div><div class="fi-val">Dom 28 Jun</div></div>
+    <div class="fdiv"></div>
+    <div class="fi"><div class="fi-lbl">Hora</div><div class="fi-val">4:00 PM</div></div>
+    <div class="fdiv"></div>
+    <div class="fi"><div class="fi-lbl">Carril</div><div class="fi-val">Satevo, Chih</div></div>
+    <div class="fdiv"></div>
+    <div class="fi"><div class="fi-lbl">Premio</div><div class="fi-val">$75,000</div></div>
+  </div>
+
+</div>
+
+<script>
+/* ── PARTICLE FX ── */
+const c=document.getElementById('fx');
+const x=c.getContext('2d');
+c.width=540;c.height=960;
+const pts=Array.from({length:80},()=>({
+  x:Math.random()*540,y:Math.random()*960,
+  vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+  r:Math.random()*1.8+.4,
+  a:Math.random()*.35+.08,
+  col:['#F5C518','#ef4444','#3b82f6','#ffffff'][Math.floor(Math.random()*4)]
+}));
+(function tick(){
+  x.clearRect(0,0,540,960);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=540;if(p.x>540)p.x=0;
+    if(p.y<0)p.y=960;if(p.y>960)p.y=0;
+    x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);
+    x.fillStyle=p.col;x.globalAlpha=p.a;x.fill();
+  });
+  x.globalAlpha=1;
+  requestAnimationFrame(tick);
+})();
+
+/* ── REVEAL SEQUENCE ── */
+/* Animations are intentionally long (3-4s) so they look smooth at low capture fps */
+
+function on(id,delay){setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('on')},delay)}
+
+function bar(lid,rid,lp,rp,delay){
+  setTimeout(()=>{
+    const l=document.getElementById(lid),r=document.getElementById(rid);
+    if(l)l.style.width=lp+'%';
+    if(r)r.style.width=rp+'%';
+  },delay+300);
+}
+
+// TIMELINE (all delays in ms):
+on('hdr',  400);           // header sweeps in
+on('hL',  2600);           // left horse slides in
+on('hR',  2600);           // right horse slides in
+on('vs',  5600);           // VS pops in with spring
+
+on('sHdr',7800);           // stats header
+
+on('s1',  9000); bar('b1l','b1r',55,45,9000);   // Victorias
+on('s2', 10500); bar('b2l','b2r',58,42,10500);  // Récord
+on('s3', 12000); bar('b3l','b3r',53,47,12000);  // Velocidad
+on('s4', 13500); bar('b4l','b4r',56,44,13500);  // Salida
+on('s5', 15000); bar('b5l','b5r',62,38,15000);  // Forma
+on('s6', 16500); bar('b6l','b6r',56,44,16500);  // Mayor Victoria
+
+on('prob',18500);
+setTimeout(()=>{
+  const pl=document.getElementById('pbl'),pr=document.getElementById('pbr');
+  if(pl)pl.style.width='62%';
+  if(pr)pr.style.width='38%';
+},19000);
+on('chips',23200);
+
+on('cta',  25000);
+on('ftr',  27000);
+</script>
+</body>
+</html>
