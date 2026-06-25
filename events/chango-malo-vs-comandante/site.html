@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El Chango Malo vs El Comandante · Carril Satevo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;--s1:rgba(255,255,255,.04);--bd:rgba(255,255,255,.07);
+  --bd2:rgba(255,255,255,.13);--text:#fff;--dim:rgba(255,255,255,.5);
+  --muted:rgba(255,255,255,.25);--gold:#F5C518;
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes slideL{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+@keyframes slideR{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes boltFlash{0%,100%{opacity:.2}45%{opacity:1;filter:drop-shadow(0 0 10px var(--gold))}60%{opacity:.4}}
+@keyframes vsPulse{0%,100%{filter:none}50%{filter:drop-shadow(0 0 20px rgba(245,197,24,.8))}}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+@keyframes cdGlow{0%,100%{box-shadow:none}50%{box-shadow:0 0 28px rgba(245,197,24,.18)}}
+@keyframes chipPulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 16px rgba(245,197,24,.2)}}
+@keyframes ctaAura{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 40px 0 rgba(255,255,255,.1)}}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--bd)}
+.nav-l,.nav-r{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.nav-chip{padding:4px 14px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);
+  color:var(--gold);animation:chipPulse 3s ease infinite}
+main{position:relative;z-index:10;padding-top:50px;max-width:940px;margin:0 auto;padding-left:24px;padding-right:24px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent);margin:clamp(24px,4vh,44px) 0}
+.eye{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;text-align:center}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:20px;padding:22px 20px;
+  transition:all .4s var(--ease)}
+.card:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);box-shadow:0 20px 40px -10px rgba(0,0,0,.6)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:100px;
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.pill-gold{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);color:var(--gold)}
+.pill-dim{background:var(--s1);border:1px solid var(--bd);color:var(--dim)}
+.cta-btn{display:inline-block;padding:17px 52px;background:#fff;color:#000;border-radius:100px;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;font-family:var(--font);
+  border:none;cursor:pointer;text-decoration:none;transition:all .25s var(--ease);
+  animation:ctaAura 3s ease infinite}
+.cta-btn:hover{transform:scale(1.04);background:rgba(255,255,255,.92)}
+footer{padding:20px 24px;border-top:1px solid var(--bd);text-align:center;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+.hero{text-align:center;padding:clamp(48px,7vh,88px) 0 clamp(28px,4vh,48px);animation:fadeUp .8s var(--ease) .1s both}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.hero-h1{font-size:clamp(2.2rem,6vw,5.5rem);font-weight:700;letter-spacing:-.035em;line-height:1.02;
+  background:linear-gradient(160deg,#fff 25%,rgba(255,255,255,.6) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-p{margin-top:14px;font-size:clamp(14px,2vw,17px);font-weight:400;color:var(--dim);letter-spacing:.01em}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  border:1px solid var(--bd);border-radius:20px;overflow:hidden}
+.ic{padding:18px 20px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .2s}
+.ic:nth-child(2n){border-right:none}.ic:hover{background:rgba(255,255,255,.03)}
+.ic:nth-last-child(-n+2){border-bottom:none}
+.ic-k{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ic-v{font-size:clamp(13px,1.9vw,17px);font-weight:600;letter-spacing:-.01em;color:#fff}
+.ic-v.g{color:var(--gold)}
+.horses{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:480px){.horses{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <span class="nav-l">Carril Satevo · Chihuahua, Chih.</span>
+  <span class="nav-chip">Mano a Mano</span>
+  <span class="nav-r">Domingo · 28 de Junio, 2026 · 4:00 PM</span>
+</nav>
+<main>
+  <div class="hero">
+    <p class="hero-tag">Mano a Mano · Chihuahua, Chih.</p>
+    <h1 class="hero-h1">El Chango Malo<br>vs<br>El Comandante</h1>
+    <p class="hero-p">Domingo · 28 de Junio, 2026 · 4:00 PM · Carril Satevo</p>
+  </div>
+
+  <div style="text-align:center;margin-bottom:clamp(28px,4vh,44px);animation:fadeUp .8s var(--ease) .3s both">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;
+      font-size:12px;font-weight:600;color:var(--gold);background:rgba(245,197,24,.07);
+      border:1px solid rgba(245,197,24,.18)">
+      🔥 <span id="fan-count">1,247</span> personas siguiendo este evento
+    </div>
+  </div>
+
+  <div class="info-grid" style="animation:fadeUp .8s var(--ease) .2s both;margin-bottom:clamp(28px,4vh,44px)">
+    <div class="ic"><div class="ic-k">Venue</div><div class="ic-v">Carril Satevo</div></div>
+    <div class="ic"><div class="ic-k">Ciudad</div><div class="ic-v">Chihuahua, Chih.</div></div>
+    <div class="ic"><div class="ic-k">Fecha</div><div class="ic-v">Domingo · 28 de Junio, 2026 · 4:00 PM</div></div>
+    <div class="ic"><div class="ic-k">Formato</div><div class="ic-v g">Mano a Mano</div></div>
+    <div class="ic"><div class="ic-k">Distancia</div><div class="ic-v g">325 Varas</div></div>
+    <div class="ic"><div class="ic-k">Premio</div><div class="ic-v g">$75,000</div></div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div style="animation:fadeUp .8s var(--ease) .3s both;margin-bottom:clamp(28px,4vh,44px)">
+    <p class="eye">Los Competidores</p>
+    <div class="horses">
+      <div class="card" style="text-align:center">
+        
+        <div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:8px">El Chango Malo</div>
+        <div class="pill pill-dim" style="margin-bottom:8px">Cuadra Doble M</div><br>
+        <div class="pill pill-gold">El Invencible</div>
+        <div style="margin-top:12px;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:700;color:var(--gold)">18-2-1</div>
+      </div>
+      <div class="card" style="text-align:center">
+        
+        <div style="font-size:clamp(1.3rem,3vw,2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:8px">El Comandante</div>
+        <div class="pill pill-dim" style="margin-bottom:8px">Cuadra La Esperanza</div><br>
+        <div class="pill pill-gold">La Revancha</div>
+        <div style="margin-top:12px;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:700;color:var(--gold)">15-3-0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  
+<div style="text-align:center;padding:clamp(36px,5vh,60px) 0">
+  <p class="eye">Cuenta Regresiva al Evento</p>
+  <div style="display:inline-flex;align-items:flex-start;gap:6px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div id="cd-d" style="font-size:clamp(36px,8vw,68px);font-weight:700;letter-spacing:-.05em;
+        font-variant-numeric:tabular-nums;min-width:clamp(70px,11vw,104px);text-align:center;padding:10px 6px;
+        background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+        border-top-color:rgba(255,255,255,.12);border-radius:16px;color:#fff;
+        transition:box-shadow .35s,border-color .35s">00</div>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Días</span>
+    </div>
+    <span style="font-size:clamp(28px,6vw,52px);font-weight:300;color:rgba(255,255,255,.15);padding-top:10px">:</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div id="cd-h" style="font-size:clamp(36px,8vw,68px);font-weight:700;letter-spacing:-.05em;
+        font-variant-numeric:tabular-nums;min-width:clamp(70px,11vw,104px);text-align:center;padding:10px 6px;
+        background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+        border-top-color:rgba(255,255,255,.12);border-radius:16px;color:#fff;
+        transition:box-shadow .35s,border-color .35s">00</div>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Horas</span>
+    </div>
+    <span style="font-size:clamp(28px,6vw,52px);font-weight:300;color:rgba(255,255,255,.15);padding-top:10px">:</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div id="cd-m" style="font-size:clamp(36px,8vw,68px);font-weight:700;letter-spacing:-.05em;
+        font-variant-numeric:tabular-nums;min-width:clamp(70px,11vw,104px);text-align:center;padding:10px 6px;
+        background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+        border-top-color:rgba(255,255,255,.12);border-radius:16px;color:#fff;
+        transition:box-shadow .35s,border-color .35s">00</div>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Min</span>
+    </div>
+    <span style="font-size:clamp(28px,6vw,52px);font-weight:300;color:rgba(255,255,255,.15);padding-top:10px">:</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div id="cd-s" style="font-size:clamp(36px,8vw,68px);font-weight:700;letter-spacing:-.05em;
+        font-variant-numeric:tabular-nums;min-width:clamp(70px,11vw,104px);text-align:center;padding:10px 6px;
+        background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+        border-top-color:rgba(255,255,255,.12);border-radius:16px;color:#fff;
+        transition:box-shadow .35s,border-color .35s">00</div>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Seg</span>
+    </div>
+  </div>
+  <style>.lit{border-color:rgba(245,197,24,.35)!important;box-shadow:0 0 28px rgba(245,197,24,.18)!important}</style>
+</div>
+  <div class="rule"></div>
+
+  <div style="text-align:center;padding:clamp(32px,5vh,60px) 0 clamp(60px,10vh,100px);animation:fadeUp .8s var(--ease) .2s both">
+    <div style="font-size:clamp(1.8rem,5vw,4rem);font-weight:700;letter-spacing:-.04em;line-height:1.05;margin-bottom:12px">
+      No te pierdas<br><span style="color:var(--gold)">El Chango Malo vs El Comandante</span>
+    </div>
+    <p style="font-size:14px;color:var(--dim);margin-bottom:32px">Domingo · 28 de Junio, 2026 · 4:00 PM · Carril Satevo · Chihuahua, Chih.</p>
+    <a class="cta-btn">Confirma Tu Lugar</a>
+  </div>
+</main>
+<footer>El Chango Malo vs El Comandante · Carril Satevo · Chihuahua, Chih. · Evento privado · Solo mayores de edad</footer>
+<script>
+var EVENT_DATE=new Date('2026-06-28T16:00:00');
+
+(function tick(){
+  var ms=EVENT_DATE-Date.now();
+  var v={d:ms>0?Math.floor(ms/86400000):0,h:ms>0?Math.floor(ms%86400000/3600000):0,
+         m:ms>0?Math.floor(ms%3600000/60000):0,s:ms>0?Math.floor(ms%60000/1000):0};
+  ['d','h','m','s'].forEach(function(k){
+    var el=document.getElementById('cd-'+k);
+    var val=String(v[k]).padStart(2,'0');
+    if(el&&el.textContent!==val){
+      el.textContent=val;
+      if(k==='s'){el.classList.remove('lit');void el.offsetWidth;el.classList.add('lit');
+        setTimeout(function(){el.classList.remove('lit')},350);}
+    }
+  });
+  setTimeout(tick,1000);
+})();
+
+var c=1247;setInterval(function(){c+=Math.floor(Math.random()*3);var el=document.getElementById('fan-count');if(el)el.textContent=c.toLocaleString('en-US');},4000);
+</script>
+</body></html>

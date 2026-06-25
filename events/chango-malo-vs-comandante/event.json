@@ -1,0 +1,31 @@
+{
+  "event_name": "El Chango Malo vs El Comandante",
+  "event_type": "Mano a Mano",
+  "slug": "chango-malo-vs-comandante",
+  "date_iso": "2026-06-28T16:00:00",
+  "date_display": "Domingo · 28 de Junio, 2026 · 4:00 PM",
+  "venue": "Carril Satevo",
+  "city": "Chihuahua, Chih.",
+  "format": "Mano a Mano",
+  "distance": "325 Varas",
+  "prize": "$75,000",
+  "tagline": "La revancha que Chihuahua exigía...",
+  "horse_left": {
+    "name": "El Chango Malo",
+    "cuadra": "Cuadra Doble M",
+    "record": "18-2-1",
+    "win_pct": 78,
+    "speed_rating": 93,
+    "image": "",
+    "tag": "El Invencible"
+  },
+  "horse_right": {
+    "name": "El Comandante",
+    "cuadra": "Cuadra La Esperanza",
+    "record": "15-3-0",
+    "win_pct": 68,
+    "speed_rating": 88,
+    "image": "",
+    "tag": "La Revancha"
+  }
+}
