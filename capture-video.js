@@ -4,13 +4,13 @@ const path = require('path');
 const fs = require('fs');
 
 const FFMPEG = require('ffmpeg-static');
-const HTML = `file://${path.resolve(__dirname, 'events/rey-de-reyes-jun14/video-ad.html')}`;
+const HTML = `file://${path.resolve(__dirname, 'events/chango-malo-vs-comandante/video-ad.html')}`;
 const FRAMES_DIR = '/tmp/vid-frames';
-const AUDIO_PATH = path.resolve(__dirname, 'events/rey-de-reyes-jun14/commentator.mp3');
+const AUDIO_PATH = path.resolve(__dirname, 'events/chango-malo-vs-comandante/commentator.mp3');
 const AUDIO = fs.existsSync(AUDIO_PATH) ? AUDIO_PATH : null;
-const OUT_VIDEO = path.resolve(__dirname, 'events/rey-de-reyes-jun14/rey-de-reyes.mp4');
+const OUT_VIDEO = path.resolve(__dirname, 'events/chango-malo-vs-comandante/chango-vs-comandante.mp4');
 
-const DURATION_MS = 18500; // 11.5s scenes + 4s end card
+const DURATION_MS = 30000; // 6 scenes × 5s each
 const WIDTH = 540;
 const HEIGHT = 960;
 
