@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>El Chango Malo vs El Comandante</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --red:#CC0000; --red2:#FF2222; --redbg:#1a0000;
+  --blue:#003087; --blue2:#1155CC; --bluebg:#00001a;
+  --gold:#F5C518; --gold2:#FFE066;
+  --paper:#F2EDD7; --ink:#0A0A0F;
+  --w:1080px; --h:1920px;
+}
+
+body{
+  width:var(--w); height:var(--h);
+  background:#08080F;
+  font-family:'Kalam',cursive;
+  overflow:hidden; position:relative;
+  color:white;
+}
+
+/* ── ANIMATED BACKGROUND ── */
+.bg{
+  position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 120% 60% at 20% 30%, rgba(180,0,0,.18) 0%, transparent 60%),
+             radial-gradient(ellipse 120% 60% at 80% 70%, rgba(0,48,135,.22) 0%, transparent 60%),
+             linear-gradient(180deg, #0A0A1A 0%, #06060E 100%);
+  animation: bgPulse 4s ease infinite alternate;
+}
+@keyframes bgPulse{
+  from{opacity:1}
+  to{background:radial-gradient(ellipse 120% 60% at 25% 35%, rgba(200,0,0,.22) 0%, transparent 60%),
+               radial-gradient(ellipse 120% 60% at 75% 65%, rgba(0,60,160,.26) 0%, transparent 60%),
+               linear-gradient(180deg, #0A0A1A 0%, #06060E 100%);}
+}
+
+/* grid lines */
+.grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ── CANVAS PARTICLES ── */
+#particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+
+/* ── MAIN LAYOUT ── */
+.page{
+  position:relative;z-index:10;
+  width:100%;height:100%;
+  padding:40px 36px 36px;
+  display:flex;flex-direction:column;gap:14px;
+}
+
+/* ── ALL ELEMENTS: default hidden, JS animates in ── */
+.anim{opacity:0;transform:translateY(30px);}
+
+/* ── TITLE ── */
+.title-block{
+  text-align:center;
+  position:relative;
+}
+.crown-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:4px;
+}
+.crown-left,.crown-right{
+  font-size:36px;
+  filter:drop-shadow(0 0 12px var(--gold));
+}
+.crown-left{transform:scaleX(-1);}
+.title-main{
+  font-family:'Bebas Neue',cursive;
+  font-size:68px; line-height:.95;
+  background:linear-gradient(160deg,#fff 30%, rgba(255,255,255,.55));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:1px;
+  filter:drop-shadow(0 2px 20px rgba(255,255,255,.15));
+}
+.title-main .domina{
+  background:linear-gradient(160deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:82px;
+}
+.title-sub{
+  font-size:18px;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:4px;
+}
+
+/* ── DIVIDER ── */
+.divider{
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.5;
+}
+
+/* ── HORSE CARDS ── */
+.horses-row{
+  display:flex;align-items:stretch;gap:0;
+  min-height:340px;
+}
+
+.horse-card{
+  flex:1;
+  border-radius:16px;
+  padding:16px 14px;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+  border:2px solid;
+  transform-style:preserve-3d;
+}
+.horse-card.left{
+  background:linear-gradient(160deg,rgba(180,0,0,.35),rgba(80,0,0,.2));
+  border-color:rgba(204,0,0,.5);
+  transform:perspective(800px) rotateY(-90deg);
+}
+.horse-card.right{
+  background:linear-gradient(160deg,rgba(0,48,135,.35),rgba(0,20,80,.2));
+  border-color:rgba(0,48,135,.5);
+  transform:perspective(800px) rotateY(90deg);
+}
+/* glow on cards */
+.horse-card.left::before{
+  content:'';position:absolute;inset:0;border-radius:14px;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(204,0,0,.3),transparent);
+}
+.horse-card.right::before{
+  content:'';position:absolute;inset:0;border-radius:14px;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,48,135,.3),transparent);
+}
+
+.horse-role{
+  font-family:'Bebas Neue',cursive;
+  font-size:16px;letter-spacing:4px;
+  padding:4px 16px;border-radius:20px;
+  margin-bottom:8px;position:relative;z-index:1;
+  border:1.5px solid;
+}
+.left .horse-role{background:rgba(204,0,0,.3);border-color:var(--red);color:var(--red2);}
+.right .horse-role{background:rgba(0,48,135,.3);border-color:var(--blue2);color:#6699FF;}
+
+.horse-portrait{
+  width:180px;height:180px;
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:100px;
+  margin-bottom:10px;
+  position:relative;z-index:1;
+  border:2px dashed rgba(255,255,255,.15);
+  background:rgba(0,0,0,.2);
+}
+
+.horse-name{
+  font-family:'Bebas Neue',cursive;
+  font-size:36px;line-height:.95;
+  text-align:center;position:relative;z-index:1;
+  letter-spacing:.5px;
+}
+.left .horse-name{
+  background:linear-gradient(160deg,#fff,var(--red2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.right .horse-name{
+  background:linear-gradient(160deg,#fff,#6699FF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.horse-cuadra{
+  font-size:15px;font-weight:700;
+  color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:2px;
+  position:relative;z-index:1;text-align:center;
+}
+
+/* ── VS CENTER ── */
+.vs-center{
+  width:90px;flex-shrink:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;position:relative;z-index:10;
+}
+.vs-text{
+  font-family:'Bebas Neue',cursive;
+  font-size:54px;line-height:1;
+  background:linear-gradient(180deg,#fff 0%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(245,197,24,.6));
+  animation:vsPulse 2s ease infinite;
+}
+@keyframes vsPulse{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(245,197,24,.4))}
+  50%{filter:drop-shadow(0 0 40px rgba(245,197,24,.9))}
+}
+.vs-bolt{font-size:28px;animation:boltFlash 1.4s ease infinite;}
+@keyframes boltFlash{0%,100%{opacity:.3}50%{opacity:1}}
+.vs-dist{
+  font-family:'Bebas Neue',cursive;
+  font-size:13px;letter-spacing:2px;
+  padding:4px 10px;border-radius:100px;
+  background:rgba(245,197,24,.1);
+  border:1px solid rgba(245,197,24,.3);
+  color:var(--gold);text-align:center;
+  line-height:1.3;
+}
+
+/* ── STATS TABLE ── */
+.stats-section{
+  display:flex;flex-direction:column;gap:6px;
+}
+
+.stat-row{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:8px;
+  padding:8px 10px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.stat-row.in{opacity:1;transform:none;}
+
+.stat-val-l{
+  font-family:'Bebas Neue',cursive;
+  font-size:32px;line-height:1;
+  text-align:right;
+  color:var(--red2);
+  text-shadow:0 0 20px rgba(204,0,0,.5);
+}
+.stat-val-r{
+  font-family:'Bebas Neue',cursive;
+  font-size:32px;line-height:1;
+  text-align:left;
+  color:#6699FF;
+  text-shadow:0 0 20px rgba(0,48,135,.5);
+}
+
+.stat-center{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  min-width:130px;
+}
+.stat-icon{font-size:18px;}
+.stat-label{
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);text-align:center;
+}
+
+/* mini bar under each stat */
+.mini-bars{
+  display:flex;gap:4px;margin-top:3px;width:100%;
+}
+.mini-bar-l,.mini-bar-r{
+  height:4px;border-radius:2px;
+  flex:1;
+  transform:scaleX(0);transform-origin:right center;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.mini-bar-l{background:linear-gradient(90deg,transparent,var(--red));}
+.mini-bar-r{background:linear-gradient(90deg,var(--blue2),transparent);transform-origin:left center;}
+.stat-row.in .mini-bar-l,
+.stat-row.in .mini-bar-r{transform:scaleX(1);}
+
+/* star rating */
+.stars{font-size:13px;letter-spacing:1px;}
+
+/* ── PROBABILITY BAR ── */
+.prob-section{
+  border-radius:14px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+.prob-title{
+  font-family:'Bebas Neue',cursive;
+  font-size:18px;letter-spacing:4px;
+  text-align:center;
+  color:var(--gold);margin-bottom:10px;
+}
+.prob-bar-outer{
+  width:100%;height:44px;
+  border-radius:22px;
+  border:2px solid rgba(255,255,255,.15);
+  overflow:hidden;display:flex;
+  position:relative;
+}
+.prob-left{
+  background:linear-gradient(90deg,#8B0000,var(--red),var(--red2));
+  width:0;display:flex;align-items:center;justify-content:center;
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  position:relative;overflow:hidden;
+}
+.prob-left::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 60%,rgba(255,255,255,.2));
+}
+.prob-right{
+  background:linear-gradient(90deg,var(--blue),var(--blue2),#4477DD);
+  flex:1;display:flex;align-items:center;justify-content:center;
+}
+.prob-pct{
+  font-family:'Bebas Neue',cursive;
+  font-size:22px;color:white;
+  text-shadow:0 1px 4px rgba(0,0,0,.5);
+  position:relative;z-index:1;
+}
+.prob-names{
+  display:flex;justify-content:space-between;margin-top:6px;
+}
+.prob-name{font-size:13px;font-weight:700;opacity:.5;letter-spacing:1px;}
+
+/* ── CONFIDENCE CHIPS ── */
+.conf-row{
+  display:flex;justify-content:space-between;margin-top:8px;gap:10px;
+}
+.conf-chip{
+  flex:1;padding:8px 10px;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.conf-chip.left-chip{
+  background:rgba(204,0,0,.15);
+  border:1px solid rgba(204,0,0,.3);
+}
+.conf-chip.right-chip{
+  background:rgba(0,48,135,.15);
+  border:1px solid rgba(0,48,135,.4);
+}
+.conf-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.conf-val{
+  font-family:'Bebas Neue',cursive;
+  font-size:28px;line-height:1;
+}
+.left-chip .conf-val{color:var(--red2);}
+.right-chip .conf-val{color:#6699FF;}
+.conf-desc{font-size:11px;color:rgba(255,255,255,.35);text-align:center;}
+
+/* ── TRACK ── */
+.track-section{
+  border-radius:14px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+.track-title{
+  font-family:'Bebas Neue',cursive;
+  font-size:16px;letter-spacing:4px;
+  text-align:center;color:rgba(255,255,255,.3);
+  margin-bottom:8px;
+}
+
+/* ── FOOTER ── */
+.footer-section{
+  border-radius:14px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.footer-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:18px;font-weight:700;
+}
+.footer-icon{font-size:20px;}
+.footer-prize{
+  grid-column:1/-1;text-align:center;
+  font-family:'Bebas Neue',cursive;font-size:38px;
+  color:var(--gold);
+  filter:drop-shadow(0 0 12px rgba(245,197,24,.4));
+  letter-spacing:2px;
+}
+
+/* ── CTA ── */
+.cta-block{
+  text-align:center;
+  font-family:'Bebas Neue',cursive;font-size:44px;
+  line-height:1;letter-spacing:1px;
+  padding:14px 20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(204,0,0,.25),rgba(0,48,135,.25));
+  border:2px solid rgba(245,197,24,.3);
+  animation:ctaGlow 2s ease infinite;
+}
+@keyframes ctaGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,0)}
+  50%{box-shadow:0 0 30px 0 rgba(245,197,24,.15)}
+}
+.cta-q{color:rgba(255,255,255,.9);}
+.cta-a{color:var(--gold);font-size:32px;display:block;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+<canvas id="particles"></canvas>
+
+<div class="page">
+
+  <!-- TITLE -->
+  <div class="title-block anim" id="a-title">
+    <div class="crown-row">
+      <span class="crown-left">👑</span>
+      <span class="title-main">¿Quién <span class="domina">DOMINA</span><br>Este Duelo?</span>
+      <span class="crown-right">👑</span>
+    </div>
+    <div class="title-sub">Carreras Parejeras · Chihuahua, Méx</div>
+  </div>
+
+  <div class="divider anim" id="a-div1"></div>
+
+  <!-- HORSES -->
+  <div class="horses-row">
+    <div class="horse-card left" id="card-left">
+      <div class="horse-role">LA AMENAZA</div>
+      <div class="horse-portrait">🐎</div>
+      <div class="horse-name">EL CHANGO<br>MALO</div>
+      <div class="horse-cuadra">Cuadra Doble M</div>
+    </div>
+
+    <div class="vs-center anim" id="a-vs">
+      <span class="vs-bolt">⚡</span>
+      <div class="vs-text">VS</div>
+      <span class="vs-bolt">⚡</span>
+      <div class="vs-dist">325<br>VARAS</div>
+    </div>
+
+    <div class="horse-card right" id="card-right">
+      <div class="horse-role">EL FAVORITO</div>
+      <div class="horse-portrait">🐎</div>
+      <div class="horse-name">EL<br>COMANDANTE</div>
+      <div class="horse-cuadra">Cuadra La Esperanza</div>
+    </div>
+  </div>
+
+  <div class="divider anim" id="a-div2"></div>
+
+  <!-- STATS -->
+  <div class="stats-section">
+
+    <div class="stat-row" id="s1">
+      <div class="stat-val-l" data-count="18">0</div>
+      <div class="stat-center">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-label">Victorias</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l" style="flex:.85"></div>
+          <div class="mini-bar-r" style="flex:.7"></div>
+        </div>
+      </div>
+      <div class="stat-val-r" data-count="15">0</div>
+    </div>
+
+    <div class="stat-row" id="s2">
+      <div class="stat-val-l" style="font-size:24px">18-2-1</div>
+      <div class="stat-center">
+        <div class="stat-icon">📊</div>
+        <div class="stat-label">Récord</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l" style="flex:.9"></div>
+          <div class="mini-bar-r" style="flex:.78"></div>
+        </div>
+      </div>
+      <div class="stat-val-r" style="font-size:24px">15-3-0</div>
+    </div>
+
+    <div class="stat-row" id="s3">
+      <div class="stat-val-l" data-count="98" data-suffix=" mph">0</div>
+      <div class="stat-center">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-label">Velocidad</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l" style="flex:.98"></div>
+          <div class="mini-bar-r" style="flex:.95"></div>
+        </div>
+      </div>
+      <div class="stat-val-r" data-count="95" data-suffix=" mph">0</div>
+    </div>
+
+    <div class="stat-row" id="s4">
+      <div class="stat-val-l"><span class="stars">⭐⭐⭐⭐⭐</span></div>
+      <div class="stat-center">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-label">Salida</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l"></div>
+          <div class="mini-bar-r" style="flex:.85"></div>
+        </div>
+      </div>
+      <div class="stat-val-r"><span class="stars">⭐⭐⭐⭐</span></div>
+    </div>
+
+    <div class="stat-row" id="s5">
+      <div class="stat-val-l"><span class="stars">⭐⭐⭐⭐</span></div>
+      <div class="stat-center">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-label">Forma Actual</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l"></div>
+          <div class="mini-bar-r"></div>
+        </div>
+      </div>
+      <div class="stat-val-r"><span class="stars">⭐⭐⭐⭐⭐</span></div>
+    </div>
+
+    <div class="stat-row" id="s6">
+      <div class="stat-val-l" style="font-size:20px">$45,000</div>
+      <div class="stat-center">
+        <div class="stat-icon">💰</div>
+        <div class="stat-label">Mayor Victoria</div>
+        <div class="mini-bars">
+          <div class="mini-bar-l" style="flex:.9"></div>
+          <div class="mini-bar-r" style="flex:.7"></div>
+        </div>
+      </div>
+      <div class="stat-val-r" style="font-size:20px">$35,000</div>
+    </div>
+
+  </div>
+
+  <!-- PROBABILITY -->
+  <div class="prob-section anim" id="a-prob">
+    <div class="prob-title">⚡ PROBABILIDAD DE VICTORIA ⚡</div>
+    <div class="prob-bar-outer">
+      <div class="prob-left" id="bar-left"><span class="prob-pct">62%</span></div>
+      <div class="prob-right"><span class="prob-pct">38%</span></div>
+    </div>
+    <div class="prob-names">
+      <span class="prob-name" style="color:var(--red2)">EL CHANGO MALO</span>
+      <span class="prob-name" style="color:#6699FF">EL COMANDANTE</span>
+    </div>
+    <div class="conf-row">
+      <div class="conf-chip left-chip">
+        <div class="conf-label">Confianza</div>
+        <div class="conf-val">78%</div>
+        <div class="conf-desc">9 victorias seguidas</div>
+      </div>
+      <div class="conf-chip right-chip">
+        <div class="conf-label">Confianza</div>
+        <div class="conf-val">68%</div>
+        <div class="conf-desc">Hambre de revancha</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK -->
+  <div class="track-section anim" id="a-track">
+    <div class="track-title">— EL CARRIL —</div>
+    <svg viewBox="0 0 1000 110" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrR" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="rgba(255,255,255,.5)"/>
+        </marker>
+        <linearGradient id="trackGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#CC0000;stop-opacity:.4"/>
+          <stop offset="100%" style="stop-color:#003087;stop-opacity:.4"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- track bg -->
+      <rect x="50" y="15" width="900" height="80" rx="6"
+            fill="url(#trackGrad)" stroke="rgba(255,255,255,.1)" stroke-width="1.5"/>
+
+      <!-- lane divider -->
+      <line x1="50" y1="55" x2="950" y2="55"
+            stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-dasharray="16,8"/>
+
+      <!-- start -->
+      <line x1="80" y1="15" x2="80" y2="95" stroke="white" stroke-width="3" opacity=".6"
+            id="t-start" class="draw-line" stroke-dasharray="80" stroke-dashoffset="80"/>
+      <text x="86" y="38" font-family="Bebas Neue,sans-serif" font-size="14" fill="rgba(255,255,255,.6)" id="t-sl" opacity="0">SALIDA</text>
+
+      <!-- finish -->
+      <line x1="920" y1="15" x2="920" y2="95" stroke="#F5C518" stroke-width="3"
+            id="t-finish" class="draw-line" stroke-dasharray="80" stroke-dashoffset="80"/>
+      <text x="845" y="38" font-family="Bebas Neue,sans-serif" font-size="14" fill="#F5C518" id="t-ml" opacity="0">META 🏁</text>
+
+      <!-- Horse A arrow -->
+      <line id="arrow-a" x1="100" y1="38" x2="870" y2="38"
+            stroke="var(--red2)" stroke-width="2.5" opacity=".8"
+            marker-end="url(#arrR)"
+            stroke-dasharray="800" stroke-dashoffset="800"
+            filter="url(#glow)"/>
+
+      <!-- Horse B arrow -->
+      <line id="arrow-b" x1="100" y1="72" x2="870" y2="72"
+            stroke="#6699FF" stroke-width="2.5" opacity=".8"
+            marker-end="url(#arrR)"
+            stroke-dasharray="800" stroke-dashoffset="800"
+            filter="url(#glow)"/>
+
+      <!-- horse emoji A -->
+      <text id="h-a" x="88" y="48" font-size="22" opacity="0">🐎</text>
+      <!-- horse emoji B -->
+      <text id="h-b" x="88" y="84" font-size="22" opacity="0">🐎</text>
+
+      <!-- distance label -->
+      <text id="dist-lbl" x="500" y="108" text-anchor="middle"
+            font-family="Bebas Neue,sans-serif" font-size="16"
+            fill="rgba(255,255,255,.35)" letter-spacing="3" opacity="0">325 VARAS</text>
+    </svg>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section anim" id="a-footer">
+    <div class="footer-item"><span class="footer-icon">📅</span>Dom · 28 Jun · 2026</div>
+    <div class="footer-item"><span class="footer-icon">🕓</span>4:00 PM</div>
+    <div class="footer-item"><span class="footer-icon">📍</span>Carril Satevo</div>
+    <div class="footer-item"><span class="footer-icon">📌</span>Chihuahua, Chih.</div>
+    <div class="footer-prize">💰 $75,000 EN JUEGO</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block anim" id="a-cta">
+    <span class="cta-q">¿TÚ CON QUIÉN VAS?</span>
+    <span class="cta-a">🔴 Comenta abajo 🔵</span>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── PARTICLE SYSTEM ──────────────────────────────────────────
+const cv = document.getElementById('particles');
+const ctx = cv.getContext('2d');
+cv.width = 1080; cv.height = 1920;
+
+const particles = [];
+function Particle(x, y, color) {
+  this.x = x; this.y = y;
+  this.vx = (Math.random() - .5) * 4;
+  this.vy = -Math.random() * 3 - 1;
+  this.a = 1;
+  this.r = Math.random() * 3 + 1;
+  this.color = color || ['#F5C518','#FFE066','#fff','#CC0000','#4477DD'][Math.floor(Math.random()*5)];
+}
+Particle.prototype.update = function() {
+  this.x += this.vx; this.y += this.vy; this.vy += .05; this.a -= .012;
+};
+Particle.prototype.draw = function() {
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, this.a);
+  ctx.shadowBlur = 8; ctx.shadowColor = this.color;
+  ctx.fillStyle = this.color;
+  ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+};
+
+// Ambient particles
+setInterval(function() {
+  if (particles.length < 60) {
+    particles.push(new Particle(
+      Math.random() * 1080,
+      Math.random() * 1920,
+      Math.random() > .5 ? 'rgba(204,0,0,.6)' : 'rgba(0,48,135,.6)'
+    ));
+  }
+}, 200);
+
+// Burst
+function burst(x, y, n, col) {
+  for (let i = 0; i < n; i++) particles.push(new Particle(x, y, col));
+}
+
+(function loop() {
+  requestAnimationFrame(loop);
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update(); particles[i].draw();
+    if (particles[i].a <= 0) particles.splice(i, 1);
+  }
+})();
+
+// ── HELPERS ──────────────────────────────────────────────────
+function fadeIn(id, dur, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.transition = 'opacity '+(dur||.5)+'s ease, transform '+(dur||.5)+'s cubic-bezier(.22,1,.36,1)';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0) translateX(0)';
+  }, delay || 0);
+}
+
+function svgShow(id, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('opacity', '1');
+  }, delay);
+}
+
+function svgDraw(id, dur, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.transition = 'stroke-dashoffset '+dur+'s linear';
+    el.style.strokeDashoffset = '0';
+  }, delay);
+}
+
+function countUp(id, target, dur, delay, suffix) {
+  setTimeout(function() {
+    var el = document.getElementById(id) || document.querySelector('[data-count="'+target+'"]');
+    // find by data-count
+    document.querySelectorAll('[data-count="'+target+'"]').forEach(function(e) {
+      if (e.textContent === '0' || e.textContent === '0') {
+        var start = performance.now();
+        suffix = e.dataset.suffix || '';
+        (function step(now) {
+          var p = Math.min((now - start) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          e.textContent = Math.floor(ease * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        })(start);
+      }
+    });
+  }, delay);
+}
+
+function flip3D(id, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.transition = 'transform .8s cubic-bezier(.22,1,.36,1)';
+    el.style.transform = 'perspective(800px) rotateY(0deg)';
+  }, delay);
+}
+
+function showStatRow(id, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.classList.add('in');
+    // count up any numbers in this row
+    el.querySelectorAll('[data-count]').forEach(function(e) {
+      var target = parseInt(e.dataset.count);
+      var suffix = e.dataset.suffix || '';
+      var start = performance.now();
+      (function step(now) {
+        var p = Math.min((now - start) / 600, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        e.textContent = Math.floor(ease * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      })(start);
+    });
+  }, delay);
+}
+
+// ── ANIMATION SEQUENCE ───────────────────────────────────────
+var T = 0;
+
+// 0s — title
+fadeIn('a-title', .6, 100);
+setTimeout(function(){ burst(540, 120, 30, '#F5C518'); }, 400);
+
+// 0.8s — divider
+fadeIn('a-div1', .4, 800);
+
+// 1.2s — horses flip in
+flip3D('card-left',  1200);
+setTimeout(function(){ burst(160, 500, 20, '#CC0000'); }, 1800);
+
+flip3D('card-right', 1500);
+setTimeout(function(){ burst(920, 500, 20, '#003087'); }, 2100);
+
+// 1.6s — VS
+fadeIn('a-vs', .5, 1600);
+setTimeout(function(){ burst(540, 450, 50, '#F5C518'); }, 2000);
+
+// 3.2s — stats rows
+fadeIn('a-div2', .3, 3200);
+showStatRow('s1', 3500);
+showStatRow('s2', 4100);
+showStatRow('s3', 4700);
+showStatRow('s4', 5300);
+showStatRow('s5', 5900);
+showStatRow('s6', 6500);
+
+// 7.5s — probability bar
+setTimeout(function() {
+  var el = document.getElementById('a-prob');
+  el.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1)';
+  el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+  setTimeout(function() {
+    document.getElementById('bar-left').style.width = '62%';
+    burst(540, 1320, 40, '#F5C518');
+  }, 600);
+}, 7500);
+
+// 9.5s — track
+setTimeout(function() {
+  var el = document.getElementById('a-track');
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+
+  // draw track elements
+  svgDraw('t-start',  .3, 200);
+  svgShow('t-sl',         400);
+  svgDraw('t-finish', .3, 500);
+  svgShow('t-ml',         700);
+  svgDraw('arrow-a',  .9, 900);
+  svgShow('h-a',          950);
+  svgDraw('arrow-b',  .9, 1300);
+  svgShow('h-b',         1350);
+  svgShow('dist-lbl',    1700);
+}, 9500);
+
+// 12s — footer
+setTimeout(function() {
+  var el = document.getElementById('a-footer');
+  el.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1)';
+  el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+}, 12000);
+
+// 13.5s — CTA
+setTimeout(function() {
+  var el = document.getElementById('a-cta');
+  el.style.transition = 'opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1)';
+  el.style.opacity = '1'; el.style.transform = 'translateY(0) scale(1)';
+  burst(540, 1820, 60, '#F5C518');
+}, 13500);
+</script>
+</body>
+</html>
