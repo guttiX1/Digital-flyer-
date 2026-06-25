@@ -9,9 +9,9 @@ const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 
 const EVENT    = 'chango-malo-vs-comandante';
-const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-pro.html`)}`;
+const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-light.html`)}`;
 const FRAMES   = '/tmp/cdpframes';
-const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-pro.mp4`);
+const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-light.mp4`);
 const W = 540, H = 960;
 const DURATION = 30000;
 
