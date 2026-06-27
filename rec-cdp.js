@@ -8,10 +8,10 @@ const path = require('path');
 const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 
-const EVENT    = 'chango-malo-vs-comandante';
-const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-hype-v2.html`)}`;
+const EVENT    = 'comandante-vs-pilloncillo';
+const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-hype.html`)}`;
 const FRAMES   = '/tmp/cdpframes';
-const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-hype-v2.mp4`);
+const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-hype.mp4`);
 const W = 540, H = 960;
 const DURATION = 30000;
 
