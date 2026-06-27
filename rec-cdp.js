@@ -9,11 +9,11 @@ const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 
 const EVENT    = 'comandante-vs-pilloncillo';
-const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-hype.html`)}`;
+const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-fuego.html`)}`;
 const FRAMES   = '/tmp/cdpframes';
-const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-hype.mp4`);
+const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-fuego.mp4`);
 const W = 540, H = 960;
-const DURATION = 30000;
+const DURATION = 32000;
 
 if (fs.existsSync(FRAMES)) fs.rmSync(FRAMES, { recursive: true });
 fs.mkdirSync(FRAMES, { recursive: true });
