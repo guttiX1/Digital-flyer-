@@ -8,4 +8,6 @@ build/
 node_modules/
 package-lock.json
 *.deb
-.claude/
+.claude/*
+!.claude/settings.json
+!.claude/rules/
