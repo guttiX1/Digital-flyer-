@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pesos Pesados · La Bolsa 2026 — Rancho El Centenario</title>
+  <meta name="description" content="Desplázate y vuela por el mundo de Pesos Pesados · La Bolsa 2026 en Rancho El Centenario." />
+  <meta name="theme-color" content="#F6F1E7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root, .sw-root {
+      --sw-bg: #F6F1E7;
+      --sw-ink: #1A150F;
+      --sw-ink-soft: #8F8878;
+      --sw-accent: #FF6B00;
+      --sw-font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      --sw-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .sw-copy__title{ letter-spacing:.01em; }
+    .sw-brand__name{ letter-spacing:.02em; }
+    .world-foot{ position:relative; z-index:2; background:var(--sw-bg); text-align:center; padding:3rem 1.25rem 4rem; }
+    .world-foot a{ color:#FF6B00; font-weight:700; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <div id="world"></div>
+
+  <script src="scrub-engine.js"></script>
+  <script>
+    mountScrollWorld(document.getElementById('world'), {
+      brand: { name: '🏆 Pesos Pesados', href: '#top' },
+      cta: { label: 'Haz Tus Picks', href: 'site.html' },
+      hint: 'desliza para volar',
+      diveScroll: 1.35,
+      connScroll: 0.9,
+      sections: [
+        {
+          id: 'hero', label: 'Bienvenida',
+          still: 'world-assets/scene1.jpg',
+          accent: '#FF6B00',
+          eyebrow: 'Rancho El Centenario Presenta',
+          title: 'Pesos Pesados',
+          body: 'La Bolsa 2026 · Domingo 12 de Julio · Milner, Georgia.',
+          tags: ['15 Carreras', 'Domingo 12 Jul', 'Milner, GA'],
+        },
+        {
+          id: 'bolsa', label: 'La Bolsa 2026',
+          still: 'world-assets/scene2.jpg',
+          accent: '#C99700',
+          eyebrow: 'La Bolsa 2026',
+          title: 'Un Día Completo De Carreras',
+          body: 'Desde las 9:00 AM hasta la carrera estelar de la noche — 15 carreras en el programa oficial de este domingo.',
+          tags: ['Arrancamos 9:00 AM', '251 High Falls Park Rd'],
+        },
+        {
+          id: 'estelares', label: 'Estelares',
+          still: 'world-assets/scene3.jpg',
+          accent: '#FFD200',
+          linger: 0.35,
+          eyebrow: '🔥 Carreras Estelares',
+          title: '$15,000 En La Bolsa',
+          body: 'Carrera #13 · Pesos Pesados · La Bolsa de $15K a 300 metros. Carrera #14 · Rey de las 400, a 400 metros.',
+          tags: ['Carrera #13 · 5:00 PM', 'Carrera #14 · 6:00 PM'],
+        },
+        {
+          id: 'programa', label: 'Programa',
+          still: 'world-assets/scene4.jpg',
+          accent: '#FF8A1F',
+          eyebrow: 'Programa Oficial',
+          title: '15 Carreras, Cuadre Tras Cuadre',
+          body: 'Duelos mano a mano de tapados desde temprano, seguidos de abiertas de condición toda la tarde.',
+          tags: ['7 Mano a Mano', '6 Abiertas', '2 Estelares'],
+        },
+        {
+          id: 'sponsors', label: 'Patrocinadores',
+          still: 'world-assets/scene5.jpg',
+          accent: '#C24E00',
+          eyebrow: 'Patrocinadores Oficiales',
+          title: 'Nuevo Imperio · Pelavacas',
+          body: 'Este evento es posible gracias a Nuevo Imperio, Patrocinador Oficial, y a Pelavacas Promotions.',
+          tags: ['Nuevo Imperio', 'Pelavacas Promotions'],
+        },
+        {
+          id: 'finale', label: 'Haz Tus Picks',
+          still: 'world-assets/scene6.jpg',
+          accent: '#FF6B00',
+          eyebrow: 'La Bolsa Te Espera',
+          title: '¿Quién Se Lleva La Bolsa?',
+          body: 'Elige tus caballos para las 15 carreras del domingo y compite por presumir tus picks.',
+          tags: [],
+          cta: {
+            primary: { label: 'Entrar Al Programa', href: 'site.html' },
+            secondary: { label: 'Ver Video Ad', href: 'video-ad.html' },
+          },
+        },
+      ],
+    });
+  </script>
+
+  <div class="world-foot">
+    🏆 Pesos Pesados · La Bolsa 2026 · Rancho El Centenario, Milner GA<br>
+    <a href="site.html">Haz tus picks →</a> · <a href="flyer.html">Ver flyer</a> · <a href="video-ad.html">Ver video</a>
+  </div>
+</body>
+</html>
