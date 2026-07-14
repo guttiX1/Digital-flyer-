@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rancho Malpica · Maturity El Rey de Malpica · Jul 26</title>
+<meta name="description" content="Maturity El Rey de Malpica · 14 caballos adentro · Domingo 26 de Julio 2026 · Duette, Florida">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F5C518;
+  --bg:#070707;
+  --card:rgba(255,255,255,.04);
+  --line:rgba(255,255,255,.09);
+  --text:#f4f4f4;
+  --dim:rgba(255,255,255,.45);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+.bebas{font-family:'Bebas Neue',sans-serif}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;background:rgba(7,7,7,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.08em}
+.nav-logo em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:1rem}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:color .15s}
+.nav-links a:hover{color:var(--gold)}
+@media(max-width:560px){.nav-links a:nth-child(n+4){display:none}}
+
+/* ── HERO ── */
+.hero{position:relative;text-align:center;padding:4.5rem 1.2rem 3.5rem;background:
+  radial-gradient(ellipse 80% 55% at 50% -5%,rgba(245,197,24,.16),transparent 65%),
+  radial-gradient(ellipse 55% 40% at 85% 100%,rgba(245,197,24,.05),transparent 60%)}
+.hero-org{font-size:.62rem;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.6rem,15vw,8.5rem);line-height:.85;letter-spacing:.02em}
+.hero-title .t2{display:block;color:var(--gold);text-shadow:0 0 60px rgba(245,197,24,.35)}
+.hero-tag{display:inline-block;margin-top:1.4rem;padding:.5rem 1.3rem;border:1px solid rgba(245,197,24,.4);border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);background:rgba(245,197,24,.07)}
+.hero-stars{margin-top:.9rem;font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.hero-date{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2.2rem;flex-wrap:wrap}
+.hd-block{text-align:center}
+.hd-block .big{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--gold)}
+.hd-block .small{font-size:.55rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-top:.2rem}
+.hd-sep{width:1px;height:44px;background:var(--line)}
+.hero-loc{margin-top:1.6rem;font-size:.78rem;font-weight:600;color:var(--dim)}
+.hero-loc strong{color:var(--text)}
+.hero-cta{display:inline-block;margin-top:1.8rem;background:var(--gold);color:#0a0a0a;text-decoration:none;font-weight:900;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.95rem 2.4rem;border-radius:12px;box-shadow:0 8px 40px rgba(245,197,24,.3);transition:transform .15s}
+.hero-cta:hover{transform:translateY(-2px)}
+
+/* ── COUNTDOWN ── */
+.count{display:flex;justify-content:center;gap:.7rem;padding:0 1.2rem 3rem;flex-wrap:wrap}
+.count-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9rem 1.1rem;min-width:76px;text-align:center;backdrop-filter:blur(8px)}
+.count-box .n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;color:var(--gold)}
+.count-box .l{font-size:.5rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.3rem}
+
+/* ── SECTIONS ── */
+section{max-width:900px;margin:0 auto;padding:3rem 1.2rem}
+.sec-kicker{font-size:.58rem;font-weight:800;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.03em;margin-bottom:1.6rem}
+
+/* ── FIELD ── */
+.field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.7rem}
+.horse-card{display:flex;align-items:center;gap:.9rem;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem;backdrop-filter:blur(8px);transition:border-color .15s,transform .15s}
+.horse-card:hover{border-color:rgba(245,197,24,.45);transform:translateY(-2px)}
+.gate{flex-shrink:0;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.35rem;background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.35);color:var(--gold)}
+.gate.tbd{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--dim);font-size:.9rem}
+.horse-card .hn{font-weight:800;font-size:.85rem;letter-spacing:.04em}
+.horse-card .hs{font-size:.62rem;color:var(--dim);font-weight:600;margin-top:.15rem;letter-spacing:.05em}
+
+/* ── PROGRAMA ── */
+.race{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem;margin-bottom:.9rem;backdrop-filter:blur(8px)}
+.race.final{border-color:rgba(245,197,24,.5);background:linear-gradient(160deg,rgba(245,197,24,.1),rgba(245,197,24,.02))}
+.race-top{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem}
+.race-num{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#0a0a0a;background:var(--gold);border-radius:8px;padding:.2rem .6rem;letter-spacing:.05em}
+.race-hit{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em}
+.race-dist{margin-left:auto;font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--gold);border:1px solid rgba(245,197,24,.35);border-radius:999px;padding:.25rem .7rem}
+.race-note{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.7rem}
+.race-badge{display:inline-block;font-size:.55rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#0a0a0a;background:var(--gold);border-radius:5px;padding:.22rem .55rem;margin-bottom:.7rem}
+.entries{display:flex;flex-direction:column;gap:.4rem}
+.entry{display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:700}
+.entry .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.entry .st{color:var(--dim);font-weight:600;font-size:.68rem}
+.vs-row{display:flex;align-items:stretch;gap:.6rem;flex-wrap:wrap}
+.vs-horse{flex:1;min-width:120px;text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:.9rem .6rem}
+.vs-horse .vn{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.05em}
+.vs-horse .vst{font-size:.6rem;color:var(--dim);font-weight:700;margin-top:.2rem;letter-spacing:.06em}
+.vs-mark{align-self:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold)}
+
+/* ── SPONSORS ── */
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.sp-card{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1rem;backdrop-filter:blur(8px)}
+.sp-card .sn{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.06em;color:var(--gold)}
+.sp-card .sc{font-size:.58rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.3rem}
+
+/* ── INFO ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem;backdrop-filter:blur(8px)}
+.info-card .ic{font-size:1.3rem;margin-bottom:.5rem}
+.info-card .it{font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.info-card .iv{font-size:.85rem;font-weight:700;line-height:1.5}
+.info-card a{color:var(--text);text-decoration:none;border-bottom:1px solid rgba(245,197,24,.4)}
+.info-card a:hover{color:var(--gold)}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--line);margin-top:2rem}
+.f-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em}
+.f-title em{color:var(--gold);font-style:normal}
+.f-sub{font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-top:.4rem}
+.share-btn{margin-top:1.2rem;background:transparent;border:1px solid rgba(245,197,24,.4);color:var(--gold);font-family:'Inter',sans-serif;font-weight:800;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;padding:.7rem 1.6rem;border-radius:10px;cursor:pointer;transition:background .15s}
+.share-btn:hover{background:rgba(245,197,24,.1)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">RANCHO <em>MALPICA</em></div>
+  <div class="nav-links">
+    <a href="#maturity">Maturity</a>
+    <a href="#programa">Programa</a>
+    <a href="#patrocinadores">Sponsors</a>
+    <a href="#info">Info</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-org">Carreras de Caballos · Duette, Florida</div>
+  <h1 class="hero-title">RANCHO<span class="t2">MALPICA</span></h1>
+  <div class="hero-tag">Maturity El Rey de Malpica</div>
+  <div class="hero-stars">★ 14 Caballos Adentro ★</div>
+
+  <div class="hero-date">
+    <div class="hd-block"><div class="big">DOM</div><div class="small">Domingo</div></div>
+    <div class="hd-sep"></div>
+    <div class="hd-block"><div class="big">26</div><div class="small">De Julio</div></div>
+    <div class="hd-sep"></div>
+    <div class="hd-block"><div class="big">2026</div><div class="small">Duette · FL</div></div>
+  </div>
+
+  <div class="hero-loc">📍 <strong>10355 CR 39, Duette, FL</strong> · 9 carreras · Maturity a 5 hits</div>
+  <a class="hero-cta" href="#programa">Ver Programa</a>
+</header>
+
+<div class="count" id="countdown">
+  <div class="count-box"><div class="n" id="cd-d">--</div><div class="l">Días</div></div>
+  <div class="count-box"><div class="n" id="cd-h">--</div><div class="l">Horas</div></div>
+  <div class="count-box"><div class="n" id="cd-m">--</div><div class="l">Min</div></div>
+  <div class="count-box"><div class="n" id="cd-s">--</div><div class="l">Seg</div></div>
+</div>
+
+<section id="maturity">
+  <div class="sec-kicker">El Campo Completo</div>
+  <h2 class="sec-title">Maturity · 14 Caballos</h2>
+  <div class="field-grid">
+    <div class="horse-card"><div class="gate">8</div><div><div class="hn">EL CASH</div><div class="hs">C. Valdez/Amaro</div></div></div>
+    <div class="horse-card"><div class="gate">7</div><div><div class="hn">LA TURISTA</div><div class="hs">C. Talibanes</div></div></div>
+    <div class="horse-card"><div class="gate">6</div><div><div class="hn">EL ANGELITO</div><div class="hs">C. Los Compadres</div></div></div>
+    <div class="horse-card"><div class="gate">5</div><div><div class="hn">EL SILENCIO</div><div class="hs">C. Los Prietos</div></div></div>
+    <div class="horse-card"><div class="gate">4</div><div><div class="hn">EL THOR</div><div class="hs">C. Elio Vázquez</div></div></div>
+    <div class="horse-card"><div class="gate">3</div><div><div class="hn">LA CHINA</div><div class="hs">C. China NV. León</div></div></div>
+    <div class="horse-card"><div class="gate">2</div><div><div class="hn">LA CHISPITA</div><div class="hs">C. FFA</div></div></div>
+    <div class="horse-card"><div class="gate">1</div><div><div class="hn">EL MENCHITO</div><div class="hs">C. Nava</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">LA SUPER PERFECTA</div><div class="hs">C. Los Primos</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL MORO PINGÜINO</div><div class="hs">C. Cimarrón</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL BOTAS BLANCAS</div><div class="hs">C. Dos Pleves/MG</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">LA MORA ITALIANA</div><div class="hs">C. Santa Fe</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL MORO TOKETEADO</div><div class="hs">C. Los Compas</div></div></div>
+    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL ARROGANTE</div><div class="hs">C. China NV. León</div></div></div>
+  </div>
+</section>
+
+<section id="programa">
+  <div class="sec-kicker">9 Carreras · Maturity a 5 Hits</div>
+  <h2 class="sec-title">Programa del Día</h2>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C1</span><span class="race-hit bebas">HIT 1</span><span class="race-dist">250Y</span></div>
+    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
+    <div class="entries">
+      <div class="entry"><span class="dot"></span>EL CASH <span class="st">· C. Valdez/Amaro</span></div>
+      <div class="entry"><span class="dot"></span>LA TURISTA <span class="st">· C. Talibanes</span></div>
+      <div class="entry"><span class="dot"></span>EL ANGELITO <span class="st">· C. Los Compadres</span></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C2</span><span class="race-hit bebas">HIT 2</span><span class="race-dist">250Y</span></div>
+    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
+    <div class="entries">
+      <div class="entry"><span class="dot"></span>EL SILENCIO <span class="st">· C. Los Prietos</span></div>
+      <div class="entry"><span class="dot"></span>EL THOR <span class="st">· C. Elio Vázquez</span></div>
+      <div class="entry"><span class="dot"></span>LA CHINA <span class="st">· C. China NV. León</span></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C3</span><span class="race-hit bebas">HIT 3</span><span class="race-dist">250Y</span></div>
+    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
+    <div class="entries">
+      <div class="entry"><span class="dot"></span>LA CHISPITA <span class="st">· C. FFA</span></div>
+      <div class="entry"><span class="dot"></span>EL MENCHITO <span class="st">· C. Nava</span></div>
+      <div class="entry"><span class="dot"></span>LA SUPER PERFECTA <span class="st">· C. Los Primos</span></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C4</span><span class="race-hit bebas">HIT 4</span><span class="race-dist">250Y</span></div>
+    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
+    <div class="entries">
+      <div class="entry"><span class="dot"></span>EL MORO PINGÜINO <span class="st">· C. Cimarrón</span></div>
+      <div class="entry"><span class="dot"></span>EL BOTAS BLANCAS <span class="st">· C. Dos Pleves/MG</span></div>
+      <div class="entry"><span class="dot"></span>LA MORA ITALIANA <span class="st">· C. Santa Fe</span></div>
+    </div>
+  </div>
+
+  <div class="race final">
+    <div class="race-top"><span class="race-num">C5</span><span class="race-hit bebas">HIT 5</span><span class="race-dist">250Y</span></div>
+    <div class="race-badge">⚡ Última Eliminatoria · Maturity El Rey de Malpica</div>
+    <div class="entries">
+      <div class="entry"><span class="dot"></span>EL MORO TOKETEADO <span class="st">· C. Los Compas</span></div>
+      <div class="entry"><span class="dot"></span>EL ARROGANTE <span class="st">· C. China NV. León</span></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C6</span><span class="race-hit bebas">TRÍO ESTELAR</span><span class="race-dist">400Y</span></div>
+    <div class="vs-row">
+      <div class="vs-horse"><div class="vn">LA MONJA</div><div class="vst">C. Compadres</div></div>
+      <div class="vs-mark">VS</div>
+      <div class="vs-horse"><div class="vn">EL CHILAKIL</div><div class="vst">C. Chilango/Neza</div></div>
+      <div class="vs-mark">VS</div>
+      <div class="vs-horse"><div class="vn">LA ENFERMERA</div><div class="vst">C. Elio V.</div></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C7</span><span class="race-hit bebas">MANO A MANO</span><span class="race-dist">375 Y 400Y</span></div>
+    <div class="vs-row">
+      <div class="vs-horse"><div class="vn">EL MACHETE</div><div class="vst">C. Elio V.</div></div>
+      <div class="vs-mark">VS</div>
+      <div class="vs-horse"><div class="vn">EL SICARIO</div><div class="vst">C. Chimuelo</div></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C8</span><span class="race-hit bebas">MANO A MANO</span><span class="race-dist">250Y</span></div>
+    <div class="vs-row">
+      <div class="vs-horse"><div class="vn">EL SCAREFACE</div><div class="vst">C. Díaz/Ordaz</div></div>
+      <div class="vs-mark">VS</div>
+      <div class="vs-horse"><div class="vn">LA PLUMITA</div><div class="vst">C. GTO/Águila Real</div></div>
+    </div>
+  </div>
+
+  <div class="race">
+    <div class="race-top"><span class="race-num">C9</span><span class="race-hit bebas">TAPADOS NO MECHADOS</span><span class="race-dist">300Y</span></div>
+    <div class="vs-row">
+      <div class="vs-horse"><div class="vn">TAPADO</div><div class="vst">C. Los Primos</div></div>
+      <div class="vs-mark">VS</div>
+      <div class="vs-horse"><div class="vn">TAPADO</div><div class="vst">C. Pablito</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="patrocinadores">
+  <div class="sec-kicker">Con el Apoyo De</div>
+  <h2 class="sec-title">Patrocinadores</h2>
+  <div class="sp-grid">
+    <div class="sp-card"><div class="sn">MORGADO PROMOTIONS</div><div class="sc">Promotora Oficial</div></div>
+    <div class="sp-card"><div class="sn">DJ PÁJARO</div><div class="sc">Ambiente Musical</div></div>
+    <div class="sp-card"><div class="sn">CARRILES &amp; CABALLOS</div><div class="sc">Photography</div></div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="sec-kicker">Detalles del Evento</div>
+  <h2 class="sec-title">Información</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="ic">📅</div>
+      <div class="it">Fecha</div>
+      <div class="iv">Domingo 26 de Julio, 2026</div>
+    </div>
+    <div class="info-card">
+      <div class="ic">📍</div>
+      <div class="it">Ubicación</div>
+      <div class="iv"><a href="https://maps.google.com/?q=10355+CR+39,+Duette,+FL" target="_blank" rel="noopener">10355 CR 39, Duette, FL</a></div>
+    </div>
+    <div class="info-card">
+      <div class="ic">🏁</div>
+      <div class="it">Formato</div>
+      <div class="iv">9 carreras · Maturity a 5 hits · 250Y a 400Y</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-title">RANCHO <em>MALPICA</em></div>
+  <div class="f-sub">Maturity El Rey de Malpica · Jul 26 · 2026</div>
+  <button class="share-btn" id="shareBtn">Compartir Evento</button>
+</footer>
+
+<script>
+(function(){
+  var target = new Date('2026-07-26T12:00:00-04:00').getTime();
+  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var diff = target - Date.now();
+    if(diff<=0){d.textContent='0';h.textContent='00';m.textContent='00';s.textContent='00';return}
+    d.textContent = Math.floor(diff/86400000);
+    h.textContent = pad(Math.floor(diff/3600000)%24);
+    m.textContent = pad(Math.floor(diff/60000)%60);
+    s.textContent = pad(Math.floor(diff/1000)%60);
+    setTimeout(tick,1000);
+  }
+  tick();
+
+  document.getElementById('shareBtn').addEventListener('click',function(){
+    var data = {title:'Rancho Malpica · Maturity El Rey de Malpica',text:'14 caballos adentro · Domingo 26 de Julio 2026 · Duette, FL',url:location.href};
+    if(navigator.share){navigator.share(data).catch(function(){})}
+    else{navigator.clipboard.writeText(location.href);this.textContent='¡Enlace Copiado!'}
+  });
+})();
+</script>
+</body>
+</html>
