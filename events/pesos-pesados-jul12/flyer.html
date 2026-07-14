@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flyer · Pesos Pesados · La Bolsa 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F6F1E7; --card:#FFFFFF; --ink:#1A150F; --muted:#8F8878; --line:#EBE4D5;
+  --orange:#FF6B00; --orange-hi:#FF8A1F; --orange-deep:#C24E00;
+  --gold:#FFD200; --gold-deep:#C99700; --gold-ink:#9A6800;
+  --bebas:'Bebas Neue','Arial Narrow',sans-serif; --inter:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+body{background:#ded6c4;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--inter);padding:1.5rem 1rem;}
+
+.poster{position:relative;width:min(440px,100vw);aspect-ratio:9/16;overflow:hidden;border-radius:18px;box-shadow:0 0 0 1px rgba(26,21,15,.08),0 50px 120px rgba(26,21,15,.35);
+  background:
+    radial-gradient(circle at 12% 6%,rgba(255,210,0,.24),transparent 40%),
+    radial-gradient(circle at 90% 22%,rgba(255,107,0,.18),transparent 46%),
+    radial-gradient(circle at 50% 100%,rgba(255,107,0,.22),transparent 55%),
+    var(--cream);
+  display:flex;flex-direction:column;
+}
+.poster::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,21,15,.055) 1px,transparent 1.4px);background-size:14px 14px;pointer-events:none;}
+.poster::after{content:'CENTENARIO';position:absolute;top:20%;left:50%;transform:translate(-50%,-50%) rotate(-6deg);font-family:var(--bebas);font-size:clamp(2.6rem,17vw,4.4rem);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.2px rgba(26,21,15,.05);white-space:nowrap;pointer-events:none;}
+
+.p-topbar{height:5px;background:linear-gradient(90deg,var(--orange),var(--gold),var(--orange));flex-shrink:0;z-index:5;}
+.p-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:clamp(1rem,4vw,1.5rem) clamp(1rem,4vw,1.4rem) clamp(.8rem,3vw,1.1rem);}
+
+.p-badge{align-self:center;display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.75);border:1.5px solid rgba(255,107,0,.55);color:var(--orange);font-size:clamp(.5rem,1.9vw,.62rem);font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.4rem 1rem;border-radius:100px;box-shadow:0 4px 16px rgba(255,107,0,.14);}
+
+.p-title{text-align:center;font-family:var(--bebas);line-height:.82;margin-top:clamp(.6rem,2.5vw,1rem);}
+.p-title .l1{display:block;font-size:clamp(2.8rem,15vw,4.4rem);color:var(--ink);text-shadow:.035em .035em 0 rgba(26,21,15,.16);}
+.p-title .l2{display:block;font-size:clamp(2.8rem,15vw,4.4rem);color:var(--orange);text-shadow:.032em .032em 0 var(--orange-deep),.06em .07em 20px rgba(255,107,0,.4);}
+
+.p-stars{text-align:center;margin-top:clamp(.5rem,2vw,.75rem);font-size:clamp(.55rem,2.1vw,.68rem);letter-spacing:.18em;font-weight:800;color:var(--gold-deep);text-transform:uppercase;}
+
+.p-datebar{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:clamp(.9rem,3.5vw,1.3rem);}
+.p-datebar .d1{width:34px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,107,0,.5));}
+.p-datebar .d2{width:34px;height:1.5px;background:linear-gradient(270deg,transparent,rgba(255,107,0,.5));}
+.p-datebar .txt{font-family:var(--bebas);font-size:clamp(1.15rem,5vw,1.5rem);letter-spacing:.05em;color:var(--ink);white-space:nowrap;}
+.p-datebar .txt em{color:var(--orange);font-style:normal;}
+
+.p-loc{text-align:center;font-size:clamp(.5rem,1.9vw,.62rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.35rem;line-height:1.5;}
+.p-loc b{color:var(--ink);}
+
+.p-estelares{display:flex;gap:.5rem;margin-top:clamp(.9rem,3.5vw,1.2rem);}
+.p-ecard{flex:1;background:linear-gradient(135deg,#211a12,#0e0b07);border-radius:12px;padding:.6rem .7rem;border:1px solid rgba(255,210,0,.22);}
+.p-ecard .tag{font-size:clamp(.4rem,1.6vw,.5rem);font-weight:800;letter-spacing:.1em;color:var(--orange-hi);text-transform:uppercase;}
+.p-ecard .name{font-family:var(--bebas);font-size:clamp(.85rem,3.6vw,1.1rem);color:#fff;line-height:1.05;margin-top:.15rem;}
+.p-ecard .meta{font-size:clamp(.4rem,1.6vw,.48rem);color:rgba(255,255,255,.5);margin-top:.25rem;}
+
+.p-chips{display:flex;justify-content:center;gap:.4rem;margin-top:clamp(.8rem,3vw,1.1rem);flex-wrap:wrap;}
+.p-chip{background:rgba(255,255,255,.7);border:1px solid rgba(255,107,0,.28);border-radius:100px;padding:.28rem .75rem;font-size:clamp(.42rem,1.7vw,.52rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);}
+
+.p-spacer{flex:1;}
+
+.p-tagline{text-align:center;font-family:var(--bebas);font-size:clamp(1.6rem,7.5vw,2.3rem);line-height:.95;letter-spacing:.03em;color:var(--ink);text-shadow:.03em .03em 0 rgba(26,21,15,.12);}
+.p-tagline em{color:var(--orange);font-style:normal;}
+.p-taglinesub{text-align:center;font-size:clamp(.48rem,1.9vw,.58rem);font-weight:700;letter-spacing:.06em;color:var(--muted);margin-top:.5rem;padding:0 1rem;}
+
+.p-bottom{position:relative;z-index:2;margin-top:auto;padding:clamp(.7rem,3vw,1rem) clamp(1rem,4vw,1.4rem);background:rgba(255,255,255,.6);backdrop-filter:blur(6px);border-top:1px solid rgba(255,107,0,.15);}
+.p-sponsors{text-align:center;font-size:clamp(.42rem,1.7vw,.52rem);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(.55rem,2.2vw,.75rem);}
+.p-sponsors b{color:var(--orange);}
+.p-qr-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+.p-qr-info .h{font-family:var(--bebas);font-size:clamp(1rem,4.2vw,1.35rem);color:var(--ink);letter-spacing:.03em;line-height:1;}
+.p-qr-info .s{font-size:clamp(.4rem,1.6vw,.48rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-top:.25rem;}
+.p-qr-info .u{font-size:clamp(.38rem,1.5vw,.44rem);color:var(--muted);margin-top:.15rem;}
+.p-qr-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+.p-qr-wrap img{width:clamp(58px,17vw,78px);height:clamp(58px,17vw,78px);border-radius:8px;border:2px solid var(--ink);display:block;background:#fff;padding:3px;}
+.p-scan{font-size:clamp(.32rem,1.3vw,.4rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+
+.p-phones{display:flex;justify-content:center;gap:.7rem;margin-top:clamp(.5rem,2vw,.7rem);font-size:clamp(.42rem,1.7vw,.5rem);font-weight:800;color:var(--ink);}
+
+.page-label{text-align:center;margin-bottom:.75rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,21,15,.4);font-family:var(--inter);}
+.page-links{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;}
+.page-links a{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,107,0,.85);text-decoration:none;background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.25);padding:.35rem .85rem;border-radius:8px;font-family:var(--inter);transition:all .15s;}
+.page-links a:hover{background:rgba(255,107,0,.15);}
+</style>
+</head>
+<body>
+<div>
+  <div class="page-label">📋 Flyer Digital · Pesos Pesados</div>
+  <div class="poster">
+    <div class="p-topbar"></div>
+    <div class="p-body">
+      <div class="p-badge">🔥 Rancho El Centenario Presenta</div>
+      <div class="p-title"><span class="l1">PESOS</span><span class="l2">PESADOS</span></div>
+      <div class="p-stars">★ ★ ★&nbsp; La Bolsa 2026 · 15 Carreras Adentro &nbsp;★ ★ ★</div>
+
+      <div class="p-datebar">
+        <span class="d1"></span>
+        <span class="txt">DOMINGO <em>12 DE JULIO</em> 2026</span>
+        <span class="d2"></span>
+      </div>
+      <div class="p-loc"><b>251 High Falls Park Rd</b> · Milner, GA · Arrancamos 9:00 AM</div>
+
+      <div class="p-estelares">
+        <div class="p-ecard">
+          <div class="tag">Carrera #13 · 5:00 PM</div>
+          <div class="name">Pesos Pesados<br>La Bolsa de $15K</div>
+          <div class="meta">300 Metros · 4 Cuadras</div>
+        </div>
+        <div class="p-ecard">
+          <div class="tag">Carrera #14 · 6:00 PM</div>
+          <div class="name">Rey de las 400</div>
+          <div class="meta">400 Metros · 6 Cuadras</div>
+        </div>
+      </div>
+
+      <div class="p-chips">
+        <span class="p-chip">🏇 15 Carreras</span>
+        <span class="p-chip">🎭 8 De Cuadre</span>
+        <span class="p-chip">💰 $15K Bolsa</span>
+      </div>
+
+      <div class="p-spacer"></div>
+
+      <div class="p-tagline">¡EL EVENTO DEL AÑO<br>EN <em>GEORGIA</em>!</div>
+      <div class="p-taglinesub">Carreras Mano a Mano · Tapados · Abiertas de Condición</div>
+
+      <div class="p-spacer"></div>
+    </div>
+
+    <div class="p-bottom">
+      <div class="p-sponsors">Patrocinadores: <b>Nuevo Imperio</b> · <b>Pelavacas Promotions</b></div>
+      <div class="p-qr-row">
+        <div class="p-qr-info">
+          <div class="h">Haz Tus Picks</div>
+          <div class="s">Escanea el código</div>
+          <div class="u">guttix1.github.io/Digital-flyer-</div>
+        </div>
+        <div class="p-qr-wrap">
+          <img src="data:image/png;base64,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" alt="QR">
+          <div class="p-scan">Powered by CarrerasOS</div>
+        </div>
+      </div>
+      <div class="p-phones">
+        <span>📞 (706) 461-2079</span>
+        <span>📞 (678) 767-2199</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-links">
+    <a href="site.html">🏠 Sitio</a>
+    <a href="site.html#programaList">🏁 Programa</a>
+    <a href="video-ad.html">▶ Video</a>
+  </div>
+</div>
+</body>
+</html>

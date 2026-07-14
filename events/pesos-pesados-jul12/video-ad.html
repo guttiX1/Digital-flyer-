@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pesos Pesados · La Bolsa 2026 — Video Ad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#F6F1E7;--ink:#1A150F;--orange:#FF6B00;--orange-deep:#C24E00;--gold:#FFD200;--gold-deep:#C99700;--muted:#8F8878;
+  --bebas:'Bebas Neue','Arial Narrow',sans-serif;--inter:'Inter',-apple-system,sans-serif;}
+html,body{width:100%;height:100%;background:var(--cream);overflow:hidden;font-family:var(--inter);-webkit-font-smoothing:antialiased;}
+
+#cvs{position:fixed;inset:0;z-index:5;pointer-events:none}
+#stage{position:fixed;inset:0;z-index:1;background:
+    radial-gradient(circle at 15% 10%,rgba(255,210,0,.26),transparent 42%),
+    radial-gradient(circle at 88% 25%,rgba(255,107,0,.2),transparent 46%),
+    radial-gradient(circle at 50% 105%,rgba(255,107,0,.24),transparent 55%),
+    var(--cream);}
+#stage::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,21,15,.06) 1px,transparent 1.4px);background-size:15px 15px;pointer-events:none;z-index:0;}
+
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;overflow:hidden;z-index:2;padding:6%;text-align:center;}
+.scene.on{opacity:1}
+
+#flash{position:fixed;inset:0;z-index:999;background:#fff;opacity:0;pointer-events:none}
+#gflash{position:fixed;inset:0;z-index:998;background:var(--gold);opacity:0;pointer-events:none}
+#oflash{position:fixed;inset:0;z-index:997;background:var(--orange);opacity:0;pointer-events:none}
+#prog{position:fixed;bottom:0;left:0;height:5px;z-index:1000;background:linear-gradient(90deg,var(--orange),var(--gold));width:0%;box-shadow:0 0 12px rgba(255,107,0,.6)}
+
+@keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-8px,5px)}40%{transform:translate(8px,-6px)}60%{transform:translate(-6px,7px)}80%{transform:translate(5px,-3px)}}
+.shake{animation:shake .28s ease}
+
+/* ---- scene 0: presenter ---- */
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.85);border:2px solid var(--orange);color:var(--orange-deep);font-size:2.4vw;font-weight:900;letter-spacing:.18em;text-transform:uppercase;padding:2.2vw 5vw;border-radius:100px;box-shadow:0 1vw 4vw rgba(255,107,0,.2);}
+.presenter-name{font-family:var(--bebas);font-size:9vw;color:var(--ink);letter-spacing:.03em;margin-top:5vw;text-shadow:.03em .03em 0 rgba(26,21,15,.15);}
+
+/* ---- scene 1: title slam ---- */
+.big-title{font-family:var(--bebas);line-height:.82;}
+.big-title .l1{display:block;font-size:20vw;color:var(--ink);text-shadow:.035em .035em 0 rgba(26,21,15,.18),.07em .09em 6vw rgba(26,21,15,.2);}
+.big-title .l2{display:block;font-size:20vw;color:var(--orange);text-shadow:.032em .032em 0 var(--orange-deep),.09em .12em 8vw rgba(255,107,0,.45);margin-top:1vw;}
+.stars-line{margin-top:5vw;color:var(--gold-deep);font-size:3vw;letter-spacing:.24em;font-weight:900;text-transform:uppercase;text-shadow:0 0 4vw rgba(255,210,0,.6);}
+
+/* ---- scene 2: tagline ---- */
+.tag-bolsa{font-family:var(--bebas);font-size:10vw;color:var(--orange);letter-spacing:.05em;text-shadow:.03em .03em 0 var(--orange-deep);}
+.tag-hype{font-family:var(--bebas);font-size:13vw;line-height:.9;color:var(--ink);margin-top:4vw;text-shadow:.03em .03em 0 rgba(26,21,15,.15);}
+.tag-hype em{color:var(--orange);font-style:normal;}
+.tag-sub{margin-top:4vw;font-size:3vw;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+
+/* ---- scene 3: estelares ---- */
+.est-label{font-size:3vw;font-weight:900;letter-spacing:.2em;color:var(--orange);text-transform:uppercase;margin-bottom:5vw;}
+.est-card{background:linear-gradient(135deg,#221a11,#0d0a06);border:2px solid rgba(255,210,0,.4);border-radius:5vw;padding:6vw 8vw;width:82%;box-shadow:0 2vw 6vw rgba(0,0,0,.3);}
+.est-card+.est-card{margin-top:5vw;}
+.est-tag{font-size:2.6vw;font-weight:900;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;}
+.est-name{font-family:var(--bebas);font-size:9vw;color:#fff;line-height:.95;margin-top:2vw;}
+.est-meta{font-size:2.6vw;color:rgba(255,255,255,.6);margin-top:2vw;font-weight:700;}
+
+/* ---- scene 4: date/location ---- */
+.date-card{background:#fff;border-radius:6vw;padding:7vw 9vw;box-shadow:0 3vw 8vw rgba(26,21,15,.25);}
+.date-dow{font-size:3.2vw;font-weight:900;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;}
+.date-num{font-family:var(--bebas);font-size:26vw;line-height:.85;color:var(--gold-deep);text-shadow:0 .8vw 0 rgba(201,151,0,.2);}
+.date-month{font-family:var(--bebas);font-size:9vw;letter-spacing:.06em;color:var(--ink);}
+.date-year{font-size:3.4vw;font-weight:900;letter-spacing:.28em;color:var(--orange);margin-top:1vw;}
+.loc-line{margin-top:6vw;font-size:3.2vw;font-weight:800;letter-spacing:.06em;color:var(--ink);text-transform:uppercase;}
+.loc-sub{margin-top:2vw;font-size:2.8vw;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+
+/* ---- scene 5: CTA / QR ---- */
+.cta-title{font-family:var(--bebas);font-size:14vw;color:var(--ink);line-height:.88;text-shadow:.03em .03em 0 rgba(26,21,15,.15);}
+.cta-title em{color:var(--orange);font-style:normal;display:block;}
+.qr-box{margin-top:6vw;background:#fff;border:3px solid var(--ink);border-radius:4vw;padding:3vw;box-shadow:0 2vw 6vw rgba(26,21,15,.25);}
+.qr-box img{width:34vw;height:34vw;display:block;}
+.cta-scan{margin-top:4vw;font-size:3.4vw;font-weight:900;letter-spacing:.14em;color:var(--orange);text-transform:uppercase;}
+.cta-url{margin-top:1.5vw;font-size:2.6vw;font-weight:700;color:var(--muted);}
+.cta-spon{position:absolute;bottom:5vw;left:0;right:0;font-size:2.4vw;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.cta-spon b{color:var(--orange);}
+
+.skip-ui{position:fixed;top:4vw;right:4vw;z-index:1001;display:flex;gap:2vw;}
+#skip,#replay{background:rgba(26,21,15,.75);color:#fff;font-family:var(--inter);font-weight:800;font-size:2.6vw;padding:1.6vw 3.6vw;border-radius:100px;cursor:pointer;border:none;}
+#replay{display:none}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<canvas id="cvs"></canvas>
+<div id="flash"></div><div id="gflash"></div><div id="oflash"></div>
+
+<div id="stage">
+  <!-- scene 0: presenter -->
+  <div class="scene" id="s0">
+    <div class="badge">🔥 Rancho El Centenario</div>
+    <div class="presenter-name">PRESENTA</div>
+  </div>
+
+  <!-- scene 1: title slam -->
+  <div class="scene" id="s1">
+    <div class="big-title"><span class="l1">PESOS</span><span class="l2">PESADOS</span></div>
+    <div class="stars-line">★ ★ ★ 15 Carreras Adentro ★ ★ ★</div>
+  </div>
+
+  <!-- scene 2: tagline -->
+  <div class="scene" id="s2">
+    <div class="tag-bolsa">LA BOLSA 2026</div>
+    <div class="tag-hype">¡EL EVENTO<br>DEL AÑO EN<br><em>GEORGIA!</em></div>
+  </div>
+
+  <!-- scene 3: estelares -->
+  <div class="scene" id="s3">
+    <div class="est-label">🔥 Carreras Estelares</div>
+    <div class="est-card">
+      <div class="est-tag">Carrera #13 · 5:00 PM</div>
+      <div class="est-name">Pesos Pesados<br>$15K</div>
+      <div class="est-meta">300 Metros · 4 Cuadras</div>
+    </div>
+    <div class="est-card">
+      <div class="est-tag">Carrera #14 · 6:00 PM</div>
+      <div class="est-name">Rey de las 400</div>
+      <div class="est-meta">400 Metros · 6 Cuadras</div>
+    </div>
+  </div>
+
+  <!-- scene 4: date / location -->
+  <div class="scene" id="s4">
+    <div class="date-card">
+      <div class="date-dow">Domingo</div>
+      <div class="date-num">12</div>
+      <div class="date-month">DE JULIO</div>
+      <div class="date-year">2026</div>
+    </div>
+    <div class="loc-line">251 High Falls Park Rd · Milner, GA</div>
+    <div class="loc-sub">Arrancamos 9:00 AM</div>
+  </div>
+
+  <!-- scene 5: CTA / QR (hold) -->
+  <div class="scene" id="s5">
+    <div class="cta-title">HAZ TUS<br><em>PICKS</em></div>
+    <div class="qr-box"><img id="qrImg" src="" alt="QR"></div>
+    <div class="cta-scan">Escanea el código</div>
+    <div class="cta-url">guttix1.github.io/Digital-flyer-</div>
+    <div class="cta-spon">Patrocina: <b>Nuevo Imperio</b> · <b>Pelavacas Promotions</b></div>
+  </div>
+</div>
+
+<div class="skip-ui">
+  <button id="skip" onclick="goTo(SCENES.length-1)">SALTAR ▶</button>
+  <button id="replay" onclick="location.reload()">🔁 REPETIR</button>
+</div>
+
+<script>
+document.getElementById('qrImg').src = "data:image/png;base64,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";
+
+/* ---------- canvas confetti ---------- */
+const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
+let W,H;
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;}
+resize();addEventListener('resize',resize);
+
+const GOLD='hsl(46,100%,52%)',ORANGE='hsl(24,100%,55%)',INK='hsl(28,20%,10%)';
+let parts=[];
+class Spark{
+  constructor(x,y,col,vx,vy){
+    this.x=x;this.y=y;this.vx=vx;this.vy=vy;this.life=1;
+    this.col=col||(Math.random()<.5?GOLD:ORANGE);
+    this.r=3+Math.random()*5;this.g=.35+Math.random()*.25;
+  }
+  tick(){this.x+=this.vx;this.y+=this.vy;this.vy+=this.g;this.vx*=.985;this.life-=.018;return this.life>0&&this.y<H+40;}
+  draw(){
+    ctx.save();ctx.globalAlpha=Math.max(this.life,0);
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r*this.life,0,Math.PI*2);
+    ctx.fillStyle=this.col;ctx.fill();ctx.restore();
+  }
+}
+function burst(x,y,n,cols){
+  for(let i=0;i<n;i++){
+    const a=(Math.PI*2/n)*i+Math.random()*.5,sp=6+Math.random()*16;
+    parts.push(new Spark(x,y,cols?cols[i%cols.length]:null,Math.cos(a)*sp,Math.sin(a)*sp-4));
+  }
+}
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  parts=parts.filter(p=>{const ok=p.tick();if(ok)p.draw();return ok});
+  requestAnimationFrame(loop);
+})();
+
+const flashEl=document.getElementById('flash');
+const gflashEl=document.getElementById('gflash');
+const oflashEl=document.getElementById('oflash');
+function flash(v=.85){flashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{flashEl.style.cssText='transition:opacity .22s ease;opacity:0'})}
+function gflash(v=.6){gflashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{gflashEl.style.cssText='transition:opacity .28s ease;opacity:0'})}
+function oflash(v=.55){oflashEl.style.cssText='transition:none;opacity:'+v;requestAnimationFrame(()=>{oflashEl.style.cssText='transition:opacity .3s ease;opacity:0'})}
+function shake(){const s=document.getElementById('stage');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake')}
+
+/* ---------- timeline: 20s total ---------- */
+const SCENES=['s0','s1','s2','s3','s4','s5'];
+const DURS=  [2500, 3500, 2500, 4000, 3500, Infinity];
+const TOTAL=DURS.slice(0,-1).reduce((a,b)=>a+b,0);
+let cur=0,timer=null,t0=null;
+
+function show(i){
+  SCENES.forEach((id,j)=>{
+    const el=document.getElementById(id);
+    el.classList.remove('on');
+    if(i===j){void el.offsetWidth;el.classList.add('on')}
+  });
+}
+function onEnter(i){
+  const cx=W/2,cy=H*.4;
+  if(i===0){gflash(.5);burst(cx,cy,16,[GOLD,ORANGE])}
+  if(i===1){flash(.85);shake();burst(cx,H*.28,50,[GOLD,ORANGE,INK]);setTimeout(()=>{oflash(.6);shake();burst(cx,H*.55,45,[ORANGE,GOLD])},700);}
+  if(i===2){gflash(.7);shake();burst(cx,cy,30,[GOLD,ORANGE])}
+  if(i===3){
+    oflash(.55);
+    burst(W*.5,H*.35,24,[GOLD,ORANGE]);
+    setTimeout(()=>{shake();burst(W*.5,H*.6,24,[GOLD,ORANGE])},900);
+  }
+  if(i===4){flash(.8);shake();burst(cx,cy,40,[GOLD,ORANGE,INK])}
+  if(i===5){
+    gflash(.75);shake();
+    burst(cx,H*.3,60,[GOLD,ORANGE,INK]);
+    setTimeout(()=>burst(cx,H*.55,40,[GOLD,ORANGE]),300);
+    setTimeout(()=>burst(cx,H*.5,30,[GOLD,ORANGE]),900);
+  }
+}
+function updateProg(){
+  if(!t0||cur>=SCENES.length-1)return;
+  document.getElementById('prog').style.width=Math.min(((performance.now()-t0)/TOTAL)*100,100)+'%';
+  requestAnimationFrame(updateProg);
+}
+function goTo(i){
+  clearTimeout(timer);cur=i;show(i);onEnter(i);
+  if(DURS[i]!==Infinity)timer=setTimeout(()=>goTo(i+1),DURS[i]);
+  else{
+    document.getElementById('prog').style.width='100%';
+    document.getElementById('skip').style.display='none';
+    document.getElementById('replay').style.display='block';
+  }
+}
+window.addEventListener('load',()=>{
+  t0=performance.now();goTo(0);updateProg();
+});
+document.getElementById('stage').addEventListener('click',()=>{if(cur<SCENES.length-1)goTo(cur+1)});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')goTo(cur+1);
+  if(e.key==='r'||e.key==='R')location.reload();
+});
+</script>
+</body>
+</html>
