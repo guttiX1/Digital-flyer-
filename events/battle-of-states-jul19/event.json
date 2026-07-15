@@ -1,0 +1,395 @@
+{
+  "slug": "battle-of-states-jul19",
+  "page_title": "CarrerasOS · Battle of States",
+  "page_description": "Battle of States - Training Center 57 - Domingo 19 de Julio - Walterboro, SC. Haz tus picks para cada carrera.",
+  "countdown": "2026-07-19T10:30",
+  "event": {
+    "org": "TRAINING CENTER 57",
+    "titleTop": "BATTLE",
+    "titleBottom": "OF STATES",
+    "tagline": "NC · SC · GA · FL",
+    "stars": "17 CARRERAS",
+    "dayName": "DOMINGO",
+    "dayNum": "19",
+    "month": "DE JULIO",
+    "year": "2026",
+    "location": "Walterboro, SC",
+    "address": "3567 Bells Hwy, Walterboro, SC 29488",
+    "phones": [
+      "(478) 247-3939"
+    ],
+    "sponsors": [
+      {
+        "name": "HOMBRES A CABALLO",
+        "cat": "Sponsor Oficial"
+      },
+      {
+        "name": "EL SHAKA DE LOS CARRILES",
+        "cat": "Sponsor Oficial"
+      },
+      {
+        "name": "TRAINING CENTER 57",
+        "cat": "La Sede"
+      }
+    ],
+    "counts": "17 carreras · Battle of States"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL MARTIÑO",
+      "stable": "C. 4A's"
+    },
+    {
+      "gate": null,
+      "name": "EL TALISMÁN",
+      "stable": "C. Nueva Era"
+    },
+    {
+      "gate": null,
+      "name": "EL TENIENTE",
+      "stable": "C. Parrandero"
+    },
+    {
+      "gate": null,
+      "name": "EL PABLO",
+      "stable": "C. Q&S"
+    },
+    {
+      "gate": null,
+      "name": "LA NENA",
+      "stable": "C. 4A's"
+    },
+    {
+      "gate": null,
+      "name": "SOCIOS",
+      "stable": "C. Nueva Era"
+    },
+    {
+      "gate": null,
+      "name": "EL DRAGÓN",
+      "stable": "C. El Toro"
+    },
+    {
+      "gate": null,
+      "name": "EL TERROR",
+      "stable": "C. Parranderos"
+    },
+    {
+      "gate": null,
+      "name": "HOT BOY",
+      "stable": "C. GBR"
+    },
+    {
+      "gate": null,
+      "name": "LA FRIDA",
+      "stable": "C. GL"
+    },
+    {
+      "gate": null,
+      "name": "BAYOU",
+      "stable": "C. Taylor Racing"
+    },
+    {
+      "gate": null,
+      "name": "QUAVO",
+      "stable": "C. Memory Lane/Jalisco"
+    },
+    {
+      "gate": null,
+      "name": "EL GANZO",
+      "stable": "C. Michoacanos"
+    },
+    {
+      "gate": null,
+      "name": "EL CEMENTERO",
+      "stable": "C. La Escondida"
+    },
+    {
+      "gate": null,
+      "name": "EL JAROCHITO",
+      "stable": "C. Garcia"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "10:30 AM",
+      "dist": "175Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MARTIÑO",
+          "stable": "C. 4A's"
+        },
+        {
+          "name": "EL TALISMÁN",
+          "stable": "C. Nueva Era"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "11:00 AM",
+      "dist": "250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TENIENTE",
+          "stable": "C. Parrandero"
+        },
+        {
+          "name": "EL PABLO",
+          "stable": "C. Q&S"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "11:30 AM",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA NENA",
+          "stable": "C. 4A's"
+        },
+        {
+          "name": "SOCIOS",
+          "stable": "C. Nueva Era"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "12:00 PM",
+      "dist": "200Y",
+      "type": "open",
+      "category": "ABIERTA 200Y CUADRA CHICAS",
+      "entryNote": "El Estado Simba",
+      "entries": [
+        "C. GARCIA",
+        "C. PARRANDEROS",
+        "C. GBR/MBS",
+        "C. GL"
+      ]
+    },
+    {
+      "id": 5,
+      "time": "12:30 PM",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "C. San Felipe de Jesús"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. W3 Farmz"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "1:00 PM",
+      "dist": "200 Y 250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DRAGÓN",
+          "stable": "C. El Toro"
+        },
+        {
+          "name": "EL TERROR",
+          "stable": "C. Parranderos"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "1:30 PM",
+      "dist": "275Y",
+      "type": "open",
+      "category": "ABIERTA 2 AÑEROS",
+      "entryNote": "Billy The Kid",
+      "entries": [
+        "C. GL",
+        "C. GARCIA",
+        "C. W3 FARMZ",
+        "C. EL CHAPO"
+      ]
+    },
+    {
+      "id": 8,
+      "time": "2:00 PM",
+      "dist": "75Y",
+      "type": "open",
+      "category": "ABIERTA EL PERRON DE LAS 75Y",
+      "entryNote": "Abierta",
+      "entries": [
+        "C. JAS",
+        "C. MICHOACANOS",
+        "C. RANCHO LA PAROTA",
+        "C. OJO DE AGUA"
+      ]
+    },
+    {
+      "id": 9,
+      "time": "2:30 PM",
+      "dist": "300Y",
+      "type": "open",
+      "category": "ABIERTA 300Y TRES AÑERO",
+      "entryNote": "El Rey",
+      "entries": [
+        "C. JALISCO",
+        "C. DIAMANTE",
+        "C. ESCONDIDA"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "3:00 PM",
+      "dist": "300Y",
+      "type": "open",
+      "category": "MATCH DE 4",
+      "entryNote": "Hot Boy vs 69 vs La Frida vs Tapado",
+      "entries": [
+        "HOT BOY (C. GBR)",
+        "69 (C. Turn In Up A Notch)",
+        "LA FRIDA (C. GL)",
+        "TAPADO (C. San Felipe de Jesús)"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "3:30 PM",
+      "dist": "330Y",
+      "type": "open",
+      "category": "ABIERTA 330 4 AÑEROS",
+      "entryNote": "El Gollo Leon",
+      "entries": [
+        "C. JAS",
+        "C. EL CHAPO",
+        "C. EL DIAMANTE",
+        "C. MICHOACANOS"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "4:00 PM",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "BAYOU",
+          "stable": "C. Taylor Racing"
+        },
+        {
+          "name": "QUAVO",
+          "stable": "C. Memory Lane/Jalisco"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "4:30 PM",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GANZO",
+          "stable": "C. Michoacanos"
+        },
+        {
+          "name": "EL CEMENTERO",
+          "stable": "C. La Escondida"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "5:00 PM",
+      "dist": "250Y",
+      "type": "open",
+      "category": "250Y 3 YEAR OLD CUADRAS CHICAS",
+      "entryNote": "El Marine",
+      "entries": [
+        "C. CHAPO",
+        "C. TORO",
+        "C. EL 13",
+        "C. Q&S RACING"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "5:30 PM",
+      "dist": "330Y",
+      "type": "open",
+      "category": "ABIERTA 330Y MAIDENS",
+      "entryNote": "El Jess Arrambler",
+      "entries": [
+        "C. JAS",
+        "C. CRISTO REY",
+        "C. RANCHO EL DIAMANTE"
+      ]
+    },
+    {
+      "id": 16,
+      "time": "6:00 PM",
+      "dist": "300Y",
+      "type": "open",
+      "category": "ABIERTA 300Y CUADRA CHICAS",
+      "entryNote": "Fluffy",
+      "entries": [
+        "C. W3 FARMZ",
+        "C. EL 13/NUEVA GENERACIÓN",
+        "C. SAN JUAN",
+        "C. GL"
+      ]
+    },
+    {
+      "id": 17,
+      "time": "6:30 PM",
+      "dist": "300Y",
+      "type": "duel",
+      "featured": "CIERRE · BATTLE OF STATES",
+      "horses": [
+        {
+          "name": "EL JAROCHITO",
+          "stable": "C. Garcia"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. Rancho El Diamante"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "8": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · Info: (478) 247-3939",
+        "code": "CARRERASOS"
+      }
+    },
+    "17": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · Info: (478) 247-3939",
+        "code": "CARRERASOS"
+      }
+    }
+  }
+}
