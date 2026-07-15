@@ -2,325 +2,416 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rancho Malpica · Maturity El Rey de Malpica · Jul 26</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Rancho Malpica · Maturity El Rey de Malpica</title>
 <meta name="description" content="Maturity El Rey de Malpica · 14 caballos adentro · Domingo 26 de Julio 2026 · Duette, Florida">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --gold:#F5C518;
-  --bg:#070707;
-  --card:rgba(255,255,255,.04);
-  --line:rgba(255,255,255,.09);
-  --text:#f4f4f4;
-  --dim:rgba(255,255,255,.45);
+  --org:#FF6B00;
+  --org-soft:rgba(255,107,0,.14);
+  --org-line:rgba(255,107,0,.4);
+  --bg:#0a0806;
+  --glass:rgba(20,14,8,.72);
+  --line:rgba(255,255,255,.1);
+  --text:#f5f1ea;
+  --dim:rgba(245,241,234,.5);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden;padding-bottom:74px;
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -10%,rgba(255,107,0,.13),transparent 60%),
+    radial-gradient(ellipse 60% 45% at 100% 100%,rgba(255,107,0,.06),transparent 55%)}
 .bebas{font-family:'Bebas Neue',sans-serif}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;background:rgba(7,7,7,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.08em}
-.nav-logo em{color:var(--gold);font-style:normal}
-.nav-links{display:flex;gap:1rem}
-.nav-links a{color:var(--dim);text-decoration:none;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:color .15s}
-.nav-links a:hover{color:var(--gold)}
-@media(max-width:560px){.nav-links a:nth-child(n+4){display:none}}
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;gap:.7rem;padding:.65rem 1rem;background:rgba(10,8,6,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:.5rem}
+.logo-mark{width:34px;height:34px;border:2px solid var(--org);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--org);letter-spacing:-.05em}
+.logo-txt{font-family:'Bebas Neue',sans-serif;font-size:.92rem;line-height:.95;letter-spacing:.1em}
+.nav-links{display:flex;gap:.9rem;margin-left:.6rem}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.nav-links a:hover{color:var(--org)}
+@media(max-width:640px){.nav-links{display:none}}
+.nav-cta{margin-left:auto;background:var(--org);color:#160b02;border:none;border-radius:9px;font-family:-apple-system,'Inter',sans-serif;font-weight:900;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem .9rem;cursor:pointer;white-space:nowrap;box-shadow:0 4px 22px rgba(255,107,0,.35)}
+.nav-badge{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--text);font-size:.58rem;font-weight:900;padding:.45rem .7rem;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
+.nav-badge.hot{border-color:var(--org-line);color:var(--org)}
 
 /* ── HERO ── */
-.hero{position:relative;text-align:center;padding:4.5rem 1.2rem 3.5rem;background:
-  radial-gradient(ellipse 80% 55% at 50% -5%,rgba(245,197,24,.16),transparent 65%),
-  radial-gradient(ellipse 55% 40% at 85% 100%,rgba(245,197,24,.05),transparent 60%)}
-.hero-org{font-size:.62rem;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.6rem,15vw,8.5rem);line-height:.85;letter-spacing:.02em}
-.hero-title .t2{display:block;color:var(--gold);text-shadow:0 0 60px rgba(245,197,24,.35)}
-.hero-tag{display:inline-block;margin-top:1.4rem;padding:.5rem 1.3rem;border:1px solid rgba(245,197,24,.4);border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);background:rgba(245,197,24,.07)}
-.hero-stars{margin-top:.9rem;font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
-.hero-date{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2.2rem;flex-wrap:wrap}
-.hd-block{text-align:center}
-.hd-block .big{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--gold)}
-.hd-block .small{font-size:.55rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-top:.2rem}
-.hd-sep{width:1px;height:44px;background:var(--line)}
-.hero-loc{margin-top:1.6rem;font-size:.78rem;font-weight:600;color:var(--dim)}
-.hero-loc strong{color:var(--text)}
-.hero-cta{display:inline-block;margin-top:1.8rem;background:var(--gold);color:#0a0a0a;text-decoration:none;font-weight:900;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.95rem 2.4rem;border-radius:12px;box-shadow:0 8px 40px rgba(245,197,24,.3);transition:transform .15s}
-.hero-cta:hover{transform:translateY(-2px)}
+.hero{position:relative;text-align:center;padding:3.4rem 1.1rem 2.2rem}
+.hero-presents{font-size:.58rem;font-weight:800;letter-spacing:.42em;text-transform:uppercase;color:var(--org);margin-bottom:1.1rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.3rem,14vw,7.5rem);line-height:.86;letter-spacing:.015em;text-shadow:0 4px 40px rgba(0,0,0,.7)}
+.hero-title .l2{display:block;color:var(--org);text-shadow:0 0 55px rgba(255,107,0,.45)}
+.hero-stars{margin-top:1.1rem;font-size:.72rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase}
+.hero-stars .s{color:var(--org)}
+.hero-card{max-width:520px;margin:1.7rem auto 0;background:var(--glass);border:1px solid var(--org-line);border-radius:16px;backdrop-filter:blur(10px);box-shadow:0 0 55px rgba(255,107,0,.14),inset 0 0 30px rgba(255,107,0,.05);overflow:hidden}
+.hc-rows{display:grid;grid-template-columns:1fr 1fr}
+.hc-cell{padding:.95rem .9rem;text-align:left}
+.hc-cell:first-child{border-right:1px solid var(--line)}
+.hc-lbl{display:flex;align-items:center;gap:.35rem;font-size:.52rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--org);margin-bottom:.35rem}
+.hc-val{font-size:.74rem;font-weight:800;line-height:1.45}
+.hc-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.85rem;background:transparent;border:none;border-top:1px solid var(--org-line);color:var(--org);font-family:-apple-system,'Inter',sans-serif;font-weight:900;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.hc-btn:hover{background:var(--org-soft)}
 
-/* ── COUNTDOWN ── */
-.count{display:flex;justify-content:center;gap:.7rem;padding:0 1.2rem 3rem;flex-wrap:wrap}
-.count-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9rem 1.1rem;min-width:76px;text-align:center;backdrop-filter:blur(8px)}
-.count-box .n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;color:var(--gold)}
-.count-box .l{font-size:.5rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.3rem}
+/* ── PRÓXIMA CARRERA ── */
+.next-race{max-width:520px;margin:1rem auto 0;padding:0 1.1rem}
+.nr-card{background:var(--glass);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(10px);padding:1rem 1.1rem;text-align:left}
+.nr-kick{font-size:.55rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--org)}
+.nr-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.04em;margin:.15rem 0 .4rem}
+.nr-chips{display:flex;gap:.4rem;margin-bottom:.5rem}
+.nr-chip{font-size:.54rem;font-weight:900;letter-spacing:.1em;border:1px solid var(--line);border-radius:5px;padding:.2rem .5rem;background:rgba(255,255,255,.05)}
+.nr-sub{font-size:.68rem;font-weight:800;letter-spacing:.04em}
+.nr-sub2{font-size:.56rem;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem}
+.nr-hr{height:1px;background:var(--line);margin:.75rem 0 .6rem}
+.nr-cd-lbl{font-size:.55rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--org);margin-bottom:.3rem}
+.nr-cd{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;letter-spacing:.06em}
+.nr-cd span{color:var(--org)}
 
 /* ── SECTIONS ── */
-section{max-width:900px;margin:0 auto;padding:3rem 1.2rem}
-.sec-kicker{font-size:.58rem;font-weight:800;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.03em;margin-bottom:1.6rem}
+section{max-width:760px;margin:0 auto;padding:2.4rem 1rem 0}
+.sec-hd{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--org-line),transparent)}
+.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.12em;white-space:nowrap}
+.sec-note{text-align:center;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:-.6rem 0 1rem}
 
 /* ── FIELD ── */
-.field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.7rem}
-.horse-card{display:flex;align-items:center;gap:.9rem;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem;backdrop-filter:blur(8px);transition:border-color .15s,transform .15s}
-.horse-card:hover{border-color:rgba(245,197,24,.45);transform:translateY(-2px)}
-.gate{flex-shrink:0;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.35rem;background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.35);color:var(--gold)}
-.gate.tbd{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--dim);font-size:.9rem}
-.horse-card .hn{font-weight:800;font-size:.85rem;letter-spacing:.04em}
-.horse-card .hs{font-size:.62rem;color:var(--dim);font-weight:600;margin-top:.15rem;letter-spacing:.05em}
+.field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.55rem}
+.fh{display:flex;align-items:center;gap:.7rem;background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:.65rem .75rem;backdrop-filter:blur(8px)}
+.fh:hover{border-color:var(--org-line)}
+.fh-gate{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;background:var(--org-soft);border:1px solid var(--org-line);color:var(--org)}
+.fh-gate.x{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--dim);font-size:.75rem}
+.fh-n{font-weight:800;font-size:.74rem;letter-spacing:.04em}
+.fh-c{font-size:.55rem;color:var(--dim);font-weight:700;margin-top:.1rem;letter-spacing:.05em;text-transform:uppercase}
 
-/* ── PROGRAMA ── */
-.race{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem;margin-bottom:.9rem;backdrop-filter:blur(8px)}
-.race.final{border-color:rgba(245,197,24,.5);background:linear-gradient(160deg,rgba(245,197,24,.1),rgba(245,197,24,.02))}
-.race-top{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem}
-.race-num{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#0a0a0a;background:var(--gold);border-radius:8px;padding:.2rem .6rem;letter-spacing:.05em}
-.race-hit{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em}
-.race-dist{margin-left:auto;font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--gold);border:1px solid rgba(245,197,24,.35);border-radius:999px;padding:.25rem .7rem}
-.race-note{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.7rem}
-.race-badge{display:inline-block;font-size:.55rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#0a0a0a;background:var(--gold);border-radius:5px;padding:.22rem .55rem;margin-bottom:.7rem}
-.entries{display:flex;flex-direction:column;gap:.4rem}
-.entry{display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:700}
-.entry .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.entry .st{color:var(--dim);font-weight:600;font-size:.68rem}
-.vs-row{display:flex;align-items:stretch;gap:.6rem;flex-wrap:wrap}
-.vs-horse{flex:1;min-width:120px;text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:.9rem .6rem}
-.vs-horse .vn{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.05em}
-.vs-horse .vst{font-size:.6rem;color:var(--dim);font-weight:700;margin-top:.2rem;letter-spacing:.06em}
-.vs-mark{align-self:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold)}
+/* ── RACES ── */
+.race-list{display:flex;flex-direction:column;gap:.6rem}
+.rc{background:var(--glass);border:1px solid var(--line);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.rc.final{border-color:var(--org-line);box-shadow:0 0 35px rgba(255,107,0,.12)}
+.rc.picked{border-color:var(--org-line)}
+.rc-top{display:flex;align-items:center;gap:.6rem;padding:.8rem .9rem;flex-wrap:wrap}
+.rc-num{width:30px;height:30px;border-radius:50%;background:var(--org);color:#160b02;font-family:'Bebas Neue',sans-serif;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rc-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em}
+.rc-dist{margin-left:auto;font-size:.55rem;font-weight:900;letter-spacing:.14em;color:var(--org);border:1px solid var(--org-line);border-radius:999px;padding:.22rem .6rem;white-space:nowrap}
+.rc-note{padding:0 .9rem .6rem;font-size:.55rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.rc-final-tag{display:inline-block;margin:0 .9rem .6rem;font-size:.52rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#160b02;background:var(--org);border-radius:5px;padding:.22rem .55rem}
+.rc-opts{border-top:1px solid var(--line);padding:.55rem .9rem .8rem;display:flex;flex-direction:column;gap:.4rem}
+.opt{display:flex;align-items:center;gap:.65rem;padding:.6rem .7rem;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s;background:rgba(255,255,255,.02)}
+.opt:hover{border-color:var(--org-line)}
+.opt.sel{border-color:var(--org);background:var(--org-soft)}
+.opt.dim{opacity:.42}
+.opt-ava{flex-shrink:0;width:34px;height:34px;border-radius:8px;background:linear-gradient(150deg,#241505,#3a220a);border:1px solid var(--org-line);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--org)}
+.opt-n{font-weight:800;font-size:.76rem;letter-spacing:.04em}
+.opt-c{font-size:.54rem;color:var(--dim);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:.1rem}
+.opt-chk{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--org);color:#160b02;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:900;opacity:0;transition:opacity .15s;flex-shrink:0}
+.opt.sel .opt-chk{opacity:1}
+.opt-vs{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:.85rem;color:var(--org);letter-spacing:.2em;padding:.05rem 0}
+
+/* ── MIS PICKS ── */
+.picks-panel{background:var(--glass);border:1px solid var(--org-line);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 0 40px rgba(255,107,0,.1)}
+.pp-head{background:var(--org);padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.pp-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.08em;color:#160b02}
+.pp-cnt{font-size:.6rem;font-weight:900;color:rgba(22,11,2,.65);letter-spacing:1px}
+.pp-rows{padding:.4rem 1rem .8rem}
+.prow{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.prow:last-child{border:none}
+.prow .pn{font-size:.6rem;font-weight:900;color:var(--org);min-width:18px}
+.prow .pname{font-size:.68rem;font-weight:800;text-transform:uppercase;flex:1;letter-spacing:.3px}
+.prow .pname.empty{color:var(--dim);font-weight:400;text-transform:none}
+.prow .pchk{width:16px;height:16px;border-radius:50%;background:var(--org);color:#160b02;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:900;opacity:0;flex-shrink:0}
+.prow.done .pchk{opacity:1}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.8rem;width:100%;background:var(--org);color:#160b02;border:none;border-radius:12px;padding:.95rem;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.1em;cursor:pointer;box-shadow:0 6px 30px rgba(255,107,0,.3)}
+.share-btn:active{filter:brightness(.92)}
 
 /* ── SPONSORS ── */
-.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
-.sp-card{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1rem;backdrop-filter:blur(8px)}
-.sp-card .sn{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.06em;color:var(--gold)}
-.sp-card .sc{font-size:.58rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.3rem}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem}
+.sp{text-align:center;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:1.15rem .8rem;backdrop-filter:blur(8px)}
+.sp-n{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.07em;color:var(--org)}
+.sp-c{font-size:.52rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:.25rem}
 
 /* ── INFO ── */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
-.info-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem;backdrop-filter:blur(8px)}
-.info-card .ic{font-size:1.3rem;margin-bottom:.5rem}
-.info-card .it{font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
-.info-card .iv{font-size:.85rem;font-weight:700;line-height:1.5}
-.info-card a{color:var(--text);text-decoration:none;border-bottom:1px solid rgba(245,197,24,.4)}
-.info-card a:hover{color:var(--gold)}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem}
+.inf{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:1.1rem;backdrop-filter:blur(8px)}
+.inf-t{font-size:.55rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--org);margin-bottom:.35rem}
+.inf-v{font-size:.8rem;font-weight:800;line-height:1.5}
+.inf a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--org-line)}
+.inf a:hover{color:var(--org)}
 
 /* ── FOOTER ── */
-footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--line);margin-top:2rem}
-.f-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em}
-.f-title em{color:var(--gold);font-style:normal}
-.f-sub{font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-top:.4rem}
-.share-btn{margin-top:1.2rem;background:transparent;border:1px solid rgba(245,197,24,.4);color:var(--gold);font-family:'Inter',sans-serif;font-weight:800;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;padding:.7rem 1.6rem;border-radius:10px;cursor:pointer;transition:background .15s}
-.share-btn:hover{background:rgba(245,197,24,.1)}
+footer{text-align:center;padding:2.4rem 1rem 2rem;margin-top:2.4rem;border-top:1px solid var(--line)}
+.f-mark{width:44px;height:44px;margin:0 auto .6rem;border:2px solid var(--org);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--org)}
+.f-t{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.12em}
+.f-s{font-size:.55rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:.3rem}
+
+/* ── TAB BAR ── */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:300;display:flex;background:rgba(10,8,6,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:.45rem 0 calc(.45rem + env(safe-area-inset-bottom))}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem;text-decoration:none;color:var(--dim);font-size:.5rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;position:relative}
+.tb svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tb.on,.tb:hover{color:var(--org)}
+.tb-dot{position:absolute;top:-2px;right:calc(50% - 16px);min-width:15px;height:15px;border-radius:8px;background:var(--org);color:#160b02;font-size:.52rem;font-weight:900;display:none;align-items:center;justify-content:center;padding:0 3px}
+.tb-dot.show{display:flex}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--org);color:#160b02;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.08em;padding:.6rem 1.3rem;border-radius:30px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999;box-shadow:0 8px 30px rgba(255,107,0,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">RANCHO <em>MALPICA</em></div>
+<nav class="nav">
+  <div class="logo">
+    <div class="logo-mark">RM</div>
+    <div class="logo-txt">RANCHO<br>MALPICA</div>
+  </div>
   <div class="nav-links">
-    <a href="#maturity">Maturity</a>
     <a href="#programa">Programa</a>
-    <a href="#patrocinadores">Sponsors</a>
+    <a href="#mispicks">Mis Picks</a>
     <a href="#info">Info</a>
   </div>
+  <span class="nav-badge" id="navBadge">0 / 9</span>
+  <button class="nav-cta" onclick="document.getElementById('programa').scrollIntoView()">⚡ Hacer Mis Picks</button>
 </nav>
 
 <header class="hero">
-  <div class="hero-org">Carreras de Caballos · Duette, Florida</div>
-  <h1 class="hero-title">RANCHO<span class="t2">MALPICA</span></h1>
-  <div class="hero-tag">Maturity El Rey de Malpica</div>
-  <div class="hero-stars">★ 14 Caballos Adentro ★</div>
+  <div class="hero-presents">Rancho Malpica Presenta</div>
+  <h1 class="hero-title">MATURITY<span class="l2">EL REY DE MALPICA</span></h1>
+  <div class="hero-stars"><span class="s">★ ★</span> &nbsp;14 CABALLOS ADENTRO&nbsp; <span class="s">★ ★</span></div>
 
-  <div class="hero-date">
-    <div class="hd-block"><div class="big">DOM</div><div class="small">Domingo</div></div>
-    <div class="hd-sep"></div>
-    <div class="hd-block"><div class="big">26</div><div class="small">De Julio</div></div>
-    <div class="hd-sep"></div>
-    <div class="hd-block"><div class="big">2026</div><div class="small">Duette · FL</div></div>
+  <div class="hero-card">
+    <div class="hc-rows">
+      <div class="hc-cell">
+        <div class="hc-lbl">📅 Fecha</div>
+        <div class="hc-val">DOMINGO 26 DE JULIO 2026<br>9:00 AM</div>
+      </div>
+      <div class="hc-cell">
+        <div class="hc-lbl">📍 Ubicación</div>
+        <div class="hc-val">10355 CR 39,<br>DUETTE, FL</div>
+      </div>
+    </div>
+    <button class="hc-btn" onclick="document.getElementById('programa').scrollIntoView()">Ver Programa Completo ›</button>
   </div>
 
-  <div class="hero-loc">📍 <strong>10355 CR 39, Duette, FL</strong> · 9 carreras · Maturity a 5 hits</div>
-  <a class="hero-cta" href="#programa">Ver Programa</a>
+  <div class="next-race">
+    <div class="nr-card">
+      <div class="nr-kick">Próxima Carrera</div>
+      <div class="nr-title">CARRERA #05</div>
+      <div class="nr-chips"><span class="nr-chip">HIT 5</span><span class="nr-chip">250Y</span></div>
+      <div class="nr-sub">MATURITY EL REY DE MALPICA</div>
+      <div class="nr-sub2">Última Eliminatoria</div>
+      <div class="nr-hr"></div>
+      <div class="nr-cd-lbl">⏱ Arranca En</div>
+      <div class="nr-cd"><span id="cdD">--</span>D <span id="cdH">--</span>H <span id="cdM">--</span>M</div>
+    </div>
+  </div>
 </header>
 
-<div class="count" id="countdown">
-  <div class="count-box"><div class="n" id="cd-d">--</div><div class="l">Días</div></div>
-  <div class="count-box"><div class="n" id="cd-h">--</div><div class="l">Horas</div></div>
-  <div class="count-box"><div class="n" id="cd-m">--</div><div class="l">Min</div></div>
-  <div class="count-box"><div class="n" id="cd-s">--</div><div class="l">Seg</div></div>
-</div>
-
-<section id="maturity">
-  <div class="sec-kicker">El Campo Completo</div>
-  <h2 class="sec-title">Maturity · 14 Caballos</h2>
-  <div class="field-grid">
-    <div class="horse-card"><div class="gate">8</div><div><div class="hn">EL CASH</div><div class="hs">C. Valdez/Amaro</div></div></div>
-    <div class="horse-card"><div class="gate">7</div><div><div class="hn">LA TURISTA</div><div class="hs">C. Talibanes</div></div></div>
-    <div class="horse-card"><div class="gate">6</div><div><div class="hn">EL ANGELITO</div><div class="hs">C. Los Compadres</div></div></div>
-    <div class="horse-card"><div class="gate">5</div><div><div class="hn">EL SILENCIO</div><div class="hs">C. Los Prietos</div></div></div>
-    <div class="horse-card"><div class="gate">4</div><div><div class="hn">EL THOR</div><div class="hs">C. Elio Vázquez</div></div></div>
-    <div class="horse-card"><div class="gate">3</div><div><div class="hn">LA CHINA</div><div class="hs">C. China NV. León</div></div></div>
-    <div class="horse-card"><div class="gate">2</div><div><div class="hn">LA CHISPITA</div><div class="hs">C. FFA</div></div></div>
-    <div class="horse-card"><div class="gate">1</div><div><div class="hn">EL MENCHITO</div><div class="hs">C. Nava</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">LA SUPER PERFECTA</div><div class="hs">C. Los Primos</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL MORO PINGÜINO</div><div class="hs">C. Cimarrón</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL BOTAS BLANCAS</div><div class="hs">C. Dos Pleves/MG</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">LA MORA ITALIANA</div><div class="hs">C. Santa Fe</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL MORO TOKETEADO</div><div class="hs">C. Los Compas</div></div></div>
-    <div class="horse-card"><div class="gate tbd">★</div><div><div class="hn">EL ARROGANTE</div><div class="hs">C. China NV. León</div></div></div>
-  </div>
+<section id="caballos">
+  <div class="sec-hd"><span>EL MATURITY · 14 CABALLOS</span></div>
+  <div class="sec-note">9 carreras · Maturity a 5 hits</div>
+  <div class="field-grid" id="fieldGrid"></div>
 </section>
 
 <section id="programa">
-  <div class="sec-kicker">9 Carreras · Maturity a 5 Hits</div>
-  <h2 class="sec-title">Programa del Día</h2>
+  <div class="sec-hd"><span>PROGRAMA — HAZ TUS PICKS</span></div>
+  <div class="sec-note">Toca tu caballo para marcarlo</div>
+  <div class="race-list" id="raceList"></div>
+</section>
 
-  <div class="race">
-    <div class="race-top"><span class="race-num">C1</span><span class="race-hit bebas">HIT 1</span><span class="race-dist">250Y</span></div>
-    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
-    <div class="entries">
-      <div class="entry"><span class="dot"></span>EL CASH <span class="st">· C. Valdez/Amaro</span></div>
-      <div class="entry"><span class="dot"></span>LA TURISTA <span class="st">· C. Talibanes</span></div>
-      <div class="entry"><span class="dot"></span>EL ANGELITO <span class="st">· C. Los Compadres</span></div>
-    </div>
+<section id="mispicks">
+  <div class="sec-hd"><span>MIS PICKS</span></div>
+  <div class="picks-panel">
+    <div class="pp-head"><h3>Mis Picks</h3><span class="pp-cnt" id="picksCnt">0 DE 9</span></div>
+    <div class="pp-rows" id="pickRows"></div>
   </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C2</span><span class="race-hit bebas">HIT 2</span><span class="race-dist">250Y</span></div>
-    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
-    <div class="entries">
-      <div class="entry"><span class="dot"></span>EL SILENCIO <span class="st">· C. Los Prietos</span></div>
-      <div class="entry"><span class="dot"></span>EL THOR <span class="st">· C. Elio Vázquez</span></div>
-      <div class="entry"><span class="dot"></span>LA CHINA <span class="st">· C. China NV. León</span></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C3</span><span class="race-hit bebas">HIT 3</span><span class="race-dist">250Y</span></div>
-    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
-    <div class="entries">
-      <div class="entry"><span class="dot"></span>LA CHISPITA <span class="st">· C. FFA</span></div>
-      <div class="entry"><span class="dot"></span>EL MENCHITO <span class="st">· C. Nava</span></div>
-      <div class="entry"><span class="dot"></span>LA SUPER PERFECTA <span class="st">· C. Los Primos</span></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C4</span><span class="race-hit bebas">HIT 4</span><span class="race-dist">250Y</span></div>
-    <div class="race-note">Maturity El Rey de Malpica · Ronda Eliminatoria</div>
-    <div class="entries">
-      <div class="entry"><span class="dot"></span>EL MORO PINGÜINO <span class="st">· C. Cimarrón</span></div>
-      <div class="entry"><span class="dot"></span>EL BOTAS BLANCAS <span class="st">· C. Dos Pleves/MG</span></div>
-      <div class="entry"><span class="dot"></span>LA MORA ITALIANA <span class="st">· C. Santa Fe</span></div>
-    </div>
-  </div>
-
-  <div class="race final">
-    <div class="race-top"><span class="race-num">C5</span><span class="race-hit bebas">HIT 5</span><span class="race-dist">250Y</span></div>
-    <div class="race-badge">⚡ Última Eliminatoria · Maturity El Rey de Malpica</div>
-    <div class="entries">
-      <div class="entry"><span class="dot"></span>EL MORO TOKETEADO <span class="st">· C. Los Compas</span></div>
-      <div class="entry"><span class="dot"></span>EL ARROGANTE <span class="st">· C. China NV. León</span></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C6</span><span class="race-hit bebas">TRÍO ESTELAR</span><span class="race-dist">400Y</span></div>
-    <div class="vs-row">
-      <div class="vs-horse"><div class="vn">LA MONJA</div><div class="vst">C. Compadres</div></div>
-      <div class="vs-mark">VS</div>
-      <div class="vs-horse"><div class="vn">EL CHILAKIL</div><div class="vst">C. Chilango/Neza</div></div>
-      <div class="vs-mark">VS</div>
-      <div class="vs-horse"><div class="vn">LA ENFERMERA</div><div class="vst">C. Elio V.</div></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C7</span><span class="race-hit bebas">MANO A MANO</span><span class="race-dist">375 Y 400Y</span></div>
-    <div class="vs-row">
-      <div class="vs-horse"><div class="vn">EL MACHETE</div><div class="vst">C. Elio V.</div></div>
-      <div class="vs-mark">VS</div>
-      <div class="vs-horse"><div class="vn">EL SICARIO</div><div class="vst">C. Chimuelo</div></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C8</span><span class="race-hit bebas">MANO A MANO</span><span class="race-dist">250Y</span></div>
-    <div class="vs-row">
-      <div class="vs-horse"><div class="vn">EL SCAREFACE</div><div class="vst">C. Díaz/Ordaz</div></div>
-      <div class="vs-mark">VS</div>
-      <div class="vs-horse"><div class="vn">LA PLUMITA</div><div class="vst">C. GTO/Águila Real</div></div>
-    </div>
-  </div>
-
-  <div class="race">
-    <div class="race-top"><span class="race-num">C9</span><span class="race-hit bebas">TAPADOS NO MECHADOS</span><span class="race-dist">300Y</span></div>
-    <div class="vs-row">
-      <div class="vs-horse"><div class="vn">TAPADO</div><div class="vst">C. Los Primos</div></div>
-      <div class="vs-mark">VS</div>
-      <div class="vs-horse"><div class="vn">TAPADO</div><div class="vst">C. Pablito</div></div>
-    </div>
-  </div>
+  <button class="share-btn" onclick="sharePicks()">🏆 COMPARTIR MIS PICKS</button>
 </section>
 
 <section id="patrocinadores">
-  <div class="sec-kicker">Con el Apoyo De</div>
-  <h2 class="sec-title">Patrocinadores</h2>
+  <div class="sec-hd"><span>PATROCINADORES OFICIALES</span></div>
   <div class="sp-grid">
-    <div class="sp-card"><div class="sn">MORGADO PROMOTIONS</div><div class="sc">Promotora Oficial</div></div>
-    <div class="sp-card"><div class="sn">DJ PÁJARO</div><div class="sc">Ambiente Musical</div></div>
-    <div class="sp-card"><div class="sn">CARRILES &amp; CABALLOS</div><div class="sc">Photography</div></div>
+    <div class="sp"><div class="sp-n">MORGADO PROMOTIONS</div><div class="sp-c">Promotora Oficial</div></div>
+    <div class="sp"><div class="sp-n">DJ PÁJARO</div><div class="sp-c">Ambiente Musical</div></div>
+    <div class="sp"><div class="sp-n">CARRILES &amp; CABALLOS</div><div class="sp-c">Photography</div></div>
   </div>
 </section>
 
 <section id="info">
-  <div class="sec-kicker">Detalles del Evento</div>
-  <h2 class="sec-title">Información</h2>
+  <div class="sec-hd"><span>INFO</span></div>
   <div class="info-grid">
-    <div class="info-card">
-      <div class="ic">📅</div>
-      <div class="it">Fecha</div>
-      <div class="iv">Domingo 26 de Julio, 2026</div>
-    </div>
-    <div class="info-card">
-      <div class="ic">📍</div>
-      <div class="it">Ubicación</div>
-      <div class="iv"><a href="https://maps.google.com/?q=10355+CR+39,+Duette,+FL" target="_blank" rel="noopener">10355 CR 39, Duette, FL</a></div>
-    </div>
-    <div class="info-card">
-      <div class="ic">🏁</div>
-      <div class="it">Formato</div>
-      <div class="iv">9 carreras · Maturity a 5 hits · 250Y a 400Y</div>
-    </div>
+    <div class="inf"><div class="inf-t">📅 Fecha</div><div class="inf-v">Domingo 26 de Julio, 2026 · 9:00 AM</div></div>
+    <div class="inf"><div class="inf-t">📍 Ubicación</div><div class="inf-v"><a href="https://maps.google.com/?q=10355+CR+39,+Duette,+FL" target="_blank" rel="noopener">10355 CR 39, Duette, FL</a></div></div>
+    <div class="inf"><div class="inf-t">🏁 Formato</div><div class="inf-v">9 carreras · Maturity a 5 hits · 250Y–400Y</div></div>
   </div>
 </section>
 
 <footer>
-  <div class="f-title">RANCHO <em>MALPICA</em></div>
-  <div class="f-sub">Maturity El Rey de Malpica · Jul 26 · 2026</div>
-  <button class="share-btn" id="shareBtn">Compartir Evento</button>
+  <div class="f-mark">RM</div>
+  <div class="f-t">RANCHO MALPICA</div>
+  <div class="f-s">Maturity El Rey de Malpica · Duette, Florida</div>
 </footer>
 
+<div class="tabbar">
+  <a class="tb on" href="#caballos"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>Inicio</a>
+  <a class="tb" href="#programa"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Programa<span class="tb-dot" id="tbDot">0</span></a>
+  <a class="tb" href="#mispicks"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Mis Picks</a>
+  <a class="tb" href="#info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Info</a>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-(function(){
-  var target = new Date('2026-07-26T12:00:00-04:00').getTime();
-  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
-  function pad(n){return n<10?'0'+n:''+n}
+const FIELD = [
+  {gate:8,name:'EL CASH',stable:'C. Valdez/Amaro'},
+  {gate:7,name:'LA TURISTA',stable:'C. Talibanes'},
+  {gate:6,name:'EL ANGELITO',stable:'C. Los Compadres'},
+  {gate:5,name:'EL SILENCIO',stable:'C. Los Prietos'},
+  {gate:4,name:'EL THOR',stable:'C. Elio Vázquez'},
+  {gate:3,name:'LA CHINA',stable:'C. China NV. León'},
+  {gate:2,name:'LA CHISPITA',stable:'C. FFA'},
+  {gate:1,name:'EL MENCHITO',stable:'C. Nava'},
+  {gate:null,name:'LA SUPER PERFECTA',stable:'C. Los Primos'},
+  {gate:null,name:'EL MORO PINGÜINO',stable:'C. Cimarrón'},
+  {gate:null,name:'EL BOTAS BLANCAS',stable:'C. Dos Pleves/MG'},
+  {gate:null,name:'LA MORA ITALIANA',stable:'C. Santa Fe'},
+  {gate:null,name:'EL MORO TOKETEADO',stable:'C. Los Compas'},
+  {gate:null,name:'EL ARROGANTE',stable:'C. China NV. León'},
+];
+
+const RACES = [
+  {id:1,time:'HIT 1',dist:'250Y',type:'open',category:'MATURITY EL REY DE MALPICA',entryNote:'Ronda eliminatoria',entries:[
+    {name:'EL CASH',stable:'C. Valdez/Amaro'},{name:'LA TURISTA',stable:'C. Talibanes'},{name:'EL ANGELITO',stable:'C. Los Compadres'}]},
+  {id:2,time:'HIT 2',dist:'250Y',type:'open',category:'MATURITY EL REY DE MALPICA',entryNote:'Ronda eliminatoria',entries:[
+    {name:'EL SILENCIO',stable:'C. Los Prietos'},{name:'EL THOR',stable:'C. Elio Vázquez'},{name:'LA CHINA',stable:'C. China NV. León'}]},
+  {id:3,time:'HIT 3',dist:'250Y',type:'open',category:'MATURITY EL REY DE MALPICA',entryNote:'Ronda eliminatoria',entries:[
+    {name:'LA CHISPITA',stable:'C. FFA'},{name:'EL MENCHITO',stable:'C. Nava'},{name:'LA SUPER PERFECTA',stable:'C. Los Primos'}]},
+  {id:4,time:'HIT 4',dist:'250Y',type:'open',category:'MATURITY EL REY DE MALPICA',entryNote:'Ronda eliminatoria',entries:[
+    {name:'EL MORO PINGÜINO',stable:'C. Cimarrón'},{name:'EL BOTAS BLANCAS',stable:'C. Dos Pleves/MG'},{name:'LA MORA ITALIANA',stable:'C. Santa Fe'}]},
+  {id:5,time:'HIT 5',dist:'250Y',type:'open',featured:'FINAL · MATURITY EL REY DE MALPICA',category:'MATURITY EL REY DE MALPICA',entryNote:'Última eliminatoria',entries:[
+    {name:'EL MORO TOKETEADO',stable:'C. Los Compas'},{name:'EL ARROGANTE',stable:'C. China NV. León'}]},
+  {id:6,time:'',dist:'400Y',type:'duel',entries:[
+    {name:'LA MONJA',stable:'C. Compadres'},{name:'EL CHILAKIL',stable:'C. Chilango/Neza'},{name:'LA ENFERMERA',stable:'C. Elio V.'}]},
+  {id:7,time:'',dist:'375 Y 400Y',type:'duel',entries:[
+    {name:'EL MACHETE',stable:'C. Elio V.'},{name:'EL SICARIO',stable:'C. Chimuelo'}]},
+  {id:8,time:'',dist:'250Y',type:'duel',entries:[
+    {name:'EL SCAREFACE',stable:'C. Díaz/Ordaz'},{name:'LA PLUMITA',stable:'C. GTO/Águila Real'}]},
+  {id:9,time:'',dist:'300Y',type:'duel',section:'TAPADOS NO MECHADOS',entries:[
+    {name:'TAPADO',stable:'C. Los Primos'},{name:'TAPADO',stable:'C. Pablito'}]},
+];
+
+const STORE = 'rm-malpica-picks';
+let picks = {};
+try{picks = JSON.parse(localStorage.getItem(STORE)||'{}')}catch(e){picks={}}
+
+function initial(n){const w=n.replace(/^(EL|LA)\s+/i,'');return w.charAt(0)}
+
+function buildField(){
+  const g=document.getElementById('fieldGrid');
+  g.innerHTML=FIELD.map(f=>`
+    <div class="fh">
+      <div class="fh-gate${f.gate?'':' x'}">${f.gate??'★'}</div>
+      <div><div class="fh-n">${f.name}</div><div class="fh-c">${f.stable}</div></div>
+    </div>`).join('');
+}
+
+function buildRaces(){
+  const list=document.getElementById('raceList');
+  list.innerHTML='';
+  RACES.forEach(r=>{
+    const card=document.createElement('div');
+    card.className='rc'+(r.featured?' final':'')+(picks[r.id]!=null?' picked':'');
+    card.id='rc-'+r.id;
+    const title=r.type==='open'?r.time:(r.section||( r.entries.length>2?'TRÍO':'MANO A MANO'));
+    let head=`<div class="rc-top">
+        <div class="rc-num">${r.id}</div>
+        <div class="rc-name">${title}</div>
+        <div class="rc-dist">${r.dist}</div>
+      </div>`;
+    if(r.featured) head+=`<div class="rc-final-tag">⚡ ${r.featured}</div>`;
+    else if(r.entryNote) head+=`<div class="rc-note">${r.category?r.category+' · ':''}${r.entryNote}</div>`;
+    const opts=r.entries.map((e,i)=>`
+      <div class="opt${picks[r.id]===i?' sel':(picks[r.id]!=null?' dim':'')}" id="opt-${r.id}-${i}" onclick="pick(${r.id},${i})">
+        <div class="opt-ava">${initial(e.name)}</div>
+        <div><div class="opt-n">${e.name}</div><div class="opt-c">${e.stable}</div></div>
+        <div class="opt-chk">✓</div>
+      </div>`).join(r.type==='duel'?'<div class="opt-vs">— VS —</div>':'');
+    card.innerHTML=head+`<div class="rc-opts">${opts}</div>`;
+    list.appendChild(card);
+  });
+}
+
+function pick(id,idx){
+  const r=RACES.find(x=>x.id===id);
+  if(picks[id]===idx){delete picks[id]}
+  else{picks[id]=idx;toast('★ '+r.entries[idx].name)}
+  localStorage.setItem(STORE,JSON.stringify(picks));
+  r.entries.forEach((_,i)=>{
+    const el=document.getElementById(`opt-${id}-${i}`);
+    el.classList.toggle('sel',picks[id]===i);
+    el.classList.toggle('dim',picks[id]!=null&&picks[id]!==i);
+  });
+  document.getElementById('rc-'+id).classList.toggle('picked',picks[id]!=null);
+  updatePanel();
+}
+
+function updatePanel(){
+  const n=Object.keys(picks).length;
+  const badge=document.getElementById('navBadge');
+  badge.textContent=`${n} / 9`;
+  badge.classList.toggle('hot',n>0);
+  document.getElementById('picksCnt').textContent=`${n} DE 9`;
+  const dot=document.getElementById('tbDot');
+  dot.textContent=n;dot.classList.toggle('show',n>0);
+  document.getElementById('pickRows').innerHTML=RACES.map(r=>{
+    const p=picks[r.id]!=null?r.entries[picks[r.id]]:null;
+    return `<div class="prow${p?' done':''}">
+      <span class="pn">${r.id}</span>
+      <span class="pname${p?'':' empty'}">${p?p.name:'— sin selección'}</span>
+      <div class="pchk">✓</div></div>`;
+  }).join('');
+}
+
+function sharePicks(){
+  const n=Object.keys(picks).length;
+  if(!n){toast('¡Elige tus picks primero!');return}
+  let txt='🏆 Mis Picks — Maturity El Rey de Malpica\n📅 Domingo 26 de Julio · Rancho Malpica · Duette, FL\n\n';
+  RACES.forEach(r=>{
+    const p=picks[r.id]!=null?r.entries[picks[r.id]]:null;
+    txt+=`C${r.id}: ${p?'★ '+p.name:'—'}\n`;
+  });
+  txt+='\n'+location.href.split('#')[0];
+  if(navigator.share){navigator.share({title:'Mis Picks · Rancho Malpica',text:txt}).catch(()=>{})}
+  else{navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{})}
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600);
+}
+
+(function countdown(){
+  const target=new Date('2026-07-26T09:00:00-04:00').getTime();
   function tick(){
-    var diff = target - Date.now();
-    if(diff<=0){d.textContent='0';h.textContent='00';m.textContent='00';s.textContent='00';return}
-    d.textContent = Math.floor(diff/86400000);
-    h.textContent = pad(Math.floor(diff/3600000)%24);
-    m.textContent = pad(Math.floor(diff/60000)%60);
-    s.textContent = pad(Math.floor(diff/1000)%60);
-    setTimeout(tick,1000);
+    const diff=target-Date.now();
+    const d=Math.max(0,Math.floor(diff/86400000));
+    const h=Math.max(0,Math.floor(diff/3600000)%24);
+    const m=Math.max(0,Math.floor(diff/60000)%60);
+    document.getElementById('cdD').textContent=d;
+    document.getElementById('cdH').textContent=h;
+    document.getElementById('cdM').textContent=m;
+    setTimeout(tick,30000);
   }
   tick();
-
-  document.getElementById('shareBtn').addEventListener('click',function(){
-    var data = {title:'Rancho Malpica · Maturity El Rey de Malpica',text:'14 caballos adentro · Domingo 26 de Julio 2026 · Duette, FL',url:location.href};
-    if(navigator.share){navigator.share(data).catch(function(){})}
-    else{navigator.clipboard.writeText(location.href);this.textContent='¡Enlace Copiado!'}
-  });
 })();
+
+document.querySelectorAll('.tb').forEach(t=>t.addEventListener('click',function(){
+  document.querySelectorAll('.tb').forEach(x=>x.classList.remove('on'));
+  this.classList.add('on');
+}));
+
+buildField();
+buildRaces();
+updatePanel();
 </script>
 </body>
 </html>
