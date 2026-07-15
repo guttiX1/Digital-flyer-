@@ -1,0 +1,96 @@
+{
+  "slug": "rancho-malpica-jul26",
+  "page_title": "CarrerasOS · Rancho Malpica",
+  "page_description": "Rancho Malpica - Maturity El Rey De Malpica - Domingo 26 de Julio - Duette, FL. Haz tus picks para cada carrera.",
+  "countdown": "2026-07-26T10:00",
+
+  "event": {
+    "org": "RANCHO MALPICA",
+    "titleTop": "RANCHO",
+    "titleBottom": "MALPICA",
+    "tagline": "MATURITY EL REY DE MALPICA",
+    "stars": "14 CABALLOS ADENTRO",
+    "dayName": "DOMINGO",
+    "dayNum": "26",
+    "month": "DE JULIO",
+    "year": "2026",
+    "location": "Duette, Florida",
+    "address": "10355 CR 39, Duette, FL",
+    "phones": [],
+    "sponsors": [
+      { "name": "MORGADO PROMOTIONS", "cat": "Promotora Oficial" },
+      { "name": "DJ PÁJARO", "cat": "Ambiente Musical" },
+      { "name": "CARRILES & CABALLOS", "cat": "Photography" }
+    ],
+    "counts": "9 carreras · Maturity a 5 hits"
+  },
+
+  "field": [
+    { "gate": 8, "name": "EL CASH", "stable": "C. Valdez/Amaro" },
+    { "gate": 7, "name": "LA TURISTA", "stable": "C. Talibanes" },
+    { "gate": 6, "name": "EL ANGELITO", "stable": "C. Los Compadres" },
+    { "gate": 5, "name": "EL SILENCIO", "stable": "C. Los Prietos" },
+    { "gate": 4, "name": "EL THOR", "stable": "C. Elio Vázquez" },
+    { "gate": 3, "name": "LA CHINA", "stable": "C. China NV. León" },
+    { "gate": 2, "name": "LA CHISPITA", "stable": "C. FFA" },
+    { "gate": 1, "name": "EL MENCHITO", "stable": "C. Nava" },
+    { "gate": null, "name": "LA SUPER PERFECTA", "stable": "C. Los Primos" },
+    { "gate": null, "name": "EL MORO PINGÜINO", "stable": "C. Cimarrón" },
+    { "gate": null, "name": "EL BOTAS BLANCAS", "stable": "C. Dos Pleves/MG" },
+    { "gate": null, "name": "LA MORA ITALIANA", "stable": "C. Santa Fe" },
+    { "gate": null, "name": "EL MORO TOKETEADO", "stable": "C. Los Compas" },
+    { "gate": null, "name": "EL ARROGANTE", "stable": "C. China NV. León" }
+  ],
+
+  "races": [
+    { "id": 1, "time": "HIT 1", "dist": "250Y", "type": "open", "category": "MATURITY EL REY DE MALPICA", "entryNote": "Ronda eliminatoria",
+      "entries": ["EL CASH (C. Valdez/Amaro)", "LA TURISTA (C. Talibanes)", "EL ANGELITO (C. Los Compadres)"] },
+    { "id": 2, "time": "HIT 2", "dist": "250Y", "type": "open", "category": "MATURITY EL REY DE MALPICA", "entryNote": "Ronda eliminatoria",
+      "entries": ["EL SILENCIO (C. Los Prietos)", "EL THOR (C. Elio Vázquez)", "LA CHINA (C. China NV. León)"] },
+    { "id": 3, "time": "HIT 3", "dist": "250Y", "type": "open", "category": "MATURITY EL REY DE MALPICA", "entryNote": "Ronda eliminatoria",
+      "entries": ["LA CHISPITA (C. FFA)", "EL MENCHITO (C. Nava)", "LA SUPER PERFECTA (C. Los Primos)"] },
+    { "id": 4, "time": "HIT 4", "dist": "250Y", "type": "open", "category": "MATURITY EL REY DE MALPICA", "entryNote": "Ronda eliminatoria",
+      "entries": ["EL MORO PINGÜINO (C. Cimarrón)", "EL BOTAS BLANCAS (C. Dos Pleves/MG)", "LA MORA ITALIANA (C. Santa Fe)"] },
+    { "id": 5, "time": "HIT 5", "dist": "250Y", "type": "open", "featured": "FINAL · MATURITY EL REY DE MALPICA", "category": "MATURITY EL REY DE MALPICA", "entryNote": "Última eliminatoria",
+      "entries": ["EL MORO TOKETEADO (C. Los Compas)", "EL ARROGANTE (C. China NV. León)"] },
+    { "id": 6, "time": "—", "dist": "400Y", "type": "duel", "horses": [
+      { "name": "LA MONJA", "stable": "C. Compadres", "photo": "p1" },
+      { "name": "EL CHILAKIL", "stable": "C. Chilango/Neza", "photo": "p2" },
+      { "name": "LA ENFERMERA", "stable": "C. Elio V.", "photo": "p3" } ] },
+    { "id": 7, "time": "—", "dist": "375 Y 400Y", "type": "duel", "horses": [
+      { "name": "EL MACHETE", "stable": "C. Elio V.", "photo": "p5" },
+      { "name": "EL SICARIO", "stable": "C. Chimuelo", "photo": "p6" } ] },
+    { "id": 8, "time": "—", "dist": "250Y", "type": "duel", "horses": [
+      { "name": "EL SCAREFACE", "stable": "C. Díaz/Ordaz", "photo": "p7" },
+      { "name": "LA PLUMITA", "stable": "C. GTO/Águila Real", "photo": "p8" } ] },
+    { "id": 9, "time": "—", "dist": "300Y", "type": "duel", "section": "TAPADOS NO MECHADOS", "horses": [
+      { "name": "TAPADO", "stable": "C. Los Primos" },
+      { "name": "TAPADO", "stable": "C. Pablito" } ] }
+  ],
+
+  "ads": {
+    "4": { "img": "images/img12.jpg", "tag": "PATROCINADOR LOCAL", "title": "VALLEY MEATS · LA CARNICERÍA",
+           "tagline": "Tacos de carne asada · sabor real, sin competencia", "cta": "VER MENÚ",
+           "special": { "title": "2×1 EN TACOS", "text": "Presenta tu pick del día en el puesto de Valley Meats", "code": "PICKS12" } },
+    "9": { "img": "images/img10.jpg", "tag": "ESPACIO DISPONIBLE", "title": "TU MARCA AQUÍ",
+           "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento", "cta": "QUIERO ESTE ESPACIO",
+           "special": { "title": "SE VENDE ESTE ESPACIO", "text": "Tu negocio frente a miles de fans · aparta tu lugar para el próximo evento", "code": "CARRERASOS" } }
+  },
+
+  "_image_map": {
+    "images/img01.jpg": "duel photo p1 (horse portrait, ~440px wide)",
+    "images/img02.jpg": "duel photo p2",
+    "images/img03.jpg": "duel photo p3",
+    "images/img04.jpg": "duel photo p5",
+    "images/img05.jpg": "duel photo p6",
+    "images/img06.jpg": "duel photo p7",
+    "images/img07.jpg": "duel photo p8",
+    "images/img08.jpg": "extra photo pr1",
+    "images/img09.jpg": "wide banner photo (~640x280)",
+    "images/img10.jpg": "sponsor-slot ad image / logo",
+    "images/img11.jpg": "hero/poster image",
+    "images/img12.jpg": "sponsor ad image (Valley Meats slot)",
+    "images/img13.jpg": "secondary ad image",
+    "note": "New events: overwrite these files with new photos, SAME filenames. Icons: icon-192.png, icon-512.png, apple-touch-icon.png."
+  }
+}

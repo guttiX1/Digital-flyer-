@@ -40,9 +40,36 @@ When adding these, place them at the repository root.
 
 ---
 
-## 🐎 Flyer Upload Workflow — Event Package Protocol
+## 🏇 Flyer Upload Workflow — CarrerasOS App Template (PREFERRED)
 
-**Trigger:** User uploads a flyer image (any format) and asks for an event package, infographic, site, duel page, or anything event-related.
+**Trigger:** User uploads a flyer image (or zip) for a new event. This is the default protocol — it clones the interactive CarrerasOS picks app (the Rancho Malpica app) with the new event's data.
+
+### Step 1 — Extract every piece of data from the flyer
+Event/org name, tagline, date (day name, number, month, year), location + address, all horses with cuadras and gate numbers, every race (hits/eliminatorias vs mano-a-mano duels, distances), sponsors, race count.
+
+### Step 2 — Write the event.json
+Copy `templates/carrerasos-app/event.json` (the Rancho Malpica reference — full schema with comments) and fill in the new event's data. Key fields: `slug`, `page_title` ("CarrerasOS · <Track Name>"), `countdown` (ISO datetime), `event` (hero/org info), `field` (horses+gates), `races` (type "open" with `entries`, or "duel" with `horses`), `ads` (keep the "TU MARCA AQUÍ" sellable slot on the last race; put sold sponsor ads mid-program).
+
+### Step 3 — Generate
+```bash
+python3 tools/make_carrerasos_event.py path/to/event.json
+```
+This creates `events/<slug>/` with the full app. Then overwrite `events/<slug>/images/imgNN.jpg` with the event's own photos using the SAME filenames (mapping documented in `_image_map` in event.json). Verify with `node --check events/<slug>/bundle.js` and a headless Chromium screenshot.
+
+### Step 4 — Hub + ship
+Add an event card to `hub.html`, commit with a neutral message authored as the repo owner (no AI attribution — the owner requires no Claude/Vercel evidence in commits or files), push to `main`, confirm the Pages workflow succeeds, and reply with:
+`https://guttix1.github.io/Digital-flyer-/events/<slug>/`
+
+### Rules
+- ASK BEFORE PUSHING anything the user didn't explicitly request. The owner requires authorization before changes.
+- Never hard-code pixel font sizes that can overflow 360px-wide screens; the template's overflow guard and clamp() titles must stay.
+- The GitHub Pages URL above is the shareable link; the repo also auto-deploys to the owner's Vercel project.
+
+---
+
+## 🐎 Legacy Workflow — Pista Noir Event Package (fallback only)
+
+**Trigger:** Only if the user explicitly asks for the old-style static pages (site/duel/infographic/video-ad) instead of the CarrerasOS app.
 
 ### Step 1 — Extract Event Data from Flyer
 Read the uploaded image carefully and extract **every piece of information**:
