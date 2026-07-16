@@ -1,0 +1,304 @@
+{
+  "slug": "el-nochistlense-ago15",
+  "page_title": "CarrerasOS · El Nochistlense",
+  "page_description": "El Nochistlense - Carril Nochistlense Oklahoma - Propuestas 15 de Agosto - 15 carreras. Info: Compa León 918 807-8551.",
+  "countdown": "2026-08-15T10:00",
+  "event": {
+    "org": "CARRIL NOCHISTLENSE",
+    "titleTop": "EL NOCHISTLENSE",
+    "titleBottom": "OKLAHOMA",
+    "tagline": "PROPUESTAS · 15 DE AGOSTO",
+    "stars": "15 CARRERAS PROPUESTAS",
+    "dayName": "SÁBADO",
+    "dayNum": "15",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Mannford, Oklahoma",
+    "address": "Mannford, OK",
+    "phones": [
+      "918 807-8551"
+    ],
+    "sponsors": [
+      {
+        "name": "CUADRA 2RR",
+        "cat": "Presenta"
+      },
+      {
+        "name": "EL COMPA LEÓN",
+        "cat": "Inscripciones · 918 807-8551"
+      }
+    ],
+    "counts": "15 carreras · Aún hay tiempo de alistar esos ligeros"
+  },
+  "field": [
+    {
+      "gate": 1,
+      "name": "ABIERTA 70TEROS",
+      "stable": "100 Yardas · 3K + 500 quiniela"
+    },
+    {
+      "gate": 2,
+      "name": "ABIERTA LIBRE",
+      "stable": "275 Yardas · 10K"
+    },
+    {
+      "gate": 3,
+      "name": "GANADORES 2",
+      "stable": "265 Yardas · 5K"
+    },
+    {
+      "gate": 4,
+      "name": "CABALLOS MAIDEN",
+      "stable": "330 Yardas · 5K"
+    },
+    {
+      "gate": 5,
+      "name": "ABIERTA LIBRE",
+      "stable": "375 Yardas · 7.5K"
+    },
+    {
+      "gate": 6,
+      "name": "GANADORES 1",
+      "stable": "250 Yardas · 5K"
+    },
+    {
+      "gate": 7,
+      "name": "YEGUAS MAIDEN",
+      "stable": "150 Yardas · 2K"
+    },
+    {
+      "gate": 8,
+      "name": "SIN TATO Y SIN RÉCORD",
+      "stable": "350 Yardas · 1.5K"
+    },
+    {
+      "gate": 9,
+      "name": "CLAIMEROS DE 10K",
+      "stable": "300 Yardas · 3K"
+    },
+    {
+      "gate": 10,
+      "name": "ABIERTA MAIDEN",
+      "stable": "250 Yardas · 3K"
+    },
+    {
+      "gate": 11,
+      "name": "2 GANADORES 1",
+      "stable": "200 Yardas · 3K"
+    },
+    {
+      "gate": 12,
+      "name": "2 AÑEROS MAIDEN",
+      "stable": "200 Yardas · 1.5K"
+    },
+    {
+      "gate": 13,
+      "name": "2 AÑEROS MAIDEN",
+      "stable": "250 Yardas · 1.5K"
+    },
+    {
+      "gate": 14,
+      "name": "2 AÑEROS MAIDEN",
+      "stable": "300 Yardas · 1.5K"
+    },
+    {
+      "gate": 15,
+      "name": "NUEVA · 100Y MAIDEN",
+      "stable": "100 Yardas · 2K"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "CARRERA 1",
+      "dist": "100Y",
+      "type": "open",
+      "category": "ABIERTA 100 YARDAS · CABALLOS 70TEROS",
+      "entryNote": "Entrada: 3K + 500 en quiniela (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 2,
+      "time": "CARRERA 2",
+      "dist": "275Y",
+      "type": "open",
+      "category": "ABIERTA LIBRE",
+      "entryNote": "Entrada: 10K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 3,
+      "time": "CARRERA 3",
+      "dist": "265Y",
+      "type": "open",
+      "category": "ABIERTA PARA CABALLOS GANADORES 2",
+      "entryNote": "Entrada: 5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 4,
+      "time": "CARRERA 4",
+      "dist": "330Y",
+      "type": "open",
+      "category": "ABIERTA PARA CABALLOS MAIDEN",
+      "entryNote": "Entrada: 5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 5,
+      "time": "CARRERA 5",
+      "dist": "375Y",
+      "type": "open",
+      "category": "ABIERTA LIBRE",
+      "entryNote": "Entrada: 7.5K",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 6,
+      "time": "CARRERA 6",
+      "dist": "250Y",
+      "type": "open",
+      "category": "ABIERTA PARA GANADORES 1",
+      "entryNote": "Entrada: 5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 7,
+      "time": "CARRERA 7",
+      "dist": "150Y",
+      "type": "open",
+      "category": "ABIERTA PARA PURAS YEGUAS MAIDEN",
+      "entryNote": "Entrada: 2K",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 8,
+      "time": "CARRERA 8",
+      "dist": "350Y",
+      "type": "open",
+      "category": "ABIERTA SIN TATO Y SIN RÉCORD",
+      "entryNote": "Entrada: 1.5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 9,
+      "time": "CARRERA 9",
+      "dist": "300Y",
+      "type": "open",
+      "category": "ABIERTA PARA CLAIMEROS DE 10K JUGANDO TRAQUE",
+      "entryNote": "Entrada: 3K",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "CARRERA 10",
+      "dist": "250Y",
+      "type": "open",
+      "category": "ABIERTA MAIDEN · JUGANDO TRAQUE",
+      "entryNote": "Entrada: 3K",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "CARRERA 11",
+      "dist": "200Y",
+      "type": "open",
+      "category": "2 ABIERTA PARA GANADORES 1 · EN EL TRAQUE",
+      "entryNote": "Entrada: 3K",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "CARRERA 12",
+      "dist": "200Y",
+      "type": "open",
+      "category": "2 AÑEROS MAIDEN · QUE HAYAN JUGADO EN TULSA",
+      "entryNote": "Entrada: 1.5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 13,
+      "time": "CARRERA 13",
+      "dist": "250Y",
+      "type": "open",
+      "category": "2 AÑEROS MAIDEN · QUE HAYAN JUGADO EN TULSA",
+      "entryNote": "Entrada: 1.5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 14,
+      "time": "CARRERA 14",
+      "dist": "300Y",
+      "type": "open",
+      "category": "2 AÑEROS MAIDEN · QUE HAYAN JUGADO EN TULSA",
+      "entryNote": "Entrada: 1.5K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "CARRERA 15",
+      "dist": "100Y",
+      "type": "open",
+      "featured": "NUEVA · ÚLTIMA PROPUESTA",
+      "category": "ABIERTA 100Y MAIDEN · CLAIMEROS DE 10K · TULSA 2K",
+      "entryNote": "Entrada: 2K (1 adentro)",
+      "entries": [
+        "INSCRIPCIONES ABIERTAS · 918 807-8551"
+      ]
+    }
+  ],
+  "ads": {
+    "8": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · Info: 918 807-8551",
+        "code": "CARRERASOS"
+      }
+    },
+    "15": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · Info: 918 807-8551",
+        "code": "CARRERASOS"
+      }
+    }
+  }
+}

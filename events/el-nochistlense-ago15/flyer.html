@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Nochistlense · Propuestas 15 de Agosto · Oklahoma</title>
+  <meta name="description" content="Propuestas 15 de Agosto - El Nochistlense - Carril Nochistlense Oklahoma - 15 carreras - Info: Compa León 918 807-8551">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; max-width: 100vw; }
+
+    body {
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 12px;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .flyer {
+      width: 100%;
+      max-width: 440px;
+      background: #0d0d0d;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(224,30,43,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── 1. TOP BAR ── */
+    .top-bar {
+      background: #E01E2B;
+      padding: 9px 20px;
+      text-align: center;
+    }
+    .top-bar span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #ffffff;
+    }
+
+    /* ── 2. HEADER with 3D track name ── */
+    .header {
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 0%, rgba(224,30,43,0.22), transparent 65%),
+        #0d0d0d;
+      text-align: center;
+      padding: 26px 12px 22px;
+      border-bottom: 3px solid #E01E2B;
+    }
+    .header .kicker {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 6px;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+    .header .date-line {
+      display: inline-block;
+      background: #E01E2B;
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      padding: 3px 16px;
+      border-radius: 4px;
+      margin: 8px 0 14px;
+      box-shadow: 0 4px 14px rgba(224,30,43,0.5);
+    }
+
+    /* 3D TRACK NAME */
+    .t3d-wrap {
+      transform: perspective(420px) rotateX(14deg);
+      transform-origin: 50% 100%;
+    }
+    .t3d-gold {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(26px, 9vw, 58px);
+      line-height: 0.95;
+      letter-spacing: 1px;
+      color: #FFD24A;
+      text-shadow:
+        0 1px 0 #c69a1c, 0 2px 0 #b98e18,
+        0 3px 0 #a87f13, 0 4px 0 #96700f, 0 5px 0 #85620b,
+        0 6px 0 #735407, 0 7px 0 #624604,
+        0 9px 4px rgba(0,0,0,0.55), 0 14px 22px rgba(0,0,0,0.65);
+    }
+    .t3d-red {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(22px, 7.5vw, 48px);
+      line-height: 0.95;
+      letter-spacing: 6px;
+      color: #FF2E3C;
+      margin-top: 2px;
+      text-shadow:
+        0 1px 0 #b6121e, 0 2px 0 #a30f1a, 0 3px 0 #8f0c16,
+        0 4px 0 #7c0a12, 0 5px 0 #68070e, 0 6px 0 #55050a,
+        0 8px 4px rgba(0,0,0,0.55), 0 13px 20px rgba(0,0,0,0.7);
+    }
+    .header .subtitle {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #9a9a9a;
+      text-transform: uppercase;
+    }
+
+    /* ── 3. TABLE HEAD ── */
+    .thead {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #E01E2B;
+      padding: 8px 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      color: #fff;
+      font-size: 13px;
+    }
+    .thead .c1 { width: 26px; }
+    .thead .c2 { flex: 1; }
+    .thead .c3 { width: 92px; text-align: center; }
+    .thead .c4 { width: 96px; text-align: right; }
+
+    /* ── 4. PROPUESTAS ── */
+    .schedule { padding: 0 14px 6px; }
+    .race-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .race-row:last-child { border-bottom: none; }
+    .race-num {
+      width: 26px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px;
+      color: #E01E2B;
+      flex-shrink: 0;
+    }
+    .race-name {
+      min-width: 0;
+      overflow-wrap: break-word;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f2f2f2;
+      flex: 1;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+    .race-dist {
+      width: 92px;
+      text-align: center;
+      background: rgba(255,210,74,0.1);
+      border: 1px solid rgba(255,210,74,0.35);
+      color: #FFD24A;
+      font-size: 11px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+      padding: 3px 4px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .race-fee {
+      width: 96px;
+      text-align: right;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #ff7d86;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+    .new-badge {
+      display: inline-block;
+      background: #FFD24A;
+      color: #111;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-right: 4px;
+      vertical-align: 1px;
+    }
+
+    @media (max-width: 390px) {
+      .race-dist, .thead .c3 { width: 72px; font-size: 10px; }
+      .race-fee, .thead .c4 { width: 82px; }
+      .race-fee { font-size: 9.5px; }
+      .race-row, .thead { gap: 6px; }
+    }
+
+    /* ── 5. NOTE ── */
+    .note {
+      text-align: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #FFD24A;
+      padding: 14px 16px 4px;
+    }
+
+    /* ── 6. WHATSAPP CTA ── */
+    .wa-section { padding: 12px 16px 18px; text-align: center; }
+    .wa-btn {
+      display: block;
+      background: #1eb955;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      font-size: 20px;
+      box-shadow: 0 6px 24px rgba(30,185,85,0.35);
+    }
+    .wa-btn small {
+      display: block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+    .wa-num {
+      margin-top: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 34px;
+      letter-spacing: 3px;
+      color: #FFD24A;
+      text-shadow: 0 2px 0 #85620b, 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    /* ── 7. QR ── */
+    .qr-section {
+      background: #111;
+      border-top: 3px solid #E01E2B;
+      padding: 16px;
+      text-align: center;
+    }
+    .qr-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .qr-img {
+      width: 140px;
+      height: 140px;
+      display: block;
+      margin: 0 auto 8px;
+      border: 3px solid #E01E2B;
+      padding: 4px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .qr-sub {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* ── 8. FOOTER ── */
+    .footer {
+      background: #E01E2B;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="flyer">
+
+    <!-- 1. TOP BAR -->
+    <div class="top-bar">
+      <span>CUADRA 2RR · MANNFORD, OKLAHOMA</span>
+    </div>
+
+    <!-- 2. HEADER -->
+    <div class="header">
+      <div class="kicker">PROPUESTAS</div><br>
+      <div class="date-line">SÁBADO · 15 DE AGOSTO</div>
+      <div class="t3d-wrap">
+        <div class="t3d-gold">EL NOCHISTLENSE</div>
+        <div class="t3d-red">OKLAHOMA</div>
+      </div>
+      <div class="subtitle">Carril Nochistlense · 15 Carreras Propuestas</div>
+    </div>
+
+    <!-- 3. TABLE HEAD -->
+    <div class="thead">
+      <span class="c1">#</span>
+      <span class="c2">CONDICIÓN</span>
+      <span class="c3">DISTANCIA</span>
+      <span class="c4">ENTRADA</span>
+    </div>
+
+    <!-- 4. PROPUESTAS -->
+    <div class="schedule">
+      <div class="race-row"><span class="race-num">1</span><span class="race-name">Abierta 100 yardas, caballos 70teros</span><span class="race-dist">100 YARDAS</span><span class="race-fee">3K + 500 quiniela<br>(1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">2</span><span class="race-name">Abierta libre</span><span class="race-dist">275 YARDAS</span><span class="race-fee">10K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">3</span><span class="race-name">Abierta para caballos ganadores 2</span><span class="race-dist">265 YARDAS</span><span class="race-fee">5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">4</span><span class="race-name">Abierta para caballos maiden</span><span class="race-dist">330 YARDAS</span><span class="race-fee">5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">5</span><span class="race-name">Abierta libre</span><span class="race-dist">375 YARDAS</span><span class="race-fee">7.5K</span></div>
+      <div class="race-row"><span class="race-num">6</span><span class="race-name">Abierta para ganadores 1</span><span class="race-dist">250 YARDAS</span><span class="race-fee">5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">7</span><span class="race-name">Abierta para puras yeguas maiden</span><span class="race-dist">150 YARDAS</span><span class="race-fee">2K</span></div>
+      <div class="race-row"><span class="race-num">8</span><span class="race-name">Abierta sin tato y sin récord</span><span class="race-dist">350 YARDAS</span><span class="race-fee">1.5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">9</span><span class="race-name">Abierta para claimeros de 10K que estén jugando traque</span><span class="race-dist">300 YARDAS</span><span class="race-fee">3K</span></div>
+      <div class="race-row"><span class="race-num">10</span><span class="race-name">Abierta maiden, 250 yardas, que estén jugando traque</span><span class="race-dist">250 YARDAS</span><span class="race-fee">3K</span></div>
+      <div class="race-row"><span class="race-num">11</span><span class="race-name">2 abierta para ganadores 1, 200 yardas, que estén jugando en el traque</span><span class="race-dist">200 YARDAS</span><span class="race-fee">3K</span></div>
+      <div class="race-row"><span class="race-num">12</span><span class="race-name">2 añeros maiden, 200 yardas, que hayan jugado en Tulsa</span><span class="race-dist">200 YARDAS</span><span class="race-fee">1.5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">13</span><span class="race-name">2 añeros maiden, 250 yardas, que hayan jugado en Tulsa</span><span class="race-dist">250 YARDAS</span><span class="race-fee">1.5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">14</span><span class="race-name">2 añeros maiden, 300 yardas, que hayan jugado en Tulsa</span><span class="race-dist">300 YARDAS</span><span class="race-fee">1.5K (1 adentro)</span></div>
+      <div class="race-row"><span class="race-num">15</span><span class="race-name"><span class="new-badge">NUEVA</span>Abierta 100Y maiden, claimeros de 10K que allá jugado en Tulsa 2K</span><span class="race-dist">100 YARDAS</span><span class="race-fee">2K (1 adentro)</span></div>
+    </div>
+
+    <!-- 5. NOTE -->
+    <div class="note">¡AÚN HAY TIEMPO DE ALISTAR ESOS LIGEROS!</div>
+
+    <!-- 6. WHATSAPP -->
+    <div class="wa-section">
+      <a class="wa-btn" href="https://wa.me/19188078551" target="_blank" rel="noopener">
+        💬 COMUNICARSE CON EL COMPA LEÓN
+        <small>PARA MÁS INFORMACIÓN · WHATSAPP</small>
+      </a>
+      <div class="wa-num">918 807-8551</div>
+    </div>
+
+    <!-- 7. QR -->
+    <div class="qr-section">
+      <div class="qr-title">COMPARTE LAS PROPUESTAS</div>
+      <img id="qr" class="qr-img" src="" alt="QR Code">
+      <div class="qr-sub">ESCANEA · COMPARTE · ALISTA</div>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <div class="footer">
+      <p>&copy;2026 EL NOCHISTLENSE &nbsp;&middot;&nbsp; CARRIL NOCHISTLENSE OKLAHOMA</p>
+    </div>
+
+  </div>
+
+  <script>
+    const url = 'https://guttix1.github.io/Digital-flyer-/events/el-nochistlense-ago15/';
+    document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+  </script>
+</body>
+</html>
