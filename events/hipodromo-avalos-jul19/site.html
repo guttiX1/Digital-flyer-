@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="theme-color" content="#F6F1E7">
+<title>Copa Avalos · Gran Final Triple Corona — Hipódromo Avalos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --cream:#F6F1E7;
+  --card:#FFFFFF;
+  --ink:#1A150F;
+  --muted:#8F8878;
+  --faint:#B9B2A2;
+  --line:#EBE4D5;
+  --soft:#F4EFE4;
+  --orange:#FF6B00;
+  --orange-hi:#FF8A1F;
+  --orange-deep:#C24E00;
+  --orange-ink:#7A2F00;
+  --gold:#FFD200;
+  --gold-deep:#C99700;
+  --gold-ink:#9A6800;
+  --bebas:'Bebas Neue','Arial Narrow',sans-serif;
+  --inter:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:var(--inter);overflow-x:hidden;padding-bottom:92px;}
+a{color:inherit;}
+
+/* ============ STICKY HEADER ============ */
+.nav{position:sticky;top:0;z-index:300;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:.7rem 1rem;display:flex;align-items:center;gap:.65rem;border-bottom:1px solid var(--line);box-shadow:0 6px 24px rgba(26,21,15,.07);}
+.nav-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 32% 30%,#FFB25E,var(--orange) 62%,#E05500);box-shadow:0 0 0 5px rgba(255,107,0,.12),0 4px 12px rgba(255,107,0,.35);}
+.nav-l{flex:1;min-width:0;}
+.nav-l .l1{font-size:.8rem;font-weight:900;letter-spacing:.02em;color:var(--ink);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-l .l2{font-size:.52rem;font-weight:800;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;margin-top:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-badge{background:var(--ink);color:var(--gold);font-family:var(--bebas);font-size:.82rem;letter-spacing:.08em;padding:.42rem .85rem;border-radius:100px;white-space:nowrap;box-shadow:0 4px 12px rgba(26,21,15,.25);}
+
+/* ============ TICKER ============ */
+.ticker{background:var(--ink);padding:.42rem 0;overflow:hidden;}
+.t-track{display:flex;white-space:nowrap;animation:scroll 30s linear infinite;}
+.t-track span{font-family:var(--bebas);font-size:.8rem;letter-spacing:.16em;color:var(--gold);padding:0 1.25rem;}
+.t-track span::after{content:'◆';color:rgba(255,210,0,.28);margin-left:1.25rem;font-size:.45rem;vertical-align:middle;}
+@keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ============ HERO ============ */
+.hero{position:relative;overflow:hidden;padding:2.4rem 1.1rem 5.6rem;text-align:center;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,210,0,.22),transparent 42%),
+    radial-gradient(circle at 88% 30%,rgba(255,107,0,.16),transparent 46%),
+    radial-gradient(circle at 50% 105%,rgba(255,107,0,.20),transparent 55%),
+    var(--cream);}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(26,21,15,.055) 1px,transparent 1.4px);background-size:15px 15px;pointer-events:none;}
+.hero::after{content:'AVALOS';position:absolute;top:44%;left:50%;transform:translate(-50%,-50%) rotate(-6deg);font-family:var(--bebas);font-size:clamp(5rem,30vw,9rem);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px rgba(26,21,15,.055);white-space:nowrap;pointer-events:none;}
+.hero-inner{position:relative;z-index:2;}
+.hero-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.75);border:1.5px solid rgba(255,107,0,.55);color:var(--orange);font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:100px;margin-bottom:1.35rem;box-shadow:0 4px 18px rgba(255,107,0,.12);}
+.hero-title{font-family:var(--bebas);font-size:clamp(4.4rem,25vw,7.4rem);line-height:.83;letter-spacing:.008em;}
+.hero-title .l1{display:block;color:var(--ink);text-shadow:.035em .035em 0 rgba(26,21,15,.14),.07em .09em 26px rgba(26,21,15,.22);}
+.hero-title .l2{display:block;color:var(--orange);text-shadow:.032em .032em 0 var(--orange-deep),.064em .064em 0 rgba(122,47,0,.55),.09em .12em 34px rgba(255,107,0,.42);}
+.hero-stars{margin-top:1.05rem;color:var(--gold-deep);font-size:.72rem;letter-spacing:.22em;font-weight:800;text-transform:uppercase;text-shadow:0 0 18px rgba(255,210,0,.55);}
+.hero-stars b{color:var(--gold-ink);}
+.hero-entry{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;background:var(--ink);color:var(--gold);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.1rem;border-radius:100px;box-shadow:0 6px 18px rgba(26,21,15,.3);}
+.hero-cta{display:flex;gap:.55rem;justify-content:center;flex-wrap:wrap;margin-top:1.7rem;}
+.btn{font-family:var(--inter);font-size:.78rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;padding:.95rem 1.45rem;border-radius:14px;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:transform .12s;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:linear-gradient(120deg,var(--orange-hi),var(--orange) 55%,#F25E00);color:#241000;box-shadow:0 10px 28px rgba(255,107,0,.42),inset 0 1px 0 rgba(255,255,255,.35);}
+.btn-white{background:var(--card);color:var(--ink);box-shadow:0 6px 20px rgba(26,21,15,.12);}
+.btn-outline{background:rgba(255,255,255,.5);color:var(--gold-ink);border:1.5px solid rgba(201,151,0,.55);}
+
+/* date card overlapping hero */
+.date-card{position:relative;z-index:5;background:var(--card);max-width:280px;margin:-3.9rem auto 0;border-radius:26px;padding:1.45rem 1rem 1.3rem;text-align:center;box-shadow:0 24px 60px rgba(26,21,15,.20),0 2px 10px rgba(26,21,15,.06);}
+.date-card .dow{font-size:.72rem;font-weight:800;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;}
+.date-card .dnum{font-family:var(--bebas);font-size:4.6rem;line-height:.95;color:var(--gold-deep);margin-top:.15rem;text-shadow:0 3px 0 rgba(201,151,0,.18);}
+.date-card .dmonth{font-size:1.25rem;font-weight:900;letter-spacing:.14em;color:var(--ink);}
+.date-card .dyear{font-size:.8rem;font-weight:800;letter-spacing:.3em;color:var(--orange);margin-top:.25rem;}
+
+.addr{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:1.25rem;padding:0 1.2rem;line-height:1.7;}
+.addr a{color:var(--ink);font-weight:900;text-decoration:none;border-bottom:2px solid rgba(255,107,0,.4);}
+
+/* countdown */
+.countdown-wrap{display:flex;justify-content:center;margin:1.15rem 1.2rem 0;}
+.countdown{background:var(--card);border-radius:18px;padding:.9rem 2rem;text-align:center;box-shadow:0 0 0 1.5px rgba(255,107,0,.18),0 14px 40px rgba(255,107,0,.22);}
+.countdown .lbl{font-size:.6rem;font-weight:800;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;}
+.countdown .val{font-family:var(--bebas);font-size:2.15rem;letter-spacing:.06em;color:var(--ink);line-height:1.05;margin-top:.1rem;}
+
+/* big CTA */
+.mega-cta{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:1.25rem 1.1rem 0;width:calc(100% - 2.2rem);background:linear-gradient(120deg,var(--orange-hi) 0%,var(--orange) 45%,#F25E00 100%);color:#241000;border:none;border-radius:18px;padding:1.15rem;font-family:var(--inter);font-size:.92rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 14px 40px rgba(255,107,0,.45),inset 0 1.5px 0 rgba(255,255,255,.4);transition:transform .12s;}
+.mega-cta:active{transform:scale(.98);}
+
+/* sponsors mini row */
+.spon-hd{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-top:1.9rem;font-size:.62rem;font-weight:800;letter-spacing:.24em;color:var(--gold-ink);text-transform:uppercase;}
+.spon-hd::before,.spon-hd::after{content:'●';color:var(--orange);font-size:.4rem;}
+.spon-row{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;padding:0 1.1rem;margin-top:.85rem;}
+.spon-mini{background:var(--card);border-radius:16px;padding:1rem .8rem;text-align:center;box-shadow:0 4px 18px rgba(26,21,15,.07);}
+.spon-mini .n{font-size:.82rem;font-weight:900;letter-spacing:.03em;color:var(--ink);}
+.spon-mini .s{font-size:.58rem;font-weight:600;color:var(--muted);margin-top:.2rem;}
+
+/* estelar teaser strip */
+.estelar-strip{display:flex;gap:.7rem;padding:1rem 1.1rem .2rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.estelar-strip::-webkit-scrollbar{display:none;}
+.et{flex:0 0 auto;min-width:215px;position:relative;overflow:hidden;background:linear-gradient(135deg,#241B10,#120D07 70%);border-radius:18px;padding:1.05rem 1.15rem 1.1rem;text-decoration:none;box-shadow:0 10px 30px rgba(26,21,15,.28);}
+.et::after{content:'';position:absolute;top:-30%;right:-18%;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,0,.35),transparent 65%);}
+.et-tag{display:inline-block;font-size:.54rem;font-weight:800;letter-spacing:.16em;color:var(--orange-hi);text-transform:uppercase;border:1px solid rgba(255,107,0,.45);padding:.2rem .6rem;border-radius:100px;}
+.et-title{font-family:var(--bebas);font-size:1.5rem;color:#fff;line-height:.98;margin-top:.55rem;letter-spacing:.02em;text-shadow:0 2px 0 rgba(0,0,0,.4);}
+.et-title span{color:var(--gold);}
+.et-meta{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.55);margin-top:.45rem;letter-spacing:.08em;text-transform:uppercase;}
+
+/* ============ PROGRAM SECTION HEAD ============ */
+.prog-hd{text-align:center;padding:2rem 1rem .35rem;}
+.prog-hd .big{display:flex;align-items:center;gap:.9rem;justify-content:center;}
+.prog-hd .big::before,.prog-hd .big::after{content:'';flex:0 1 64px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,107,0,.6));}
+.prog-hd .big::after{background:linear-gradient(90deg,rgba(255,107,0,.6),transparent);}
+.prog-hd .big span{font-family:var(--bebas);font-size:2.2rem;letter-spacing:.1em;color:var(--orange);text-shadow:0 0 26px rgba(255,107,0,.5),0 2px 0 rgba(194,78,0,.35);white-space:nowrap;}
+.prog-hd .sub{font-size:.64rem;font-weight:800;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:.3rem;}
+
+/* section labels inside list */
+.sec-lbl{display:flex;align-items:center;gap:.45rem;margin:1.1rem .2rem .1rem;font-family:var(--bebas);font-size:1rem;letter-spacing:.12em;color:var(--gold-ink);font-style:italic;}
+.sec-lbl::before{content:'🏆';font-style:normal;font-size:.85rem;}
+
+/* ============ RACE CARDS ============ */
+.race-list{padding:.5rem .9rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;}
+.rc{position:relative;background:var(--card);border-radius:20px;border:1.5px solid rgba(235,228,213,.9);box-shadow:0 3px 16px rgba(26,21,15,.06);overflow:hidden;transition:box-shadow .2s,border-color .2s;}
+.rc.open{box-shadow:0 12px 36px rgba(255,107,0,.16);border-color:rgba(255,107,0,.35);}
+.rc.picked{border-color:rgba(255,180,0,.55);}
+.rc.special{border-color:rgba(255,107,0,.4);box-shadow:0 6px 26px rgba(255,107,0,.14);}
+.rc.special::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--orange));}
+.rc-head{padding:.95rem 1rem .95rem;cursor:pointer;}
+.rc-pills{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:800;letter-spacing:.06em;padding:.3rem .68rem;border-radius:9px;white-space:nowrap;}
+.pill-num{background:linear-gradient(120deg,var(--orange-hi),var(--orange));color:#fff;font-family:var(--bebas);font-size:.82rem;letter-spacing:.1em;padding:.26rem .66rem;box-shadow:0 3px 10px rgba(255,107,0,.35);}
+.pill-time{background:var(--soft);color:#6B6455;}
+.pill-dist{background:#fff;border:1.5px solid rgba(201,151,0,.55);color:var(--gold-ink);font-family:var(--bebas);font-size:.8rem;letter-spacing:.1em;padding:.22rem .62rem;}
+.pill-purse{background:#FFF3E5;border:1px solid rgba(255,107,0,.35);color:#C24E00;}
+.pill-fire{background:var(--ink);color:var(--gold);}
+.rc-chev{margin-left:auto;width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;}
+.rc-chev::after{content:'';width:7px;height:7px;border-right:2.5px solid #A79F8D;border-bottom:2.5px solid #A79F8D;transform:rotate(45deg) translate(-1px,-1px);transition:transform .2s;}
+.rc.open .rc-chev::after{transform:rotate(-135deg) translate(-1px,-1px);}
+.rc-title{font-size:1.02rem;font-weight:900;letter-spacing:.01em;color:var(--ink);text-transform:uppercase;margin-top:.65rem;line-height:1.2;}
+.rc-title .vs{color:var(--orange);font-family:var(--bebas);letter-spacing:.06em;padding:0 .15rem;}
+.rc-sub{font-size:.7rem;font-weight:600;font-style:italic;color:var(--muted);margin-top:.22rem;}
+.rc-note{display:inline-block;font-size:.6rem;font-weight:700;color:#C24E00;background:#FFF3E5;border-radius:8px;padding:.28rem .6rem;margin-top:.5rem;}
+.pick-chip{display:inline-flex;align-items:center;gap:.4rem;margin-top:.6rem;font-size:.64rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);border:1.5px solid rgba(255,107,0,.5);background:#FFF7EF;padding:.4rem .8rem;border-radius:100px;}
+.pick-chip::before{content:'✓';font-weight:900;}
+
+.rc-body{display:none;border-top:1.5px solid var(--soft);padding:.9rem 1rem 1.05rem;background:linear-gradient(to bottom,#FDFBF6,#fff);}
+.rc.open .rc-body{display:block;}
+.choose-lbl{font-family:var(--bebas);font-size:1.05rem;letter-spacing:.14em;color:var(--ink);font-style:italic;text-align:center;text-shadow:0 0 16px rgba(255,107,0,.3);}
+.choose-hint{font-size:.6rem;color:var(--faint);text-align:center;margin:.2rem 0 .8rem;font-weight:600;}
+
+/* duel grid */
+.duel-grid{display:grid;grid-template-columns:1fr 44px 1fr;align-items:stretch;}
+.duel-grid.three{grid-template-columns:1fr 30px 1fr 30px 1fr;}
+.dh{position:relative;background:var(--soft);border:2px solid transparent;border-radius:16px;padding:1.05rem .5rem .95rem;text-align:center;cursor:pointer;transition:all .16s;}
+.dh .shoe{width:30px;height:30px;color:var(--orange);margin:0 auto .45rem;display:block;filter:drop-shadow(0 2px 4px rgba(255,107,0,.3));}
+.dh-name{font-family:var(--bebas);font-size:1.28rem;letter-spacing:.03em;color:var(--ink);line-height:.95;}
+.dh-cuad{font-size:.54rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;}
+.dh.selected{background:#FFF4E8;border-color:var(--orange);box-shadow:0 8px 26px rgba(255,107,0,.3);}
+.dh.dimmed{opacity:.42;filter:grayscale(.7);}
+.dh-check{position:absolute;top:-8px;right:-6px;width:26px;height:26px;border-radius:50%;background:linear-gradient(130deg,var(--orange-hi),var(--orange));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;opacity:0;transform:scale(.5);transition:all .18s;box-shadow:0 4px 12px rgba(255,107,0,.5);}
+.dh.selected .dh-check{opacity:1;transform:scale(1);}
+.duel-mid{display:flex;align-items:center;justify-content:center;}
+.vs-circle{width:38px;height:38px;border-radius:50%;background:linear-gradient(130deg,var(--orange-hi),var(--orange));color:#fff;font-family:var(--bebas);font-size:.95rem;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px rgba(255,107,0,.14),0 6px 16px rgba(255,107,0,.4);}
+.duel-grid.three .vs-circle{width:26px;height:26px;font-size:.68rem;box-shadow:0 0 0 4px rgba(255,107,0,.14),0 4px 10px rgba(255,107,0,.4);}
+.duel-grid.three .dh{padding:.85rem .3rem .8rem;}
+.duel-grid.three .dh-name{font-size:1.05rem;}
+
+/* open race list */
+.open-list{display:flex;flex-direction:column;gap:.5rem;}
+.oh{display:flex;align-items:center;gap:.7rem;background:var(--soft);border:2px solid transparent;border-radius:14px;padding:.82rem .9rem;cursor:pointer;transition:all .16s;}
+.oh .shoe{width:20px;height:20px;color:var(--orange);flex-shrink:0;}
+.oh-name{font-size:.8rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);flex:1;min-width:0;}
+.oh-radio{width:21px;height:21px;border-radius:50%;border:2.5px solid #D8D0BE;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .16s;font-size:11px;font-weight:900;color:transparent;}
+.oh.selected{background:#FFF4E8;border-color:var(--orange);box-shadow:0 6px 20px rgba(255,107,0,.22);}
+.oh.selected .oh-radio{border-color:var(--orange);background:var(--orange);color:#fff;}
+.oh.selected .oh-radio::after{content:'✓';}
+
+/* footer strip */
+.foot{padding:2rem 1.2rem .6rem;text-align:center;}
+.foot-rules{font-size:.64rem;font-weight:700;color:var(--muted);letter-spacing:.04em;}
+.socials{display:flex;gap:.7rem;justify-content:center;align-items:center;margin-top:1.1rem;}
+.socials .s-lbl{font-size:.58rem;font-weight:800;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin-right:.2rem;}
+.socials a{width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:0 4px 14px rgba(26,21,15,.1);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);}
+.socials svg{width:17px;height:17px;}
+.powered{font-size:.62rem;font-weight:700;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;margin-top:1.2rem;}
+.powered b{color:var(--orange);}
+
+/* ============ PANELS ============ */
+.panel{display:none;}
+.panel.active{display:block;}
+.panel-pad{padding:1.6rem 1.1rem 1rem;}
+.panel-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;}
+.panel-title{font-family:var(--bebas);font-style:italic;font-size:3rem;letter-spacing:.02em;color:var(--ink);line-height:.9;text-shadow:0 0 30px rgba(255,107,0,.4);}
+.panel-sub{font-size:.66rem;font-weight:800;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:.55rem;}
+.share-pill{display:inline-flex;align-items:center;gap:.4rem;background:#FFF7EF;border:1.5px solid rgba(255,107,0,.5);color:var(--orange);font-size:.64rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1rem;border-radius:100px;cursor:pointer;flex-shrink:0;}
+.share-pill svg{width:13px;height:13px;}
+
+.picks-stats{position:relative;background:linear-gradient(120deg,var(--orange-hi) 0%,var(--orange) 55%,#F05C00 100%);border-radius:20px;padding:1.35rem 1rem 1.15rem;margin-top:1.35rem;box-shadow:0 16px 44px rgba(255,107,0,.38),inset 0 1.5px 0 rgba(255,255,255,.35);display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;}
+.ps{text-align:center;color:#fff;}
+.ps-n{font-family:var(--bebas);font-size:3rem;line-height:.9;text-shadow:0 3px 0 rgba(122,47,0,.35);}
+.ps-l{font-size:.56rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:.35rem;opacity:.9;}
+.ps-sep{width:1px;height:44px;background:rgba(255,255,255,.35);}
+.progress-track{grid-column:1/-1;height:7px;background:rgba(122,47,0,.4);border-radius:10px;margin-top:1.05rem;overflow:hidden;}
+.progress-fill{height:100%;background:#fff;border-radius:10px;width:0;transition:width .35s;box-shadow:0 0 10px rgba(255,255,255,.7);}
+
+.picks-rows{margin-top:1.25rem;display:flex;flex-direction:column;gap:.55rem;}
+.prow{display:flex;align-items:center;gap:.75rem;background:var(--card);border:1.5px solid var(--line);border-radius:15px;padding:.85rem 1rem;cursor:pointer;box-shadow:0 2px 10px rgba(26,21,15,.05);transition:border-color .15s;}
+.prow.done{border-color:rgba(255,180,0,.55);}
+.prow .pn{font-size:.62rem;font-weight:900;color:var(--orange);min-width:26px;}
+.prow .pname{font-size:.76rem;font-weight:800;text-transform:uppercase;color:var(--ink);flex:1;letter-spacing:.03em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.prow .pname.empty{color:#CBC4B2;font-weight:600;text-transform:none;font-style:italic;}
+.prow .pcheck{color:var(--orange);font-weight:900;font-size:.9rem;opacity:0;flex-shrink:0;}
+.prow.done .pcheck{opacity:1;}
+
+.share-big{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-top:1.3rem;width:100%;background:var(--ink);color:var(--gold);border:none;border-radius:16px;padding:1.1rem;font-family:var(--inter);font-size:.82rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 32px rgba(26,21,15,.3);}
+.share-big:active{background:#2E2619;}
+
+/* info page */
+.info-card{background:var(--card);border-radius:22px;padding:1.5rem 1.3rem 1.1rem;margin-top:1.3rem;box-shadow:0 10px 36px rgba(26,21,15,.09);}
+.info-hero-badge{display:inline-flex;align-items:center;gap:.4rem;border:1.5px solid rgba(255,107,0,.5);color:var(--orange);font-size:.56rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.4rem .95rem;border-radius:100px;background:#FFF9F2;}
+.info-title{font-family:var(--bebas);font-size:3rem;line-height:.85;margin-top:.9rem;}
+.info-title .a{color:var(--ink);text-shadow:.035em .035em 0 rgba(26,21,15,.13);}
+.info-title .b{color:var(--orange);text-shadow:.032em .032em 0 var(--orange-deep),.07em .08em 22px rgba(255,107,0,.35);}
+.info-stars{color:var(--gold-deep);font-size:.62rem;letter-spacing:.2em;font-weight:800;text-transform:uppercase;margin-top:.65rem;}
+.info-rows{margin-top:1.05rem;}
+.info-row{display:flex;align-items:flex-start;gap:.7rem;font-size:.76rem;padding:.72rem 0;border-top:1px solid var(--soft);}
+.info-row .ic{width:30px;height:30px;border-radius:10px;background:#FFF4E8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;}
+.info-row .k{font-size:.56rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);}
+.info-row .v{font-weight:800;color:var(--ink);margin-top:.15rem;line-height:1.35;}
+.info-row .v a{text-decoration:none;border-bottom:1.5px solid rgba(255,107,0,.4);}
+
+/* premium sponsor cards */
+.spon-big{position:relative;overflow:hidden;background:linear-gradient(135deg,#26120A 0%,#160B05 60%,#0D0703 100%);border-radius:20px;padding:1.5rem 1.35rem 1.4rem;margin-top:.9rem;box-shadow:0 14px 40px rgba(26,21,15,.35);}
+.spon-big::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,210,0,.06) 1px,transparent 1.4px);background-size:13px 13px;}
+.spon-big::after{content:'';position:absolute;top:-45%;right:-20%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,0,.4),transparent 62%);}
+.spon-big .inner{position:relative;z-index:2;}
+.spon-big .tag{display:inline-block;font-size:.54rem;font-weight:800;letter-spacing:.2em;color:var(--orange-hi);text-transform:uppercase;border:1px solid rgba(255,107,0,.5);padding:.28rem .75rem;border-radius:100px;background:rgba(255,107,0,.08);}
+.spon-big .n{font-family:var(--bebas);font-size:2.3rem;color:#fff;letter-spacing:.04em;line-height:1;margin-top:.7rem;text-shadow:0 3px 0 rgba(0,0,0,.5),0 0 30px rgba(255,210,0,.25);}
+.spon-big .n span{color:var(--gold);}
+.spon-big .s{font-size:.66rem;font-weight:600;color:rgba(255,255,255,.55);margin-top:.4rem;letter-spacing:.04em;}
+
+/* ============ TAB BAR ============ */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1.5px solid var(--line);display:flex;padding:.55rem .6rem calc(.55rem + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(26,21,15,.08);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:.22rem;background:none;border:none;cursor:pointer;padding:.35rem;color:#B4AC99;position:relative;}
+.tab svg{width:22px;height:22px;}
+.tab-lbl{font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;}
+.tab.active{color:var(--orange);}
+.tab.active svg{filter:drop-shadow(0 0 8px rgba(255,107,0,.55));}
+.tab-count{position:absolute;top:0;left:calc(50% + 6px);background:linear-gradient(130deg,var(--orange-hi),var(--orange));color:#fff;font-size:.52rem;font-weight:900;min-width:16px;height:16px;padding:0 3px;border-radius:100px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(255,107,0,.5);}
+
+/* toast */
+.toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:var(--gold);font-family:var(--bebas);font-size:.95rem;letter-spacing:.1em;padding:.7rem 1.4rem;border-radius:100px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999;max-width:88vw;overflow:hidden;text-overflow:ellipsis;box-shadow:0 10px 30px rgba(26,21,15,.4);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(min-width:520px){
+  .race-list,.panel-pad,.spon-row{max-width:520px;margin-left:auto;margin-right:auto;}
+  .estelar-strip{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-shoe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round">
+    <path d="M5.2 21v-6.4a6.8 6.8 0 0 1 13.6 0V21"/>
+  </symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="1.15" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="5.5" r="2.6"/><circle cx="17.5" cy="18.5" r="2.6"/>
+    <line x1="8.3" y1="10.7" x2="15.2" y2="6.8"/><line x1="8.3" y1="13.3" x2="15.2" y2="17.2"/>
+  </symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M14.5 8.5V6.8c0-.8.5-1 1-1h2V2.5h-3c-2.5 0-4 1.9-4 4.2v1.8H8v3.3h2.5V22h4v-10.2h2.7l.4-3.3h-3.1z"/>
+  </symbol>
+</svg>
+
+<nav class="nav">
+  <div class="nav-dot"></div>
+  <div class="nav-l">
+    <div class="l1">HIPÓDROMO AVALOS</div>
+    <div class="l2">Copa Avalos · Gran Final Triple Corona</div>
+  </div>
+  <div class="nav-badge" id="navBadge">0 / 23 PICKS</div>
+</nav>
+
+<div class="ticker">
+  <div class="t-track">
+    <span>EL CHALÁN</span><span>EL ZAFIRO</span><span>EL CUATE</span><span>EL GENERADOR</span><span>BATICHICA</span><span>EL POLLO</span><span>MIKIMA</span><span>CHABOCHI</span><span>DEPRECIADO</span><span>GRAN FINAL TRIPLE CORONA</span><span>COPA AVALOS MATURITY</span>
+    <span>EL CHALÁN</span><span>EL ZAFIRO</span><span>EL CUATE</span><span>EL GENERADOR</span><span>BATICHICA</span><span>EL POLLO</span><span>MIKIMA</span><span>CHABOCHI</span><span>DEPRECIADO</span><span>GRAN FINAL TRIPLE CORONA</span><span>COPA AVALOS MATURITY</span>
+  </div>
+</div>
+
+<!-- ================= PROGRAMA ================= -->
+<div class="panel active" id="page-programa">
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">🔥 Hipódromo Avalos Presenta</div>
+      <h1 class="hero-title"><span class="l1">COPA</span><span class="l2">AVALOS</span></h1>
+      <div class="hero-stars">★ ★ ★ &nbsp;<b>23 Carreras Adentro</b>&nbsp; ★ ★ ★</div>
+      <div class="hero-entry">🎟️ Entrada General: $300.00</div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#programa-sec">Ver Programa →</a>
+        <button class="btn btn-white" onclick="setTab('picks')">Mis Picks</button>
+        <a class="btn btn-outline" href="https://maps.google.com/?q=Hipodromo+Avalos" target="_blank" rel="noopener">📍 Cómo Llegar</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="date-card">
+    <div class="dow">Domingo</div>
+    <div class="dnum">19</div>
+    <div class="dmonth">DE JULIO</div>
+    <div class="dyear">2 0 2 6</div>
+  </div>
+
+  <p class="addr">Domingo 19 de Julio · Arrancamos 10:00 AM<br>
+    <a href="https://maps.google.com/?q=Hipodromo+Avalos" target="_blank" rel="noopener">Hipódromo Avalos</a></p>
+
+  <div class="countdown-wrap">
+    <div class="countdown">
+      <div class="lbl">Arranca En</div>
+      <div class="val" id="countdownVal">—</div>
+    </div>
+  </div>
+
+  <button class="mega-cta" onclick="goProgram()">⚡ Hacer Mis Picks »</button>
+
+  <div class="spon-hd">Patrocinadores Oficiales</div>
+  <div class="spon-row">
+    <div class="spon-mini"><div class="n">NUTRIGAFER</div><div class="s">Patrocinador Oficial</div></div>
+    <div class="spon-mini"><div class="n">PURO CABALLO PERRÓN</div><div class="s">Patrocinador Oficial</div></div>
+  </div>
+
+  <div class="estelar-strip">
+    <a class="et" href="#rr-9" onclick="openRace(9);return false;">
+      <span class="et-tag">Carrera #09 · 12:40 PM</span>
+      <div class="et-title">EL CHALÁN<br><span>VS EL ZAFIRO</span></div>
+      <div class="et-meta">325V · Carrera Estelar</div>
+    </a>
+    <a class="et" href="#rr-10" onclick="openRace(10);return false;">
+      <span class="et-tag">Carrera #10 · 01:30 PM</span>
+      <div class="et-title">GRAN FINAL<br><span>TRIPLE CORONA</span></div>
+      <div class="et-meta">300V · 5 Cuadras · Futurity Millonaria</div>
+    </a>
+    <a class="et" href="#rr-17" onclick="openRace(17);return false;">
+      <span class="et-tag">Carrera #17 · 04:15 PM</span>
+      <div class="et-title">EL CUATE<br><span>VS EL GENERADOR</span></div>
+      <div class="et-meta">300V · Carrera Estelar</div>
+    </a>
+  </div>
+
+  <div class="prog-hd" id="programa-sec">
+    <div class="big"><span>19 DE JULIO</span></div>
+    <div class="sub">23 carreras · Arrancamos 10:00 AM · Hipódromo Avalos</div>
+  </div>
+
+  <div class="race-list" id="raceList"></div>
+
+  <div class="foot">
+    <div class="foot-rules">🚫 Prohibido armas, drogas y bebidas externas · Doble filtro de revisión</div>
+    <div class="socials">
+      <span class="s-lbl">Síguenos</span>
+      <a href="#" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
+    </div>
+    <div class="powered">Powered by <b>CarrerasOS</b></div>
+  </div>
+</div>
+
+<!-- ================= MIS PICKS ================= -->
+<div class="panel" id="page-picks">
+  <div class="panel-pad">
+    <div class="panel-top">
+      <div>
+        <div class="panel-title">MIS PICKS</div>
+        <div class="panel-sub">Locked in para Copa Avalos</div>
+      </div>
+      <button class="share-pill" onclick="sharePicks()"><svg><use href="#i-share"/></svg> Compartir</button>
+    </div>
+
+    <div class="picks-stats">
+      <div class="ps"><div class="ps-n" id="psPicks">0</div><div class="ps-l">Picks</div></div>
+      <div class="ps-sep"></div>
+      <div class="ps"><div class="ps-n" id="psLeft">23</div><div class="ps-l">Restantes</div></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="picks-rows" id="pickRows"></div>
+
+    <button class="share-big" onclick="sharePicks()">🏆 Compartir Mis Picks</button>
+
+    <div class="foot">
+      <div class="powered">Powered by <b>CarrerasOS</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= INFO ================= -->
+<div class="panel" id="page-info">
+  <div class="panel-pad">
+    <div class="panel-title">INFO</div>
+
+    <div class="info-card">
+      <span class="info-hero-badge">🔥 Hipódromo Avalos Presenta</span>
+      <div class="info-title"><span class="a">COPA </span><span class="b">AVALOS</span></div>
+      <div class="info-stars">★ ★ ★ &nbsp;Gran Final Triple Corona · 23 Carreras Adentro&nbsp; ★ ★ ★</div>
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="ic">🕐</div>
+          <div><div class="k">Fecha y Hora</div><div class="v">Domingo 19 de Julio 2026 · 10:00 AM</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">📍</div>
+          <div><div class="k">Ubicación</div><div class="v"><a href="https://maps.google.com/?q=Hipodromo+Avalos" target="_blank" rel="noopener">Hipódromo Avalos</a></div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">🎟️</div>
+          <div><div class="k">Entrada</div><div class="v">General: $300.00</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">💰</div>
+          <div><div class="k">Estelares</div><div class="v">El Chalán vs El Zafiro · 325V — 12:40 PM<br>Gran Final Triple Corona · 300V — 1:30 PM<br>El Cuate vs El Generador · 300V — 4:15 PM</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">🔧</div>
+          <div><div class="k">Mantenimiento De Pista</div><div class="v">12:40 PM – 1:20 PM<br>3:30 PM – 4:10 PM</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spon-hd" style="margin-top:1.9rem;">Patrocinadores Oficiales</div>
+
+    <div class="spon-big">
+      <div class="inner">
+        <span class="tag">Patrocinador Oficial</span>
+        <div class="n">NUTRI<span>GAFER</span></div>
+        <div class="s">Presentando Copa Avalos · Gran Final Triple Corona en Hipódromo Avalos</div>
+      </div>
+    </div>
+    <div class="spon-big">
+      <div class="inner">
+        <span class="tag">Patrocinador Oficial</span>
+        <div class="n">PURO CABALLO <span>PERRÓN</span></div>
+        <div class="s">Apoyando cada carrera de la Copa Avalos</div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="foot-rules">🚫 Prohibido armas, drogas y bebidas externas · Doble filtro de revisión</div>
+      <div class="socials">
+        <span class="s-lbl">Síguenos</span>
+        <a href="#" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
+      </div>
+      <div class="powered">Powered by <b>CarrerasOS</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="tabbar">
+  <button class="tab active" id="tab-programa" onclick="setTab('programa')">
+    <svg><use href="#i-shoe"/></svg><span class="tab-lbl">Programa</span>
+  </button>
+  <button class="tab" id="tab-picks" onclick="setTab('picks')">
+    <svg><use href="#i-target"/></svg><span class="tab-lbl">Mis Picks</span>
+    <span class="tab-count" id="tabCount" style="display:none;">0</span>
+  </button>
+  <button class="tab" id="tab-info" onclick="setTab('info')">
+    <svg><use href="#i-info"/></svg><span class="tab-lbl">Info</span>
+  </button>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const RACES = [
+  { id:1,  time:'10:00 AM', dist:'125V', type:'duel', h:[{n:'EL TRAILERO',c:'C. La Austera'},{n:'NVA SECRETARIA',c:'C. Tomatitos Racing'}] },
+  { id:2,  time:'10:20 AM', dist:'200V', type:'duel', h:[{n:'EL ZEUS',c:'C. Pitayo'},{n:'NVO LAGARTIJO',c:'C. Palestina'}] },
+  { id:3,  time:'10:40 AM', dist:'275V', type:'duel', h:[{n:'LA TERESITA',c:'C. Los Amigos'},{n:"K'MASH DASH",c:'C. Solitario'}] },
+  { id:4,  time:'11:00 AM', dist:'100V', type:'duel', h:[{n:'EL CUCUY',c:'C. San Isidro'},{n:'LA DOCTORA',c:'C. Tomatitos Racing'}] },
+  { id:5,  time:'11:20 AM', dist:'200V', type:'duel', h:[{n:'EL RAYITO',c:'C. Nva Generación'},{n:'EL TRES',c:'C. Solitario'}] },
+  { id:6,  time:'11:40 AM', dist:'250V', type:'duel', h:[{n:'EL BINGO',c:'C. Pitayo'},{n:'EL MESÍAS',c:'C. Rolas Jr'}] },
+  { id:7,  time:'12:00 PM', dist:'275V', type:'duel', h:[{n:'EL QUINTERO',c:'C. Los Amigos'},{n:'EL MALQUERIDO',c:'C. Solitario'}] },
+  { id:8,  time:'12:25 PM', dist:'225V', type:'duel', section:'COPA AVALOS · PRIMERA EDICIÓN', h:[{n:'CORTITO',c:'C. Nva Generación'},{n:'REY LEÓN',c:'C. Sta Rosalía'},{n:'PERRYS',c:'C. Santa María'}] },
+  { id:9,  time:'12:40 PM', dist:'325V', type:'duel', special:true, section:'🔥 CARRERAS ESTELARES', h:[{n:'EL CHALÁN',c:'C. Don Elías'},{n:'EL ZAFIRO',c:'C. Mezquite/3RS'}] },
+  { id:10, time:'01:30 PM', dist:'300V', type:'open', special:true, section:'⏸ Mantenimiento de pista 12:40–1:20 PM · GRAN FINAL FUTURITY DE LA TRIPLE CORONA', featured:'GRAN FINAL FUTURITY · TRIPLE CORONA MILLONARIA', category:'GRAN FINAL', entries:['BATICHICA (C. Los Nogales)','EL POLLO (C. Hnos Chávez)','MIKIMA (C. Rancho El 21)','CHABOCHI (C. Rancho El Diamante)','DEPRECIADO (C. Hnos Chávez)'] },
+  { id:11, time:'01:45 PM', dist:'225V', type:'duel', section:'COPA AVALOS · PRIMERA EDICIÓN', h:[{n:'PADRINO',c:'C. Nva Generación'},{n:'QUERIDA',c:'C. 3 Turbos'},{n:'FÉNIX',c:'C. N/G'}] },
+  { id:12, time:'02:00 PM', dist:'225V', type:'duel', h:[{n:'NORTEÑO',c:'C. Nueva Era'},{n:'VAQUERO',c:'C. Sta Rosalía'},{n:'AZTECA',c:'C. Los Ortega'}] },
+  { id:13, time:'02:15 PM', dist:'325V', type:'duel', h:[{n:'CORAZÓN DE PIEDRA',c:'C. Rancho El Diamante'},{n:'LA MATRIX',c:'C. Rancho El 21'}] },
+  { id:14, time:'02:30 PM', dist:'225V', type:'duel', section:'COPA AVALOS · PRIMERA EDICIÓN', h:[{n:'DUMBO',c:'C. Hnos Chávez'},{n:'LA BETTY',c:'C. 3 Turbos'},{n:'AGUILILLA',c:'C. Los Potros'}] },
+  { id:15, time:'03:05 PM', dist:'300V', type:'open', section:'ABIERTA LIBRE DE TAPADOS', category:'ABIERTA LIBRE DE TAPADOS', entries:['C. RANCHO EL DIAMANTE','C. SOLITARIO','C. LOS NOGALES','C. EL ENCANTO'] },
+  { id:16, time:'03:20 PM', dist:'300V', type:'duel', h:[{n:'LA ATREVIDA',c:'C. 3 Turbos'},{n:'LA MUSULMANA',c:'C. Rancho El 21'}] },
+  { id:17, time:'04:15 PM', dist:'300V', type:'duel', special:true, section:'⏸ Mantenimiento de pista 3:30–4:10 PM · 🔥 CARRERA ESTELAR', h:[{n:'EL CUATE',c:'C. 10%'},{n:'EL GENERADOR',c:'C. Rancho El 21'}] },
+  { id:18, time:'04:30 PM', dist:'225V', type:'duel', section:'COPA AVALOS · PRIMERA EDICIÓN', h:[{n:'CARLOS MANZO',c:'C. Solitario'},{n:'EL GALLITO',c:'C. Álamos'}] },
+  { id:19, time:'04:45 PM', dist:'200V', type:'duel', h:[{n:'EL LOBITO',c:'C. Rancho Alto'},{n:'LA SARA GARCÍA',c:'C. Black Jack'}] },
+  { id:20, time:'05:00 PM', dist:'100/200V', type:'duel', h:[{n:'EL GABACHO',c:'C. JM'},{n:'LA NVA SOCIA',c:'C. Hnos Muñiz'}] },
+  { id:21, time:'05:15 PM', dist:'250V', type:'duel', h:[{n:'EL PISTOLERO',c:'C. JV Ranch'},{n:'EL ESTUDIANTE',c:'C. Solitario (DA PYF)'}] },
+  { id:22, time:'05:30 PM', dist:'250V', type:'duel', h:[{n:'LA RUTILA',c:'C. Rancho Alto'},{n:'EL KALYMAN',c:'C. La Victoria'}] },
+  { id:23, time:'06:00 PM', dist:'75V',  type:'duel', h:[{n:'LA FIERA BRAZ',c:'C. La Victoria'},{n:'EL PAPI CHULO',c:'C. Hnos Muñiz'}] },
+];
+const TOTAL = RACES.length;
+const STORAGE_KEY = 'hipodromo-avalos-jul19-picks';
+let picks = {};
+try{ picks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ picks = {}; }
+function savePicks(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(picks)); }catch(e){} }
+
+const shoe = cls => `<svg class="shoe ${cls||''}"><use href="#i-shoe"/></svg>`;
+
+function raceTitle(r){
+  if(r.type === 'duel') return r.h.map(h=>h.n).join(' <span class="vs">VS</span> ');
+  return r.featured || r.category;
+}
+function raceSub(r){
+  if(r.type === 'duel'){
+    const label = r.h.length === 3 ? 'Tres al carril' : 'Mano a mano';
+    return `${label} · ${r.h.map(h=>h.c).join(' vs ')}`;
+  }
+  return `${r.category.charAt(0) + r.category.slice(1).toLowerCase()} · ${r.entries.length} cuadras adentro`;
+}
+function pickLabel(r, idx){
+  if(r.type === 'duel'){ return r.h[idx].n; }
+  return r.entries[idx];
+}
+
+/* ================= BUILD ================= */
+function buildRaces(){
+  const list = document.getElementById('raceList');
+  list.innerHTML = '';
+  RACES.forEach(r => {
+    if(r.section){
+      const lbl = document.createElement('div');
+      lbl.className = 'sec-lbl';
+      lbl.textContent = r.section;
+      list.appendChild(lbl);
+    }
+
+    const card = document.createElement('div');
+    card.className = 'rc' + (r.special ? ' special' : '');
+    card.id = `rr-${r.id}`;
+
+    let body;
+    if(r.type === 'duel'){
+      const n = r.h.length;
+      body = `<div class="duel-grid${n===3?' three':''}">` + r.h.map((h,i) => {
+        const seg = `<div class="dh" data-idx="${i}" onclick="pick(${r.id},${i})">
+            <span class="dh-check">✓</span>
+            ${shoe()}
+            <div class="dh-name">${h.n}</div>
+            <div class="dh-cuad">${h.c}</div>
+          </div>`;
+        return i < n-1 ? seg + `<div class="duel-mid"><span class="vs-circle">VS</span></div>` : seg;
+      }).join('') + `</div>`;
+    } else {
+      body = `<div class="open-list">
+          ${r.entries.map((e,i) => `
+            <div class="oh" data-idx="${i}" onclick="pick(${r.id},${i})">
+              ${shoe()}
+              <span class="oh-name">${e}</span>
+              <span class="oh-radio"></span>
+            </div>`).join('')}
+        </div>`;
+    }
+
+    card.innerHTML = `
+      <div class="rc-head">
+        <div class="rc-pills">
+          <span class="pill pill-num">#${String(r.id).padStart(2,'0')}</span>
+          <span class="pill pill-time">🕐 ${r.time}</span>
+          <span class="pill pill-dist">${r.dist}</span>
+          ${r.purse ? `<span class="pill pill-purse">💰 ${r.purse}</span>` : ''}
+          ${r.special ? `<span class="pill pill-fire">🔥 ESTELAR</span>` : ''}
+          <span class="rc-chev"></span>
+        </div>
+        <div class="rc-title">${raceTitle(r)}</div>
+        <div class="rc-sub">${raceSub(r)}</div>
+        ${r.note ? `<div class="rc-note">⚠ ${r.note}</div>` : ''}
+        <div class="pick-chip" data-chip style="display:none;"></div>
+      </div>
+      <div class="rc-body">
+        <div class="choose-lbl">${r.type==='duel' ? 'ELIGE A TU CABALLO' : 'ELIGE TU CUADRA'}</div>
+        <div class="choose-hint">Toca para elegir · Toca de nuevo para quitar tu pick</div>
+        ${body}
+      </div>`;
+
+    card.querySelector('.rc-head').addEventListener('click', () => {
+      const was = card.classList.contains('open');
+      document.querySelectorAll('.rc.open').forEach(el => el.classList.remove('open'));
+      if(!was) card.classList.add('open');
+    });
+
+    list.appendChild(card);
+  });
+  syncPickUI();
+}
+
+/* ================= PICKS ================= */
+function pick(raceId, idx){
+  event && event.stopPropagation && event.stopPropagation();
+  const r = RACES.find(x => x.id === raceId);
+  const isRepick = picks[raceId] && picks[raceId].idx === idx;
+  if(isRepick){
+    delete picks[raceId];
+    toast('Pick eliminado');
+  } else {
+    picks[raceId] = { idx, label: pickLabel(r, idx) };
+    toast(`★ ${picks[raceId].label}`);
+  }
+  savePicks();
+  syncPickUI();
+}
+
+function syncPickUI(){
+  RACES.forEach(r => {
+    const card = document.getElementById(`rr-${r.id}`);
+    if(!card) return;
+    const p = picks[r.id];
+    card.classList.toggle('picked', !!p);
+    card.querySelectorAll('.dh, .oh').forEach(el => {
+      const idx = +el.dataset.idx;
+      el.classList.toggle('selected', !!p && p.idx === idx);
+      el.classList.toggle('dimmed', !!p && p.idx !== idx && el.classList.contains('dh'));
+    });
+    const chip = card.querySelector('[data-chip]');
+    if(chip){
+      if(p){ chip.style.display = 'inline-flex'; chip.textContent = `TU PICK: ${p.label}`; }
+      else { chip.style.display = 'none'; }
+    }
+  });
+  updatePanels();
+}
+
+function updatePanels(){
+  const count = Object.keys(picks).length;
+  document.getElementById('navBadge').textContent = `${count} / ${TOTAL} PICKS`;
+  document.getElementById('psPicks').textContent = count;
+  document.getElementById('psLeft').textContent = TOTAL - count;
+  document.getElementById('progressFill').style.width = (count / TOTAL * 100) + '%';
+
+  const tabCount = document.getElementById('tabCount');
+  if(count > 0){ tabCount.style.display = 'flex'; tabCount.textContent = count; }
+  else { tabCount.style.display = 'none'; }
+
+  const rows = document.getElementById('pickRows');
+  rows.innerHTML = '';
+  RACES.forEach(r => {
+    const p = picks[r.id];
+    const row = document.createElement('div');
+    row.className = 'prow' + (p ? ' done' : '');
+    row.innerHTML = `<span class="pn">#${String(r.id).padStart(2,'0')}</span><span class="pname${p?'':' empty'}">${p ? p.label : 'Sin selección — toca para elegir'}</span><span class="pcheck">✓</span>`;
+    row.addEventListener('click', () => openRace(r.id));
+    rows.appendChild(row);
+  });
+}
+
+/* ================= NAV ================= */
+function setTab(name){
+  ['programa','picks','info'].forEach(t => {
+    document.getElementById(`page-${t}`).classList.toggle('active', t === name);
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === name);
+  });
+  window.scrollTo(0, 0);
+}
+
+function goProgram(){
+  setTab('programa');
+  document.getElementById('programa-sec').scrollIntoView({ behavior:'smooth' });
+}
+
+function openRace(id){
+  setTab('programa');
+  document.querySelectorAll('.rc.open').forEach(el => el.classList.remove('open'));
+  const card = document.getElementById(`rr-${id}`);
+  if(card){
+    card.classList.add('open');
+    setTimeout(() => card.scrollIntoView({ behavior:'smooth', block:'center' }), 80);
+  }
+}
+
+/* ================= SHARE ================= */
+function sharePicks(){
+  const count = Object.keys(picks).length;
+  if(!count){ toast('¡Elige tus picks primero!'); return; }
+  let txt = '🏆 Mis Picks — Copa Avalos · Gran Final Triple Corona\n📅 Domingo 19 de Julio · Hipódromo Avalos\n\n';
+  RACES.forEach(r => { const p = picks[r.id]; txt += `#${r.id}: ${p ? '★ ' + p.label : '—'}\n`; });
+  txt += '\nhttps://guttix1.github.io/Digital-flyer-/events/hipodromo-avalos-jul19/site.html';
+  if(navigator.share){ navigator.share({ title:'Mis Picks · Copa Avalos', text:txt }).catch(()=>{}); }
+  else { navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{}); }
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+/* ================= COUNTDOWN ================= */
+function tickCountdown(){
+  const target = new Date('2026-07-19T10:00:00-05:00').getTime();
+  const diff = target - Date.now();
+  const el = document.getElementById('countdownVal');
+  if(diff <= 0){ el.textContent = '¡YA ARRANCÓ!'; return; }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff % 86400000 / 3600000);
+  const m = Math.floor(diff % 3600000 / 60000);
+  el.textContent = `${d}D ${h}H ${m}M`;
+}
+tickCountdown();
+setInterval(tickCountdown, 60000);
+
+buildRaces();
+</script>
+</body>
+</html>
