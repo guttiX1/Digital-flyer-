@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karril El 4 · El Compadre vs El 38 Super · Julio 19</title>
+  <meta name="description" content="Karril El 4 - El Compadre vs El 38 Super - 275 Yardas - Domingo 19 de Julio - Cuadra Hummer vs Cuadra Vieja Escuela">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 12px;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .flyer {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    }
+
+    /* ── 1. TOP BAR ── */
+    .top-bar {
+      background: #111111;
+      padding: 9px 20px;
+      text-align: center;
+    }
+    .top-bar span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #D6001C;
+    }
+
+    /* ── 2. HEADER ── */
+    .header {
+      background: #ffffff;
+      text-align: center;
+      padding: 20px 16px 16px;
+      border-bottom: 3px solid #D6001C;
+    }
+    .header .title-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 0.9;
+      color: #111111;
+      letter-spacing: 2px;
+    }
+    .header .title-venue {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      line-height: 0.92;
+      color: #D6001C;
+      letter-spacing: 2px;
+    }
+    .header .subtitle {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #999999;
+      text-transform: uppercase;
+    }
+
+    /* ── 3. DATE BAR ── */
+    .date-bar {
+      background: #D6001C;
+      padding: 12px 20px;
+      text-align: center;
+    }
+    .date-bar .date-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      color: #ffffff;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    .date-bar .date-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 2px;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ── 4. HORSE STRIP ── */
+    .horse-strip {
+      display: flex;
+      height: 200px;
+      overflow: hidden;
+    }
+    .horse-strip .hs-img {
+      width: 180px;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .horse-strip .hs-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .horse-strip .hs-name {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: #ffffff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      text-align: center;
+      padding: 14px 4px 5px;
+    }
+    .horse-strip .center-panel {
+      flex: 1;
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 8px;
+    }
+    .horse-strip .center-panel .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: #D6001C;
+      line-height: 1;
+    }
+    .horse-strip .center-panel .race-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 9px;
+      color: #D6001C;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* ── 5. ESTELAR BOX ── */
+    .estelar-box {
+      border: 2px solid #D6001C;
+      border-radius: 10px;
+      margin: 16px;
+      padding: 14px;
+    }
+    .estelar-badge {
+      display: inline-block;
+      background: #111111;
+      color: #D6001C;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .estelar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #111111;
+      letter-spacing: 1px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+    .estelar-sub {
+      font-size: 11px;
+      color: #888888;
+      margin-top: 5px;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    /* ── 6. CUADRAS ── */
+    .schedule {
+      padding: 0 16px 4px;
+    }
+    .race-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .race-row:last-child {
+      border-bottom: none;
+    }
+    .race-dist {
+      background: #111111;
+      color: #D6001C;
+      font-size: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .race-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111111;
+      flex: 1;
+      line-height: 1.25;
+    }
+    .race-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #a11212;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .race-row.highlight {
+      background: #FDE9E9;
+      margin: 0 -16px;
+      padding: 7px 16px;
+      font-weight: 800;
+    }
+    .race-row.highlight .race-name {
+      font-weight: 800;
+      color: #111;
+    }
+    .race-row.highlight .race-dist {
+      background: #D6001C;
+      color: #fff;
+    }
+
+    /* ── 7. QR SECTION ── */
+    .qr-section {
+      background: #f9f9f9;
+      border-top: 3px solid #D6001C;
+      padding: 16px;
+      text-align: center;
+    }
+    .qr-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+    .qr-img {
+      width: 140px;
+      height: 140px;
+      display: block;
+      margin: 0 auto 8px;
+      border: 3px solid #111111;
+      padding: 4px;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .qr-sub {
+      font-size: 11px;
+      color: #888888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .qr-url {
+      font-size: 10px;
+      color: #D6001C;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    /* ── 8. FOOTER ── */
+    .footer {
+      background: #111111;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #D6001C;
+    }
+  </style>
+</head>
+<body>
+  <div class="flyer">
+
+    <!-- 1. TOP BAR -->
+    <div class="top-bar">
+      <span>KARRIL EL 4 · SÁNCHEZ PROMOTIONS</span>
+    </div>
+
+    <!-- 2. HEADER -->
+    <div class="header">
+      <div class="title-main">CARRERAS</div>
+      <div class="title-venue">KARRIL EL 4</div>
+      <div class="subtitle">Gran Mano a Mano Estelar</div>
+    </div>
+
+    <!-- 3. DATE BAR -->
+    <div class="date-bar">
+      <div class="date-main">DOMINGO · 19 DE JULIO</div>
+      <div class="date-sub">EL COMPADRE VS EL 38 SUPER &nbsp;·&nbsp; 275 YARDAS</div>
+    </div>
+
+    <!-- 4. HORSE STRIP -->
+    <div class="horse-strip">
+      <div class="hs-img">
+        <img src="h-compadre.png" alt="El Compadre">
+        <div class="hs-name">EL COMPADRE</div>
+      </div>
+      <div class="center-panel">
+        <div class="big-num">VS</div>
+        <div class="race-label">275<br>YARDAS</div>
+      </div>
+      <div class="hs-img">
+        <img src="h-38super.png" alt="El 38 Super">
+        <div class="hs-name">EL 38 SUPER</div>
+      </div>
+    </div>
+
+    <!-- 5. ESTELAR BOX -->
+    <div class="estelar-box">
+      <span class="estelar-badge">⭐ GRAN ESTELAR</span>
+      <div class="estelar-title">EL COMPADRE vs EL 38 SUPER</div>
+      <div class="estelar-sub">275 Yardas &nbsp;·&nbsp; CUADRA HUMMER vs CUADRA VIEJA ESCUELA</div>
+    </div>
+
+    <!-- 6. LAS CUADRAS -->
+    <div class="schedule">
+      <div class="race-row highlight">
+        <span class="race-dist">275 YDS</span>
+        <span class="race-name">EL COMPADRE vs EL 38 SUPER</span>
+        <span class="race-tag">ESTELAR</span>
+      </div>
+      <div class="race-row">
+        <span class="race-dist">EL COMPADRE</span>
+        <span class="race-name">CUADRA HUMMER</span>
+      </div>
+      <div class="race-row">
+        <span class="race-dist">EL 38 SUPER</span>
+        <span class="race-name">CUADRA VIEJA ESCUELA</span>
+      </div>
+      <div class="race-row">
+        <span class="race-dist">PROMOTOR</span>
+        <span class="race-name">SÁNCHEZ PROMOTIONS</span>
+        <span class="race-tag">FOTOS: LUIS GARCÍA</span>
+      </div>
+    </div>
+
+    <!-- 7. QR SECTION -->
+    <div class="qr-section">
+      <div class="qr-title">COMPARTE EL EVENTO</div>
+      <img id="qr" class="qr-img" src="" alt="QR Code">
+      <div class="qr-sub">ESCANEA · COMPARTE · ASISTE</div>
+      <span class="qr-url">guttix1.github.io/Digital-flyer-</span>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <div class="footer">
+      <p>&copy;2026 KARRIL EL 4 &nbsp;&middot;&nbsp; SÁNCHEZ PROMOTIONS</p>
+    </div>
+
+  </div>
+
+  <script>
+    const url = 'https://guttix1.github.io/Digital-flyer-/events/karril-el-4-jul19/';
+    document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=FFFFFF&color=000000&format=png&margin=4`;
+  </script>
+</body>
+</html>
