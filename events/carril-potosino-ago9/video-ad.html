@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carril Potosino · Video Ad 30s</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:#000}
+#stage{position:relative;width:540px;height:960px;overflow:hidden;font-family:Arial,sans-serif;color:#fff}
+
+/* ── VIDEO BACKGROUND ── */
+video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;width:auto;height:106%;object-fit:cover}
+.tint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.42),rgba(0,0,0,.28) 40%,rgba(0,0,0,.62));transition:background .4s}
+.vig{position:absolute;inset:0;box-shadow:inset 0 0 170px 55px rgba(0,0,0,.8)}
+
+/* embers */
+.ember{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:#FFB84A;filter:blur(1px);opacity:0;animation:rise 4.5s linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}12%{opacity:.85}100%{opacity:0;transform:translateY(-990px) translateX(50px) scale(.4)}}
+
+/* ── SCENES (30s) ── */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;padding:0 26px}
+.s1{animation:hold 4s 0s both}
+.s2{animation:hold 4.6s 4s both}
+.s3{animation:hold 6s 8.6s both}
+.s4{animation:hold 4.6s 14.6s both}
+.s5{animation:hold 4.4s 19.2s both}
+.s6{animation:holdend 6.4s 23.6s both}
+@keyframes hold{0%{opacity:0}5%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes holdend{0%{opacity:0}6%{opacity:1}100%{opacity:1}}
+
+.slam{animation:slam .5s cubic-bezier(.17,.89,.32,1.5) both}
+@keyframes slam{0%{transform:scale(3.4);opacity:0;filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:scale(1)}}
+.up{animation:up .55s cubic-bezier(.17,.89,.32,1.3) both}
+@keyframes up{from{transform:translateY(70px);opacity:0}to{transform:translateY(0);opacity:1}}
+.shake{animation:shake .45s .1s 3}
+@keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-7px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-5px,-3px)}80%{transform:translate(5px,4px)}}
+
+.gold3{color:#FFD24A;text-shadow:0 2px 0 #c69a1c,0 4px 0 #a87f13,0 6px 0 #85620b,0 9px 5px rgba(0,0,0,.55),0 16px 26px rgba(0,0,0,.6)}
+.red3{color:#FF3B47;text-shadow:0 2px 0 #b6121e,0 4px 0 #8f0c16,0 6px 0 #68070e,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.blue3{color:#4BA3FF;text-shadow:0 2px 0 #1663b8,0 4px 0 #114e92,0 6px 0 #0c3a6d,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.white3{color:#fff;text-shadow:0 2px 0 #b9b9b9,0 4px 0 #8f8f8f,0 6px 0 #676767,0 9px 5px rgba(0,0,0,.5),0 15px 24px rgba(0,0,0,.6)}
+
+/* S1 hook */
+.s1 .q{font-size:64px;font-weight:900;letter-spacing:2px;line-height:1;animation-delay:.3s}
+.s1 .a{font-size:30px;font-weight:900;letter-spacing:3px;color:#FFD24A;margin-top:26px;animation-delay:.9s;text-shadow:0 3px 14px rgba(0,0,0,.8)}
+.s1 .b{font-size:16px;font-weight:700;letter-spacing:5px;color:rgba(255,255,255,.8);margin-top:20px;animation-delay:1.4s}
+
+/* S2 brand */
+.t3d{transform:perspective(460px) rotateX(11deg)}
+.s2 .brand{font-size:78px;font-weight:900;line-height:.95;letter-spacing:1px}
+.s2 .loc{font-size:20px;font-weight:800;letter-spacing:6px;color:rgba(255,255,255,.85);margin-top:16px;animation-delay:.45s}
+.datepill{display:inline-block;background:#E01E2B;color:#fff;font-size:34px;font-weight:900;letter-spacing:3px;padding:10px 32px;border-radius:12px;margin-top:30px;box-shadow:0 10px 44px rgba(224,30,43,.65);animation-delay:.65s}
+.s2 .y{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.7);margin-top:16px;animation-delay:.85s}
+
+/* S3 duel */
+.s3 .lbl{font-size:20px;font-weight:800;letter-spacing:6px;color:#FFD24A;animation-delay:.2s}
+.s3 .h1{font-size:74px;font-weight:900;line-height:.95;margin-top:16px;animation-delay:.45s}
+.s3 .c1{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:.6s}
+.s3 .vs{font-size:60px;font-weight:900;margin:14px 0;animation-delay:.85s}
+.s3 .h2{font-size:74px;font-weight:900;line-height:.95;animation-delay:1.1s}
+.s3 .c2{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:1.25s}
+.s3 .yards{display:inline-block;border:3px solid #FFD24A;color:#FFD24A;font-size:28px;font-weight:900;letter-spacing:4px;padding:6px 26px;border-radius:999px;margin-top:24px;animation-delay:1.5s;background:rgba(0,0,0,.45)}
+
+/* S4 pick-a-side */
+.s4 .q{font-size:56px;font-weight:900;line-height:1;animation-delay:.25s;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.sides{display:flex;gap:16px;margin-top:32px}
+.side{border-radius:16px;padding:20px 22px;font-weight:900;opacity:0;animation:up .5s cubic-bezier(.17,.89,.32,1.4) both}
+.side .n{font-size:34px;line-height:1}
+.side .t{font-size:12px;letter-spacing:2px;margin-top:6px;opacity:.85;font-weight:800}
+.side.r{background:linear-gradient(160deg,#E01E2B,#8f0c16);box-shadow:0 12px 44px rgba(224,30,43,.5);animation-delay:.7s}
+.side.b{background:linear-gradient(160deg,#2E7FE0,#123c74);box-shadow:0 12px 44px rgba(46,127,224,.5);animation-delay:.9s}
+.s4 .cm{font-size:17px;font-weight:800;letter-spacing:3px;color:#FFD24A;margin-top:30px;animation-delay:1.3s}
+
+/* S5 urgency */
+.s5 .u1{font-size:58px;font-weight:900;line-height:1.02;animation-delay:.25s}
+.s5 .u2{font-size:40px;font-weight:900;color:#FF3B47;margin-top:24px;animation-delay:.7s;animation:pulse2 .9s .7s infinite alternate,up .5s .7s both}
+@keyframes pulse2{from{transform:scale(1)}to{transform:scale(1.07)}}
+.s5 .u3{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:22px;animation-delay:1.1s}
+
+/* S6 CTA */
+.s6 .d{font-size:84px;font-weight:900;line-height:.95;animation-delay:.3s}
+.s6 .yy{font-size:30px;font-weight:900;letter-spacing:5px;color:#fff;margin-top:8px;animation-delay:.5s;text-shadow:0 3px 12px rgba(0,0,0,.8)}
+.s6 .m{font-size:26px;font-weight:900;letter-spacing:2px;margin-top:26px;animation-delay:.75s}
+.s6 .m .r{color:#FF3B47}.s6 .m .bl{color:#4BA3FF}
+.s6 .share{display:inline-block;background:#FFD24A;color:#160b02;font-size:24px;font-weight:900;letter-spacing:2px;padding:14px 30px;border-radius:14px;margin-top:32px;box-shadow:0 12px 46px rgba(255,210,74,.45);animation-delay:1s}
+.s6 .brand2{font-size:22px;font-weight:900;letter-spacing:4px;color:#FFD24A;margin-top:34px;animation-delay:1.25s;text-shadow:0 2px 0 #85620b,0 6px 16px rgba(0,0,0,.6)}
+
+/* flashes */
+.flash{position:absolute;inset:0;opacity:0;pointer-events:none;background:#E01E2B}
+.flash.w{background:#fff}
+.f1{animation:fl .32s 3.95s}
+.f2{animation:fl .32s 8.55s}
+.f3{animation:fl .32s 14.55s}
+.f4{animation:fl .32s 19.15s}
+.f5{animation:fl .32s 23.55s}
+@keyframes fl{0%{opacity:0}45%{opacity:.9}100%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="v" src="race-clip.webm" muted loop playsinline></video>
+  <div class="tint"></div>
+  <div class="vig"></div>
+  <div class="ember" style="left:10%;animation-delay:.3s"></div>
+  <div class="ember" style="left:26%;animation-delay:1.7s"></div>
+  <div class="ember" style="left:44%;animation-delay:.9s"></div>
+  <div class="ember" style="left:61%;animation-delay:2.4s"></div>
+  <div class="ember" style="left:78%;animation-delay:.6s"></div>
+  <div class="ember" style="left:91%;animation-delay:1.9s"></div>
+
+  <!-- S1 0–4s: HOOK (curiosity + direct address) -->
+  <div class="scene s1">
+    <div class="q slam fit white3">¿ESTÁS LISTO<br>PARA ESTO?</div>
+    <div class="a up fit">EL MANO A MANO QUE TODOS PEDÍAN</div>
+    <div class="b up fit">YA ES OFICIAL 🔥</div>
+  </div>
+
+  <!-- S2 4–8.6s: BRAND + DATE -->
+  <div class="scene s2">
+    <div class="t3d slam"><div class="brand gold3 fit">CARRIL POTOSINO</div></div>
+    <div class="loc up fit">MACK · COLORADO</div>
+    <div class="datepill up fit">DOMINGO · 9 DE AGOSTO</div>
+    <div class="y up fit">2026 · EL EVENTO DEL AÑO</div>
+  </div>
+
+  <!-- S3 8.6–14.6s: THE DUEL -->
+  <div class="scene s3">
+    <div class="lbl up fit">⭐ LA ESTELAR ⭐</div>
+    <div class="h1 slam fit red3">EL BORRACHO</div>
+    <div class="c1 up fit">CUADRA POTOSINA</div>
+    <div class="vs slam fit white3 shake">VS</div>
+    <div class="h2 slam fit blue3">EL GUAPO</div>
+    <div class="c2 up fit">CUADRA CHIHUAHUA</div>
+    <div class="yards up fit">350 YARDAS</div>
+  </div>
+
+  <!-- S4 14.6–19.2s: PICK A SIDE (engagement trigger) -->
+  <div class="scene s4">
+    <div class="q slam fit">¿DE QUÉ LADO<br>ESTÁS?</div>
+    <div class="sides">
+      <div class="side r"><div class="n">🔴 EL BORRACHO</div><div class="t">CUADRA POTOSINA</div></div>
+      <div class="side b"><div class="n">🔵 EL GUAPO</div><div class="t">CUADRA CHIHUAHUA</div></div>
+    </div>
+    <div class="cm up fit">COMENTA TU GALLO 👇</div>
+  </div>
+
+  <!-- S5 19.2–23.6s: URGENCY / FOMO -->
+  <div class="scene s5">
+    <div class="u1 slam fit white3">UNA SOLA CARRERA.<br>UN SOLO GANADOR.</div>
+    <div class="u2 fit">¿TE LO VAS A PERDER?</div>
+    <div class="u3 up fit">TODO EL CARRIL VA A ESTAR AHÍ</div>
+  </div>
+
+  <!-- S6 23.6–30s: CTA -->
+  <div class="scene s6">
+    <div class="d slam fit gold3">9 DE AGOSTO</div>
+    <div class="yy up fit">CARRIL POTOSINO · 350 YARDAS</div>
+    <div class="m up fit"><span class="r">EL BORRACHO</span> VS <span class="bl">EL GUAPO</span></div>
+    <div class="share up fit">📲 COMPARTE Y TRAE A TU COMPA</div>
+    <div class="brand2 up fit">NO SE JUEGA · SE CORRE 🐎</div>
+  </div>
+
+  <div class="flash f1"></div>
+  <div class="flash w f2"></div>
+  <div class="flash f3"></div>
+  <div class="flash w f4"></div>
+  <div class="flash f5"></div>
+</div>
+
+<script>
+const v=document.getElementById('v');
+v.muted=true;v.loop=true;
+v.play().catch(()=>{});
+function fitAll(){
+  document.querySelectorAll('.fit').forEach(el=>{
+    el.style.whiteSpace='nowrap';
+    let fs=parseFloat(getComputedStyle(el).fontSize);
+    let g=0;
+    while(el.scrollWidth>492&&fs>12&&g<80){fs-=2;el.style.fontSize=fs+'px';g++}
+  });
+}
+fitAll();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll)}
+</script>
+</body>
+</html>
