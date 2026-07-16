@@ -9,9 +9,9 @@ const fs = require('fs');
 const { execSync, spawn } = require('child_process');
 
 const EVENT    = 'compadre-vs-38super';
-const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-light.html`)}`;
+const HTML     = `file://${path.resolve(__dirname, `events/${EVENT}/tiktok-dark.html`)}`;
 const FRAMES   = '/tmp/cdpframes';
-const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-light.mp4`);
+const OUT      = path.resolve(__dirname, `events/${EVENT}/tiktok-dark.mp4`);
 const W = 540, H = 960;
 const DURATION = 20000;
 
