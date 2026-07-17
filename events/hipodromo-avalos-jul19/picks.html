@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Hipodromo Avalos · Domingo 19 Julio · Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:#0d0020;color:#fff;font-family:-apple-system,'Inter',sans-serif;overflow-x:hidden;padding-bottom:140px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:#0d0020;border-bottom:3px solid #FFD700;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;box-shadow:0 3px 16px rgba(0,0,0,.4)}
+.nav-l .l1{font-family:'Bebas Neue',sans-serif;font-size:.88rem;letter-spacing:.06em;color:#FFD700;line-height:1.1}
+.nav-l .l2{font-size:.48rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+.nav-badge{background:#FFD700;color:#0d0020;font-size:.62rem;font-weight:900;padding:.3rem .8rem;border-radius:20px;letter-spacing:.5px;white-space:nowrap}
+
+/* TICKER */
+.ticker{background:#FFD700;padding:.45rem 0;overflow:hidden}
+.t-track{display:flex;white-space:nowrap;animation:scroll 28s linear infinite}
+.t-track span{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.16em;color:#0d0020;padding:0 1.4rem}
+.t-track span::after{content:'◆';color:rgba(0,0,0,.2);margin-left:1.4rem;font-size:.5rem;vertical-align:middle}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:#0d0020}
+.hero-bg{width:100%;display:block;max-height:62vw;object-fit:cover;object-position:top center;opacity:.35}
+.hero-fade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,#0d0020 100%)}
+.hero-banner{position:relative;background:linear-gradient(180deg,#0d0020,#2D0060);padding:2rem 1rem 1.5rem;text-align:center}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,9vw,4.5rem);color:#FFD700;line-height:.88;letter-spacing:.03em}
+.hero-sub{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.14em;text-transform:uppercase;margin-top:.45rem}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid rgba(255,215,0,.15)}
+.st{display:flex;flex-direction:column;align-items:center;padding:.8rem .3rem;border-right:1px solid rgba(255,215,0,.1)}
+.st:last-child{border-right:none}
+.st-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,2.5rem);color:#FFD700;line-height:1}
+.st-l{font-size:.42rem;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem;text-align:center}
+
+/* ESTELAR */
+.estelar-wrap{padding:.8rem .8rem 0}
+.estelar-label{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.star-badge{background:#FFD700;color:#0d0020;font-family:'Bebas Neue',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.18rem .6rem;border-radius:5px}
+.estelar-label-txt{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#FFD700}
+.estelar-label-dist{margin-left:auto;font-size:.62rem;font-weight:700;color:rgba(255,255,255,.4)}
+.ec{border-radius:16px;overflow:hidden;border:2px solid #FFD700;box-shadow:0 6px 32px rgba(255,215,0,.18);background:rgba(75,0,130,.15)}
+.ec-duel{display:grid;grid-template-columns:1fr 54px 1fr;min-height:220px}
+.ec-side{position:relative;background:rgba(75,0,130,.2);overflow:hidden;cursor:pointer}
+.ec-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
+.ec-side.r img{transform:scaleX(-1)}
+.ec-name-strip{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);padding:.7rem .7rem .55rem}
+.ec-side.r .ec-name-strip{text-align:right}
+.ec-hn{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,4vw,2.2rem);color:#fff;line-height:.9;text-shadow:0 2px 12px #000}
+.ec-cuad{font-size:.52rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.18rem}
+.ec-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD700;border-left:1.5px solid #FFD700;border-right:1.5px solid #FFD700;gap:.1rem}
+.ec-vs{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#0d0020;line-height:1}
+.ec-cn{font-family:'Bebas Neue',sans-serif;font-size:.7rem;color:rgba(0,0,0,.5);letter-spacing:.1em}
+.ec-side.selected{background:rgba(75,0,130,.5)}
+.ec-side.dimmed{opacity:.35;filter:grayscale(.6)}
+.ec-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#0d0020;opacity:0;transition:opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.ec-side.selected .ec-check{opacity:1}
+
+/* SECTION HEADERS */
+.sec-hd{display:flex;align-items:center;gap:.8rem;padding:1.2rem 1rem .7rem}
+.sec-hd::before,.sec-hd::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.3),transparent)}
+.sec-hd span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;white-space:nowrap;color:#FFD700}
+
+/* HORSE SCROLL */
+.horses-scroll{display:flex;gap:.75rem;padding:.2rem 1rem 1rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.horses-scroll::-webkit-scrollbar{display:none}
+.hc{flex:0 0 38vw;max-width:150px;background:rgba(75,0,130,.15);border-radius:14px;overflow:hidden;border:1.5px solid rgba(255,215,0,.2);box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.hc-img{width:100%;aspect-ratio:3/4;background:rgba(75,0,130,.1);overflow:hidden}
+.hc-img img{width:100%;height:100%;object-fit:contain;object-position:top center}
+.hc-body{padding:.6rem .7rem .7rem;border-top:1.5px solid rgba(255,215,0,.1)}
+.hc-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.03em;line-height:1;color:#FFD700}
+.hc-cuad{font-size:.5rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin:.1rem 0 .4rem}
+.hc-tag{display:inline-block;border:1.5px solid #FFD700;color:#FFD700;font-size:.5rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:999px}
+
+/* RACE LIST */
+.race-list{padding:.2rem .8rem 1.2rem;display:flex;flex-direction:column;gap:.55rem}
+.rr{background:rgba(75,0,130,.15);border-radius:14px;overflow:hidden;border:1.5px solid rgba(255,215,0,.15);box-shadow:0 1px 6px rgba(0,0,0,.2);cursor:pointer;transition:box-shadow .18s,border-color .18s}
+.rr.open,.rr:hover{box-shadow:0 4px 22px rgba(255,215,0,.12);border-color:rgba(255,215,0,.4)}
+.rr.picked{border-color:#FFD700}
+.rr.special{border-left:3px solid #E91E8C}
+.rr-top{display:flex;align-items:center;gap:.6rem;padding:.78rem .85rem}
+.rr-badge{width:30px;height:30px;border-radius:50%;background:#2D0060;color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,215,0,.3)}
+.rr.special .rr-badge{background:#E91E8C;color:#fff;border-color:#E91E8C}
+.spec-tag{background:#E91E8C;color:#fff;font-size:.44rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.14rem .5rem;border-radius:4px;flex-shrink:0}
+.rr-ico{width:38px;height:38px;flex-shrink:0;border-radius:9px;overflow:hidden;background:rgba(75,0,130,.2);border:1px solid rgba(255,215,0,.2)}
+.rr-ico img{width:100%;height:100%;object-fit:contain;object-position:top center}
+.rr-names{flex:1;min-width:0}
+.rr-n1{font-family:'Bebas Neue',sans-serif;font-size:.86rem;color:#fff;line-height:1.1;letter-spacing:.02em}
+.rr-cuad{font-size:.5rem;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em;margin-top:.05rem}
+.rr-vs{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#FFD700;flex-shrink:0}
+.rr-dist{font-size:.54rem;font-weight:700;color:rgba(255,255,255,.3);white-space:nowrap;margin-left:auto}
+.rr-time{font-size:.5rem;font-weight:700;color:rgba(255,255,255,.25);flex-shrink:0}
+.rr-duel{display:none;border-top:1.5px solid rgba(255,215,0,.1)}
+.rr.open .rr-duel{display:block}
+
+/* DUEL GRID */
+.duel-grid{display:grid;grid-template-columns:1fr 46px 1fr;min-height:180px}
+.dh{position:relative;overflow:hidden;background:rgba(75,0,130,.2);cursor:pointer}
+.dh img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center}
+.dh.dr img{transform:scaleX(-1)}
+.dh-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);padding:.65rem .6rem .5rem}
+.dh.dr .dh-info{text-align:right}
+.dh-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3.5vw,2rem);color:#fff;line-height:.9;text-shadow:0 2px 10px #000}
+.dh-cuad{font-size:.48rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FFD700}
+.duel-vs{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:#0d0020;line-height:1}
+.duel-cn{font-family:'Bebas Neue',sans-serif;font-size:.5rem;color:rgba(0,0,0,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.1rem}
+.dh.selected{background:rgba(75,0,130,.5)}
+.dh.dimmed{opacity:.35;filter:grayscale(.6)}
+.dh-check{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0d0020;opacity:0;transition:opacity .2s;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.dh.selected .dh-check{opacity:1}
+
+/* PICKS PANEL */
+.picks-panel{margin:1rem .8rem 0;background:rgba(13,0,32,0.96);border-radius:16px;border:2px solid #FFD700;overflow:hidden;box-shadow:0 4px 20px rgba(255,215,0,.15)}
+.picks-head{background:#FFD700;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.picks-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:#0d0020}
+.picks-head .cnt{font-size:.62rem;font-weight:800;color:rgba(0,0,0,.5);letter-spacing:1px}
+.picks-rows{padding:.5rem 1rem .9rem}
+.prow{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid rgba(255,215,0,.07)}
+.prow:last-child{border:none}
+.prow .pn{font-size:.6rem;font-weight:800;color:#FFD700;min-width:16px}
+.prow .pname{font-size:.7rem;font-weight:800;text-transform:uppercase;color:#fff;flex:1;letter-spacing:.3px}
+.prow .pname.empty{color:rgba(255,255,255,.25);font-weight:400;text-transform:none;font-size:.68rem}
+.prow .pcheck{width:16px;height:16px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:9px;color:#0d0020;font-weight:900;opacity:0;flex-shrink:0;transition:opacity .15s}
+.prow.done .pcheck{opacity:1}
+.prow.done .pname{color:#fff}
+
+/* FLIP AD */
+.flip-ad-wrap{margin:.9rem .8rem 0;perspective:1000px}
+.flip-ad{position:relative;width:100%;aspect-ratio:4/3;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);cursor:pointer;border-radius:14px}
+.flip-ad.flipped{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden}
+.flip-front img{width:100%;height:100%;object-fit:cover;display:block}
+.flip-back{background:linear-gradient(135deg,#0d0020 0%,#2D0060 100%);border:2px solid #FFD700;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px}
+.flip-back .fb-badge{background:#FFD700;color:#0d0020;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;padding:6px 18px;border-radius:20px;text-transform:uppercase}
+.flip-back .fb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:#FFD700;text-align:center;line-height:.88;letter-spacing:.04em}
+.flip-back .fb-prize{font-size:3.5rem;font-weight:900;color:#fff;text-align:center;line-height:1}
+.flip-back .fb-prize span{color:#FFD700}
+.flip-back .fb-sub{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;text-align:center}
+.flip-back .fb-cta{background:#FFD700;color:#0d0020;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;padding:8px 28px;border-radius:30px;text-transform:uppercase;margin-top:4px}
+
+/* AD APPEAR */
+.ad-appear{background:rgba(75,0,130,.1);border:1.5px dashed rgba(255,215,0,.2);padding:.9rem 1.1rem;margin:.9rem .8rem 0;border-radius:14px;display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.ad-appear .ad-plus{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,215,0,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:rgba(255,215,0,.3);flex-shrink:0}
+.ad-appear .ad-text .ad-name{font-size:.75rem;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em}
+.ad-appear .ad-text .ad-desc{font-size:.58rem;color:rgba(255,255,255,.2);margin-top:.15rem}
+.ad-appear .ad-cta-ghost{margin-left:auto;border:1.5px solid rgba(255,215,0,.2);color:rgba(255,215,0,.3);font-size:.56rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+/* SHARE BTN */
+.share-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.9rem .8rem 0;width:calc(100% - 1.6rem);background:#4B0082;color:#FFD700;border:2px solid #FFD700;border-radius:12px;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;cursor:pointer}
+.share-btn:active{background:#7B2D8B}
+
+/* MUSIC BAR */
+.music-bar{position:fixed;bottom:0;left:0;right:0;background:#0d0020;border-top:2px solid #FFD700;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem;z-index:300;box-shadow:0 -4px 24px rgba(0,0,0,.5)}
+.music-art{width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#4B0082,#E91E8C);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.music-info{flex:1;min-width:0}
+.music-title{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:#FFD700;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:.56rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:.15rem}
+.music-controls{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.music-btn{background:none;border:none;color:#FFD700;font-size:1.1rem;cursor:pointer;padding:.3rem;display:flex;align-items:center;justify-content:center}
+.music-btn.muted{color:rgba(255,255,255,.3)}
+.music-progress{position:absolute;bottom:0;left:0;height:2px;background:#E91E8C;width:0%;transition:width .5s linear;opacity:.6}
+
+/* TOAST */
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(10px);background:#2D0060;color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.08em;padding:.6rem 1.2rem;border-radius:30px;border:1px solid rgba(255,215,0,.4);opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:380px){.rr-dist{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-l">
+    <div class="l1">Hipodromo Avalos · Jul 19</div>
+    <div class="l2">Domingo 19 de Julio 2026</div>
+  </div>
+  <div class="nav-badge" id="navBadge">0 / 23 Picks</div>
+</nav>
+
+<div class="ticker">
+  <div class="t-track">
+    <span>GRAN ESTELAR</span><span>COPA AVALOS</span><span>C.DON ELIAS</span><span>C.MEZQUITE 3R5</span><span>GRAN FINAL</span><span>C.10%</span><span>C.RANCHO EL 21</span><span>MANO A MANO</span><span>GRAN CIERRE</span><span>PRIMERA EDICION</span>
+    <span>GRAN ESTELAR</span><span>COPA AVALOS</span><span>C.DON ELIAS</span><span>C.MEZQUITE 3R5</span><span>GRAN FINAL</span><span>C.10%</span><span>C.RANCHO EL 21</span><span>MANO A MANO</span><span>GRAN CIERRE</span><span>PRIMERA EDICION</span>
+  </div>
+</div>
+
+<div class="hero-banner">
+  <div class="hero-title">HIPODROMO<br>AVALOS</div>
+  <div class="hero-sub">COPA AVALOS · PRIMERA EDICIÓN · $300 ENTRADA</div>
+</div>
+
+<div class="stats">
+  <div class="st"><div class="st-n">23</div><div class="st-l">Carreras</div></div>
+  <div class="st"><div class="st-n">46+</div><div class="st-l">Caballos</div></div>
+  <div class="st"><div class="st-n">325</div><div class="st-l">Max Varas</div></div>
+  <div class="st"><div class="st-n" id="sfn">4,107</div><div class="st-l">Siguiendo</div></div>
+</div>
+
+<!-- ESTELAR: EL CHALAN vs EL ZAFIRO -->
+<div class="estelar-wrap">
+  <div class="estelar-label">
+    <span class="star-badge">⭐ ESTELAR</span>
+    <span class="estelar-label-txt">Gran Estelar · 12:40 PM</span>
+    <span class="estelar-label-dist">325 Varas</span>
+  </div>
+  <div class="ec">
+    <div class="ec-duel">
+      <div class="ec-side l" id="ec-0" onclick="pick(9,0)">
+        <img src="h-caos.jpg" alt="EL CHALAN">
+        <div class="ec-check">✓</div>
+        <div class="ec-name-strip">
+          <div class="ec-hn">EL CHALAN</div>
+          <div class="ec-cuad">C.Don Elias</div>
+        </div>
+      </div>
+      <div class="ec-mid"><div class="ec-vs">VS</div><div class="ec-cn">12:40</div></div>
+      <div class="ec-side r" id="ec-1" onclick="pick(9,1)">
+        <img src="h-rey-puerro.jpg" alt="EL ZAFIRO">
+        <div class="ec-check">✓</div>
+        <div class="ec-name-strip">
+          <div class="ec-hn">EL ZAFIRO</div>
+          <div class="ec-cuad">C.Mezquite/3R5</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;background:rgba(75,0,130,.2);border-top:1px solid rgba(255,215,0,.1)">
+      <div style="padding:.6rem .9rem"><div style="font-size:.44rem;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase">Distancia</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FFD700">325 Varas</div></div>
+      <div style="padding:.6rem .9rem;text-align:right"><div style="font-size:.44rem;font-weight:800;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase">Tipo</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FFD700">Gran Estelar</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HORSE SCROLL -->
+<div class="sec-hd"><span>LOS CABALLOS</span></div>
+<div class="horses-scroll">
+  <div class="hc"><div class="hc-img"><img src="h-caos.jpg" alt="EL CHALAN"></div><div class="hc-body"><div class="hc-name">EL CHALAN</div><div class="hc-cuad">C.Don Elias</div><div class="hc-tag">⭐ Estelar</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="h-rey-puerro.jpg" alt="EL ZAFIRO"></div><div class="hc-body"><div class="hc-name">EL ZAFIRO</div><div class="hc-cuad">C.Mezquite/3R5</div><div class="hc-tag">⭐ Estelar</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="la-mami.jpg" alt="EL CUATE"></div><div class="hc-body"><div class="hc-name">EL CUATE</div><div class="hc-cuad">C.10%</div><div class="hc-tag">🏆 Gran Final</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="cuadra-mtz.jpg" alt="EL GENERADOR"></div><div class="hc-body"><div class="hc-name">EL GENERADOR</div><div class="hc-cuad">C.Rancho El 21</div><div class="hc-tag">🏆 Gran Final</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="cristo-rey.jpg" alt="CORAZON DE PIEDRA"></div><div class="hc-body"><div class="hc-name">CORAZON PIEDRA</div><div class="hc-cuad">C.Rancho El Diamante</div><div class="hc-tag">C. 2:15</div></div></div>
+  <div class="hc"><div class="hc-img"><img src="la-mami.jpg" alt="LA FIERA BRAZ"></div><div class="hc-body"><div class="hc-name">LA FIERA BRAZ</div><div class="hc-cuad">C.La Victoria</div><div class="hc-tag">Gran Cierre</div></div></div>
+</div>
+
+<div class="sec-hd"><span>PROGRAMA — TUS PICKS</span></div>
+<div class="race-list" id="raceList"></div>
+
+<div class="picks-panel">
+  <div class="picks-head">
+    <h3>Mis Picks</h3>
+    <span class="cnt" id="picksCnt">0 DE 23</span>
+  </div>
+  <div class="picks-rows" id="pickRows"></div>
+</div>
+
+<button class="share-btn" onclick="sharePicks()">🏆 Compartir mis Picks</button>
+
+<!-- PICK6 FLIP AD -->
+<div class="flip-ad-wrap">
+  <div class="flip-ad" id="flipAd" onclick="this.classList.toggle('flipped')">
+    <div class="flip-front">
+      <img src="ad-pick6.jpg" alt="PICK6 Raspa y Gana">
+    </div>
+    <div class="flip-back">
+      <div class="fb-badge">Hipodromo Avalos</div>
+      <div class="fb-title">RASPA<br>Y GANA</div>
+      <div class="fb-prize"><span>$</span>5K</div>
+      <div class="fb-sub">$100 ENTRADA · ¡Acierta y Gana!</div>
+      <div class="fb-cta">Solo $100 · Juega Ya</div>
+    </div>
+  </div>
+</div>
+
+<a class="ad-appear carrerasos-ad" href="https://guttix1.github.io/Digital-flyer-/pages/carrerasos.html" style="background:linear-gradient(135deg,#0d0020,#1a0040);border:1.5px solid #F5C518;text-decoration:none">
+  <div class="ad-plus" style="background:linear-gradient(135deg,#F5C518,#FF8C00);border:none;font-size:.9rem">🏆</div>
+  <div class="ad-text">
+    <div class="ad-name" style="color:#F5C518">CarrerasOS</div>
+    <div class="ad-desc" style="color:rgba(255,255,255,.55)">La app de picks #1 del carril · Gratis</div>
+  </div>
+  <div class="ad-cta-ghost" style="border-color:#F5C518;color:#F5C518">Ver App</div>
+</a>
+
+<a class="ad-appear" href="#" onclick="return false">
+  <div class="ad-plus">+</div>
+  <div class="ad-text">
+    <div class="ad-name">Tu negocio aquí</div>
+    <div class="ad-desc">Llega a miles de fanáticos de las carreras</div>
+  </div>
+  <div class="ad-cta-ghost">Anúnciate</div>
+</a>
+
+<div class="music-bar" id="musicBar">
+  <div class="music-progress" id="musicProgress"></div>
+  <div class="music-art">🎵</div>
+  <div class="music-info">
+    <div class="music-title" id="musicTitle">El Rey de Colorado</div>
+    <div class="music-artist" id="musicArtist">Copa Avalos · Primera Edición</div>
+  </div>
+  <div class="music-controls">
+    <button class="music-btn" id="playBtn" onclick="togglePlay()">▶</button>
+    <button class="music-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
+  </div>
+</div>
+
+<audio id="audio" preload="auto" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const RACES = [
+  {n:1,  time:'10:00', type:'Mano a Mano',  special:false, dist:'125 Varas',     h1:'EL TRAILERO',       c1:'C.La Austera',        i1:'la-mami.jpg',       h2:'NVA SECRETARIA',     c2:'C.Tomatitos Racing', i2:'cuadra-mtz.jpg'},
+  {n:2,  time:'10:20', type:'Mano a Mano',  special:false, dist:'200 Varas',     h1:'EL ZEUS',           c1:'C.Pitayo',            i1:'h-caos.jpg',        h2:'NVO LAGARTIJO',      c2:'C.Palestina',        i2:'h-rey-puerro.jpg'},
+  {n:3,  time:'10:40', type:'Mano a Mano',  special:false, dist:'275 Varas',     h1:'LA TERESITA',       c1:'C.Los Amigos',        i1:'la-reyna.jpg',      h2:"K'MASH DASH",        c2:'C.Solitario',        i2:'pisces.jpg'},
+  {n:4,  time:'11:00', type:'Mano a Mano',  special:false, dist:'100 Varas',     h1:'EL CUCUY',          c1:'C.San Isidro',        i1:'aries.jpg',         h2:'LA DOCTORA',         c2:'C.Tomatitos Racing', i2:'cuadra-esperanza.jpg'},
+  {n:5,  time:'11:20', type:'Mano a Mano',  special:false, dist:'200 Varas',     h1:'EL RAYITO',         c1:'C.Nva Generación',    i1:'gutierrez.jpg',     h2:'EL TRES',            c2:'C.Solitario',        i2:'la-tepada.jpg'},
+  {n:6,  time:'11:40', type:'Mano a Mano',  special:false, dist:'250 Varas',     h1:'EL BINGO',          c1:'C.Pitayo',            i1:'el-chigon.jpg',     h2:'EL MESIAS',          c2:'C.Rolas Jr',         i2:'cuadra-mtz.jpg'},
+  {n:7,  time:'12:00', type:'Mano a Mano',  special:false, dist:'275 Varas',     h1:'EL QUINTERO',       c1:'C.Los Amigos',        i1:'cristo-rey.jpg',    h2:'EL MALQUERIDO',      c2:'C.Solitario',        i2:'la-mami.jpg'},
+  {n:8,  time:'12:25', type:'Copa Avalos',  special:true,  dist:'225 Varas',     h1:'CORTITO',           c1:'C.Nva Generación',    i1:'aries.jpg',         h2:'REY LEON',           c2:'C.Sta Rosalia',      i2:'gutierrez.jpg'},
+  {n:9,  time:'12:40', type:'Gran Estelar ⭐',special:true, dist:'325 Varas',    h1:'EL CHALAN',         c1:'C.Don Elias',         i1:'h-caos.jpg',        h2:'EL ZAFIRO',          c2:'C.Mezquite/3R5',     i2:'h-rey-puerro.jpg'},
+  {n:10, time:'1:30',  type:'Copa Avalos',  special:true,  dist:'300 Varas',     h1:'BATICHICA',         c1:'C.Los Nogales',       i1:'la-reyna.jpg',      h2:'EL POLLO',           c2:'C.Hnos Chavez',      i2:'pisces.jpg'},
+  {n:11, time:'1:45',  type:'Copa Avalos',  special:false, dist:'225 Varas',     h1:'PADRINO',           c1:'C.Nva Generación',    i1:'la-mami.jpg',       h2:'QUERIDA',            c2:'C.3 Turbos',         i2:'cuadra-esperanza.jpg'},
+  {n:12, time:'2:00',  type:'Copa Avalos',  special:false, dist:'225 Varas',     h1:'NORTEÑO',           c1:'C.Nueva Era',         i1:'el-chigon.jpg',     h2:'VAQUERO',            c2:'C.Sta Rosalia',      i2:'cuadra-mtz.jpg'},
+  {n:13, time:'2:15',  type:'Mano a Mano',  special:true,  dist:'325 Varas',     h1:'CORAZON DE PIEDRA', c1:'C.Rancho El Diamante',i1:'cristo-rey.jpg',    h2:'LA MATRIX',          c2:'C.Rancho El 21',     i2:'la-tepada.jpg'},
+  {n:14, time:'2:30',  type:'Copa Avalos',  special:false, dist:'225 Varas',     h1:'DUMBO',             c1:'C.Hnos Chavez',       i1:'gutierrez.jpg',     h2:'LA BETTY',           c2:'C.3 Turbos',         i2:'la-reyna.jpg'},
+  {n:15, time:'3:05',  type:'Abierta Libre',special:false, dist:'300 Varas',     h1:'R.EL DIAMANTE',     c1:'',                    i1:'aries.jpg',         h2:'C.SOLITARIO',        c2:'',                   i2:'pisces.jpg'},
+  {n:16, time:'3:20',  type:'Mano a Mano',  special:false, dist:'300 Varas',     h1:'LA ATREVIDA',       c1:'C.3 Turbos',          i1:'la-mami.jpg',       h2:'LA MUSULMANA',       c2:'C.Rancho El 21',     i2:'cuadra-mtz.jpg'},
+  {n:17, time:'4:15',  type:'Gran Final 🏆', special:true,  dist:'300 Varas',    h1:'EL CUATE',          c1:'C.10%',               i1:'h-caos.jpg',        h2:'EL GENERADOR',       c2:'C.Rancho El 21',     i2:'h-rey-puerro.jpg'},
+  {n:18, time:'4:30',  type:'Copa Avalos',  special:false, dist:'225 Varas',     h1:'CARLOS MANZO',      c1:'C.Solitario',         i1:'gutierrez.jpg',     h2:'EL GALLITO',         c2:'C.Alamos',           i2:'el-chigon.jpg'},
+  {n:19, time:'4:45',  type:'Mano a Mano',  special:false, dist:'200 Varas',     h1:'EL LOBITO',         c1:'C.Rancho Alto',       i1:'cristo-rey.jpg',    h2:'LA SARA GARCIA',     c2:'C.Black Jack',       i2:'cuadra-esperanza.jpg'},
+  {n:20, time:'5:00',  type:'Mano a Mano',  special:false, dist:'100/200 Varas', h1:'EL GABACHO',        c1:'C.JM',                i1:'la-tepada.jpg',     h2:'LA NVA SOCIA',       c2:'C.Hnos Muñiz',       i2:'cuadra-mtz.jpg'},
+  {n:21, time:'5:15',  type:'Mano a Mano',  special:false, dist:'250 Varas',     h1:'EL PISTOLERO',      c1:'C.JV Ranch',          i1:'h-caos.jpg',        h2:'EL ESTUDIANTE',      c2:'C.Solitario',        i2:'la-tepada.jpg'},
+  {n:22, time:'5:30',  type:'Mano a Mano',  special:false, dist:'250 Varas',     h1:'LA RUTILA',         c1:'C.Rancho Alto',       i1:'la-reyna.jpg',      h2:'EL KALYMAN',         c2:'C.La Victoria',      i2:'pisces.jpg'},
+  {n:23, time:'6:00',  type:'Gran Cierre',  special:true,  dist:'75 Varas',      h1:'LA FIERA BRAZ',     c1:'C.La Victoria',       i1:'la-mami.jpg',       h2:'EL PAPI CHULO',      c2:'C.Hnos Muñiz',       i2:'cuadra-esperanza.jpg'},
+];
+
+const picks = {};
+
+function buildRaces(){
+  const list = document.getElementById('raceList');
+  RACES.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'rr'+(r.special?' special':'');
+    card.id = `rr-${r.n}`;
+    card.innerHTML = `
+      <div class="rr-top">
+        <div class="rr-badge">${r.n}</div>
+        ${r.special?'<span class="spec-tag">⭐</span>':''}
+        <div class="rr-ico"><img src="${r.i1}" alt="${r.h1}" loading="lazy"></div>
+        <div class="rr-names"><div class="rr-n1">${r.h1}</div><div class="rr-cuad">${r.c1||r.type}</div></div>
+        <div class="rr-vs">VS</div>
+        <div class="rr-names" style="text-align:right"><div class="rr-n1">${r.h2}</div><div class="rr-cuad">${r.c2||''}</div></div>
+        <div class="rr-ico"><img src="${r.i2}" alt="${r.h2}" loading="lazy"></div>
+        <div class="rr-dist">${r.dist}</div>
+      </div>
+      <div class="rr-duel">
+        <div class="duel-grid">
+          <div class="dh dl" id="dh-${r.n}-0" onclick="pick(${r.n},0)">
+            <img src="${r.i1}" alt="${r.h1}" loading="lazy"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h1}</div><div class="dh-cuad">${r.type} · ${r.dist}</div></div>
+          </div>
+          <div class="duel-mid"><div class="duel-vs">VS</div><div class="duel-cn">${r.time}</div></div>
+          <div class="dh dr" id="dh-${r.n}-1" onclick="pick(${r.n},1)">
+            <img src="${r.i2}" alt="${r.h2}" loading="lazy"><div class="dh-check">✓</div>
+            <div class="dh-info"><div class="dh-name">${r.h2}</div><div class="dh-cuad">${r.c2||r.type}</div></div>
+          </div>
+        </div>
+      </div>`;
+    card.querySelector('.rr-top').addEventListener('click',()=>{
+      const was=card.classList.contains('open');
+      document.querySelectorAll('.rr.open').forEach(el=>el.classList.remove('open'));
+      if(!was) card.classList.add('open');
+    });
+    list.appendChild(card);
+  });
+}
+
+function pick(raceNum,idx){
+  const r=RACES.find(x=>x.n===raceNum);
+  const isRepick=picks[raceNum]?.idx===idx;
+  if(isRepick){
+    delete picks[raceNum];
+    [0,1].forEach(i=>document.getElementById(`dh-${raceNum}-${i}`)?.classList.remove('selected','dimmed'));
+    document.getElementById(`rr-${raceNum}`)?.classList.remove('picked');
+  } else {
+    picks[raceNum]={idx,name:idx===0?r.h1:r.h2};
+    [0,1].forEach(i=>{
+      const el=document.getElementById(`dh-${raceNum}-${i}`);
+      el?.classList.toggle('selected',i===idx);
+      el?.classList.toggle('dimmed',i!==idx);
+    });
+    document.getElementById(`rr-${raceNum}`)?.classList.add('picked');
+    toast(`★ ${picks[raceNum].name}`);
+  }
+  // sync estelar if race 9
+  if(raceNum===9){
+    [0,1].forEach(i=>{
+      const el=document.getElementById(`ec-${i}`);
+      if(!el)return;
+      el.classList.remove('selected','dimmed');
+      if(picks[9]){el.classList.toggle('selected',i===idx);el.classList.toggle('dimmed',i!==idx);}
+    });
+  }
+  updatePanel();
+}
+
+function updatePanel(){
+  const count=Object.keys(picks).length;
+  document.getElementById('navBadge').textContent=`${count} / 23 Picks`;
+  document.getElementById('picksCnt').textContent=`${count} DE 23`;
+  const rows=document.getElementById('pickRows');
+  rows.innerHTML='';
+  RACES.forEach(r=>{
+    const p=picks[r.n];
+    const row=document.createElement('div');
+    row.className='prow'+(p?' done':'');
+    row.innerHTML=`<span class="pn">${r.n}</span><span class="pname${p?'':' empty'}">${p?p.name:'— sin selección'}</span><div class="pcheck">✓</div>`;
+    rows.appendChild(row);
+  });
+}
+
+function sharePicks(){
+  const count=Object.keys(picks).length;
+  if(!count){toast('¡Elige tus picks primero!');return;}
+  let txt='🏆 Mis Picks — Hipodromo Avalos\n📅 Domingo 19 de Julio 2026\n\n';
+  RACES.forEach(r=>{const p=picks[r.n];txt+=`C${r.n}: ${p?'★ '+p.name:'—'}\n`;});
+  txt+='\nhttps://guttix1.github.io/Digital-flyer-/events/hipodromo-avalos-jul19/picks.html';
+  if(navigator.share){navigator.share({title:'Mis Picks · Hipodromo Avalos',text:txt}).catch(()=>{});}
+  else{navigator.clipboard.writeText(txt).then(()=>toast('¡Copiado!')).catch(()=>{});}
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600);
+}
+
+// MUSIC
+const audio=document.getElementById('audio');
+const playBtn=document.getElementById('playBtn');
+const muteBtn=document.getElementById('muteBtn');
+const musicProgress=document.getElementById('musicProgress');
+audio.volume=0.7;
+let started=false;
+function tryPlay(){
+  if(started)return;started=true;
+  audio.play().then(()=>{playBtn.textContent='⏸';}).catch(()=>{});
+}
+document.addEventListener('click',tryPlay,{once:true});
+document.addEventListener('touchstart',tryPlay,{once:true});
+function togglePlay(){
+  if(audio.paused){audio.play().then(()=>playBtn.textContent='⏸').catch(()=>{});}
+  else{audio.pause();playBtn.textContent='▶';}
+}
+function toggleMute(){
+  audio.muted=!audio.muted;
+  muteBtn.textContent=audio.muted?'🔇':'🔊';
+  muteBtn.classList.toggle('muted',audio.muted);
+}
+audio.addEventListener('timeupdate',()=>{
+  if(!audio.duration)return;
+  musicProgress.style.width=(audio.currentTime/audio.duration*100)+'%';
+});
+
+// auto-flip ad every 4s
+setInterval(()=>document.getElementById('flipAd')?.classList.toggle('flipped'), 4000);
+
+document.getElementById('sfn').textContent=(4100+Math.floor(Math.random()*18)).toLocaleString();
+buildRaces();
+updatePanel();
+</script>
+</body>
+</html>
