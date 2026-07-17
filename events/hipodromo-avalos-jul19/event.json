@@ -1,0 +1,462 @@
+{
+  "slug": "hipodromo-avalos-jul19",
+  "page_title": "CarrerasOS · Hipódromo Avalos",
+  "page_description": "Hipódromo Avalos - Copa Avalos - Domingo 19 de Julio - Gran Final Futurity de la Triple Corona. Haz tus picks para cada carrera.",
+  "countdown": "2026-07-19T10:00",
+  "event": {
+    "org": "HIPÓDROMO AVALOS",
+    "titleTop": "COPA",
+    "titleBottom": "AVALOS",
+    "tagline": "GRAN FINAL FUTURITY DE LA TRIPLE CORONA",
+    "stars": "23 CARRERAS ADENTRO",
+    "dayName": "DOMINGO",
+    "dayNum": "19",
+    "month": "DE JULIO",
+    "year": "2026",
+    "location": "Hipódromo Avalos",
+    "address": "Hipódromo Avalos",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "NUTRIGAFER",
+        "cat": "Patrocinador Oficial"
+      },
+      {
+        "name": "PURO CABALLO PERRÓN",
+        "cat": "Patrocinador Oficial"
+      }
+    ],
+    "counts": "23 carreras · Entrada general $300.00"
+  },
+  "field": [],
+  "races": [
+    {
+      "id": 1,
+      "time": "10:00 AM",
+      "dist": "125V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TRAILERO",
+          "stable": "C. La Austera"
+        },
+        {
+          "name": "NVA SECRETARIA",
+          "stable": "C. Tomatitos Racing"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "10:20 AM",
+      "dist": "200V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ZEUS",
+          "stable": "C. Pitayo"
+        },
+        {
+          "name": "NVO LAGARTIJO",
+          "stable": "C. Palestina"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "10:40 AM",
+      "dist": "275V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA TERESITA",
+          "stable": "C. Los Amigos"
+        },
+        {
+          "name": "K'MASH DASH",
+          "stable": "C. Solitario"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "11:00 AM",
+      "dist": "100V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUCUY",
+          "stable": "C. San Isidro"
+        },
+        {
+          "name": "LA DOCTORA",
+          "stable": "C. Tomatitos Racing"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "11:20 AM",
+      "dist": "200V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL RAYITO",
+          "stable": "C. Nva Generación"
+        },
+        {
+          "name": "EL TRES",
+          "stable": "C. Solitario"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "11:40 AM",
+      "dist": "250V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL BINGO",
+          "stable": "C. Pitayo"
+        },
+        {
+          "name": "EL MESIAS",
+          "stable": "C. Rolas Jr"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "12:00 PM",
+      "dist": "275V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL QUINTERO",
+          "stable": "C. Los Amigos"
+        },
+        {
+          "name": "EL MALQUERIDO",
+          "stable": "C. Solitario"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "12:25 PM",
+      "dist": "225V",
+      "type": "duel",
+      "section": "COPA AVALOS · PRIMERA EDICIÓN",
+      "horses": [
+        {
+          "name": "CORTITO",
+          "stable": "C. Nva Generación"
+        },
+        {
+          "name": "REY LEÓN",
+          "stable": "C. Sta Rosalia"
+        },
+        {
+          "name": "PERRYS",
+          "stable": "C. Santa Maria"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "12:40 PM",
+      "dist": "325V",
+      "type": "duel",
+      "featured": "🔥 CARRERA ESTELAR",
+      "horses": [
+        {
+          "name": "EL CHALÁN",
+          "stable": "C. Don Elías"
+        },
+        {
+          "name": "EL ZAFIRO",
+          "stable": "C. Mezquite/3RS"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "time": "01:30 PM",
+      "dist": "300V",
+      "type": "open",
+      "featured": "⏸ Mantenimiento 12:40–1:20 PM · 🏆 GRAN FINAL FUTURITY · TRIPLE CORONA MILLONARIA",
+      "category": "GRAN FINAL FUTURITY DE LA TRIPLE CORONA",
+      "entries": [
+        "BATICHICA (C. Los Nogales)",
+        "EL POLLO (C. Hnos Chávez)",
+        "MIKIMA (C. Rancho El 21)",
+        "CHABOCHI (C. Rancho El Diamante)",
+        "DEPRECIADO (C. Hnos Chávez)"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "01:45 PM",
+      "dist": "225V",
+      "type": "duel",
+      "section": "COPA AVALOS · PRIMERA EDICIÓN",
+      "horses": [
+        {
+          "name": "PADRINO",
+          "stable": "C. Nva Generación"
+        },
+        {
+          "name": "QUERIDA",
+          "stable": "C. 3 Turbos"
+        },
+        {
+          "name": "FÉNIX",
+          "stable": "C. N/G"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "02:00 PM",
+      "dist": "225V",
+      "type": "duel",
+      "section": "COPA AVALOS · PRIMERA EDICIÓN",
+      "horses": [
+        {
+          "name": "NORTEÑO",
+          "stable": "C. Nueva Era"
+        },
+        {
+          "name": "VAQUERO",
+          "stable": "C. Sta Rosalia"
+        },
+        {
+          "name": "AZTECA",
+          "stable": "C. Los Ortega"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "02:15 PM",
+      "dist": "325V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "CORAZÓN DE PIEDRA",
+          "stable": "C. Rancho El Diamante"
+        },
+        {
+          "name": "LA MATRIX",
+          "stable": "C. Rancho El 21"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "02:30 PM",
+      "dist": "225V",
+      "type": "duel",
+      "section": "COPA AVALOS · PRIMERA EDICIÓN",
+      "horses": [
+        {
+          "name": "DUMBO",
+          "stable": "C. Hnos Chávez"
+        },
+        {
+          "name": "LA BETTY",
+          "stable": "C. 3 Turbos"
+        },
+        {
+          "name": "AGUILILLA",
+          "stable": "C. Los Potros"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "time": "03:05 PM",
+      "dist": "300V",
+      "type": "open",
+      "category": "ABIERTA LIBRE DE TAPADOS",
+      "entries": [
+        "CUADRA RANCHO EL DIAMANTE",
+        "CUADRA SOLITARIO",
+        "CUADRA LOS NOGALES",
+        "CUADRA EL ENCANTO"
+      ]
+    },
+    {
+      "id": 16,
+      "time": "03:20 PM",
+      "dist": "300V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA ATREVIDA",
+          "stable": "C. 3 Turbos"
+        },
+        {
+          "name": "LA MUSULMANA",
+          "stable": "C. Rancho El 21"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "time": "04:15 PM",
+      "dist": "300V",
+      "type": "duel",
+      "featured": "⏸ Mantenimiento 3:30–4:10 PM · 🔥 CARRERA ESTELAR",
+      "horses": [
+        {
+          "name": "EL CUATE",
+          "stable": "C. 10%"
+        },
+        {
+          "name": "EL GENERADOR",
+          "stable": "C. Rancho El 21"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "time": "04:30 PM",
+      "dist": "225V",
+      "type": "duel",
+      "section": "COPA AVALOS · PRIMERA EDICIÓN",
+      "horses": [
+        {
+          "name": "CARLOS MANZO",
+          "stable": "C. Solitario"
+        },
+        {
+          "name": "EL GALLITO",
+          "stable": "C. Álamos"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "time": "04:45 PM",
+      "dist": "200V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL LOBITO",
+          "stable": "C. Rancho Alto"
+        },
+        {
+          "name": "LA SARA GARCÍA",
+          "stable": "C. Black Jack"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "time": "05:00 PM",
+      "dist": "100/200V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GABACHO",
+          "stable": "C. JM"
+        },
+        {
+          "name": "LA NVA SOCIA",
+          "stable": "C. Hnos Muñiz"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "time": "05:15 PM",
+      "dist": "250V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PISTOLERO",
+          "stable": "C. JV Ranch"
+        },
+        {
+          "name": "EL ESTUDIANTE",
+          "stable": "C. Solitario (DA PYF)"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "time": "05:30 PM",
+      "dist": "250V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA RUTILA",
+          "stable": "C. Rancho Alto"
+        },
+        {
+          "name": "EL KALYMAN",
+          "stable": "C. La Victoria"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "time": "06:00 PM",
+      "dist": "75V",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA FIERA BRAZ",
+          "stable": "C. La Victoria"
+        },
+        {
+          "name": "EL PAPI CHULO",
+          "stable": "C. Hnos Muñiz"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "6": {
+      "img": "images/img12.jpg",
+      "tag": "PATROCINADOR OFICIAL",
+      "title": "NUTRIGAFER",
+      "tagline": "Nutrición y suplementos para el rendimiento de tu caballo",
+      "cta": "CONOCE MÁS",
+      "special": {
+        "title": "PATROCINADOR OFICIAL",
+        "text": "Nutrigafer respalda la Copa Avalos 2026",
+        "code": "AVALOS26"
+      }
+    },
+    "15": {
+      "img": "images/img13.jpg",
+      "tag": "PATROCINADOR OFICIAL",
+      "title": "PURO CABALLO PERRÓN",
+      "tagline": "Orgullosos patrocinadores de la afición carrilera",
+      "cta": "CONOCE MÁS",
+      "special": {
+        "title": "PATROCINADOR OFICIAL",
+        "text": "Puro Caballo Perrón respalda la Copa Avalos 2026",
+        "code": "AVALOS26"
+      }
+    },
+    "23": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · aparta tu lugar para el próximo evento",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "note": "Avalos: img01-08 left as generic template placeholders (unused, no per-horse photos on the source flyer). img09=hero action photo, img10=neutral purple placeholder (sellable ad), img11=full flyer poster, img12=Nutrigafer logo, img13=Puro Caballo Perrón logo."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "CarrerasOS · Hipódromo Avalos",
+  "short_name": "CarrerasOS",
+  "description": "Hipódromo Avalos - Copa Avalos - Domingo 19 de Julio - Gran Final Futurity de la Triple Corona. Haz tus picks para cada carrera.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0806",
+  "theme_color": "#A31AFF",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
