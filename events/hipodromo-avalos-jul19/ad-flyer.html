@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Hipodromo Avalos · 19 de Julio 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;background:#0d0020}
+body{
+  font-family:'Oswald',-apple-system,sans-serif;
+  max-width:440px;
+  margin:0 auto;
+  min-height:100vh;
+  background:#0d0020;
+  color:#fff;
+}
+
+/* 1. TOP BAR */
+.top-bar{
+  background:#FFD700;
+  color:#4B0082;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  letter-spacing:3px;
+  padding:8px;
+  text-align:center;
+}
+
+/* 2. HERO HEADER */
+.hero{
+  background:linear-gradient(180deg,#0d0020,#2D0060);
+  text-align:center;
+  padding:28px 20px 20px;
+}
+.hero-sup{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20px;
+  color:#FFD700;
+  letter-spacing:8px;
+  line-height:1.2;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:90px;
+  color:#FFD700;
+  line-height:0.85;
+  text-shadow:0 0 40px rgba(255,215,0,0.4);
+}
+.hero-rule{
+  height:2px;
+  width:80px;
+  background:#E91E8C;
+  margin:12px auto;
+  border:none;
+}
+.hero-copa{
+  font-size:11px;
+  color:#E91E8C;
+  letter-spacing:4px;
+  font-family:'Bebas Neue',sans-serif;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,215,0,0.15);
+  border:1px solid #FFD700;
+  color:#FFD700;
+  font-size:12px;
+  padding:6px 16px;
+  border-radius:4px;
+  margin-top:10px;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:2px;
+}
+
+/* 3. DATE BAR */
+.date-bar{
+  background:linear-gradient(90deg,#4B0082,#7B2D8B,#4B0082);
+  padding:14px;
+  text-align:center;
+}
+.date-main{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;
+  color:#fff;
+  line-height:1;
+}
+.date-sub{
+  font-size:11px;
+  color:rgba(255,255,255,0.55);
+  letter-spacing:3px;
+  margin-top:4px;
+  font-family:'Bebas Neue',sans-serif;
+}
+
+/* 4. HORSE STRIP */
+.horse-strip{
+  display:flex;
+  background:#0d0020;
+  border-top:2px solid rgba(255,215,0,0.2);
+  border-bottom:2px solid rgba(255,215,0,0.2);
+}
+.hs-img{
+  width:175px;
+  height:190px;
+  object-fit:cover;
+  flex-shrink:0;
+  display:block;
+}
+.hs-img.flip{transform:scaleX(-1)}
+.hs-center{
+  width:90px;
+  background:#4B0082;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.hs-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;
+  color:#FFD700;
+  line-height:1;
+}
+.hs-car{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:8px;
+  color:#FFD700;
+  letter-spacing:2px;
+}
+.hs-line{
+  width:40px;
+  height:1px;
+  background:#FFD700;
+  margin:6px 0;
+}
+.hs-av{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:8px;
+  color:#E91E8C;
+  letter-spacing:2px;
+}
+
+/* 5. ESTELAR BOXES */
+.estelar-row{
+  display:flex;
+  gap:8px;
+  margin:14px 14px 0;
+}
+.est-box{
+  flex:1;
+  border-radius:10px;
+  padding:12px;
+}
+.est-box.gold{
+  border:2px solid #FFD700;
+  background:rgba(75,0,130,0.2);
+}
+.est-box.pink{
+  border:2px solid #E91E8C;
+  background:rgba(233,30,140,0.1);
+}
+.est-badge{
+  display:inline-block;
+  font-size:10px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:3px;
+  margin-bottom:6px;
+  font-family:'Oswald',sans-serif;
+}
+.est-badge.gold{background:#FFD700;color:#0d0020}
+.est-badge.pink{background:#E91E8C;color:#fff}
+.est-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;
+  color:#fff;
+  line-height:1;
+}
+.est-sub{
+  font-size:10px;
+  margin-top:4px;
+  font-family:'Oswald',sans-serif;
+}
+.est-sub.gold{color:#FFD700}
+.est-sub.pink{color:#E91E8C}
+
+/* 6. SCHEDULE */
+.sched-wrap{padding:0 14px}
+.sched-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  color:#FFD700;
+  letter-spacing:3px;
+  border-left:3px solid #FFD700;
+  padding-left:8px;
+  margin:14px 0 10px;
+}
+.sched-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.sched-row.highlight-gold{background:rgba(255,215,0,0.08);margin:0 -4px;padding:7px 4px;border-radius:4px}
+.sched-row.highlight-pink{background:rgba(233,30,140,0.08);margin:0 -4px;padding:7px 4px;border-radius:4px}
+.sr-time{
+  font-size:11px;
+  color:rgba(255,255,255,0.4);
+  width:44px;
+  flex-shrink:0;
+  font-family:'Oswald',sans-serif;
+}
+.sr-dist{
+  background:#4B0082;
+  color:#FFD700;
+  font-size:9px;
+  padding:2px 6px;
+  border-radius:3px;
+  flex-shrink:0;
+  font-family:'Oswald',sans-serif;
+  font-weight:600;
+}
+.sr-name{
+  font-size:12px;
+  font-weight:600;
+  flex:1;
+  font-family:'Oswald',sans-serif;
+}
+.sr-name.gold{color:#FFD700;font-weight:800}
+.sr-name.pink{color:#E91E8C;font-weight:800}
+.sr-name.normal{color:#fff}
+
+/* 7. QR SECTION */
+.qr-section{
+  background:rgba(75,0,130,0.3);
+  border:1px solid rgba(255,215,0,0.2);
+  border-radius:12px;
+  margin:14px;
+  padding:16px;
+  text-align:center;
+}
+.qr-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  color:#FFD700;
+  letter-spacing:3px;
+  margin-bottom:12px;
+}
+#qr{
+  width:140px;
+  height:140px;
+  background:#fff;
+  border-radius:8px;
+  padding:4px;
+  border:2px solid #FFD700;
+  display:block;
+  margin:0 auto;
+}
+.qr-sub{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;
+  color:#E91E8C;
+  letter-spacing:2px;
+  margin-top:8px;
+}
+.qr-url{
+  font-size:10px;
+  color:rgba(255,255,255,0.3);
+  margin-top:4px;
+  font-family:'Oswald',sans-serif;
+}
+
+/* 8. FOOTER */
+.footer{
+  background:#4B0082;
+  text-align:center;
+  padding:10px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:9px;
+  color:#FFD700;
+  letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+
+<!-- 1. TOP BAR -->
+<div class="top-bar">HIPODROMO AVALOS · LAS ARENAS</div>
+
+<!-- 2. HERO HEADER -->
+<div class="hero">
+  <div class="hero-sup">HIPODROMO</div>
+  <div class="hero-title">AVALOS</div>
+  <hr class="hero-rule">
+  <div class="hero-copa">COPA AVALOS · PRIMERA EDICIÓN</div>
+  <div class="hero-badge">$300 ENTRADA GENERAL</div>
+</div>
+
+<!-- 3. DATE BAR -->
+<div class="date-bar">
+  <div class="date-main">DOMINGO · 19 DE JULIO</div>
+  <div class="date-sub">10:00 AM · 23 CARRERAS</div>
+</div>
+
+<!-- 4. HORSE STRIP -->
+<div class="horse-strip">
+  <img class="hs-img flip" src="la-mami.jpg" alt="Caballo Izquierda">
+  <div class="hs-center">
+    <div class="hs-num">23</div>
+    <div class="hs-car">CARRERAS</div>
+    <div class="hs-line"></div>
+    <div class="hs-av">AVALOS</div>
+  </div>
+  <img class="hs-img" src="h-caos.jpg" alt="Caballo Derecha">
+</div>
+
+<!-- 5. ESTELAR BOXES -->
+<div class="estelar-row">
+  <div class="est-box gold">
+    <div class="est-badge gold">⭐ GRAN ESTELAR</div>
+    <div class="est-name">EL CHALAN<br>VS EL ZAFIRO</div>
+    <div class="est-sub gold">12:40PM · 325 Varas</div>
+  </div>
+  <div class="est-box pink">
+    <div class="est-badge pink">🏆 GRAN FINAL</div>
+    <div class="est-name">EL CUATE<br>VS EL GENERADOR</div>
+    <div class="est-sub pink">4:15PM · 300 Varas</div>
+  </div>
+</div>
+
+<!-- 6. SCHEDULE -->
+<div class="sched-wrap">
+  <div class="sched-title">PROGRAMA</div>
+
+  <div class="sched-row">
+    <span class="sr-time">10:00</span>
+    <span class="sr-dist">125V</span>
+    <span class="sr-name normal">EL TRAILERO vs NVA SECRETARIA</span>
+  </div>
+
+  <div class="sched-row">
+    <span class="sr-time">11:40</span>
+    <span class="sr-dist">250V</span>
+    <span class="sr-name normal">EL BINGO vs EL MESIAS</span>
+  </div>
+
+  <div class="sched-row highlight-gold">
+    <span class="sr-time">12:40</span>
+    <span class="sr-dist">325V</span>
+    <span class="sr-name gold">EL CHALAN vs EL ZAFIRO</span>
+  </div>
+
+  <div class="sched-row">
+    <span class="sr-time">2:15</span>
+    <span class="sr-dist">325V</span>
+    <span class="sr-name normal">CORAZON DE PIEDRA vs LA MATRIX</span>
+  </div>
+
+  <div class="sched-row">
+    <span class="sr-time">3:20</span>
+    <span class="sr-dist">300V</span>
+    <span class="sr-name normal">LA ATREVIDA vs LA MUSULMANA</span>
+  </div>
+
+  <div class="sched-row highlight-pink">
+    <span class="sr-time">4:15</span>
+    <span class="sr-dist">300V</span>
+    <span class="sr-name pink">EL CUATE vs EL GENERADOR</span>
+  </div>
+
+  <div class="sched-row">
+    <span class="sr-time">6:00</span>
+    <span class="sr-dist">75V</span>
+    <span class="sr-name normal">LA FIERA BRAZ vs EL PAPI CHULO</span>
+  </div>
+</div>
+
+<!-- 7. QR SECTION -->
+<div class="qr-section">
+  <div class="qr-title">HAZ TUS PICKS</div>
+  <img id="qr" src="" alt="QR Picks">
+  <div class="qr-sub">ESCANEA · ELIGE · GANA</div>
+  <div class="qr-url">guttix1.github.io/Digital-flyer-</div>
+</div>
+
+<!-- 8. FOOTER -->
+<div class="footer">©2026 HIPODROMO AVALOS · COPA AVALOS PRIMERA EDICIÓN</div>
+
+<script>
+const url='https://guttix1.github.io/Digital-flyer-/events/hipodromo-avalos-jul19/picks.html';
+document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=0d0020&color=FFD700&format=png&margin=4`;
+</script>
+</body>
+</html>
