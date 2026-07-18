@@ -31,6 +31,15 @@ body{background:#0d0020;color:#fff;font-family:-apple-system,'Inter',sans-serif;
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,9vw,4.5rem);color:#C040FF;line-height:.88;letter-spacing:.03em}
 .hero-sub{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.14em;text-transform:uppercase;margin-top:.45rem}
 
+/* COUNTDOWN */
+.countdown{background:linear-gradient(135deg,#1a0040,#2D0060);padding:.85rem 1rem;display:flex;align-items:center;justify-content:center;gap:.3rem;border-bottom:1px solid rgba(192,64,255,.2)}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:52px}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,7vw,2.6rem);color:#C040FF;line-height:1;text-shadow:0 0 18px rgba(192,64,255,.5)}
+.cd-lbl{font-size:.38rem;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.14em;text-transform:uppercase;margin-top:.1rem}
+.cd-sep{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,5vw,2rem);color:rgba(192,64,255,.4);line-height:1;margin-bottom:.55rem;animation:cdBlink 1s step-start infinite}
+.cd-label{font-size:.52rem;font-weight:800;color:rgba(255,255,255,.25);letter-spacing:.12em;text-transform:uppercase;text-align:center;padding-top:.2rem}
+@keyframes cdBlink{0%,100%{opacity:1}50%{opacity:.2}}
+
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid rgba(192,64,255,.15)}
 .st{display:flex;flex-direction:column;align-items:center;padding:.8rem .3rem;border-right:1px solid rgba(192,64,255,.1)}
@@ -192,6 +201,16 @@ body{background:#0d0020;color:#fff;font-family:-apple-system,'Inter',sans-serif;
 <div class="hero-banner">
   <div class="hero-title">HIPODROMO<br>AVALOS</div>
   <div class="hero-sub">COPA AVALOS · PRIMERA EDICIÓN · $300 ENTRADA</div>
+</div>
+
+<div class="countdown" id="countdown">
+  <div class="cd-unit"><div class="cd-num" id="cdD">00</div><div class="cd-lbl">Días</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-num" id="cdH">00</div><div class="cd-lbl">Horas</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-num" id="cdM">00</div><div class="cd-lbl">Mins</div></div>
+  <div class="cd-sep">:</div>
+  <div class="cd-unit"><div class="cd-num" id="cdS">00</div><div class="cd-lbl">Segs</div></div>
 </div>
 
 <div class="stats">
@@ -466,6 +485,30 @@ audio.addEventListener('timeupdate',()=>{
   if(!audio.duration)return;
   musicProgress.style.width=(audio.currentTime/audio.duration*100)+'%';
 });
+
+// COUNTDOWN
+(function(){
+  const target=new Date('2026-07-19T10:00:00').getTime();
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(){
+    const now=Date.now();
+    const diff=target-now;
+    if(diff<=0){
+      document.getElementById('countdown').innerHTML='<div class="cd-label" style="font-size:.8rem;color:#C040FF;letter-spacing:.1em">¡HOY ES EL DÍA! 🏇</div>';
+      return;
+    }
+    const d=Math.floor(diff/86400000);
+    const h=Math.floor((diff%86400000)/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdD').textContent=pad(d);
+    document.getElementById('cdH').textContent=pad(h);
+    document.getElementById('cdM').textContent=pad(m);
+    document.getElementById('cdS').textContent=pad(s);
+  }
+  tick();
+  setInterval(tick,1000);
+})();
 
 // auto-flip ad every 4s
 setInterval(()=>document.getElementById('flipAd')?.classList.toggle('flipped'), 4000);
