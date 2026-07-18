@@ -8,324 +8,324 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100vh;background:#0d0020}
-body{
-  font-family:'Oswald',-apple-system,sans-serif;
-  max-width:440px;
-  margin:0 auto;
-  min-height:100vh;
-  background:#0d0020;
-  color:#fff;
-}
+body{font-family:'Oswald',-apple-system,sans-serif;max-width:440px;margin:0 auto;min-height:100vh;background:#0d0020;color:#fff;overflow-x:hidden}
 
-/* 1. TOP BAR */
+/* ── KEYFRAMES ── */
+@keyframes slam{from{transform:scale(3.5) rotate(-4deg);opacity:0;filter:blur(20px)}60%{transform:scale(.94);opacity:1;filter:blur(0)}80%{transform:scale(1.03)}to{transform:scale(1);opacity:1}}
+@keyframes slamUp{from{transform:translateY(40px);opacity:0;filter:blur(4px)}to{transform:translateY(0);opacity:1;filter:blur(0)}}
+@keyframes slamLeft{from{transform:translateX(-120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slamRight{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes bounceIn{from{transform:scale(0) rotate(-8deg);opacity:0}60%{transform:scale(1.15) rotate(1deg)}80%{transform:scale(.97)}to{transform:scale(1);opacity:1}}
+@keyframes glow{0%,100%{text-shadow:0 0 10px rgba(192,64,255,.3),0 0 30px rgba(192,64,255,.1)}50%{text-shadow:0 0 28px rgba(192,64,255,.9),0 0 70px rgba(192,64,255,.4),0 0 120px rgba(192,64,255,.2)}}
+@keyframes glowBox{0%,100%{box-shadow:0 0 8px rgba(192,64,255,.2),inset 0 0 8px rgba(192,64,255,.05)}50%{box-shadow:0 0 22px rgba(192,64,255,.5),inset 0 0 14px rgba(192,64,255,.12)}}
+@keyframes glowPink{0%,100%{box-shadow:0 0 8px rgba(233,30,140,.2),inset 0 0 8px rgba(233,30,140,.05)}50%{box-shadow:0 0 22px rgba(233,30,140,.5),inset 0 0 14px rgba(233,30,140,.12)}}
+@keyframes shimmer{0%{background-position:-400% 0}to{background-position:400% 0}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(.97)}}
+@keyframes scanLine{0%{top:-4px}100%{top:calc(100% + 4px)}}
+@keyframes glitch1{0%,82%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}83%{clip-path:inset(22% 0 62% 0);transform:translate(-5px,1px)}85%{clip-path:inset(62% 0 12% 0);transform:translate(5px,-1px)}87%{clip-path:inset(100% 0 0 0)}}
+@keyframes glitch2{0%,76%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}77%{clip-path:inset(42% 0 38% 0);transform:translate(5px,-1px)}79%{clip-path:inset(8% 0 78% 0);transform:translate(-5px,2px)}81%{clip-path:inset(100% 0 0 0)}}
+@keyframes drawLine{from{width:0;opacity:0}to{width:80px;opacity:1}}
+@keyframes countIn{from{opacity:0;transform:scale(.4) rotate(-10deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes spin360{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulseBorderP{0%,100%{border-color:rgba(192,64,255,.35);box-shadow:0 0 0 0 rgba(192,64,255,.1)}50%{border-color:#C040FF;box-shadow:0 0 16px rgba(192,64,255,.35)}}
+@keyframes pulseBorderPk{0%,100%{border-color:rgba(233,30,140,.35);box-shadow:0 0 0 0 rgba(233,30,140,.1)}50%{border-color:#E91E8C;box-shadow:0 0 16px rgba(233,30,140,.35)}}
+
+/* ── 1. TOP BAR ── */
 .top-bar{
-  background:#FFD700;
-  color:#4B0082;
+  background:linear-gradient(90deg,#6600bb,#C040FF,#8800ee,#C040FF,#6600bb);
+  background-size:400% 100%;
+  animation:shimmer 4s linear infinite;
+  color:#fff;
   font-family:'Bebas Neue',sans-serif;
-  font-size:13px;
+  font-size:12px;
   letter-spacing:3px;
-  padding:8px;
+  padding:9px;
   text-align:center;
 }
 
-/* 2. HERO HEADER */
+/* ── 2. HERO ── */
 .hero{
-  background:linear-gradient(180deg,#0d0020,#2D0060);
+  position:relative;
+  background:linear-gradient(180deg,#070010,#1a0035 50%,#0d0020);
   text-align:center;
-  padding:28px 20px 20px;
+  padding:32px 20px 26px;
+  overflow:hidden;
 }
+#hero-cv{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-inner{position:relative;z-index:1}
 .hero-sup{
   font-family:'Bebas Neue',sans-serif;
-  font-size:20px;
-  color:#FFD700;
-  letter-spacing:8px;
-  line-height:1.2;
+  font-size:22px;
+  color:#C040FF;
+  letter-spacing:10px;
+  opacity:0;
+  animation:slamUp .45s ease .1s forwards;
 }
+.glitch-hero{position:relative;display:inline-block}
 .hero-title{
   font-family:'Bebas Neue',sans-serif;
-  font-size:90px;
-  color:#FFD700;
-  line-height:0.85;
-  text-shadow:0 0 40px rgba(255,215,0,0.4);
+  font-size:100px;
+  color:#C040FF;
+  line-height:.83;
+  opacity:0;
+  animation:slam .65s cubic-bezier(.17,.67,.51,1.3) .2s forwards,glow 3s ease 1s infinite;
 }
+.glitch-hero::before,.glitch-hero::after{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;width:100%;
+  font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:.83;
+  pointer-events:none;
+}
+.glitch-hero::before{color:#E91E8C;animation:glitch1 4.5s infinite .5s}
+.glitch-hero::after{color:#7B2D8B;animation:glitch2 4.5s infinite .9s}
 .hero-rule{
-  height:2px;
-  width:80px;
-  background:#E91E8C;
-  margin:12px auto;
-  border:none;
+  height:2px;width:0;
+  background:linear-gradient(90deg,transparent,#E91E8C,transparent);
+  margin:14px auto;border:none;
+  animation:drawLine .55s ease .85s forwards;
 }
 .hero-copa{
-  font-size:11px;
-  color:#E91E8C;
-  letter-spacing:4px;
+  font-size:11px;color:#E91E8C;letter-spacing:5px;
   font-family:'Bebas Neue',sans-serif;
+  opacity:0;animation:fadeIn .4s ease 1s forwards;
 }
 .hero-badge{
   display:inline-block;
-  background:rgba(255,215,0,0.15);
-  border:1px solid #FFD700;
-  color:#FFD700;
-  font-size:12px;
-  padding:6px 16px;
-  border-radius:4px;
-  margin-top:10px;
-  font-family:'Bebas Neue',sans-serif;
-  letter-spacing:2px;
+  background:rgba(192,64,255,.15);
+  border:1.5px solid rgba(192,64,255,.7);
+  color:#C040FF;
+  font-size:13px;padding:8px 20px;border-radius:6px;margin-top:14px;
+  font-family:'Bebas Neue',sans-serif;letter-spacing:2px;
+  opacity:0;animation:bounceIn .55s cubic-bezier(.17,.67,.51,1.3) 1.15s forwards;
 }
 
-/* 3. DATE BAR */
+/* ── 3. DATE BAR ── */
 .date-bar{
-  background:linear-gradient(90deg,#4B0082,#7B2D8B,#4B0082);
-  padding:14px;
-  text-align:center;
+  background:linear-gradient(90deg,#3a0080,#C040FF 50%,#3a0080);
+  padding:15px;text-align:center;position:relative;overflow:hidden;
+}
+.date-bar::after{
+  content:'';position:absolute;top:0;left:-80%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  animation:shimmer 2.8s ease 1.8s infinite;
 }
 .date-main{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:32px;
-  color:#fff;
-  line-height:1;
+  font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;line-height:1;
+  opacity:0;animation:slamUp .4s ease .3s forwards;
 }
 .date-sub{
-  font-size:11px;
-  color:rgba(255,255,255,0.55);
-  letter-spacing:3px;
-  margin-top:4px;
+  font-size:11px;color:rgba(255,255,255,.7);letter-spacing:3px;margin-top:5px;
   font-family:'Bebas Neue',sans-serif;
+  opacity:0;animation:fadeIn .4s ease .6s forwards;
 }
 
-/* 4. HORSE STRIP */
+/* ── 4. HORSE STRIP ── */
 .horse-strip{
-  display:flex;
-  background:#0d0020;
-  border-top:2px solid rgba(255,215,0,0.2);
-  border-bottom:2px solid rgba(255,215,0,0.2);
+  display:flex;background:#080015;
+  border-top:2px solid rgba(192,64,255,.4);
+  border-bottom:2px solid rgba(192,64,255,.4);
+  overflow:hidden;
 }
-.hs-img{
-  width:175px;
-  height:190px;
-  object-fit:cover;
-  flex-shrink:0;
-  display:block;
-}
-.hs-img.flip{transform:scaleX(-1)}
+.hs-wrap{flex-shrink:0;overflow:hidden}
+.hs-wrap.left{animation:slamLeft .55s cubic-bezier(.17,.67,.51,1.3) .45s both}
+.hs-wrap.right{animation:slamRight .55s cubic-bezier(.17,.67,.51,1.3) .45s both}
+.hs-img{width:168px;height:205px;object-fit:cover;display:block}
 .hs-center{
-  width:90px;
-  background:#4B0082;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+  flex:1;
+  background:linear-gradient(180deg,#2d0060,#4B0082,#2d0060);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.hs-center::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(192,64,255,.25),transparent 70%);
+  animation:pulse 2.2s ease infinite;
 }
 .hs-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:48px;
-  color:#FFD700;
-  line-height:1;
+  font-family:'Bebas Neue',sans-serif;font-size:58px;color:#C040FF;line-height:1;
+  position:relative;z-index:1;
+  animation:countIn .6s cubic-bezier(.17,.67,.51,1.3) .9s both,glow 2.5s ease 1.5s infinite;
 }
-.hs-car{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:8px;
-  color:#FFD700;
-  letter-spacing:2px;
-}
-.hs-line{
-  width:40px;
-  height:1px;
-  background:#FFD700;
-  margin:6px 0;
-}
-.hs-av{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:8px;
-  color:#E91E8C;
-  letter-spacing:2px;
-}
+.hs-car{font-family:'Bebas Neue',sans-serif;font-size:8px;color:#C040FF;letter-spacing:2px;position:relative;z-index:1}
+.hs-line{width:36px;height:1px;background:linear-gradient(90deg,transparent,#C040FF,transparent);margin:6px 0;position:relative;z-index:1}
+.hs-av{font-family:'Bebas Neue',sans-serif;font-size:8px;color:#E91E8C;letter-spacing:2px;position:relative;z-index:1}
 
-/* 5. ESTELAR BOXES */
-.estelar-row{
-  display:flex;
-  gap:8px;
-  margin:14px 14px 0;
-}
+/* ── 5. ESTELAR BOXES ── */
+.estelar-row{display:flex;gap:10px;margin:16px 14px 0}
 .est-box{
-  flex:1;
-  border-radius:10px;
-  padding:12px;
+  flex:1;border-radius:12px;padding:14px;position:relative;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease,transform .5s ease;
 }
-.est-box.gold{
-  border:2px solid #FFD700;
-  background:rgba(75,0,130,0.2);
+.est-box.visible{opacity:1;transform:translateY(0)}
+.est-box.purple-box{
+  background:rgba(192,64,255,.1);
+  border:2px solid transparent;
+  animation:pulseBorderP 2.8s ease infinite;
+  box-shadow:inset 0 0 20px rgba(192,64,255,.06);
+  transition-delay:.1s;
 }
-.est-box.pink{
-  border:2px solid #E91E8C;
-  background:rgba(233,30,140,0.1);
+.est-box.pink-box{
+  background:rgba(233,30,140,.08);
+  border:2px solid transparent;
+  animation:pulseBorderPk 2.8s ease .4s infinite;
+  box-shadow:inset 0 0 20px rgba(233,30,140,.06);
+  transition-delay:.22s;
 }
 .est-badge{
-  display:inline-block;
-  font-size:10px;
-  font-weight:800;
-  padding:2px 8px;
-  border-radius:3px;
-  margin-bottom:6px;
-  font-family:'Oswald',sans-serif;
+  display:inline-block;font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:3px;margin-bottom:7px;font-family:'Oswald',sans-serif;
 }
-.est-badge.gold{background:#FFD700;color:#0d0020}
+.est-badge.purple{background:#C040FF;color:#fff}
 .est-badge.pink{background:#E91E8C;color:#fff}
-.est-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;
-  color:#fff;
-  line-height:1;
-}
-.est-sub{
-  font-size:10px;
-  margin-top:4px;
-  font-family:'Oswald',sans-serif;
-}
-.est-sub.gold{color:#FFD700}
+.est-name{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;line-height:1.1}
+.est-sub{font-size:10px;margin-top:5px;font-family:'Oswald',sans-serif}
+.est-sub.purple{color:#C040FF}
 .est-sub.pink{color:#E91E8C}
 
-/* 6. SCHEDULE */
+/* ── 6. SCHEDULE ── */
 .sched-wrap{padding:0 14px}
 .sched-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:16px;
-  color:#FFD700;
-  letter-spacing:3px;
-  border-left:3px solid #FFD700;
-  padding-left:8px;
-  margin:14px 0 10px;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;color:#C040FF;letter-spacing:4px;
+  border-left:3px solid #C040FF;padding-left:9px;margin:18px 0 10px;
+  animation:glow 3s ease 2s infinite;
 }
 .sched-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;gap:8px;padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  opacity:0;transform:translateX(-24px);
+  transition:opacity .4s ease,transform .4s ease;
 }
-.sched-row.highlight-gold{background:rgba(255,215,0,0.08);margin:0 -4px;padding:7px 4px;border-radius:4px}
-.sched-row.highlight-pink{background:rgba(233,30,140,0.08);margin:0 -4px;padding:7px 4px;border-radius:4px}
-.sr-time{
-  font-size:11px;
-  color:rgba(255,255,255,0.4);
-  width:44px;
-  flex-shrink:0;
-  font-family:'Oswald',sans-serif;
+.sched-row.visible{opacity:1;transform:translateX(0)}
+.sched-row.hp{
+  background:rgba(192,64,255,.1);margin:0 -4px;padding:9px 4px;
+  border-radius:6px;border:1px solid rgba(192,64,255,.3) !important;
+  animation:glowBox 2.5s ease infinite;
 }
-.sr-dist{
-  background:#4B0082;
-  color:#FFD700;
-  font-size:9px;
-  padding:2px 6px;
-  border-radius:3px;
-  flex-shrink:0;
-  font-family:'Oswald',sans-serif;
-  font-weight:600;
+.sched-row.hpk{
+  background:rgba(233,30,140,.08);margin:0 -4px;padding:9px 4px;
+  border-radius:6px;border:1px solid rgba(233,30,140,.25) !important;
+  animation:glowPink 2.5s ease infinite;
 }
-.sr-name{
-  font-size:12px;
-  font-weight:600;
-  flex:1;
-  font-family:'Oswald',sans-serif;
-}
-.sr-name.gold{color:#FFD700;font-weight:800}
-.sr-name.pink{color:#E91E8C;font-weight:800}
-.sr-name.normal{color:#fff}
+.sr-time{font-size:11px;color:rgba(255,255,255,.4);width:44px;flex-shrink:0;font-family:'Oswald',sans-serif}
+.sr-dist{background:#4B0082;color:#C040FF;font-size:9px;padding:2px 6px;border-radius:3px;flex-shrink:0;font-family:'Oswald',sans-serif;font-weight:600}
+.sr-name{font-size:12px;font-weight:600;flex:1;font-family:'Oswald',sans-serif}
+.sr-name.p{color:#C040FF;font-weight:800}
+.sr-name.pk{color:#E91E8C;font-weight:800}
+.sr-name.n{color:#fff}
 
-/* 7. QR SECTION */
+/* ── 7. PICK6 PROMO ── */
+.pick6-promo{
+  background:linear-gradient(135deg,#160028,#2d0060);
+  border:1.5px solid rgba(192,64,255,.4);
+  border-radius:12px;margin:16px 14px 0;padding:16px;
+  display:flex;align-items:center;gap:16px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .5s ease,transform .5s ease;
+  animation:glowBox 3s ease 1s infinite;
+}
+.pick6-promo.visible{opacity:1;transform:translateY(0)}
+.p6-prize{
+  font-family:'Bebas Neue',sans-serif;font-size:44px;color:#C040FF;line-height:1;
+  animation:glow 2s ease infinite;flex-shrink:0;
+}
+.p6-info{flex:1}
+.p6-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px}
+.p6-sub{font-size:11px;color:rgba(255,255,255,.5);font-family:'Oswald',sans-serif;margin-top:2px}
+.p6-btn{
+  background:#C040FF;color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;
+  padding:7px 14px;border-radius:6px;text-decoration:none;
+  display:inline-block;margin-top:9px;
+  animation:pulse 2s ease infinite;
+}
+
+/* ── 8. QR SECTION ── */
 .qr-section{
-  background:rgba(75,0,130,0.3);
-  border:1px solid rgba(255,215,0,0.2);
-  border-radius:12px;
-  margin:14px;
-  padding:16px;
-  text-align:center;
+  background:rgba(75,0,130,.2);
+  border:1.5px solid rgba(192,64,255,.3);
+  border-radius:14px;margin:16px 14px;padding:20px;
+  text-align:center;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.qr-section.visible{opacity:1;transform:translateY(0)}
+.qr-scan-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#C040FF,transparent);
+  animation:scanLine 2.5s linear infinite;
+  pointer-events:none;z-index:2;
 }
 .qr-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:22px;
-  color:#FFD700;
-  letter-spacing:3px;
-  margin-bottom:12px;
+  font-family:'Bebas Neue',sans-serif;font-size:26px;color:#C040FF;letter-spacing:4px;
+  margin-bottom:14px;animation:glow 2.5s ease 1s infinite;
 }
 #qr{
-  width:140px;
-  height:140px;
-  background:#fff;
-  border-radius:8px;
-  padding:4px;
-  border:2px solid #FFD700;
-  display:block;
-  margin:0 auto;
+  width:148px;height:148px;background:#0d0020;border-radius:10px;padding:5px;
+  border:2.5px solid #C040FF;display:block;margin:0 auto;
+  animation:pulseBorderP 2s ease infinite;
 }
-.qr-sub{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:11px;
-  color:#E91E8C;
-  letter-spacing:2px;
-  margin-top:8px;
-}
-.qr-url{
-  font-size:10px;
-  color:rgba(255,255,255,0.3);
-  margin-top:4px;
-  font-family:'Oswald',sans-serif;
-}
+.qr-sub{font-family:'Bebas Neue',sans-serif;font-size:11px;color:#E91E8C;letter-spacing:3px;margin-top:12px}
+.qr-url{font-size:10px;color:rgba(255,255,255,.3);margin-top:5px;font-family:'Oswald',sans-serif}
 
-/* 8. FOOTER */
+/* ── 9. FOOTER ── */
 .footer{
-  background:#4B0082;
-  text-align:center;
-  padding:10px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:9px;
-  color:#FFD700;
-  letter-spacing:1px;
+  background:linear-gradient(90deg,#1a0033,#4B0082,#1a0033);
+  text-align:center;padding:13px;
+  font-family:'Bebas Neue',sans-serif;font-size:9px;color:#C040FF;letter-spacing:1.5px;
 }
 </style>
 </head>
 <body>
 
 <!-- 1. TOP BAR -->
-<div class="top-bar">HIPODROMO AVALOS · LAS ARENAS</div>
+<div class="top-bar">HIPODROMO AVALOS · LAS ARENAS · COPA AVALOS · PRIMERA EDICIÓN · 2026</div>
 
-<!-- 2. HERO HEADER -->
-<div class="hero">
-  <div class="hero-sup">HIPODROMO</div>
-  <div class="hero-title">AVALOS</div>
-  <hr class="hero-rule">
-  <div class="hero-copa">COPA AVALOS · PRIMERA EDICIÓN</div>
-  <div class="hero-badge">$300 ENTRADA GENERAL</div>
+<!-- 2. HERO -->
+<div class="hero" id="hero">
+  <canvas id="hero-cv"></canvas>
+  <div class="hero-inner">
+    <div class="hero-sup">HIPODROMO</div>
+    <div class="glitch-hero" data-text="AVALOS">
+      <div class="hero-title">AVALOS</div>
+    </div>
+    <hr class="hero-rule">
+    <div class="hero-copa">COPA AVALOS · PRIMERA EDICIÓN</div>
+    <div class="hero-badge">$300 ENTRADA GENERAL</div>
+  </div>
 </div>
 
 <!-- 3. DATE BAR -->
 <div class="date-bar">
-  <div class="date-main">DOMINGO · 19 DE JULIO</div>
-  <div class="date-sub">10:00 AM · 23 CARRERAS</div>
+  <div class="date-main">DOMINGO · 19 DE JULIO · 2026</div>
+  <div class="date-sub">10:00 AM · 23 CARRERAS · LAS ARENAS</div>
 </div>
 
 <!-- 4. HORSE STRIP -->
 <div class="horse-strip">
-  <img class="hs-img flip" src="la-mami.jpg" alt="Caballo Izquierda">
+  <div class="hs-wrap left">
+    <img class="hs-img" src="la-mami.jpg" alt="La Mami" style="transform:scaleX(-1)">
+  </div>
   <div class="hs-center">
     <div class="hs-num">23</div>
     <div class="hs-car">CARRERAS</div>
     <div class="hs-line"></div>
     <div class="hs-av">AVALOS</div>
   </div>
-  <img class="hs-img" src="h-caos.jpg" alt="Caballo Derecha">
+  <div class="hs-wrap right">
+    <img class="hs-img" src="h-caos.jpg" alt="El Chalan">
+  </div>
 </div>
 
 <!-- 5. ESTELAR BOXES -->
 <div class="estelar-row">
-  <div class="est-box gold">
-    <div class="est-badge gold">⭐ GRAN ESTELAR</div>
+  <div class="est-box purple-box">
+    <div class="est-badge purple">⭐ GRAN ESTELAR</div>
     <div class="est-name">EL CHALAN<br>VS EL ZAFIRO</div>
-    <div class="est-sub gold">12:40PM · 325 Varas</div>
+    <div class="est-sub purple">12:40PM · 325 Varas</div>
   </div>
-  <div class="est-box pink">
+  <div class="est-box pink-box">
     <div class="est-badge pink">🏆 GRAN FINAL</div>
     <div class="est-name">EL CUATE<br>VS EL GENERADOR</div>
     <div class="est-sub pink">4:15PM · 300 Varas</div>
@@ -335,64 +335,103 @@ body{
 <!-- 6. SCHEDULE -->
 <div class="sched-wrap">
   <div class="sched-title">PROGRAMA</div>
+  <div class="sched-row"><span class="sr-time">10:00</span><span class="sr-dist">125V</span><span class="sr-name n">EL TRAILERO vs NVA SECRETARIA</span></div>
+  <div class="sched-row"><span class="sr-time">10:45</span><span class="sr-dist">200V</span><span class="sr-name n">EL JOVEN vs LA CONQUISTADORA</span></div>
+  <div class="sched-row"><span class="sr-time">11:40</span><span class="sr-dist">250V</span><span class="sr-name n">EL BINGO vs EL MESIAS</span></div>
+  <div class="sched-row hp"><span class="sr-time">12:40</span><span class="sr-dist">325V</span><span class="sr-name p">⭐ EL CHALAN vs EL ZAFIRO</span></div>
+  <div class="sched-row"><span class="sr-time">1:30</span><span class="sr-dist">300V</span><span class="sr-name n">EL RAYO vs LA TEMERARIA</span></div>
+  <div class="sched-row"><span class="sr-time">2:15</span><span class="sr-dist">325V</span><span class="sr-name n">CORAZON DE PIEDRA vs LA MATRIX</span></div>
+  <div class="sched-row"><span class="sr-time">3:20</span><span class="sr-dist">300V</span><span class="sr-name n">LA ATREVIDA vs LA MUSULMANA</span></div>
+  <div class="sched-row hpk"><span class="sr-time">4:15</span><span class="sr-dist">300V</span><span class="sr-name pk">🏆 EL CUATE vs EL GENERADOR</span></div>
+  <div class="sched-row"><span class="sr-time">5:00</span><span class="sr-dist">250V</span><span class="sr-name n">EL PISTOLERO vs LA BRAVURA</span></div>
+  <div class="sched-row"><span class="sr-time">6:00</span><span class="sr-dist">75V</span><span class="sr-name n">LA FIERA BRAZ vs EL PAPI CHULO</span></div>
+</div>
 
-  <div class="sched-row">
-    <span class="sr-time">10:00</span>
-    <span class="sr-dist">125V</span>
-    <span class="sr-name normal">EL TRAILERO vs NVA SECRETARIA</span>
-  </div>
-
-  <div class="sched-row">
-    <span class="sr-time">11:40</span>
-    <span class="sr-dist">250V</span>
-    <span class="sr-name normal">EL BINGO vs EL MESIAS</span>
-  </div>
-
-  <div class="sched-row highlight-gold">
-    <span class="sr-time">12:40</span>
-    <span class="sr-dist">325V</span>
-    <span class="sr-name gold">EL CHALAN vs EL ZAFIRO</span>
-  </div>
-
-  <div class="sched-row">
-    <span class="sr-time">2:15</span>
-    <span class="sr-dist">325V</span>
-    <span class="sr-name normal">CORAZON DE PIEDRA vs LA MATRIX</span>
-  </div>
-
-  <div class="sched-row">
-    <span class="sr-time">3:20</span>
-    <span class="sr-dist">300V</span>
-    <span class="sr-name normal">LA ATREVIDA vs LA MUSULMANA</span>
-  </div>
-
-  <div class="sched-row highlight-pink">
-    <span class="sr-time">4:15</span>
-    <span class="sr-dist">300V</span>
-    <span class="sr-name pink">EL CUATE vs EL GENERADOR</span>
-  </div>
-
-  <div class="sched-row">
-    <span class="sr-time">6:00</span>
-    <span class="sr-dist">75V</span>
-    <span class="sr-name normal">LA FIERA BRAZ vs EL PAPI CHULO</span>
+<!-- 7. PICK6 PROMO -->
+<div class="pick6-promo" id="p6promo">
+  <div class="p6-prize">$5K</div>
+  <div class="p6-info">
+    <div class="p6-title">PICK 6 POOL</div>
+    <div class="p6-sub">$100 ENTRADA · GANA $5,000</div>
+    <a class="p6-btn" href="pick6.html">VER PICK 6 →</a>
   </div>
 </div>
 
-<!-- 7. QR SECTION -->
-<div class="qr-section">
-  <div class="qr-title">HAZ TUS PICKS</div>
+<!-- 8. QR SECTION -->
+<div class="qr-section" id="qrsec">
+  <div class="qr-scan-line"></div>
+  <div class="qr-title">HAZ TUS PICKS GRATIS</div>
   <img id="qr" src="" alt="QR Picks">
   <div class="qr-sub">ESCANEA · ELIGE · GANA</div>
   <div class="qr-url">guttix1.github.io/Digital-flyer-</div>
 </div>
 
-<!-- 8. FOOTER -->
-<div class="footer">©2026 HIPODROMO AVALOS · COPA AVALOS PRIMERA EDICIÓN</div>
+<!-- 9. FOOTER -->
+<div class="footer">©2026 HIPODROMO AVALOS · COPA AVALOS PRIMERA EDICIÓN · LAS ARENAS</div>
 
 <script>
-const url='https://guttix1.github.io/Digital-flyer-/events/hipodromo-avalos-jul19/picks.html';
-document.getElementById('qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(url)}&bgcolor=0d0020&color=FFD700&format=png&margin=4`;
+// QR
+document.getElementById('qr').src='https://api.qrserver.com/v1/create-qr-code/?size=296x296&data='+encodeURIComponent('https://guttix1.github.io/Digital-flyer-/events/hipodromo-avalos-jul19/picks.html')+'&bgcolor=0d0020&color=C040FF&format=png&margin=4';
+
+// Hero particle canvas
+(function(){
+  const hero=document.getElementById('hero');
+  const c=document.getElementById('hero-cv');
+  const cx=c.getContext('2d');
+  function resize(){c.width=hero.offsetWidth;c.height=hero.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  const COLS=['192,64,255','233,30,140','123,45,139','180,100,255'];
+  const pts=Array.from({length:55},()=>({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    r:Math.random()*2.5+.6,
+    vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,
+    col:COLS[Math.floor(Math.random()*COLS.length)],
+    phase:Math.random()*Math.PI*2
+  }));
+  let t=0;
+  (function loop(){
+    cx.clearRect(0,0,c.width,c.height);
+    t+=.012;
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>c.width)p.vx*=-1;
+      if(p.y<0||p.y>c.height)p.vy*=-1;
+      const a=.12+.22*Math.sin(t+p.phase);
+      cx.globalAlpha=a;
+      cx.fillStyle='rgb('+p.col+')';
+      cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fill();
+    });
+    // subtle connecting lines between nearby particles
+    cx.lineWidth=.5;
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<60){
+          cx.globalAlpha=.06*(1-d/60);
+          cx.strokeStyle='rgb(192,64,255)';
+          cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.stroke();
+        }
+      }
+    }
+    cx.globalAlpha=1;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// IntersectionObserver scroll reveals
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+  });
+},{threshold:.12,rootMargin:'0px 0px -20px 0px'});
+
+document.querySelectorAll('.sched-row').forEach((r,i)=>{
+  r.style.transitionDelay=(i*.055)+'s';
+  io.observe(r);
+});
+document.querySelectorAll('.est-box,#p6promo,#qrsec').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
