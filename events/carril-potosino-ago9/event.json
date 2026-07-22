@@ -1,0 +1,199 @@
+{
+  "slug": "carril-potosino-ago9",
+  "page_title": "CarrerasOS · Carril Potosino",
+  "page_description": "Carril Potosino - Carreras Agosto 9 - Mack, Colorado. Haz tus picks para cada carrera.",
+  "countdown": "2026-08-09T12:00",
+  "event": {
+    "org": "CARRIL POTOSINO",
+    "titleTop": "CARRIL",
+    "titleBottom": "POTOSINO",
+    "tagline": "CARRERAS AGOSTO 9 · MACK COLORADO",
+    "stars": "9 CARRERAS ADENTRO",
+    "dayName": "DOMINGO",
+    "dayNum": "9",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Mack, Colorado",
+    "address": "Mack, Colorado",
+    "phones": [
+      "(970) 366-1003",
+      "(970) 361-1489"
+    ],
+    "sponsors": [
+      {
+        "name": "CARRIL POTOSINO",
+        "cat": "Carreras de Alto Nivel"
+      },
+      {
+        "name": "MACK COLORADO",
+        "cat": "Sede · ¡Te Esperamos!"
+      }
+    ],
+    "counts": "9 carreras · 6 mano a mano + 3 abiertas"
+  },
+  "field": [],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA DRAMATICA",
+          "stable": "C. Tilichas",
+          "photo": "p1"
+        },
+        {
+          "name": "EL COMANDANTE",
+          "stable": "C. Venzor",
+          "photo": "p2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "275 Y 300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA DAMA",
+          "stable": "C. Alacrán",
+          "photo": "p3"
+        },
+        {
+          "name": "EL SECRETO",
+          "stable": "C. Rancho Viejo",
+          "photo": "p5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CASIMIRO",
+          "stable": "C. Del Pueblo",
+          "photo": "p6"
+        },
+        {
+          "name": "EL CHENCHO",
+          "stable": "C. Tilichas",
+          "photo": "p1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "350 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GUAPO",
+          "stable": "C. Chihuahua",
+          "photo": "p2"
+        },
+        {
+          "name": "EL BORRACHO",
+          "stable": "C. Potosina",
+          "photo": "p3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ALQAEDA",
+          "stable": "C. Ramírez",
+          "photo": "p5"
+        },
+        {
+          "name": "EL GORRIÓN",
+          "stable": "C. Tilichas (Faja)",
+          "photo": "p6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "125 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ÁGUILA",
+          "stable": "C. FE",
+          "photo": "p1"
+        },
+        {
+          "name": "EL PATITO",
+          "stable": "C. De Omar",
+          "photo": "p2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "50 YARDAS",
+      "type": "open",
+      "featured": "🏆 EL REY DEL PUERTAZO",
+      "category": "EL REY DEL PUERTAZO",
+      "purse": "$3,000",
+      "entryNote": "Abierta estelar · cuadras por confirmar",
+      "entries": [
+        "Inscripción abierta"
+      ]
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "150 YARDAS",
+      "type": "open",
+      "category": "ABIERTA NGA",
+      "purse": "$2,500",
+      "entryNote": "Cuadras por confirmar",
+      "entries": [
+        "Inscripción abierta"
+      ]
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "250 YARDAS",
+      "type": "open",
+      "category": "ABIERTA NGA",
+      "purse": "$2,500",
+      "entryNote": "Cuadras por confirmar",
+      "entries": [
+        "Inscripción abierta"
+      ]
+    }
+  ],
+  "ads": {
+    "9": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la afición · aparta tu lugar para el próximo evento",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "note": "Carril Potosino demo: img01-05 are real uploaded race photos assigned to the duel horses (keys p1,p2,p3,p5,p6). img09=hero action shot, img10=gold placeholder (sellable ad), img11=full flyer poster. img06-08 left as generic template placeholders (unused)."
+  }
+}
