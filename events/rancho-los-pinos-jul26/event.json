@@ -1,0 +1,263 @@
+{
+  "slug": "rancho-los-pinos-jul26",
+  "page_title": "CarrerasOS · Rancho Los Pinos",
+  "page_description": "Rancho Los Pinos - Pura Estelar - Domingo 26 de Julio - Palestine, TX. Haz tus picks para cada carrera.",
+  "countdown": "2026-07-26T12:35",
+  "event": {
+    "org": "RANCHO LOS PINOS",
+    "titleTop": "PURA",
+    "titleBottom": "ESTELAR",
+    "tagline": "RANCHO LOS PINOS · PALESTINE, TX",
+    "stars": "13 CARRERAS ADENTRO",
+    "dayName": "DOMINGO",
+    "dayNum": "26",
+    "month": "DE JULIO",
+    "year": "2026",
+    "location": "Palestine, Texas",
+    "address": "9173 FM 322, Palestine, TX",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "RANCHO LOS PINOS",
+        "cat": "Sede Oficial"
+      },
+      {
+        "name": "D&A DESIGNS & PHOTOGRAPHY",
+        "cat": "Cobertura Oficial"
+      }
+    ],
+    "counts": "13 carreras · Pura Estelar"
+  },
+  "field": [],
+  "races": [
+    {
+      "id": 1,
+      "time": "12:35 PM",
+      "dist": "250 YDS",
+      "type": "duel",
+      "section": "REVANCHOTA 250 YARDAS",
+      "horses": [
+        {
+          "name": "EL CANELO",
+          "stable": "Cuadra Jalisco"
+        },
+        {
+          "name": "EL MAYITO",
+          "stable": "Cuadra 2 Amigos"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "1:00 PM",
+      "dist": "330 Ó 350 YDS",
+      "type": "duel",
+      "section": "SE DEFINE EN UN VOLADO",
+      "horses": [
+        {
+          "name": "C. AMAROS",
+          "stable": ""
+        },
+        {
+          "name": "C. SÁNCHEZ",
+          "stable": ""
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "1:25 PM",
+      "dist": "375 YDS",
+      "type": "duel",
+      "featured": "🔥 MEGA CARRERÓN",
+      "horses": [
+        {
+          "name": "EL FLASH",
+          "stable": "Cuadra Garza"
+        },
+        {
+          "name": "GALLO NEGRO",
+          "stable": "Cuadra 2 Amigos"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "1:50 PM",
+      "dist": "250 YDS",
+      "type": "duel",
+      "section": "REVANCHA",
+      "horses": [
+        {
+          "name": "C. PINTORES",
+          "stable": ""
+        },
+        {
+          "name": "C. PRESA NUEVA",
+          "stable": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "2:20 PM",
+      "dist": "375 YDS",
+      "type": "duel",
+      "section": "ENCONTRONAZO",
+      "horses": [
+        {
+          "name": "EL TREN",
+          "stable": "Cuadra Garza"
+        },
+        {
+          "name": "EL 6 CORAZONES",
+          "stable": "Cuadra Amaros"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "2:40 PM",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "NO GANADORES DE ABIERTAS",
+      "entries": [
+        "C. CANTEREROS",
+        "C. 2 AMIGOS"
+      ]
+    },
+    {
+      "id": 7,
+      "time": "3:05 PM",
+      "dist": "200 YDS",
+      "type": "duel",
+      "section": "ENCONTRONAZO",
+      "horses": [
+        {
+          "name": "C. LADRILLEROS",
+          "stable": ""
+        },
+        {
+          "name": "C. KING RANCH / PISCES",
+          "stable": ""
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "3:30 PM",
+      "dist": "350 YDS",
+      "type": "duel",
+      "featured": "🔥 GRAN REVANCHA",
+      "horses": [
+        {
+          "name": "EL CIRUJANO",
+          "stable": "Cuadra Piedreros"
+        },
+        {
+          "name": "EL CERVECERO",
+          "stable": "Cuadra 2 Amigos"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "3:55 PM",
+      "dist": "275 YDS",
+      "type": "duel",
+      "section": "CARRERÓN",
+      "horses": [
+        {
+          "name": "TIO CHUY",
+          "stable": "C. King Ranch/Pisces"
+        },
+        {
+          "name": "TUNCO",
+          "stable": "C. Garza"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "time": "4:20 PM",
+      "dist": "300 YDS",
+      "type": "duel",
+      "section": "DUELO DE TAPADOS",
+      "horses": [
+        {
+          "name": "C. SIERRA BRAVA",
+          "stable": ""
+        },
+        {
+          "name": "C. DEL FIERRO",
+          "stable": ""
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "4:45 PM",
+      "dist": "300 YDS",
+      "type": "duel",
+      "section": "NO MECHADOS",
+      "horses": [
+        {
+          "name": "C. SAN JUAN",
+          "stable": ""
+        },
+        {
+          "name": "C. CANTEREROS",
+          "stable": ""
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "5:10 PM",
+      "dist": "300 YDS",
+      "type": "open",
+      "featured": "🏆 MEGA CUARTETA ESTELAR",
+      "category": "MEGA CUARTETA ESTELAR",
+      "entries": [
+        "C. DEL FIERRO",
+        "C. PETROLEROS",
+        "C. 2 AMIGOS",
+        "C. PIEDREROS"
+      ]
+    },
+    {
+      "id": 13,
+      "time": "5:40 PM",
+      "dist": "200 YDS",
+      "type": "duel",
+      "section": "CARRERÓN",
+      "horses": [
+        {
+          "name": "BLACK JACK",
+          "stable": "Cuadra Carrillo"
+        },
+        {
+          "name": "EL CHURROS",
+          "stable": "Cuadra San Juan"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "13": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la afición · aparta tu lugar para el próximo evento",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "note": "Rancho Los Pinos: img09=hero action shot, img10=green placeholder (sellable ad), img11=full flyer poster. img01-08 left as generic template placeholders (no per-horse photos on the source flyer)."
+  }
+}
