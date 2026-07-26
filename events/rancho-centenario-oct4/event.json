@@ -1,0 +1,176 @@
+{
+  "slug": "rancho-centenario-oct4",
+  "page_title": "CarrerasOS · Rancho El Centenario",
+  "page_description": "Rancho El Centenario - El Evento Mas Grande de Georgia - Domingo 4 de Octubre - Milner, GA. 14 carreras, $25,000 en premios. Haz tus picks.",
+  "countdown": "2026-10-04T10:00",
+  "event": {
+    "org": "RANCHO EL CENTENARIO",
+    "titleTop": "RANCHO EL",
+    "titleBottom": "CENTENARIO",
+    "tagline": "EL EVENTO MAS GRANDE DE GEORGIA Y SUS ALREDEDORES",
+    "stars": "14 CARRERAS · $25,000 EN PREMIOS",
+    "dayName": "DOMINGO",
+    "dayNum": "4",
+    "month": "DE OCTUBRE",
+    "year": "2026",
+    "location": "Milner, Georgia",
+    "address": "261 High Falls Park Rd, Milner GA",
+    "phones": [
+      "(706) 461-2079"
+    ],
+    "sponsors": [],
+    "counts": "14 carreras · Campeonatos Abiertos"
+  },
+  "field": [],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "300Y",
+      "type": "open",
+      "featured": "CAMPEON DE CAMPEONES",
+      "category": "CAMPEON DE CAMPEONES",
+      "entryNote": "Puertas Llenas",
+      "entries": []
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "350Y",
+      "type": "open",
+      "featured": "CAMPEON 3 AÑERO · $15,000",
+      "category": "CAMPEON 3 AÑERO",
+      "entryNote": "$15,000 en premios · 2 Adentro",
+      "entries": []
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "150Y",
+      "type": "open",
+      "category": "CAMPEON DE LAS 150Y",
+      "entryNote": "$10,000 en premios · 1 Adentro",
+      "entries": []
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "300Y",
+      "type": "open",
+      "category": "CAMPEON 2 AÑERO",
+      "entryNote": "$3,000 en premios · 1 Adentro",
+      "entries": []
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "200Y",
+      "type": "open",
+      "category": "CAMPEON 4 AÑERO",
+      "entryNote": "$10,000 en premios · 1 Adentro",
+      "entries": []
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "175Y",
+      "type": "open",
+      "category": "CAMPEON 4 AÑERO NO GAN DE ABIERTAS",
+      "entryNote": "$5,000 en premios · 1 Adentro",
+      "entries": []
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "325Y",
+      "type": "open",
+      "category": "CAMPEON GAN DE 1",
+      "entryNote": "$10,000 en premios · 1 Adentro",
+      "entries": []
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "5Y",
+      "type": "open",
+      "category": "REY DEL BRINCO",
+      "entryNote": "$2,000 en premios",
+      "entries": []
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "25Y",
+      "type": "open",
+      "category": "REY DE LAS 25Y",
+      "entryNote": "$5,000 en premios",
+      "entries": []
+    },
+    {
+      "id": 10,
+      "time": "—",
+      "dist": "100Y",
+      "type": "open",
+      "category": "CAMPEON DE LAS 100Y",
+      "entryNote": "$5,000 en premios",
+      "entries": []
+    },
+    {
+      "id": 11,
+      "time": "—",
+      "dist": "200Y",
+      "type": "open",
+      "category": "CAMPEON DE LAS 200Y",
+      "entryNote": "$10,000 en premios",
+      "entries": []
+    },
+    {
+      "id": 12,
+      "time": "—",
+      "dist": "350Y",
+      "type": "open",
+      "featured": "CAMPEON DE LAS 350Y · $25,000",
+      "category": "CAMPEON DE LAS 350Y",
+      "entryNote": "$25,000 en premios — LA GRANDE",
+      "entries": []
+    },
+    {
+      "id": 13,
+      "time": "—",
+      "dist": "400Y",
+      "type": "open",
+      "featured": "REY DE REYES · $20,000",
+      "category": "REY DE REYES",
+      "entryNote": "$20,000 en premios",
+      "entries": []
+    },
+    {
+      "id": 14,
+      "time": "—",
+      "dist": "400Y",
+      "type": "open",
+      "category": "CAMPEON DE LAS 400Y NO GAN DE ABIERTAS",
+      "entryNote": "$10,000 en premios",
+      "entries": []
+    }
+  ],
+  "ads": {
+    "14": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · aparta tu lugar para Rancho El Centenario",
+        "code": "CENTENARIO"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img11.jpg": "hero/poster — use the event flyer photo",
+    "images/img10.jpg": "sponsor-slot ad image / logo",
+    "note": "Overwrite with event photos using SAME filenames."
+  }
+}
