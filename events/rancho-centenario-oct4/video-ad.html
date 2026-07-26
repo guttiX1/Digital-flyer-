@@ -4,422 +4,363 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rancho El Centenario · Video Ad</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;background:#000;overflow:hidden}
 body{display:flex;align-items:center;justify-content:center}
-.stage{position:relative;width:540px;height:960px;overflow:hidden;background:#0d0005;flex-shrink:0}
+.stage{position:relative;width:540px;height:960px;overflow:hidden;background:#070005;flex-shrink:0}
 canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
-.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:90;pointer-events:none;transition:opacity .35s ease}
-.scene{position:absolute;inset:0;opacity:0;z-index:1;overflow:hidden}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:90;pointer-events:none;transition:opacity .3s ease}
+.scene{position:absolute;inset:0;opacity:0;z-index:1}
 .scene.active{opacity:1;z-index:2}
-.progress{position:absolute;bottom:0;left:0;height:3px;background:#FF3300;z-index:99;transition:width .12s linear}
-.replay-btn{position:absolute;bottom:16px;right:16px;z-index:95;background:rgba(255,51,0,.15);border:1.5px solid #FF3300;color:#FF3300;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;padding:8px 18px;border-radius:6px;cursor:pointer;opacity:0;transition:opacity .4s}
-.stage.done .replay-btn{opacity:1}
+.prog{position:absolute;bottom:0;left:0;height:4px;background:linear-gradient(90deg,#FF2200,#FF7700);z-index:99;transition:width .1s linear;box-shadow:0 0 12px #FF3300}
+.replay{position:absolute;bottom:20px;right:20px;z-index:95;background:rgba(255,34,0,.2);border:2px solid #FF2200;color:#FF2200;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;padding:8px 20px;border-radius:6px;cursor:pointer;opacity:0;transition:opacity .4s}
+.stage.done .replay{opacity:1}
 
-/* ANIMATIONS */
-@keyframes slam{from{transform:scale(3.5) rotate(-4deg);opacity:0;filter:blur(24px)}60%{transform:scale(.94);opacity:1;filter:blur(0)}80%{transform:scale(1.03)}to{transform:scale(1);opacity:1}}
-@keyframes slamUp{from{transform:translateY(80px) scale(1.1);opacity:0;filter:blur(8px)}to{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}}
-@keyframes slamLeft{from{transform:translateX(-100px);opacity:0;filter:blur(8px)}to{transform:translateX(0);opacity:1;filter:blur(0)}}
-@keyframes slamRight{from{transform:translateX(100px);opacity:0;filter:blur(8px)}to{transform:translateX(0);opacity:1;filter:blur(0)}}
-@keyframes bounceIn{from{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.25) rotate(2deg);opacity:1}80%{transform:scale(.96)}to{transform:scale(1);opacity:1}}
-@keyframes fadeUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes drawH{from{width:0}to{width:100%}}
-@keyframes shake{10%{transform:translate(-9px,-4px) rotate(-1.5deg)}20%{transform:translate(9px,4px) rotate(1deg)}30%{transform:translate(-7px,2px)}40%{transform:translate(7px,-3px)}50%{transform:translate(-4px,2px)}to{transform:translate(0,0)}}
-@keyframes chipIn{from{transform:translateX(120px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes glowFire{0%,100%{text-shadow:0 0 20px rgba(255,80,0,.5),0 0 60px rgba(255,30,0,.2)}50%{text-shadow:0 0 40px rgba(255,120,0,1),0 0 100px rgba(255,50,0,.6),0 0 160px rgba(255,0,0,.3)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@keyframes fireFlicker{0%,100%{opacity:1;transform:scaleY(1)}25%{opacity:.85;transform:scaleY(.97)}50%{opacity:.9;transform:scaleY(1.03)}75%{opacity:.8;transform:scaleY(.96)}}
-@keyframes prizeIn{from{transform:scale(0) rotate(-12deg);opacity:0;filter:blur(10px)}60%{transform:scale(1.15) rotate(2deg);opacity:1;filter:blur(0)}80%{transform:scale(.97)}to{transform:scale(1);opacity:1}}
-@keyframes scanLine{0%{top:-4px}100%{top:calc(100% + 4px)}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-@keyframes countUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes slam{0%{transform:scale(3.2) rotate(-3deg);opacity:0;filter:blur(20px)}60%{transform:scale(.95);opacity:1;filter:blur(0)}80%{transform:scale(1.02)}100%{transform:scale(1);opacity:1}}
+@keyframes slamUp{0%{transform:translateY(60px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes slamDn{0%{transform:translateY(-60px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes slamL{0%{transform:translateX(-80px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes slamR{0%{transform:translateX(80px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+@keyframes grow{0%{width:0}100%{width:100%}}
+@keyframes shake{10%{transform:translate(-8px,-3px) rotate(-1deg)}20%{transform:translate(8px,3px) rotate(1deg)}30%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}50%{transform:translate(-3px,1px)}60%{transform:translate(3px,-1px)}70%{transform:translate(-1px)}100%{transform:translate(0)}}
+@keyframes glowPulse{0%,100%{text-shadow:0 0 30px rgba(255,50,0,.5),0 0 80px rgba(255,30,0,.2)}50%{text-shadow:0 0 60px rgba(255,100,0,1),0 0 140px rgba(255,50,0,.5),0 0 200px rgba(200,0,0,.2)}}
+@keyframes borderGlow{0%,100%{box-shadow:0 0 10px rgba(255,50,0,.3)}50%{box-shadow:0 0 28px rgba(255,80,0,.6)}}
+@keyframes chipIn{0%{transform:translateX(140px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes scanLine{0%{top:0}100%{top:100%}}
+@keyframes zoomBg{0%{transform:scale(1.08)}100%{transform:scale(1)}}
 
-.glitch{position:relative;display:inline-block}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;font-family:inherit;font-size:inherit;color:inherit}
-.glitch::before{color:#FF6600;animation:g1 3s infinite .3s}
-.glitch::after{color:#8B0000;animation:g2 3s infinite .7s}
-@keyframes g1{0%,80%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}81%{clip-path:inset(20% 0 65% 0);transform:translate(-6px,1px)}83%{clip-path:inset(65% 0 15% 0);transform:translate(6px,-2px)}85%{clip-path:inset(100% 0 0 0)}}
-@keyframes g2{0%,74%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}75%{clip-path:inset(40% 0 45% 0);transform:translate(5px,-1px)}77%{clip-path:inset(10% 0 78% 0);transform:translate(-5px,2px)}79%{clip-path:inset(100% 0 0 0)}}
-
-/* S1 BLAST */
-.s1{background:radial-gradient(ellipse at center,#3D0000 0%,#0d0005 70%)}
-.s1-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.s1-shake{position:absolute;inset:0}
-.scene.active .s1-shake{animation:shake .5s ease .1s}
-.s1-fire{font-size:64px;line-height:1;opacity:0;animation:fireFlicker 1.2s ease infinite}
-.scene.active .s1-fire{opacity:1}
-.s1-top{font-family:'Bebas Neue',sans-serif;line-height:.88;letter-spacing:-3px;opacity:0;display:flex;flex-direction:column;align-items:center}
-.s1-line1{font-size:78px;color:#fff}
-.s1-line2{font-size:100px;color:#FF3300}
-.s1-line3{font-size:100px;color:#FF6600}
-.scene.active .s1-top{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .12s forwards}
-.s1-divider{width:0;height:4px;background:linear-gradient(90deg,transparent,#FF3300,transparent);margin:12px auto;opacity:0}
-.scene.active .s1-divider{opacity:1;animation:drawH .5s ease .65s forwards}
-.s1-sub{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:7px;color:rgba(255,255,255,.45);opacity:0}
-.scene.active .s1-sub{animation:fadeUp .5s ease .9s forwards}
-.s1-tagline{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:#FF6600;opacity:0;margin-top:6px}
-.scene.active .s1-tagline{animation:fadeUp .5s ease 1.1s forwards}
+/* S1 INTRO */
+.s1{background:radial-gradient(ellipse 80% 60% at 50% 55%,#2A0000,#070005)}
+.s1-shaker{position:absolute;inset:0}
+.scene.active .s1-shaker{animation:shake .5s ease .08s}
+.s1-top{position:absolute;top:0;left:0;right:0;height:56%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:10px}
+.s1-rancho{font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(255,255,255,.9);letter-spacing:14px;opacity:0;line-height:1}
+.scene.active .s1-rancho{animation:slamDn .4s ease .1s forwards}
+.s1-el{font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,80,30,.65);letter-spacing:24px;opacity:0;line-height:1;margin:2px 0}
+.scene.active .s1-el{animation:fadeIn .3s ease .3s forwards}
+.s1-cent{font-family:'Bebas Neue',sans-serif;font-size:clamp(68px,15.5vw,88px);color:#FF2200;letter-spacing:4px;line-height:.88;opacity:0;text-shadow:0 0 60px rgba(255,34,0,.4);white-space:nowrap}
+.scene.active .s1-cent{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .35s forwards}
+.s1-line{position:absolute;top:56%;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,#FF2200,transparent);width:0;opacity:0}
+.scene.active .s1-line{opacity:1;animation:grow .55s ease .85s forwards}
+.s1-bottom{position:absolute;bottom:0;left:0;right:0;height:41%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.s1-sub{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:9px;color:rgba(255,255,255,.4);opacity:0}
+.scene.active .s1-sub{animation:slamUp .4s ease .95s forwards}
+.s1-tagline{font-family:'Oswald',sans-serif;font-weight:400;font-size:14px;letter-spacing:3px;color:rgba(255,80,0,.7);text-transform:uppercase;text-align:center;padding:0 40px;opacity:0;line-height:1.6}
+.scene.active .s1-tagline{animation:fadeIn .5s ease 1.15s forwards}
+.s1-fires{display:flex;gap:20px;font-size:32px;opacity:0}
+.scene.active .s1-fires{animation:slamUp .4s ease 1.4s forwards}
 
 /* S2 DATE */
-.s2{background:linear-gradient(135deg,#1a0000,#4A0000)}
-.s2-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.s2-label{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:10px;color:rgba(255,255,255,.4);opacity:0}
-.scene.active .s2-label{animation:slamLeft .4s ease .05s forwards}
-.s2-day{font-family:'Bebas Neue',sans-serif;font-size:200px;line-height:.8;color:#FF3300;letter-spacing:-8px;opacity:0;text-shadow:0 0 80px rgba(255,51,0,.4)}
-.scene.active .s2-day{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .15s forwards}
-.s2-month{font-family:'Bebas Neue',sans-serif;font-size:58px;color:#fff;letter-spacing:-1px;opacity:0}
-.scene.active .s2-month{animation:slamUp .4s ease .55s forwards}
-.s2-year{font-family:'Bebas Neue',sans-serif;font-size:36px;color:rgba(255,255,255,.3);letter-spacing:8px;opacity:0}
-.scene.active .s2-year{animation:fadeUp .4s ease .8s forwards}
-.s2-badge{background:#FF3300;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;padding:8px 22px;border-radius:4px;margin-top:16px;opacity:0}
-.scene.active .s2-badge{animation:slamUp .4s cubic-bezier(.17,.67,.51,1.3) 1s forwards}
+.s2{background:linear-gradient(160deg,#150000 0%,#330000 45%,#0d0005 100%)}
+.s2-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.s2-dia{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:14px;color:rgba(255,255,255,.35);opacity:0;margin-bottom:4px}
+.scene.active .s2-dia{animation:slamL .35s ease .05s forwards}
+.s2-num{font-family:'Bebas Neue',sans-serif;font-size:340px;line-height:.78;color:#FF2200;letter-spacing:-16px;opacity:0;text-shadow:0 0 120px rgba(255,34,0,.45)}
+.scene.active .s2-num{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .15s forwards}
+.s2-mes{font-family:'Bebas Neue',sans-serif;font-size:68px;color:#fff;letter-spacing:2px;opacity:0;margin-top:-8px;line-height:1}
+.scene.active .s2-mes{animation:slamUp .4s ease .62s forwards}
+.s2-yr{font-family:'Bebas Neue',sans-serif;font-size:32px;color:rgba(255,255,255,.28);letter-spacing:12px;opacity:0;margin-top:4px}
+.scene.active .s2-yr{animation:fadeIn .4s ease .9s forwards}
+.s2-badge{background:#FF2200;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:5px;padding:10px 28px;border-radius:4px;margin-top:24px;opacity:0;display:inline-block}
+.scene.active .s2-badge{animation:slamUp .45s cubic-bezier(.17,.67,.51,1.3) 1.1s forwards}
 
 /* S3 LOCATION */
-.s3{background:linear-gradient(to bottom,#0d0005 0%,#1a0000 100%)}
-.s3-bg{position:absolute;inset:0;background-image:url('images/img11.jpg');background-size:cover;background-position:center top;opacity:.18}
-.s3-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px}
-.s3-icon{font-size:48px;opacity:0;margin-bottom:8px}
-.scene.active .s3-icon{animation:bounceIn .5s ease .05s forwards}
-.s3-venue{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:.85;color:#FF3300;letter-spacing:-2px;opacity:0;animation:glowFire 2s ease infinite}
-.scene.active .s3-venue{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .15s forwards,glowFire 2s ease 1.2s infinite}
-.s3-city{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:#fff;opacity:0;margin-top:6px}
-.scene.active .s3-city{animation:fadeUp .4s ease .65s forwards}
-.s3-addr{font-size:14px;color:rgba(255,255,255,.4);letter-spacing:2px;opacity:0;margin-top:4px}
-.scene.active .s3-addr{animation:fadeUp .4s ease .85s forwards}
-.s3-divider{width:0;height:3px;background:linear-gradient(90deg,transparent,#FF3300,transparent);margin:16px auto;opacity:0}
-.scene.active .s3-divider{opacity:1;animation:drawH .5s ease 1.05s forwards}
-.s3-phone{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FF6600;letter-spacing:3px;opacity:0}
+.s3{background:#050002}
+.s3-bg{position:absolute;inset:0;background-image:url('images/img11.jpg');background-size:cover;background-position:center top;animation:zoomBg 4s ease forwards}
+.s3-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.25) 0%,rgba(0,0,0,.82) 100%)}
+.s3-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,0,2,.05) 0%,rgba(5,0,2,.5) 45%,rgba(5,0,2,.96) 100%)}
+.s3-scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,34,0,.55),transparent);animation:scanLine 3.5s linear infinite;z-index:2}
+.s3-content{position:absolute;bottom:0;left:0;right:0;padding:0 28px 52px;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center}
+.s3-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:6px;color:rgba(255,80,0,.7);text-transform:uppercase;opacity:0;margin-bottom:4px}
+.scene.active .s3-lbl{animation:fadeIn .35s ease .1s forwards}
+.s3-venue{font-family:'Bebas Neue',sans-serif;font-size:90px;line-height:.88;color:#fff;letter-spacing:-2px;opacity:0;text-shadow:0 2px 30px rgba(0,0,0,.8)}
+.scene.active .s3-venue{animation:slamUp .5s cubic-bezier(.17,.67,.51,1.3) .2s forwards}
+.s3-city{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#FF4400;letter-spacing:8px;opacity:0;margin-top:2px}
+.scene.active .s3-city{animation:slamUp .4s ease .65s forwards}
+.s3-hr{height:2px;background:linear-gradient(90deg,transparent,#FF2200,transparent);width:0;margin:14px auto;opacity:0}
+.scene.active .s3-hr{opacity:1;animation:grow .45s ease .85s forwards}
+.s3-addr{font-family:'Oswald',sans-serif;font-size:13px;color:rgba(255,255,255,.45);letter-spacing:2px;opacity:0}
+.scene.active .s3-addr{animation:fadeIn .35s ease 1.05s forwards}
+.s3-phone{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FF6600;letter-spacing:4px;opacity:0;margin-top:6px}
 .scene.active .s3-phone{animation:slamUp .4s ease 1.25s forwards}
 
 /* S4 RACE COUNT */
-.s4{background:#0d0005}
-.s4-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.s4-label{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:10px;color:rgba(255,255,255,.35);opacity:0}
-.scene.active .s4-label{animation:fadeUp .4s ease .05s forwards}
-.s4-num{font-family:'Bebas Neue',sans-serif;font-size:260px;line-height:.8;color:#FF3300;text-shadow:0 0 100px rgba(255,51,0,.3);opacity:0}
-.scene.active .s4-num{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .15s forwards}
-.s4-word{font-family:'Bebas Neue',sans-serif;font-size:54px;color:#fff;letter-spacing:8px;opacity:0}
-.scene.active .s4-word{animation:slamUp .45s ease .6s forwards}
-.s4-fire{font-size:40px;opacity:0;margin-top:8px}
-.scene.active .s4-fire{animation:fadeUp .4s ease .9s forwards}
+.s4{background:#070005}
+.s4-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.s4-eyebrow{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:10px;color:rgba(255,80,0,.5);text-transform:uppercase;opacity:0}
+.scene.active .s4-eyebrow{animation:fadeIn .35s ease .05s forwards}
+.s4-num{font-family:'Bebas Neue',sans-serif;font-size:320px;line-height:.75;color:#FF2200;letter-spacing:-12px;opacity:0;text-shadow:0 0 120px rgba(255,34,0,.35)}
+.scene.active .s4-num{animation:slam .55s cubic-bezier(.17,.67,.51,1.3) .12s forwards}
+.s4-word{font-family:'Bebas Neue',sans-serif;font-size:76px;color:#fff;letter-spacing:18px;opacity:0;margin-top:-10px}
+.scene.active .s4-word{animation:slamUp .4s ease .6s forwards}
+.s4-sub{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:4px;color:rgba(255,255,255,.28);opacity:0;margin-top:14px;text-align:center;padding:0 20px}
+.scene.active .s4-sub{animation:fadeIn .4s ease .9s forwards}
 
 /* S5 PRIZES */
-.s5{background:linear-gradient(160deg,#1a0000 0%,#2D0000 50%,#0d0005 100%)}
-.s5-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
-.s5-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:8px;color:rgba(255,255,255,.4);opacity:0}
-.scene.active .s5-title{animation:fadeUp .35s ease .05s forwards}
-.prize-row{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:10px}
-.p-card{background:rgba(255,51,0,.08);border:1.5px solid rgba(255,51,0,.3);border-radius:10px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;opacity:0}
-.p-card.top{background:rgba(255,51,0,.15);border-color:#FF3300;border-width:2px}
-.p-cat{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:#fff;text-align:left}
-.p-dist{font-size:11px;color:rgba(255,255,255,.35);text-align:left;margin-top:2px}
-.p-prize{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FF3300;flex-shrink:0}
-.p-card.top .p-prize{font-size:36px;color:#FF6600;text-shadow:0 0 20px rgba(255,102,0,.5)}
-.scene.active .p-card:nth-child(1){animation:chipIn .35s ease .1s forwards}
-.scene.active .p-card:nth-child(2){animation:chipIn .35s ease .25s forwards}
-.scene.active .p-card:nth-child(3){animation:chipIn .35s ease .4s forwards}
-.scene.active .p-card:nth-child(4){animation:chipIn .35s ease .55s forwards}
-.scene.active .p-card:nth-child(5){animation:chipIn .35s ease .7s forwards}
+.s5{background:linear-gradient(160deg,#130000 0%,#260000 40%,#070005 100%)}
+.s5-inner{position:absolute;inset:0;display:flex;flex-direction:column;padding:48px 22px 36px}
+.s5-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:10px;color:rgba(255,80,0,.55);text-align:center;opacity:0;margin-bottom:18px}
+.scene.active .s5-title{animation:fadeIn .3s ease .05s forwards}
+.prize-block{display:flex;flex-direction:column;gap:11px;flex:1;justify-content:center}
+.p-row{display:flex;align-items:stretch;border-radius:10px;overflow:hidden;opacity:0;border:1.5px solid rgba(255,34,0,.2)}
+.p-row.gold{border-color:#FF2200;animation:borderGlow 2s ease infinite}
+.p-accent{width:5px;flex-shrink:0}
+.p-accent.t1{background:linear-gradient(to bottom,#FF8800,#FF0000)}
+.p-accent.t2{background:linear-gradient(to bottom,#FF4400,#990000)}
+.p-accent.t3{background:#440800}
+.p-body{flex:1;padding:13px 15px;background:rgba(255,34,0,.06)}
+.p-cat{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:.5px;line-height:1}
+.p-dist{font-family:'Oswald',sans-serif;font-size:10px;color:rgba(255,255,255,.28);letter-spacing:2px;margin-top:2px}
+.p-prize-box{padding:13px 18px;background:rgba(255,34,0,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;min-width:88px}
+.p-amt{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#FF3300;line-height:1}
+.p-row.gold .p-amt{font-size:42px;color:#FF5500;text-shadow:0 0 20px rgba(255,80,0,.5)}
+.scene.active .p-row:nth-child(1){animation:chipIn .35s cubic-bezier(.17,.67,.51,1.3) .1s forwards}
+.scene.active .p-row:nth-child(2){animation:chipIn .35s cubic-bezier(.17,.67,.51,1.3) .27s forwards}
+.scene.active .p-row:nth-child(3){animation:chipIn .35s cubic-bezier(.17,.67,.51,1.3) .44s forwards}
+.scene.active .p-row:nth-child(4){animation:chipIn .35s cubic-bezier(.17,.67,.51,1.3) .61s forwards}
+.scene.active .p-row:nth-child(5){animation:chipIn .35s cubic-bezier(.17,.67,.51,1.3) .78s forwards}
+.p-more{text-align:center;font-family:'Oswald',sans-serif;font-size:11px;color:rgba(255,80,0,.45);letter-spacing:4px;margin-top:14px;opacity:0}
+.scene.active .p-more{animation:fadeIn .4s ease 1.05s forwards}
 
 /* S6 GRAND PRIZE */
-.s6{background:radial-gradient(ellipse at center,#2D0000 0%,#0d0005 70%)}
-.s6-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
-.s6-crown{font-size:72px;opacity:0;margin-bottom:4px}
-.scene.active .s6-crown{animation:bounceIn .6s ease .05s forwards}
-.s6-race{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:6px;color:rgba(255,255,255,.45);opacity:0;margin-bottom:4px}
-.scene.active .s6-race{animation:fadeUp .4s ease .4s forwards}
-.s6-prize{font-family:'Bebas Neue',sans-serif;font-size:130px;line-height:.85;color:#FF3300;letter-spacing:-4px;text-shadow:0 0 100px rgba(255,51,0,.5);opacity:0}
-.scene.active .s6-prize{animation:prizeIn .65s cubic-bezier(.17,.67,.51,1.3) .55s forwards}
-.s6-sub{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:5px;color:#FF6600;opacity:0;margin-top:6px}
-.scene.active .s6-sub{animation:slamUp .4s ease 1.1s forwards}
-.s6-race2{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:3px;opacity:0;margin-top:4px}
-.scene.active .s6-race2{animation:fadeUp .4s ease 1.35s forwards}
-.s6-divider{width:0;height:3px;background:linear-gradient(90deg,transparent,#FF3300,transparent);margin:14px auto;opacity:0}
-.scene.active .s6-divider{opacity:1;animation:drawH .5s ease 1.55s forwards}
-.s6-note{font-size:13px;color:rgba(255,255,255,.3);letter-spacing:3px;opacity:0;margin-top:2px}
-.scene.active .s6-note{animation:fadeUp .4s ease 1.75s forwards}
+.s6{background:radial-gradient(ellipse 70% 50% at 50% 50%,#2D0000,#070005)}
+.s6-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+.s6-trophy{font-size:80px;opacity:0;margin-bottom:6px}
+.scene.active .s6-trophy{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards}
+.s6-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:8px;color:rgba(255,80,0,.55);opacity:0;margin-bottom:4px}
+.scene.active .s6-label{animation:fadeIn .35s ease .5s forwards}
+.s6-prize{font-family:'Bebas Neue',sans-serif;font-size:170px;line-height:.82;color:#FF2200;letter-spacing:-6px;opacity:0;text-shadow:0 0 120px rgba(255,34,0,.5)}
+.scene.active .s6-prize{animation:slam .6s cubic-bezier(.17,.67,.51,1.3) .6s forwards}
+.s6-sub{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:6px;color:rgba(255,255,255,.5);opacity:0;margin-top:4px}
+.scene.active .s6-sub{animation:slamUp .35s ease 1.1s forwards}
+.s6-race{font-family:'Bebas Neue',sans-serif;font-size:29px;color:#fff;letter-spacing:2px;opacity:0;margin-top:2px}
+.scene.active .s6-race{animation:slamUp .4s ease 1.3s forwards}
+.s6-hr{height:2px;background:linear-gradient(90deg,transparent,#FF2200,transparent);width:0;margin:18px auto;opacity:0}
+.scene.active .s6-hr{opacity:1;animation:grow .5s ease 1.5s forwards}
+.s6-also{font-family:'Oswald',sans-serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:2px;opacity:0;line-height:1.9}
+.scene.active .s6-also{animation:fadeIn .4s ease 1.75s forwards}
 
-/* S7 HERO FLYER */
-.s7{background:#0d0005}
-.s7-bg{position:absolute;inset:0;background-image:url('images/img11.jpg');background-size:cover;background-position:center;filter:brightness(.55)}
-.s7-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,0,5,.2) 0%,rgba(13,0,5,.7) 100%)}
-.s7-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 24px 60px}
-.s7-org{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.9;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.8);opacity:0}
-.scene.active .s7-org{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .2s forwards}
-.s7-tag{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:5px;color:#FF6600;opacity:0;margin-top:6px}
-.scene.active .s7-tag{animation:fadeUp .4s ease .7s forwards}
-.s7-cta{background:#FF3300;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;padding:12px 32px;border-radius:6px;margin-top:18px;opacity:0;display:inline-block}
-.scene.active .s7-cta{animation:slamUp .5s cubic-bezier(.17,.67,.51,1.3) .9s forwards}
-.s7-scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#FF3300,transparent);animation:scanLine 3s linear infinite;z-index:3}
+/* S7 HERO */
+.s7{background:#050002}
+.s7-bg{position:absolute;inset:0;background-image:url('images/img11.jpg');background-size:cover;background-position:center;filter:brightness(.48) saturate(1.3);animation:zoomBg 5s ease forwards}
+.s7-tgrad{position:absolute;top:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,rgba(5,0,2,.9),transparent)}
+.s7-bgrad{position:absolute;bottom:0;left:0;right:0;height:58%;background:linear-gradient(to top,rgba(5,0,2,.97),rgba(5,0,2,.55) 60%,transparent)}
+.s7-scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,34,0,.5),transparent);animation:scanLine 4s linear infinite;z-index:2}
+.s7-top{position:absolute;top:26px;left:0;right:0;display:flex;justify-content:space-between;padding:0 22px;z-index:3}
+.s7-badge{background:rgba(255,34,0,.9);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#fff;padding:6px 14px;border-radius:3px;opacity:0}
+.scene.active .s7-badge{animation:slamL .4s ease .1s forwards}
+.s7-pill{background:rgba(0,0,0,.65);border:1px solid rgba(255,34,0,.4);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#FF4400;padding:6px 14px;border-radius:3px;opacity:0}
+.scene.active .s7-pill{animation:slamR .4s ease .1s forwards}
+.s7-bot{position:absolute;bottom:0;left:0;right:0;padding:0 26px 42px;z-index:3;text-align:center}
+.s7-org{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:.88;color:#fff;letter-spacing:-1px;opacity:0;text-shadow:0 2px 30px rgba(0,0,0,.9)}
+.scene.active .s7-org{animation:slamUp .5s cubic-bezier(.17,.67,.51,1.3) .3s forwards}
+.s7-tag{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:4px;color:rgba(255,100,30,.75);text-transform:uppercase;opacity:0;margin-top:6px;line-height:1.6}
+.scene.active .s7-tag{animation:fadeIn .4s ease .8s forwards}
+.s7-cta{display:inline-block;background:#FF2200;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;padding:14px 36px;border-radius:6px;margin-top:18px;opacity:0;box-shadow:0 4px 30px rgba(255,34,0,.45)}
+.scene.active .s7-cta{animation:slamUp .5s cubic-bezier(.17,.67,.51,1.3) 1s forwards}
 
 /* S8 CTA */
-.s8{background:radial-gradient(ellipse at center,#2D0000 0%,#0d0005 65%)}
-.s8-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
-.s8-date{font-family:'Bebas Neue',sans-serif;font-size:60px;line-height:.9;color:#FF3300;opacity:0;animation:glowFire 2s ease infinite}
-.scene.active .s8-date{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .05s forwards,glowFire 2s ease 1.2s infinite}
-.s8-month{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#fff;letter-spacing:4px;opacity:0}
-.scene.active .s8-month{animation:slamUp .4s ease .5s forwards}
-.s8-loc{font-size:14px;color:rgba(255,255,255,.4);letter-spacing:3px;opacity:0;margin-top:8px}
-.scene.active .s8-loc{animation:fadeUp .35s ease .8s forwards}
-.s8-divider{width:0;height:3px;background:linear-gradient(90deg,transparent,#FF3300,transparent);margin:18px auto;opacity:0}
-.scene.active .s8-divider{opacity:1;animation:drawH .5s ease 1s forwards}
-.s8-picks{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:#fff;opacity:0;margin-bottom:6px}
-.scene.active .s8-picks{animation:fadeUp .35s ease 1.15s forwards}
-.s8-url{font-size:13px;color:#FF6600;letter-spacing:2px;opacity:0;word-break:break-all}
-.scene.active .s8-url{animation:fadeUp .35s ease 1.35s forwards}
-.s8-blink{animation:blink 1.2s step-start infinite}
-.s8-phone{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FF3300;letter-spacing:3px;opacity:0;margin-top:10px}
-.scene.active .s8-phone{animation:slamUp .45s ease 1.55s forwards}
+.s8{background:radial-gradient(ellipse 80% 70% at 50% 50%,#200000,#070005)}
+.s8-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px}
+.s8-fire{font-size:48px;opacity:0;margin-bottom:4px}
+.scene.active .s8-fire{animation:slamUp .4s ease .05s forwards}
+.s8-org{font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:.88;color:#fff;letter-spacing:-1px;opacity:0}
+.scene.active .s8-org{animation:slam .5s cubic-bezier(.17,.67,.51,1.3) .3s forwards}
+.s8-date{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#FF4400;letter-spacing:4px;opacity:0;margin-top:6px}
+.scene.active .s8-date{animation:slamUp .4s ease .75s forwards}
+.s8-hr{height:2px;background:linear-gradient(90deg,transparent,#FF2200,transparent);width:0;margin:20px auto;opacity:0}
+.scene.active .s8-hr{opacity:1;animation:grow .45s ease .95s forwards}
+.s8-picks{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:5px;color:#fff;opacity:0;margin-bottom:6px}
+.scene.active .s8-picks{animation:fadeIn .35s ease 1.1s forwards}
+.s8-url{font-family:'Oswald',sans-serif;font-size:13px;color:rgba(255,100,30,.8);letter-spacing:1px;opacity:0;margin-bottom:4px;line-height:1.7}
+.scene.active .s8-url{animation:fadeIn .35s ease 1.3s forwards}
+.s8-phone{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FF2200;letter-spacing:4px;opacity:0;margin-top:8px;text-shadow:0 0 20px rgba(255,34,0,.4)}
+.scene.active .s8-phone{animation:slamUp .45s ease 1.5s forwards}
+.s8-loc{font-family:'Oswald',sans-serif;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:3px;opacity:0;margin-top:6px}
+.scene.active .s8-loc{animation:fadeIn .35s ease 1.75s forwards}
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
-  <canvas id="bg"></canvas>
-  <div class="flash" id="flash"></div>
-  <div class="progress" id="bar"></div>
+<canvas id="bg"></canvas>
+<div class="flash" id="flash"></div>
+<div class="prog" id="bar"></div>
 
-  <!-- S1 BLAST -->
-  <div class="scene active" id="s1">
-    <div class="s1-shake">
-      <div class="s1-content">
-        <div class="s1-fire">🔥</div>
-        <div class="s1-top">
-          <div class="s1-line1">RANCHO EL</div>
-          <div class="s1-line2">CENTEN</div>
-          <div class="s1-line3">ARIO</div>
-        </div>
-        <div class="s1-divider"></div>
-        <div class="s1-sub">MILNER · GEORGIA</div>
-        <div class="s1-tagline">EL EVENTO MAS GRANDE</div>
-      </div>
+<!-- S1 -->
+<div class="scene active" id="s1">
+  <div class="s1-shaker">
+    <div class="s1-top">
+      <div class="s1-rancho">RANCHO</div>
+      <div class="s1-el">EL</div>
+      <div class="s1-cent">CENTENARIO</div>
+    </div>
+    <div class="s1-line"></div>
+    <div class="s1-bottom">
+      <div class="s1-sub">MILNER · GEORGIA</div>
+      <div class="s1-tagline">El Evento Más Grande de Georgia<br>y Sus Alrededores</div>
+      <div class="s1-fires">🔥 🐎 🔥</div>
     </div>
   </div>
-
-  <!-- S2 DATE -->
-  <div class="scene" id="s2">
-    <div class="s2-content">
-      <div class="s2-label">DOMINGO</div>
-      <div class="s2-day">4</div>
-      <div class="s2-month">DE OCTUBRE</div>
-      <div class="s2-year">2026</div>
-      <div class="s2-badge">¡MÁRCALO EN TU CALENDARIO!</div>
-    </div>
-  </div>
-
-  <!-- S3 LOCATION -->
-  <div class="scene" id="s3">
-    <div class="s3-bg"></div>
-    <div class="s3-content">
-      <div class="s3-icon">📍</div>
-      <div class="s3-venue glitch" data-text="MILNER">MILNER</div>
-      <div class="s3-city">GEORGIA</div>
-      <div class="s3-addr">261 High Falls Park Rd, Milner GA</div>
-      <div class="s3-divider"></div>
-      <div class="s3-phone">☎ (706) 461-2079</div>
-    </div>
-  </div>
-
-  <!-- S4 RACE COUNT -->
-  <div class="scene" id="s4">
-    <div class="s4-content">
-      <div class="s4-label">PROGRAMA OFICIAL</div>
-      <div class="s4-num">14</div>
-      <div class="s4-word">CARRERAS</div>
-      <div class="s4-fire">🔥 🐎 🔥</div>
-    </div>
-  </div>
-
-  <!-- S5 PRIZES -->
-  <div class="scene" id="s5">
-    <div class="s5-content">
-      <div class="s5-title">PREMIOS · LA BOLSA</div>
-      <div class="prize-row">
-        <div class="p-card top">
-          <div><div class="p-cat">CAMPEÓN DE LAS 350Y</div><div class="p-dist">350 Yardas · LA GRANDE</div></div>
-          <div class="p-prize">$25K</div>
-        </div>
-        <div class="p-card top">
-          <div><div class="p-cat">REY DE REYES</div><div class="p-dist">400 Yardas</div></div>
-          <div class="p-prize">$20K</div>
-        </div>
-        <div class="p-card">
-          <div><div class="p-cat">CAMPEÓN 3 AÑERO</div><div class="p-dist">350 Yardas</div></div>
-          <div class="p-prize">$15K</div>
-        </div>
-        <div class="p-card">
-          <div><div class="p-cat">CAMPEÓN 4 AÑERO</div><div class="p-dist">200 Yardas</div></div>
-          <div class="p-prize">$10K</div>
-        </div>
-        <div class="p-card">
-          <div><div class="p-cat">+ 10 CARRERAS MÁS</div><div class="p-dist">100Y · 150Y · 175Y · 200Y · 300Y · 325Y · 400Y</div></div>
-          <div class="p-prize">💰</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- S6 GRAND PRIZE HIGHLIGHT -->
-  <div class="scene" id="s6">
-    <div class="s6-content">
-      <div class="s6-crown">👑</div>
-      <div class="s6-race">CARRERA ESTELAR</div>
-      <div class="s6-prize">$25K</div>
-      <div class="s6-sub">EN PREMIOS</div>
-      <div class="s6-race2">CAMPEÓN DE LAS 350Y</div>
-      <div class="s6-divider"></div>
-      <div class="s6-note">+ REY DE REYES $20,000 · CAMPEÓN 3 AÑERO $15,000</div>
-    </div>
-  </div>
-
-  <!-- S7 HERO FLYER -->
-  <div class="scene" id="s7">
-    <div class="s7-bg"></div>
-    <div class="s7-overlay"></div>
-    <div class="s7-scan"></div>
-    <div class="s7-content">
-      <div class="s7-org">RANCHO EL<br>CENTENARIO</div>
-      <div class="s7-tag">EL EVENTO MAS GRANDE DE GEORGIA Y SUS ALREDEDORES</div>
-      <div class="s7-cta">🔥 HAZ TUS PICKS</div>
-    </div>
-  </div>
-
-  <!-- S8 CTA -->
-  <div class="scene" id="s8">
-    <div class="s8-content">
-      <div class="s8-date">DOMINGO 4</div>
-      <div class="s8-month">DE OCTUBRE</div>
-      <div class="s8-loc">261 HIGH FALLS PARK RD · MILNER GA</div>
-      <div class="s8-divider"></div>
-      <div class="s8-picks">HAZ TUS PICKS GRATIS</div>
-      <div class="s8-url">guttix1.github.io/Digital-flyer-/<br>events/rancho-centenario-oct4/</div>
-      <div class="s8-phone <s8-blink">☎ (706) 461-2079</div>
-    </div>
-  </div>
-
-  <button class="replay-btn" onclick="restart()">↺ REPLAY</button>
 </div>
 
+<!-- S2 -->
+<div class="scene" id="s2">
+  <div class="s2-inner">
+    <div class="s2-dia">DOMINGO</div>
+    <div class="s2-num">4</div>
+    <div class="s2-mes">DE OCTUBRE</div>
+    <div class="s2-yr">2026</div>
+    <div class="s2-badge">¡MÁRCALO EN TU CALENDARIO!</div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="scene" id="s3">
+  <div class="s3-bg"></div>
+  <div class="s3-vignette"></div>
+  <div class="s3-grad"></div>
+  <div class="s3-scan"></div>
+  <div class="s3-content">
+    <div class="s3-lbl">Dirección del Evento</div>
+    <div class="s3-venue">MILNER<br>GEORGIA</div>
+    <div class="s3-city">📍 261 HIGH FALLS PARK RD</div>
+    <div class="s3-hr"></div>
+    <div class="s3-addr">Para más información:</div>
+    <div class="s3-phone">(706) 461-2079</div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="scene" id="s4">
+  <div class="s4-inner">
+    <div class="s4-eyebrow">PROGRAMA OFICIAL</div>
+    <div class="s4-num">14</div>
+    <div class="s4-word">CARRERAS</div>
+    <div class="s4-sub">Campeonatos Abiertos · Distancias 5Y – 400Y</div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="scene" id="s5">
+  <div class="s5-inner">
+    <div class="s5-title">LA BOLSA · PREMIOS</div>
+    <div class="prize-block">
+      <div class="p-row gold">
+        <div class="p-accent t1"></div>
+        <div class="p-body"><div class="p-cat">CAMPEÓN DE LAS 350Y</div><div class="p-dist">350 Yardas · La Grande</div></div>
+        <div class="p-prize-box"><div class="p-amt">$25K</div></div>
+      </div>
+      <div class="p-row gold">
+        <div class="p-accent t1"></div>
+        <div class="p-body"><div class="p-cat">REY DE REYES</div><div class="p-dist">400 Yardas</div></div>
+        <div class="p-prize-box"><div class="p-amt">$20K</div></div>
+      </div>
+      <div class="p-row">
+        <div class="p-accent t2"></div>
+        <div class="p-body"><div class="p-cat">CAMPEÓN 3 AÑERO</div><div class="p-dist">350 Yardas</div></div>
+        <div class="p-prize-box"><div class="p-amt">$15K</div></div>
+      </div>
+      <div class="p-row">
+        <div class="p-accent t2"></div>
+        <div class="p-body"><div class="p-cat">CAMPEÓN 4 AÑERO</div><div class="p-dist">200 Yardas</div></div>
+        <div class="p-prize-box"><div class="p-amt">$10K</div></div>
+      </div>
+      <div class="p-row">
+        <div class="p-accent t3"></div>
+        <div class="p-body"><div class="p-cat">CAMPEÓN GAN DE 1 + MÁS</div><div class="p-dist">100Y · 150Y · 175Y · 200Y · 300Y · 325Y</div></div>
+        <div class="p-prize-box"><div class="p-amt" style="font-size:26px">💰</div></div>
+      </div>
+    </div>
+    <div class="p-more">14 CARRERAS EN TOTAL</div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="scene" id="s6">
+  <div class="s6-inner">
+    <div class="s6-trophy">🏆</div>
+    <div class="s6-label">PREMIO MAYOR</div>
+    <div class="s6-prize">$25K</div>
+    <div class="s6-sub">EN PREMIOS</div>
+    <div class="s6-race">CAMPEÓN DE LAS 350 YARDAS</div>
+    <div class="s6-hr"></div>
+    <div class="s6-also">REY DE REYES $20,000 · CAMPEÓN 3 AÑERO $15,000<br>CAMPEÓN 4 AÑERO $10,000 · CAMPEÓN GAN DE 1 $10,000</div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="scene" id="s7">
+  <div class="s7-bg"></div>
+  <div class="s7-tgrad"></div>
+  <div class="s7-bgrad"></div>
+  <div class="s7-scan"></div>
+  <div class="s7-top">
+    <div class="s7-badge">🔥 OCT 4</div>
+    <div class="s7-pill">MILNER · GA</div>
+  </div>
+  <div class="s7-bot">
+    <div class="s7-org">RANCHO EL<br>CENTENARIO</div>
+    <div class="s7-tag">El Evento Más Grande de Georgia<br>y Sus Alrededores</div>
+    <div class="s7-cta">🐎 HAZ TUS PICKS</div>
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="scene" id="s8">
+  <div class="s8-inner">
+    <div class="s8-fire">🔥</div>
+    <div class="s8-org">RANCHO EL<br>CENTENARIO</div>
+    <div class="s8-date">DOMINGO · 4 DE OCTUBRE</div>
+    <div class="s8-hr"></div>
+    <div class="s8-picks">HAZ TUS PICKS GRATIS</div>
+    <div class="s8-url">guttix1.github.io/Digital-flyer-/<br>events/rancho-centenario-oct4/</div>
+    <div class="s8-phone">(706) 461-2079</div>
+    <div class="s8-loc">261 HIGH FALLS PARK RD · MILNER, GA</div>
+  </div>
+</div>
+
+<button class="replay" onclick="restart()">↺ REPLAY</button>
+</div>
 <script>
-// FIRE PARTICLE BG
 (function(){
-  const c=document.getElementById('bg');
-  const st=document.getElementById('stage');
-  c.width=540;c.height=960;
+  const c=document.getElementById('bg');c.width=540;c.height=960;
   const ctx=c.getContext('2d');
-  const COLS=['rgba(255,51,0,','rgba(255,100,0,','rgba(200,20,0,','rgba(255,150,50,'];
-  const pts=Array.from({length:60},()=>({
-    x:Math.random()*540,y:Math.random()*960,
-    r:Math.random()*2.2+.5,
-    vx:(Math.random()-.5)*.4,vy:-(Math.random()*.6+.1),
-    col:COLS[Math.floor(Math.random()*COLS.length)],
-    phase:Math.random()*Math.PI*2,
-    life:Math.random()
-  }));
+  const COLS=['255,50,0','255,100,20','220,30,0','255,140,40'];
+  const pts=Array.from({length:80},()=>mk());
+  function mk(){return{x:Math.random()*540,y:Math.random()*960,r:Math.random()*2+.4,vx:(Math.random()-.5)*.5,vy:-(Math.random()*.9+.2),life:Math.random(),dec:Math.random()*.004+.001,col:COLS[Math.floor(Math.random()*4)]}}
   function draw(){
     ctx.clearRect(0,0,540,960);
-    pts.forEach(p=>{
-      p.life+=.003;
-      if(p.life>1){p.life=0;p.x=Math.random()*540;p.y=960;}
-      const a=Math.sin(p.phase+p.life*Math.PI)*0.7+0.3;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.col+a+')';
-      ctx.fill();
-      p.x+=p.vx;p.y+=p.vy*.8;
+    pts.forEach((p,i)=>{
+      p.life-=p.dec;
+      if(p.life<=0){pts[i]=mk();pts[i].y=970;pts[i].life=Math.random()*.4+.6;}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.life*.75+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
     });
-    // ember connecting lines
-    for(let i=0;i<pts.length;i++){
-      for(let j=i+1;j<pts.length;j++){
-        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<55){
-          ctx.beginPath();
-          ctx.moveTo(pts[i].x,pts[i].y);
-          ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(255,51,0,'+(1-d/55)*.12+')';
-          ctx.lineWidth=.6;
-          ctx.stroke();
-        }
-      }
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<50){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(255,40,0,'+(1-d/50)*.08+')';ctx.lineWidth=.5;ctx.stroke();}
     }
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-// SCENE ENGINE
-const SCENES=[
-  {id:'s1',dur:3000},
-  {id:'s2',dur:3500},
-  {id:'s3',dur:3500},
-  {id:'s4',dur:2800},
-  {id:'s5',dur:4000},
-  {id:'s6',dur:3500},
-  {id:'s7',dur:3500},
-  {id:'s8',dur:5000}
-];
-const TOTAL=SCENES.reduce((a,s)=>a+s.dur,0);
-let cur=0,elapsed=0,timer=null;
+const SC=[{id:'s1',dur:3200},{id:'s2',dur:3500},{id:'s3',dur:3800},{id:'s4',dur:2800},{id:'s5',dur:4200},{id:'s6',dur:3800},{id:'s7',dur:3800},{id:'s8',dur:5500}];
+const TOT=SC.reduce((a,s)=>a+s.dur,0);
+let cur=0,el=0,tmr=null;
+function flash(){const f=document.getElementById('flash');f.style.transition='none';f.style.opacity='.6';requestAnimationFrame(()=>{f.style.transition='opacity .3s ease';f.style.opacity='0';});}
+function show(i){document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));const s=document.getElementById(SC[i].id);if(s)s.classList.add('active');}
+function tick(){el+=80;document.getElementById('bar').style.width=(el/TOT*100)+'%';let acc=0;for(let i=0;i<SC.length;i++){acc+=SC[i].dur;if(el<=acc){if(i!==cur){cur=i;flash();show(i);}break;}}if(el>=TOT){clearInterval(tmr);document.getElementById('stage').classList.add('done');}}
+function restart(){cur=0;el=0;document.getElementById('stage').classList.remove('done');document.getElementById('bar').style.width='0';clearInterval(tmr);show(0);tmr=setInterval(tick,80);}
+show(0);tmr=setInterval(tick,80);
 
-function flash(){
-  const f=document.getElementById('flash');
-  f.style.transition='none';f.style.opacity='.55';
-  requestAnimationFrame(()=>{f.style.transition='opacity .35s ease';f.style.opacity='0';});
-}
-
-function showScene(i){
-  document.querySelectorAll('.scene').forEach(el=>{el.classList.remove('active');});
-  const el=document.getElementById(SCENES[i].id);
-  if(el) el.classList.add('active');
-}
-
-function tick(){
-  const bar=document.getElementById('bar');
-  elapsed+=80;
-  bar.style.width=(elapsed/TOTAL*100)+'%';
-  let acc=0;
-  for(let i=0;i<SCENES.length;i++){
-    acc+=SCENES[i].dur;
-    if(elapsed<=acc){
-      if(i!==cur){cur=i;flash();showScene(i);}
-      break;
-    }
-  }
-  if(elapsed>=TOTAL){
-    clearInterval(timer);
-    document.getElementById('stage').classList.add('done');
-  }
-}
-
-function restart(){
-  cur=0;elapsed=0;
-  document.getElementById('stage').classList.remove('done');
-  document.getElementById('bar').style.width='0';
-  clearInterval(timer);
-  showScene(0);
-  timer=setInterval(tick,80);
-}
-
-showScene(0);
-timer=setInterval(tick,80);
-
-// RESPONSIVE SCALING
 (function(){
-  function resize(){
-    const vw=window.innerWidth,vh=window.innerHeight;
-    const scale=Math.min(vw/540,vh/960);
-    const st=document.getElementById('stage');
-    st.style.transform='scale('+scale+')';
-    st.style.transformOrigin='0 0';
-    st.style.position='absolute';
-    st.style.left=((vw-540*scale)/2)+'px';
-    st.style.top=((vh-960*scale)/2)+'px';
-    document.body.style.position='relative';
-  }
-  resize();
-  window.addEventListener('resize',resize);
+  function r(){const vw=window.innerWidth,vh=window.innerHeight,sc=Math.min(vw/540,vh/960),st=document.getElementById('stage');st.style.transform='scale('+sc+')';st.style.transformOrigin='0 0';st.style.position='absolute';st.style.left=((vw-540*sc)/2)+'px';st.style.top=((vh-960*sc)/2)+'px';document.body.style.position='relative';}
+  r();window.addEventListener('resize',r);
 })();
 </script>
 </body>
