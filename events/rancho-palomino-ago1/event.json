@@ -1,0 +1,398 @@
+{
+  "slug": "rancho-palomino-ago1",
+  "page_title": "CarrerasOS · Rancho El Palomino",
+  "page_description": "Rancho El Palomino - El Carril de los Pesos Pesados - Sábado 1 de Agosto 2026. 20 carreras. Admisión $100. Haz tus picks.",
+  "countdown": "2026-08-01T09:00",
+  "event": {
+    "org": "RANCHO EL PALOMINO",
+    "titleTop": "RANCHO EL",
+    "titleBottom": "PALOMINO",
+    "tagline": "EL CARRIL DE LOS PESOS PESADOS",
+    "stars": "20 CARRERAS · ADMISIÓN $100",
+    "dayName": "SÁBADO",
+    "dayNum": "1",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Rancho El Palomino",
+    "address": "Puertas abren 8 AM · Niños -15 gratis",
+    "phones": [],
+    "sponsors": [],
+    "counts": "20 carreras · Pesos Pesados · Puertas 8 AM"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL PATRON",
+      "stable": "Pesos Pesados Local"
+    },
+    {
+      "gate": null,
+      "name": "EL TREBOL",
+      "stable": "Pesos Pesados Local"
+    },
+    {
+      "gate": null,
+      "name": "EL BUDHA",
+      "stable": "Pesos Pesados Local"
+    },
+    {
+      "gate": null,
+      "name": "EL MANGO",
+      "stable": "Pesos Pesados Local"
+    },
+    {
+      "gate": null,
+      "name": "EL PANTERA",
+      "stable": "Pesos Pesados"
+    },
+    {
+      "gate": null,
+      "name": "EL CARDENAL",
+      "stable": "Pesos Pesados"
+    },
+    {
+      "gate": null,
+      "name": "EL MILLON",
+      "stable": "Pesos Pesados"
+    },
+    {
+      "gate": null,
+      "name": "EL JUDIO",
+      "stable": "Pesos Pesados"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "9:00 AM",
+      "dist": "150Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "Cda el Camino"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "Cda el Fenix"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "9:30 AM",
+      "dist": "150Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "Cda mi Ranchito"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "Cda el Fenix"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "10:00 AM",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "Cda Urquizo"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "Cda la Esperanza"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "11:00 AM",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PLUMAS",
+          "stable": "Cda Gutierrez"
+        },
+        {
+          "name": "EL FLECHAS",
+          "stable": "Cda de Favela"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "11:30 AM",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GUANO",
+          "stable": "Cda Sagrado Corazon"
+        },
+        {
+          "name": "LA MORA",
+          "stable": "Cda los Cuates"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "12:00 PM",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CHICO",
+          "stable": "Cda Meños"
+        },
+        {
+          "name": "EL FANTASMA",
+          "stable": "Cda Cristo Rey"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "12:30 PM",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TOSTON",
+          "stable": "Cda la Araña"
+        },
+        {
+          "name": "EL CATRIN",
+          "stable": "Cda Two Mannys"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "1:00 PM",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL INVASOR",
+          "stable": "Cda Cristo Rey"
+        },
+        {
+          "name": "EL VERSACI",
+          "stable": "Cda Santa Maria"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "1:30 PM",
+      "dist": "350Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL REGALO",
+          "stable": "Cda Sagrado Corazon"
+        },
+        {
+          "name": "EL BIRRIERO",
+          "stable": "Cda el Guero"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "time": "2:00 PM",
+      "dist": "325Y",
+      "type": "duel",
+      "category": "NO MECHADOS",
+      "horses": [
+        {
+          "name": "TAPADOS",
+          "stable": "Cda Cristo Rey"
+        },
+        {
+          "name": "TAPADOS",
+          "stable": "Cda la Esperanza"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "2:30 PM",
+      "dist": "150Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL LEOPARDO",
+          "stable": "Cda GMC"
+        },
+        {
+          "name": "EL CHINO",
+          "stable": "Cda la Profesia"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "3:00 PM",
+      "dist": "315Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GUAZON",
+          "stable": "Cda la Esperanza"
+        },
+        {
+          "name": "EL BINLADEN",
+          "stable": "Cda Cristo Rey"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "3:30 PM",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA GENERALA",
+          "stable": "Cda GMC"
+        },
+        {
+          "name": "LA MAMACITA",
+          "stable": "Cda la Esperanza"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "4:00 PM",
+      "dist": "—",
+      "type": "open",
+      "featured": "PESOS PESADOS LOCAL",
+      "category": "PESOS PESADOS LOCAL",
+      "entryNote": "EL PATRON · EL TREBOL · EL BUDHA · EL MANGO",
+      "entries": [
+        "EL PATRON",
+        "EL TREBOL",
+        "EL BUDHA",
+        "EL MANGO"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "4:30 PM",
+      "dist": "250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DRAGON",
+          "stable": "Cda Panadero"
+        },
+        {
+          "name": "EL DE LA V",
+          "stable": "Cda la Sultana"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "time": "5:00 PM",
+      "dist": "—",
+      "type": "open",
+      "featured": "PESOS PESADOS",
+      "category": "PESOS PESADOS",
+      "entryNote": "EL PANTERA · EL CARDENAL · EL MILLON · EL JUDIO",
+      "entries": [
+        "EL PANTERA",
+        "EL CARDENAL",
+        "EL MILLON",
+        "EL JUDIO"
+      ]
+    },
+    {
+      "id": 17,
+      "time": "5:30 PM",
+      "dist": "250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL RAYO",
+          "stable": "Cda Sagrado Corazon"
+        },
+        {
+          "name": "EL HH",
+          "stable": "Cda Jalisco"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "time": "6:00 PM",
+      "dist": "250Y",
+      "type": "duel",
+      "category": "NO MECHADOS",
+      "horses": [
+        {
+          "name": "NO MECHADOS",
+          "stable": "Cda Pisces"
+        },
+        {
+          "name": "NO MECHADOS",
+          "stable": "Cda Cristo Rey"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "time": "6:30 PM",
+      "dist": "200Y / 300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CANTARITO",
+          "stable": "Cda la Esperanza"
+        },
+        {
+          "name": "EL ARMANI",
+          "stable": "Cda Rancho Alegre"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "time": "—",
+      "dist": "—",
+      "type": "open",
+      "category": "ESPACIO PUBLICITARIO",
+      "entryNote": "Tu marca aquí",
+      "entries": []
+    }
+  ],
+  "ads": {
+    "20": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans · aparta tu lugar para Rancho El Palomino",
+        "code": "PALOMINO"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img11.jpg": "hero/poster — use the event flyer photo",
+    "images/img10.jpg": "sponsor-slot ad image / logo",
+    "note": "Overwrite with event photos using SAME filenames."
+  }
+}
