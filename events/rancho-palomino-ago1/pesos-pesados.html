@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pesos Pesados · Rancho El Palomino</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#FFB000;--gold2:#FFD000;--amber:#FF8800;--dark:#070500;--surface:rgba(255,160,0,.06);--border:rgba(255,160,0,.18)}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:#fff;font-family:'Oswald',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* CANVAS */
+canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,5,0,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav-inner{max-width:640px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+.nav-back{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--gold)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:5px;color:var(--gold)}
+.nav-date{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.3)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;z-index:1}
+.hero-bg{position:absolute;inset:0;background-image:url('images/img11.jpg');background-size:cover;background-position:center;filter:brightness(.28) saturate(1.6);z-index:-1}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,rgba(7,5,0,.7) 100%);z-index:-1}
+.hero-grad{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,var(--dark),transparent);z-index:-1}
+.hero-scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,180,0,.4),transparent);animation:scanLine 4s linear infinite;pointer-events:none}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:9px;color:rgba(255,180,0,.65);margin-bottom:14px;opacity:0;animation:fadeUp .6s ease .1s forwards}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,13vw,96px);line-height:.86;color:#fff;letter-spacing:-2px;opacity:0;animation:fadeUp .7s ease .25s forwards}
+.hero-title span{color:var(--gold2);display:block}
+.hero-divider{width:80px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:22px auto;opacity:0;animation:fadeIn .6s ease .55s forwards}
+.hero-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,3.5vw,18px);letter-spacing:6px;color:rgba(255,255,255,.5);opacity:0;animation:fadeUp .6s ease .68s forwards;line-height:1.7}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px;opacity:0;animation:fadeUp .6s ease .85s forwards}
+.hero-tag{background:rgba(255,160,0,.12);border:1px solid rgba(255,160,0,.3);border-radius:4px;padding:7px 16px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold)}
+.hero-cta{display:inline-block;margin-top:32px;background:var(--gold);color:#0d0800;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:5px;padding:15px 40px;border-radius:6px;text-decoration:none;box-shadow:0 6px 36px rgba(255,170,0,.35);transition:transform .18s,box-shadow .18s;opacity:0;animation:fadeUp .6s ease 1.05s forwards}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 10px 48px rgba(255,170,0,.5)}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:5px;color:rgba(255,255,255,.2);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bounce 2.4s ease infinite}
+.scroll-hint::after{content:'↓';font-size:20px;color:rgba(255,160,0,.4)}
+
+/* COUNTDOWN */
+.countdown-bar{position:relative;z-index:1;background:rgba(255,160,0,.06);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 24px;text-align:center}
+.cd-label{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:8px;color:rgba(255,180,0,.5);margin-bottom:10px}
+.cd-units{display:flex;justify-content:center;gap:16px}
+.cd-unit{text-align:center}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold2);line-height:1;min-width:60px}
+.cd-lab{font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.28);margin-top:2px}
+.cd-sep{font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,160,0,.3);line-height:1.1;margin-top:3px}
+
+/* SECTION */
+.section{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:48px 20px}
+.sec-header{text-align:center;margin-bottom:36px}
+.sec-race-badge{display:inline-block;background:rgba(255,160,0,.14);border:1px solid rgba(255,160,0,.32);border-radius:3px;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:6px;color:var(--gold);padding:6px 18px;margin-bottom:12px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,9vw,58px);color:#fff;letter-spacing:-1px;line-height:.9}
+.sec-title span{color:var(--gold2)}
+.sec-sub{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.32);margin-top:8px}
+.sec-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto 0}
+
+/* HORSE CARDS */
+.horses-grid{display:flex;flex-direction:column;gap:12px}
+.horse-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;display:flex;align-items:stretch;position:relative;transition:border-color .25s,box-shadow .25s,transform .18s;cursor:default}
+.horse-card:hover{border-color:rgba(255,200,0,.5);box-shadow:0 0 36px rgba(255,160,0,.14);transform:translateX(4px)}
+.horse-card.hero-card{border-color:rgba(255,190,0,.42);background:rgba(255,160,0,.09)}
+.horse-card.hero-card:hover{border-color:rgba(255,220,0,.7);box-shadow:0 0 48px rgba(255,180,0,.2)}
+.hc-bar{width:5px;flex-shrink:0;background:linear-gradient(to bottom,var(--gold2),var(--amber))}
+.hero-card .hc-bar{background:linear-gradient(to bottom,#fff,var(--gold2),var(--amber))}
+.hc-num{flex-shrink:0;width:58px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border)}
+.hc-num-inner{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,160,0,.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,180,0,.7)}
+.hero-card .hc-num-inner{border-color:rgba(255,200,0,.6);color:var(--gold2)}
+.hc-body{flex:1;padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:center}
+.hc-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;letter-spacing:.5px;line-height:1}
+.hero-card .hc-name{font-size:36px;color:var(--gold2)}
+.hc-stable{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.3);margin-top:3px;text-transform:uppercase}
+.hc-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;padding:14px 16px;gap:8px}
+.hc-badge{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:4px;padding:5px 10px;border-radius:3px;background:rgba(255,160,0,.15);color:rgba(255,190,0,.75);border:1px solid rgba(255,160,0,.25)}
+.hero-card .hc-badge{background:rgba(255,200,0,.2);color:var(--gold2);border-color:rgba(255,200,0,.4)}
+.hc-pick{background:rgba(255,160,0,.1);border:1px solid rgba(255,160,0,.3);border-radius:20px;padding:6px 14px;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;color:var(--gold);cursor:pointer;transition:all .18s;white-space:nowrap}
+.hc-pick:hover,.hc-pick.picked{background:var(--gold);color:#0d0800;box-shadow:0 2px 14px rgba(255,170,0,.35)}
+.hc-glow{position:absolute;inset:0;border-radius:12px;opacity:0;background:radial-gradient(ellipse at left center,rgba(255,180,0,.1),transparent 70%);pointer-events:none;transition:opacity .3s}
+.horse-card:hover .hc-glow,.hero-card .hc-glow{opacity:1}
+
+/* MATCHUP BRACKET */
+.bracket{background:rgba(255,160,0,.04);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;text-align:center}
+.bracket-label{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:7px;color:rgba(255,180,0,.45);margin-bottom:12px}
+.bracket-inner{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
+.bracket-horse{font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(255,255,255,.8);letter-spacing:.5px;padding:8px 16px;border-radius:6px;background:rgba(255,160,0,.08);border:1px solid rgba(255,160,0,.2)}
+.bracket-vs{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:2px;flex-shrink:0}
+
+/* SECTION SEPARATOR */
+.sep{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,160,0,.2),transparent);margin:0 20px}
+
+/* INFO STRIP */
+.info-strip{position:relative;z-index:1;background:rgba(255,160,0,.05);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 24px}
+.info-inner{max-width:640px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+.info-item{text-align:center}
+.info-icon{font-size:24px;margin-bottom:4px}
+.info-val{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);letter-spacing:2px}
+.info-key{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.28);margin-top:2px}
+
+/* FOOTER CTA */
+.footer-cta{position:relative;z-index:1;text-align:center;padding:56px 24px 48px;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(255,160,0,.08),transparent)}
+.fc-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:8px;color:rgba(255,180,0,.5);margin-bottom:12px}
+.fc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,48px);color:#fff;letter-spacing:-1px;line-height:.9;margin-bottom:8px}
+.fc-title span{color:var(--gold2)}
+.fc-sub{font-size:13px;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:28px}
+.fc-btn{display:inline-block;background:var(--gold);color:#0d0800;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:5px;padding:16px 44px;border-radius:8px;text-decoration:none;box-shadow:0 6px 36px rgba(255,170,0,.35);transition:transform .18s,box-shadow .18s}
+.fc-btn:hover{transform:translateY(-3px);box-shadow:0 12px 50px rgba(255,170,0,.5)}
+.fc-note{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.2);margin-top:16px}
+
+/* PICKED TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--gold);color:#0d0800;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;padding:12px 28px;border-radius:6px;z-index:200;transition:transform .35s cubic-bezier(.17,.67,.51,1.3),opacity .3s;opacity:0;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@keyframes fadeUp{0%{opacity:0;transform:translateY(28px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+@keyframes scanLine{0%{top:0}100%{top:100%}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes cardIn{0%{opacity:0;transform:translateX(-40px)}100%{opacity:1;transform:translateX(0)}}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-30px);transition:opacity .55s ease,transform .55s ease}
+.reveal-l.visible{opacity:1;transform:translateX(0)}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-back" href="index.html">← PICKS</a>
+    <div class="nav-logo">RANCHO EL PALOMINO</div>
+    <div class="nav-date">AGO 1</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-eyebrow">Rancho El Palomino · Sábado 1 de Agosto 2026</div>
+  <h1 class="hero-title">EL CARRIL DE LOS<span>PESOS PESADOS</span></h1>
+  <div class="hero-divider"></div>
+  <div class="hero-sub">20 Carreras · Admisión $100 · Puertas 8 AM</div>
+  <div class="hero-tags">
+    <div class="hero-tag">🏇 CARRERA 14 · LOCAL</div>
+    <div class="hero-tag">🏆 CARRERA 16 · ABIERTOS</div>
+    <div class="hero-tag">👶 NIÑOS -15 GRATIS</div>
+  </div>
+  <a class="hero-cta" href="index.html">🎯 HAZ TUS PICKS GRATIS</a>
+  <div class="scroll-hint">LINEUP</div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-bar">
+  <div class="cd-label">FALTAN PARA EL EVENTO</div>
+  <div class="cd-units">
+    <div class="cd-unit"><div class="cd-num" id="cdD">--</div><div class="cd-lab">DÍAS</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cdH">--</div><div class="cd-lab">HRS</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cdM">--</div><div class="cd-lab">MIN</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cdS">--</div><div class="cd-lab">SEG</div></div>
+  </div>
+</div>
+
+<!-- PESOS PESADOS LOCAL -->
+<section class="section">
+  <div class="sec-header reveal">
+    <div class="sec-race-badge">CARRERA 14 · 4:00 PM</div>
+    <h2 class="sec-title">PESOS PESADOS<span>LOCAL</span></h2>
+    <div class="sec-sub">Los Pesos Pesados del Rancho · Cuadras Locales</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="horses-grid">
+    <div class="horse-card hero-card reveal-l" style="transition-delay:.05s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">1</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL PATRON</div>
+        <div class="hc-stable">Pesos Pesados Local</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">LOCAL</div>
+        <button class="hc-pick" onclick="pick(this,'EL PATRON')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.12s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">2</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL TREBOL</div>
+        <div class="hc-stable">Pesos Pesados Local</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">LOCAL</div>
+        <button class="hc-pick" onclick="pick(this,'EL TREBOL')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.19s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">3</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL BUDHA</div>
+        <div class="hc-stable">Pesos Pesados Local</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">LOCAL</div>
+        <button class="hc-pick" onclick="pick(this,'EL BUDHA')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.26s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">4</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL MANGO</div>
+        <div class="hc-stable">Pesos Pesados Local</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">LOCAL</div>
+        <button class="hc-pick" onclick="pick(this,'EL MANGO')">PICK</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PESOS PESADOS OPEN -->
+<section class="section">
+  <div class="sec-header reveal">
+    <div class="sec-race-badge">CARRERA 16 · 5:00 PM</div>
+    <h2 class="sec-title">PESOS PESADOS<span>ABIERTOS</span></h2>
+    <div class="sec-sub">Los Pesos Pesados · Categoría Abierta</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="horses-grid">
+    <div class="horse-card hero-card reveal-l" style="transition-delay:.05s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">1</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL PANTERA</div>
+        <div class="hc-stable">Pesos Pesados</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">OPEN</div>
+        <button class="hc-pick" onclick="pick(this,'EL PANTERA')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.12s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">2</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL CARDENAL</div>
+        <div class="hc-stable">Pesos Pesados</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">OPEN</div>
+        <button class="hc-pick" onclick="pick(this,'EL CARDENAL')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.19s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">3</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL MILLON</div>
+        <div class="hc-stable">Pesos Pesados</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">OPEN</div>
+        <button class="hc-pick" onclick="pick(this,'EL MILLON')">PICK</button>
+      </div>
+    </div>
+    <div class="horse-card reveal-l" style="transition-delay:.26s">
+      <div class="hc-glow"></div>
+      <div class="hc-bar"></div>
+      <div class="hc-num"><div class="hc-num-inner">4</div></div>
+      <div class="hc-body">
+        <div class="hc-name">EL JUDIO</div>
+        <div class="hc-stable">Pesos Pesados</div>
+      </div>
+      <div class="hc-right">
+        <div class="hc-badge">OPEN</div>
+        <button class="hc-pick" onclick="pick(this,'EL JUDIO')">PICK</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip reveal">
+  <div class="info-inner">
+    <div class="info-item">
+      <div class="info-icon">🐎</div>
+      <div class="info-val">20</div>
+      <div class="info-key">CARRERAS</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">💵</div>
+      <div class="info-val">$100</div>
+      <div class="info-key">ADMISIÓN</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">⏰</div>
+      <div class="info-val">8 AM</div>
+      <div class="info-key">PUERTAS</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">👶</div>
+      <div class="info-val">-15</div>
+      <div class="info-key">GRATIS</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📅</div>
+      <div class="info-val">AGO 1</div>
+      <div class="info-key">SÁBADO</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div class="fc-label">RANCHO EL PALOMINO · PICKS APP</div>
+  <div class="fc-title">HAZ TUS PICKS<span>GRATIS</span></div>
+  <div class="fc-sub">Todas las 20 carreras · Sin costo · Comparte tus predicciones</div>
+  <a class="fc-btn" href="index.html">🏇 ABRIR PICKS APP</a>
+  <div class="fc-note">guttix1.github.io/Digital-flyer-/events/rancho-palomino-ago1/</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">¡PICK GUARDADO!</div>
+
+<script>
+/* CANVAS PARTICLES */
+(function(){
+  const c=document.getElementById('bg');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  const ctx=c.getContext('2d');
+  const COLS=['255,180,0','255,140,0','220,100,0','255,215,60'];
+  const pts=Array.from({length:60},()=>mk());
+  function mk(){return{x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.8+.3,vx:(Math.random()-.5)*.3,vy:-(Math.random()*.6+.1),life:Math.random(),dec:Math.random()*.003+.001,col:COLS[Math.floor(Math.random()*4)]}}
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach((p,i)=>{
+      p.life-=p.dec;
+      if(p.life<=0){pts[i]=mk();pts[i].y=c.height+10;pts[i].life=Math.random()*.4+.5;}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.life*.6+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<60){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(255,160,0,'+(1-d/60)*.05+')';ctx.lineWidth=.5;ctx.stroke();}
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* COUNTDOWN */
+(function(){
+  const target=new Date('2026-08-01T09:00:00').getTime();
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(){
+    const diff=target-Date.now();
+    if(diff<=0){
+      document.getElementById('cdD').textContent='¡HOY!';
+      ['cdH','cdM','cdS'].forEach(id=>document.getElementById(id).textContent='00');
+      return;
+    }
+    const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdD').textContent=pad(d);
+    document.getElementById('cdH').textContent=pad(h);
+    document.getElementById('cdM').textContent=pad(m);
+    document.getElementById('cdS').textContent=pad(s);
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* PICK BUTTONS */
+const picks={};
+let toastTimer=null;
+function pick(btn,name){
+  const race=btn.closest('.section').querySelector('.sec-race-badge').textContent;
+  const key=race;
+  if(picks[key]===name){
+    picks[key]=null;
+    btn.classList.remove('picked');
+    btn.textContent='PICK';
+  } else {
+    if(picks[key]){
+      const prev=document.querySelector('[data-name="'+picks[key]+'"]');
+      if(prev){prev.classList.remove('picked');prev.textContent='PICK';}
+    }
+    picks[key]=name;
+    btn.setAttribute('data-name',name);
+    btn.classList.add('picked');
+    btn.textContent='✓';
+    showToast('¡PICK: '+name+'!');
+  }
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* SCROLL REVEAL */
+(function(){
+  const els=document.querySelectorAll('.reveal,.reveal-l');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.12});
+  els.forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
