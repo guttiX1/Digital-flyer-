@@ -522,6 +522,18 @@
         "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar para el próximo evento",
         "code": "CARRERASOS"
       }
+    },
+    "16": {
+      "img": "images/img13.jpg",
+      "tag": "PATROCINADOR",
+      "title": "CARBAJAL BOOTS",
+      "tagline": "Botas vaqueras hechas a mano · el estilo de la afición fierrera",
+      "cta": "VER TIENDA",
+      "special": {
+        "title": "10% DE DESCUENTO",
+        "text": "Muestra tu pick del día en Carbajal Boots",
+        "code": "SATEVOBOOTS"
+      }
     }
   },
   "_image_map": {
