@@ -1,0 +1,534 @@
+{
+  "slug": "satevo-race-track-ago2",
+  "page_title": "CarrerasOS · Satevó Race Track",
+  "page_description": "Satevó Race Track · 7 VS 7 Cuadra La Esperanza vs Cuadra Piloncillos · Domingo 2 de Agosto 2026 · 23 carreras. Haz tus picks para cada duelo.",
+  "countdown": "2026-08-02T10:30",
+  "event": {
+    "org": "SATEVÓ RACE TRACK",
+    "titleTop": "SATEVÓ",
+    "titleBottom": "RACE TRACK",
+    "tagline": "7 VS 7 · LA ESPERANZA vs PILONCILLOS",
+    "stars": "23 CARRERAS · DUELO DE CUADRAS",
+    "dayName": "DOMINGO",
+    "dayNum": "2",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Satevó Race Track",
+    "address": "Satevó, Chihuahua",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "CASA VIEJA · CENTRO EQUINO",
+        "cat": "Veterinaria Oficial"
+      },
+      {
+        "name": "CARBAJAL BOOTS",
+        "cat": "Botas & Vaquero"
+      },
+      {
+        "name": "PROVICH",
+        "cat": "Patrocinador"
+      },
+      {
+        "name": "SUPER CAMPEÓN",
+        "cat": "Patrocinador"
+      },
+      {
+        "name": "CANTINA LA 33",
+        "cat": "Botanas & Ambiente"
+      },
+      {
+        "name": "NC HATS",
+        "cat": "Sombreros"
+      }
+    ],
+    "counts": "23 carreras · 7 duelos La Esperanza vs Piloncillos"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL COMANDANTE",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL ALMA NEGRA",
+      "stable": "C. Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL CHOCOLATE AMARGO",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL CINICO",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL DESTINO",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL MISIL",
+      "stable": "C. El Encanto"
+    },
+    {
+      "gate": null,
+      "name": "EL BLING BLING",
+      "stable": "C. Santa Teresa"
+    },
+    {
+      "gate": null,
+      "name": "EL DIPUTADO",
+      "stable": "C. Santa Teresa"
+    },
+    {
+      "gate": null,
+      "name": "EL GAVILAN",
+      "stable": "C. Santa Teresa"
+    },
+    {
+      "gate": null,
+      "name": "EL DANDY",
+      "stable": "C. Santa Teresa"
+    },
+    {
+      "gate": null,
+      "name": "EL DOBLE RR",
+      "stable": "C. Tres Turbos"
+    },
+    {
+      "gate": null,
+      "name": "EL MULETAS",
+      "stable": "C. El Mezquite / 3Rs"
+    },
+    {
+      "gate": null,
+      "name": "EL CICLON",
+      "stable": "C. Don Eliseo"
+    },
+    {
+      "gate": null,
+      "name": "EL 3 CARNALES",
+      "stable": "C. Don Eliseo"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "10:30",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "section": "BLOQUE 1 · APERTURA",
+      "horses": [
+        {
+          "name": "EL DORADO",
+          "stable": "C. El Charro"
+        },
+        {
+          "name": "LA CHANNEL",
+          "stable": "C. Álamos"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "10:50",
+      "dist": "250 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA KATRINA",
+          "stable": "C. Santa Teresa"
+        },
+        {
+          "name": "EL MALBORO",
+          "stable": "C. 2 Suertes"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "11:10",
+      "dist": "325 VARAS",
+      "type": "open",
+      "category": "ABIERTA DE CABALLOS · NO JUGADOS EN MÉXICO",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. Solitario",
+        "C. Álamos",
+        "C. Hnos. Chávez / Estrella de Mar",
+        "C. Nueva Era"
+      ]
+    },
+    {
+      "id": 4,
+      "time": "11:50",
+      "dist": "250 VARAS",
+      "type": "duel",
+      "section": "TRIANGULAR",
+      "horses": [
+        {
+          "name": "LA CHUYA",
+          "stable": "C. Santa Teresa"
+        },
+        {
+          "name": "EL TOSTON",
+          "stable": "C. Nueva Era"
+        },
+        {
+          "name": "EL LUCERO",
+          "stable": "C. 2 Suertes"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "12:10",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "section": "7 VS 7 · LA ESPERANZA vs PILONCILLOS",
+      "horses": [
+        {
+          "name": "3 AÑERO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "3 AÑERO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "12:30",
+      "dist": "350 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MISIL",
+          "stable": "C. El Encanto"
+        },
+        {
+          "name": "EL BLING BLING",
+          "stable": "C. Santa Teresa"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "1:10",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "section": "MANTENIMIENTO DE PISTA · BLOQUE 2",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "1:30",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA METÁLICA",
+          "stable": "C. Don Eliseo"
+        },
+        {
+          "name": "EL RAYO",
+          "stable": "C. 10%"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "1:50",
+      "dist": "100 VARAS",
+      "type": "open",
+      "category": "ABIERTA 100 VARAS · CUADRAS MEDIANAS",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. Plebes",
+        "C. Nueva Era",
+        "C. Don Elías",
+        "C. Hnos. Chávez / Estrella de Mar"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "2:10",
+      "dist": "325 VARAS",
+      "type": "duel",
+      "section": "7 VS 7 · LA ESPERANZA vs PILONCILLOS",
+      "horses": [
+        {
+          "name": "4 AÑERO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "4 AÑERO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "2:30",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DIPUTADO",
+          "stable": "C. Santa Teresa"
+        },
+        {
+          "name": "EL CUATE",
+          "stable": "C. 10%"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "2:50",
+      "dist": "325 VARAS",
+      "type": "duel",
+      "section": "7 VS 7 · TAPADOS NO JUGADOS EN MÉXICO",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "3:10",
+      "dist": "325 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GAVILÁN",
+          "stable": "C. Santa Teresa"
+        },
+        {
+          "name": "EL PELAVACAS",
+          "stable": "C. 10%"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "3:50",
+      "dist": "350 VARAS",
+      "type": "duel",
+      "featured": "DUELO ESTELAR · 7 VS 7",
+      "horses": [
+        {
+          "name": "EL COMANDANTE",
+          "stable": "C. La Esperanza",
+          "photo": "p1"
+        },
+        {
+          "name": "EL ALMA NEGRA",
+          "stable": "C. Piloncillos",
+          "photo": "p2"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "time": "4:10",
+      "dist": "400 VARAS PYF",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DANDY",
+          "stable": "C. Santa Teresa"
+        },
+        {
+          "name": "EL OREJÓN (DA)",
+          "stable": "C. 10%"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "time": "4:30",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DOBLE RR",
+          "stable": "C. Tres Turbos"
+        },
+        {
+          "name": "EL MULETAS",
+          "stable": "C. El Mezquite / 3Rs"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "time": "4:50",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "section": "7 VS 7 · LA ESPERANZA vs PILONCILLOS",
+      "horses": [
+        {
+          "name": "4 AÑERO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "4 AÑERO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "time": "5:10",
+      "dist": "350 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PLUMAS",
+          "stable": "C. 10%"
+        },
+        {
+          "name": "EL SECRETO",
+          "stable": "C. 3 Turbos"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "time": "5:30",
+      "dist": "350 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CHOCOLATE AMARGO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "EL CICLÓN",
+          "stable": "C. Don Eliseo"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "time": "6:10",
+      "dist": "325 VARAS",
+      "type": "duel",
+      "section": "MANTENIMIENTO DE PISTA · BLOQUE 4 · CIERRE",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "time": "6:40",
+      "dist": "300 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CÍNICO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "EL ALFIL",
+          "stable": "C. Don Eliseo"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "time": "7:15",
+      "dist": "375 VARAS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DESTINO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "EL 3 CARNALES",
+          "stable": "C. Don Eliseo"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "time": "7:30",
+      "dist": "15 VARAS",
+      "type": "duel",
+      "section": "CARRERA A PIE · GRAN CIERRE",
+      "horses": [
+        {
+          "name": "CORREDOR",
+          "stable": "C. Satevó"
+        },
+        {
+          "name": "CORREDOR",
+          "stable": "C. Piedreras"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "9": {
+      "img": "images/img12.jpg",
+      "tag": "PATROCINADOR OFICIAL",
+      "title": "CANTINA LA 33 · BOTANAS",
+      "tagline": "Botanas, cerveza bien fría y el mejor ambiente el día de las carreras",
+      "cta": "VER UBICACIÓN",
+      "special": {
+        "title": "2×1 EN CERVEZA",
+        "text": "Presenta tu pick del día en Cantina La 33",
+        "code": "SATEVO33"
+      }
+    },
+    "23": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de Satevó te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar para el próximo evento",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "EL COMANDANTE portrait (duel p1, race 14)",
+    "images/img02.jpg": "EL ALMA NEGRA portrait (duel p2, race 14)",
+    "images/img11.jpg": "hero/poster — Satevó 7v7 banner",
+    "images/img09.jpg": "wide banner — Satevó 7v7 banner",
+    "note": "Photos swapped from the official Satevó flyer; icons kept from template."
+  }
+}

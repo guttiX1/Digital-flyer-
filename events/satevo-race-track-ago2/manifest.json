@@ -1,0 +1,23 @@
+{
+  "name": "CarrerasOS · Satevó Race Track",
+  "short_name": "CarrerasOS",
+  "description": "Satevó Race Track · 7 VS 7 Cuadra La Esperanza vs Cuadra Piloncillos · Domingo 2 de Agosto 2026 · 23 carreras. Haz tus picks para cada duelo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0806",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
