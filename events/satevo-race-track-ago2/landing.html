@@ -20,7 +20,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;padding:0;background:var(--ink);color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
 .disp{font-family:'Anton',system-ui,sans-serif;font-weight:400;letter-spacing:.01em;line-height:.9;text-transform:uppercase}
 a{color:inherit;text-decoration:none}
@@ -74,13 +74,13 @@ a{color:inherit;text-decoration:none}
 .count .n{font-family:'Anton',sans-serif;font-size:40px;line-height:1;color:#fff;display:inline-block}
 .count .n.tick{animation:tick .5s ease}
 @keyframes tick{0%{transform:translateY(-40%);opacity:0;filter:blur(2px)}100%{transform:none;opacity:1}}
-.count .l{margin-top:6px;font-size:10px;letter-spacing:.18em;color:#9fb2d6;text-transform:uppercase;font-weight:800}
+.count .l{margin-top:6px;font-size:12px;letter-spacing:.16em;color:#b6c6e2;text-transform:uppercase;font-weight:800}
 .count .u.gold .n{color:var(--gold-lt)}
 .cta-row{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px}
 .btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:14px;
   font-weight:900;font-size:15px;letter-spacing:.02em;cursor:pointer;transition:transform .15s,box-shadow .15s;border:none;overflow:hidden}
 .btn:hover{transform:translateY(-3px) scale(1.02)}
-.btn-primary{background:linear-gradient(120deg,var(--blue),#3f8cff);color:#fff;box-shadow:0 14px 34px rgba(30,123,255,.45)}
+.btn-primary{background:linear-gradient(120deg,#0f52ba,#1565d8);color:#fff;box-shadow:0 14px 34px rgba(10,40,90,.5)}
 .btn-primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sheen 3s infinite}
 @keyframes sheen{0%{left:-60%}55%,100%{left:130%}}
@@ -133,11 +133,11 @@ section.block{padding:80px 0;position:relative}
 .face .name{font-family:'Anton',sans-serif;font-size:clamp(24px,5vw,36px);margin-top:6px;color:#fff}
 .face .fliphint{margin-top:8px;font-size:11px;color:#9fb2d6;letter-spacing:.08em}
 .back{transform:rotateY(180deg);background:linear-gradient(160deg,#0d1c3d,#0a1226);padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:center}
-.back h4{font-family:'Anton',sans-serif;font-size:28px;margin:0 0 12px;color:var(--gold-lt)}
+.back .bkname{font-family:'Anton',sans-serif;font-size:28px;margin:0 0 12px;color:var(--gold-lt)}
 .back .tt{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.18);padding:8px 0;font-size:14px}
 .back .tt span{color:#a9b8d6}
 .vs-orb{position:relative;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;
-  background:radial-gradient(circle at 35% 30%,var(--elec),var(--blue) 55%,var(--blue-dk));
+  background:radial-gradient(circle at 35% 30%,#2f83f5,var(--blue) 55%,var(--blue-dk));
   color:#fff;font-family:'Anton',sans-serif;font-size:28px;z-index:3;
   box-shadow:0 0 0 8px rgba(30,123,255,.14),0 12px 30px rgba(30,123,255,.5);animation:orbpulse 1.8s ease-in-out infinite}
 @keyframes orbpulse{50%{box-shadow:0 0 0 14px rgba(30,123,255,.10),0 12px 44px rgba(30,123,255,.75)}}
@@ -160,7 +160,7 @@ section.block{padding:80px 0;position:relative}
 .merch p{margin-top:14px;color:#cdd9f0;max-width:48ch;line-height:1.55}
 .merch .steps{margin-top:22px;display:flex;flex-wrap:wrap;gap:16px}
 .merch .step{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;color:#e7eefc}
-.merch .step b{width:28px;height:28px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-family:'Anton',sans-serif;font-size:14px;box-shadow:0 0 16px rgba(30,123,255,.6)}
+.merch .step b{width:28px;height:28px;border-radius:50%;background:#0f52ba;color:#fff;display:grid;place-items:center;font-family:'Anton',sans-serif;font-size:15px;box-shadow:0 6px 14px rgba(0,0,0,.35)}
 .merch .btn{margin-top:26px}
 
 /* ---- PROGRAM ---- */
@@ -181,7 +181,7 @@ section.block{padding:80px 0;position:relative}
 .sprow{display:inline-flex;gap:12px;animation:marq 20s linear infinite}
 .sprow .s{background:rgba(255,255,255,.05);border:1px solid rgba(120,160,220,.2);border-radius:12px;
   padding:12px 20px;font-weight:900;font-size:14px;white-space:nowrap}
-.sprow .s span{display:block;font-size:11px;font-weight:600;color:#98a9cc;letter-spacing:.08em;margin-top:2px}
+.sprow .s span{display:block;font-size:12px;font-weight:600;color:#a8b6d2;letter-spacing:.03em;margin-top:2px}
 
 /* ---- FOOTER ---- */
 footer{background:linear-gradient(180deg,var(--ink),#02030A);color:#fff;padding:0 0 44px}
@@ -269,14 +269,14 @@ footer{background:linear-gradient(180deg,var(--ink),#02030A);color:#fff;padding:
       <div class="fighter" onclick="this.classList.toggle('flipped')">
         <div class="flip">
           <div class="face"><img src="images/img01.jpg" alt="El Comandante" /><div class="body"><div class="cuadra">C. La Esperanza</div><div class="name disp">El Comandante</div><div class="fliphint">👆 toca para la ficha</div></div></div>
-          <div class="back"><h4 class="disp">El Comandante</h4><div class="tt"><span>Cuadra</span><b>La Esperanza</b></div><div class="tt"><span>Distancia</span><b>350 Varas</b></div><div class="tt"><span>Carrera</span><b>#14 · 3:50 PM</b></div><div class="tt"><span>Apodo</span><b>El Fierro Mayor</b></div></div>
+          <div class="back"><div class="bkname disp">El Comandante</div><div class="tt"><span>Cuadra</span><b>La Esperanza</b></div><div class="tt"><span>Distancia</span><b>350 Varas</b></div><div class="tt"><span>Carrera</span><b>#14 · 3:50 PM</b></div><div class="tt"><span>Apodo</span><b>El Fierro Mayor</b></div></div>
         </div>
       </div>
       <div class="vs-orb disp"><span class="bolt">⚡</span>VS</div>
       <div class="fighter red" onclick="this.classList.toggle('flipped')">
         <div class="flip">
           <div class="face"><img src="images/img02.jpg" alt="El Alma Negra" /><div class="body"><div class="cuadra">C. Piloncillos</div><div class="name disp">El Alma Negra</div><div class="fliphint">👆 toca para la ficha</div></div></div>
-          <div class="back"><h4 class="disp">El Alma Negra</h4><div class="tt"><span>Cuadra</span><b>Piloncillos</b></div><div class="tt"><span>Distancia</span><b>350 Varas</b></div><div class="tt"><span>Carrera</span><b>#14 · 3:50 PM</b></div><div class="tt"><span>Apodo</span><b>La Sombra</b></div></div>
+          <div class="back"><div class="bkname disp">El Alma Negra</div><div class="tt"><span>Cuadra</span><b>Piloncillos</b></div><div class="tt"><span>Distancia</span><b>350 Varas</b></div><div class="tt"><span>Carrera</span><b>#14 · 3:50 PM</b></div><div class="tt"><span>Apodo</span><b>La Sombra</b></div></div>
         </div>
       </div>
     </div>
