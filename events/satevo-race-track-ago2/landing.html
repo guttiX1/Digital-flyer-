@@ -230,6 +230,53 @@ footer{background:linear-gradient(180deg,#fff,#F4F7FB);color:var(--text);padding
   #curtain{display:none}
   .merch h3{-webkit-text-fill-color:var(--gold)}
 }
+/* ===== EDITORIAL CARTEL HEADER ===== */
+.cartel{background:#fff;padding:30px 0 16px}
+.cartel .wrap{max-width:1000px}
+.pc-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+  font-family:system-ui,sans-serif;font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#7a6f52}
+.pc-top .l{color:#1454C8}
+.pc-rule{height:3px;background:#14140f;margin:12px 0 0}
+.pc-title{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(50px,13.5vw,126px);line-height:.84;
+  letter-spacing:.004em;color:#14140f;text-transform:uppercase;margin:14px 0 0}
+.pc-title .sub{display:block;font-family:system-ui,sans-serif;font-weight:900;font-size:clamp(12px,3vw,20px);
+  letter-spacing:.32em;color:#1454C8;margin-top:12px}
+.pc-photo{margin:24px 0 0;position:relative;border:2px solid #14140f;overflow:hidden;box-shadow:9px 9px 0 #14140f;background:#000}
+.pc-photo .ph{height:min(40vh,320px);background:url('images/track.jpg') center/cover no-repeat}
+.pc-photo figcaption{position:absolute;left:0;bottom:0;background:#14140f;color:#fff;
+  font-family:system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:7px 13px}
+.tott{margin-top:26px;display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;border:2px solid #14140f;background:#fff}
+.tott .col{padding:18px 16px;display:flex;flex-direction:column;justify-content:center}
+.tott .col.l{border-right:2px solid #14140f}
+.tott .col.r{border-left:2px solid #14140f;text-align:right;align-items:flex-end}
+.tott .col.mid{padding:12px}
+.tott .role{font-family:system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7a6f52}
+.tott .cq{font-family:'Anton',sans-serif;font-size:clamp(24px,6.4vw,42px);text-transform:uppercase;line-height:.92;margin-top:5px;color:#14140f}
+.tott .col.l .cq{color:#1454C8}.tott .col.r .cq{color:#7a2fb5}
+.tott .st{font-family:system-ui,sans-serif;font-weight:600;font-size:12.5px;color:#5B6472;margin-top:6px}
+.seal{width:92px;height:92px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#14140f;color:#fff;font-family:'Anton',sans-serif;line-height:.78;transform:rotate(-7deg);box-shadow:0 0 0 3px #fff,0 0 0 5px #14140f}
+.seal b{font-size:32px}.seal small{font-size:11px;letter-spacing:.22em;margin:1px 0}
+.pc-lede{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(22px,5.4vw,40px);text-transform:uppercase;color:#14140f;margin:26px 0 0;line-height:.98}
+.pc-lede em{color:#1454C8;font-style:normal}
+.pc-actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn-ink,.btn-out{display:inline-flex;align-items:center;gap:8px;font-family:system-ui,sans-serif;font-weight:900;
+  font-size:15px;letter-spacing:.01em;padding:15px 24px;border-radius:2px;text-transform:uppercase;transition:transform .12s,box-shadow .12s;cursor:pointer}
+.btn-ink{background:#14140f;color:#fff;box-shadow:5px 5px 0 #1454C8}
+.btn-ink:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #1454C8}
+.btn-out{background:#fff;color:#14140f;border:2px solid #14140f}
+.btn-out:hover{transform:translate(-1px,-1px)}
+.ticket{display:inline-flex;align-items:center;gap:10px;border:2px dashed #14140f;border-radius:3px;padding:9px 16px;font-family:system-ui,sans-serif;font-weight:800;color:#14140f}
+.ticket span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7a6f52}
+.ticket b{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.02em;font-weight:400}
+.ticket i{font-style:normal}
+@media (max-width:560px){
+  .tott{grid-template-columns:1fr}
+  .tott .col.l{border-right:none;border-bottom:2px solid #14140f}
+  .tott .col.r{border-left:none;border-top:2px solid #14140f;text-align:left;align-items:flex-start}
+  .tott .col.mid{align-items:center}
+  .seal{margin:2px auto}
+}
 </style>
 </head>
 <body>
@@ -237,30 +284,47 @@ footer{background:linear-gradient(180deg,#fff,#F4F7FB);color:var(--text);padding
 <div id="curtain"><div class="flag"></div><div class="cw disp">SATEVÓ</div></div>
 
 <!-- HERO -->
-<header class="hero">
-  <canvas id="fx"></canvas>
+<header class="cartel">
   <div class="wrap">
-    <div class="badge"><span class="bolt">⚡</span> SATEVÓ RACE TRACK · 7&nbsp;VS&nbsp;7</div>
-    <div class="title3d" id="tilt"><h1 class="disp">SATEVÓ<br><span class="b">RACE TRACK</span></h1></div>
-    <div class="tagline">LA ESPERANZA <span class="vs">⚡VS⚡</span> PILONCILLOS</div>
-    <div class="riv-chips"><span class="rc l">La Casa · Satevó, Chihuahua</span><span class="rc v">La Visita · Durango</span></div>
-    <div class="meta">
-      <span><i></i>Domingo 2 de Agosto, 2026</span>
-      <span><i></i>Puertas 10:30 AM</span>
-      <span><i></i>Satevó, Chihuahua</span>
+    <div class="pc-top">
+      <div class="l">◈ Programa Oficial</div>
+      <div>Dom 2 Ago 2026 · Satevó, Chih.</div>
     </div>
-    <div class="count" id="count">
-      <div class="u"><div class="n" id="cd">00</div><div class="l">Días</div></div>
-      <div class="u"><div class="n" id="ch">00</div><div class="l">Horas</div></div>
-      <div class="u"><div class="n" id="cm">00</div><div class="l">Min</div></div>
-      <div class="u gold"><div class="n" id="cs">00</div><div class="l">Seg</div></div>
+    <div class="pc-rule"></div>
+    <h1 class="pc-title">Satevó<br>Race Track<span class="sub">Carreras de Caballos · 7 vs 7</span></h1>
+
+    <figure class="pc-photo">
+      <div class="ph"></div>
+      <figcaption>El carril de Satevó, Chihuahua</figcaption>
+    </figure>
+
+    <div class="tott">
+      <div class="col l">
+        <div class="role">La Casa · Chihuahua</div>
+        <div class="cq">La Esperanza</div>
+        <div class="st">Corre en su propia tierra</div>
+      </div>
+      <div class="col mid">
+        <div class="seal"><b>7</b><small>VS</small><b>7</b></div>
+      </div>
+      <div class="col r">
+        <div class="role">La Visita · Durango</div>
+        <div class="cq">Piloncillos</div>
+        <div class="st">Cruza la Sierra Madre</div>
+      </div>
     </div>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="index.html">⚡ HACER MIS PICKS →</a>
-      <a class="btn btn-ghost" href="#programa">VER EL PROGRAMA</a>
+
+    <h2 class="pc-lede">Siete duelos. Dos estados.<br><em>Un solo campeón.</em></h2>
+
+    <div class="pc-actions">
+      <a class="btn-ink" href="index.html">Hacer mis picks →</a>
+      <a class="btn-out" href="#programa">Ver el programa</a>
+      <div class="ticket" id="count">
+        <span>Arranca en</span>
+        <b><i id="cd">00</i>d <i id="ch">00</i>h <i id="cm">00</i>m</b>
+        <i id="cs" style="display:none"></i>
+      </div>
     </div>
-    <div class="scroll-hint">DESLIZA · EL CARTEL COMPLETO ↓</div>
-    <div class="bg" id="hbg"></div>
   </div>
 </header>
 
