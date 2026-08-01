@@ -198,6 +198,26 @@ footer{background:linear-gradient(180deg,var(--ink),#02030A);color:#fff;padding:
 .reveal{opacity:0;transform:translateY(30px) scale(.99);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
 
+/* rivalry chips (hero) */
+.riv-chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+.rc{font-family:system-ui,sans-serif;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid}
+.rc.v{color:#cBa4ff;border-color:rgba(150,63,251,.55);background:rgba(150,63,251,.16)}
+.rc.l{color:var(--blue-lt);border-color:rgba(90,160,255,.55);background:rgba(30,123,255,.14)}
+/* reto / journey section */
+#reto .route{margin-top:44px;display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;gap:12px}
+#reto .stop{text-align:center}
+#reto .pin{width:18px;height:18px;border-radius:50%;margin:0 auto 12px;border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+#reto .stop.v .pin{background:#8a3ffb}
+#reto .stop.l .pin{background:var(--blue-lt)}
+#reto .st{font-family:'Anton',sans-serif;font-size:clamp(22px,5.4vw,36px);line-height:1}
+#reto .stop.v .st{color:#c79bff}
+#reto .stop.l .st{color:var(--blue-lt)}
+#reto .cd{font-family:system-ui,sans-serif;font-weight:800;font-size:12px;letter-spacing:.05em;color:#aeb9cf;margin-top:8px;text-transform:uppercase;line-height:1.3}
+#reto .road{position:relative;height:7px;border-radius:99px;background:linear-gradient(90deg,#8a3ffb,#5f6bff 55%,var(--blue-lt))}
+#reto .rider{position:absolute;top:-24px;left:0;font-size:30px;animation:travel 4.5s cubic-bezier(.5,0,.5,1) infinite}
+#reto .road .arw{position:absolute;right:-2px;top:50%;transform:translateY(-50%);color:var(--blue-lt);font-size:18px}
+@keyframes travel{0%{left:0;transform:translateX(0)}100%{left:100%;transform:translateX(-100%)}}
+#reto .km{margin-top:12px;text-align:center;font-family:system-ui,sans-serif;font-weight:800;font-size:12px;letter-spacing:.14em;color:#8ea3c9;text-transform:uppercase}
 @media (max-width:640px){
   .duel{grid-template-columns:1fr;gap:34px}
   .flip{min-height:300px}.face img{height:220px}
@@ -224,6 +244,7 @@ footer{background:linear-gradient(180deg,var(--ink),#02030A);color:#fff;padding:
     <div class="badge"><span class="bolt">⚡</span> SATEVÓ RACE TRACK · 7&nbsp;VS&nbsp;7</div>
     <div class="title3d" id="tilt"><h1 class="disp">SATEVÓ<br><span class="b">RACE TRACK</span></h1></div>
     <div class="tagline">LA ESPERANZA <span class="vs">⚡VS⚡</span> PILONCILLOS</div>
+    <div class="riv-chips"><span class="rc l">La Casa · Satevó, Chihuahua</span><span class="rc v">La Visita · Durango</span></div>
     <div class="meta">
       <span><i></i>Domingo 2 de Agosto, 2026</span>
       <span><i></i>Puertas 10:30 AM</span>
@@ -257,6 +278,29 @@ footer{background:linear-gradient(180deg,var(--ink),#02030A);color:#fff;padding:
     <div><div class="n gold" data-to="1">0</div><div class="l">Campeón</div></div>
   </div></div>
 </div>
+
+<!-- RETO / JOURNEY -->
+<section class="block dark reveal" id="reto">
+  <div class="wrap">
+    <div class="kicker">El reto cruza estados</div>
+    <h2 class="h2">Durango viene por<br>la casa de La Esperanza</h2>
+    <p class="sub">Cuadra Piloncillos carga a sus caballos cientos de kilómetros desde Durango hasta el carril de Satevó, Chihuahua — a retar a Cuadra La Esperanza en su propia tierra. Siete duelos, dos estados, un solo campeón.</p>
+    <div class="route">
+      <div class="stop v">
+        <div class="pin"></div>
+        <div class="st disp">Durango</div>
+        <div class="cd">Cuadra Piloncillos · La Visita</div>
+      </div>
+      <div class="road"><div class="rider">🐎</div><span class="arw">▶</span></div>
+      <div class="stop l">
+        <div class="pin"></div>
+        <div class="st disp">Satevó, Chih.</div>
+        <div class="cd">Cuadra La Esperanza · La Casa</div>
+      </div>
+    </div>
+    <div class="km">Cruzan el desierto para correr en tierra ajena</div>
+  </div>
+</section>
 
 <!-- ESTELAR -->
 <section class="block dark estelar reveal">
