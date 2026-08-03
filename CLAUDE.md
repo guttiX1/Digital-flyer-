@@ -4,39 +4,137 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static HTML digital flyer for a horse racing event ("Carreras de Caballos"). There is no build system, framework, or package manager — the entire site is a single `index.html` file with inline CSS.
+**CarrerasOS** is a static-hosted platform for Mexican-American horse racing
+events ("Carreras de Caballos"). It started as a single flyer page and has
+grown into a collection of generated per-event apps plus a set of local Python
+and Node tools that turn a flyer image into a full marketing package.
 
-The site is deployed automatically to GitHub Pages on every push to `main` via `.github/workflows/static.yml`. The entire repository root is uploaded as the Pages artifact, so any files added to the root are immediately available at the live URL after deployment.
+Everything is **static-first**: there is no server-rendered backend and no
+build step. The entire repository root is deployed verbatim to GitHub Pages on
+every push to `main` (`.github/workflows/static.yml`), so any file added to the
+root or to `events/<slug>/` is immediately live at the deployed URL.
+
+- **Live site:** https://guttix1.github.io/Digital-flyer-/
+- The repo also auto-deploys to the owner's Vercel project (Vercel MCP tools
+  are available in this environment).
+
+There is **no staging environment**. Every push to `main` goes straight to
+production.
+
+## Repository Layout
+
+```
+├── index.html              # Legacy single-event flyer (Carril Agua Caliente)
+├── hub.html                # "Eventos · CarrerasOS" — index/landing linking to every event
+├── carrerasos.html         # Marketing/sales site for the CarrerasOS product
+├── merch.html              # Merch store page
+├── sticker-lab.html        # Custom racing sticker designer (client-side)
+├── horse-generator.html    # AI horse-image generator UI (talks to horse_server.py)
+├── pista-noir-template.html# Reference markup for the legacy "Pista Noir" design system
+├── duel.html, video_ad.html, relampago-vs-sombra.html  # Standalone legacy pages
+│
+├── events/<slug>/          # 25+ generated per-event folders (see below)
+├── templates/
+│   └── carrerasos-app/      # The CarrerasOS picks-app template (Rancho Malpica reference)
+├── tools/
+│   ├── make_carrerasos_event.py   # Generator: event.json -> events/<slug>/ app
+│   ├── voice-assistant/, voice-free/, whisper-app/  # Local voice helper apps
+├── pages/                  # One-off landing pages + shared image assets (pick6, etc.)
+├── output/                 # Local pipeline artifacts (racing.db, generated marketing HTML)
+│
+├── generate_package.py     # Legacy "Pista Noir" 4-file package generator
+├── outreach.py             # Flyer -> Claude Vision -> SQLite -> 12 marketing pieces
+├── watch_flyers.py         # Watches output/flyers/ and auto-runs outreach.py
+├── db_admin.py             # CLI admin for output/racing.db (events, picks, contacts, pick6)
+├── horse_server.py         # Local HTTP server (port 8787) backing horse-generator.html
+├── schema.sql              # SQLite schema reference (auto-applied by outreach.py)
+│
+├── capture-video.js, record-video.js, record-tiktok.js, rec-next.js  # Puppeteer+ffmpeg video renderers
+├── package.json            # Node deps: puppeteer, ffmpeg-static, qrcode, say
+└── requirements.txt        # Python deps: anthropic, watchdog, qrcode, Pillow
+```
+
+### Two kinds of "app" live here
+
+1. **CarrerasOS picks app** (current, preferred) — an interactive
+   React-in-a-`bundle.js` app where fans make picks per race. Each event is a
+   folder `events/<slug>/` containing `index.html`, `site.html`, `bundle.js`,
+   `event.json`, `manifest.json`, PWA icons, and an `images/` folder. Generated
+   by `tools/make_carrerasos_event.py` from `templates/carrerasos-app/`.
+   (~9 of the current event folders are of this type.)
+
+2. **Pista Noir package** (legacy, fallback) — 4 static HTML files
+   (`site.html`, `duel.html`, `infographic.html`, `video-ad.html`) built by
+   `generate_package.py`. Black + `#F5C518` gold glassmorphism design.
+
+Both types coexist under `events/`. Prefer the CarrerasOS app for new events
+unless the user explicitly asks for the old static pages.
 
 ## Development
 
-Open `index.html` directly in a browser to preview changes — no server or build step is required.
+No build step. Open any `.html` file directly in a browser to preview, or serve
+the root for correct relative-path/manifest behavior:
 
-If you want a live-reload experience locally:
 ```bash
 npx serve .
 # or
 python3 -m http.server 8080
 ```
 
+Node tooling (video capture) uses a pre-installed Chromium — do **not** run
+`playwright install` / `puppeteer` browser download in this environment; a
+system Chromium is already configured.
+
+```bash
+npm install            # only if node_modules is missing (it's gitignored)
+```
+
 ## Deployment
 
-Pushing to `main` triggers the GitHub Actions workflow (`.github/workflows/static.yml`), which deploys the static content to GitHub Pages. There is no staging environment; every push to `main` goes directly to production.
+Pushing to `main` triggers `.github/workflows/static.yml`, which uploads the
+whole repo as the Pages artifact and deploys it. The deployed URL for a
+CarrerasOS event is:
 
-## Referenced Assets
+```
+https://guttix1.github.io/Digital-flyer-/events/<slug>/
+```
 
-`index.html` references the following files that are not currently tracked in the repository and must be provided:
-- `logo.png` — horse racing image shown in the header
-- `favicon.ico` — browser tab icon
-- `manifest.json` — PWA web app manifest
+## Local Tooling (not part of the deployed site)
 
-When adding these, place them at the repository root.
+These run on the owner's machine to produce content that gets committed:
+
+| Tool | Purpose |
+|------|---------|
+| `tools/make_carrerasos_event.py <event.json>` | Generate a CarrerasOS event app into `events/<slug>/` by injecting data into the template's `bundle.js`. |
+| `generate_package.py <event.json>` | Legacy Pista Noir 4-file generator. |
+| `outreach.py <image>` | Reads a flyer via the Claude Vision API, stores races in `output/racing.db`, and writes 12 marketing pieces to `output/`. Needs `ANTHROPIC_API_KEY`. |
+| `watch_flyers.py` | Watches `output/flyers/` and auto-runs `outreach.py` on any new image. |
+| `db_admin.py <cmd>` | Inspect/manage `output/racing.db` (events, races, fans, picks, pick6 cards, contact export). |
+| `horse_server.py` | Local server on `:8787` backing `horse-generator.html`; needs `OPENAI_API_KEY`. |
+| `capture-video.js` / `record-*.js` / `rec-next.js` | Puppeteer + `ffmpeg-static` renderers that turn an event's animated HTML into an MP4. Paths are hard-coded per event — edit the `EVENT`/`HTML`/`OUT` constants at the top before running. |
+
+`output/` and `pages/` hold local/one-off artifacts. `output/racing.db`,
+generated pipeline HTML, node_modules, `.env`, and `.claude/` are gitignored.
 
 ## Conventions
 
-- All styling is inline `<style>` in `index.html`; there is no external CSS file.
-- The color palette is dark-themed: `#1a1a1a` background, `#f7d046` (gold) for primary headings, `#4d94ff` (blue) for subheadings.
-- The page is constrained to `max-width: 800px` centered layout.
+- **No frameworks in source.** Pages are hand-authored HTML with inline
+  `<style>`. The CarrerasOS app ships as a pre-compiled `bundle.js` (minified
+  React output) — you edit the app by regenerating from `event.json`, not by
+  hand-editing the bundle.
+- **Mobile-first, 360px floor.** Never hard-code pixel font sizes that can
+  overflow a 360px-wide screen. The CarrerasOS template's `overflow-x:hidden`
+  guard and `clamp()` titles must stay.
+- **Palettes:**
+  - CarrerasOS app: orange accent `#FF6B00` / `#FF7A1A`, dark theme.
+  - Legacy `index.html`: `#1a1a1a` bg, `#f7d046` gold headings, `#4d94ff` blue
+    subheadings, `max-width: 800px` centered.
+  - Pista Noir (legacy generator): black bg, `#F5C518` gold, `-apple-system`
+    font, glassmorphism cards.
+- **Spanish-language content.** Event copy is in Spanish; keep it that way.
+- **Commit attribution:** the owner requires neutral commit messages authored
+  as the repo owner — **no AI/Claude/Vercel attribution** in commits or in any
+  file that ships to the repo.
 
 ---
 
