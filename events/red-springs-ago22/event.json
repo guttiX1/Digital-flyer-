@@ -1,0 +1,382 @@
+{
+  "slug": "red-springs-ago22",
+  "page_title": "CarrerasOS · Carril Red Springs",
+  "page_description": "Carril Red Springs · Carreras del Pueblo NC · Sábado 22 de Agosto 2026 · 188 Jockey Ln, Red Springs, NC · 9 grandes carreras, pura adrenalina. Haz tus picks para cada duelo.",
+  "countdown": "2026-08-22T10:00",
+  "event": {
+    "org": "CARRIL RED SPRINGS",
+    "titleTop": "RED",
+    "titleBottom": "SPRINGS",
+    "tagline": "9 GRANDES CARRERAS · PURA ADRENALINA",
+    "stars": "15 CARRERAS · 8 DUELOS + 7 ABIERTAS",
+    "dayName": "SÁBADO",
+    "dayNum": "22",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Red Springs, North Carolina",
+    "address": "188 Jockey Ln, Red Springs, NC",
+    "phones": [
+      "(704) 977-6274",
+      "(919) 758-7439"
+    ],
+    "sponsors": [
+      {
+        "name": "CARRERAS DEL PUEBLO NC",
+        "cat": "Organizador Oficial"
+      },
+      {
+        "name": "HOMBRES A CABALLO",
+        "cat": "Presenta"
+      },
+      {
+        "name": "EVENTO EN BENEFICIO · JOCKEY FRIJOL",
+        "cat": "Causa Oficial"
+      }
+    ],
+    "counts": "15 carreras · evento en beneficio al jockey Frijol"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "LA MISS COSTEÑA",
+      "stable": "C. Guerrero"
+    },
+    {
+      "gate": null,
+      "name": "EL QUERETANO",
+      "stable": "C. San José"
+    },
+    {
+      "gate": null,
+      "name": "EL SCATTY",
+      "stable": "C. Solís"
+    },
+    {
+      "gate": null,
+      "name": "LA ESTRELLA",
+      "stable": "C. El Roble"
+    },
+    {
+      "gate": null,
+      "name": "LA NUBE",
+      "stable": "C. Guerrero"
+    },
+    {
+      "gate": null,
+      "name": "EL CORRALEJO",
+      "stable": "C. Del Norte"
+    },
+    {
+      "gate": null,
+      "name": "EL MORRALITO",
+      "stable": "C. Guerrero"
+    },
+    {
+      "gate": null,
+      "name": "EL ZOMBIE",
+      "stable": "C. Del Norte"
+    },
+    {
+      "gate": null,
+      "name": "TAPADO",
+      "stable": "C. 3GS / TTR"
+    },
+    {
+      "gate": null,
+      "name": "TAPADO",
+      "stable": "C. Wellbred"
+    },
+    {
+      "gate": null,
+      "name": "EL CAMARÓN",
+      "stable": "C. JM"
+    },
+    {
+      "gate": null,
+      "name": "LA MOMIA",
+      "stable": "C. Los Pobre"
+    },
+    {
+      "gate": null,
+      "name": "EL 7",
+      "stable": "C. Valparaíso"
+    },
+    {
+      "gate": null,
+      "name": "LA CHANNEL",
+      "stable": "C. Doble A/A"
+    },
+    {
+      "gate": null,
+      "name": "EL PRIMO",
+      "stable": "C. García"
+    },
+    {
+      "gate": null,
+      "name": "EL CUERVITO",
+      "stable": "C. Doble A/A"
+    },
+    {
+      "gate": null,
+      "name": "LA FLACA",
+      "stable": "C. García"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "featured": "LA ESTELAR · MANO A MANO",
+      "horses": [
+        {
+          "name": "LA MISS COSTEÑA",
+          "stable": "C. Guerrero",
+          "photo": "p1"
+        },
+        {
+          "name": "EL QUERETANO",
+          "stable": "C. San José",
+          "photo": "p2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL SCATTY",
+          "stable": "C. Solís"
+        },
+        {
+          "name": "LA ESTRELLA",
+          "stable": "C. El Roble"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA NUBE",
+          "stable": "C. Guerrero"
+        },
+        {
+          "name": "EL CORRALEJO",
+          "stable": "C. Del Norte"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MORRALITO",
+          "stable": "C. Guerrero"
+        },
+        {
+          "name": "EL ZOMBIE",
+          "stable": "C. Del Norte"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "section": "TAPADOS",
+      "horses": [
+        {
+          "name": "TAPADO",
+          "stable": "C. 3GS / TTR"
+        },
+        {
+          "name": "TAPADO",
+          "stable": "C. Wellbred"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "section": "TRIANGULAR",
+      "horses": [
+        {
+          "name": "EL CAMARÓN",
+          "stable": "C. JM"
+        },
+        {
+          "name": "LA MOMIA",
+          "stable": "C. Los Pobre"
+        },
+        {
+          "name": "EL 7",
+          "stable": "C. Valparaíso"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA CHANNEL",
+          "stable": "C. Doble A/A"
+        },
+        {
+          "name": "EL PRIMO",
+          "stable": "C. García"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "200Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUERVITO",
+          "stable": "C. Doble A/A"
+        },
+        {
+          "name": "LA FLACA",
+          "stable": "C. García"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "200Y",
+      "type": "open",
+      "category": "ABIERTA CABALLOS BAJITOS",
+      "entryNote": "$3K la puerta",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "Caballos bajitos"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "—",
+      "dist": "225Y",
+      "type": "open",
+      "category": "ABIERTA 3 AÑEROS NO MECHADOS",
+      "entryNote": "$3K la puerta · 1 dentro",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "3 añeros no mechados · 1 dentro"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "—",
+      "dist": "75Y",
+      "type": "open",
+      "category": "ABIERTA",
+      "entryNote": "$3K la puerta",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "Distancia 75Y"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "—",
+      "dist": "250Y",
+      "type": "open",
+      "category": "ABIERTA DE 4 AÑEROS",
+      "entryNote": "$3K la puerta",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "4 añeros"
+      ]
+    },
+    {
+      "id": 13,
+      "time": "—",
+      "dist": "275Y",
+      "type": "open",
+      "category": "ABIERTA 4 AÑEROS NO MECHADOS",
+      "entryNote": "$3K la puerta",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "4 añeros no mechados"
+      ]
+    },
+    {
+      "id": 14,
+      "time": "—",
+      "dist": "250Y",
+      "type": "open",
+      "category": "ABIERTA DE NO MECHADOS 4+",
+      "entryNote": "$3K la puerta · 1 dentro",
+      "entries": [
+        "Cupo abierto · $3,000 la puerta",
+        "No mechados 4+ · 1 dentro"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "—",
+      "dist": "250Y",
+      "type": "open",
+      "featured": "CIERRE · CABALLOS VIEJOS",
+      "category": "ABIERTA DE CABALLOS VIEJOS 8+",
+      "entryNote": "$4K la puerta",
+      "entries": [
+        "Cupo abierto · $4,000 la puerta",
+        "Caballos viejos 8+"
+      ]
+    }
+  ],
+  "ads": {
+    "8": {
+      "img": "images/img12.jpg",
+      "tag": "EVENTO EN BENEFICIO",
+      "title": "APOYA AL JOCKEY FRIJOL",
+      "tagline": "Este evento es en beneficio del jockey Frijol · toda la afición unida por la causa",
+      "cta": "CÓMO APOYAR",
+      "special": {
+        "title": "TODO POR FRIJOL",
+        "text": "Trae a tu compa · cada apuesta y cada boleto suma para el jockey Frijol",
+        "code": "FRIJOL22"
+      }
+    },
+    "15": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de Red Springs te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar para el próximo evento",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "LA MISS COSTEÑA portrait (duel p1, race 1)",
+    "images/img02.jpg": "EL QUERETANO portrait (duel p2, race 1)",
+    "images/img11.jpg": "hero/poster — Red Springs jockey action photo",
+    "images/img09.jpg": "wide banner — Red Springs jockey action photo",
+    "note": "Photos cropped from the official Carril Red Springs flyer (single jockey action shot); icons kept from template."
+  }
+}
