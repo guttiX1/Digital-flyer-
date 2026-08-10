@@ -1,0 +1,23 @@
+{
+  "name": "CarrerasOS · All American Futurity",
+  "short_name": "CarrerasOS",
+  "description": "Gran Sorteo All American Futurity - Boleto $50 USD. Cada boleto te asigna un caballo al azar de las ~280 nominaciones. 1er $7,000 · 2do $2,000 · 3ro $1,000. Sorteo aleatorio y en vivo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0806",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

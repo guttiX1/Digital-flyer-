@@ -1,0 +1,164 @@
+{
+  "slug": "all-american-futurity",
+  "page_title": "CarrerasOS · All American Futurity",
+  "page_description": "Gran Sorteo All American Futurity - Boleto $50 USD. Cada boleto te asigna un caballo al azar de las ~280 nominaciones. 1er $7,000 · 2do $2,000 · 3ro $1,000. Sorteo aleatorio y en vivo.",
+  "countdown": "2026-09-07T14:00",
+  "event": {
+    "org": "ALL AMERICAN FUTURITY",
+    "titleTop": "ALL AMERICAN",
+    "titleBottom": "FUTURITY",
+    "tagline": "GRAN SORTEO · BOLETO $50 USD · PURA SUERTE, GRANDES PAGOS",
+    "stars": "280 BOLETOS · 280 CABALLOS · SORTEO EN VIVO",
+    "dayName": "LUNES",
+    "dayNum": "7",
+    "month": "DE SEPTIEMBRE",
+    "year": "2026",
+    "location": "The Downs at Albuquerque, NM",
+    "address": "145 Louisiana Blvd NE, Albuquerque, NM 87108",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "$7,000 USD · 1ER LUGAR",
+        "cat": "Premio en efectivo"
+      },
+      {
+        "name": "$2,000 USD · 2DO LUGAR",
+        "cat": "Premio en efectivo"
+      },
+      {
+        "name": "$1,000 USD · 3ER LUGAR",
+        "cat": "Premio en efectivo"
+      },
+      {
+        "name": "$500 USD · CONSOLACIÓN",
+        "cat": "Mercancía oficial"
+      }
+    ],
+    "counts": "Eliminatorias 7-8 Ago · Gran Final 7 Sep · 440 yardas"
+  },
+  "field": [
+    {
+      "gate": 1,
+      "name": "FINALISTA · PUESTO 1",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 2,
+      "name": "FINALISTA · PUESTO 2",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 3,
+      "name": "FINALISTA · PUESTO 3",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 4,
+      "name": "FINALISTA · PUESTO 4",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 5,
+      "name": "FINALISTA · PUESTO 5",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 6,
+      "name": "FINALISTA · PUESTO 6",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 7,
+      "name": "FINALISTA · PUESTO 7",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 8,
+      "name": "FINALISTA · PUESTO 8",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 9,
+      "name": "FINALISTA · PUESTO 9",
+      "stable": "Se define en eliminatorias"
+    },
+    {
+      "gate": 10,
+      "name": "FINALISTA · PUESTO 10",
+      "stable": "Se define en eliminatorias"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "VIE 7 AGO",
+      "dist": "440Y",
+      "type": "open",
+      "category": "ALL AMERICAN FUTURITY TRIALS",
+      "entryNote": "Día 1 · ~140 caballos · los tiempos más rápidos avanzan",
+      "entries": [
+        "≈280 caballos nominados corren las eliminatorias",
+        "Los 10 tiempos más veloces (ambos días) hacen la Gran Final",
+        "Tu boleto queda ligado a un caballo por sorteo aleatorio"
+      ]
+    },
+    {
+      "id": 2,
+      "time": "SÁB 8 AGO",
+      "dist": "440Y",
+      "type": "open",
+      "category": "ALL AMERICAN FUTURITY TRIALS",
+      "entryNote": "Día 2 · segunda ronda de eliminatorias",
+      "entries": [
+        "Continúan las eliminatorias del sorteo",
+        "Se cierra la lista oficial de 10 finalistas",
+        "Lista pública en vivo: Boleto # → Caballo asignado"
+      ]
+    },
+    {
+      "id": 3,
+      "time": "LUN 7 SEP",
+      "dist": "440Y",
+      "type": "open",
+      "featured": "GRAN FINAL · BOLSA $3,000,000",
+      "category": "ALL AMERICAN FUTURITY",
+      "entryNote": "10 finalistas · una sola carrera define los pagos",
+      "entries": [
+        "1ER LUGAR paga $7,000 USD en efectivo",
+        "2DO LUGAR paga $2,000 USD · 3ER LUGAR paga $1,000 USD",
+        "La carrera de cuartos de milla más rica del mundo"
+      ]
+    }
+  ],
+  "ads": {
+    "1": {
+      "img": "images/img11.jpg",
+      "tag": "BOLETO OFICIAL · $50 USD",
+      "title": "COMPRA TU BOLETO",
+      "tagline": "280 boletos · 280 caballos · asignación aleatoria y verificable en vivo",
+      "cta": "PAGAR POR ZELLE / CASH APP",
+      "special": {
+        "title": "ZELLE & CASH APP: CarrerasOS",
+        "text": "Boleto $50 USD. Recibes confirmación automática con tu # de boleto y tu caballo asignado. Entradas limitadas.",
+        "code": "BOLETO50"
+      }
+    },
+    "3": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición ve el sorteo en vivo el día de la final",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a miles de fans del Gran Sorteo All American · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img10.jpg": "sponsor-slot ad image / 'TU MARCA AQUÍ' logo",
+    "images/img11.jpg": "hero/poster image · Boleto oficial CTA",
+    "note": "Draw-game event: horses are assigned by live random draw from the ~280 futurity nominees, so field shows the 10 final gate positions as placeholders until trials define them. Swap imgNN.jpg for event photos with the SAME filenames."
+  }
+}
