@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carril San José Delano · Video Ad 30s</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:#000}
+#stage{position:relative;width:540px;height:960px;overflow:hidden;font-family:Arial,sans-serif;color:#fff}
+
+/* ── VIDEO BACKGROUND ── */
+video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;width:auto;height:106%;object-fit:cover}
+.tint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.42),rgba(0,0,0,.28) 40%,rgba(0,0,0,.62));transition:background .4s}
+.vig{position:absolute;inset:0;box-shadow:inset 0 0 170px 55px rgba(0,0,0,.8)}
+
+/* embers */
+.ember{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:#FFB84A;filter:blur(1px);opacity:0;animation:rise 4.5s linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}12%{opacity:.85}100%{opacity:0;transform:translateY(-990px) translateX(50px) scale(.4)}}
+
+/* ── SCENES (30s) ── */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;padding:0 26px}
+.s1{animation:hold 4s 0s both}
+.s2{animation:hold 4.6s 4s both}
+.s3{animation:hold 6s 8.6s both}
+.s4{animation:hold 4.6s 14.6s both}
+.s5{animation:hold 4.4s 19.2s both}
+.s6{animation:holdend 6.4s 23.6s both}
+@keyframes hold{0%{opacity:0}5%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes holdend{0%{opacity:0}6%{opacity:1}100%{opacity:1}}
+
+.slam{animation:slam .5s cubic-bezier(.17,.89,.32,1.5) both}
+@keyframes slam{0%{transform:scale(3.4);opacity:0;filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:scale(1)}}
+.up{animation:up .55s cubic-bezier(.17,.89,.32,1.3) both}
+@keyframes up{from{transform:translateY(70px);opacity:0}to{transform:translateY(0);opacity:1}}
+.shake{animation:shake .45s .1s 3}
+@keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-7px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-5px,-3px)}80%{transform:translate(5px,4px)}}
+
+.gold3{color:#FFD24A;text-shadow:0 2px 0 #c69a1c,0 4px 0 #a87f13,0 6px 0 #85620b,0 9px 5px rgba(0,0,0,.55),0 16px 26px rgba(0,0,0,.6)}
+.red3{color:#FF3B47;text-shadow:0 2px 0 #b6121e,0 4px 0 #8f0c16,0 6px 0 #68070e,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.blue3{color:#4BA3FF;text-shadow:0 2px 0 #1663b8,0 4px 0 #114e92,0 6px 0 #0c3a6d,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.white3{color:#fff;text-shadow:0 2px 0 #b9b9b9,0 4px 0 #8f8f8f,0 6px 0 #676767,0 9px 5px rgba(0,0,0,.5),0 15px 24px rgba(0,0,0,.6)}
+
+/* S1 hook */
+.s1 .q{font-size:64px;font-weight:900;letter-spacing:2px;line-height:1;animation-delay:.3s}
+.s1 .a{font-size:30px;font-weight:900;letter-spacing:3px;color:#FFD24A;margin-top:26px;animation-delay:.9s;text-shadow:0 3px 14px rgba(0,0,0,.8)}
+.s1 .b{font-size:16px;font-weight:700;letter-spacing:5px;color:rgba(255,255,255,.8);margin-top:20px;animation-delay:1.4s}
+
+/* S2 brand */
+.t3d{transform:perspective(460px) rotateX(11deg)}
+.s2 .brand{font-size:78px;font-weight:900;line-height:.95;letter-spacing:1px}
+.s2 .loc{font-size:20px;font-weight:800;letter-spacing:6px;color:rgba(255,255,255,.85);margin-top:16px;animation-delay:.45s}
+.datepill{display:inline-block;background:#E01E2B;color:#fff;font-size:34px;font-weight:900;letter-spacing:3px;padding:10px 32px;border-radius:12px;margin-top:30px;box-shadow:0 10px 44px rgba(224,30,43,.65);animation-delay:.65s}
+.s2 .y{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.7);margin-top:16px;animation-delay:.85s}
+
+/* S3 duel */
+.s3 .lbl{font-size:20px;font-weight:800;letter-spacing:6px;color:#FFD24A;animation-delay:.2s}
+.s3 .h1{font-size:74px;font-weight:900;line-height:.95;margin-top:16px;animation-delay:.45s}
+.s3 .c1{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:.6s}
+.s3 .vs{font-size:60px;font-weight:900;margin:14px 0;animation-delay:.85s}
+.s3 .h2{font-size:74px;font-weight:900;line-height:.95;animation-delay:1.1s}
+.s3 .c2{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:1.25s}
+.s3 .yards{display:inline-block;border:3px solid #FFD24A;color:#FFD24A;font-size:28px;font-weight:900;letter-spacing:4px;padding:6px 26px;border-radius:999px;margin-top:24px;animation-delay:1.5s;background:rgba(0,0,0,.45)}
+
+/* S4 pick-a-side */
+.s4 .q{font-size:56px;font-weight:900;line-height:1;animation-delay:.25s;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.sides{display:flex;gap:16px;margin-top:32px}
+.side{border-radius:16px;padding:20px 22px;font-weight:900;opacity:0;animation:up .5s cubic-bezier(.17,.89,.32,1.4) both}
+.side .n{font-size:30px;line-height:1}
+.side .t{font-size:12px;letter-spacing:2px;margin-top:6px;opacity:.85;font-weight:800}
+.side.r{background:linear-gradient(160deg,#E01E2B,#8f0c16);box-shadow:0 12px 44px rgba(224,30,43,.5);animation-delay:.7s}
+.side.b{background:linear-gradient(160deg,#2E7FE0,#123c74);box-shadow:0 12px 44px rgba(46,127,224,.5);animation-delay:.9s}
+.s4 .cm{font-size:17px;font-weight:800;letter-spacing:3px;color:#FFD24A;margin-top:30px;animation-delay:1.3s}
+
+/* S5 urgency */
+.s5 .u1{font-size:56px;font-weight:900;line-height:1.02;animation-delay:.25s}
+.s5 .u2{font-size:40px;font-weight:900;color:#FF3B47;margin-top:24px;animation-delay:.7s;animation:pulse2 .9s .7s infinite alternate,up .5s .7s both}
+@keyframes pulse2{from{transform:scale(1)}to{transform:scale(1.07)}}
+.s5 .u3{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:22px;animation-delay:1.1s}
+
+/* S6 CTA */
+.s6 .d{font-size:84px;font-weight:900;line-height:.95;animation-delay:.3s}
+.s6 .yy{font-size:24px;font-weight:900;letter-spacing:4px;color:#fff;margin-top:8px;animation-delay:.5s;text-shadow:0 3px 12px rgba(0,0,0,.8)}
+.s6 .m{font-size:24px;font-weight:900;letter-spacing:2px;margin-top:26px;animation-delay:.75s}
+.s6 .m .r{color:#FF3B47}.s6 .m .bl{color:#4BA3FF}
+.s6 .share{display:inline-block;background:#FFD24A;color:#160b02;font-size:22px;font-weight:900;letter-spacing:2px;padding:14px 28px;border-radius:14px;margin-top:32px;box-shadow:0 12px 46px rgba(255,210,74,.45);animation-delay:1s}
+.s6 .brand2{font-size:19px;font-weight:900;letter-spacing:3px;color:#FFD24A;margin-top:30px;animation-delay:1.25s;text-shadow:0 2px 0 #85620b,0 6px 16px rgba(0,0,0,.6)}
+
+/* flashes */
+.flash{position:absolute;inset:0;opacity:0;pointer-events:none;background:#E01E2B}
+.flash.w{background:#fff}
+.f1{animation:fl .32s 3.95s}
+.f2{animation:fl .32s 8.55s}
+.f3{animation:fl .32s 14.55s}
+.f4{animation:fl .32s 19.15s}
+.f5{animation:fl .32s 23.55s}
+@keyframes fl{0%{opacity:0}45%{opacity:.9}100%{opacity:0}}
+/* persistent QR badge */
+.qrbadge{position:absolute;right:20px;bottom:24px;z-index:60;display:flex;align-items:center;gap:10px;background:rgba(13,10,4,.82);border:1px solid rgba(200,144,26,.55);border-radius:14px;padding:9px 12px 9px 9px;backdrop-filter:blur(3px)}
+.qrbadge img{width:74px;height:74px;border-radius:8px;background:#F6F1E7;padding:4px;display:block}
+.qrbadge .lbl{font-family:Arial,sans-serif;font-weight:900;font-size:15px;line-height:1.05;color:#E8B84B;letter-spacing:1px;max-width:96px}
+.qrbadge .lbl span{display:block;font-size:10px;color:#fff;opacity:.7;letter-spacing:1px;margin-top:3px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="v" src="race-clip.webm" muted loop playsinline></video>
+  <div class="tint"></div>
+  <div class="vig"></div>
+  <div class="ember" style="left:10%;animation-delay:.3s"></div>
+  <div class="ember" style="left:26%;animation-delay:1.7s"></div>
+  <div class="ember" style="left:44%;animation-delay:.9s"></div>
+  <div class="ember" style="left:61%;animation-delay:2.4s"></div>
+  <div class="ember" style="left:78%;animation-delay:.6s"></div>
+  <div class="ember" style="left:91%;animation-delay:1.9s"></div>
+
+  <!-- S1 0–4s: HOOK -->
+  <div class="scene s1">
+    <div class="q slam fit white3">¿ESTÁS LISTO<br>PARA ESTO?</div>
+    <div class="a up fit">15 CARRERAS · PURO MANO A MANO</div>
+    <div class="b up fit">YA ES OFICIAL 🔥</div>
+  </div>
+
+  <!-- S2 4–8.6s: BRAND + DATE -->
+  <div class="scene s2">
+    <div class="t3d slam"><div class="brand gold3 fit">CARRIL SAN JOSÉ DELANO</div></div>
+    <div class="loc up fit">DELANO · CALIFORNIA</div>
+    <div class="datepill up fit">DOMINGO · 16 DE AGOSTO</div>
+    <div class="y up fit">2026 · EL EVENTO DEL AÑO</div>
+  </div>
+
+  <!-- S3 8.6–14.6s: LA ESTELAR -->
+  <div class="scene s3">
+    <div class="lbl up fit">⭐ LA ESTELAR ⭐</div>
+    <div class="h1 slam fit red3">EL DELTA</div>
+    <div class="c1 up fit">CUADRA MOCHOMO</div>
+    <div class="vs slam fit white3 shake">VS</div>
+    <div class="h2 slam fit blue3">EL IMPARABLE</div>
+    <div class="c2 up fit">CUADRA PLEBES</div>
+    <div class="yards up fit">250 YARDAS</div>
+  </div>
+
+  <!-- S4 14.6–19.2s: PICK A SIDE -->
+  <div class="scene s4">
+    <div class="q slam fit">¿DE QUÉ LADO<br>ESTÁS?</div>
+    <div class="sides">
+      <div class="side r"><div class="n">🔴 EL DELTA</div><div class="t">CUADRA MOCHOMO</div></div>
+      <div class="side b"><div class="n">🔵 EL IMPARABLE</div><div class="t">CUADRA PLEBES</div></div>
+    </div>
+    <div class="cm up fit">HAZ TUS PICKS 👇</div>
+  </div>
+
+  <!-- S5 19.2–23.6s: URGENCY -->
+  <div class="scene s5">
+    <div class="u1 slam fit white3">15 CARRERAS.<br>UN SOLO DÍA.</div>
+    <div class="u2 fit">¿TE LO VAS A PERDER?</div>
+    <div class="u3 up fit">TODO EL OESTE VA A ESTAR AHÍ</div>
+  </div>
+
+  <!-- S6 23.6–30s: CTA -->
+  <div class="scene s6">
+    <div class="d slam fit gold3">16 DE AGOSTO</div>
+    <div class="yy up fit">CARRIL SAN JOSÉ · DELANO, CALIFORNIA</div>
+    <div class="m up fit"><span class="r">EL DELTA</span> VS <span class="bl">EL IMPARABLE</span></div>
+    <div class="share up fit">📲 ESCANEA Y HAZ TUS PICKS</div>
+    <div class="brand2 up fit">CARRERAS DEL OESTE · PURO FIERRO 🐎</div>
+  </div>
+
+  <div class="qrbadge"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB5fY51AAAAAklEQVR4AewaftIAAAv4SURBVO3Bsa0dWYxF0SPip0CTMTD/MBgDDRm05MjV2INB3Z6uQuF9qvdaP37/+vlHALCACQCWMAHAEiYAWMIEAEuYAGAJEwAsYQKAJb70DzxSf6Pp0l0eqZPp0ls8Um+ZLp14pE6mS5/gkfqU6dITHqkr06UTj9TfaLp0xQQAS5gAYAkTACxhAoAlTACwhAkAljABwBJfemi69B15pN4yXTrxSJ1Ml654pL6r6dJbPFIn06W7pkt3eaROPFJPTJfeMl36jjxSd5kAYAkTACxhAoAlTACwhAkAljABwBImAFjiSy/zSL1luvQWj9SV6dITHqkr06UTj9TJdOnEI/UdTZdOPFJ3eaROpktXpktPeKROPFJXpktv8Ui9Zbr0FhMALGECgCVMALCECQCWMAHAEiYAWOJL+Nc8UifTpbdMl97ikXpiuvSW6dJdHqkTj9SnTJfw/2cCgCVMALCECQCWMAHAEiYAWMIEAEuYAGCJL+Ffmy6deKROpktXPFJvmi5d8Ug94ZG6a7p04pG6Ml16YrqEHUwAsIQJAJYwAcASJgBYwgQAS5gAYAkTACzxpZdNl/C/eaTeMl068UhdmS6deKROpkvf0XTpLR6pt0yX3jJd2sgEAEuYAGAJEwAsYQKAJUwAsIQJAJb40kMeKfw706UrHqmT6dKJR+pkunTFI3UyXTrxSF2ZLp14pE6mS1c8UifTpROP1JXp0hPTpROP1Fs8Un8bEwAsYQKAJUwAsIQJAJYwAcASJgBYwgQAS3zpH0yX8O9Mlz5lunTikboyXTrxSH2KR2ojj9TJdOmu6dJ/jQkAljABwBImAFjCBABLmABgCRMALGECgCV+/P71848OPFIn06UTj9R3NF26yyP1XU2XTjxSd02X7vJInUyX3uKR+q6mS3d5pL6j6dJbTACwhAkAljABwBImAFjCBABLmABgiR+/f/38o/8gj9TJdGkjj9Rd06UnPFJXpksnHqmT6dIVj9QT06VP8UhdmS59Vx6pu6ZLd5kAYAkTACxhAoAlTACwhAkAljABwBImAFjix+9fP//owCP1KdOluzxSJ9OlE4/UlenSEx6pK9OlN3mk3jJduuKROpku3eWROpku3eWR2mq6dMUj9V1Nl66YAGAJEwAsYQKAJUwAsIQJAJYwAcASJgBY4ksvmy5d8Ui9Zbr0Fo/UE9OlKx6pJ6ZLd02XnvBI3eWReotH6mS6dGW6dOKR+pTp0olH6q7p0ls8UneZAGAJEwAsYQKAJUwAsIQJAJYwAcASX3pounTXdOnEI/Up06UrHqknPFJXpksnHqlP8UidTJeueKROpksnHqm7pksnHqm3TJdOPFJ3eaROpktXPFJPeKQ+wQQAS5gAYAkTACxhAoAlTACwhAkAljABwBI/fv/6+UcPeKTeMl068UhdmS494ZG6a7p0l0fqienSXR6pk+nSiUfqE6ZLJx6pk+nSFY/UyXTpLR6pk+nSiUfqynRpIxMALGECgCVMALCECQCWMAHAEiYAWMIEAEt86R94pE6mS3d5pE48UifTpSseqZPp0l3TpROP1Ml06a7p0olH6juaLp14pE6mS1c8UifTpROP1JXp0olH6onp0id4pJ6YLl3xSD0xXbpiAoAlTACwhAkAljABwBImAFjCBABLmABgiR+/f/38oxd5pN4yXbrLI/Up06XvyCN1Ml36FI/UlenSiUfqZLr0Fo/UyXTpikfqU6ZLd3mknpguXTEBwBImAFjCBABLmABgCRMALGECgCW+9A88UifTpbdMl+7ySL1luvSER+qu6dKJR+pkunRluvSER+rKdOnEI3UyXXqLR+ot06VPmS5d8Ug94ZH6BBMALGECgCVMALCECQCWMAHAEiYAWMIEAEt86YOmSyceqbumSyceqZPp0l0eqZPp0hWP1IlH6gmP1FumS3dNl048UlemS09Ml654pE6mS2+ZLj3hkboyXXpiunTFI3UyXbrLBABLmABgCRMALGECgCVMALCECQCWMAHAEj9+//r5RwceqSemS3d5pL6j6dJbPFIn06W/kUfqLdOlT/FIfUfTpROP1Ml06YpH6onp0hUTACxhAoAlTACwhAkAljABwBImAFjix+9fP//oAY/UXdOl78ojdWW69IRH6sp06VM8UifTpROP1JXp0hMeqSvTpSc8UlemSyceqe9quvQdeaROpktXTACwhAkAljABwBImAFjCBABLmABgCRMALPHj96+ff7SUR+qu6dJdHqmT6dJbPFJPTJfu8kidTJc+wSN1Ml068Uj9jaZLVzxSJ9OlE4/UlenSW0wAsIQJAJYwAcASJgBYwgQAS5gAYAkTACzxpX/gkTqZLp14pO6aLt01XXrLdOktHqknpkvfkUfqienSlenSiUfqrunSiUfqZLp04pG6a7p013TpxCN1Ml36BBMALGECgCVMALCECQCWMAHAEiYAWOJL/2C6dOKROpkufYJH6lOmS2+ZLj3hkfqE6dJbPFIn06UTj9Rd06UTj9Rd06UnPFKf4JF6Yrp0xQQAS5gAYAkTACxhAoAlTACwhAkAljABwBI/fv/6+UcHHqmT6dJdHqmT6dJ35JF6Yrp0l0dqo+nSiUfqO5ounXiknpguvcUjddd06TsyAcASJgBYwgQAS5gAYAkTACxhAoAlTACwxI/fv37+0QMeqZPp0id4pE6mS3d5pE6mSyceqSvTpSc8UifTpSseqZPp0qd4pK5Ml57wSL1lunSXR+qJ6dIVj9TJdOnEI/WW6dIVEwAsYQKAJUwAsIQJAJYwAcASJgBY4sfvXz//6MAj9Zbp0hMeqSvTpSc8Um+ZLl3xSJ1Ml57wSF2ZLp14pO6aLp14pE6mS3d5pE6mS5/ikboyXXrCI3VlunTikTqZLn2CCQCWMAHAEiYAWMIEAEuYAGAJEwAsYQKAJX78/vXzjw48UifTpe/II/XEdOmKR+pkunTikbprunTikXrLdOnEI3XXdOnEI3VluvQpHqm/0XTpxCP1lunSFRMALGECgCVMALCECQCWMAHAEiYAWMIEAEt86RvzSN01XfoUj9RG06UnpktXPFInHqm7PFIn06W3TJc+xSN1Ml26yyN1Ml36BBMALGECgCVMALCECQCWMAHAEiYAWMIEAEt86WUeqSvTpZPp0olH6opH6mS6dOKRujJdOvFI3TVdOvFIfYpH6mS69Jbp0hWP1IlH6r/II/UWj9RbpktXTACwhAkAljABwBImAFjCBABLmABgiR+/f/38I/wfHqm7pksnHqkr06WtPFJvmS7d5ZE6mS5d8UidTJdOPFJ3TZfe4pF6Yrp0xSN1Ml26ywQAS5gAYAkTACxhAoAlTACwhAkAljABwBJf+gceqb/RdOlkurSRR+qu6dJbpksnHqm7PFIn06W3eKROpksnHqm7PFIn06W7pksnHqm7PFIn06UrJgBYwgQAS5gAYAkTACxhAoAlTACwhAkAlvjSQ9Ol78gj9YRH6q7p0qdMlz5lunTXdOmu6dJbpkvf1XTpLR6pk+nSFY/UW0wAsIQJAJYwAcASJgBYwgQAS5gAYIkvvcwj9Zbp0idMl97ikfqU6dITHqnvaLp04pH6jjxSnzJdOvFIfYIJAJYwAcASJgBYwgQAS5gAYAkTACxhAoAlvoR/zSP1lunSiUfqZLp04pG64pE6mS6dTJfe4pG6Ml068Ui9Zbp04pE6mS5d8Ug9MV264pF6y3TpxCN1lwkAljABwBImAFjCBABLmABgCRMALGECgCW+hH9tunTikTqZLn3KdOk78kidTJeueKROpkufMl16y3TprunSWzxSbzEBwBImAFjCBABLmABgCRMALGECgCW+9LLp0kbTpSseqZPp0l0eqSc8UifTpSseqZPp0lumSyceqbs8UifTpU/xSH2CR+pkunQyXbrLI3WXCQCWMAHAEiYAWMIEAEuYAGAJEwAsYQKAJb70kEfqb+SR+oTp0olH6lM8UifTpbdMl654pN7ikXpiunQyXbrikfquPFKfYAKAJUwAsIQJAJYwAcASJgBYwgQAS5gAYIkfv3/9/CMAWMAEAEuYAGAJEwAsYQKAJUwAsIQJAJb4H8zl3lwq3UU5AAAAAElFTkSuQmCC" alt="QR"><div class="lbl">TUS PICKS<span>Escanea 🐎</span></div></div>
+  <div class="flash f1"></div>
+  <div class="flash w f2"></div>
+  <div class="flash f3"></div>
+  <div class="flash w f4"></div>
+  <div class="flash f5"></div>
+</div>
+
+<script>
+const v=document.getElementById('v');
+v.muted=true;v.loop=true;
+v.play().catch(()=>{});
+function fitAll(){
+  document.querySelectorAll('.fit').forEach(el=>{
+    el.style.whiteSpace='nowrap';
+    let fs=parseFloat(getComputedStyle(el).fontSize);
+    let g=0;
+    while(el.scrollWidth>492&&fs>12&&g<80){fs-=2;el.style.fontSize=fs+'px';g++}
+  });
+}
+fitAll();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll)}
+</script>
+</body>
+</html>

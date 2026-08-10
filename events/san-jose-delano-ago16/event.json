@@ -1,0 +1,434 @@
+{
+  "slug": "san-jose-delano-ago16",
+  "page_title": "CarrerasOS · Carril San José Delano",
+  "page_description": "Carril San José · Delano, California · Carreras del Oeste · Domingo 16 de Agosto 2026 · 15 grandes carreras. Haz tus picks para cada duelo.",
+  "countdown": "2026-08-16T10:00",
+  "event": {
+    "org": "CARRIL SAN JOSÉ",
+    "titleTop": "SAN JOSÉ",
+    "titleBottom": "DELANO",
+    "tagline": "CARRERAS DEL OESTE · 15 GRANDES CARRERAS",
+    "stars": "15 CARRERAS · MANO A MANO",
+    "dayName": "DOMINGO",
+    "dayNum": "16",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Delano, California",
+    "address": "Carril San José · Delano, CA",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "CARRERAS DEL OESTE",
+        "cat": "Organizador Oficial"
+      },
+      {
+        "name": "CUADRA MOCHOMO",
+        "cat": "Cuadra Destacada"
+      },
+      {
+        "name": "CUADRA TIERRA LIBRE",
+        "cat": "Cuadra Destacada"
+      }
+    ],
+    "counts": "15 carreras · puro mano a mano en el oeste"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL DELTA",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL IMPARABLE",
+      "stable": "C. Plebes"
+    },
+    {
+      "gate": null,
+      "name": "EL MANTARRAYA",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL LEÓN RASURADO",
+      "stable": "C. Arriaga"
+    },
+    {
+      "gate": null,
+      "name": "EL 8-18",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL MANCHAS",
+      "stable": "C. Arriaga"
+    },
+    {
+      "gate": null,
+      "name": "EL PLAYBOY",
+      "stable": "C. Romero"
+    },
+    {
+      "gate": null,
+      "name": "EL VIEJÓN",
+      "stable": "C. Preciado"
+    },
+    {
+      "gate": null,
+      "name": "EL ONDEADO",
+      "stable": "C. Dos Amigos"
+    },
+    {
+      "gate": null,
+      "name": "EL ABANDONADO",
+      "stable": "C. Arriaga"
+    },
+    {
+      "gate": null,
+      "name": "EL CUYEYO",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL RAYITO",
+      "stable": "C. Nueva Alianza"
+    },
+    {
+      "gate": null,
+      "name": "EL NACHO CORONEL",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL JOHNNY WALKER",
+      "stable": "C. Arriaga"
+    },
+    {
+      "gate": null,
+      "name": "EL CASH",
+      "stable": "C. Dos Amigos"
+    },
+    {
+      "gate": null,
+      "name": "EL CINCO BARRAS",
+      "stable": "C. Jabonera"
+    },
+    {
+      "gate": null,
+      "name": "EL CUBANITO",
+      "stable": "C. Tierra Libre"
+    },
+    {
+      "gate": null,
+      "name": "EL SCARFACE",
+      "stable": "C. Nueva Alianza"
+    },
+    {
+      "gate": null,
+      "name": "EL CUERVO",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "EL MANOS CHUECAS",
+      "stable": "C. Bocanegra"
+    },
+    {
+      "gate": null,
+      "name": "EL ROLEX",
+      "stable": "C. Tierra Libre"
+    },
+    {
+      "gate": null,
+      "name": "EL ELEGANTE",
+      "stable": "C. Nueva Alianza"
+    },
+    {
+      "gate": null,
+      "name": "EL ITALIANO",
+      "stable": "C. Mochomo"
+    },
+    {
+      "gate": null,
+      "name": "LA GOMITA",
+      "stable": "C. Tierra Libre"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "featured": "LA ESTELAR · MANO A MANO",
+      "horses": [
+        {
+          "name": "EL DELTA",
+          "stable": "C. Mochomo",
+          "photo": "p1"
+        },
+        {
+          "name": "EL IMPARABLE",
+          "stable": "C. Plebes",
+          "photo": "p2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MANTARRAYA",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "EL LEÓN RASURADO",
+          "stable": "C. Arriaga"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL 8-18",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "EL MANCHAS",
+          "stable": "C. Arriaga"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "450Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PLAYBOY",
+          "stable": "C. Romero"
+        },
+        {
+          "name": "EL VIEJÓN",
+          "stable": "C. Preciado"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "250 o 275Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ONDEADO",
+          "stable": "C. Dos Amigos"
+        },
+        {
+          "name": "EL ABANDONADO",
+          "stable": "C. Arriaga"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "330 o 350Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUYEYO",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "EL RAYITO",
+          "stable": "C. Nueva Alianza"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL NACHO CORONEL",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "EL JOHNNY WALKER",
+          "stable": "C. Arriaga"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "section": "TAPADOS",
+      "horses": [
+        {
+          "name": "TAPADOS",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "TAPADOS",
+          "stable": "C. Tierra Libre"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CASH",
+          "stable": "C. Dos Amigos"
+        },
+        {
+          "name": "EL CINCO BARRAS",
+          "stable": "C. Jabonera"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "time": "—",
+      "dist": "225Y",
+      "type": "duel",
+      "section": "TAPADOS",
+      "horses": [
+        {
+          "name": "TAPADOS",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "TAPADOS",
+          "stable": "C. Tierra Libre"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "—",
+      "dist": "300Y",
+      "type": "open",
+      "category": "ABIERTA DE TRESAÑEROS · NO JUGADOS AFUERA",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "Cupo abierto · tresañeros",
+        "No jugados afuera"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "—",
+      "dist": "250Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUBANITO",
+          "stable": "C. Tierra Libre"
+        },
+        {
+          "name": "EL SCARFACE",
+          "stable": "C. Nueva Alianza"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "—",
+      "dist": "350Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUERVO",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "EL MANOS CHUECAS",
+          "stable": "C. Bocanegra"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ROLEX",
+          "stable": "C. Tierra Libre"
+        },
+        {
+          "name": "EL ELEGANTE",
+          "stable": "C. Nueva Alianza"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "time": "—",
+      "dist": "300Y",
+      "type": "duel",
+      "featured": "CIERRE ESTELAR",
+      "horses": [
+        {
+          "name": "EL ITALIANO",
+          "stable": "C. Mochomo"
+        },
+        {
+          "name": "LA GOMITA",
+          "stable": "C. Tierra Libre"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "8": {
+      "img": "images/img12.jpg",
+      "tag": "CUADRA DESTACADA",
+      "title": "CUADRA MOCHOMO",
+      "tagline": "La cuadra con más caballos del programa · puro fierro en el oeste",
+      "cta": "VER CABALLOS",
+      "special": {
+        "title": "PURO MOCHOMO",
+        "text": "Sigue a la cuadra Mochomo carrera por carrera",
+        "code": "MOCHOMO16"
+      }
+    },
+    "15": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de Delano te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera del oeste · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "EL DELTA portrait (duel p1, race 1) — brown horse, left jockey",
+    "images/img02.jpg": "EL IMPARABLE portrait (duel p2, race 1) — grey horse, right jockey",
+    "images/img11.jpg": "hero/poster — San José Delano jockey action photo",
+    "images/img09.jpg": "wide banner — San José Delano jockey action photo",
+    "note": "Photos cropped from the official Carril San José Delano flyer (two jockey action shots); icons kept from template."
+  }
+}
