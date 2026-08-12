@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Hípico Dos Naciones · Video Ad 30s</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:#000}
+#stage{position:relative;width:540px;height:960px;overflow:hidden;font-family:Arial,sans-serif;color:#fff}
+
+/* ── VIDEO BACKGROUND ── */
+video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;width:auto;height:106%;object-fit:cover}
+.tint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.42),rgba(0,0,0,.28) 40%,rgba(0,0,0,.62));transition:background .4s}
+.vig{position:absolute;inset:0;box-shadow:inset 0 0 170px 55px rgba(0,0,0,.8)}
+
+/* embers */
+.ember{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:#FFB84A;filter:blur(1px);opacity:0;animation:rise 4.5s linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}12%{opacity:.85}100%{opacity:0;transform:translateY(-990px) translateX(50px) scale(.4)}}
+
+/* ── SCENES (30s) ── */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;padding:0 26px}
+.s1{animation:hold 4s 0s both}
+.s2{animation:hold 4.6s 4s both}
+.s3{animation:hold 6s 8.6s both}
+.s4{animation:hold 4.6s 14.6s both}
+.s5{animation:hold 4.4s 19.2s both}
+.s6{animation:holdend 6.4s 23.6s both}
+@keyframes hold{0%{opacity:0}5%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes holdend{0%{opacity:0}6%{opacity:1}100%{opacity:1}}
+
+.slam{animation:slam .5s cubic-bezier(.17,.89,.32,1.5) both}
+@keyframes slam{0%{transform:scale(3.4);opacity:0;filter:blur(9px)}60%{opacity:1;filter:blur(0)}100%{transform:scale(1)}}
+.up{animation:up .55s cubic-bezier(.17,.89,.32,1.3) both}
+@keyframes up{from{transform:translateY(70px);opacity:0}to{transform:translateY(0);opacity:1}}
+.shake{animation:shake .45s .1s 3}
+@keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-7px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-5px,-3px)}80%{transform:translate(5px,4px)}}
+
+.gold3{color:#FFD24A;text-shadow:0 2px 0 #c69a1c,0 4px 0 #a87f13,0 6px 0 #85620b,0 9px 5px rgba(0,0,0,.55),0 16px 26px rgba(0,0,0,.6)}
+.red3{color:#FF3B47;text-shadow:0 2px 0 #b6121e,0 4px 0 #8f0c16,0 6px 0 #68070e,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.blue3{color:#4BA3FF;text-shadow:0 2px 0 #1663b8,0 4px 0 #114e92,0 6px 0 #0c3a6d,0 9px 5px rgba(0,0,0,.55),0 15px 24px rgba(0,0,0,.65)}
+.white3{color:#fff;text-shadow:0 2px 0 #b9b9b9,0 4px 0 #8f8f8f,0 6px 0 #676767,0 9px 5px rgba(0,0,0,.5),0 15px 24px rgba(0,0,0,.6)}
+
+/* S1 hook */
+.s1 .q{font-size:64px;font-weight:900;letter-spacing:2px;line-height:1;animation-delay:.3s}
+.s1 .a{font-size:30px;font-weight:900;letter-spacing:3px;color:#FFD24A;margin-top:26px;animation-delay:.9s;text-shadow:0 3px 14px rgba(0,0,0,.8)}
+.s1 .b{font-size:16px;font-weight:700;letter-spacing:5px;color:rgba(255,255,255,.8);margin-top:20px;animation-delay:1.4s}
+
+/* S2 brand */
+.t3d{transform:perspective(460px) rotateX(11deg)}
+.s2 .brand{font-size:78px;font-weight:900;line-height:.95;letter-spacing:1px}
+.s2 .loc{font-size:20px;font-weight:800;letter-spacing:6px;color:rgba(255,255,255,.85);margin-top:16px;animation-delay:.45s}
+.datepill{display:inline-block;background:#E01E2B;color:#fff;font-size:34px;font-weight:900;letter-spacing:3px;padding:10px 32px;border-radius:12px;margin-top:30px;box-shadow:0 10px 44px rgba(224,30,43,.65);animation-delay:.65s}
+.s2 .y{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.7);margin-top:16px;animation-delay:.85s}
+
+/* S3 duel */
+.s3 .lbl{font-size:20px;font-weight:800;letter-spacing:6px;color:#FFD24A;animation-delay:.2s}
+.s3 .h1{font-size:74px;font-weight:900;line-height:.95;margin-top:16px;animation-delay:.45s}
+.s3 .c1{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:.6s}
+.s3 .vs{font-size:60px;font-weight:900;margin:14px 0;animation-delay:.85s}
+.s3 .h2{font-size:74px;font-weight:900;line-height:.95;animation-delay:1.1s}
+.s3 .c2{font-size:15px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:6px;animation-delay:1.25s}
+.s3 .yards{display:inline-block;border:3px solid #FFD24A;color:#FFD24A;font-size:28px;font-weight:900;letter-spacing:4px;padding:6px 26px;border-radius:999px;margin-top:24px;animation-delay:1.5s;background:rgba(0,0,0,.45)}
+
+/* S4 pick-a-side */
+.s4 .q{font-size:56px;font-weight:900;line-height:1;animation-delay:.25s;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.sides{display:flex;gap:16px;margin-top:32px}
+.side{border-radius:16px;padding:20px 22px;font-weight:900;opacity:0;animation:up .5s cubic-bezier(.17,.89,.32,1.4) both}
+.side .n{font-size:30px;line-height:1}
+.side .t{font-size:12px;letter-spacing:2px;margin-top:6px;opacity:.85;font-weight:800}
+.side.r{background:linear-gradient(160deg,#E01E2B,#8f0c16);box-shadow:0 12px 44px rgba(224,30,43,.5);animation-delay:.7s}
+.side.b{background:linear-gradient(160deg,#2E7FE0,#123c74);box-shadow:0 12px 44px rgba(46,127,224,.5);animation-delay:.9s}
+.s4 .cm{font-size:17px;font-weight:800;letter-spacing:3px;color:#FFD24A;margin-top:30px;animation-delay:1.3s}
+
+/* S5 urgency */
+.s5 .u1{font-size:56px;font-weight:900;line-height:1.02;animation-delay:.25s}
+.s5 .u2{font-size:40px;font-weight:900;color:#FF3B47;margin-top:24px;animation-delay:.7s;animation:pulse2 .9s .7s infinite alternate,up .5s .7s both}
+@keyframes pulse2{from{transform:scale(1)}to{transform:scale(1.07)}}
+.s5 .u3{font-size:15px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.75);margin-top:22px;animation-delay:1.1s}
+
+/* S6 CTA */
+.s6 .d{font-size:84px;font-weight:900;line-height:.95;animation-delay:.3s}
+.s6 .yy{font-size:24px;font-weight:900;letter-spacing:4px;color:#fff;margin-top:8px;animation-delay:.5s;text-shadow:0 3px 12px rgba(0,0,0,.8)}
+.s6 .m{font-size:24px;font-weight:900;letter-spacing:2px;margin-top:26px;animation-delay:.75s}
+.s6 .m .r{color:#FF3B47}.s6 .m .bl{color:#4BA3FF}
+.s6 .share{display:inline-block;background:#FFD24A;color:#160b02;font-size:22px;font-weight:900;letter-spacing:2px;padding:14px 28px;border-radius:14px;margin-top:32px;box-shadow:0 12px 46px rgba(255,210,74,.45);animation-delay:1s}
+.s6 .brand2{font-size:19px;font-weight:900;letter-spacing:3px;color:#FFD24A;margin-top:30px;animation-delay:1.25s;text-shadow:0 2px 0 #85620b,0 6px 16px rgba(0,0,0,.6)}
+
+/* flashes */
+.flash{position:absolute;inset:0;opacity:0;pointer-events:none;background:#E01E2B}
+.flash.w{background:#fff}
+.f1{animation:fl .32s 3.95s}
+.f2{animation:fl .32s 8.55s}
+.f3{animation:fl .32s 14.55s}
+.f4{animation:fl .32s 19.15s}
+.f5{animation:fl .32s 23.55s}
+@keyframes fl{0%{opacity:0}45%{opacity:.9}100%{opacity:0}}
+/* persistent QR badge */
+.qrbadge{position:absolute;right:20px;bottom:24px;z-index:60;display:flex;align-items:center;gap:10px;background:rgba(13,10,4,.82);border:1px solid rgba(200,144,26,.55);border-radius:14px;padding:9px 12px 9px 9px;backdrop-filter:blur(3px)}
+.qrbadge img{width:74px;height:74px;border-radius:8px;background:#F6F1E7;padding:4px;display:block}
+.qrbadge .lbl{font-family:Arial,sans-serif;font-weight:900;font-size:15px;line-height:1.05;color:#E8B84B;letter-spacing:1px;max-width:96px}
+.qrbadge .lbl span{display:block;font-size:10px;color:#fff;opacity:.7;letter-spacing:1px;margin-top:3px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="v" src="race-clip.webm" muted loop playsinline></video>
+  <div class="tint"></div>
+  <div class="vig"></div>
+  <div class="ember" style="left:10%;animation-delay:.3s"></div>
+  <div class="ember" style="left:26%;animation-delay:1.7s"></div>
+  <div class="ember" style="left:44%;animation-delay:.9s"></div>
+  <div class="ember" style="left:61%;animation-delay:2.4s"></div>
+  <div class="ember" style="left:78%;animation-delay:.6s"></div>
+  <div class="ember" style="left:91%;animation-delay:1.9s"></div>
+
+  <!-- S1 0–4s: HOOK -->
+  <div class="scene s1">
+    <div class="q slam fit white3">¿ESTÁS LISTO<br>PARA ESTO?</div>
+    <div class="a up fit">USA vs MÉXICO · 4 VS 4 · 2 VS 2</div>
+    <div class="b up fit">YA ES OFICIAL 🔥</div>
+  </div>
+
+  <!-- S2 4–8.6s: BRAND + DATE -->
+  <div class="scene s2">
+    <div class="t3d slam"><div class="brand gold3 fit">HÍPICO DOS NACIONES</div></div>
+    <div class="loc up fit">🇺🇸 USA vs MÉXICO 🇲🇽</div>
+    <div class="datepill up fit">DOMINGO · 16 DE AGOSTO</div>
+    <div class="y up fit">2026 · ENTRADA $400</div>
+  </div>
+
+  <!-- S3 8.6–14.6s: LA ESTELAR -->
+  <div class="scene s3">
+    <div class="lbl up fit">⭐ LA ESTELAR ⭐</div>
+    <div class="h1 slam fit red3">EL CONDOR</div>
+    <div class="c1 up fit">CUADRA LA ESPERANZA</div>
+    <div class="vs slam fit white3 shake">VS</div>
+    <div class="h2 slam fit blue3">EL CARDENAL</div>
+    <div class="c2 up fit">CUADRA 2 NACIONES</div>
+    <div class="yards up fit">325 VARAS</div>
+  </div>
+
+  <!-- S4 14.6–19.2s: PICK A SIDE -->
+  <div class="scene s4">
+    <div class="q slam fit">¿DE QUÉ LADO<br>ESTÁS?</div>
+    <div class="sides">
+      <div class="side r"><div class="n">🔴 EL CONDOR</div><div class="t">CUADRA LA ESPERANZA</div></div>
+      <div class="side b"><div class="n">🔵 EL CARDENAL</div><div class="t">CUADRA 2 NACIONES</div></div>
+    </div>
+    <div class="cm up fit">HAZ TUS PICKS 👇</div>
+  </div>
+
+  <!-- S5 19.2–23.6s: URGENCY -->
+  <div class="scene s5">
+    <div class="u1 slam fit white3">29 CARRERAS.<br>UN SOLO DÍA.</div>
+    <div class="u2 fit">¿TE LO VAS A PERDER?</div>
+    <div class="u3 up fit">TODO EL HÍPICO VA A ESTAR AHÍ</div>
+  </div>
+
+  <!-- S6 23.6–30s: CTA -->
+  <div class="scene s6">
+    <div class="d slam fit gold3">16 DE AGOSTO</div>
+    <div class="yy up fit">HÍPICO DOS NACIONES · ENTRADA $400</div>
+    <div class="m up fit"><span class="r">EL CONDOR</span> VS <span class="bl">EL CARDENAL</span></div>
+    <div class="share up fit">📲 ESCANEA Y HAZ TUS PICKS</div>
+    <div class="brand2 up fit">USA vs MÉXICO · PURO FIERRO 🐎</div>
+  </div>
+
+  <div class="qrbadge"><img src="data:image/png;base64,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AGAJEwAsYQKAJUwAsIQJAJb40ss8Um+ZLr3FI3VlunTikTqZLn1H06UnPFLf0XTpxCN113TpLR6pjTxST0yXrpgAYAkTACxhAoAlTACwhAkAljABwBImAFjiS/iPpkvfkUfqZLp0l0fqZLp0Ml26yyN1Ml264pF6Yrp0l0fqZLp0Ml264pF6y3TpxCN113TpxCN1lwkAljABwBImAFjCBABLmABgCRMALGECgCW+hP9306UTj9Rd06VP8UjdNV16y3TpxCN14pG6Ml06mS494ZG6Ml068UidTJfumi69Zbp0lwkAljABwBImAFjCBABLmABgCRMALPGll02X/jYeqSemS1c8UiceqZPp0l3TpROP1FumSyceqSvTpSemS2/xSJ1Mlz7BI3UyXTrxSN01XbrLBABLmABgCRMALGECgCVMALCECQCWMAHAEl96yCP1N/JIfcJ06QmP1KdMl654pN7ikfqupkt3eaROpksnHqkr06VP8UidTJeumABgCRMALGECgCVMALCECQCWMAHAEiYAWOLH718//wgAFjABwBImAFjCBABLmABgCRMALGECgCX+C57n1bWbQDKnAAAAAElFTkSuQmCC" alt="QR"><div class="lbl">TUS PICKS<span>Escanea 🐎</span></div></div>
+  <div class="flash f1"></div>
+  <div class="flash w f2"></div>
+  <div class="flash f3"></div>
+  <div class="flash w f4"></div>
+  <div class="flash f5"></div>
+</div>
+
+<script>
+const v=document.getElementById('v');
+v.muted=true;v.loop=true;
+v.play().catch(()=>{});
+function fitAll(){
+  document.querySelectorAll('.fit').forEach(el=>{
+    el.style.whiteSpace='nowrap';
+    let fs=parseFloat(getComputedStyle(el).fontSize);
+    let g=0;
+    while(el.scrollWidth>492&&fs>12&&g<80){fs-=2;el.style.fontSize=fs+'px';g++}
+  });
+}
+fitAll();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll)}
+</script>
+</body>
+</html>

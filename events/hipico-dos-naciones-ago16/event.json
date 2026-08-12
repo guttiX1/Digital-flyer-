@@ -1,0 +1,789 @@
+{
+  "slug": "hipico-dos-naciones-ago16",
+  "page_title": "CarrerasOS · Hípico Dos Naciones",
+  "page_description": "Hípico Dos Naciones · USA vs México · Domingo 16 de Agosto 2026 · 29 carreras · 4 VS 4 y 2 VS 2 · Entrada $400. Haz tus picks para cada duelo.",
+  "countdown": "2026-08-16T09:00",
+  "event": {
+    "org": "HÍPICO DOS NACIONES",
+    "titleTop": "DOS",
+    "titleBottom": "NACIONES",
+    "tagline": "USA vs MÉXICO · 4 VS 4 · 2 VS 2",
+    "stars": "29 CARRERAS · ENTRADA $400",
+    "dayName": "DOMINGO",
+    "dayNum": "16",
+    "month": "DE AGOSTO",
+    "year": "2026",
+    "location": "Hípico Dos Naciones",
+    "address": "Entrada General $400 pesos",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "CUADRA LA ESPERANZA",
+        "cat": "Cuadra Anfitriona"
+      },
+      {
+        "name": "CUADRA 2 NACIONES",
+        "cat": "Cuadra Anfitriona"
+      },
+      {
+        "name": "CUADRA LA ESTRELLA · SANTA CECILIA",
+        "cat": "Cuadra Destacada"
+      },
+      {
+        "name": "GOAL MARTÍNEZ · DIEGO ALARCÓN · D&A",
+        "cat": "Fotografía Oficial"
+      }
+    ],
+    "counts": "29 carreras · duelo de dos naciones"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL ZORRO",
+      "stable": "C. Rolas Jr"
+    },
+    {
+      "gate": null,
+      "name": "EL ARABE",
+      "stable": "C. Rancho San Miguel"
+    },
+    {
+      "gate": null,
+      "name": "EL GRIEGO",
+      "stable": "C. Rolex"
+    },
+    {
+      "gate": null,
+      "name": "EL CHARLY",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "LA ZORRITA",
+      "stable": "C. Nueva"
+    },
+    {
+      "gate": null,
+      "name": "LA CAPIBARA",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "EL TORNADO",
+      "stable": "C. Don Eliseo"
+    },
+    {
+      "gate": null,
+      "name": "EL TORTUGO",
+      "stable": "C. Nva Generación"
+    },
+    {
+      "gate": null,
+      "name": "EL MONCHIS",
+      "stable": "C. Nueva Era"
+    },
+    {
+      "gate": null,
+      "name": "KRASH CARTEL",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "TONY TORMENTA",
+      "stable": "C. Don Eliseo"
+    },
+    {
+      "gate": null,
+      "name": "EL MILLONCITO",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "AGUILA BLANCA",
+      "stable": "C. Nueva Era"
+    },
+    {
+      "gate": null,
+      "name": "CAPITAN",
+      "stable": "C. Nva Generación"
+    },
+    {
+      "gate": null,
+      "name": "AFRICANA",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "JHONNY WALKER",
+      "stable": "C. Rolex"
+    },
+    {
+      "gate": null,
+      "name": "LA VENENO",
+      "stable": "C. 2 Naciones"
+    },
+    {
+      "gate": null,
+      "name": "EL PATO",
+      "stable": "C. La Estrella/SC"
+    },
+    {
+      "gate": null,
+      "name": "EL RAFAEL",
+      "stable": "C. 2 Naciones"
+    },
+    {
+      "gate": null,
+      "name": "EL PLEBE",
+      "stable": "C. Nueva Era"
+    },
+    {
+      "gate": null,
+      "name": "EL DON NADIE",
+      "stable": "C. Tercia de Ases"
+    },
+    {
+      "gate": null,
+      "name": "EL CONDOR",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL CARDENAL",
+      "stable": "C. 2 Naciones"
+    },
+    {
+      "gate": null,
+      "name": "LA GENERALA",
+      "stable": "C. Los Ortega"
+    },
+    {
+      "gate": null,
+      "name": "LA CHINA",
+      "stable": "C. Rancho Nuevo"
+    },
+    {
+      "gate": null,
+      "name": "EL MISTER",
+      "stable": "C. Los Potros"
+    },
+    {
+      "gate": null,
+      "name": "EL MARTELL",
+      "stable": "C. Laberinto"
+    },
+    {
+      "gate": null,
+      "name": "EL ROMANO",
+      "stable": "C. La Estrella/SC"
+    },
+    {
+      "gate": null,
+      "name": "LA BUCANERA",
+      "stable": "C. Sucirio Ranch"
+    },
+    {
+      "gate": null,
+      "name": "LA DAMA",
+      "stable": "C. Solitario"
+    },
+    {
+      "gate": null,
+      "name": "MORO CADENAS",
+      "stable": "C. Porvenir"
+    },
+    {
+      "gate": null,
+      "name": "EL CHOCOLATE",
+      "stable": "C. Rancho Nuevo"
+    },
+    {
+      "gate": null,
+      "name": "LA AHITIANA",
+      "stable": "C. Sabino"
+    },
+    {
+      "gate": null,
+      "name": "EL HALCON",
+      "stable": "C. Solitario"
+    },
+    {
+      "gate": null,
+      "name": "EL ALCALDE",
+      "stable": "C. La Estrella/SC"
+    },
+    {
+      "gate": null,
+      "name": "EL MEXICANO",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL ALUSIN",
+      "stable": "C. 2 Naciones"
+    },
+    {
+      "gate": null,
+      "name": "EL CHOCOLATE",
+      "stable": "C. La Estrella/SC · DA FAJA"
+    },
+    {
+      "gate": null,
+      "name": "EL 30-30",
+      "stable": "C. Rancho San Miguel"
+    },
+    {
+      "gate": null,
+      "name": "EL REY LEON",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL TRAILERO",
+      "stable": "C. 2 Naciones"
+    },
+    {
+      "gate": null,
+      "name": "EL FENIX",
+      "stable": "C. Rolex"
+    },
+    {
+      "gate": null,
+      "name": "EL COMISARIO",
+      "stable": "C. Sabino · DA FYB"
+    },
+    {
+      "gate": null,
+      "name": "EL PANADERO",
+      "stable": "C. Porvenir"
+    },
+    {
+      "gate": null,
+      "name": "LA AGUILILLA",
+      "stable": "C. Los Potros"
+    },
+    {
+      "gate": null,
+      "name": "EL ESPEJO",
+      "stable": "C. La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "NVO MINISTRO",
+      "stable": "C. 2 Naciones"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "9:00 AM",
+      "dist": "150 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ZORRO",
+          "stable": "C. Rolas Jr"
+        },
+        {
+          "name": "EL ARABE",
+          "stable": "C. Rancho San Miguel"
+        }
+      ],
+      "section": "4 VS 4 · APERTURA"
+    },
+    {
+      "id": 2,
+      "time": "9:20 AM",
+      "dist": "250 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL GRIEGO",
+          "stable": "C. Rolex"
+        },
+        {
+          "name": "EL CHARLY",
+          "stable": "C. Sabino"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "9:40 AM",
+      "dist": "250 VRS",
+      "type": "open",
+      "category": "ABIERTA 2 AÑEROS · 1ER ESCUELA DE VIDA",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. Nogales",
+        "C. Sabino",
+        "C. Rolas Jr"
+      ]
+    },
+    {
+      "id": 4,
+      "time": "10:00 AM",
+      "dist": "225 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "3 AÑERO",
+          "stable": "C. Alamos"
+        },
+        {
+          "name": "3 AÑERO",
+          "stable": "C. Sabino"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "10:20 AM",
+      "dist": "300 VRS",
+      "type": "open",
+      "category": "ABIERTA 3 AÑEROS NO GANADORES",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. 2 Amigos",
+        "C. Nva Generación",
+        "C. Mezquite/3RS"
+      ]
+    },
+    {
+      "id": 6,
+      "time": "10:40 AM",
+      "dist": "200 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA ZORRITA",
+          "stable": "C. Nueva"
+        },
+        {
+          "name": "LA CAPIBARA",
+          "stable": "C. Sabino"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "11:00 AM",
+      "dist": "325 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TORNADO",
+          "stable": "C. Don Eliseo"
+        },
+        {
+          "name": "EL TORTUGO",
+          "stable": "C. Nva Generación"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "11:20 AM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MONCHIS",
+          "stable": "C. Nueva Era"
+        },
+        {
+          "name": "KRASH CARTEL",
+          "stable": "C. Sabino"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "11:40 AM",
+      "dist": "100 VRS",
+      "type": "open",
+      "category": "ABIERTA CUADRAS MEDIANAS Y CHICAS",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. Rancho Nvo",
+        "C. La Palma",
+        "C. Rolex",
+        "C. Nva Era",
+        "C. R. San Miguel",
+        "C. El Ojo"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "12:20 PM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "TONY TORMENTA",
+          "stable": "C. Don Eliseo"
+        },
+        {
+          "name": "EL MILLONCITO",
+          "stable": "C. Sabino"
+        }
+      ],
+      "section": "MANTENIMIENTO DE PISTA · BLOQUE 2"
+    },
+    {
+      "id": 11,
+      "time": "12:40 PM",
+      "dist": "275 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "3 AÑERO",
+          "stable": "C. Alamos"
+        },
+        {
+          "name": "3 AÑERO",
+          "stable": "C. 2 Naciones"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "1:00 PM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "AGUILA BLANCA",
+          "stable": "C. Nueva Era"
+        },
+        {
+          "name": "CAPITAN",
+          "stable": "C. Nva Generación"
+        },
+        {
+          "name": "AFRICANA",
+          "stable": "C. Sabino"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "1:20 PM",
+      "dist": "225 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "JHONNY WALKER",
+          "stable": "C. Rolex"
+        },
+        {
+          "name": "LA VENENO",
+          "stable": "C. 2 Naciones"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "time": "1:40 PM",
+      "dist": "325 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PATO",
+          "stable": "C. La Estrella/SC"
+        },
+        {
+          "name": "EL RAFAEL",
+          "stable": "C. 2 Naciones"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "time": "2:00 PM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PLEBE",
+          "stable": "C. Nueva Era"
+        },
+        {
+          "name": "EL DON NADIE",
+          "stable": "C. Tercia de Ases"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "time": "2:20 PM",
+      "dist": "325 VRS",
+      "type": "open",
+      "category": "ABIERTA LIBRE DE TAPADOS",
+      "entryNote": "Carrera abierta",
+      "entries": [
+        "C. Los Ortega",
+        "C. Don Kiki",
+        "C. Sabino",
+        "C. El Rosal",
+        "C. Estrella/SC",
+        "C. Solitario"
+      ]
+    },
+    {
+      "id": 17,
+      "time": "3:00 PM",
+      "dist": "250 VRS",
+      "type": "open",
+      "category": "ABIERTA POR RECLAMO · $10,000 DÓLARES",
+      "entryNote": "Reclamo $10,000 USD",
+      "entries": [
+        "C. Rolex",
+        "C. R. San Miguel",
+        "C. Barrón/5 Hnos",
+        "C. Nva Era"
+      ],
+      "section": "MANTENIMIENTO DE PISTA · BLOQUE 3",
+      "featured": "RECLAMO · $10,000 DÓLARES"
+    },
+    {
+      "id": 18,
+      "time": "3:20 PM",
+      "dist": "325 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CONDOR",
+          "stable": "C. La Esperanza",
+          "photo": "p1"
+        },
+        {
+          "name": "EL CARDENAL",
+          "stable": "C. 2 Naciones",
+          "photo": "p2"
+        }
+      ],
+      "featured": "LA ESTELAR · ESPERANZA vs 2 NACIONES"
+    },
+    {
+      "id": 19,
+      "time": "3:40 PM",
+      "dist": "250 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA GENERALA",
+          "stable": "C. Los Ortega"
+        },
+        {
+          "name": "LA CHINA",
+          "stable": "C. Rancho Nuevo"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "time": "4:00 PM",
+      "dist": "375 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MISTER",
+          "stable": "C. Los Potros"
+        },
+        {
+          "name": "EL MARTELL",
+          "stable": "C. Laberinto"
+        },
+        {
+          "name": "EL ROMANO",
+          "stable": "C. La Estrella/SC"
+        }
+      ],
+      "section": "MISTER vs MARTELL · 2 CARRERAS EN 1 · MARTELL vs ROMANO"
+    },
+    {
+      "id": 21,
+      "time": "4:20 PM",
+      "dist": "200 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA BUCANERA",
+          "stable": "C. Sucirio Ranch"
+        },
+        {
+          "name": "LA DAMA",
+          "stable": "C. Solitario"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "time": "4:40 PM",
+      "dist": "125 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "MORO CADENAS",
+          "stable": "C. Porvenir"
+        },
+        {
+          "name": "EL CHOCOLATE",
+          "stable": "C. Rancho Nuevo"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "time": "5:00 PM",
+      "dist": "275 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA AHITIANA",
+          "stable": "C. Sabino"
+        },
+        {
+          "name": "EL HALCON",
+          "stable": "C. Solitario"
+        },
+        {
+          "name": "EL ALCALDE",
+          "stable": "C. La Estrella/SC"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "time": "5:40 PM",
+      "dist": "250 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MEXICANO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "EL ALUSIN",
+          "stable": "C. 2 Naciones"
+        }
+      ],
+      "section": "MANTENIMIENTO DE PISTA · BLOQUE 4"
+    },
+    {
+      "id": 25,
+      "time": "6:00 PM",
+      "dist": "350 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CHOCOLATE",
+          "stable": "C. La Estrella/SC · DA FAJA"
+        },
+        {
+          "name": "EL 30-30",
+          "stable": "C. Rancho San Miguel"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "time": "6:20 PM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL REY LEON",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "EL TRAILERO",
+          "stable": "C. 2 Naciones"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "time": "6:40 PM",
+      "dist": "300 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL FENIX",
+          "stable": "C. Rolex"
+        },
+        {
+          "name": "EL COMISARIO",
+          "stable": "C. Sabino · DA FYB"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "time": "7:00 PM",
+      "dist": "200 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL PANADERO",
+          "stable": "C. Porvenir"
+        },
+        {
+          "name": "LA AGUILILLA",
+          "stable": "C. Los Potros"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "time": "7:30 PM",
+      "dist": "350 VRS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ESPEJO",
+          "stable": "C. La Esperanza"
+        },
+        {
+          "name": "NVO MINISTRO",
+          "stable": "C. 2 Naciones"
+        }
+      ],
+      "featured": "CIERRE · ESPERANZA vs 2 NACIONES"
+    }
+  ],
+  "ads": {
+    "17": {
+      "img": "images/img12.jpg",
+      "tag": "CARRERA DESTACADA",
+      "title": "RECLAMO · $10,000 DÓLARES",
+      "tagline": "La abierta por reclamo más fuerte del día · Rolex vs San Miguel vs Barrón vs Nva Era",
+      "cta": "VER DETALLES",
+      "special": {
+        "title": "$10,000 USD",
+        "text": "La bolsa más grande del Hípico Dos Naciones",
+        "code": "RECLAMO10K"
+      }
+    },
+    "29": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de las dos naciones te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "EL CONDOR portrait (duel p1, race 18) — left action photo",
+    "images/img02.jpg": "EL CARDENAL portrait (duel p2, race 18) — right action photo",
+    "images/img11.jpg": "hero/poster — Dos Naciones jockey action photo",
+    "images/img09.jpg": "wide banner — Dos Naciones jockey action photo",
+    "note": "Photos cropped from the official Hípico Dos Naciones flyer (4 action shots); icons kept from template."
+  }
+}
