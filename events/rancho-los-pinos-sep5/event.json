@@ -1,0 +1,440 @@
+{
+  "slug": "rancho-los-pinos-sep5",
+  "page_title": "CarrerasOS · Rancho Los Pinos",
+  "page_description": "Rancho Los Pinos · 9173 FM 322, Palestine, TX · Sábado 5 de Septiembre 2026 · 17 carreras · Duelo de Campeones El Culichi vs El Juaritoz · Piedreros vs Petroleros.",
+  "countdown": "2026-09-05T12:00",
+  "event": {
+    "org": "RANCHO LOS PINOS",
+    "titleTop": "RANCHO",
+    "titleBottom": "LOS PINOS",
+    "tagline": "DUELO DE CAMPEONES · PIEDREROS vs PETROLEROS",
+    "stars": "17 CARRERAS · AMBIENTE FAMILIAR",
+    "dayName": "SÁBADO",
+    "dayNum": "5",
+    "month": "DE SEPTIEMBRE",
+    "year": "2026",
+    "location": "Palestine, Texas",
+    "address": "9173 FM 322, Palestine, TX",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "CUADRA PETROLEROS",
+        "cat": "Cuadra Estelar"
+      },
+      {
+        "name": "CUADRA PIEDREROS",
+        "cat": "Cuadra Estelar"
+      },
+      {
+        "name": "CUADRA KING RANCH / PISCES",
+        "cat": "Cuadra Campeona"
+      },
+      {
+        "name": "DIEGO ALARCÓN · D&A DESIGNS",
+        "cat": "Fotografía Oficial"
+      }
+    ],
+    "counts": "17 carreras · duelo de campeones"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL ANTRAX",
+      "stable": "C. 2 Amigos"
+    },
+    {
+      "gate": null,
+      "name": "EL CADENAS",
+      "stable": "C. Hernández"
+    },
+    {
+      "gate": null,
+      "name": "SR DEL SOMBRERO",
+      "stable": "C. King Ranch/Pisces"
+    },
+    {
+      "gate": null,
+      "name": "EL VALERO",
+      "stable": "C. Petroleros"
+    },
+    {
+      "gate": null,
+      "name": "EL CORITA",
+      "stable": "C. 16"
+    },
+    {
+      "gate": null,
+      "name": "EL 2R",
+      "stable": "C. RR"
+    },
+    {
+      "gate": null,
+      "name": "EL ARTILLERO",
+      "stable": "C. 2 Amigos"
+    },
+    {
+      "gate": null,
+      "name": "EL MAGO",
+      "stable": "C. Petroleros"
+    },
+    {
+      "gate": null,
+      "name": "EL TAZO DORADO",
+      "stable": "C. King Ranch/Pisces"
+    },
+    {
+      "gate": null,
+      "name": "EL VILLANUEVA",
+      "stable": "C. Ladrilleros/RR"
+    },
+    {
+      "gate": null,
+      "name": "EL TRAKITAS",
+      "stable": "C. 2 Amigos"
+    },
+    {
+      "gate": null,
+      "name": "EL REGALO",
+      "stable": "C. Buenavista"
+    },
+    {
+      "gate": null,
+      "name": "EL ANTRAX",
+      "stable": "C. San Juan"
+    },
+    {
+      "gate": null,
+      "name": "EL DIABLO",
+      "stable": "C. Cantereros"
+    },
+    {
+      "gate": null,
+      "name": "EL CUERVO",
+      "stable": "C. RR/Sta María"
+    },
+    {
+      "gate": null,
+      "name": "EL 24",
+      "stable": "C. 16"
+    },
+    {
+      "gate": null,
+      "name": "EL CULICHI",
+      "stable": "C. King Ranch/Pisces"
+    },
+    {
+      "gate": null,
+      "name": "EL JUARITOZ",
+      "stable": "C. Petroleros"
+    },
+    {
+      "gate": null,
+      "name": "EL DON CUCO",
+      "stable": "C. 3 Herraduras"
+    },
+    {
+      "gate": null,
+      "name": "EL MORO TONY",
+      "stable": "C. Luis Durango"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "12:00 PM",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "TERCIA DE TERROR",
+      "entryNote": "Tercia de cuadras",
+      "entries": [
+        "C. Milo",
+        "C. San Martín",
+        "C. López Mtz"
+      ],
+      "section": "TERCIA DE TERROR"
+    },
+    {
+      "id": 2,
+      "time": "12:20 PM",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "DUELO DE CUADRAS",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Jacky",
+        "C. Lupitas"
+      ]
+    },
+    {
+      "id": 3,
+      "time": "12:40 PM",
+      "dist": "300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ANTRAX",
+          "stable": "C. 2 Amigos"
+        },
+        {
+          "name": "EL CADENAS",
+          "stable": "C. Hernández"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "1:00 PM",
+      "dist": "350 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "SR DEL SOMBRERO",
+          "stable": "C. King Ranch/Pisces",
+          "photo": "p3"
+        },
+        {
+          "name": "EL VALERO",
+          "stable": "C. Petroleros",
+          "photo": "p4"
+        }
+      ],
+      "section": "SÚPER ENCONTRONAZO",
+      "featured": "SÚPER ENCONTRONAZO"
+    },
+    {
+      "id": 5,
+      "time": "1:30 PM",
+      "dist": "125 YDS",
+      "type": "open",
+      "category": "DUELOS DE TAPADOS LIBRES",
+      "entryNote": "Tapados libres",
+      "entries": [
+        "C. Piedreros",
+        "C. Garza"
+      ],
+      "section": "DUELOS DE TAPADOS LIBRES"
+    },
+    {
+      "id": 6,
+      "time": "1:50 PM",
+      "dist": "300 & 330 YDS",
+      "type": "open",
+      "category": "DUELO DE MAIDENS",
+      "entryNote": "Maidens",
+      "entries": [
+        "C. Juan Méndez",
+        "C. Buenavista"
+      ],
+      "section": "DUELO DE MAIDENS"
+    },
+    {
+      "id": 7,
+      "time": "2:10 PM",
+      "dist": "250 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CORITA",
+          "stable": "C. 16"
+        },
+        {
+          "name": "EL 2R",
+          "stable": "C. RR"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "2:30 PM",
+      "dist": "250 & 300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ARTILLERO",
+          "stable": "C. 2 Amigos"
+        },
+        {
+          "name": "EL MAGO",
+          "stable": "C. Petroleros"
+        }
+      ],
+      "featured": "2 AMIGOS vs PETROLEROS"
+    },
+    {
+      "id": 9,
+      "time": "2:50 PM",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "DUELO DE CUADRAS",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Cantereros",
+        "C. Garza"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "3:15 PM",
+      "dist": "275 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TAZO DORADO",
+          "stable": "C. King Ranch/Pisces"
+        },
+        {
+          "name": "EL VILLANUEVA",
+          "stable": "C. Ladrilleros/RR"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "3:40 PM",
+      "dist": "175 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL TRAKITAS",
+          "stable": "C. 2 Amigos"
+        },
+        {
+          "name": "EL REGALO",
+          "stable": "C. Buenavista"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "4:00 PM",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CARRERA ESTELAR · PIEDREROS vs PETROLEROS",
+      "entryNote": "Carrera estelar",
+      "entries": [
+        "C. Piedreros",
+        "C. Petroleros"
+      ],
+      "section": "CARRERA ESTELAR",
+      "featured": "CARRERA ESTELAR"
+    },
+    {
+      "id": 13,
+      "time": "4:20 PM",
+      "dist": "300 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ANTRAX",
+          "stable": "C. San Juan"
+        },
+        {
+          "name": "EL DIABLO",
+          "stable": "C. Cantereros"
+        }
+      ],
+      "section": "CARRERA DE REVANCHA"
+    },
+    {
+      "id": 14,
+      "time": "4:40 PM",
+      "dist": "340 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUERVO",
+          "stable": "C. RR/Sta María"
+        },
+        {
+          "name": "EL 24",
+          "stable": "C. 16"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "time": "5:05 PM",
+      "dist": "330 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CULICHI",
+          "stable": "C. King Ranch/Pisces",
+          "photo": "p1"
+        },
+        {
+          "name": "EL JUARITOZ",
+          "stable": "C. Petroleros",
+          "photo": "p2"
+        }
+      ],
+      "section": "DUELO DE CAMPEONES",
+      "featured": "DUELO DE CAMPEONES"
+    },
+    {
+      "id": 16,
+      "time": "5:35 PM",
+      "dist": "150 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL DON CUCO",
+          "stable": "C. 3 Herraduras"
+        },
+        {
+          "name": "EL MORO TONY",
+          "stable": "C. Luis Durango"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "time": "6:05 PM",
+      "dist": "350 YDS",
+      "type": "open",
+      "category": "CARRERA ESTELAR · CIERRE",
+      "entryNote": "Gran cierre",
+      "entries": [
+        "C. Piedreros",
+        "C. Petroleros"
+      ],
+      "section": "CARRERA ESTELAR · CIERRE",
+      "featured": "GRAN CIERRE"
+    }
+  ],
+  "ads": {
+    "12": {
+      "img": "images/img12.jpg",
+      "tag": "CARRERA ESTELAR",
+      "title": "PIEDREROS vs PETROLEROS",
+      "tagline": "Las dos cuadras más fuertes frente a frente · 250 y 350 yardas",
+      "cta": "VER DUELO",
+      "special": {
+        "title": "DOS ESTELARES",
+        "text": "Piedreros vs Petroleros abre y cierra el programa",
+        "code": "ESTELAR5"
+      }
+    },
+    "17": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de Palestine te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "EL CULICHI portrait (p1, race 15)",
+    "images/img02.jpg": "EL JUARITOZ portrait (p2, race 15)",
+    "images/img03.jpg": "SR DEL SOMBRERO portrait (p3, race 4)",
+    "images/img04.jpg": "EL VALERO portrait (p4, race 4)",
+    "images/img11.jpg": "hero/poster — Rancho Los Pinos action photo",
+    "images/img09.jpg": "wide banner",
+    "note": "Photos cropped from the official Rancho Los Pinos flyer promo panels."
+  }
+}
