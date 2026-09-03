@@ -1,0 +1,337 @@
+{
+  "slug": "tres-amigos-sep20",
+  "page_title": "CarrerasOS · 3 Amigos Training Center",
+  "page_description": "3 Amigos Training Center · Avance de Entrenamiento · Domingo 20 de Septiembre 2026 · 16 carreras · Gran Final Maturity El Mencho Primera Edición · Info (432) 234-1181.",
+  "countdown": "2026-09-20T10:00",
+  "event": {
+    "org": "3 AMIGOS TRAINING CENTER",
+    "titleTop": "3 AMIGOS",
+    "titleBottom": "TRAINING CENTER",
+    "tagline": "AVANCE DE ENTRENAMIENTO",
+    "stars": "16 CARRERAS · MATURITY EL MENCHO",
+    "dayName": "DOMINGO",
+    "dayNum": "20",
+    "month": "DE SEPTIEMBRE",
+    "year": "2026",
+    "location": "3 Amigos Training Center",
+    "address": "Más información · (432) 234-1181",
+    "phones": [
+      "(432) 234-1181"
+    ],
+    "sponsors": [
+      {
+        "name": "CHALUCAS ENTERTAINMENT",
+        "cat": "Presenta"
+      },
+      {
+        "name": "LUIS GARCÍA",
+        "cat": "Presenta"
+      },
+      {
+        "name": "CUADRA 3 AMIGOS",
+        "cat": "Casa"
+      },
+      {
+        "name": "@BUSTILLOSPHOTOS",
+        "cat": "Fotografía Oficial"
+      }
+    ],
+    "counts": "16 carreras · avance de entrenamiento"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "CODICIADO",
+      "stable": "C. 3 Amigos"
+    },
+    {
+      "gate": null,
+      "name": "SARGENTO",
+      "stable": "C. 4JS / La Herencia"
+    },
+    {
+      "gate": null,
+      "name": "LA CHISPA",
+      "stable": "C. Carolina"
+    },
+    {
+      "gate": null,
+      "name": "LA ZOTA",
+      "stable": "C. Issac"
+    },
+    {
+      "gate": null,
+      "name": "JAGUAR",
+      "stable": "C. Julián"
+    },
+    {
+      "gate": null,
+      "name": "GUANO",
+      "stable": "C. La Escondida"
+    },
+    {
+      "gate": null,
+      "name": "CACHETÓN",
+      "stable": "C. Payán"
+    },
+    {
+      "gate": null,
+      "name": "PENNYWISSE",
+      "stable": "C. Nuevo Imperio"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "325 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "CODICIADO",
+          "stable": "C. 3 Amigos",
+          "photo": "p1"
+        },
+        {
+          "name": "SARGENTO",
+          "stable": "C. 4JS / La Herencia",
+          "photo": "p2"
+        }
+      ],
+      "featured": "LA ESTELAR · CASA vs LA HERENCIA"
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CUADRA PILAR vs CUADRA 3 VECINOS",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Pilar",
+        "C. 3 Vecinos"
+      ]
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "220 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "LA CHISPA",
+          "stable": "C. Carolina"
+        },
+        {
+          "name": "LA ZOTA",
+          "stable": "C. Issac"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "350 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "JAGUAR",
+          "stable": "C. Julián"
+        },
+        {
+          "name": "GUANO",
+          "stable": "C. La Escondida"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "175 YDS",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "CACHETÓN",
+          "stable": "C. Payán"
+        },
+        {
+          "name": "PENNYWISSE",
+          "stable": "C. Nuevo Imperio"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "CUADRA MOREÑO vs CUADRA NUEVO IMPERIO",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Moreño",
+        "C. Nuevo Imperio"
+      ]
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "TIERRA POR DEFINIR",
+      "type": "open",
+      "category": "CUADRA BURROS vs CUADRA CANELO",
+      "entryNote": "Distancia por definir",
+      "entries": [
+        "C. Burros",
+        "C. Canelo"
+      ]
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "CUADRA TIERRA SUELTA vs CUADRA 4G",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Tierra Suelta",
+        "C. 4G"
+      ]
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "CUADRA NUEVO IMPERIO vs CUADRA JULIÁN",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Nuevo Imperio",
+        "C. Julián"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "—",
+      "dist": "350 YDS",
+      "type": "open",
+      "category": "CUADRA JULIÁN vs CUADRA SAN ISIDRO",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Julián",
+        "C. San Isidro"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "—",
+      "dist": "220 YDS",
+      "type": "open",
+      "category": "CUADRA AMISTAD vs CUADRA NUEVO IMPERIO",
+      "entryNote": "Cuadra vs cuadra",
+      "entries": [
+        "C. Amistad",
+        "C. Nuevo Imperio"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "—",
+      "dist": "—",
+      "type": "open",
+      "category": "GRAN FINAL MATURITY EL MENCHO · PRIMERA EDICIÓN",
+      "entryNote": "Gran Final · 6 cuadras",
+      "entries": [
+        "C. Payán",
+        "C. Issac",
+        "C. La Herradira",
+        "C. Turris",
+        "C. Nvo Imperio",
+        "C. Ranchito"
+      ],
+      "section": "MATURITY EL MENCHO · PRIMERA EDICIÓN",
+      "featured": "GRAN FINAL · MATURITY EL MENCHO"
+    },
+    {
+      "id": 13,
+      "time": "—",
+      "dist": "440 YDS",
+      "type": "open",
+      "category": "ABIERTA DE CUADRAS LOCALES",
+      "entryNote": "2K · C1",
+      "entries": [
+        "Cuadras locales",
+        "$2K · C1"
+      ],
+      "section": "CARRERAS ABIERTAS"
+    },
+    {
+      "id": 14,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "ABIERTA DE MAIDENS · CUADRAS CHICAS",
+      "entryNote": "2K · C1",
+      "entries": [
+        "Maidens · cuadras chicas",
+        "$2K · C1"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "—",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "2 AÑEROS NO MECHADOS",
+      "entryNote": "3K · C1",
+      "entries": [
+        "2 añeros no mechados",
+        "$3K · C1"
+      ]
+    },
+    {
+      "id": 16,
+      "time": "—",
+      "dist": "330 YDS",
+      "type": "open",
+      "category": "INVITADOS DE CABALLOS VIEJOS · EL CHIRIZERO",
+      "entryNote": "2K · El Chirizero",
+      "entries": [
+        "Caballos viejos invitados",
+        "$2K · El Chirizero"
+      ],
+      "featured": "CIERRE · EL CHIRIZERO"
+    }
+  ],
+  "ads": {
+    "12": {
+      "img": "images/img12.jpg",
+      "tag": "CARRERA MARQUEE",
+      "title": "MATURITY EL MENCHO",
+      "tagline": "Gran Final Primera Edición · seis cuadras por la corona",
+      "cta": "VER CUADRAS",
+      "special": {
+        "title": "PRIMERA EDICIÓN",
+        "text": "Payán · Issac · La Herradira · Turris · Nvo Imperio · Ranchito",
+        "code": "MENCHO1"
+      }
+    },
+    "16": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día del evento",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img01.jpg": "CODICIADO portrait (p1, race 1)",
+    "images/img02.jpg": "SARGENTO portrait (p2, race 1)",
+    "images/img11.jpg": "hero — 3 Amigos action photo",
+    "images/img09.jpg": "wide banner",
+    "note": "Photos cropped from the official 3 Amigos flyer (@BustillosPhotos)."
+  }
+}
