@@ -1,0 +1,413 @@
+{
+  "slug": "carril-2000-oct4",
+  "page_title": "CarrerasOS · Carril 2000 Durango",
+  "page_description": "Duelo de Estados · Chihuahua vs Durango · 13 vs 13 · Carril 2000, Durango · Domingo 4 de Octubre 2026. Haz tus picks para cada duelo.",
+  "countdown": "2026-10-04T11:00",
+  "event": {
+    "org": "CARRIL 2000 · DURANGO",
+    "titleTop": "DUELO DE",
+    "titleBottom": "ESTADOS",
+    "tagline": "CHIHUAHUA vs DURANGO · 13 VS 13",
+    "stars": "26 CABALLOS · 13 DUELOS",
+    "dayName": "DOMINGO",
+    "dayNum": "4",
+    "month": "DE OCTUBRE",
+    "year": "2026",
+    "location": "Carril 2000, Durango",
+    "address": "Carril 2000, Durango, México",
+    "phones": [],
+    "sponsors": [
+      {
+        "name": "CARRIL 2000",
+        "cat": "Sede Oficial · Durango"
+      },
+      {
+        "name": "CUADRA LA ESPERANZA",
+        "cat": "Chihuahua"
+      },
+      {
+        "name": "CUADRA PILONCILLOS",
+        "cat": "Durango"
+      }
+    ],
+    "counts": "13 duelos · Chihuahua vs Durango"
+  },
+  "field": [
+    {
+      "gate": null,
+      "name": "EL COMANDANTE",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL POBRE",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL AZTECA",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL ARRIERO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL CARPINTERO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL ESPEJO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL AMIGO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL CUERVO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL COYOTE",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL MEXICANO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL PEPITO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL SEMEJANTE",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL NUEVO DESTINO",
+      "stable": "Chihuahua · La Esperanza"
+    },
+    {
+      "gate": null,
+      "name": "EL REY DE MANNY",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL APOLO",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL MAYOR",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL REY MALO",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL ASIL",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL MACALLAN",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL ALACRÁN",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL JAMIES SIN TACHA",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL VIKINGO",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL ARTILLERO",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL CUERVO",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL CHACAL",
+      "stable": "Durango · Piloncillos"
+    },
+    {
+      "gate": null,
+      "name": "EL ROJO",
+      "stable": "Durango · Piloncillos"
+    }
+  ],
+  "races": [
+    {
+      "id": 1,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "section": "DUELO DE ESTADOS · CHIHUAHUA vs DURANGO",
+      "horses": [
+        {
+          "name": "EL COMANDANTE",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL REY DE MANNY",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL POBRE",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL APOLO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL AZTECA",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL MAYOR",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ARRIERO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL REY MALO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CARPINTERO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL ASIL",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL ESPEJO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL MACALLAN",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "featured": "DUELO CENTRAL · MITAD DEL CARTEL",
+      "horses": [
+        {
+          "name": "EL AMIGO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL ALACRÁN",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL CUERVO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL JAMIES SIN TACHA",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL COYOTE",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL VIKINGO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL MEXICANO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL ARTILLERO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "section": "CUERVO vs CUERVO · MISMO NOMBRE, DISTINTO ESTADO",
+      "horses": [
+        {
+          "name": "EL PEPITO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL CUERVO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "horses": [
+        {
+          "name": "EL SEMEJANTE",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL CHACAL",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "time": "—",
+      "dist": "—",
+      "type": "duel",
+      "section": "CIERRE · EL ÚLTIMO DUELO DECIDE EL ESTADO",
+      "horses": [
+        {
+          "name": "EL NUEVO DESTINO",
+          "stable": "Chihuahua · La Esperanza"
+        },
+        {
+          "name": "EL ROJO",
+          "stable": "Durango · Piloncillos"
+        }
+      ]
+    }
+  ],
+  "ads": {
+    "7": {
+      "img": "images/img12.jpg",
+      "tag": "SEDE OFICIAL",
+      "title": "CARRIL 2000 · DURANGO",
+      "tagline": "La casa del Duelo de Estados · Pura sangre, pura tierra",
+      "cta": "CÓMO LLEGAR",
+      "special": {
+        "title": "PURA SANGRE, PURA TIERRA",
+        "text": "Carril 2000 · Durango, México",
+        "code": "CARRIL2000"
+      }
+    },
+    "13": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición de dos estados te ve",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a Chihuahua y Durango · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img11.jpg": "hero/poster — flyer art",
+    "images/img01.jpg": "Chihuahua horse portrait",
+    "images/img02.jpg": "Durango horse portrait",
+    "note": "Photos cropped from the official Carril 2000 Duelo de Estados flyer."
+  }
+}

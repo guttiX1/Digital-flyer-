@@ -1,0 +1,23 @@
+{
+  "name": "CarrerasOS · Carril 2000 Durango",
+  "short_name": "CarrerasOS",
+  "description": "Duelo de Estados · Chihuahua vs Durango · 13 vs 13 · Carril 2000, Durango · Domingo 4 de Octubre 2026. Haz tus picks para cada duelo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0806",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
