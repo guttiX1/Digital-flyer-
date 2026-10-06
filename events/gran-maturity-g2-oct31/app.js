@@ -51,7 +51,7 @@ $('#races').innerHTML=RACES.map(r=>{const ia=++ph,ib=r.b?++ph:0;const B=r.b||['P
 const wa=t=>'https://wa.me/?text='+encodeURIComponent(t);
 const shoe=`<svg class="shoe" viewBox="0 0 120 120" aria-hidden="true"><path class="u" d="M30 18v42a30 30 0 0 0 60 0V18"/><g class="holes"><circle cx="30" cy="34" r="3"/><circle cx="30" cy="50" r="3"/><circle cx="90" cy="34" r="3"/><circle cx="90" cy="50" r="3"/></g><path class="bolt" d="M66 22 44 64h16l-8 36 26-46H62z"/></svg>`;
 const AD=[
- {after:4,cls:'ad-caos',front:`<p class="adl">Anuncio</p>${shoe}<div><h2 class="adt">CAOS</h2><p class="ads">Built different · Run different</p></div><p class="adtap">Toca para ver el especial ↻</p>`,
+ {after:4,cls:'ad-caos',front:`<video class="adv" src="caos.mp4?v=1" poster="caos.jpg" muted loop playsinline preload="metadata"></video><div class="advx"><p class="adl">Anuncio</p><div class="advt"><b>CAOS</b><span>Built different · Run different</span></div><p class="adtap">Toca para ver el especial ↻</p></div>`,
   back:`<p class="adl">Especial Gran Maturity</p><h2 class="adt">Gorras CAOS</h2><p class="adx">Precio y promo por confirmar</p><p class="adn">Ejemplo de especial: 2x1 el día de la carrera</p><a class="adb" href="${wa('Quiero una gorra CAOS (Gran Maturity G2)')}" target="_blank" rel="noopener">Pedir por WhatsApp</a><p class="adtap">Toca para regresar</p>`},
  {after:8,cls:'ad-slot',front:`<p class="adl">Anuncio</p><div class="lanes" aria-hidden="true"><i></i><i></i><i></i><i></i></div><h2 class="adt"><span>Tu marca</span> <span>aquí</span></h2><p class="ads">Entre carrera y carrera, frente a cada persona que hace sus picks.</p><p class="adtap">Toca para ver el especial ↻</p>`,
   back:`<p class="adl">Especial para patrocinadores</p><h2 class="adt">Tu promo sale aquí</h2><p class="adx">Cuando la gente voltea la tarjeta, ve tu especial.</p><p class="adn">2 espacios en este evento · precio por confirmar</p><a class="adb" href="${wa('Quiero anunciarme en el Gran Maturity G2')}" target="_blank" rel="noopener">Quiero anunciarme</a><p class="adtap">Toca para regresar</p>`},
@@ -59,7 +59,7 @@ const AD=[
 AD.forEach(a=>document.querySelector(`.race[data-n="${a.after}"]`).insertAdjacentHTML('afterend',
  `<section class="card ad ${a.cls}"><div class="flip"><div class="face front">${a.front}</div><div class="face back">${a.back}</div></div></section>`));
 document.querySelectorAll('.ad .flip').forEach(f=>f.addEventListener('click',e=>{if(e.target.closest('a'))return;f.classList.toggle('on')}));
-const adIO=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in',e.isIntersecting)),{threshold:.6});
+const adIO=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('in',e.isIntersecting);const v=e.target.querySelector('video');if(v){if(e.isIntersecting)v.play().catch(()=>{});else v.pause()}}),{threshold:.6});
 document.querySelectorAll('.ad').forEach(c=>adIO.observe(c));
 
 /* picks: se guardan en este teléfono */

@@ -181,3 +181,13 @@ button{-webkit-tap-highlight-color:transparent}
 .ad-caos .adt{font-size:72px}.ad-caos .back .adt{font-size:38px}
 .ad-slot .adt{font-size:52px}.ad-slot .adt span{display:inline}.ad-slot .back .adt{font-size:36px}
 .ad-slot .lanes i{height:3px}
+/* CAOS con video */
+.ad-caos .front{padding:0;background:#000}
+.adv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.advx{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.75))}
+.advt{position:absolute;left:16px;right:16px;bottom:30px;text-align:left;color:#fff}
+.advt b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:44px;line-height:.95}
+.advt span{font-weight:700;font-size:13px}
+.ad-caos .front .adtap{text-align:left;left:16px;color:#fff}
+.ad-caos .front .adl{color:#fff}
+.ad-caos .front .adl{left:16px;right:auto;top:12px}
