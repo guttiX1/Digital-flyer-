@@ -56,13 +56,28 @@ $('#races').innerHTML=RACES.map(r=>{const ia=++ph,ib=r.b?++ph:0;const B=r.b||['P
 const KEY='gm-g2-picks';let picks={};try{picks=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 const savePicks=()=>{try{localStorage.setItem(KEY,JSON.stringify(picks))}catch(e){}};
 function paint(){document.querySelectorAll('.race').forEach(c=>{const v=picks[c.dataset.n];const bt=c.querySelector('.bt');bt.classList.toggle('picked',!!v);bt.querySelectorAll('button').forEach(b=>b.classList.toggle('me',b.dataset.p===v))});
-  $('#pk').textContent=`PICKS ${Object.keys(picks).length}/${NR}`;rail()}
+  const np=Object.keys(picks).length;$('#pk').textContent=`PICKS ${np}/${NR}`;
+  const nm=(r,p)=>p==='a'?r.a[0]:(r.b||['Por anunciar'])[0];
+  $('#ml').innerHTML=RACES.map(r=>{const v=picks[r.n];return `<button data-go="${r.n}"><i>C${r.n}</i><span>${r.a[0]} vs ${r.b?r.b[0]:'Por anunciar'}</span><b class="${v||''}">${v?'✓ '+nm(r,v):'Elegir'}</b></button>`}).join('');
+  $('#mineSub').textContent=np===NR?'Tienes las '+NR+' carreras.':`Llevas ${np} de ${NR}. Toca una carrera para elegir.`;
+  const txt='Mis picks para el Gran Maturity G2 (Calpulalpan, 31 oct):\n'+RACES.filter(r=>picks[r.n]).map(r=>`C${r.n}: ${nm(r,picks[r.n])}`).join('\n');
+  const sh=$('#share');sh.href='https://wa.me/?text='+encodeURIComponent(txt);sh.classList.toggle('off',!np);rail()}
 document.querySelectorAll('.race').forEach(c=>{
   c.querySelectorAll('.bt button').forEach(b=>b.addEventListener('click',()=>{const n=c.dataset.n;picks[n]=picks[n]===b.dataset.p?undefined:b.dataset.p;if(!picks[n])delete picks[n];savePicks();paint()}));
   const strip=c.querySelector('.strip'),tabs=[...c.querySelectorAll('.tabs button')];
   tabs.forEach((t,i)=>t.addEventListener('click',()=>strip.scrollTo({left:i*strip.clientWidth,behavior:'smooth'})));
   let raf;strip.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const i=Math.round(strip.scrollLeft/strip.clientWidth);tabs.forEach((t,j)=>t.classList.toggle('on',i===j))})},{passive:true});
 });
+
+/* ir a una carrera desde Mis picks / ir a Mis picks desde el contador */
+const goCard=el=>$('#feed').scrollTo({top:el.offsetTop,behavior:'smooth'});
+$('#ml').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)goCard(document.querySelector(`.race[data-n="${b.dataset.go}"]`))});
+$('#pk').addEventListener('click',()=>goCard($('#mine')));
+/* foto completa al tocar el caballo */
+const lb=$('#lb');
+document.querySelectorAll('.half img').forEach(im=>im.addEventListener('click',()=>{const h=im.closest('.half');lb.querySelector('img').src=im.src;lb.querySelector('b').textContent=h.querySelector('.who b').textContent;lb.querySelector('small').textContent=h.querySelector('.who small').textContent+' · foto de ejemplo';lb.classList.add('open')}));
+lb.addEventListener('click',()=>lb.classList.remove('open'));
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
 
 /* riel de progreso: una marca por tarjeta */
 const feed=$('#feed');const cards=[...feed.querySelectorAll('.card')];const railEl=$('#rail');
