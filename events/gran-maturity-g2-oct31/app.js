@@ -11,10 +11,11 @@ const RACES=IZQ.map((a,i)=>({n:i+1,a,b:DER[i]||null}));const NR=RACES.length;
 const $=s=>document.querySelector(s);const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));const IO=x=>{x=clamp(x);return x*x*(3-2*x)};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const d=Math.ceil((new Date(2026,9,31)-new Date())/864e5);
-$('#days').textContent=d>1?`faltan ${d} días`:d===1?'mañana':d===0?'hoy':'sábado 31 de octubre';
+$('#days').textContent=d>1?`Faltan ${d} días`:d===1?'Es mañana':d===0?'Es hoy':'';
+$('#tick').innerHTML=[...ALL,...ALL].map(c=>c[0]).join('<b>/</b>');
 
 /* ---------- tarjetas de carrera ---------- */
-const NIMG=22;const img=i=>`img/h${String((i-1)%NIMG+1).padStart(2,'0')}.jpg?v=4`;
+const NIMG=22;const img=i=>`img/h${String((i-1)%NIMG+1).padStart(2,'0')}.jpg?v=5`;
 const loc=c=>c[2]?`${c[2]}, ${c[1]}`:c[1];
 function analysis(r){
   const A=r.a,B=r.b;if(!B)return `<h3>Análisis</h3><p class="sub">Rival por anunciar.</p><dl class="rows"><div><dt>Estado</dt><dd>${A[1]}</dd></div><div><dt>Historial</dt><dd class="tbc">sin datos todavía</dd></div></dl>`;
@@ -35,8 +36,8 @@ $('#races').innerHTML=RACES.map(r=>{const ia=++ph,ib=r.b?++ph:0;const B=r.b||['P
   <div class="tabs"><button class="on">Carrera</button><button>Equipo</button><button>Análisis</button></div>
   <div class="strip">
    <div class="panel">
-    <div class="half ha"><img src="${img(ia)}" alt="" decoding="async"><div class="who"><small>${loc(r.a)}</small><b>${r.a[0]}</b></div><span class="ph-note">foto de ejemplo</span></div>
-    <div class="half hb">${ib?`<img src="${img(ib)}" alt="" decoding="async">`:'<div style="width:100%;height:100%;background:#151821"></div>'}<div class="who"><small>${r.b?loc(B):'Por confirmar'}</small><b>${B[0]}</b></div>${ib?'<span class="ph-note">foto de ejemplo</span>':''}</div>
+    <div class="half ha"><button class="ph" type="button" aria-label="Ver foto de ${r.a[0]}"><img src="${img(ia)}" alt="" decoding="async"></button><div class="who"><small>${loc(r.a)}</small><b>${r.a[0]}</b></div><span class="ph-note">Foto de ejemplo · toca para ver</span></div>
+    <div class="half hb">${ib?`<button class="ph" type="button" aria-label="Ver foto de ${B[0]}"><img src="${img(ib)}" alt="" decoding="async"></button>`:'<div style="width:100%;height:100%;background:#151821"></div>'}<div class="who"><small>${r.b?loc(B):'Por confirmar'}</small><b>${B[0]}</b></div>${ib?'<span class="ph-note">Foto de ejemplo · toca para ver</span>':''}</div>
     <div class="vs">VS</div>
     <div class="picks"><div class="q">¿Quién gana?<span>cambia tu pick antes de la carrera</span></div>
      <div class="bt"><button class="pa" data-p="a">${r.a[0]}</button>${r.b?`<button class="pb" data-p="b">${B[0]}</button>`:''}</div></div>
@@ -69,7 +70,7 @@ $('#ml').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b
 $('#pk').addEventListener('click',()=>goCard($('#mine')));
 /* foto completa al tocar el caballo */
 const lb=$('#lb');
-document.querySelectorAll('.half').forEach(h=>{const im=h.querySelector('img');if(!im)return;h.style.cursor='zoom-in';h.addEventListener('click',()=>{lb.querySelector('img').src=im.src;lb.querySelector('b').textContent=h.querySelector('.who b').textContent;lb.querySelector('small').textContent=h.querySelector('.who small').textContent+' · foto de ejemplo';lb.classList.add('open')})});
+document.querySelectorAll('.half .ph').forEach(btn=>{const h=btn.closest('.half'),im=btn.querySelector('img');btn.addEventListener('click',()=>{lb.querySelector('img').src=im.src;lb.querySelector('b').textContent=h.querySelector('.who b').textContent;lb.querySelector('small').textContent=h.querySelector('.who small').textContent+' · foto de ejemplo';lb.classList.add('open')})});
 lb.addEventListener('click',()=>lb.classList.remove('open'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
 
@@ -79,5 +80,4 @@ railEl.innerHTML=cards.map(()=>'<i></i>').join('');
 function rail(){const i=Math.round(feed.scrollTop/innerHeight);[...railEl.children].forEach((m,j)=>{m.classList.toggle('on',i===j);const c=cards[j];m.classList.toggle('done',c.classList.contains('race')&&!!picks[c.dataset.n]&&i!==j)})}
 feed.addEventListener('scroll',rail,{passive:true});paint();
 
-/* el 3D carga aparte para que las carreras salgan de inmediato */
-import('./intro3d.js?v=4');
+$('#go').addEventListener('click',()=>goCard(document.querySelector('.race')));
