@@ -48,17 +48,23 @@ $('#races').innerHTML=RACES.map(r=>{const ia=++ph,ib=r.b?++ph:0;const B=r.b||['P
   </div></section>`}).join('');
 
 /* anuncios entre carreras: tocar voltea la tarjeta y revela el especial */
-const wa=t=>'https://wa.me/?text='+encodeURIComponent(t);
-const shoe=`<svg class="shoe" viewBox="0 0 120 120" aria-hidden="true"><path class="u" d="M30 18v42a30 30 0 0 0 60 0V18"/><g class="holes"><circle cx="30" cy="34" r="3"/><circle cx="30" cy="50" r="3"/><circle cx="90" cy="34" r="3"/><circle cx="90" cy="50" r="3"/></g><path class="bolt" d="M66 22 44 64h16l-8 36 26-46H62z"/></svg>`;
 const AD=[
- {after:4,cls:'ad-caos',front:`<video class="adv" src="caos.mp4?v=1" poster="caos.jpg" muted loop playsinline preload="metadata"></video><div class="advx"><p class="adl">Anuncio</p><div class="advt"><b>CAOS</b><span>Built different · Run different</span></div><p class="adtap">Toca para ver el especial ↻</p></div>`,
-  back:`<p class="adl">Especial Gran Maturity</p><h2 class="adt">Gorras CAOS</h2><p class="adx">Precio y promo por confirmar</p><p class="adn">Ejemplo de especial: 2x1 el día de la carrera</p><a class="adb" href="${wa('Quiero una gorra CAOS (Gran Maturity G2)')}" target="_blank" rel="noopener">Pedir por WhatsApp</a><p class="adtap">Toca para regresar</p>`},
- {after:8,cls:'ad-slot',front:`<p class="adl">Anuncio</p><div class="lanes" aria-hidden="true"><i></i><i></i><i></i><i></i></div><h2 class="adt"><span>Tu marca</span> <span>aquí</span></h2><p class="ads">Entre carrera y carrera, frente a cada persona que hace sus picks.</p><p class="adtap">Toca para ver el especial ↻</p>`,
-  back:`<p class="adl">Especial para patrocinadores</p><h2 class="adt">Tu promo sale aquí</h2><p class="adx">Cuando la gente voltea la tarjeta, ve tu especial.</p><p class="adn">2 espacios en este evento · precio por confirmar</p><a class="adb" href="${wa('Quiero anunciarme en el Gran Maturity G2')}" target="_blank" rel="noopener">Quiero anunciarme</a><p class="adtap">Toca para regresar</p>`},
+ {after:4,cls:'ad-caos',name:'CAOS',sub:'Built different · Run different',loop:'caos.mp4?v=1',poster:'caos.jpg',
+  full:`<video src="caos-full.mp4?v=1" poster="caos.jpg" controls playsinline autoplay></video>`,
+  info:'<small>Anuncio</small><b>CAOS</b><span>Built different · Run different</span>'},
+ {after:8,cls:'ad-vm',name:'Valley Meats',sub:'Ordena de tu cell · Carbondale, CO',loop:'valley.mp4?v=1',poster:'valley.jpg',
+  full:`<img src="valley-poster.jpg?v=1" alt="Valley Meats La Carnicería: ordena de tu cell con nuestra nueva página">`,
+  info:'<small>Anuncio · Carbondale, CO</small><b>Valley Meats</b><span class="vwb"><a href="tel:+19707049614">Llamar 970-704-9614</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Valley%20Meats%20774%20State%20Route%20133%20Carbondale%20CO" target="_blank" rel="noopener">Cómo llegar</a></span>'},
 ];
 AD.forEach(a=>document.querySelector(`.race[data-n="${a.after}"]`).insertAdjacentHTML('afterend',
- `<section class="card ad ${a.cls}"><div class="flip"><div class="face front">${a.front}</div><div class="face back">${a.back}</div></div></section>`));
-document.querySelectorAll('.ad .flip').forEach(f=>f.addEventListener('click',e=>{if(e.target.closest('a'))return;f.classList.toggle('on')}));
+ `<section class="card ad ${a.cls}"><button class="adbox" type="button" aria-label="Ver anuncio de ${a.name}"><video class="adv" src="${a.loop}" poster="${a.poster}" muted loop playsinline preload="metadata"></video><span class="advx"><span class="adl">Anuncio</span><span class="advt"><b>${a.name}</b><span>${a.sub}</span></span><span class="adtap">▶ Toca para ver</span></span></button></section>`));
+/* visor del anuncio: video completo con sonido o el póster completo */
+document.body.insertAdjacentHTML('beforeend','<div class="lb vw" id="vw" role="dialog" aria-label="Anuncio"><div class="vwm"></div><p><span class="vwi"></span><button type="button" class="vwx">Cerrar</button></p></div>');
+const vw=$('#vw');
+const closeVw=()=>{vw.classList.remove('open');vw.querySelector('.vwm').innerHTML=''};
+document.querySelectorAll('.ad .adbox').forEach((btn,i)=>btn.addEventListener('click',()=>{const a=AD[i];btn.querySelector('video').pause();
+ vw.querySelector('.vwm').innerHTML=a.full;vw.querySelector('.vwi').innerHTML=a.info;vw.classList.add('open')}));
+vw.querySelector('.vwx').addEventListener('click',closeVw);
 const adIO=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('in',e.isIntersecting);const v=e.target.querySelector('video');if(v){if(e.isIntersecting)v.play().catch(()=>{});else v.pause()}}),{threshold:.6});
 document.querySelectorAll('.ad').forEach(c=>adIO.observe(c));
 
