@@ -14,7 +14,7 @@ const d=Math.ceil((new Date(2026,9,31)-new Date())/864e5);
 $('#days').textContent=d>1?`faltan ${d} días`:d===1?'mañana':d===0?'hoy':'sábado 31 de octubre';
 
 /* ---------- tarjetas de carrera ---------- */
-const NIMG=22;const img=i=>`img/h${String((i-1)%NIMG+1).padStart(2,'0')}.jpg`;
+const NIMG=22;const img=i=>`img/h${String((i-1)%NIMG+1).padStart(2,'0')}.jpg?v=4`;
 const loc=c=>c[2]?`${c[2]}, ${c[1]}`:c[1];
 function analysis(r){
   const A=r.a,B=r.b;if(!B)return `<h3>Análisis</h3><p class="sub">Rival por anunciar.</p><dl class="rows"><div><dt>Estado</dt><dd>${A[1]}</dd></div><div><dt>Historial</dt><dd class="tbc">sin datos todavía</dd></div></dl>`;
@@ -80,4 +80,4 @@ function rail(){const i=Math.round(feed.scrollTop/innerHeight);[...railEl.childr
 feed.addEventListener('scroll',rail,{passive:true});paint();
 
 /* el 3D carga aparte para que las carreras salgan de inmediato */
-import('./intro3d.js');
+import('./intro3d.js?v=4');
