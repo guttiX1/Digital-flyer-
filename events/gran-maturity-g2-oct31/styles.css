@@ -166,3 +166,18 @@ button{-webkit-tap-highlight-color:transparent}
 .lanes i{position:absolute;left:-40%;height:5px;width:40%;background:#fff;border-radius:3px;animation:lane 1.6s linear infinite}
 .lanes i:nth-child(1){top:18%}.lanes i:nth-child(2){top:34%;animation-delay:.5s;animation-duration:1.2s}.lanes i:nth-child(3){top:70%;animation-delay:.9s}.lanes i:nth-child(4){top:84%;animation-delay:.2s;animation-duration:1.9s}
 @keyframes lane{to{left:110%}}
+/* anuncios chicos: un tercio de pantalla */
+.card.ad{height:36dvh;scroll-snap-stop:normal;padding:calc(var(--top) + 8px) 14px 8px}
+.ad .face{padding:14px 18px;border-radius:18px}
+.ad .adl{top:9px;font-size:10px}
+.ad .adtap{bottom:8px;font-size:10.5px}
+.ad .ads{font-size:13px;margin-top:4px}
+.ad .adx{font-size:14px;margin-top:6px}
+.ad .adn{font-size:11.5px;margin-top:3px}
+.ad .adb{margin-top:8px;padding:9px 16px;font-size:13px;border-radius:10px}
+.ad-caos .front{flex-direction:row;gap:14px}
+.ad-caos .front>div{text-align:left}
+.ad-caos .shoe{width:88px;height:88px;margin:0;flex:none}
+.ad-caos .adt{font-size:72px}.ad-caos .back .adt{font-size:38px}
+.ad-slot .adt{font-size:52px}.ad-slot .adt span{display:inline}.ad-slot .back .adt{font-size:36px}
+.ad-slot .lanes i{height:3px}

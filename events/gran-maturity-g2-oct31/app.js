@@ -51,9 +51,9 @@ $('#races').innerHTML=RACES.map(r=>{const ia=++ph,ib=r.b?++ph:0;const B=r.b||['P
 const wa=t=>'https://wa.me/?text='+encodeURIComponent(t);
 const shoe=`<svg class="shoe" viewBox="0 0 120 120" aria-hidden="true"><path class="u" d="M30 18v42a30 30 0 0 0 60 0V18"/><g class="holes"><circle cx="30" cy="34" r="3"/><circle cx="30" cy="50" r="3"/><circle cx="90" cy="34" r="3"/><circle cx="90" cy="50" r="3"/></g><path class="bolt" d="M66 22 44 64h16l-8 36 26-46H62z"/></svg>`;
 const AD=[
- {after:4,cls:'ad-caos',front:`<p class="adl">Anuncio</p>${shoe}<h2 class="adt">CAOS</h2><p class="ads">Built different · Run different</p><p class="adtap">Toca para ver el especial ↻</p>`,
+ {after:4,cls:'ad-caos',front:`<p class="adl">Anuncio</p>${shoe}<div><h2 class="adt">CAOS</h2><p class="ads">Built different · Run different</p></div><p class="adtap">Toca para ver el especial ↻</p>`,
   back:`<p class="adl">Especial Gran Maturity</p><h2 class="adt">Gorras CAOS</h2><p class="adx">Precio y promo por confirmar</p><p class="adn">Ejemplo de especial: 2x1 el día de la carrera</p><a class="adb" href="${wa('Quiero una gorra CAOS (Gran Maturity G2)')}" target="_blank" rel="noopener">Pedir por WhatsApp</a><p class="adtap">Toca para regresar</p>`},
- {after:8,cls:'ad-slot',front:`<p class="adl">Anuncio</p><div class="lanes" aria-hidden="true"><i></i><i></i><i></i><i></i></div><h2 class="adt"><span>Tu marca</span><span>aquí</span></h2><p class="ads">Entre carrera y carrera, frente a cada persona que hace sus picks.</p><p class="adtap">Toca para ver el especial ↻</p>`,
+ {after:8,cls:'ad-slot',front:`<p class="adl">Anuncio</p><div class="lanes" aria-hidden="true"><i></i><i></i><i></i><i></i></div><h2 class="adt"><span>Tu marca</span> <span>aquí</span></h2><p class="ads">Entre carrera y carrera, frente a cada persona que hace sus picks.</p><p class="adtap">Toca para ver el especial ↻</p>`,
   back:`<p class="adl">Especial para patrocinadores</p><h2 class="adt">Tu promo sale aquí</h2><p class="adx">Cuando la gente voltea la tarjeta, ve tu especial.</p><p class="adn">2 espacios en este evento · precio por confirmar</p><a class="adb" href="${wa('Quiero anunciarme en el Gran Maturity G2')}" target="_blank" rel="noopener">Quiero anunciarme</a><p class="adtap">Toca para regresar</p>`},
 ];
 AD.forEach(a=>document.querySelector(`.race[data-n="${a.after}"]`).insertAdjacentHTML('afterend',
@@ -92,7 +92,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')})
 /* riel de progreso: una marca por tarjeta */
 const feed=$('#feed');const cards=[...feed.querySelectorAll('.card')];const railEl=$('#rail');
 railEl.innerHTML=cards.map(()=>'<i></i>').join('');
-function rail(){const i=Math.round(feed.scrollTop/innerHeight);[...railEl.children].forEach((m,j)=>{m.classList.toggle('on',i===j);const c=cards[j];m.classList.toggle('done',c.classList.contains('race')&&!!picks[c.dataset.n]&&i!==j)})}
+function rail(){const y=feed.scrollTop+innerHeight*.3;let i=0;cards.forEach((c,j)=>{if(c.offsetTop<=y)i=j});[...railEl.children].forEach((m,j)=>{m.classList.toggle('on',i===j);const c=cards[j];m.classList.toggle('done',c.classList.contains('race')&&!!picks[c.dataset.n]&&i!==j)})}
 feed.addEventListener('scroll',rail,{passive:true});paint();
 
 $('#go').addEventListener('click',()=>goCard(document.querySelector('.race')));
