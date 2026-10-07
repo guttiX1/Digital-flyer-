@@ -203,7 +203,8 @@ button{font:inherit;color:inherit}
 .agset details{border-top:1px solid var(--line)}.agset summary{display:flex;align-items:center;gap:10px;padding:12px 4px;font-size:16.5px;font-weight:600;cursor:pointer;list-style:none}
 .agset summary::-webkit-details-marker{display:none}.agset summary .dot{width:26px;height:26px;border-radius:50%}.agset summary span{margin-left:auto;color:var(--dim);transition:transform .2s}
 .agset details[open] summary span{transform:rotate(90deg)}.agset .set{padding:0 0 8px 36px}
-.hero .eye{width:min(34vw,150px)!important;transition:width .4s cubic-bezier(.3,1.4,.5,1)}.hero .eye.big{width:min(58vw,250px)!important}
+.hero .eye{width:min(64vw,280px)!important}
+.panel:has(> .hero):has(.more[hidden]){display:flex;flex-direction:column;justify-content:center;padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 .pick{grid-template-columns:repeat(4,1fr)!important;gap:4px!important}.pick button{font-size:11px!important;padding:2px 1px 6px!important}
 </style>
 </head>
