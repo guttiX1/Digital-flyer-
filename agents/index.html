@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f4f4f2">
+<title>Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f2;--ink:#17171a;--dim:#7a7a80;--line:rgba(0,0,0,.09);--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:Fredoka,system-ui,sans-serif;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.top{position:fixed;top:0;left:0;right:0;z-index:5;padding:max(14px,env(safe-area-inset-top)) 20px 0}
+.top h1{font-weight:700;font-size:30px;letter-spacing:-.01em}
+.top p{color:var(--dim);font-size:16px;margin-top:2px}
+.top p b{color:var(--ink);font-weight:600}
+#stage{position:fixed;inset:0}
+#eye{position:absolute;overflow:visible;touch-action:none;cursor:pointer}
+.orb{position:absolute;width:74px;height:96px;margin:-37px 0 0 -37px;display:flex;flex-direction:column;align-items:center;cursor:pointer;touch-action:none}
+.orb svg{width:74px;height:74px;overflow:visible;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.orb:active svg{transform:scale(.9)}
+.orb span{margin-top:3px;font-weight:600;font-size:13px;white-space:nowrap}
+.orb i{position:absolute;top:-4px;right:2px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#e5432d;color:#fff;font:600 12px/22px Fredoka,sans-serif;font-style:normal;text-align:center;border:2px solid var(--bg)}
+.orb i.ok{background:#1d9e6a}.orb i.run{background:#17171a}
+#say{position:absolute;z-index:4;left:50%;transform:translateX(-50%);max-width:min(330px,86vw);background:#fff;border-radius:22px;padding:12px 16px;font-size:16px;line-height:1.3;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.07);opacity:0;transition:opacity .25s,transform .35s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+#say.on{opacity:1}
+#say::after{display:none;content:"";position:absolute;left:50%;bottom:-7px;width:14px;height:14px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:3px}
+.bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:6;display:flex;gap:8px;background:#fff;border-radius:26px;padding:6px 6px 6px 18px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06)}
+.bar input{flex:1;min-width:0;border:0;outline:0;background:none;font:500 17px Fredoka,sans-serif;color:var(--ink)}
+.bar input::placeholder{color:#a5a5ab}
+.bar button{width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:20px;cursor:pointer}
+/* hoja de detalle */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--card);border-radius:28px 28px 0 0;padding:10px 22px calc(26px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .45s cubic-bezier(.2,1.1,.3,1);box-shadow:0 -10px 40px rgba(0,0,0,.08);max-height:70vh;overflow-y:auto}
+.sheet.on{transform:none}
+.grab{width:42px;height:5px;border-radius:3px;background:#ddd;margin:0 auto 14px}
+.sh-h{display:flex;align-items:center;gap:12px}
+.sh-h .dot{width:44px;height:44px;border-radius:50%;flex:none}
+.sh-h h2{font-weight:700;font-size:26px;line-height:1}
+.sh-h small{display:inline-block;margin-top:5px;font-weight:600;font-size:13px;padding:3px 9px;border-radius:9px;color:#fff}
+.sh-x{margin-left:auto;width:38px;height:38px;border-radius:50%;border:0;background:#f0f0ee;font-size:18px;cursor:pointer;color:var(--ink)}
+.sec{margin-top:18px}
+.sec h3{font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.sec li{list-style:none;padding:9px 0;border-top:1px solid var(--line);font-size:16.5px;line-height:1.3}
+.sec li:first-child{border-top:0}
+.go{display:block;margin-top:18px;padding:15px;border-radius:18px;background:var(--ink);color:#fff;text-align:center;font-weight:600;font-size:16px;text-decoration:none}
+.demo{margin-top:14px;color:var(--dim);font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){.sheet,#say,.orb svg{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><h1>Your agents</h1><p id="sum"></p></header>
+<div id="stage">
+  <svg id="eye" viewBox="0 0 400 440" aria-label="Agent eye">
+    <defs>
+      <radialGradient id="scl" cx=".42" cy=".36" r=".72"><stop offset="0" stop-color="#ffffff"/><stop offset=".62" stop-color="#f3f4f6"/><stop offset=".9" stop-color="#d9dde3"/><stop offset="1" stop-color="#c3c8d0"/></radialGradient>
+      <radialGradient id="iri" cx=".5" cy=".5" r=".5"><stop offset="0" id="i0"/><stop offset=".55" id="i1"/><stop offset=".86" id="i2"/><stop offset="1" id="i3"/></radialGradient>
+      <radialGradient id="shine" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gnd" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      <clipPath id="ball"><circle cx="200" cy="200" r="150"/></clipPath>
+    </defs>
+    <ellipse id="shadow" cx="200" cy="410" rx="120" ry="16" fill="url(#gnd)"/>
+    <g id="body">
+      <g id="lidwrap">
+        <circle cx="200" cy="200" r="150" fill="url(#scl)"/>
+        <g clip-path="url(#ball)">
+          <g id="iris">
+            <circle r="74" fill="url(#iri)"/>
+            <g id="fibers" opacity=".28"></g>
+            <circle r="74" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="5"/>
+            <circle id="pupil" r="26" fill="#0d0d10"/>
+            <ellipse cx="-22" cy="-26" rx="15" ry="11" fill="#fff" opacity=".9" transform="rotate(-30 -22 -26)"/>
+            <circle cx="20" cy="20" r="5" fill="#fff" opacity=".7"/>
+          </g>
+          <ellipse cx="150" cy="120" rx="70" ry="44" fill="url(#shine)" opacity=".85" transform="rotate(-35 150 120)"/>
+          <path d="M84 268 A150 150 0 0 0 316 268" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="7" stroke-linecap="round"/>
+          <ellipse id="lidT" cx="200" cy="-120" rx="210" ry="170" fill="var(--bg)"/>
+          <ellipse id="lidB" cx="200" cy="520" rx="210" ry="170" fill="var(--bg)"/>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div id="say"></div>
+</div>
+<form class="bar" id="bar" autocomplete="off"><input id="q" placeholder="Talk to your agents" enterkeyhint="send"><button aria-label="Send">↑</button></form>
+<div class="sheet" id="sheet" role="dialog" aria-label="Agent"><div class="grab"></div><div id="shc"></div></div>
+<script>
+/* Lo que cada agente tiene hoy. Datos reales de los proyectos; nada está corriendo en vivo todavía. */
+const AG=[
+ {id:'flyers',name:'Flyers',color:'#ff5a36',st:'needs',
+  now:'Gran Maturity G2 race page is live with picks, ads and directions.',
+  done:['12 race cards with Equipo and Análisis','Mis picks, photo viewer, white design','CAOS and Valley Meats video ads'],
+  need:['Real matchups when the program comes out','Real horse photos','Track social links and exact location'],
+  link:'../events/gran-maturity-g2-oct31/',linkTxt:'Open Gran Maturity G2'},
+ {id:'ads',name:'Ads',color:'#ffb000',st:'needs',
+  now:'Video ads for CAOS hats and Valley Meats are done.',
+  done:['CAOS hat video ad','Valley Meats poster video','HipIQ price-guess videos'],
+  need:['The CAOS special and its price','Your final CAOS logo file']},
+ {id:'hipiq',name:'HipIQ',color:'#18a873',st:'run',
+  now:'Price guesses for the Fall Mixed Sale (Nov 5 to 7).',
+  done:['Cheapest to highest sort','Price guesses section','Removed the generic AI look'],
+  need:['Fall sale photos after Oct 30','OK to remove the last 3 AI-looking details']},
+ {id:'valley',name:'Valley Meats',color:'#c62828',st:'needs',
+  now:'Voice ordering site is built and tested on test data.',
+  done:['Order and checkout logic with read-back','Swipe menu','Design cleanup'],
+  need:['Real menu, prices and hours','A working way to receive orders']},
+ {id:'results',name:'Results',color:'#2f6fe8',st:'idle',
+  now:'Not started. Picks are saved on each phone only.',
+  done:[],
+  need:['Your OK: lock picks at each race start','Tiebreak rule','A small server to collect everyone\'s picks']},
+ {id:'caos',name:'CAOS',color:'#2a2a2e',st:'idle',
+  now:'Waiting to start the shirt designs.',
+  done:['Hat video placed in the race page'],
+  need:['Final CAOS logo file','Which shirt ideas you like']},
+];
+const ST={needs:['needs you','#e5432d'],run:['working','#17171a'],idle:['not started','#9a9aa0'],ok:['done','#1d9e6a']};
+const $=s=>document.querySelector(s);const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const lerp=(a,b,t)=>a+(b-a)*t;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const needN=AG.filter(a=>a.st==='needs').length,runN=AG.filter(a=>a.st==='run').length;
+$('#sum').innerHTML=`<b>${AG.length} agents</b> · ${runN} working · ${needN} need you`;
+
+/* ---------- ojo grande ---------- */
+const eye=$('#eye'),stage=$('#stage'),irisG=$('#iris'),pupil=$('#pupil'),lidT=$('#lidT'),lidB=$('#lidB'),body=$('#body'),shadow=$('#shadow');
+{const f=$('#fibers');let h='';for(let i=0;i<56;i++){const a=i/56*Math.PI*2,r1=32+((i*7)%5),r2=66-((i*11)%7);h+=`<line x1="${Math.cos(a)*r1}" y1="${Math.sin(a)*r1}" x2="${Math.cos(a)*r2}" y2="${Math.sin(a)*r2}" stroke="${i%2?'#fff':'#000'}" stroke-width="${i%3?1.4:2.2}" stroke-linecap="round"/>`}f.innerHTML=h}
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const mix=(a,b,t)=>a.map((v,i)=>Math.round(lerp(v,b[i],t)));const css=c=>`rgb(${c})`;
+const shade=(c,k)=>k<0?mix(c,[0,0,0],-k):mix(c,[255,255,255],k);
+const BASE=hex('#e8962a');let irisC=BASE.slice(),irisT=BASE.slice();
+function paintIris(){const c=irisC;['#i0','#i1','#i2','#i3'].forEach((id,i)=>$(id).setAttribute('stop-color',css(shade(c,[.45,.05,-.25,-.55][i]))))}
+paintIris();
+let E={x:0,y:0,r:100};                 // centro y radio del ojo en pantalla
+const S={gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,sq:1,sv:0,pu:.3,put:.3,blink:0,lid:0,lidT:0,happy:0,happyT:0,bob:0};
+let lastPtr=-1e9,ptr=null,focusOrb=null,typing=false;
+
+/* ---------- burbujas de agentes ---------- */
+const orbs=AG.map((a,i)=>{const el=document.createElement('div');el.className='orb';el.dataset.i=i;
+ const c=hex(a.color),lt=css(shade(c,.45)),dk=css(shade(c,-.35));
+ el.innerHTML=`<svg viewBox="-40 -40 80 80"><defs><radialGradient id="o${i}" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="${lt}"/><stop offset=".6" stop-color="${a.color}"/><stop offset="1" stop-color="${dk}"/></radialGradient></defs>
+  <ellipse cx="0" cy="38" rx="22" ry="4" fill="rgba(0,0,0,.12)"/><g class="ob"><circle r="34" fill="url(#o${i})"/>
+  <circle class="mw" r="13" fill="#fff"/><g class="mp"><circle r="6.5" fill="#111"/><circle cx="-2.4" cy="-2.4" r="2" fill="#fff"/></g>
+  <ellipse cx="-13" cy="-18" rx="10" ry="6" fill="#fff" opacity=".45" transform="rotate(-30 -13 -18)"/><rect class="ml" x="-15" y="-30" width="30" height="0" fill="${a.color}"/></g></svg>
+  ${a.st!=='idle'?`<i class="${a.st==='run'?'run':a.st==='ok'?'ok':''}">${a.st==='needs'?a.need.length:a.st==='run'?'on':'✓'}</i>`:''}<span>${a.name}</span>`;
+ stage.appendChild(el);
+ return {el,a,ang:-Math.PI/2+i*Math.PI*2/AG.length,x:0,y:0,blink:0,next:2+Math.random()*5,mp:el.querySelector('.mp'),ml:el.querySelector('.ml'),ob:el.querySelector('.ob'),sq:1,sv:0}});
+
+/* ---------- tamaño ---------- */
+function layout(){const W=innerWidth,H=innerHeight;const top=150,bot=96;const avail=H-top-bot;
+ const r=Math.min(W*.31,avail*.25,180);E={x:W/2,y:top+avail*.5,r};
+ const w=r/150*400;eye.style.width=w+'px';eye.style.height=w*1.1+'px';eye.style.left=(E.x-w/2)+'px';eye.style.top=(E.y-w/2)+'px';
+ E.rx=Math.min(W/2-42,r*2.05);E.ry=Math.max(r*1.45,Math.min(r*2.25,E.y-215,H-bot-74-E.y))}
+addEventListener('resize',layout);layout();
+
+/* ---------- entrada ---------- */
+function setPtr(e){ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()}
+addEventListener('pointermove',setPtr,{passive:true});addEventListener('pointerdown',setPtr,{passive:true});
+eye.addEventListener('pointerdown',e=>{S.sv-=0.09;S.put=.42;S.happyT=1;setTimeout(()=>{S.put=.3;S.happyT=0},1300);
+ const lines=[`${needN} agents are waiting on you. Tap one to see what.`,`HipIQ is working. The others are waiting on you.`,`Hey. Tap a bubble to see its work.`];say(lines[(++tapN)%lines.length])});
+let tapN=-1;
+orbs.forEach(o=>o.el.addEventListener('click',()=>open(o)));
+
+/* ---------- globo de texto ---------- */
+let sayT;function say(t,ms=3200){const s=$('#say');s.textContent=t;s.style.top=(Math.max(92,E.y-E.ry-150))+'px';s.style.transform='translate(-50%,0)';s.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>s.classList.remove('on'),ms)}
+
+/* ---------- hoja de detalle ---------- */
+function open(o){focusOrb=o;const a=o.a;irisT=hex(a.color==='#2a2a2e'?'#55555c':a.color);o.sv-=.12;
+ const [lbl,col]=ST[a.st];const li=x=>x.length?x.map(t=>`<li>${t}</li>`).join(''):'<li style="color:var(--dim)">Nothing yet</li>';
+ $('#shc').innerHTML=`<div class="sh-h"><div class="dot" style="background:radial-gradient(circle at 38% 32%,${css(shade(hex(a.color),.45))},${a.color} 60%,${css(shade(hex(a.color),-.35))})"></div><div><h2>${a.name}</h2><small style="background:${col}">${lbl}</small></div><button class="sh-x" aria-label="Close">✕</button></div>
+  <div class="sec"><h3>Now</h3><ul><li>${a.now}</li></ul></div>
+  <div class="sec"><h3>Needs from you</h3><ul>${li(a.need)}</ul></div>
+  <div class="sec"><h3>Done</h3><ul>${li(a.done)}</ul></div>
+  ${a.link?`<a class="go" href="${a.link}">${a.linkTxt}</a>`:''}
+  <p class="demo">Demo board. Tell Claude in the chat to put any agent to work.</p>`;
+ $('#sheet').classList.add('on');$('.sh-x').onclick=close}
+function close(){$('#sheet').classList.remove('on');focusOrb=null;irisT=BASE.slice()}
+
+/* ---------- chat local: abre agentes por nombre ---------- */
+const q=$('#q');q.addEventListener('focus',()=>typing=true);q.addEventListener('blur',()=>typing=false);
+$('#bar').addEventListener('submit',e=>{e.preventDefault();const t=q.value.trim().toLowerCase();q.value='';if(!t)return;
+ const hit=orbs.find(o=>t.includes(o.a.name.toLowerCase())||t.includes(o.a.id));
+ if(hit){open(hit);say(`Here's ${hit.a.name}.`)}
+ else if(/status|estado|what|que|qué|todo|all/.test(t))say(`${runN} working, ${needN} waiting on you: ${AG.filter(a=>a.st==='needs').map(a=>a.name).join(', ')}.`,4500);
+ else say(`I'm not connected yet. Tell Claude in the chat and the right agent gets it.`,4200);
+ q.blur()});
+
+/* ---------- animación ---------- */
+let t0=performance.now(),last=t0,nextSac=0,nextBlink=1.5,blinkT=-1,dbl=false;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;
+ // mirada
+ if(focusOrb){S.tx=(focusOrb.x-E.x)/(E.r*2.2);S.ty=(focusOrb.y-E.y)/(E.r*2.2)}
+ else if(typing){S.tx=0;S.ty=.75}
+ else if(ptr&&now-lastPtr<2600){S.tx=(ptr.x-E.x)/(E.r*2.4);S.ty=(ptr.y-E.y)/(E.r*2.4)}
+ else if(T>nextSac){nextSac=T+.9+Math.random()*2.2;if(Math.random()<.45){const o=orbs[Math.floor(Math.random()*orbs.length)];S.tx=(o.x-E.x)/(E.r*2.2);S.ty=(o.y-E.y)/(E.r*2.2)}else{S.tx=(Math.random()-.5)*1.2;S.ty=(Math.random()-.5)*.8}}
+ const m=Math.hypot(S.tx,S.ty);if(m>1){S.tx/=m;S.ty/=m}
+ // resorte rápido para la mirada (movimientos de ojo)
+ const k=260,d=26;S.vx+=(k*(S.tx-S.gx)-d*S.vx)*dt;S.vy+=(k*(S.ty-S.gy)-d*S.vy)*dt;S.gx+=S.vx*dt;S.gy+=S.vy*dt;
+ // gelatina
+ S.sv+=(-220*(S.sq-1)-9*S.sv)*dt;S.sq+=S.sv*dt;
+ // pupila, alegría, párpados
+ S.pu=lerp(S.pu,S.put+(ptr&&now-lastPtr<2600?-.03:0),dt*6);S.happy=lerp(S.happy,S.happyT,dt*8);
+ S.lid=lerp(S.lid,(needN&&!focusOrb&&!S.happyT?.1:0)+(typing?.12:0),dt*4);
+ // parpadeo
+ if(T>nextBlink&&blinkT<0){blinkT=0;dbl=Math.random()<.25;nextBlink=T+2.5+Math.random()*4}
+ if(blinkT>=0){blinkT+=dt;const D=.16;let b=blinkT<D?Math.sin(blinkT/D*Math.PI):0;if(dbl&&blinkT>D+.08&&blinkT<2*D+.08)b=Math.sin((blinkT-D-.08)/D*Math.PI);if(blinkT>(dbl?2*D+.1:D))blinkT=-1;S.blink=reduce?0:b}
+ // dibujar ojo
+ const gx=S.gx,gy=S.gy,gm=Math.min(1,Math.hypot(gx,gy)),ang=Math.atan2(gy,gx)*180/Math.PI;
+ irisG.setAttribute('transform',`translate(${200+gx*62} ${200+gy*62}) rotate(${ang}) scale(${1-.22*gm} 1) rotate(${-ang})`);
+ pupil.setAttribute('r',(74*S.pu).toFixed(2));
+ const close=clamp(S.blink,0,1);
+ lidT.setAttribute('cy',((50+150*S.lid+156*close)-170).toFixed(1));
+ lidB.setAttribute('cy',((350-85*S.happy-156*close)+170).toFixed(1));
+ S.bob=reduce?0:Math.sin(T*1.6)*6;const sx=1/S.sq,sy=S.sq;
+ body.setAttribute('transform',`translate(200 ${200+S.bob}) scale(${sx} ${sy}) translate(-200 -200) translate(${gx*6} ${gy*4})`);
+ shadow.setAttribute('rx',(120-S.bob*2).toFixed(1));
+ // iris de color hacia el agente elegido
+ irisC=irisC.map((v,i)=>lerp(v,irisT[i],dt*5));paintIris();
+ // burbujas
+ orbs.forEach((o,i)=>{const a=o.ang+(reduce?0:T*.035);const wob=reduce?0:Math.sin(T*1.3+i*1.7)*7;
+  o.x=E.x+Math.cos(a)*E.rx;o.y=E.y+Math.sin(a)*E.ry+wob;o.el.style.transform=`translate(${o.x}px,${o.y}px)`;
+  // mini ojo: mira al ojo grande, o al dedo si está cerca
+  let lx=E.x-o.x,ly=E.y-o.y;if(ptr&&now-lastPtr<2600&&Math.hypot(ptr.x-o.x,ptr.y-o.y)<170){lx=ptr.x-o.x;ly=ptr.y-o.y}
+  if(focusOrb===o){lx=0;ly=40}
+  const lm=Math.hypot(lx,ly)||1;o.mp.setAttribute('transform',`translate(${lx/lm*5.5} ${ly/lm*5.5})`);
+  if(T>o.next){o.blink=0;o.next=T+2+Math.random()*5}
+  let bk=0;if(o.blink>=0){o.blink+=dt;bk=o.blink<.14?Math.max(0,Math.sin(o.blink/.14*Math.PI)):0;if(o.blink>.14)o.blink=-1}
+  o.ml.setAttribute('height',(bk*30).toFixed(1));o.ml.setAttribute('y',-15);
+  o.sv+=(-260*(o.sq-1)-10*o.sv)*dt;o.sq+=o.sv*dt;o.ob.setAttribute('transform',`scale(${1/o.sq} ${o.sq})`)});
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+setTimeout(()=>say(`Hi. ${needN} agents are waiting on you.`),900);
+window.__ready=true;
+</script>
+</body>
+</html>
