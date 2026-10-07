@@ -149,6 +149,15 @@ button{font:inherit;color:inherit}
 .holdtip{position:fixed;z-index:40;left:50%;top:calc(var(--top) + 14px);transform:translateX(-50%);padding:9px 16px;border-radius:16px;background:var(--red);color:#fff;font-weight:600;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .holdtip.on{opacity:1}
 .ag .hint2{color:var(--dim);font-size:13px;margin-top:8px}
+.huddle{padding:calc(var(--top) + 16px) 16px 20px;overflow-y:auto}
+.huddle h2{font-weight:700;font-size:clamp(30px,9vw,44px);line-height:1}.huddle .sub{color:var(--dim);font-size:14.5px;margin-top:6px}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 6px;margin-top:8px}
+.hu{display:flex;flex-direction:column;align-items:center;text-align:center}.hu span{width:100%;display:block}.hu .eye{width:100%;max-width:118px;display:block;margin:0 auto}
+.hu b{font-size:14.5px;font-weight:600;margin-top:-4px}.hu small{color:var(--dim);font-size:12px}
+.hero .eye,.hu .eye{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.zzc{background:#e8eaf6;color:#283593}.cd[hidden]{display:none}
+.edin{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px;font:500 16px Fredoka,sans-serif;color:var(--ink)}
+.sw{display:flex;flex-wrap:wrap;gap:10px}.sw button{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer}.sw button.on{box-shadow:0 0 0 3px var(--ink)}
 </style>
 </head>
 <body>
@@ -162,6 +171,13 @@ button{font:inherit;color:inherit}
  <div class="row"><label class="ph">📷 Add photo<input type="file" id="nsFile" accept="image/*" hidden></label><button class="cl" id="nsCopy">Copy for Claude</button></div>
  <div class="row"><button class="ok" id="nsOk">Mark done ✓</button></div>
  <p class="tip">Marking it done saves it on this phone. Photos stay on your phone; send them to Claude in the chat.</p></div>
+<div class="ns" id="ed" role="dialog" aria-label="Edit agent"><h3><span id="edT">Edit agent</span><button id="edX" aria-label="Close">✕</button></h3>
+ <p class="lbl" style="margin-top:12px">Name</p><input id="edName" class="edin" maxlength="24">
+ <p class="lbl">Color</p><div class="sw" id="edSw"></div>
+ <div id="edNew"><p class="lbl">What it does</p><input id="edNow" class="edin" maxlength="140" placeholder="e.g. Books the DJ and sound for race day">
+ <p class="lbl">What it needs from you (one per line)</p><textarea id="edNeeds" placeholder="e.g. Budget for the DJ"></textarea></div>
+ <div class="row"><button class="ok" id="edSave">Save</button></div><div class="row"><button class="cl" id="edDel" hidden style="background:var(--red)">Delete this agent</button></div>
+ <p class="tip">Saved on this phone.</p></div>
 <div class="lock" id="lock"><h2 id="lkT">Enter PIN</h2><p id="lkP">This board is locked on this phone.</p><input id="lkIn" type="password" inputmode="numeric" maxlength="6" autocomplete="off"><div class="err" id="lkE"></div><div class="lb2"><button class="x" id="lkX" hidden>Cancel</button><button id="lkGo">Open</button></div></div>
 <div class="chat" id="chat" role="dialog" aria-label="Chat"><div class="ch-h"><div><b id="chName"></b><small id="chSub"></small></div><button id="snd" class="snd" aria-label="Voice on or off">🔊</button><button id="chX" aria-label="Close">✕</button></div>
 <div class="msgs" id="msgs"></div><div class="quick" id="quick"></div>
@@ -169,7 +185,7 @@ button{font:inherit;color:inherit}
 <script type="module">
 /* Datos: agents.json (lo actualizo yo); si falla, se usa la copia de abajo. */
 let D;try{const r=await fetch('agents.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=FALLBACK}
-const AG=D.agents;const DL=D.deadlines.slice().sort((a,b)=>a.date<b.date?-1:1);const RACES=D.races||[];
+const AG0=D.agents;const DL=D.deadlines.slice().sort((a,b)=>a.date<b.date?-1:1);const RACES=D.races||[];
 const ST={needs:['needs you','#e5432d'],run:['working','#17171a'],idle:['not started','#9a9aa0']};
 const $=s=>document.querySelector(s);const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const lerp=(a,b,t)=>a+(b-a)*t;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -177,23 +193,25 @@ const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const mix=(a,b,t)=>a.ma
 const shade=(h,k)=>css(k<0?mix(hex(h),[0,0,0],-k):mix(hex(h),[255,255,255],k));
 
 /* ---------- estado guardado en este teléfono ---------- */
-const SK='agents-state-1';const S={done:{},money:[],winners:{},pin:''};try{Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}'))}catch(e){}
+const SK='agents-state-1';const S={done:{},money:[],winners:{},pin:'',custom:{},mine:[],snooze:{}};try{Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}'))}catch(e){}
+const AG=AG0.map(a=>Object.assign({},a,S.custom[a.id]||{})).concat(S.mine||[]);
+const isSnoozed=a=>(S.snooze[a.id]||0)>Date.now();
 const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
 const nk=(a,t)=>a.id+'|'+t;
 const openNeeds=a=>a.needs.filter(t=>!S.done[nk(a,t)]);
 const doneByYou=a=>a.needs.filter(t=>S.done[nk(a,t)]);
-const totalOpen=()=>AG.reduce((n,a)=>n+openNeeds(a).length,0);
+const totalOpen=()=>AG.reduce((n,a)=>n+(isSnoozed(a)?0:openNeeds(a).length),0);
 const todayKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.max(0,Math.round((new Date(d+'T00:00:00')-t)/864e5))};
 const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
 const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
-const STYLES=['bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
-const STY_NAME={bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
-const DEF={flyers:'mexica',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',money:'lashes',caos:'buddha'};
+const STYLES=['duo','bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
+const STY_NAME={duo:'Two eyes',bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
+const DEF={flyers:'mexica',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',money:'duo',caos:'buddha'};
 let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles-2')||'{}')}catch(e){}
-const styleOf=a=>saved[a.id]||DEF[a.id]||'bubble';
+const styleOf=a=>saved[a.id]||DEF[a.id]||'duo';
 const saveStyles=()=>{try{localStorage.setItem('agent-eye-styles-2',JSON.stringify(saved))}catch(e){}};
 const toHex=c=>c[0]==='#'?c:'#'+c.match(/\d+/g).map(v=>(+v).toString(16).padStart(2,'0')).join('');
 const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
@@ -201,8 +219,9 @@ const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜ�
 /* ---------- personaje: burbuja con ojo ---------- */
 let EID=0;
 function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.style||'bubble');
- const ex=200,ey=ora?200:188,er=ora?150:(sty==='googly'?100:88);
- const ir=ora?78:({cat:62,horus:52,nazar:60,mexica:52,buddha:46,odin:50}[sty]||50);
+ const duo=sty==='duo',dx=duo?124:0;
+ const ex=duo?138:200,ey=ora?200:duo?176:188,er=ora?150:(sty==='googly'?100:duo?56:88);
+ const ir=ora?78:({duo:31,cat:62,horus:52,nazar:60,mexica:52,buddha:46,odin:50}[sty]||50);
  const lid=ora?'#ebe2c8':o.color;
  const fibers=(r,n=48,op=.26)=>{let f='';for(let i=0;i<n;i++){const a=i/n*Math.PI*2,r1=r*.44,r2=r*.9;f+=`<line x1="${(Math.cos(a)*r1).toFixed(1)}" y1="${(Math.sin(a)*r1).toFixed(1)}" x2="${(Math.cos(a)*r2).toFixed(1)}" y2="${(Math.sin(a)*r2).toFixed(1)}" stroke="${i%2?'#fff':'#000'}" stroke-opacity="${op}" stroke-width="${i%3?1.3:2}" stroke-linecap="round"/>`}return f};
  const base=ora?'#14625e':(o.color==='#2a2a2e'?'#6b6b73':o.color);
@@ -236,6 +255,9 @@ function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.st
  else if(sty==='odin'){ // anillo de runas que gira
   deco=`<defs><path id="rp${k}" d="M${ex} ${ey-110} a110 110 0 1 1 -0.1 0"/></defs><circle cx="${ex}" cy="${ey}" r="${er+6}" fill="none" stroke="#1d2530" stroke-width="5"/>
    <g class="rg" data-spin="10" data-cx="${ex}" data-cy="${ey}"><circle cx="${ex}" cy="${ey}" r="118" fill="none" stroke="#1d2530" stroke-width="22" stroke-opacity=".75"/><text font-size="17" fill="#e8d9a8" letter-spacing="3"><textPath href="#rp${k}">${RUNES}${RUNES.slice(0,4)}</textPath></text></g>`}
+ else if(duo){ // dos ojos, cejas y boca
+  white=`<circle cx="${ex}" cy="${ey}" r="${er}" fill="url(#ew${k})"/><circle cx="${ex+dx}" cy="${ey}" r="${er}" fill="url(#ew${k})"/>`;
+  over=`<g class="bw1"><path d="M-32 5 Q0 -11 32 5" stroke="#141414" stroke-width="10" fill="none" stroke-linecap="round"/></g><g class="bw2"><path d="M-32 5 Q0 -11 32 5" stroke="#141414" stroke-width="10" fill="none" stroke-linecap="round"/></g><ellipse class="mo" cx="200" cy="266" rx="18" ry="3" fill="#3a0d0d"/>`}
  else if(sty==='oracle'){ // el Oráculo: iris grabado en oro y órbita de signos
   iris=`<circle r="${ir}" fill="url(#ir${k})"/>${fibers(ir,64,.22)}<g class="rg" data-spin="-14"><circle r="${ir*.72}" fill="none" stroke="#e2b54a" stroke-width="2.5" stroke-dasharray="3 7"/></g><circle r="${ir}" fill="none" stroke="#c99a2e" stroke-width="5"/><circle r="${ir-9}" fill="none" stroke="#e2b54a" stroke-width="1.5" stroke-opacity=".7"/><ellipse class="pu" rx="${ir*.2}" ry="${ir*.5}" fill="#08100f"/>${hl}`;
   let marks='';for(let i=0;i<48;i++){const a=i/48*Math.PI*2,r1=i%4?172:166;marks+=`<line x1="${(200+Math.cos(a)*r1).toFixed(1)}" y1="${(200+Math.sin(a)*r1).toFixed(1)}" x2="${(200+Math.cos(a)*178).toFixed(1)}" y2="${(200+Math.sin(a)*178).toFixed(1)}" stroke="#b8892b" stroke-width="${i%4?1.5:3}"/>`}
@@ -243,17 +265,17 @@ function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.st
   over='';deco='';o.orbit=`<g class="rg2" data-spin="5" data-cx="200" data-cy="200"><circle cx="200" cy="200" r="178" fill="none" stroke="#b8892b" stroke-width="1.5"/>${marks}${glyph}</g>`;
   white=''}
  const fill0=ora?'#fff':shade(o.color,.42),fill1=ora?'#f4efe2':o.color,fill2=ora?'#cbbd97':shade(o.color,-.38);
- return `<svg class="eye" viewBox="${ora?'-10 -10 420 450':'0 0 400 430'}" data-sty="${sty}" data-ex="${ex}" data-ey="${ey}" data-er="${er}" data-mr="${ora?60:sty==='googly'?0:34}">
+ return `<svg class="eye" viewBox="${ora?'-10 -10 420 450':'0 0 400 430'}" data-sty="${sty}" data-ex="${ex}" data-dx="${dx}" data-ey="${ey}" data-er="${er}" data-mr="${ora?60:sty==='googly'?0:34}">
  <defs><radialGradient id="bd${k}" cx=".38" cy=".3" r=".78"><stop offset="0" stop-color="${fill0}"/><stop offset=".6" stop-color="${fill1}"/><stop offset="1" stop-color="${fill2}"/></radialGradient>
  <radialGradient id="ew${k}" cx=".42" cy=".36" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".8" stop-color="#f1f2f4"/><stop offset="1" stop-color="#cfd3da"/></radialGradient>
  <radialGradient id="ir${k}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${shade(irisC,.45)}"/><stop offset=".55" stop-color="${irisC}"/><stop offset=".86" stop-color="${shade(irisC,-.3)}"/><stop offset="1" stop-color="${shade(irisC,-.6)}"/></radialGradient>
  <radialGradient id="gn${k}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
- <clipPath id="cp${k}"><circle cx="${ex}" cy="${ey}" r="${er}"/></clipPath></defs>
+ <clipPath id="cp${k}"><circle cx="${ex}" cy="${ey}" r="${er}"/>${duo?`<circle cx="${ex+dx}" cy="${ey}" r="${er}"/>`:''}</clipPath></defs>
  <ellipse class="sh" cx="200" cy="${ora?425:405}" rx="115" ry="15" fill="url(#gn${k})"/>
  ${o.orbit||''}
  <g class="bd"><circle cx="200" cy="200" r="150" fill="url(#bd${k})"/>${deco}${white}
-  <g clip-path="url(#cp${k})"><g class="ir">${iris}</g>
-   <ellipse class="lt" cx="${ex}" cy="${ey-er-er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/><ellipse class="lb" cx="${ex}" cy="${ey+er+er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/></g>
+  <g clip-path="url(#cp${k})"><g class="ir">${iris}</g>${duo?`<g class="ir2">${iris.replace('class="pu"','class="pu2"')}</g>`:''}
+   <ellipse class="lt" cx="${ex}" cy="${ey-er-er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/><ellipse class="lb" cx="${ex}" cy="${ey+er+er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/>${duo?`<ellipse class="lt2" cx="${ex+dx}" cy="0" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/><ellipse class="lb2" cx="${ex+dx}" cy="500" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/>`:''}</g>
   ${over}
   ${sty==='googly'?`<ellipse cx="${ex-34}" cy="${ey-46}" rx="30" ry="16" fill="#fff" opacity=".75" transform="rotate(-30 ${ex-34} ${ey-46})"/><circle cx="${ex}" cy="${ey}" r="${er}" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="3"/>`:''}
   ${sty==='lashes'?`<g class="lash">${[-62,-38,-12,14,40,64].map(x=>{const rx=er*1.45,ry=er*1.15,y=ry*(Math.sqrt(1-(x/rx)**2)-1);return `<line x1="${200+x}" y1="${y.toFixed(1)}" x2="${(200+x*1.3).toFixed(1)}" y2="${(y-26).toFixed(1)}" stroke="#1b1b1f" stroke-width="7" stroke-linecap="round"/>`}).join('')}</g>`:''}
@@ -268,14 +290,16 @@ const nextDL=a=>DL.find(d=>d.ag===a.id&&!d.wait&&daysTo(d.date)>0);
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
  <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
  <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em id="who-${i}"></em></button>`).join('')}</div>
- <div class="sm"><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
+ <div class="sm"><button id="newBtn">+ New agent</button><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
+html+=`<section class="card huddle" id="huddle"><p class="lbl" style="margin:0 0 4px">Huddle</p><h2>Everyone together</h2><p class="sub">Tap one and the others turn to watch it. Shake your phone to wake them all. Swipe down on an eye to snooze it.</p>
+ <div class="hud">${AG.map((a,i)=>`<div class="hu"><span data-hud="${i}">${eyeSVG({color:a.color,style:styleOf(a)})}</span><b>${esc(a.name)}</b><small id="hs-${i}"></small></div>`).join('')}</div></section>`;
 html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;const d=nextDL(a);
  return `<section class="card ag" style="--c:${a.color}" data-i="${i}">
  <div class="meta"><span>Agent ${i+1} of ${AG.length}</span><span>${lbl}</span></div>
  <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button></div>
  <div class="strip">
-  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}</span><h2>${a.name}</h2><div><span class="chip" style="background:${col}">${lbl}</span>${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}</div>
-   <p class="hint2">Tap the eye to chat · hold it to talk</p><div class="acts"><button class="talk" data-talk="${i}">Talk</button><button class="sty" data-estilo="${i}">Eye: ${STY_NAME[styleOf(a)]} ↻</button></div></div>
+  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}</span><h2>${a.name}</h2><div><span class="chip" style="background:${col}">${lbl}</span>${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}<span class="cd zzc" id="zz-${i}" hidden>💤 snoozed · tap the eye to wake</span></div>
+   <p class="hint2">Tap the eye to chat · hold it to talk · swipe down to snooze</p><div class="acts"><button class="talk" data-talk="${i}">Talk</button><button class="sty" data-estilo="${i}">Eye: ${STY_NAME[styleOf(a)]} ↻</button></div></div>
    <p class="lbl">Needs from you · tap one to answer</p><div id="nd-${i}"></div></div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div>
    <p class="lbl">Doing now</p><p class="now">${esc(a.now)}</p>
@@ -287,6 +311,7 @@ html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul cl
    <p class="lbl">Important</p><dl class="facts">${a.facts.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
    ${a.link?`<a class="btn" href="${a.link[1]}">${a.link[0]}</a>`:''}
    <button class="btn ghost" style="width:100%;border:0;cursor:pointer" data-share="${i}">Share this card on WhatsApp</button>
+   <button class="btn" style="width:100%;border:0;cursor:pointer;background:var(--soft);color:var(--ink)" data-edit="${i}">Edit name & color${a.mine?' · delete':''}</button>
    <p class="note">Updated ${fmtD(D.updated)}. Answers you mark done are saved on this phone.</p></div>
  </div></section>`}).join('');
 html+=`<section class="card today" id="today"><p class="lbl" style="margin-top:0">Done today</p><h2 id="tdH"></h2><div id="tdL"></div></section>`;
@@ -314,8 +339,10 @@ function paint(){const tot=totalOpen();
   const b=$('#bd-'+i);b.textContent=o.length||'';b.style.display=o.length?'':'none';
   $('#nd-'+i).innerHTML=(o.length?`<ul class="needs">${o.map(t=>`<li data-need="${i}" data-t="${esc(t)}"><b>${a.needs.indexOf(t)+1}</b><span>${esc(t)}</span><i>answer ›</i></li>`).join('')}</ul>`:'<p class="clear">Nothing right now. All clear ✓</p>')
    +(dn.length?`<p class="lbl">Done by you</p><ul class="byyou">${dn.map(t=>{const r=S.done[nk(a,t)];return `<li><span>${esc(t)}${r.note?`<small>${esc(r.note)}</small>`:''}</span><button data-undo="${i}" data-t="${esc(t)}">undo</button></li>`}).join('')}</ul>`:'');
-  const E=eyes.find(E=>E.svg.closest('.ag')===agCard(i));if(E)E.droop=a.needs.length?.42*o.length/a.needs.length:0;
-  railEl.children[i+1].classList.toggle('need',o.length>0)});
+  eyesOf(i).forEach(E=>{E.droop=a.needs.length?.42*o.length/a.needs.length:0;E.sleep=isSnoozed(a)});
+  const zz=$('#zz-'+i);if(zz)zz.hidden=!isSnoozed(a);if(isSnoozed(a)){w.className='';w.textContent='snoozed'}
+  const hs=$('#hs-'+i);if(hs)hs.textContent=isSnoozed(a)?'snoozed':o.length?`${o.length} need you`:'all clear';
+  railEl.children[cards.indexOf(agCard(i))].classList.toggle('need',o.length>0&&!isSnoozed(a))});
  paintResults();paintMoney();paintToday();if(typeof moods==='function'&&eyes.length)moods()}
 
 /* contestar una necesidad */
@@ -362,13 +389,14 @@ function paintToday(){const tk=todayKey(),items=[];
 
 /* ---------- ojos vivos ---------- */
 let eyes=[];
-function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.querySelector('.ir'),puEl:svg.querySelector('.pu'),lt:svg.querySelector('.lt'),lb:svg.querySelector('.lb'),bd:svg.querySelector('.bd'),sh:svg.querySelector('.sh'),rgs:[...svg.querySelectorAll('.rg,.rg2')],lash:svg.querySelector('.lash'),
+function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.querySelector('.ir'),puEl:svg.querySelector('.pu'),lt:svg.querySelector('.lt'),lb:svg.querySelector('.lb'),bd:svg.querySelector('.bd'),sh:svg.querySelector('.sh'),rgs:[...svg.querySelectorAll('.rg,.rg2')],lash:svg.querySelector('.lash'),ir2:svg.querySelector('.ir2'),puEl2:svg.querySelector('.pu2'),lt2:svg.querySelector('.lt2'),lb2:svg.querySelector('.lb2'),bw1:svg.querySelector('.bw1'),bw2:svg.querySelector('.bw2'),mo:svg.querySelector('.mo'),dx:+svg.dataset.dx||0,bra:0,bry:0,
  ex:+svg.dataset.ex,ey:+svg.dataset.ey,er:+svg.dataset.er,mr:+svg.dataset.mr,
  gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,sq:1,sv:0,pu0:.36,pu:.36,put:.36,happy:0,happyT:0,lid:0,lidT:0,blink:-1,nb:1+Math.random()*3,ns:0,look:null,px:0,py:30,pvx:0,pvy:0};
  if(E.puEl&&E.sty!=='robot'&&E.sty!=='googly')E.irR=+svg.querySelector('.ir circle, .ir ellipse').getAttribute('r')||62;
  if(E.sty==='cat')E.irR=62;
- svg.addEventListener('click',()=>{if(E.held){E.held=false;return}poke(E)});
- svg.addEventListener('pointerdown',e=>holdStart(E,e));
+ svg.addEventListener('click',()=>{if(E.held){E.held=false;return}if(E.sleep){wakeAgent(E);return}if(E.svg.closest('[data-hud]')){hudTap(E);return}poke(E)});
+ svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);if(dy>55&&dxx<50){E.y0=null;cancelHold(E);snoozeEye(E)}});
+ svg.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;if(!E.sleep)holdStart(E,e)});
  ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>holdEnd(E)));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
@@ -388,6 +416,8 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
  const r=E.svg.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth||!r.width)return;
  const sc=r.width/400,cx=r.left+E.ex*sc,cy=r.top+E.ey*sc;
  if(E.look){E.tx=E.look[0];E.ty=E.look[1]}
+ else if(E.sleep){E.tx=0;E.ty=.3}
+ else if(E.lookAt){E.tx=(E.lookAt.x-cx)/(E.er*sc*2.2);E.ty=(E.lookAt.y-cy)/(E.er*sc*2.2)}
  else if(ptr&&now-lastPtr<2500){E.tx=(ptr.x-cx)/(E.er*sc*2.6);E.ty=(ptr.y-cy)/(E.er*sc*2.6)}
  else if(T>E.ns){E.ns=T+(E.nervous?.18+Math.random()*.4:E.night?2+Math.random()*3:.9+Math.random()*2.3);E.tx=(Math.random()-.5)*(E.nervous?1.6:1.3);E.ty=(Math.random()-.5)*.9}
  const m=Math.hypot(E.tx,E.ty);if(m>1){E.tx/=m;E.ty/=m}
@@ -396,6 +426,7 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
  E.pu=lerp(E.pu,E.put,dt*7);E.happy=lerp(E.happy,Math.max(E.happyT,E.clear&&!E.night?.35:0),dt*8);if(E.clear&&!reduce&&T>(E.hop||0)){E.hop=T+3.5+Math.random()*3;E.sv-=.07}E.lid=lerp(E.lid,E.lidT,dt*6);
  if(T>E.nb&&E.blink<0){E.blink=0;E.dbl=E.nervous?Math.random()<.6:Math.random()<.25;E.nb=T+(E.nervous?.9+Math.random()*1.5:E.night?4+Math.random()*4:2.4+Math.random()*4)}
  let b=0;if(E.blink>=0){E.blink+=dt;const D=.15;if(E.blink<D)b=Math.sin(E.blink/D*Math.PI);else if(E.dbl&&E.blink>D+.08&&E.blink<2*D+.08)b=Math.sin((E.blink-D-.08)/D*Math.PI);if(E.blink>(E.dbl?2*D+.1:D))E.blink=-1;b=reduce?0:Math.max(0,b)}
+ if(E.sleep&&!E.talking&&!E.listening)b=1.4;
  const gm=Math.min(1,Math.hypot(E.gx,E.gy)),ang=Math.atan2(E.gy,E.gx)*180/Math.PI;
  if(E.sty==='googly'){ // la pupila rueda suelta con gravedad y rebota
   const R=E.er-44,ax=E.tx*500,ay=900+E.ty*300;E.pvx+=ax*dt;E.pvy+=ay*dt;E.pvx*=1-1.6*dt;E.pvy*=1-1.6*dt;E.px+=E.pvx*dt;E.py+=E.pvy*dt;
@@ -406,11 +437,16 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
  else if(E.sty==='robot')E.puEl.setAttribute('r',(16+(E.pu-.36)*60).toFixed(2));
  else if(E.sty==='oracle')E.puEl.setAttribute('rx',(78*(.12+E.pu*.3)).toFixed(2));
  else if(E.sty!=='googly'&&E.sty!=='nazar'&&E.sty!=='oracle')E.puEl.setAttribute('r',(E.irR*E.pu).toFixed(2));
+ if(E.ir2){E.ir2.setAttribute('transform',`translate(${E.ex+E.dx+E.gx*E.mr} ${E.ey+E.gy*E.mr}) rotate(${ang}) scale(${1-.2*gm} 1) rotate(${-ang})`);E.puEl2.setAttribute('r',(E.irR*E.pu).toFixed(2))}
  const ry=E.er*1.15;
  E.rgs.forEach(g=>{const sp=+g.dataset.spin||0,cx=g.dataset.cx,cy=g.dataset.cy;g.setAttribute('transform',`rotate(${((T*sp)%360).toFixed(2)}${cx?` ${cx} ${cy}`:''})`)});
  const topEdge=(E.ey-E.er)+(E.er+2)*b+E.er*.5*(E.lid+(E.droop||0)+(E.night&&!E.listening&&!E.talking?1.05:0)+(E.sty==='buddha'?.75:0));
  E.lt.setAttribute('cy',(topEdge-ry).toFixed(1));
  E.lb.setAttribute('cy',((E.ey+E.er)-(E.er-2)*b-E.er*.55*E.happy+ry).toFixed(1));
+ if(E.lt2){E.lt2.setAttribute('cy',E.lt.getAttribute('cy'));E.lb2.setAttribute('cy',E.lb.getAttribute('cy'))}
+ if(E.bw1){const [ta,ty]=E.nervous?[16,-6]:E.listening?[-4,-16]:(E.happy>.25||E.clear)?[-8,-12]:(E.night||E.sleep)?[0,9]:[0,0];E.bra=lerp(E.bra,ta,dt*6);E.bry=lerp(E.bry,ty,dt*6);
+  const by=E.ey-E.er-14+E.bry+b*10;E.bw1.setAttribute('transform',`translate(${E.ex} ${by}) rotate(${-E.bra})`);E.bw2.setAttribute('transform',`translate(${E.ex+E.dx} ${by}) rotate(${E.bra})`);
+  E.mo.setAttribute('ry',(E.talking?3+8*Math.abs(Math.sin(T*16)):E.sleep?2:2+7*E.happy).toFixed(1));E.mo.setAttribute('rx',(E.talking?15:16+10*E.happy).toFixed(1))}
  if(E.lash)E.lash.setAttribute('transform',`translate(0 ${topEdge.toFixed(1)})`);
  const bob=reduce?0:Math.sin(T*(E.night?.8:1.6)+E.ex)*6;const jit=E.nervous&&!reduce?Math.sin(T*47)*1.6:0;
  E.bd.setAttribute('transform',`translate(200 ${200+bob}) scale(${1/E.sq} ${E.sq}) translate(-200 -200) translate(${E.gx*5+jit} ${E.gy*4})`);
@@ -427,7 +463,7 @@ document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 const chat=$('#chat'),msgs=$('#msgs'),chQ=$('#chQ');let chA=null,chE=null,chI=0;const hist={};
 const list=x=>x.map(t=>'• '+t).join('\n');
 const hasW=(t,...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t));
-function first(){const d=DL.find(x=>!x.wait&&daysTo(x.date)>0&&openNeeds(AG.find(a=>a.id===x.ag)).length);if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>openNeeds(a).length);return a?{a,d:null}:null}
+function first(){const d=DL.find(x=>{const g=AG.find(a=>a.id===x.ag);return g&&!x.wait&&daysTo(x.date)>0&&!isSnoozed(g)&&openNeeds(g).length});if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>!isSnoozed(a)&&openNeeds(a).length);return a?{a,d:null}:null}
 function prophecy(){const tk=todayKey();if(tk===D.raceDay)return `Today is race day. Open Results to tap the winners as they come in.`;
  const f=first(),tot=totalOpen();if(!f)return `All clear. Nothing waits on you today.`;
  return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openNeeds(f.a).length} thing${openNeeds(f.a).length>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} things wait on you in all.`}
@@ -489,9 +525,10 @@ function holdStart(E,e){if(!SR||holdRec)return;holdE=E;holdText='';
   holdRec.onerror=()=>{};holdRec.onend=()=>{const t=holdText.trim(),E2=holdE;holdRec=null;holdE=null;
    if(!E2||!E2.listening)return;E2.listening=false;E2.look=null;E2.put=E2.pu0;$('#holdtip').classList.remove('on');
    if(!t){say("I didn't catch that. Hold and talk again.");return}
-   const c=E2.svg.closest('.card');const i=c.id==='intro'?-1:+c.dataset.i;if(!chA||chI!==i)openChat(i);setTimeout(()=>send(t),chA&&chI===i?0:350)};
+   const c=E2.svg.closest('.card'),hd=E2.svg.closest('[data-hud]');const i=hd?+hd.dataset.hud:c.id==='intro'?-1:+c.dataset.i;if(!chA||chI!==i)openChat(i);setTimeout(()=>send(t),chA&&chI===i?0:350)};
   holdRec.start()}catch(_){holdRec=null;return}
  holdTimer=setTimeout(()=>{E.listening=true;E.held=true;E.look=[0,-.08];E.put=.62;E.sv-=.08;$('#holdtip').classList.add('on');if('vibrate' in navigator)navigator.vibrate(15)},320)}
+function cancelHold(E){if(holdE!==E)return;clearTimeout(holdTimer);E.listening=false;E.look=null;E.put=E.pu0;$('#holdtip').classList.remove('on');if(holdRec){holdRec.onend=null;try{holdRec.abort()}catch(_){}holdRec=null;holdE=null}}
 function holdEnd(E){if(holdE!==E)return;clearTimeout(holdTimer);if(!E.listening){if(holdRec){holdRec.onend=null;try{holdRec.abort()}catch(_){}holdRec=null;holdE=null}return}
  setTimeout(()=>{try{holdRec&&holdRec.stop()}catch(_){}},250)}
 
@@ -500,7 +537,7 @@ const VO={oracle:[.55,.82],flyers:[1.35,1.12],ads:[1.2,1.05],hipiq:[1,1],valley:
 let voiceOn=S.voice!==false,voices=[];const synth=window.speechSynthesis;
 function loadVoices(){voices=(synth?synth.getVoices():[]).filter(v=>/^en/i.test(v.lang))}
 if(synth){loadVoices();synth.onvoiceschanged=loadVoices;addEventListener('pointerdown',()=>{if(!window.__unl){window.__unl=1;try{synth.speak(new SpeechSynthesisUtterance(''))}catch(_){}}},{once:true})}
-function speak(a,text){if(!synth||!voiceOn)return;const E=chE;synth.cancel();
+function speak(a,text,E=chE){if(!synth||!voiceOn)return;synth.cancel();
  const clean=text.replace(/<[^>]+>/g,'').replace(/•/g,'').replace(/\n+/g,'. ').replace(/[✓↗›]/g,'');
  const u=new SpeechSynthesisUtterance(clean);const [pi,ra]=VO[a.id]||[1,1];u.pitch=pi;u.rate=ra;u.lang='en-US';
  if(voices.length){const idx=Object.keys(VO).indexOf(a.id);u.voice=voices[Math.max(0,idx)%voices.length]}
@@ -511,12 +548,57 @@ $('#snd').addEventListener('click',()=>{voiceOn=!voiceOn;S.voice=voiceOn;save();
 if(!synth)$('#snd').hidden=true;
 
 /* ---------- humor de los ojos: hora del día y fechas cercanas ---------- */
-function moods(){const h=new Date().getHours(),night=h>=22||h<6;
+let wakeUntil=0;
+function moods(){const h=new Date().getHours(),night=(h>=22||h<6)&&Date.now()>wakeUntil;
  eyes.forEach(E=>{E.night=night;const c=E.svg.closest('.card');if(!c)return;
   if(c.id==='intro'){E.nervous=false;E.clear=totalOpen()===0;return}
-  const a=AG[+c.dataset.i];if(!a)return;const d=nextDL(a);const o=openNeeds(a).length;
+  const hd=E.svg.closest('[data-hud]');const a=AG[hd?+hd.dataset.hud:+c.dataset.i];if(!a)return;const d=nextDL(a);const o=openNeeds(a).length;
   E.nervous=!!(d&&daysTo(d.date)<=7&&o);E.clear=o===0})}
 setInterval(moods,60000);
+
+/* ---------- ojos de un agente (tarjeta + huddle) ---------- */
+function eyesOf(i){return eyes.filter(E=>E.svg.closest('.ag')===agCard(i)||(E.svg.closest('[data-hud]')&&+E.svg.closest('[data-hud]').dataset.hud===i))}
+function agentOfEye(E){const hd=E.svg.closest('[data-hud]');if(hd)return +hd.dataset.hud;const c=E.svg.closest('.ag');return c?+c.dataset.i:-1}
+
+/* ---------- huddle: los demás voltean a ver al que habla ---------- */
+let hudT=0;
+function hudTap(E){const i=agentOfEye(E),a=AG[i];const r=E.svg.getBoundingClientRect(),c={x:r.left+r.width/2,y:r.top+r.height*.45};
+ eyesOf(i).forEach(x=>{x.lookAt=null;x.look=[0,.05]});E.sv-=.12;E.happyT=1;
+ eyes.forEach(x=>{if(x.svg.closest('#huddle')&&agentOfEye(x)!==i){x.lookAt=c;x.look=null}});
+ const o=openNeeds(a);const line=isSnoozed(a)?`${a.name} is snoozed.`:o.length?`${a.name}: I need ${o.length} thing${o.length>1?'s':''}. First: ${o[0]}.`:`${a.name}: all clear.`;
+ say(line,4200);speak(a,line,E);clearTimeout(hudT);hudT=setTimeout(()=>eyes.forEach(x=>{x.lookAt=null;if(x.svg.closest('#huddle')){x.look=null;x.happyT=0}}),4500)}
+
+/* ---------- dormir / despertar (deslizar hacia abajo) ---------- */
+function snoozeEye(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];E.held=true;S.snooze[a.id]=Date.now()+864e5;save();paint();say(`${a.name} is snoozed until tomorrow. Tap it to wake it.`,3800);if('vibrate' in navigator)navigator.vibrate(30)}
+function wakeAgent(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];delete S.snooze[a.id];save();paint();E.sv-=.18;E.happyT=1;setTimeout(()=>E.happyT=0,1200);say(`${a.name} is awake.`)}
+
+/* ---------- agitar el teléfono despierta a todos ---------- */
+let mLast=null,shakes=[],lastWake=0;
+function wakeAll(){const now=Date.now();if(now-lastWake<4000)return;lastWake=now;wakeUntil=now+60000;moods();
+ eyes.forEach(E=>{E.sv-=.16+Math.random()*.08;E.put=.62;E.happyT=1;E.pvy-=700;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1500)});
+ say("We're up!");speak(ORACLE,"We're up!",eyes.find(E=>E.sty==='oracle'));if('vibrate' in navigator)navigator.vibrate([20,40,20])}
+function onMotion(e){const g=e.accelerationIncludingGravity;if(!g||g.x==null)return;if(mLast){const d=Math.abs(g.x-mLast.x)+Math.abs(g.y-mLast.y)+Math.abs(g.z-mLast.z);
+  if(d>24){const t=Date.now();shakes=shakes.filter(x=>t-x<900);shakes.push(t);if(shakes.length>=3){shakes=[];wakeAll()}}}mLast={x:g.x,y:g.y,z:g.z}}
+addEventListener('pointerdown',()=>{if(window.DeviceMotionEvent&&typeof DeviceMotionEvent.requestPermission==='function'){DeviceMotionEvent.requestPermission().then(p=>{if(p==='granted')addEventListener('devicemotion',onMotion)}).catch(()=>{})}else addEventListener('devicemotion',onMotion)},{once:true});
+
+/* ---------- nombres, colores y agentes nuevos ---------- */
+const SWC=['#ff5a36','#ffb000','#18a873','#c62828','#2f6fe8','#1f7a4d','#2a2a2e','#e84393','#00a8b5','#8d6e63','#7cb342','#f57c00'];
+let edCur=null,edColor='';
+function openEdit(i){edCur=i;const a=i==null?null:AG[i];$('#edT').textContent=a?`Edit ${a.name}`:'New agent';$('#edName').value=a?a.name:'';edColor=a?a.color:SWC[(AG.length)%SWC.length];
+ $('#edNew').hidden=!!a&&!a.mine;$('#edNow').value=a&&a.mine?a.now:'';$('#edNeeds').value=a&&a.mine?a.needs.join('\n'):'';$('#edDel').hidden=!(a&&a.mine);
+ $('#edSw').innerHTML=SWC.map(c=>`<button style="background:${c}" data-c="${c}" class="${c===edColor?'on':''}" aria-label="${c}"></button>`).join('');$('#ed').classList.add('on')}
+$('#edSw').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;edColor=b.dataset.c;$('#edSw').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+$('#edX').addEventListener('click',()=>$('#ed').classList.remove('on'));
+$('#edSave').addEventListener('click',()=>{const name=$('#edName').value.replace(/[<>]/g,'').trim();if(!name){$('#edName').focus();return}
+ const a=edCur==null?null:AG[edCur];
+ if(a&&!a.mine){S.custom[a.id]={name,color:edColor}}
+ else{const needs=$('#edNeeds').value.split('\n').map(x=>x.replace(/[<>]/g,'').trim()).filter(Boolean),now=$('#edNow').value.replace(/[<>]/g,'').trim()||'Just created. Tell Claude what this agent should do.';
+  const m={id:a?a.id:'u'+Date.now().toString(36),name,color:edColor,st:needs.length?'needs':'run',needs,now,done:[],next:[],facts:[['Made','By you, on this phone']],mine:true};
+  if(a)S.mine=S.mine.map(x=>x.id===a.id?m:x);else S.mine.push(m)}
+ save();location.reload()});
+$('#edDel').addEventListener('click',()=>{const a=AG[edCur];if(!a||!a.mine)return;S.mine=S.mine.filter(x=>x.id!==a.id);save();location.reload()});
+feed.addEventListener('click',e=>{const b=e.target.closest('[data-edit]');if(b)openEdit(+b.dataset.edit)});
+$('#newBtn').addEventListener('click',()=>openEdit(null));
 
 /* ---------- PIN (oculta el tablero en este teléfono; no es seguridad de banco) ---------- */
 const hash=async p=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('agents:'+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
