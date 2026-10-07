@@ -122,6 +122,23 @@
     {
      "q": "Add Gran Maturity to your main flyer page so people can find it?"
     }
+   ],
+   "files": [
+    {
+     "t": "Gran Maturity flyer",
+     "src": "../events/gran-maturity-g2-oct31/flyer.jpg",
+     "k": "img"
+    },
+    {
+     "t": "Race page",
+     "src": "../events/gran-maturity-g2-oct31/",
+     "k": "link"
+    }
+   ],
+   "ideas": [
+    "Post a countdown story every day until Oct 31",
+    "Make a WhatsApp invite with the race page link",
+    "Add a 'Revancha' card when rematches are announced"
    ]
   },
   {
@@ -161,6 +178,30 @@
     {
      "q": "Keep the Valley Meats ad in the race page until race day?"
     }
+   ],
+   "files": [
+    {
+     "t": "CAOS hat video",
+     "src": "../events/gran-maturity-g2-oct31/caos-full.mp4",
+     "poster": "../events/gran-maturity-g2-oct31/caos.jpg",
+     "k": "video"
+    },
+    {
+     "t": "Valley Meats video",
+     "src": "../events/gran-maturity-g2-oct31/valley.mp4",
+     "poster": "../events/gran-maturity-g2-oct31/valley.jpg",
+     "k": "video"
+    },
+    {
+     "t": "Valley Meats poster",
+     "src": "../events/gran-maturity-g2-oct31/valley-poster.jpg",
+     "k": "img"
+    }
+   ],
+   "ideas": [
+    "Sell a third ad spot between races 10 and 11",
+    "Make a 10-second vertical CAOS ad for TikTok",
+    "Add a race-day discount code for Valley Meats"
    ]
   },
   {
@@ -205,6 +246,12 @@
      "q": "Remove the last 3 AI-looking details (blue glow, giant hip number, gradient backgrounds)?",
      "clears": "OK to remove the last 3 AI-looking details"
     }
+   ],
+   "files": [],
+   "ideas": [
+    "Send a 'top 10 best value horses' list before the sale",
+    "Compare our guesses with the real prices after Nov 7",
+    "Add photos as soon as Heritage posts them"
    ]
   },
   {
@@ -248,6 +295,24 @@
     {
      "q": "Hide the order button until the real menu is loaded?"
     }
+   ],
+   "files": [
+    {
+     "t": "Valley Meats poster",
+     "src": "../events/gran-maturity-g2-oct31/valley-poster.jpg",
+     "k": "img"
+    },
+    {
+     "t": "Valley Meats video",
+     "src": "../events/gran-maturity-g2-oct31/valley.mp4",
+     "poster": "../events/gran-maturity-g2-oct31/valley.jpg",
+     "k": "video"
+    }
+   ],
+   "ideas": [
+    "Film the first 60-second dish video",
+    "Print the order QR for the counter",
+    "Add a 'reorder my last order' button"
    ]
   },
   {
@@ -289,6 +354,18 @@
      "q": "Tiebreak: whoever finished their picks first wins?",
      "clears": "The tiebreak rule"
     }
+   ],
+   "files": [
+    {
+     "t": "Race page with picks",
+     "src": "../events/gran-maturity-g2-oct31/",
+     "k": "link"
+    }
+   ],
+   "ideas": [
+    "Show a live scoreboard on race day",
+    "Send each player their score by WhatsApp",
+    "Give a CAOS hat to the top scorer"
    ]
   },
   {
@@ -318,6 +395,12 @@
     {
      "q": "Track amounts in pesos (MXN)?"
     }
+   ],
+   "files": [],
+   "ideas": [
+    "Remind sponsors 3 days before race day",
+    "Make a simple sponsor price sheet",
+    "Track race-day cash and card separately"
    ]
   },
   {
@@ -350,6 +433,19 @@
     {
      "q": "Start the shirts with original art inspired by the GOAT horse idea (not copied)?"
     }
+   ],
+   "files": [
+    {
+     "t": "CAOS hat video",
+     "src": "../events/gran-maturity-g2-oct31/caos-full.mp4",
+     "poster": "../events/gran-maturity-g2-oct31/caos.jpg",
+     "k": "video"
+    }
+   ],
+   "ideas": [
+    "Sketch 3 original shirt designs",
+    "Put a hat link on every race page",
+    "Draw an original running-horse logo for shirts"
    ]
   }
  ]
