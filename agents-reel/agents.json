@@ -1,0 +1,315 @@
+{
+ "updated": "2026-10-07",
+ "deadlines": [
+  {
+   "what": "Gran Maturity",
+   "date": "2026-10-31",
+   "ag": "flyers"
+  },
+  {
+   "what": "HipIQ photos come out",
+   "date": "2026-10-30",
+   "ag": "hipiq",
+   "wait": true
+  },
+  {
+   "what": "Fall Mixed Sale",
+   "date": "2026-11-05",
+   "ag": "hipiq"
+  },
+  {
+   "what": "Gran Final",
+   "date": "2026-11-28",
+   "ag": "flyers"
+  }
+ ],
+ "raceDay": "2026-10-31",
+ "races": [
+  [
+   "LA VICTORIA",
+   "JMGO"
+  ],
+  [
+   "TRES COMPADRES",
+   "SANTA ISABEL"
+  ],
+  [
+   "ANGELITO",
+   "4 AMIGOS 1"
+  ],
+  [
+   "H/M RACING",
+   "4 AMIGOS 2"
+  ],
+  [
+   "LA NARANJA 1",
+   "4 AMIGOS 3"
+  ],
+  [
+   "LA NARANJA 2",
+   "4 AMIGOS 4"
+  ],
+  [
+   "RJS",
+   "CIELITO"
+  ],
+  [
+   "HERNANDEZ",
+   "DEL GORDO"
+  ],
+  [
+   "ZAMBRANO",
+   "3 REYES"
+  ],
+  [
+   "JFR RANCH",
+   "LA BENDICION"
+  ],
+  [
+   "CAZADORES",
+   "PALOMAS GONZALEZ"
+  ],
+  [
+   "ACOSTA RANCH",
+   null
+  ]
+ ],
+ "agents": [
+  {
+   "id": "flyers",
+   "name": "Flyers",
+   "color": "#ff5a36",
+   "st": "needs",
+   "needs": [
+    "Real matchups when the program comes out",
+    "Real horse photos for the 12 races",
+    "Track social media links and exact location"
+   ],
+   "now": "The Gran Maturity G2 race page is live. People can scroll the races, pick winners and see the ads.",
+   "done": [
+    "12 race cards with Equipo and Análisis",
+    "Mis picks, full-screen photos, white design",
+    "Directions, WhatsApp and social icons",
+    "CAOS and Valley Meats video ads"
+   ],
+   "next": [
+    "Swap in real matchups and photos",
+    "Scoreboard after the races"
+   ],
+   "facts": [
+    [
+     "Event",
+     "Sat Oct 31, Calpulalpan"
+    ],
+    [
+     "Gran Final",
+     "Sat Nov 28"
+    ],
+    [
+     "Cuadras",
+     "23"
+    ],
+    [
+     "Site",
+     "Public, hidden from Google"
+    ]
+   ],
+   "link": [
+    "Open Gran Maturity G2",
+    "../events/gran-maturity-g2-oct31/"
+   ]
+  },
+  {
+   "id": "ads",
+   "name": "Ads",
+   "color": "#ffb000",
+   "st": "needs",
+   "needs": [
+    "The CAOS hat special and its price",
+    "Your final CAOS logo file"
+   ],
+   "now": "Two video ads are running inside the race page.",
+   "done": [
+    "CAOS hat video ad (after race 4)",
+    "Valley Meats video from your poster (after race 8)",
+    "HipIQ price-guess videos in English and Spanish"
+   ],
+   "next": [
+    "Real CAOS special on the ad",
+    "Order link for Valley Meats once ordering is live"
+   ],
+   "facts": [
+    [
+     "Ads in race page",
+     "2"
+    ],
+    [
+     "Tap an ad",
+     "Opens the full video or poster"
+    ],
+    [
+     "Valley Meats phone",
+     "970-704-9614"
+    ]
+   ]
+  },
+  {
+   "id": "hipiq",
+   "name": "HipIQ",
+   "color": "#18a873",
+   "st": "run",
+   "needs": [
+    "Fall sale photos (after Oct 30)",
+    "OK to remove the last 3 AI-looking details"
+   ],
+   "now": "Price guesses for the Heritage Place Fall Mixed Sale.",
+   "done": [
+    "Sort from cheapest to highest",
+    "Price guesses section with how close it lands",
+    "Removed the generic AI look"
+   ],
+   "next": [
+    "Add photos when they come out",
+    "Check guesses against real results after Nov 7"
+   ],
+   "facts": [
+    [
+     "Sale",
+     "Nov 5 to 7"
+    ],
+    [
+     "Photos",
+     "After Oct 30"
+    ],
+    [
+     "Results",
+     "After Nov 7"
+    ],
+    [
+     "Online",
+     "Not yet"
+    ]
+   ]
+  },
+  {
+   "id": "valley",
+   "name": "Valley Meats",
+   "color": "#c62828",
+   "st": "needs",
+   "needs": [
+    "The real menu, prices and hours",
+    "A working way to receive orders (text, email or POS)"
+   ],
+   "now": "The voice ordering site is built and tested, but only with test data.",
+   "done": [
+    "Ordering and checkout that reads the order back first",
+    "Swipe menu",
+    "Design cleanup"
+   ],
+   "next": [
+    "Load the real menu",
+    "Go live and print the QR"
+   ],
+   "facts": [
+    [
+     "Address",
+     "774 State Route 133, Carbondale"
+    ],
+    [
+     "Phone",
+     "970-704-9614"
+    ],
+    [
+     "Payment",
+     "In person or a secure link, never by voice"
+    ],
+    [
+     "Online ordering",
+     "Not live yet"
+    ]
+   ]
+  },
+  {
+   "id": "results",
+   "name": "Results",
+   "color": "#2f6fe8",
+   "st": "run",
+   "job": "results",
+   "needs": [
+    "Your OK: picks lock when each race starts",
+    "The tiebreak rule",
+    "A small server so everyone's picks are collected"
+   ],
+   "now": "On race day, tap each winner here and I score the picks saved on this phone.",
+   "done": [
+    "Winner board for the 12 Gran Maturity races",
+    "Scores the picks made on this phone"
+   ],
+   "next": [
+    "Collect everyone's picks (needs a server)",
+    "Public scoreboard"
+   ],
+   "facts": [
+    [
+     "Race day",
+     "Sat Oct 31"
+    ],
+    [
+     "Scores",
+     "Picks on this phone only, for now"
+    ]
+   ]
+  },
+  {
+   "id": "money",
+   "name": "Money",
+   "color": "#1f7a4d",
+   "st": "run",
+   "job": "money",
+   "needs": [
+    "What each sponsor and ad spot costs",
+    "Who has paid so far"
+   ],
+   "now": "Tracking sponsor and ad payments you add here.",
+   "done": [
+    "Payment list with paid and owed totals"
+   ],
+   "next": [
+    "Send reminders to whoever still owes"
+   ],
+   "facts": [
+    [
+     "Saved",
+     "On this phone only"
+    ]
+   ]
+  },
+  {
+   "id": "caos",
+   "name": "CAOS",
+   "color": "#2a2a2e",
+   "st": "idle",
+   "needs": [
+    "Final CAOS logo file",
+    "Which shirt ideas you like"
+   ],
+   "now": "Waiting to start the shirt designs.",
+   "done": [
+    "Hat video placed in the race page"
+   ],
+   "next": [
+    "Original shirt art (not copied)"
+   ],
+   "facts": [
+    [
+     "Brand line",
+     "Built different · Run different"
+    ],
+    [
+     "Products",
+     "Hats now, shirts next"
+    ]
+   ]
+  }
+ ]
+}

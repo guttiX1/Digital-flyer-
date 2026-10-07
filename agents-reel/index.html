@@ -6,6 +6,11 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#ffffff">
 <title>Agents</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agents">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -93,6 +98,53 @@ button{font:inherit;color:inherit}
 .ch-in input{flex:1;min-width:0;border:0;outline:0;background:var(--soft);border-radius:20px;padding:12px 16px;font:500 16px Fredoka,sans-serif;color:var(--ink)}
 .ch-in button{width:46px;height:46px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:20px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.chat{transition:none}}
+.cd{display:inline-block;margin:6px 0 0 6px;padding:4px 11px;border-radius:11px;font-weight:600;font-size:13.5px;background:var(--soft);color:var(--ink)}
+.cd.hot{background:var(--red);color:#fff}
+.needs li{cursor:pointer}.needs li i{margin-left:auto;font-style:normal;color:#b0402f;font-size:13px;font-weight:600;white-space:nowrap;align-self:center}
+.byyou li{list-style:none;display:flex;gap:10px;align-items:center;padding:10px 14px;margin-bottom:8px;border-radius:16px;background:#e5f6ec;color:#14532d;font-size:15.5px;line-height:1.3}
+.byyou li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:#1d9e6a;color:#fff;text-align:center;line-height:24px;font-size:13px;font-weight:600}
+.byyou small{display:block;color:#3f7a57;font-size:13px}
+.byyou button{margin-left:auto;border:0;background:none;color:#3f7a57;font-weight:600;font-size:13px;cursor:pointer}
+.btn.ghost{background:#25d366;color:#06301a}
+.tool{border:1.5px solid var(--line);border-radius:18px;padding:12px 14px;margin-top:6px}
+.wr{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}.wr:first-child{border-top:0}
+.wr i{font-style:normal;font-weight:700;color:var(--dim);min-width:26px}
+.wr button{flex:1;min-width:0;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 4px;font-size:13px;font-weight:600;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wr button.win{background:var(--c);border-color:var(--c);color:#fff}
+.score{font-size:19px;font-weight:600;margin-top:4px}.score small{display:block;color:var(--dim);font-size:13.5px;font-weight:500}
+.mform{display:grid;grid-template-columns:1fr 92px;gap:8px}
+.mform input,.mform select{border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:500 16px Fredoka,sans-serif;background:#fff;color:var(--ink);min-width:0}
+.mform button{grid-column:1/-1;border:0;border-radius:12px;padding:12px;background:var(--c);color:#fff;font-weight:600;font-size:15px;cursor:pointer}
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:16px}
+.mrow b{margin-left:auto}.mrow em{font-style:normal;font-size:12.5px;font-weight:600;padding:3px 8px;border-radius:8px;cursor:pointer}
+.mrow em.paid{background:#e5f6ec;color:#14532d}.mrow em.owed{background:#fdecea;color:#9b2c1d}
+.mrow button{border:0;background:none;color:var(--dim);font-size:16px;cursor:pointer}
+.tot{display:flex;gap:10px;margin:10px 0 4px}.tot div{flex:1;border-radius:14px;padding:10px 12px;background:var(--soft)}.tot small{display:block;color:var(--dim);font-size:12.5px;font-weight:600}.tot b{font-size:21px}
+.today{padding:calc(var(--top) + 18px) 20px 30px;overflow-y:auto}
+.today h2{font-weight:700;font-size:clamp(34px,10vw,50px);line-height:1}
+.tl li{list-style:none;padding:11px 0;border-top:1px solid var(--line);font-size:16.5px;line-height:1.3}.tl li small{display:block;color:var(--dim);font-size:13px}
+.sm{margin-top:10px;display:flex;gap:8px;justify-content:center}.sm button{border:0;background:none;color:var(--dim);font-size:13.5px;font-weight:600;text-decoration:underline;cursor:pointer}
+/* hoja para contestar una necesidad */
+.ns{position:fixed;left:0;right:0;bottom:0;z-index:31;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.12);padding:16px 18px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .4s cubic-bezier(.2,1.05,.3,1);max-height:88dvh;overflow-y:auto}
+.ns.on{transform:none}
+.ns h3{font-weight:700;font-size:15px;color:var(--dim);display:flex;align-items:center;gap:8px}
+.ns h3 button{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);font-size:16px;cursor:pointer}
+.ns p.q{font-size:21px;font-weight:600;line-height:1.25;margin:8px 0 12px;color:#5a1a12}
+.ns textarea{width:100%;min-height:84px;border:1.5px solid var(--line);border-radius:14px;padding:12px;font:500 16px Fredoka,sans-serif;resize:vertical;color:var(--ink)}
+.ns .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.ns .row>*{flex:1;border:0;border-radius:14px;padding:13px;font-weight:600;font-size:15px;cursor:pointer;text-align:center}
+.ns .ph{background:var(--soft)}.ns .ok{background:#1d9e6a;color:#fff}.ns .cl{background:var(--ink);color:#fff}
+.ns img{display:block;max-width:100%;max-height:180px;border-radius:12px;margin-top:10px}
+.ns .tip{color:var(--dim);font-size:12.5px;margin-top:10px}
+.mic{width:46px;height:46px;border-radius:50%;border:0;background:var(--soft);font-size:19px;cursor:pointer;flex:none}.mic.rec{background:var(--red);color:#fff}
+/* PIN */
+.lock{position:fixed;inset:0;z-index:50;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.lock.on{display:flex}
+.lock h2{font-weight:700;font-size:28px}.lock p{color:var(--dim);margin-top:6px;max-width:300px}
+.lock input{margin-top:18px;width:200px;text-align:center;font:600 28px Fredoka,sans-serif;letter-spacing:.4em;border:2px solid var(--line);border-radius:16px;padding:12px}
+.lock .lb2{display:flex;gap:8px;margin-top:14px}.lock .lb2 button{border:0;border-radius:14px;padding:12px 20px;font-weight:600;font-size:16px;cursor:pointer;background:var(--ink);color:#fff}.lock .lb2 button.x{background:var(--soft);color:var(--ink)}
+.lock .err{color:var(--red);height:20px;margin-top:8px;font-weight:600}
+@media (prefers-reduced-motion:reduce){.ns{transition:none}}
 </style>
 </head>
 <body>
@@ -100,62 +152,42 @@ button{font:inherit;color:inherit}
 <header class="top"><b>Agents</b><span id="pk"></span></header>
 <nav class="rail" id="rail" aria-hidden="true"></nav>
 <div class="say" id="say"></div>
+<div class="ns" id="ns" role="dialog" aria-label="Answer"><h3><i id="nsDot" style="width:22px;height:22px;border-radius:50%;display:inline-block"></i><span id="nsName"></span><button id="nsX" aria-label="Close">✕</button></h3>
+ <p class="q" id="nsQ"></p><textarea id="nsNote" placeholder="Your answer or a note (optional)"></textarea>
+ <img id="nsImg" alt="" hidden>
+ <div class="row"><label class="ph">📷 Add photo<input type="file" id="nsFile" accept="image/*" hidden></label><button class="cl" id="nsCopy">Copy for Claude</button></div>
+ <div class="row"><button class="ok" id="nsOk">Mark done ✓</button></div>
+ <p class="tip">Marking it done saves it on this phone. Photos stay on your phone; send them to Claude in the chat.</p></div>
+<div class="lock" id="lock"><h2 id="lkT">Enter PIN</h2><p id="lkP">This board is locked on this phone.</p><input id="lkIn" type="password" inputmode="numeric" maxlength="6" autocomplete="off"><div class="err" id="lkE"></div><div class="lb2"><button class="x" id="lkX" hidden>Cancel</button><button id="lkGo">Open</button></div></div>
 <div class="chat" id="chat" role="dialog" aria-label="Chat"><div class="ch-h"><div><b id="chName"></b><small id="chSub"></small></div><button id="chX" aria-label="Close">✕</button></div>
 <div class="msgs" id="msgs"></div><div class="quick" id="quick"></div>
-<form class="ch-in" id="chForm" autocomplete="off"><input id="chQ" placeholder="Message" enterkeyhint="send"><button aria-label="Send">↑</button></form></div>
-<script>
-/* Agentes y su estado real de hoy. Demo: nada corre solo todavía. */
-const AG=[
- {id:'flyers',name:'Flyers',color:'#ff5a36',st:'needs',
-  needs:['Real matchups when the program comes out','Real horse photos for the 12 races','Track social media links and exact location'],
-  now:'The Gran Maturity G2 race page is live. People can scroll the races, pick winners and see the ads.',
-  done:['12 race cards with Equipo and Análisis','Mis picks, full-screen photos, white design','Directions, WhatsApp and social icons','CAOS and Valley Meats video ads'],
-  next:['Swap in real matchups and photos','Scoreboard after the races'],
-  facts:[['Event','Sat Oct 31, Calpulalpan'],['Gran Final','Sat Nov 28'],['Cuadras','23'],['Site','Public, hidden from Google']],
-  link:['Open Gran Maturity G2','../events/gran-maturity-g2-oct31/']},
- {id:'ads',name:'Ads',color:'#ffb000',st:'needs',
-  needs:['The CAOS hat special and its price','Your final CAOS logo file'],
-  now:'Two video ads are running inside the race page.',
-  done:['CAOS hat video ad (after race 4)','Valley Meats video from your poster (after race 8)','HipIQ price-guess videos in English and Spanish'],
-  next:['Real CAOS special on the ad','Order link for Valley Meats once ordering is live'],
-  facts:[['Ads in race page','2'],['Tap an ad','Opens the full video or poster'],['Valley Meats phone','970-704-9614']]},
- {id:'hipiq',name:'HipIQ',color:'#18a873',st:'run',
-  needs:['Fall sale photos (after Oct 30)','OK to remove the last 3 AI-looking details'],
-  now:'Price guesses for the Heritage Place Fall Mixed Sale.',
-  done:['Sort from cheapest to highest','Price guesses section with how close it lands','Removed the generic AI look'],
-  next:['Add photos when they come out','Check guesses against real results after Nov 7'],
-  facts:[['Sale','Nov 5 to 7'],['Photos','After Oct 30'],['Results','After Nov 7'],['Online','Not yet']]},
- {id:'valley',name:'Valley Meats',color:'#c62828',st:'needs',
-  needs:['The real menu, prices and hours','A working way to receive orders (text, email or POS)'],
-  now:'The voice ordering site is built and tested, but only with test data.',
-  done:['Ordering and checkout that reads the order back first','Swipe menu','Design cleanup'],
-  next:['Load the real menu','Go live and print the QR'],
-  facts:[['Address','774 State Route 133, Carbondale'],['Phone','970-704-9614'],['Payment','In person or a secure link, never by voice'],['Online ordering','Not live yet']]},
- {id:'results',name:'Results',color:'#2f6fe8',st:'idle',
-  needs:['Your OK: picks lock when each race starts','The tiebreak rule','A small server so everyone\'s picks are collected'],
-  now:'Not started. Right now picks are only saved on each person\'s phone.',
-  done:[],
-  next:['Admin page where you tap each winner','Scoreboard everyone can see'],
-  facts:[['Picks today','Saved on each phone'],['Needs','A server to collect picks']]},
- {id:'caos',name:'CAOS',color:'#2a2a2e',st:'idle',
-  needs:['Final CAOS logo file','Which shirt ideas you like'],
-  now:'Waiting to start the shirt designs.',
-  done:['Hat video placed in the race page'],
-  next:['Original shirt art (not copied)'],
-  facts:[['Brand line','Built different · Run different'],['Products','Hats now, shirts next']]},
-];
+<form class="ch-in" id="chForm" autocomplete="off"><button type="button" class="mic" id="mic" aria-label="Talk">🎤</button><input id="chQ" placeholder="Message" enterkeyhint="send"><button aria-label="Send">↑</button></form></div>
+<script type="module">
+/* Datos: agents.json (lo actualizo yo); si falla, se usa la copia de abajo. */
+let D;try{const r=await fetch('agents.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=FALLBACK}
+const AG=D.agents;const DL=D.deadlines.slice().sort((a,b)=>a.date<b.date?-1:1);const RACES=D.races||[];
 const ST={needs:['needs you','#e5432d'],run:['working','#17171a'],idle:['not started','#9a9aa0']};
 const $=s=>document.querySelector(s);const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const lerp=(a,b,t)=>a+(b-a)*t;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const mix=(a,b,t)=>a.map((v,i)=>Math.round(lerp(v,b[i],t)));const css=c=>`rgb(${c})`;
 const shade=(h,k)=>css(k<0?mix(hex(h),[0,0,0],-k):mix(hex(h),[255,255,255],k));
-const totalNeeds=AG.reduce((n,a)=>n+(a.st==='idle'&&!a.needs.length?0:a.needs.length),0);
-const needAg=AG.filter(a=>a.needs.length).length;
 
+/* ---------- estado guardado en este teléfono ---------- */
+const SK='agents-state-1';const S={done:{},money:[],winners:{},pin:''};try{Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
+const nk=(a,t)=>a.id+'|'+t;
+const openNeeds=a=>a.needs.filter(t=>!S.done[nk(a,t)]);
+const doneByYou=a=>a.needs.filter(t=>S.done[nk(a,t)]);
+const totalOpen=()=>AG.reduce((n,a)=>n+openNeeds(a).length,0);
+const todayKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.max(0,Math.round((new Date(d+'T00:00:00')-t)/864e5))};
+const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
 const STYLES=['bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
 const STY_NAME={bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
-const DEF={flyers:'mexica',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',caos:'buddha'};
+const DEF={flyers:'mexica',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',money:'lashes',caos:'buddha'};
 let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles-2')||'{}')}catch(e){}
 const styleOf=a=>saved[a.id]||DEF[a.id]||'bubble';
 const saveStyles=()=>{try{localStorage.setItem('agent-eye-styles-2',JSON.stringify(saved))}catch(e){}};
@@ -224,50 +256,105 @@ function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.st
   <ellipse cx="135" cy="105" rx="62" ry="36" fill="#fff" opacity="${ora?.75:.38}" transform="rotate(-35 135 105)"/>
   <path d="M90 275 A150 150 0 0 0 310 275" fill="none" stroke="#fff" stroke-opacity="${ora?.55:.25}" stroke-width="7" stroke-linecap="round"/></g></svg>`}
 
-/* ---------- fechas clave (reales) ---------- */
-const DL=[{what:'Gran Maturity',date:'2026-10-31',ag:'flyers'},{what:'HipIQ photos come out',date:'2026-10-30',ag:'hipiq',wait:1},{what:'Fall Mixed Sale',date:'2026-11-05',ag:'hipiq'},{what:'Gran Final',date:'2026-11-28',ag:'flyers'}].sort((a,b)=>a.date<b.date?-1:1);
-const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.max(0,Math.round((new Date(d+'T00:00:00')-t)/864e5))};
-const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 
 /* ---------- tarjetas ---------- */
 const feed=$('#feed');
 const dotBg=c=>`radial-gradient(circle at 38% 32%,${shade(c,.42)},${c} 60%,${shade(c,-.38)})`;
+const nextDL=a=>DL.find(d=>d.ag===a.id&&!d.wait&&daysTo(d.date)>0);
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
- <h1>The Oracle</h1><p class="sub">Watches ${AG.length} agents · ${totalNeeds} things need you</p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join("")}</p><button class="ask" id="askOracle">Ask the Oracle</button>
- <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em class="n">${a.needs.length} need you</em></button>`).join('')}</div>
- <p class="hint">Scroll up for each agent ↑</p></section>`;
-html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${t}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;
+ <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
+ <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em id="who-${i}"></em></button>`).join('')}</div>
+ <div class="sm"><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
+html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;const d=nextDL(a);
  return `<section class="card ag" style="--c:${a.color}" data-i="${i}">
  <div class="meta"><span>Agent ${i+1} of ${AG.length}</span><span>${lbl}</span></div>
- <div class="tabs"><button class="on">Needs${a.needs.length?`<b>${a.needs.length}</b>`:''}</button><button>Doing</button><button>Important</button></div>
+ <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button></div>
  <div class="strip">
-  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}</span><h2>${a.name}</h2><span class="chip" style="background:${col}">${lbl}</span>
+  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}</span><h2>${a.name}</h2><div><span class="chip" style="background:${col}">${lbl}</span>${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}</div>
    <div class="acts"><button class="talk" data-talk="${i}">Talk</button><button class="sty" data-estilo="${i}">Eye: ${STY_NAME[styleOf(a)]} ↻</button></div></div>
-   <p class="lbl">Needs from you</p>${a.needs.length?`<ul class="needs">${a.needs.map((t,j)=>`<li><b>${j+1}</b><span>${t}</span></li>`).join('')}</ul>`:'<p class="clear">Nothing right now</p>'}</div>
+   <p class="lbl">Needs from you · tap one to answer</p><div id="nd-${i}"></div></div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div>
-   <p class="lbl">Doing now</p><p class="now">${a.now}</p>
+   <p class="lbl">Doing now</p><p class="now">${esc(a.now)}</p>
    <p class="lbl">Done</p>${li(a.done,'steps')}
    <p class="lbl">Up next</p>${li(a.next,'steps next')}</div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div>
-   <p class="lbl">Important</p><dl class="facts">${a.facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+   ${a.job==='results'?`<p class="lbl">Race day · tap each winner</p><div class="tool" id="job-results"></div>`:''}
+   ${a.job==='money'?`<p class="lbl">Payments</p><div class="tool" id="job-money"></div>`:''}
+   <p class="lbl">Important</p><dl class="facts">${a.facts.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
    ${a.link?`<a class="btn" href="${a.link[1]}">${a.link[0]}</a>`:''}
-   <p class="note">Demo board with today's real status. Tell Claude in the chat to put this agent to work.</p></div>
+   <button class="btn ghost" style="width:100%;border:0;cursor:pointer" data-share="${i}">Share this card on WhatsApp</button>
+   <p class="note">Updated ${fmtD(D.updated)}. Answers you mark done are saved on this phone.</p></div>
  </div></section>`}).join('');
+html+=`<section class="card today" id="today"><p class="lbl" style="margin-top:0">Done today</p><h2 id="tdH"></h2><div id="tdL"></div></section>`;
 feed.innerHTML=html;
-$('#pk').textContent=`${totalNeeds} things need you`;
+const cards=[...feed.querySelectorAll('.card')];
+const agCard=i=>feed.querySelector(`.ag[data-i="${i}"]`);
+const goCard=el=>feed.scrollTo({top:el.offsetTop,behavior:'smooth'});
 
 document.querySelectorAll('.ag').forEach(c=>{const strip=c.querySelector('.strip'),tabs=[...c.querySelectorAll('.tabs button')];
  tabs.forEach((t,i)=>t.addEventListener('click',()=>strip.scrollTo({left:i*strip.clientWidth,behavior:'smooth'})));
  let raf;strip.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const i=Math.round(strip.scrollLeft/strip.clientWidth);tabs.forEach((t,j)=>t.classList.toggle('on',i===j))})},{passive:true})});
-const cards=[...feed.querySelectorAll('.card')];
-const goCard=el=>feed.scrollTo({top:el.offsetTop,behavior:'smooth'});
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goCard(cards[+b.dataset.go+1])));
-$('#pk').addEventListener('click',()=>{const i=AG.findIndex(a=>a.st==='needs');goCard(cards[i+1])});
-const railEl=$('#rail');railEl.innerHTML=cards.map((c,j)=>`<i class="${j&&AG[j-1].needs.length?'need':''}"></i>`).join('');
-let cur=0;function rail(){cur=Math.round(feed.scrollTop/innerHeight);[...railEl.children].forEach((m,j)=>m.classList.toggle('on',cur===j))}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goCard(agCard(+b.dataset.go))));
+$('#pk').addEventListener('click',()=>{const i=AG.findIndex(a=>openNeeds(a).length);goCard(i<0?$('#today'):agCard(i))});
+const railEl=$('#rail');railEl.innerHTML=cards.map(()=>'<i></i>').join('');
+function rail(){const i=Math.round(feed.scrollTop/innerHeight);[...railEl.children].forEach((m,j)=>m.classList.toggle('on',i===j))}
 feed.addEventListener('scroll',rail,{passive:true});rail();
+let sayT;function say(t,ms=3200){const s=$('#say');s.textContent=t;s.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>s.classList.remove('on'),ms)}
 
-let sayT;function say(t,ms=3000){const s=$('#say');s.textContent=t;s.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>s.classList.remove('on'),ms)}
+/* ---------- pintar números y listas ---------- */
+function paint(){const tot=totalOpen();
+ $('#pk').textContent=tot?`${tot} thing${tot>1?'s':''} need you`:'All clear ✓';$('#pk').style.background=tot?'':'#1d9e6a';
+ $('#oSub').textContent=`Watches ${AG.length} agents · ${tot} things need you`;
+ AG.forEach((a,i)=>{const o=openNeeds(a),dn=doneByYou(a);
+  const w=$('#who-'+i);w.className=o.length?'n':'';w.textContent=o.length?`${o.length} need you`:'all clear';
+  const b=$('#bd-'+i);b.textContent=o.length||'';b.style.display=o.length?'':'none';
+  $('#nd-'+i).innerHTML=(o.length?`<ul class="needs">${o.map(t=>`<li data-need="${i}" data-t="${esc(t)}"><b>${a.needs.indexOf(t)+1}</b><span>${esc(t)}</span><i>answer ›</i></li>`).join('')}</ul>`:'<p class="clear">Nothing right now. All clear ✓</p>')
+   +(dn.length?`<p class="lbl">Done by you</p><ul class="byyou">${dn.map(t=>{const r=S.done[nk(a,t)];return `<li><span>${esc(t)}${r.note?`<small>${esc(r.note)}</small>`:''}</span><button data-undo="${i}" data-t="${esc(t)}">undo</button></li>`}).join('')}</ul>`:'');
+  const E=eyes.find(E=>E.svg.closest('.ag')===agCard(i));if(E)E.droop=a.needs.length?.42*o.length/a.needs.length:0;
+  railEl.children[i+1].classList.toggle('need',o.length>0)});
+ paintResults();paintMoney();paintToday()}
+
+/* contestar una necesidad */
+let nsCur=null;
+feed.addEventListener('click',e=>{const n=e.target.closest('[data-need]');if(n){openNeed(+n.dataset.need,n.dataset.t);return}
+ const u=e.target.closest('[data-undo]');if(u){const a=AG[+u.dataset.undo];delete S.done[nk(a,u.dataset.t)];save();paint();return}
+ const sh=e.target.closest('[data-share]');if(sh){const a=AG[+sh.dataset.share],o=openNeeds(a);
+  location.href='https://wa.me/?text='+encodeURIComponent(`${a.name}\nNow: ${a.now}\n${o.length?'Needs:\n'+o.map(t=>'• '+t).join('\n'):'Nothing pending.'}`)}});
+function openNeed(i,t){const a=AG[i];nsCur={a,i,t,photo:''};$('#nsDot').style.background=dotBg(a.color);$('#nsName').textContent=a.name;$('#nsQ').textContent=t;
+ $('#nsNote').value='';$('#nsImg').hidden=true;$('#nsFile').value='';$('#nsCopy').textContent='Copy for Claude';$('#ns').classList.add('on')}
+$('#nsX').addEventListener('click',()=>$('#ns').classList.remove('on'));
+$('#nsFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;nsCur.photo=f.name;const im=$('#nsImg');im.src=URL.createObjectURL(f);im.hidden=false});
+$('#nsOk').addEventListener('click',()=>{const {a,i,t,photo}=nsCur;S.done[nk(a,t)]={at:new Date().toISOString(),note:$('#nsNote').value.trim()+(photo?` (photo: ${photo})`:'')};save();$('#ns').classList.remove('on');paint();
+ const E=eyes.find(E=>E.svg.closest('.ag')===agCard(i));if(E){E.sv-=.14;E.happyT=1;setTimeout(()=>E.happyT=0,1400)}
+ const left=openNeeds(a).length;say(left?`Thanks! ${left} more for ${a.name}.`:`${a.name} is all clear ✓`)});
+$('#nsCopy').addEventListener('click',()=>{const {a,t}=nsCur;copy(`[${a.name} agent] About: ${t}\nMy answer: ${$('#nsNote').value.trim()||'(see attached)'}`,$('#nsCopy'))});
+function copy(t,btn){const done=()=>{btn.textContent='Copied ✓'};if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,fb);else fb();
+ function fb(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(_){}ta.remove()}}
+
+/* ---------- Results: ganadores y puntaje de mis picks ---------- */
+function myPicks(){try{return JSON.parse(localStorage.getItem('gm-g2-picks')||'{}')}catch(e){return {}}}
+function paintResults(){const el=$('#job-results');if(!el)return;const P=myPicks();let right=0,decided=0;
+ el.innerHTML=RACES.map((r,k)=>{const n=k+1,w=S.winners[n];if(w){decided++;if(P[n]===w)right++}
+  return `<div class="wr"><i>C${n}</i><button data-win="${n}" data-s="a" class="${w==='a'?'win':''}">${esc(r[0])}</button>${r[1]?`<button data-win="${n}" data-s="b" class="${w==='b'?'win':''}">${esc(r[1])}</button>`:'<button disabled>Por anunciar</button>'}</div>`}).join('')
+  +`<p class="score">${Object.keys(P).length?`Your picks: ${right} of ${decided} right`:'No picks on this phone yet'}<small>${decided} of ${RACES.length} winners entered · picks made on the Gran Maturity page on this phone</small></p>`}
+feed.addEventListener('click',e=>{const b=e.target.closest('[data-win]');if(!b)return;const n=b.dataset.win;S.winners[n]=S.winners[n]===b.dataset.s?undefined:b.dataset.s;if(!S.winners[n])delete S.winners[n];save();paintResults()});
+
+/* ---------- Money: pagos de patrocinadores y anuncios ---------- */
+const money=n=>'$'+(+n||0).toLocaleString('en-US');
+function paintMoney(){const el=$('#job-money');if(!el)return;const paid=S.money.filter(m=>m.paid).reduce((s,m)=>s+ +m.amt,0),owed=S.money.filter(m=>!m.paid).reduce((s,m)=>s+ +m.amt,0);
+ el.innerHTML=`<form class="mform" id="mf"><input name="who" placeholder="Who (sponsor, ad spot)" required><input name="amt" type="number" inputmode="decimal" placeholder="Amount" required><select name="st"><option value="owed">Owes</option><option value="paid">Paid</option></select><button>Add</button></form>
+  <div class="tot"><div><small>Paid</small><b>${money(paid)}</b></div><div><small>Still owed</small><b>${money(owed)}</b></div></div>
+  ${S.money.map((m,k)=>`<div class="mrow"><span>${esc(m.who)}</span><b>${money(m.amt)}</b><em class="${m.paid?'paid':'owed'}" data-mt="${k}">${m.paid?'paid':'owes'}</em><button data-md="${k}" aria-label="Delete">✕</button></div>`).join('')||'<p class="note">Nothing added yet.</p>'}`;
+ $('#mf').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);S.money.push({who:f.get('who').trim(),amt:+f.get('amt'),paid:f.get('st')==='paid',at:new Date().toISOString()});save();paint()})}
+feed.addEventListener('click',e=>{const t=e.target.closest('[data-mt]');if(t){const m=S.money[+t.dataset.mt];m.paid=!m.paid;if(m.paid)m.at=new Date().toISOString();save();paint();return}
+ const d=e.target.closest('[data-md]');if(d){S.money.splice(+d.dataset.md,1);save();paint()}});
+
+/* ---------- Done today ---------- */
+function paintToday(){const tk=todayKey(),items=[];
+ AG.forEach(a=>a.needs.forEach(t=>{const r=S.done[nk(a,t)];if(r&&r.at.slice(0,10)===tk)items.push([a.name,t,r.note])}));
+ S.money.forEach(m=>{if(m.paid&&m.at&&m.at.slice(0,10)===tk)items.push(['Money',`${m.who} paid ${money(m.amt)}`,''])});
+ $('#tdH').textContent=items.length?`${items.length} thing${items.length>1?'s':''} cleared`:'Nothing yet today';
+ $('#tdL').innerHTML=items.length?`<ul class="tl">${items.map(([n,t,note])=>`<li>${esc(t)}<small>${n}${note?' · '+esc(note):''}</small></li>`).join('')}</ul>`:'<p class="clear">Answer a red item on any agent and it shows up here.</p>'}
 
 /* ---------- ojos vivos ---------- */
 let eyes=[];
@@ -277,10 +364,6 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  if(E.puEl&&E.sty!=='robot'&&E.sty!=='googly')E.irR=+svg.querySelector('.ir circle, .ir ellipse').getAttribute('r')||62;
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>poke(E));eyes.push(E);return E}
-function poke(E){E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
- const ci=cards.indexOf(E.svg.closest('.card'));if(ci>0&&!chA){openChat(ci-1);return}if(ci>0)return;if(ci===0&&!chA){openChat(-1);return}
- const a=AG[ci-1];say(a.needs.length?`I need ${a.needs.length} thing${a.needs.length>1?'s':''} from you. Tap Talk to chat with me.`:`All good here.`)}
-document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 let ptr=null,lastPtr=-1e9;
 addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
@@ -290,7 +373,7 @@ document.querySelectorAll("[data-estilo]").forEach(b=>b.addEventListener('click'
  const next=STYLES[(STYLES.indexOf(styleOf(a))+1)%STYLES.length];saved[a.id]=next;saveStyles();
  const slot=b.closest('.hero').querySelector('.eyeslot');eyes=eyes.filter(E=>!slot.contains(E.svg));
  slot.innerHTML=eyeSVG({color:a.color,style:next});const E=mountEye(slot.querySelector('svg'),'card');E.sq=.8;E.sv=.6;
- b.textContent=`Eye: ${STY_NAME[next]} ↻`}));
+ b.textContent=`Eye: ${STY_NAME[next]} ↻`;paint()}));
 
 let t0=performance.now(),last=t0;
 function step(E,dt,T,now){if(!E.svg.isConnected)return;
@@ -317,7 +400,7 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
  else if(E.sty!=='googly'&&E.sty!=='nazar'&&E.sty!=='oracle')E.puEl.setAttribute('r',(E.irR*E.pu).toFixed(2));
  const ry=E.er*1.15;
  E.rgs.forEach(g=>{const sp=+g.dataset.spin||0,cx=g.dataset.cx,cy=g.dataset.cy;g.setAttribute('transform',`rotate(${((T*sp)%360).toFixed(2)}${cx?` ${cx} ${cy}`:''})`)});
- const topEdge=(E.ey-E.er)+(E.er+2)*b+E.er*.5*(E.lid+(E.sty==='buddha'?.75:0));
+ const topEdge=(E.ey-E.er)+(E.er+2)*b+E.er*.5*(E.lid+(E.droop||0)+(E.sty==='buddha'?.75:0));
  E.lt.setAttribute('cy',(topEdge-ry).toFixed(1));
  E.lb.setAttribute('cy',((E.ey+E.er)-(E.er-2)*b-E.er*.55*E.happy+ry).toFixed(1));
  if(E.lash)E.lash.setAttribute('transform',`translate(0 ${topEdge.toFixed(1)})`);
@@ -327,55 +410,95 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;eyes=eyes.filter(E=>E.svg.isConnected);eyes.forEach(E=>step(E,dt,T,now));requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
 
-/* ---------- chat con cada agente ---------- */
-const chat=$('#chat'),msgs=$('#msgs'),chQ=$('#chQ');let chA=null,chE=null;const hist={};
+
+function poke(E){E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
+ const c=E.svg.closest('.card');if(!c||chA)return;if(c.id==='intro'){openChat(-1);return}if(c.dataset.i!==undefined)openChat(+c.dataset.i)}
+document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
+
+/* ---------- chat ---------- */
+const chat=$('#chat'),msgs=$('#msgs'),chQ=$('#chQ');let chA=null,chE=null,chI=0;const hist={};
 const list=x=>x.map(t=>'• '+t).join('\n');
-function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);
- const has=(...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(t));
- if(has('hi','hey','hello','hola','que onda','qué onda','sup'))return `Hey! I'm ${a.name}. ${a.needs.length?`I'm waiting on ${a.needs.length} thing${a.needs.length>1?'s':''} from you.`:'Nothing pending from you.'} Ask me what I need, what I'm doing, or what's next.`;
- if(has('need','necesit','waiting','espera','pending','pendiente','falta'))return a.needs.length?`Here's what I need from you:\n${list(a.needs)}`:`Nothing right now.`;
- if(has('doing','working','status','estado','haces','how','como va','cómo va','progress'))return `Right now: ${a.now}`;
- if(has('done','finish','hecho','terminad','listo','did'))return a.done.length?`Done so far:\n${list(a.done)}`:`Nothing finished yet.`;
- if(has('next','después','despues','luego','plan','then'))return `Up next:\n${list(a.next)}`;
- if(has('when','date','fecha','cuando','cuándo','important','importante','info','address','phone'))return a.facts.map(([k,v])=>`${k}: ${v}`).join('\n');
- if(has('open','link','ver','show','abre')&&a.link)return `Here you go: <a href="${a.link[1]}">${a.link[0]}</a>`;
- if(has('thank','gracias','nice','cool','chido','good','great'))return `Anytime. ${a.needs.length?`Send me those ${a.needs.length} things and I'll keep going.`:''}`;
+const hasW=(t,...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t));
+function first(){const d=DL.find(x=>!x.wait&&daysTo(x.date)>0&&openNeeds(AG.find(a=>a.id===x.ag)).length);if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>openNeeds(a).length);return a?{a,d:null}:null}
+function prophecy(){const tk=todayKey();if(tk===D.raceDay)return `Today is race day. Open Results to tap the winners as they come in.`;
+ const f=first(),tot=totalOpen();if(!f)return `All clear. Nothing waits on you today.`;
+ return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openNeeds(f.a).length} thing${openNeeds(f.a).length>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} things wait on you in all.`}
+function oracle(t){
+ if(hasW(t,'hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch all ${AG.length} of your agents.\n${prophecy()}\nAsk me what to do first.`;
+ if(hasW(t,'first','primero','urgent','priority','should','debo','hago','focus','today','hoy')){const f=first();return f?`${f.a.name} first.${f.d?` ${f.d.what} is in ${daysTo(f.d.date)} days.`:''} It still waits on you for:\n${list(openNeeds(f.a))}`:'Nothing waits on you. Rest.'}
+ if(hasW(t,'deadline','date','fecha','cuando','cuándo','when','days','días','dias'))return 'The dates ahead:\n'+DL.map(d=>`• ${d.what}: ${daysTo(d.date)} days (${fmtD(d.date)})`).join('\n');
+ if(hasW(t,'who','quien','quién','need','necesit','waiting'))return 'These agents wait on you:\n'+AG.filter(a=>openNeeds(a).length).map(a=>`• ${a.name}: ${openNeeds(a).length}`).join('\n');
+ if(hasW(t,'done','hecho','cleared','listo'))return `Today: ${$('#tdH').textContent}.`;
+ if(hasW(t,'status','estado','all','todo','how','como','cómo'))return AG.map(a=>`• ${a.name}: ${openNeeds(a).length?openNeeds(a).length+' need you':'all clear'}`).join('\n');
+ if(hasW(t,'thank','gracias','cool','nice'))return 'The path is yours to walk. Come back when you finish one.';
  return null}
-function oracle(t){const has=(...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t));
- const waiting=AG.filter(a=>a.needs.length);
- const first=()=>{const d=DL.find(x=>!x.wait&&daysTo(x.date)>0&&AG.find(a=>a.id===x.ag).needs.length)||DL[0];const a=AG.find(x=>x.id===d.ag);return {a,d}};
- if(has('hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch all ${AG.length} of your agents.\n${totalNeeds} things wait on you. The nearest big day: ${first().d.what}, in ${daysTo(first().d.date)} days.\nAsk me what to do first.`;
- if(has('first','primero','urgent','priority','should','debo','hago','focus'))
-  {const {a,d}=first();return `I see it clearly: ${a.name} first. ${d.what} is in ${daysTo(d.date)} days and it still waits on you for:\n${a.needs.map(x=>'• '+x).join('\n')}`}
- if(has('deadline','date','fecha','cuando','cuándo','when','days','días','dias'))return 'The dates ahead:\n'+DL.map(d=>`• ${d.what}: ${daysTo(d.date)} days (${new Date(d.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})})`).join('\n');
- if(has('who','quien','quién','need','necesit','waiting'))return 'These agents wait on you:\n'+waiting.map(a=>`• ${a.name}: ${a.needs.length}`).join('\n');
- if(has('status','estado','all','todo','how','como','cómo'))return AG.map(a=>`• ${a.name}: ${ST[a.st][0]}`).join('\n');
- if(has('thank','gracias','cool','nice'))return 'The path is yours to walk. Come back when you finish one.';
+function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);const o=openNeeds(a);
+ if(hasW(t,'hi','hey','hello','hola','que onda','qué onda','sup'))return `Hey! I'm ${a.name}. ${o.length?`I'm waiting on ${o.length} thing${o.length>1?'s':''} from you.`:'Nothing pending from you.'} Ask me what I need, what I'm doing, or what's next.`;
+ if(hasW(t,'need','necesit','waiting','espera','pending','pendiente','falta'))return o.length?`Here's what I need from you:\n${list(o)}\nTap one on my card to answer it.`:`Nothing right now.`;
+ if(hasW(t,'doing','working','status','estado','haces','how','como va','cómo va','progress'))return `Right now: ${a.now}`;
+ if(hasW(t,'done','finish','hecho','terminad','listo','did'))return a.done.length?`Done so far:\n${list(a.done.concat(doneByYou(a).map(x=>x+' (by you)')))}`:`Nothing finished yet.`;
+ if(hasW(t,'next','después','despues','luego','plan','then'))return `Up next:\n${list(a.next)}`;
+ if(hasW(t,'when','date','fecha','cuando','cuándo','important','importante','info','address','phone'))return a.facts.map(([k,v])=>`${k}: ${v}`).join('\n');
+ if(hasW(t,'open','link','ver','show','abre')&&a.link)return `Here you go: <a href="${a.link[1]}">${a.link[0]}</a>`;
+ if(hasW(t,'thank','gracias','nice','cool','chido','good','great'))return `Anytime.${o.length?` Send me those ${o.length} things and I'll keep going.`:''}`;
  return null}
-function addMsg(who,text,html){const d=document.createElement('div');d.className='m '+who;if(html)d.innerHTML=text;else d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;(hist[chA.id]=hist[chA.id]||[]).push([who,text,!!html])}
-function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
- $('#chName').textContent=a.name;$('#chSub').textContent=i<0?'sees all your agents':a.needs.length?`needs ${a.needs.length} thing${a.needs.length>1?'s':''} from you`:ST[a.st][0];
- goCard(cards[i+1]);const st=cards[i+1].querySelector('.strip');if(st)st.scrollTo({left:0,behavior:'smooth'});chE=eyes.find(E=>E.svg.closest('.card')===cards[i+1]);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
+function addMsg(who,text,isH){const d=document.createElement('div');d.className='m '+who;if(isH)d.innerHTML=text;else d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;(hist[chA.id]=hist[chA.id]||[]).push([who,text,!!isH])}
+function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chI=i;chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
+ $('#chName').textContent=a.name;const o=i<0?[]:openNeeds(a);$('#chSub').textContent=i<0?'sees all your agents':o.length?`needs ${o.length} thing${o.length>1?'s':''} from you`:'all clear';
+ const card=i<0?$('#intro'):agCard(i);goCard(card);const st=card.querySelector('.strip');if(st)st.scrollTo({left:0,behavior:'smooth'});
+ chE=eyes.find(E=>E.svg.closest('.card')===card);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
  msgs.innerHTML='';const h=hist[a.id];
  if(h)h.forEach(([w,t,isH])=>{const d=document.createElement('div');d.className='m '+w;if(isH)d.innerHTML=t;else d.textContent=t;msgs.appendChild(d)});
  else{hist[a.id]=[];addMsg('a',reply(a,'hi'))}
- $('#quick').innerHTML=(i<0?['What should I do first?','Deadlines','Who needs me?','Status']:['What do you need?','What are you doing?','What\'s next?','Important info']).map(q=>`<button>${q}</button>`).join('');
+ $('#quick').innerHTML=(i<0?['What should I do first?','Deadlines','Who needs me?','Done today']:['What do you need?','What are you doing?','What\'s next?','Important info']).map(q=>`<button>${q}</button>`).join('');
  $('#quick').querySelectorAll('button').forEach(b=>b.onclick=()=>send(b.textContent));
  chat.classList.add('on');msgs.scrollTop=msgs.scrollHeight}
-function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;chE.look=[0,.9];chE.lidT=.3;
- setTimeout(()=>{chE.look=[0,.7];chE.lidT=0;chE.sv-=.1;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900);const r=reply(a,text);
+function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;if(chE){chE.look=[0,.9];chE.lidT=.3}
+ setTimeout(()=>{if(chE){chE.look=[0,.7];chE.lidT=0;chE.sv-=.1;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}const r=reply(a,text);
   if(r)addMsg('a',r,r.includes('<a '));
-  else{const q=encodeURIComponent(`[${a.name} agent] ${text}\n\nContext: ${a.now}\nNeeds from me: ${a.needs.join('; ')}`);
-   addMsg('a',`I can't think on my own yet. Tap to copy this for Claude, then paste it in your Claude chat: <a href="#" class="cp" data-q="${q}">Copy for Claude</a>`,true)}},700)}
-msgs.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;e.preventDefault();const t=decodeURIComponent(c.dataset.q);
- const done=()=>{c.textContent='Copied ✓'};(navigator.clipboard?navigator.clipboard.writeText(t).then(done,()=>fallback()):fallback());
- function fallback(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(_){}ta.remove()}});
+  else{const q=encodeURIComponent(`[${a.name}] ${text}\n\nContext: ${a.now||'Oracle overview'}\nOpen needs: ${(a.id==='oracle'?AG.flatMap(x=>openNeeds(x).map(t=>x.name+': '+t)):openNeeds(a)).join('; ')}`);
+   addMsg('a',`I can't think on my own yet. Tap to copy this for Claude, then paste it in your Claude chat: <a href="#" class="cp" data-q="${q}">Copy for Claude</a>`,true)}},650)}
+msgs.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;e.preventDefault();copy(decodeURIComponent(c.dataset.q),c)});
 $('#askOracle').addEventListener('click',()=>openChat(-1));
 document.querySelectorAll('[data-talk]').forEach(b=>b.addEventListener('click',()=>openChat(+b.dataset.talk)));
 $('#chX').addEventListener('click',()=>{chat.classList.remove('on');chA=null;feed.style.overflowY='';if(chE){chE.look=null;chE.lidT=0}});
 $('#chForm').addEventListener('submit',e=>{e.preventDefault();const t=chQ.value;chQ.value='';send(t)});
-chQ.addEventListener('focus',()=>{if(chE)chE.look=[0,.9]});chQ.addEventListener('blur',()=>{if(chE)chE.look=null});
+chQ.addEventListener('focus',()=>{if(chE)chE.look=[0,.9]});chQ.addEventListener('blur',()=>{if(chE)chE.look=[0,.7]});
+
+/* hablar en vez de escribir */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;const mic=$('#mic');
+if(!SR)mic.hidden=true;else{let rec=null;mic.addEventListener('click',()=>{if(rec){rec.stop();return}
+ rec=new SR();rec.lang=navigator.language||'es-MX';rec.interimResults=true;rec.continuous=false;mic.classList.add('rec');chQ.placeholder='Listening…';if(chE){chE.put=.55;chE.look=[0,-.2]}
+ rec.onresult=e=>{chQ.value=[...e.results].map(r=>r[0].transcript).join(' ')};
+ rec.onend=()=>{mic.classList.remove('rec');chQ.placeholder='Message';rec=null;if(chE){chE.put=chE.pu0;chE.look=[0,.7]}if(chQ.value.trim()){const t=chQ.value;chQ.value='';send(t)}};
+ rec.onerror=()=>{rec&&rec.stop()};rec.start()})}
+
+/* ---------- PIN (oculta el tablero en este teléfono; no es seguridad de banco) ---------- */
+const hash=async p=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('agents:'+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+let lockMode='open',firstPin='';
+function showLock(mode){lockMode=mode;$('#lkIn').value='';$('#lkE').textContent='';$('#lkX').hidden=mode==='open';
+ $('#lkT').textContent=mode==='open'?'Enter PIN':mode==='set'?'Choose a PIN':'Repeat the PIN';
+ $('#lkP').textContent=mode==='open'?'This board is locked on this phone.':'4 to 6 numbers. It hides this board on this phone; it is not bank-level security.';
+ $('#lkGo').textContent=mode==='open'?'Open':'Next';$('#lock').classList.add('on');setTimeout(()=>$('#lkIn').focus(),50)}
+$('#lkGo').addEventListener('click',async()=>{const v=$('#lkIn').value.trim();
+ if(lockMode==='open'){if(await hash(v)===S.pin)$('#lock').classList.remove('on');else{$('#lkE').textContent='Wrong PIN';$('#lkIn').value=''}return}
+ if(!/^\d{4,6}$/.test(v)){$('#lkE').textContent='Use 4 to 6 numbers';return}
+ if(lockMode==='set'){firstPin=v;showLock('confirm');return}
+ if(v!==firstPin){$('#lkE').textContent='Did not match. Try again.';firstPin='';setTimeout(()=>showLock('set'),700);return}
+ S.pin=await hash(v);save();$('#lock').classList.remove('on');paintPinBtn();say('PIN set ✓')});
+$('#lkIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#lkGo').click()});
+$('#lkX').addEventListener('click',()=>$('#lock').classList.remove('on'));
+function paintPinBtn(){$('#pinBtn').textContent=S.pin?'Remove PIN':'Set a PIN'}
+$('#pinBtn').addEventListener('click',()=>{if(S.pin){S.pin='';save();paintPinBtn();say('PIN removed')}else showLock('set')});
+paintPinBtn();if(S.pin)showLock('open');
+$('#homeBtn').addEventListener('click',()=>say(/iphone|ipad/i.test(navigator.userAgent)?'In Safari: tap Share, then "Add to Home Screen".':'In Chrome: tap ⋮, then "Add to Home screen".',5000));
+
+paint();
+setTimeout(()=>{if(!S.pin||!$('#lock').classList.contains('on'))say(prophecy(),5500)},1200);
 window.__ready=true;
+</script>
+<script>
+var FALLBACK={"updated": "2026-10-07", "deadlines": [{"what": "Gran Maturity", "date": "2026-10-31", "ag": "flyers"}, {"what": "HipIQ photos come out", "date": "2026-10-30", "ag": "hipiq", "wait": true}, {"what": "Fall Mixed Sale", "date": "2026-11-05", "ag": "hipiq"}, {"what": "Gran Final", "date": "2026-11-28", "ag": "flyers"}], "raceDay": "2026-10-31", "races": [["LA VICTORIA", "JMGO"], ["TRES COMPADRES", "SANTA ISABEL"], ["ANGELITO", "4 AMIGOS 1"], ["H/M RACING", "4 AMIGOS 2"], ["LA NARANJA 1", "4 AMIGOS 3"], ["LA NARANJA 2", "4 AMIGOS 4"], ["RJS", "CIELITO"], ["HERNANDEZ", "DEL GORDO"], ["ZAMBRANO", "3 REYES"], ["JFR RANCH", "LA BENDICION"], ["CAZADORES", "PALOMAS GONZALEZ"], ["ACOSTA RANCH", null]], "agents": [{"id": "flyers", "name": "Flyers", "color": "#ff5a36", "st": "needs", "needs": ["Real matchups when the program comes out", "Real horse photos for the 12 races", "Track social media links and exact location"], "now": "The Gran Maturity G2 race page is live. People can scroll the races, pick winners and see the ads.", "done": ["12 race cards with Equipo and Análisis", "Mis picks, full-screen photos, white design", "Directions, WhatsApp and social icons", "CAOS and Valley Meats video ads"], "next": ["Swap in real matchups and photos", "Scoreboard after the races"], "facts": [["Event", "Sat Oct 31, Calpulalpan"], ["Gran Final", "Sat Nov 28"], ["Cuadras", "23"], ["Site", "Public, hidden from Google"]], "link": ["Open Gran Maturity G2", "../events/gran-maturity-g2-oct31/"]}, {"id": "ads", "name": "Ads", "color": "#ffb000", "st": "needs", "needs": ["The CAOS hat special and its price", "Your final CAOS logo file"], "now": "Two video ads are running inside the race page.", "done": ["CAOS hat video ad (after race 4)", "Valley Meats video from your poster (after race 8)", "HipIQ price-guess videos in English and Spanish"], "next": ["Real CAOS special on the ad", "Order link for Valley Meats once ordering is live"], "facts": [["Ads in race page", "2"], ["Tap an ad", "Opens the full video or poster"], ["Valley Meats phone", "970-704-9614"]]}, {"id": "hipiq", "name": "HipIQ", "color": "#18a873", "st": "run", "needs": ["Fall sale photos (after Oct 30)", "OK to remove the last 3 AI-looking details"], "now": "Price guesses for the Heritage Place Fall Mixed Sale.", "done": ["Sort from cheapest to highest", "Price guesses section with how close it lands", "Removed the generic AI look"], "next": ["Add photos when they come out", "Check guesses against real results after Nov 7"], "facts": [["Sale", "Nov 5 to 7"], ["Photos", "After Oct 30"], ["Results", "After Nov 7"], ["Online", "Not yet"]]}, {"id": "valley", "name": "Valley Meats", "color": "#c62828", "st": "needs", "needs": ["The real menu, prices and hours", "A working way to receive orders (text, email or POS)"], "now": "The voice ordering site is built and tested, but only with test data.", "done": ["Ordering and checkout that reads the order back first", "Swipe menu", "Design cleanup"], "next": ["Load the real menu", "Go live and print the QR"], "facts": [["Address", "774 State Route 133, Carbondale"], ["Phone", "970-704-9614"], ["Payment", "In person or a secure link, never by voice"], ["Online ordering", "Not live yet"]]}, {"id": "results", "name": "Results", "color": "#2f6fe8", "st": "run", "job": "results", "needs": ["Your OK: picks lock when each race starts", "The tiebreak rule", "A small server so everyone's picks are collected"], "now": "On race day, tap each winner here and I score the picks saved on this phone.", "done": ["Winner board for the 12 Gran Maturity races", "Scores the picks made on this phone"], "next": ["Collect everyone's picks (needs a server)", "Public scoreboard"], "facts": [["Race day", "Sat Oct 31"], ["Scores", "Picks on this phone only, for now"]]}, {"id": "money", "name": "Money", "color": "#1f7a4d", "st": "run", "job": "money", "needs": ["What each sponsor and ad spot costs", "Who has paid so far"], "now": "Tracking sponsor and ad payments you add here.", "done": ["Payment list with paid and owed totals"], "next": ["Send reminders to whoever still owes"], "facts": [["Saved", "On this phone only"]]}, {"id": "caos", "name": "CAOS", "color": "#2a2a2e", "st": "idle", "needs": ["Final CAOS logo file", "Which shirt ideas you like"], "now": "Waiting to start the shirt designs.", "done": ["Hat video placed in the race page"], "next": ["Original shirt art (not copied)"], "facts": [["Brand line", "Built different · Run different"], ["Products", "Hats now, shirts next"]]}]};
 </script>
 </body>
 </html>
