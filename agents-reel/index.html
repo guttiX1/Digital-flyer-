@@ -32,6 +32,8 @@ button{font:inherit;color:inherit}
 .who .dot{width:30px;height:30px;border-radius:50%;flex:none}
 .who em{margin-left:auto;font-style:normal;font-weight:600;font-size:13px;padding:4px 9px;border-radius:10px;background:var(--soft);color:var(--dim)}
 .who em.n{background:var(--red);color:#fff}.who em.r{background:var(--ink);color:#fff}
+.dl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin-top:8px;font-size:14px;color:var(--dim)}.dl b{color:var(--ink);font-weight:700}
+.ask{margin-top:12px;border:0;border-radius:16px;padding:12px 22px;background:#1b1a17;color:#f3e3b5;font-weight:600;font-size:16px;cursor:pointer}
 .hint{margin-top:auto;color:var(--dim);font-size:14px;font-weight:500}
 /* tarjeta de agente */
 .ag{--c:#888}
@@ -151,48 +153,87 @@ const totalNeeds=AG.reduce((n,a)=>n+(a.st==='idle'&&!a.needs.length?0:a.needs.le
 const needAg=AG.filter(a=>a.needs.length).length;
 
 /* ---------- estilos de ojo ---------- */
-const STYLES=['bubble','cat','robot','googly','lashes'];
-const STY_NAME={bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes'};
-const DEF={flyers:'bubble',ads:'lashes',hipiq:'cat',valley:'googly',results:'robot',caos:'cat'};
-let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles')||'{}')}catch(e){}
+const STYLES=['bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
+const STY_NAME={bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
+const DEF={flyers:'mexica',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',caos:'buddha'};
+let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles-2')||'{}')}catch(e){}
 const styleOf=a=>saved[a.id]||DEF[a.id]||'bubble';
-const saveStyles=()=>{try{localStorage.setItem('agent-eye-styles',JSON.stringify(saved))}catch(e){}};
+const saveStyles=()=>{try{localStorage.setItem('agent-eye-styles-2',JSON.stringify(saved))}catch(e){}};
+const toHex=c=>c[0]==='#'?c:'#'+c.match(/\d+/g).map(v=>(+v).toString(16).padStart(2,'0')).join('');
+const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
 
 /* ---------- personaje: burbuja con ojo ---------- */
 let EID=0;
-function eyeSVG(o){const k=EID++;const ball=!!o.ball;const sty=ball?'ball':(o.style||'bubble');
- const ex=200,ey=ball?200:188,er=ball?150:(sty==='googly'?100:88),ir=ball?74:(sty==='cat'?62:50),lid=ball?'#fff':o.color;
- let fib='';if(sty==='ball'||sty==='bubble'||sty==='lashes'||sty==='cat')for(let i=0;i<48;i++){const a=i/48*Math.PI*2,r1=ir*.44,r2=ir*.9;fib+=`<line x1="${(Math.cos(a)*r1).toFixed(1)}" y1="${(Math.sin(a)*r1).toFixed(1)}" x2="${(Math.cos(a)*r2).toFixed(1)}" y2="${(Math.sin(a)*r2).toFixed(1)}" stroke="${i%2?'#fff':'#000'}" stroke-opacity=".26" stroke-width="${i%3?1.3:2}" stroke-linecap="round"/>`}
- const base=ball?'#e8962a':(o.color==='#2a2a2e'?'#6b6b73':o.color);
- const irisC=sty==='cat'?'#c9b52a':sty==='lashes'?shade(base,-.25).replace(/rgb\((\d+),(\d+),(\d+)\)/,(m,r,g,b)=>'#'+[r,g,b].map(v=>(+v).toString(16).padStart(2,'0')).join('')):base;
+function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.style||'bubble');
+ const ex=200,ey=ora?200:188,er=ora?150:(sty==='googly'?100:88);
+ const ir=ora?78:({cat:62,horus:52,nazar:60,mexica:52,buddha:46,odin:50}[sty]||50);
+ const lid=ora?'#ebe2c8':o.color;
+ const fibers=(r,n=48,op=.26)=>{let f='';for(let i=0;i<n;i++){const a=i/n*Math.PI*2,r1=r*.44,r2=r*.9;f+=`<line x1="${(Math.cos(a)*r1).toFixed(1)}" y1="${(Math.sin(a)*r1).toFixed(1)}" x2="${(Math.cos(a)*r2).toFixed(1)}" y2="${(Math.sin(a)*r2).toFixed(1)}" stroke="${i%2?'#fff':'#000'}" stroke-opacity="${op}" stroke-width="${i%3?1.3:2}" stroke-linecap="round"/>`}return f};
+ const base=ora?'#14625e':(o.color==='#2a2a2e'?'#6b6b73':o.color);
+ const irisC={cat:'#c9b52a',lashes:toHex(shade(base,-.25)),horus:'#3a2412',mexica:'#1f8a70',buddha:'#1d3a5f',odin:'#7d97a8',oracle:'#14625e'}[sty]||base;
  const hl=`<ellipse cx="${-ir*.3}" cy="${-ir*.35}" rx="${ir*.2}" ry="${ir*.15}" fill="#fff" opacity=".92" transform="rotate(-30 ${-ir*.3} ${-ir*.35})"/><circle cx="${ir*.28}" cy="${ir*.28}" r="${ir*.07}" fill="#fff" opacity=".7"/>`;
- let iris;
- if(sty==='robot')iris=`<g class="rg"><circle r="54" fill="none" stroke="${shade(base,.25)}" stroke-width="7" stroke-dasharray="20 8"/></g><circle r="36" fill="none" stroke="${shade(base,.55)}" stroke-width="4"/><circle class="pu" r="16" fill="${shade(base,.6)}"/><rect x="-26" y="-3" width="52" height="6" rx="3" fill="${shade(base,.6)}" opacity=".5"/>`;
+ const std=`<circle r="${ir}" fill="url(#ir${k})"/>${fibers(ir)}<circle r="${ir}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="4"/><circle class="pu" r="${ir*.36}" fill="#0d0d10"/>${hl}`;
+ let iris=std,white=`<circle cx="${ex}" cy="${ey}" r="${er}" fill="url(#ew${k})"/>`,deco='',over='';
+ if(sty==='robot'){iris=`<g class="rg" data-spin="40"><circle r="54" fill="none" stroke="${shade(base,.25)}" stroke-width="7" stroke-dasharray="20 8"/></g><circle r="36" fill="none" stroke="${shade(base,.55)}" stroke-width="4"/><circle class="pu" r="16" fill="${shade(base,.6)}"/><rect x="-26" y="-3" width="52" height="6" rx="3" fill="${shade(base,.6)}" opacity=".5"/>`;
+  white=`<circle cx="${ex}" cy="${ey}" r="${er}" fill="#15171c"/><circle cx="${ex}" cy="${ey}" r="${er-6}" fill="none" stroke="#2b2e36" stroke-width="3"/>`}
  else if(sty==='googly')iris=`<circle class="pu" r="40" fill="#111"/><circle cx="-12" cy="-13" r="8" fill="#fff" opacity=".85"/>`;
- else if(sty==='cat')iris=`<circle r="${ir}" fill="url(#ir${k})"/>${fib}<circle r="${ir}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="4"/><ellipse class="pu" rx="${ir*.18}" ry="${ir*.86}" fill="#0d0d10"/>${hl}`;
- else iris=`<circle r="${ir}" fill="url(#ir${k})"/>${fib}<circle r="${ir}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="${ball?5:4}"/><circle class="pu" r="${ir*.36}" fill="#0d0d10"/>${hl}`;
- const white=ball?'':sty==='robot'?`<circle cx="${ex}" cy="${ey}" r="${er}" fill="#15171c"/><circle cx="${ex}" cy="${ey}" r="${er-6}" fill="none" stroke="#2b2e36" stroke-width="3"/>`:`<circle cx="${ex}" cy="${ey}" r="${er}" fill="url(#ew${k})"/>`;
- let lash='';if(sty==='lashes'){const rx=er*1.45,ry=er*1.15;for(const x of [-62,-38,-12,14,40,64]){const y=ry*(Math.sqrt(1-(x/rx)**2)-1);lash+=`<line x1="${200+x}" y1="${y.toFixed(1)}" x2="${(200+x*1.3).toFixed(1)}" y2="${(y-26).toFixed(1)}" stroke="#1b1b1f" stroke-width="7" stroke-linecap="round"/>`}}
- return `<svg class="eye" viewBox="0 0 400 430" data-sty="${sty}" data-ex="${ex}" data-ey="${ey}" data-er="${er}" data-mr="${ball?62:sty==='googly'?0:34}">
- <defs><radialGradient id="bd${k}" cx=".38" cy=".3" r=".78"><stop offset="0" stop-color="${ball?'#fff':shade(o.color,.42)}"/><stop offset=".6" stop-color="${ball?'#f2f3f5':o.color}"/><stop offset="1" stop-color="${ball?'#c3c8d0':shade(o.color,-.38)}"/></radialGradient>
+ else if(sty==='cat')iris=`<circle r="${ir}" fill="url(#ir${k})"/>${fibers(ir)}<circle r="${ir}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="4"/><ellipse class="pu" rx="${ir*.18}" ry="${ir*.86}" fill="#0d0d10"/>${hl}`;
+ else if(sty==='nazar'){ // cuenta de vidrio azul contra el mal de ojo
+  iris=`<circle r="60" fill="#0b3a8c"/><circle r="45" fill="#fdfdfd"/><circle r="32" fill="#59b4ea"/><circle class="pu" r="15" fill="#0b0b0e"/><ellipse cx="-20" cy="-26" rx="14" ry="9" fill="#fff" opacity=".85" transform="rotate(-30 -20 -26)"/>`}
+ else if(sty==='mexica'){ // piedra del sol: rayos dorados, mosaico de turquesa, iris de jade escalonado
+  let rays='';for(let i=0;i<16;i++){const a=i/16*Math.PI*2+Math.PI/16,w=.11;const p=(r,aa)=>`${(ex+Math.cos(aa)*r).toFixed(1)},${(ey+Math.sin(aa)*r).toFixed(1)}`;rays+=`<polygon points="${p(96,a-w)} ${p(126,a)} ${p(96,a+w)}" fill="${i%2?'#e0b23a':'#b8322a'}"/>`}
+  let tiles='';for(let i=0;i<36;i++){const a=i/36*Math.PI*2;tiles+=`<rect x="${(ex+Math.cos(a)*92-4).toFixed(1)}" y="${(ey+Math.sin(a)*92-4).toFixed(1)}" width="8" height="8" rx="1.5" fill="${['#2bb3a3','#1d8c80','#47c7b8'][i%3]}" transform="rotate(${(a*180/Math.PI).toFixed(1)} ${(ex+Math.cos(a)*92).toFixed(1)} ${(ey+Math.sin(a)*92).toFixed(1)})"/>`}
+  deco=rays+tiles;
+  let steps='';for(let i=0;i<12;i++){const a=i*30;steps+=`<path d="M38 -6 h7 v-6 h7 v24 h-7 v-6 h-7z" fill="#0f5c4a" transform="rotate(${a})"/>`}
+  iris=`<circle r="${ir}" fill="url(#ir${k})"/>${steps}<circle r="${ir}" fill="none" stroke="#0b3d33" stroke-width="4"/><circle class="pu" r="${ir*.36}" fill="#0d0d10"/>${hl}`}
+ else if(sty==='horus'){ // Udjat: delineado, ceja, lágrima y espiral
+  const k2=`stroke="#141414" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
+  over=`<path d="M${ex-er-14} ${ey} Q${ex} ${ey-er-34} ${ex+er+16} ${ey-4} L${ex+er+58} ${ey-10}" ${k2} stroke-width="11"/>
+   <path d="M${ex-er-14} ${ey} Q${ex} ${ey+er+30} ${ex+er+16} ${ey-4}" ${k2} stroke-width="9"/>
+   <path d="M${ex-er-8} ${ey-er-22} Q${ex+6} ${ey-er-58} ${ex+er+40} ${ey-er-24}" ${k2} stroke-width="15"/>
+   <path d="M${ex-6} ${ey+er+6} L${ex-12} ${ey+er+52}" ${k2} stroke-width="11"/>
+   <path d="M${ex+26} ${ey+er+4} C${ex+40} ${ey+er+44} ${ex+96} ${ey+er+40} ${ex+88} ${ey+er+14} C${ex+82} ${ey+er+2} ${ex+66} ${ey+er+12} ${ex+74} ${ey+er+22}" ${k2} stroke-width="9"/>`}
+ else if(sty==='buddha'){ // ojos de la estupa: ceja curva y el rizo debajo
+  const k2=`stroke="#141414" fill="none" stroke-linecap="round"`;
+  over=`<path d="M${ex-er-6} ${ey-er+8} Q${ex} ${ey-er-46} ${ex+er+6} ${ey-er+8}" ${k2} stroke-width="11"/>
+   <path d="M${ex+4} ${ey+er+8} C${ex+30} ${ey+er+10} ${ex+30} ${ey+er+40} ${ex+4} ${ey+er+40} C${ex-18} ${ey+er+40} ${ex-16} ${ey+er+20} ${ex-2} ${ey+er+22}" ${k2} stroke-width="9"/>`}
+ else if(sty==='odin'){ // anillo de runas que gira
+  deco=`<defs><path id="rp${k}" d="M${ex} ${ey-110} a110 110 0 1 1 -0.1 0"/></defs><circle cx="${ex}" cy="${ey}" r="${er+6}" fill="none" stroke="#1d2530" stroke-width="5"/>
+   <g class="rg" data-spin="10" data-cx="${ex}" data-cy="${ey}"><circle cx="${ex}" cy="${ey}" r="118" fill="none" stroke="#1d2530" stroke-width="22" stroke-opacity=".75"/><text font-size="17" fill="#e8d9a8" letter-spacing="3"><textPath href="#rp${k}">${RUNES}${RUNES.slice(0,4)}</textPath></text></g>`}
+ else if(sty==='oracle'){ // el Oráculo: iris grabado en oro y órbita de signos
+  iris=`<circle r="${ir}" fill="url(#ir${k})"/>${fibers(ir,64,.22)}<g class="rg" data-spin="-14"><circle r="${ir*.72}" fill="none" stroke="#e2b54a" stroke-width="2.5" stroke-dasharray="3 7"/></g><circle r="${ir}" fill="none" stroke="#c99a2e" stroke-width="5"/><circle r="${ir-9}" fill="none" stroke="#e2b54a" stroke-width="1.5" stroke-opacity=".7"/><ellipse class="pu" rx="${ir*.2}" ry="${ir*.5}" fill="#08100f"/>${hl}`;
+  let marks='';for(let i=0;i<48;i++){const a=i/48*Math.PI*2,r1=i%4?172:166;marks+=`<line x1="${(200+Math.cos(a)*r1).toFixed(1)}" y1="${(200+Math.sin(a)*r1).toFixed(1)}" x2="${(200+Math.cos(a)*178).toFixed(1)}" y2="${(200+Math.sin(a)*178).toFixed(1)}" stroke="#b8892b" stroke-width="${i%4?1.5:3}"/>`}
+  let glyph='';['☉','☽','△','◇','✶','☿','♄','♃'].forEach((g,i)=>{const a=i/8*Math.PI*2-Math.PI/2;glyph+=`<text x="${(200+Math.cos(a)*190).toFixed(1)}" y="${(200+Math.sin(a)*190+6).toFixed(1)}" font-size="17" fill="#8a6418" text-anchor="middle">${g}</text>`});
+  over='';deco='';o.orbit=`<g class="rg2" data-spin="5" data-cx="200" data-cy="200"><circle cx="200" cy="200" r="178" fill="none" stroke="#b8892b" stroke-width="1.5"/>${marks}${glyph}</g>`;
+  white=''}
+ const fill0=ora?'#fff':shade(o.color,.42),fill1=ora?'#f4efe2':o.color,fill2=ora?'#cbbd97':shade(o.color,-.38);
+ return `<svg class="eye" viewBox="${ora?'-10 -10 420 450':'0 0 400 430'}" data-sty="${sty}" data-ex="${ex}" data-ey="${ey}" data-er="${er}" data-mr="${ora?60:sty==='googly'?0:34}">
+ <defs><radialGradient id="bd${k}" cx=".38" cy=".3" r=".78"><stop offset="0" stop-color="${fill0}"/><stop offset=".6" stop-color="${fill1}"/><stop offset="1" stop-color="${fill2}"/></radialGradient>
  <radialGradient id="ew${k}" cx=".42" cy=".36" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".8" stop-color="#f1f2f4"/><stop offset="1" stop-color="#cfd3da"/></radialGradient>
  <radialGradient id="ir${k}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${shade(irisC,.45)}"/><stop offset=".55" stop-color="${irisC}"/><stop offset=".86" stop-color="${shade(irisC,-.3)}"/><stop offset="1" stop-color="${shade(irisC,-.6)}"/></radialGradient>
  <radialGradient id="gn${k}" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
  <clipPath id="cp${k}"><circle cx="${ex}" cy="${ey}" r="${er}"/></clipPath></defs>
- <ellipse class="sh" cx="200" cy="405" rx="115" ry="15" fill="url(#gn${k})"/>
- <g class="bd"><circle cx="200" cy="200" r="150" fill="url(#bd${k})"/>${white}
+ <ellipse class="sh" cx="200" cy="${ora?425:405}" rx="115" ry="15" fill="url(#gn${k})"/>
+ ${o.orbit||''}
+ <g class="bd"><circle cx="200" cy="200" r="150" fill="url(#bd${k})"/>${deco}${white}
   <g clip-path="url(#cp${k})"><g class="ir">${iris}</g>
    <ellipse class="lt" cx="${ex}" cy="${ey-er-er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/><ellipse class="lb" cx="${ex}" cy="${ey+er+er*1.15}" rx="${er*1.45}" ry="${er*1.15}" fill="${lid}"/></g>
+  ${over}
   ${sty==='googly'?`<ellipse cx="${ex-34}" cy="${ey-46}" rx="30" ry="16" fill="#fff" opacity=".75" transform="rotate(-30 ${ex-34} ${ey-46})"/><circle cx="${ex}" cy="${ey}" r="${er}" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="3"/>`:''}
-  ${lash?`<g class="lash">${lash}</g>`:''}
-  <ellipse cx="135" cy="105" rx="62" ry="36" fill="#fff" opacity="${ball?.7:.38}" transform="rotate(-35 135 105)"/>
-  <path d="M90 275 A150 150 0 0 0 310 275" fill="none" stroke="#fff" stroke-opacity="${ball?.55:.25}" stroke-width="7" stroke-linecap="round"/></g></svg>`}
+  ${sty==='lashes'?`<g class="lash">${[-62,-38,-12,14,40,64].map(x=>{const rx=er*1.45,ry=er*1.15,y=ry*(Math.sqrt(1-(x/rx)**2)-1);return `<line x1="${200+x}" y1="${y.toFixed(1)}" x2="${(200+x*1.3).toFixed(1)}" y2="${(y-26).toFixed(1)}" stroke="#1b1b1f" stroke-width="7" stroke-linecap="round"/>`}).join('')}</g>`:''}
+  <ellipse cx="135" cy="105" rx="62" ry="36" fill="#fff" opacity="${ora?.75:.38}" transform="rotate(-35 135 105)"/>
+  <path d="M90 275 A150 150 0 0 0 310 275" fill="none" stroke="#fff" stroke-opacity="${ora?.55:.25}" stroke-width="7" stroke-linecap="round"/></g></svg>`}
+
+/* ---------- fechas clave (reales) ---------- */
+const DL=[{what:'Gran Maturity',date:'2026-10-31',ag:'flyers'},{what:'HipIQ photos come out',date:'2026-10-30',ag:'hipiq',wait:1},{what:'Fall Mixed Sale',date:'2026-11-05',ag:'hipiq'},{what:'Gran Final',date:'2026-11-28',ag:'flyers'}].sort((a,b)=>a.date<b.date?-1:1);
+const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.max(0,Math.round((new Date(d+'T00:00:00')-t)/864e5))};
+const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 
 /* ---------- tarjetas ---------- */
 const feed=$('#feed');
 const dotBg=c=>`radial-gradient(circle at 38% 32%,${shade(c,.42)},${c} 60%,${shade(c,-.38)})`;
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
- <h1>Your agents</h1><p class="sub">${AG.length} agents · ${totalNeeds} things need you</p>
+ <h1>The Oracle</h1><p class="sub">Watches ${AG.length} agents · ${totalNeeds} things need you</p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join("")}</p><button class="ask" id="askOracle">Ask the Oracle</button>
  <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em class="n">${a.needs.length} need you</em></button>`).join('')}</div>
  <p class="hint">Scroll up for each agent ↑</p></section>`;
 html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${t}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;
@@ -230,14 +271,14 @@ let sayT;function say(t,ms=3000){const s=$('#say');s.textContent=t;s.classList.a
 
 /* ---------- ojos vivos ---------- */
 let eyes=[];
-function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.querySelector('.ir'),puEl:svg.querySelector('.pu'),lt:svg.querySelector('.lt'),lb:svg.querySelector('.lb'),bd:svg.querySelector('.bd'),sh:svg.querySelector('.sh'),rg:svg.querySelector('.rg'),lash:svg.querySelector('.lash'),
+function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.querySelector('.ir'),puEl:svg.querySelector('.pu'),lt:svg.querySelector('.lt'),lb:svg.querySelector('.lb'),bd:svg.querySelector('.bd'),sh:svg.querySelector('.sh'),rgs:[...svg.querySelectorAll('.rg,.rg2')],lash:svg.querySelector('.lash'),
  ex:+svg.dataset.ex,ey:+svg.dataset.ey,er:+svg.dataset.er,mr:+svg.dataset.mr,
  gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,sq:1,sv:0,pu0:.36,pu:.36,put:.36,happy:0,happyT:0,lid:0,lidT:0,blink:-1,nb:1+Math.random()*3,ns:0,look:null,px:0,py:30,pvx:0,pvy:0};
  if(E.puEl&&E.sty!=='robot'&&E.sty!=='googly')E.irR=+svg.querySelector('.ir circle, .ir ellipse').getAttribute('r')||62;
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>poke(E));eyes.push(E);return E}
 function poke(E){E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
- const ci=cards.indexOf(E.svg.closest('.card'));if(ci>0&&!chA){openChat(ci-1);return}if(ci>0)return;if(ci===0){say(`${totalNeeds} things need you. Scroll to see each agent.`);return}
+ const ci=cards.indexOf(E.svg.closest('.card'));if(ci>0&&!chA){openChat(ci-1);return}if(ci>0)return;if(ci===0&&!chA){openChat(-1);return}
  const a=AG[ci-1];say(a.needs.length?`I need ${a.needs.length} thing${a.needs.length>1?'s':''} from you. Tap Talk to chat with me.`:`All good here.`)}
 document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 let ptr=null,lastPtr=-1e9;
@@ -271,10 +312,12 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
   E.ir.setAttribute('transform',`translate(${E.ex+E.px} ${E.ey+E.py})`)}
  else E.ir.setAttribute('transform',`translate(${E.ex+E.gx*E.mr} ${E.ey+E.gy*E.mr}) rotate(${ang}) scale(${1-.2*gm} 1) rotate(${-ang})`);
  if(E.sty==='cat')E.puEl.setAttribute('rx',(62*(.1+E.pu*.45)).toFixed(2));
- else if(E.sty==='robot'){E.puEl.setAttribute('r',(16+(E.pu-.36)*60).toFixed(2));E.rg.setAttribute('transform',`rotate(${(T*40)%360})`)}
- else if(E.sty!=='googly')E.puEl.setAttribute('r',(E.irR*E.pu).toFixed(2));
+ else if(E.sty==='robot')E.puEl.setAttribute('r',(16+(E.pu-.36)*60).toFixed(2));
+ else if(E.sty==='oracle')E.puEl.setAttribute('rx',(78*(.12+E.pu*.3)).toFixed(2));
+ else if(E.sty!=='googly'&&E.sty!=='nazar'&&E.sty!=='oracle')E.puEl.setAttribute('r',(E.irR*E.pu).toFixed(2));
  const ry=E.er*1.15;
- const topEdge=(E.ey-E.er)+(E.er+2)*b+E.er*.5*E.lid;
+ E.rgs.forEach(g=>{const sp=+g.dataset.spin||0,cx=g.dataset.cx,cy=g.dataset.cy;g.setAttribute('transform',`rotate(${((T*sp)%360).toFixed(2)}${cx?` ${cx} ${cy}`:''})`)});
+ const topEdge=(E.ey-E.er)+(E.er+2)*b+E.er*.5*(E.lid+(E.sty==='buddha'?.75:0));
  E.lt.setAttribute('cy',(topEdge-ry).toFixed(1));
  E.lb.setAttribute('cy',((E.ey+E.er)-(E.er-2)*b-E.er*.55*E.happy+ry).toFixed(1));
  if(E.lash)E.lash.setAttribute('transform',`translate(0 ${topEdge.toFixed(1)})`);
@@ -287,7 +330,7 @@ requestAnimationFrame(frame);
 /* ---------- chat con cada agente ---------- */
 const chat=$('#chat'),msgs=$('#msgs'),chQ=$('#chQ');let chA=null,chE=null;const hist={};
 const list=x=>x.map(t=>'• '+t).join('\n');
-function reply(a,t){t=t.toLowerCase();
+function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);
  const has=(...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(t));
  if(has('hi','hey','hello','hola','que onda','qué onda','sup'))return `Hey! I'm ${a.name}. ${a.needs.length?`I'm waiting on ${a.needs.length} thing${a.needs.length>1?'s':''} from you.`:'Nothing pending from you.'} Ask me what I need, what I'm doing, or what's next.`;
  if(has('need','necesit','waiting','espera','pending','pendiente','falta'))return a.needs.length?`Here's what I need from you:\n${list(a.needs)}`:`Nothing right now.`;
@@ -298,14 +341,25 @@ function reply(a,t){t=t.toLowerCase();
  if(has('open','link','ver','show','abre')&&a.link)return `Here you go: <a href="${a.link[1]}">${a.link[0]}</a>`;
  if(has('thank','gracias','nice','cool','chido','good','great'))return `Anytime. ${a.needs.length?`Send me those ${a.needs.length} things and I'll keep going.`:''}`;
  return null}
+function oracle(t){const has=(...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t));
+ const waiting=AG.filter(a=>a.needs.length);
+ const first=()=>{const d=DL.find(x=>!x.wait&&daysTo(x.date)>0&&AG.find(a=>a.id===x.ag).needs.length)||DL[0];const a=AG.find(x=>x.id===d.ag);return {a,d}};
+ if(has('hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch all ${AG.length} of your agents.\n${totalNeeds} things wait on you. The nearest big day: ${first().d.what}, in ${daysTo(first().d.date)} days.\nAsk me what to do first.`;
+ if(has('first','primero','urgent','priority','should','debo','hago','focus'))
+  {const {a,d}=first();return `I see it clearly: ${a.name} first. ${d.what} is in ${daysTo(d.date)} days and it still waits on you for:\n${a.needs.map(x=>'• '+x).join('\n')}`}
+ if(has('deadline','date','fecha','cuando','cuándo','when','days','días','dias'))return 'The dates ahead:\n'+DL.map(d=>`• ${d.what}: ${daysTo(d.date)} days (${new Date(d.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})})`).join('\n');
+ if(has('who','quien','quién','need','necesit','waiting'))return 'These agents wait on you:\n'+waiting.map(a=>`• ${a.name}: ${a.needs.length}`).join('\n');
+ if(has('status','estado','all','todo','how','como','cómo'))return AG.map(a=>`• ${a.name}: ${ST[a.st][0]}`).join('\n');
+ if(has('thank','gracias','cool','nice'))return 'The path is yours to walk. Come back when you finish one.';
+ return null}
 function addMsg(who,text,html){const d=document.createElement('div');d.className='m '+who;if(html)d.innerHTML=text;else d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;(hist[chA.id]=hist[chA.id]||[]).push([who,text,!!html])}
-function openChat(i){const a=AG[i];chA=a;chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
- $('#chName').textContent=a.name;$('#chSub').textContent=a.needs.length?`needs ${a.needs.length} thing${a.needs.length>1?'s':''} from you`:ST[a.st][0];
- goCard(cards[i+1]);const st=cards[i+1].querySelector('.strip');st.scrollTo({left:0,behavior:'smooth'});chE=eyes.find(E=>E.svg.closest('.card')===cards[i+1]);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
+function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
+ $('#chName').textContent=a.name;$('#chSub').textContent=i<0?'sees all your agents':a.needs.length?`needs ${a.needs.length} thing${a.needs.length>1?'s':''} from you`:ST[a.st][0];
+ goCard(cards[i+1]);const st=cards[i+1].querySelector('.strip');if(st)st.scrollTo({left:0,behavior:'smooth'});chE=eyes.find(E=>E.svg.closest('.card')===cards[i+1]);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
  msgs.innerHTML='';const h=hist[a.id];
  if(h)h.forEach(([w,t,isH])=>{const d=document.createElement('div');d.className='m '+w;if(isH)d.innerHTML=t;else d.textContent=t;msgs.appendChild(d)});
  else{hist[a.id]=[];addMsg('a',reply(a,'hi'))}
- $('#quick').innerHTML=['What do you need?','What are you doing?','What\'s next?','Important info'].map(q=>`<button>${q}</button>`).join('');
+ $('#quick').innerHTML=(i<0?['What should I do first?','Deadlines','Who needs me?','Status']:['What do you need?','What are you doing?','What\'s next?','Important info']).map(q=>`<button>${q}</button>`).join('');
  $('#quick').querySelectorAll('button').forEach(b=>b.onclick=()=>send(b.textContent));
  chat.classList.add('on');msgs.scrollTop=msgs.scrollHeight}
 function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;chE.look=[0,.9];chE.lidT=.3;
@@ -316,6 +370,7 @@ function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;ch
 msgs.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;e.preventDefault();const t=decodeURIComponent(c.dataset.q);
  const done=()=>{c.textContent='Copied ✓'};(navigator.clipboard?navigator.clipboard.writeText(t).then(done,()=>fallback()):fallback());
  function fallback(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(_){}ta.remove()}});
+$('#askOracle').addEventListener('click',()=>openChat(-1));
 document.querySelectorAll('[data-talk]').forEach(b=>b.addEventListener('click',()=>openChat(+b.dataset.talk)));
 $('#chX').addEventListener('click',()=>{chat.classList.remove('on');chA=null;feed.style.overflowY='';if(chE){chE.look=null;chE.lidT=0}});
 $('#chForm').addEventListener('submit',e=>{e.preventDefault();const t=chQ.value;chQ.value='';send(t)});
