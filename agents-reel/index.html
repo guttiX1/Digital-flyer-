@@ -25,8 +25,8 @@ button{font:inherit;color:inherit}
 .top{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--top);display:flex;align-items:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 16px 0;background:#fff;border-bottom:1px solid var(--line)}
 .top b{font-weight:700;font-size:19px}
 .top span{margin-left:auto;padding:6px 11px;border-radius:12px;background:var(--red);color:#fff;font-weight:600;font-size:13.5px}
-.rail{position:fixed;z-index:20;right:5px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px}
-.rail i{display:block;width:6px;height:6px;border-radius:3px;background:rgba(0,0,0,.18)}.rail i.on{height:20px;background:var(--ink)}.rail i.need{background:var(--red)}
+.rail{position:fixed;z-index:20;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:6px 5px 6px 12px}
+.rail i{display:block;cursor:pointer;width:6px;height:6px;margin:1.5px 0;border-radius:3px;background:rgba(0,0,0,.18)}.rail i.on{height:20px;background:var(--ink)}.rail i.need{background:var(--red)}
 /* intro */
 .intro{display:flex;flex-direction:column;align-items:center;padding:calc(var(--top) + 14px) 20px calc(18px + env(safe-area-inset-bottom))}
 .intro .eye{width:min(62vw,300px);margin-top:4px}
@@ -168,11 +168,14 @@ button{font:inherit;color:inherit}
 .said li{list-style:none;display:flex;gap:10px;align-items:center;padding:8px 2px;font-size:14.5px;color:var(--dim)}.said li b{color:var(--ink);font-weight:600}.said button{margin-left:auto;border:0;background:none;color:var(--dim);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer}
 .who .mv{margin-left:6px;display:flex;gap:4px}.who .mv span{width:34px;height:30px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:14px}
 #intro .rg2 circle,#intro .rg2 line{transition:stroke .9s}
+.home{position:fixed;z-index:25;left:12px;bottom:calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:6px;padding:5px 12px 5px 5px;border:0;border-radius:30px;background:#1b1a17;color:#f3e3b5;font:600 14px Fredoka,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);transform:translateY(140%);opacity:0;transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .25s}
+.home.on{transform:none;opacity:1}.home svg{width:38px;height:38px}
 </style>
 </head>
 <body>
 <div class="feed" id="feed"></div>
-<header class="top"><b>Agents</b><span id="pk"></span></header>
+<header class="top"><b id="topT" style="cursor:pointer">Agents</b><span id="pk"></span></header>
+<button class="home" id="home" aria-label="Back to the Oracle"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="hmS" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#f1ead6"/><stop offset="1" stop-color="#c9bb93"/></radialGradient><radialGradient id="hmI" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3fa39b"/><stop offset=".7" stop-color="#14625e"/><stop offset="1" stop-color="#062b29"/></radialGradient></defs><circle cx="50" cy="50" r="46" fill="none" stroke="#b8892b" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="url(#hmS)"/><g id="hmIris"><circle cx="50" cy="50" r="19" fill="url(#hmI)"/><circle cx="50" cy="50" r="19" fill="none" stroke="#c99a2e" stroke-width="2.5"/><ellipse cx="50" cy="50" rx="4" ry="10" fill="#08100f"/><circle cx="44" cy="43" r="3.5" fill="#fff"/></g></svg><span>Oracle</span></button>
 <nav class="rail" id="rail" aria-hidden="true"></nav>
 <div class="say" id="say"></div><div class="holdtip" id="holdtip">Listening… let go to send</div>
 <div class="ns" id="ns" role="dialog" aria-label="Answer"><h3><i id="nsDot" style="width:22px;height:22px;border-radius:50%;display:inline-block"></i><span id="nsName"></span><button id="nsX" aria-label="Close">✕</button></h3>
@@ -345,7 +348,12 @@ document.querySelectorAll('.ag').forEach(c=>{const strip=c.querySelector('.strip
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goCard(agCard(+b.dataset.go))));
 $('#pk').addEventListener('click',()=>{const i=AG.findIndex(a=>openNeeds(a).length);goCard(i<0?$('#today'):agCard(i))});
 const railEl=$('#rail');railEl.innerHTML=cards.map(()=>'<i></i>').join('');
-function rail(){const i=Math.round(feed.scrollTop/innerHeight);[...railEl.children].forEach((m,j)=>m.classList.toggle('on',i===j))}
+function rail(){const y=feed.scrollTop+innerHeight*.4;let i=0;cards.forEach((c,j)=>{if(c.offsetTop<=y)i=j});[...railEl.children].forEach((m,j)=>m.classList.toggle('on',i===j));$('#home').classList.toggle('on',i>0)}
+/* volver al Oráculo desde cualquier agente */
+const goHome=()=>{feed.scrollTo({top:0,behavior:'smooth'});if(typeof SFX!=='undefined')SFX.pop()};
+$('#home').addEventListener('click',goHome);$('#topT').addEventListener('click',goHome);
+railEl.addEventListener('click',e=>{const k=[...railEl.children].indexOf(e.target);if(k>=0)goCard(cards[k])});
+setInterval(()=>{const ir=document.getElementById('hmIris');if(!ir||!$('#home').classList.contains('on'))return;const a=Math.random()*Math.PI*2,r=Math.random()*8;ir.setAttribute('transform',`translate(${(Math.cos(a)*r).toFixed(1)} ${(Math.sin(a)*r).toFixed(1)})`)},1400);
 feed.addEventListener('scroll',rail,{passive:true});rail();
 let sayT;function say(t,ms=3200){const s=$('#say');s.textContent=t;s.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>s.classList.remove('on'),ms)}
 
