@@ -72,9 +72,9 @@ button{font:inherit;color:inherit}
 .acts .talk{background:var(--c);color:#fff}
 .acts .sty{background:var(--soft);color:var(--ink)}
 /* chat */
-.chat{position:fixed;inset:0;z-index:30;background:#fff;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .4s cubic-bezier(.2,1.05,.3,1)}
+.chat{position:fixed;left:0;right:0;bottom:0;height:57dvh;z-index:30;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.1);display:flex;flex-direction:column;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,1.05,.3,1)}
 .chat.on{transform:none}
-.ch-h{display:flex;align-items:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 14px 8px;border-bottom:1px solid var(--line)}
+.ch-h{display:flex;align-items:center;gap:10px;padding:12px 14px 8px;border-bottom:1px solid var(--line)}
 .ch-h .eye{width:64px;flex:none}
 .ch-h b{font-weight:700;font-size:21px;display:block}
 .ch-h small{color:var(--dim);font-size:13px}
@@ -98,7 +98,7 @@ button{font:inherit;color:inherit}
 <header class="top"><b>Agents</b><span id="pk"></span></header>
 <nav class="rail" id="rail" aria-hidden="true"></nav>
 <div class="say" id="say"></div>
-<div class="chat" id="chat" role="dialog" aria-label="Chat"><div class="ch-h"><span id="chEye"></span><div><b id="chName"></b><small id="chSub"></small></div><button id="chX" aria-label="Close">✕</button></div>
+<div class="chat" id="chat" role="dialog" aria-label="Chat"><div class="ch-h"><div><b id="chName"></b><small id="chSub"></small></div><button id="chX" aria-label="Close">✕</button></div>
 <div class="msgs" id="msgs"></div><div class="quick" id="quick"></div>
 <form class="ch-in" id="chForm" autocomplete="off"><input id="chQ" placeholder="Message" enterkeyhint="send"><button aria-label="Send">↑</button></form></div>
 <script>
@@ -237,7 +237,7 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>poke(E));eyes.push(E);return E}
 function poke(E){E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
- if(E.owner==='chat')return;const ci=cards.indexOf(E.svg.closest('.card'));if(ci===0){say(`${totalNeeds} things need you. Scroll to see each agent.`);return}
+ const ci=cards.indexOf(E.svg.closest('.card'));if(ci>0&&!chA){openChat(ci-1);return}if(ci>0)return;if(ci===0){say(`${totalNeeds} things need you. Scroll to see each agent.`);return}
  const a=AG[ci-1];say(a.needs.length?`I need ${a.needs.length} thing${a.needs.length>1?'s':''} from you. Tap Talk to chat with me.`:`All good here.`)}
 document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 let ptr=null,lastPtr=-1e9;
@@ -301,20 +301,23 @@ function reply(a,t){t=t.toLowerCase();
 function addMsg(who,text,html){const d=document.createElement('div');d.className='m '+who;if(html)d.innerHTML=text;else d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;(hist[chA.id]=hist[chA.id]||[]).push([who,text,!!html])}
 function openChat(i){const a=AG[i];chA=a;chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
  $('#chName').textContent=a.name;$('#chSub').textContent=a.needs.length?`needs ${a.needs.length} thing${a.needs.length>1?'s':''} from you`:ST[a.st][0];
- eyes=eyes.filter(E=>E.owner!=='chat');$('#chEye').innerHTML=eyeSVG({color:a.color,style:styleOf(a)});chE=mountEye($('#chEye svg'),'chat');
+ goCard(cards[i+1]);const st=cards[i+1].querySelector('.strip');st.scrollTo({left:0,behavior:'smooth'});chE=eyes.find(E=>E.svg.closest('.card')===cards[i+1]);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
  msgs.innerHTML='';const h=hist[a.id];
  if(h)h.forEach(([w,t,isH])=>{const d=document.createElement('div');d.className='m '+w;if(isH)d.innerHTML=t;else d.textContent=t;msgs.appendChild(d)});
  else{hist[a.id]=[];addMsg('a',reply(a,'hi'))}
  $('#quick').innerHTML=['What do you need?','What are you doing?','What\'s next?','Important info'].map(q=>`<button>${q}</button>`).join('');
  $('#quick').querySelectorAll('button').forEach(b=>b.onclick=()=>send(b.textContent));
  chat.classList.add('on');msgs.scrollTop=msgs.scrollHeight}
-function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;chE.look=[0,.2];chE.lidT=.25;
- setTimeout(()=>{chE.look=null;chE.lidT=0;poke(chE);const r=reply(a,text);
+function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;chE.look=[0,.9];chE.lidT=.3;
+ setTimeout(()=>{chE.look=[0,.7];chE.lidT=0;chE.sv-=.1;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900);const r=reply(a,text);
   if(r)addMsg('a',r,r.includes('<a '));
   else{const q=encodeURIComponent(`[${a.name} agent] ${text}\n\nContext: ${a.now}\nNeeds from me: ${a.needs.join('; ')}`);
-   addMsg('a',`I can't think on my own yet. I can pass this to Claude: <a href="https://claude.ai/new?q=${q}" target="_blank" rel="noopener">Send to Claude ↗</a>`,true)}},700)}
+   addMsg('a',`I can't think on my own yet. Tap to copy this for Claude, then paste it in your Claude chat: <a href="#" class="cp" data-q="${q}">Copy for Claude</a>`,true)}},700)}
+msgs.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;e.preventDefault();const t=decodeURIComponent(c.dataset.q);
+ const done=()=>{c.textContent='Copied ✓'};(navigator.clipboard?navigator.clipboard.writeText(t).then(done,()=>fallback()):fallback());
+ function fallback(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(_){}ta.remove()}});
 document.querySelectorAll('[data-talk]').forEach(b=>b.addEventListener('click',()=>openChat(+b.dataset.talk)));
-$('#chX').addEventListener('click',()=>{chat.classList.remove('on');chA=null});
+$('#chX').addEventListener('click',()=>{chat.classList.remove('on');chA=null;feed.style.overflowY='';if(chE){chE.look=null;chE.lidT=0}});
 $('#chForm').addEventListener('submit',e=>{e.preventDefault();const t=chQ.value;chQ.value='';send(t)});
 chQ.addEventListener('focus',()=>{if(chE)chE.look=[0,.9]});chQ.addEventListener('blur',()=>{if(chE)chE.look=null});
 window.__ready=true;
