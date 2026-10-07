@@ -117,6 +117,11 @@
    "link": [
     "Open Gran Maturity G2",
     "../events/gran-maturity-g2-oct31/"
+   ],
+   "asks": [
+    {
+     "q": "Add Gran Maturity to your main flyer page so people can find it?"
+    }
    ]
   },
   {
@@ -151,6 +156,11 @@
      "Valley Meats phone",
      "970-704-9614"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Keep the Valley Meats ad in the race page until race day?"
+    }
    ]
   },
   {
@@ -189,6 +199,12 @@
      "Online",
      "Not yet"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Remove the last 3 AI-looking details (blue glow, giant hip number, gradient backgrounds)?",
+     "clears": "OK to remove the last 3 AI-looking details"
+    }
    ]
   },
   {
@@ -227,6 +243,11 @@
      "Online ordering",
      "Not live yet"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Hide the order button until the real menu is loaded?"
+    }
    ]
   },
   {
@@ -258,6 +279,16 @@
      "Scores",
      "Picks on this phone only, for now"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Lock each race's picks when that race starts?",
+     "clears": "Your OK: picks lock when each race starts"
+    },
+    {
+     "q": "Tiebreak: whoever finished their picks first wins?",
+     "clears": "The tiebreak rule"
+    }
    ]
   },
   {
@@ -282,6 +313,11 @@
      "Saved",
      "On this phone only"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Track amounts in pesos (MXN)?"
+    }
    ]
   },
   {
@@ -309,6 +345,11 @@
      "Products",
      "Hats now, shirts next"
     ]
+   ],
+   "asks": [
+    {
+     "q": "Start the shirts with original art inspired by the GOAT horse idea (not copied)?"
+    }
    ]
   }
  ]

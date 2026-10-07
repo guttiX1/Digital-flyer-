@@ -158,6 +158,16 @@ button{font:inherit;color:inherit}
 .zzc{background:#e8eaf6;color:#283593}.cd[hidden]{display:none}
 .edin{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px;font:500 16px Fredoka,sans-serif;color:var(--ink)}
 .sw{display:flex;flex-wrap:wrap;gap:10px}.sw button{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer}.sw button.on{box-shadow:0 0 0 3px var(--ink)}
+.sm{flex-wrap:wrap;gap:4px 12px}
+.eyeslot{position:relative;display:block}.crown{position:absolute;left:50%;top:-14px;width:64px;transform:translateX(-50%) rotate(-8deg);pointer-events:none}.crown[hidden]{display:none}
+.lv{background:#fff4d6;color:#7a5200}
+.asks .ask{border-radius:16px;padding:12px 14px;margin-bottom:8px;background:#fff6db;border:1.5px solid #f1d58a}
+.asks .ask p{font-size:16.5px;font-weight:600;line-height:1.3;color:#4a3500}
+.asks .yn{display:flex;gap:8px;margin-top:10px}.asks .yn button{flex:1;border:0;border-radius:12px;padding:11px;font-weight:600;font-size:15px;cursor:pointer}
+.asks .yn .y{background:#1d9e6a;color:#fff}.asks .yn .n{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.said li{list-style:none;display:flex;gap:10px;align-items:center;padding:8px 2px;font-size:14.5px;color:var(--dim)}.said li b{color:var(--ink);font-weight:600}.said button{margin-left:auto;border:0;background:none;color:var(--dim);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer}
+.who .mv{margin-left:6px;display:flex;gap:4px}.who .mv span{width:34px;height:30px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:14px}
+#intro .rg2 circle,#intro .rg2 line{transition:stroke .9s}
 </style>
 </head>
 <body>
@@ -195,12 +205,21 @@ const shade=(h,k)=>css(k<0?mix(hex(h),[0,0,0],-k):mix(hex(h),[255,255,255],k));
 /* ---------- estado guardado en este teléfono ---------- */
 const SK='agents-state-1';const S={done:{},money:[],winners:{},pin:'',custom:{},mine:[],snooze:{}};try{Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}'))}catch(e){}
 const AG=AG0.map(a=>Object.assign({},a,S.custom[a.id]||{})).concat(S.mine||[]);
+S.asks=S.asks||{};S.lv=S.lv||{};
+if(Array.isArray(S.order)){const pos=id=>{const k=S.order.indexOf(id);return k<0?999:k};const orig=new Map(AG.map((a,k)=>[a.id,k]));AG.sort((x,y)=>pos(x.id)-pos(y.id)||orig.get(x.id)-orig.get(y.id))}
 const isSnoozed=a=>(S.snooze[a.id]||0)>Date.now();
 const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
 const nk=(a,t)=>a.id+'|'+t;
 const openNeeds=a=>a.needs.filter(t=>!S.done[nk(a,t)]);
 const doneByYou=a=>a.needs.filter(t=>S.done[nk(a,t)]);
-const totalOpen=()=>AG.reduce((n,a)=>n+(isSnoozed(a)?0:openNeeds(a).length),0);
+const openAsks=a=>(a.asks||[]).filter(x=>!S.asks[nk(a,x.q)]);
+const openCount=a=>openNeeds(a).length+openAsks(a).length;
+const points=a=>doneByYou(a).length+(a.asks||[]).filter(x=>S.asks[nk(a,x.q)]).length;
+const levelOf=a=>1+Math.floor(points(a)/2);
+let booted=false;
+const SFX={pop:()=>tone(520,880,.12,'sine',.18),yawn:()=>tone(440,170,.9,'triangle',.13),cheer:()=>[523,659,784,1047].forEach((f,i)=>tone(f,f*1.01,.2,'triangle',.14,i*.09)),
+ purr:()=>{for(let i=0;i<9;i++)tone(78,62,.12,'sawtooth',.05,i*.11)},wake:()=>[392,523,659].forEach((f,i)=>tone(f,f,.14,'square',.06,i*.07)),done:()=>[660,990].forEach((f,i)=>tone(f,f,.12,'sine',.14,i*.08))};
+const totalOpen=()=>AG.reduce((n,a)=>n+(isSnoozed(a)?0:openCount(a)),0);
 const todayKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.max(0,Math.round((new Date(d+'T00:00:00')-t)/864e5))};
 const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
@@ -288,9 +307,9 @@ const feed=$('#feed');
 const dotBg=c=>`radial-gradient(circle at 38% 32%,${shade(c,.42)},${c} 60%,${shade(c,-.38)})`;
 const nextDL=a=>DL.find(d=>d.ag===a.id&&!d.wait&&daysTo(d.date)>0);
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
- <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
+ <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="sub" id="oMood" style="margin-top:2px"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
  <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em id="who-${i}"></em></button>`).join('')}</div>
- <div class="sm"><button id="newBtn">+ New agent</button><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
+ <div class="sm"><button id="newBtn">+ New agent</button><button id="ordBtn">Reorder</button><button id="sfxBtn"></button><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
 html+=`<section class="card huddle" id="huddle"><p class="lbl" style="margin:0 0 4px">Huddle</p><h2>Everyone together</h2><p class="sub">Tap one and the others turn to watch it. Shake your phone to wake them all. Swipe down on an eye to snooze it.</p>
  <div class="hud">${AG.map((a,i)=>`<div class="hu"><span data-hud="${i}">${eyeSVG({color:a.color,style:styleOf(a)})}</span><b>${esc(a.name)}</b><small id="hs-${i}"></small></div>`).join('')}</div></section>`;
 html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;const d=nextDL(a);
@@ -298,9 +317,9 @@ html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul cl
  <div class="meta"><span>Agent ${i+1} of ${AG.length}</span><span>${lbl}</span></div>
  <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button></div>
  <div class="strip">
-  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}</span><h2>${a.name}</h2><div><span class="chip" style="background:${col}">${lbl}</span>${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}<span class="cd zzc" id="zz-${i}" hidden>💤 snoozed · tap the eye to wake</span></div>
+  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}<i class="crown" id="cr-${i}" hidden><svg viewBox="0 0 64 40"><path d="M4 36 L8 10 L22 24 L32 4 L42 24 L56 10 L60 36 Z" fill="#f2b531" stroke="#a8740c" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="4" r="4" fill="#e5432d"/></svg></i></span><h2>${a.name}</h2><div><span class="chip" style="background:${col}">${lbl}</span>${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}<span class="cd lv" id="lv-${i}"></span><span class="cd zzc" id="zz-${i}" hidden>💤 snoozed · tap the eye to wake</span></div>
    <p class="hint2">Tap the eye to chat · hold it to talk · swipe down to snooze</p><div class="acts"><button class="talk" data-talk="${i}">Talk</button><button class="sty" data-estilo="${i}">Eye: ${STY_NAME[styleOf(a)]} ↻</button></div></div>
-   <p class="lbl">Needs from you · tap one to answer</p><div id="nd-${i}"></div></div>
+   <div id="ask-${i}"></div><p class="lbl">Needs from you · tap one to answer</p><div id="nd-${i}"></div></div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div>
    <p class="lbl">Doing now</p><p class="now">${esc(a.now)}</p>
    <p class="lbl">Done</p>${li(a.done,'steps')}
@@ -331,23 +350,34 @@ feed.addEventListener('scroll',rail,{passive:true});rail();
 let sayT;function say(t,ms=3200){const s=$('#say');s.textContent=t;s.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>s.classList.remove('on'),ms)}
 
 /* ---------- pintar números y listas ---------- */
-function paint(){const tot=totalOpen();
+function paint(){const tot=totalOpen();moodRing(tot);
  $('#pk').textContent=tot?`${tot} thing${tot>1?'s':''} need you`:'All clear ✓';$('#pk').style.background=tot?'':'#1d9e6a';
  $('#oSub').textContent=`Watches ${AG.length} agents · ${tot} things need you`;
  AG.forEach((a,i)=>{const o=openNeeds(a),dn=doneByYou(a);
-  const w=$('#who-'+i);w.className=o.length?'n':'';w.textContent=o.length?`${o.length} need you`:'all clear';
-  const b=$('#bd-'+i);b.textContent=o.length||'';b.style.display=o.length?'':'none';
+  const oc=openCount(a),qs=openAsks(a);
+  const w=$('#who-'+i);if(w){w.className=oc?'n':'';w.textContent=oc?`${oc} need you`:'all clear'}
+  const b=$('#bd-'+i);b.textContent=oc||'';b.style.display=oc?'':'none';
+  const said=(a.asks||[]).filter(x=>S.asks[nk(a,x.q)]);
+  $('#ask-'+i).innerHTML=(qs.length?`<p class="lbl">${a.name} asks</p><div class="asks">${qs.map(x=>`<div class="ask"><p>${esc(x.q)}</p><div class="yn"><button class="y" data-ask="${i}" data-q="${esc(x.q)}" data-v="Yes">Yes</button><button class="n" data-ask="${i}" data-q="${esc(x.q)}" data-v="No">No</button></div></div>`).join('')}</div>`:'')
+   +(said.length?`<ul class="said">${said.map(x=>`<li><span>${esc(x.q)} <b>${S.asks[nk(a,x.q)].v}</b></span><button data-unask="${i}" data-q="${esc(x.q)}">change</button></li>`).join('')}</ul>`:'');
+  const L=levelOf(a);$('#lv-'+i).textContent=`Lv ${L}`;$('#cr-'+i).hidden=L<5;
+  if(S.lv[a.id]&&L>S.lv[a.id]&&booted){say(`Level up! ${a.name} is level ${L}${L>=5?' 👑':''}`);SFX.cheer();eyesOf(i).forEach(E=>{E.sv-=.2;E.happyT=1;setTimeout(()=>E.happyT=0,1500)})}
+  if(S.lv[a.id]!==L){S.lv[a.id]=L;save()}
   $('#nd-'+i).innerHTML=(o.length?`<ul class="needs">${o.map(t=>`<li data-need="${i}" data-t="${esc(t)}"><b>${a.needs.indexOf(t)+1}</b><span>${esc(t)}</span><i>answer ›</i></li>`).join('')}</ul>`:'<p class="clear">Nothing right now. All clear ✓</p>')
    +(dn.length?`<p class="lbl">Done by you</p><ul class="byyou">${dn.map(t=>{const r=S.done[nk(a,t)];return `<li><span>${esc(t)}${r.note?`<small>${esc(r.note)}</small>`:''}</span><button data-undo="${i}" data-t="${esc(t)}">undo</button></li>`}).join('')}</ul>`:'');
-  eyesOf(i).forEach(E=>{E.droop=a.needs.length?.42*o.length/a.needs.length:0;E.sleep=isSnoozed(a)});
-  const zz=$('#zz-'+i);if(zz)zz.hidden=!isSnoozed(a);if(isSnoozed(a)){w.className='';w.textContent='snoozed'}
-  const hs=$('#hs-'+i);if(hs)hs.textContent=isSnoozed(a)?'snoozed':o.length?`${o.length} need you`:'all clear';
-  railEl.children[cards.indexOf(agCard(i))].classList.toggle('need',o.length>0&&!isSnoozed(a))});
+  const tN=a.needs.length+(a.asks||[]).length;eyesOf(i).forEach(E=>{E.droop=tN?.42*oc/tN:0;E.sleep=isSnoozed(a)});
+  const zz=$('#zz-'+i);if(zz)zz.hidden=!isSnoozed(a);if(isSnoozed(a)&&w){w.className='';w.textContent='snoozed'}
+  const hs=$('#hs-'+i);if(hs)hs.textContent=isSnoozed(a)?'snoozed':(oc?`${oc} need you`:'all clear')+` · Lv ${L}`;
+  railEl.children[cards.indexOf(agCard(i))].classList.toggle('need',oc>0&&!isSnoozed(a))});
  paintResults();paintMoney();paintToday();if(typeof moods==='function'&&eyes.length)moods()}
 
 /* contestar una necesidad */
 let nsCur=null;
-feed.addEventListener('click',e=>{const n=e.target.closest('[data-need]');if(n){openNeed(+n.dataset.need,n.dataset.t);return}
+feed.addEventListener('click',e=>{const q=e.target.closest('[data-ask]');if(q){const i=+q.dataset.ask,a=AG[i],x=a.asks.find(z=>z.q===q.dataset.q);S.asks[nk(a,x.q)]={v:q.dataset.v,at:new Date().toISOString()};
+  if(x.clears&&a.needs.includes(x.clears))S.done[nk(a,x.clears)]={at:new Date().toISOString(),note:`You said ${q.dataset.v}: ${x.q}`};save();SFX.done();paint();
+  eyesOf(i).forEach(E=>{E.sv-=.12;E.happyT=1;setTimeout(()=>E.happyT=0,1100)});say(`${a.name}: got it, ${q.dataset.v.toLowerCase()}.`);return}
+ const uq=e.target.closest('[data-unask]');if(uq){const a=AG[+uq.dataset.unask],x=a.asks.find(z=>z.q===uq.dataset.q);delete S.asks[nk(a,x.q)];if(x.clears)delete S.done[nk(a,x.clears)];save();paint();return}
+ const n=e.target.closest('[data-need]');if(n){openNeed(+n.dataset.need,n.dataset.t);return}
  const u=e.target.closest('[data-undo]');if(u){const a=AG[+u.dataset.undo];delete S.done[nk(a,u.dataset.t)];save();paint();return}
  const sh=e.target.closest('[data-share]');if(sh){const a=AG[+sh.dataset.share],o=openNeeds(a);
   location.href='https://wa.me/?text='+encodeURIComponent(`${a.name}\nNow: ${a.now}\n${o.length?'Needs:\n'+o.map(t=>'• '+t).join('\n'):'Nothing pending.'}`)}});
@@ -357,7 +387,7 @@ $('#nsX').addEventListener('click',()=>$('#ns').classList.remove('on'));
 $('#nsFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;nsCur.photo=f.name;const im=$('#nsImg');im.src=URL.createObjectURL(f);im.hidden=false});
 $('#nsOk').addEventListener('click',()=>{const {a,i,t,photo}=nsCur;S.done[nk(a,t)]={at:new Date().toISOString(),note:$('#nsNote').value.trim()+(photo?` (photo: ${photo})`:'')};save();$('#ns').classList.remove('on');paint();
  const E=eyes.find(E=>E.svg.closest('.ag')===agCard(i));if(E){E.sv-=.14;E.happyT=1;setTimeout(()=>E.happyT=0,1400)}
- const left=openNeeds(a).length;say(left?`Thanks! ${left} more for ${a.name}.`:`${a.name} is all clear ✓`)});
+ const left=openCount(a);if(left)SFX.done();else SFX.cheer();say(left?`Thanks! ${left} more for ${a.name}.`:`${a.name} is all clear ✓`)});
 $('#nsCopy').addEventListener('click',()=>{const {a,t}=nsCur;copy(`[${a.name} agent] About: ${t}\nMy answer: ${$('#nsNote').value.trim()||'(see attached)'}`,$('#nsCopy'))});
 function copy(t,btn){const done=()=>{btn.textContent='Copied ✓'};if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,fb);else fb();
  function fb(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(_){}ta.remove()}}
@@ -395,9 +425,13 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  if(E.puEl&&E.sty!=='robot'&&E.sty!=='googly')E.irR=+svg.querySelector('.ir circle, .ir ellipse').getAttribute('r')||62;
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>{if(E.held){E.held=false;return}if(E.sleep){wakeAgent(E);return}if(E.svg.closest('[data-hud]')){hudTap(E);return}poke(E)});
- svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);if(dy>55&&dxx<50){E.y0=null;cancelHold(E);snoozeEye(E)}});
- svg.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;if(!E.sleep)holdStart(E,e)});
- ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>holdEnd(E)));
+ svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);
+  if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}
+  const r=E.svg.getBoundingClientRect(),an=Math.atan2(e.clientY-(r.top+r.height*.45),e.clientX-(r.left+r.width/2));
+  if(E.an!=null){let d=an-E.an;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;E.rub=(E.rub||0)+Math.abs(d);if(E.rub>Math.PI*2.6){E.rub=0;purr(E)}}E.an=an;
+  if(dy>55&&dxx<50&&(E.rub||0)<1.2){E.y0=null;snoozeEye(E)}});
+ svg.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;if(!E.sleep)holdStart(E,e)});
+ ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
 let ptr=null,lastPtr=-1e9;
@@ -455,7 +489,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now
 requestAnimationFrame(frame);
 
 
-function poke(E){E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
+function poke(E){SFX.pop();E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
  const c=E.svg.closest('.card');if(!c||chA)return;if(c.id==='intro'){openChat(-1);return}if(c.dataset.i!==undefined)openChat(+c.dataset.i)}
 document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 
@@ -466,7 +500,7 @@ const hasW=(t,...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t))
 function first(){const d=DL.find(x=>{const g=AG.find(a=>a.id===x.ag);return g&&!x.wait&&daysTo(x.date)>0&&!isSnoozed(g)&&openNeeds(g).length});if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>!isSnoozed(a)&&openNeeds(a).length);return a?{a,d:null}:null}
 function prophecy(){const tk=todayKey();if(tk===D.raceDay)return `Today is race day. Open Results to tap the winners as they come in.`;
  const f=first(),tot=totalOpen();if(!f)return `All clear. Nothing waits on you today.`;
- return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openNeeds(f.a).length} thing${openNeeds(f.a).length>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} things wait on you in all.`}
+ return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openCount(f.a)} thing${openCount(f.a)>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} things wait on you in all.`}
 function oracle(t){
  if(hasW(t,'hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch all ${AG.length} of your agents.\n${prophecy()}\nAsk me what to do first.`;
  if(hasW(t,'first','primero','urgent','priority','should','debo','hago','focus','today','hoy')){const f=first();return f?`${f.a.name} first.${f.d?` ${f.d.what} is in ${daysTo(f.d.date)} days.`:''} It still waits on you for:\n${list(openNeeds(f.a))}`:'Nothing waits on you. Rest.'}
@@ -562,19 +596,19 @@ function agentOfEye(E){const hd=E.svg.closest('[data-hud]');if(hd)return +hd.dat
 
 /* ---------- huddle: los demás voltean a ver al que habla ---------- */
 let hudT=0;
-function hudTap(E){const i=agentOfEye(E),a=AG[i];const r=E.svg.getBoundingClientRect(),c={x:r.left+r.width/2,y:r.top+r.height*.45};
+function hudTap(E){SFX.pop();const i=agentOfEye(E),a=AG[i];const r=E.svg.getBoundingClientRect(),c={x:r.left+r.width/2,y:r.top+r.height*.45};
  eyesOf(i).forEach(x=>{x.lookAt=null;x.look=[0,.05]});E.sv-=.12;E.happyT=1;
  eyes.forEach(x=>{if(x.svg.closest('#huddle')&&agentOfEye(x)!==i){x.lookAt=c;x.look=null}});
  const o=openNeeds(a);const line=isSnoozed(a)?`${a.name} is snoozed.`:o.length?`${a.name}: I need ${o.length} thing${o.length>1?'s':''}. First: ${o[0]}.`:`${a.name}: all clear.`;
  say(line,4200);speak(a,line,E);clearTimeout(hudT);hudT=setTimeout(()=>eyes.forEach(x=>{x.lookAt=null;if(x.svg.closest('#huddle')){x.look=null;x.happyT=0}}),4500)}
 
 /* ---------- dormir / despertar (deslizar hacia abajo) ---------- */
-function snoozeEye(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];E.held=true;S.snooze[a.id]=Date.now()+864e5;save();paint();say(`${a.name} is snoozed until tomorrow. Tap it to wake it.`,3800);if('vibrate' in navigator)navigator.vibrate(30)}
-function wakeAgent(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];delete S.snooze[a.id];save();paint();E.sv-=.18;E.happyT=1;setTimeout(()=>E.happyT=0,1200);say(`${a.name} is awake.`)}
+function snoozeEye(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];SFX.yawn();E.held=true;S.snooze[a.id]=Date.now()+864e5;save();paint();say(`${a.name} is snoozed until tomorrow. Tap it to wake it.`,3800);if('vibrate' in navigator)navigator.vibrate(30)}
+function wakeAgent(E){const i=agentOfEye(E);if(i<0)return;const a=AG[i];SFX.wake();delete S.snooze[a.id];save();paint();E.sv-=.18;E.happyT=1;setTimeout(()=>E.happyT=0,1200);say(`${a.name} is awake.`)}
 
 /* ---------- agitar el teléfono despierta a todos ---------- */
 let mLast=null,shakes=[],lastWake=0;
-function wakeAll(){const now=Date.now();if(now-lastWake<4000)return;lastWake=now;wakeUntil=now+60000;moods();
+function wakeAll(){const now=Date.now();if(now-lastWake<4000)return;lastWake=now;SFX.wake();wakeUntil=now+60000;moods();
  eyes.forEach(E=>{E.sv-=.16+Math.random()*.08;E.put=.62;E.happyT=1;E.pvy-=700;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1500)});
  say("We're up!");speak(ORACLE,"We're up!",eyes.find(E=>E.sty==='oracle'));if('vibrate' in navigator)navigator.vibrate([20,40,20])}
 function onMotion(e){const g=e.accelerationIncludingGravity;if(!g||g.x==null)return;if(mLast){const d=Math.abs(g.x-mLast.x)+Math.abs(g.y-mLast.y)+Math.abs(g.z-mLast.z);
@@ -600,6 +634,31 @@ $('#edDel').addEventListener('click',()=>{const a=AG[edCur];if(!a||!a.mine)retur
 feed.addEventListener('click',e=>{const b=e.target.closest('[data-edit]');if(b)openEdit(+b.dataset.edit)});
 $('#newBtn').addEventListener('click',()=>openEdit(null));
 
+/* ---------- sonidos (hechos en el teléfono, sin archivos) ---------- */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(_){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f0,f1,dur,type='sine',vol=.15,delay=0){if(S.sfx===false)return;const a=ac();if(!a)return;const t=a.currentTime+delay;const o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+dur);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(a.destination);o.start(t);o.stop(t+dur+.05)}
+function paintSfx(){$('#sfxBtn').textContent=S.sfx===false?'Sounds off':'Sounds on'}
+$('#sfxBtn').addEventListener('click',()=>{S.sfx=S.sfx===false;save();paintSfx();if(S.sfx!==false)SFX.pop()});paintSfx();
+
+/* ---------- acariciar el ojo: círculos con el dedo ---------- */
+function purr(E){const i=agentOfEye(E),a=i<0?ORACLE:AG[i];SFX.purr();E.happyT=1;E.put=.55;let k=0;const w=setInterval(()=>{E.sv-=.05;if(++k>8)clearInterval(w)},110);
+ setTimeout(()=>{E.happyT=0;E.put=E.pu0},2200);if('vibrate' in navigator)navigator.vibrate([12,40,12,40,12,40,12]);say(`${a.name}: prrrr… that feels nice`,2600)}
+
+/* ---------- anillo de humor del Oráculo ---------- */
+function moodRing(tot){const c=tot===0?'#1d9e6a':tot<=5?'#c99a2e':tot<=10?'#e07a1f':'#d33a2c';
+ document.querySelectorAll('#intro .rg2 circle,#intro .rg2 line').forEach(el=>el.style.stroke=c);
+ const m=tot===0?'calm':tot<=5?'steady':tot<=10?'busy':'swamped';const el=$('#oMood');if(el)el.innerHTML=`Mood ring: <b style="color:${c}">${m}</b>`}
+
+/* ---------- reordenar agentes ---------- */
+let ordering=false,ord=AG.map(a=>a.id);
+function paintOrder(){const who=$('.who');if(!ordering){return}
+ who.innerHTML=ord.map((id,k)=>{const a=AG.find(x=>x.id===id);return `<button data-ord="${k}"><i class="dot" style="background:${dotBg(a.color)}"></i>${esc(a.name)}<span class="mv" style="margin-left:auto"><span data-up="${k}">▲</span><span data-dn="${k}">▼</span></span></button>`}).join('')}
+$('#ordBtn').addEventListener('click',()=>{if(ordering){S.order=ord;save();location.reload();return}ordering=true;$('#ordBtn').textContent='Done ✓';paintOrder()});
+$('.who').addEventListener('click',e=>{if(!ordering)return;e.stopPropagation();e.preventDefault();const u=e.target.closest('[data-up]'),d=e.target.closest('[data-dn]');
+ const k=u?+u.dataset.up:d?+d.dataset.dn:-1;if(k<0)return;const j=u?k-1:k+1;if(j<0||j>=ord.length)return;[ord[k],ord[j]]=[ord[j],ord[k]];SFX.pop();paintOrder()},true);
+
 /* ---------- PIN (oculta el tablero en este teléfono; no es seguridad de banco) ---------- */
 const hash=async p=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('agents:'+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 let lockMode='open',firstPin='';
@@ -620,12 +679,12 @@ $('#pinBtn').addEventListener('click',()=>{if(S.pin){S.pin='';save();paintPinBtn
 paintPinBtn();if(S.pin)showLock('open');
 $('#homeBtn').addEventListener('click',()=>say(/iphone|ipad/i.test(navigator.userAgent)?'In Safari: tap Share, then "Add to Home Screen".':'In Chrome: tap ⋮, then "Add to Home screen".',5000));
 
-paint();
+paint();booted=true;
 setTimeout(()=>{if(!S.pin||!$('#lock').classList.contains('on'))say(prophecy(),5500)},1200);
 window.__ready=true;
 </script>
 <script>
-var FALLBACK={"updated": "2026-10-07", "deadlines": [{"what": "Gran Maturity", "date": "2026-10-31", "ag": "flyers"}, {"what": "HipIQ photos come out", "date": "2026-10-30", "ag": "hipiq", "wait": true}, {"what": "Fall Mixed Sale", "date": "2026-11-05", "ag": "hipiq"}, {"what": "Gran Final", "date": "2026-11-28", "ag": "flyers"}], "raceDay": "2026-10-31", "races": [["LA VICTORIA", "JMGO"], ["TRES COMPADRES", "SANTA ISABEL"], ["ANGELITO", "4 AMIGOS 1"], ["H/M RACING", "4 AMIGOS 2"], ["LA NARANJA 1", "4 AMIGOS 3"], ["LA NARANJA 2", "4 AMIGOS 4"], ["RJS", "CIELITO"], ["HERNANDEZ", "DEL GORDO"], ["ZAMBRANO", "3 REYES"], ["JFR RANCH", "LA BENDICION"], ["CAZADORES", "PALOMAS GONZALEZ"], ["ACOSTA RANCH", null]], "agents": [{"id": "flyers", "name": "Flyers", "color": "#ff5a36", "st": "needs", "needs": ["Real matchups when the program comes out", "Real horse photos for the 12 races", "Track social media links and exact location"], "now": "The Gran Maturity G2 race page is live. People can scroll the races, pick winners and see the ads.", "done": ["12 race cards with Equipo and Análisis", "Mis picks, full-screen photos, white design", "Directions, WhatsApp and social icons", "CAOS and Valley Meats video ads"], "next": ["Swap in real matchups and photos", "Scoreboard after the races"], "facts": [["Event", "Sat Oct 31, Calpulalpan"], ["Gran Final", "Sat Nov 28"], ["Cuadras", "23"], ["Site", "Public, hidden from Google"]], "link": ["Open Gran Maturity G2", "../events/gran-maturity-g2-oct31/"]}, {"id": "ads", "name": "Ads", "color": "#ffb000", "st": "needs", "needs": ["The CAOS hat special and its price", "Your final CAOS logo file"], "now": "Two video ads are running inside the race page.", "done": ["CAOS hat video ad (after race 4)", "Valley Meats video from your poster (after race 8)", "HipIQ price-guess videos in English and Spanish"], "next": ["Real CAOS special on the ad", "Order link for Valley Meats once ordering is live"], "facts": [["Ads in race page", "2"], ["Tap an ad", "Opens the full video or poster"], ["Valley Meats phone", "970-704-9614"]]}, {"id": "hipiq", "name": "HipIQ", "color": "#18a873", "st": "run", "needs": ["Fall sale photos (after Oct 30)", "OK to remove the last 3 AI-looking details"], "now": "Price guesses for the Heritage Place Fall Mixed Sale.", "done": ["Sort from cheapest to highest", "Price guesses section with how close it lands", "Removed the generic AI look"], "next": ["Add photos when they come out", "Check guesses against real results after Nov 7"], "facts": [["Sale", "Nov 5 to 7"], ["Photos", "After Oct 30"], ["Results", "After Nov 7"], ["Online", "Not yet"]]}, {"id": "valley", "name": "Valley Meats", "color": "#c62828", "st": "needs", "needs": ["The real menu, prices and hours", "A working way to receive orders (text, email or POS)"], "now": "The voice ordering site is built and tested, but only with test data.", "done": ["Ordering and checkout that reads the order back first", "Swipe menu", "Design cleanup"], "next": ["Load the real menu", "Go live and print the QR"], "facts": [["Address", "774 State Route 133, Carbondale"], ["Phone", "970-704-9614"], ["Payment", "In person or a secure link, never by voice"], ["Online ordering", "Not live yet"]]}, {"id": "results", "name": "Results", "color": "#2f6fe8", "st": "run", "job": "results", "needs": ["Your OK: picks lock when each race starts", "The tiebreak rule", "A small server so everyone's picks are collected"], "now": "On race day, tap each winner here and I score the picks saved on this phone.", "done": ["Winner board for the 12 Gran Maturity races", "Scores the picks made on this phone"], "next": ["Collect everyone's picks (needs a server)", "Public scoreboard"], "facts": [["Race day", "Sat Oct 31"], ["Scores", "Picks on this phone only, for now"]]}, {"id": "money", "name": "Money", "color": "#1f7a4d", "st": "run", "job": "money", "needs": ["What each sponsor and ad spot costs", "Who has paid so far"], "now": "Tracking sponsor and ad payments you add here.", "done": ["Payment list with paid and owed totals"], "next": ["Send reminders to whoever still owes"], "facts": [["Saved", "On this phone only"]]}, {"id": "caos", "name": "CAOS", "color": "#2a2a2e", "st": "idle", "needs": ["Final CAOS logo file", "Which shirt ideas you like"], "now": "Waiting to start the shirt designs.", "done": ["Hat video placed in the race page"], "next": ["Original shirt art (not copied)"], "facts": [["Brand line", "Built different · Run different"], ["Products", "Hats now, shirts next"]]}]};
+var FALLBACK={"updated": "2026-10-07", "deadlines": [{"what": "Gran Maturity", "date": "2026-10-31", "ag": "flyers"}, {"what": "HipIQ photos come out", "date": "2026-10-30", "ag": "hipiq", "wait": true}, {"what": "Fall Mixed Sale", "date": "2026-11-05", "ag": "hipiq"}, {"what": "Gran Final", "date": "2026-11-28", "ag": "flyers"}], "raceDay": "2026-10-31", "races": [["LA VICTORIA", "JMGO"], ["TRES COMPADRES", "SANTA ISABEL"], ["ANGELITO", "4 AMIGOS 1"], ["H/M RACING", "4 AMIGOS 2"], ["LA NARANJA 1", "4 AMIGOS 3"], ["LA NARANJA 2", "4 AMIGOS 4"], ["RJS", "CIELITO"], ["HERNANDEZ", "DEL GORDO"], ["ZAMBRANO", "3 REYES"], ["JFR RANCH", "LA BENDICION"], ["CAZADORES", "PALOMAS GONZALEZ"], ["ACOSTA RANCH", null]], "agents": [{"id": "flyers", "name": "Flyers", "color": "#ff5a36", "st": "needs", "needs": ["Real matchups when the program comes out", "Real horse photos for the 12 races", "Track social media links and exact location"], "now": "The Gran Maturity G2 race page is live. People can scroll the races, pick winners and see the ads.", "done": ["12 race cards with Equipo and Análisis", "Mis picks, full-screen photos, white design", "Directions, WhatsApp and social icons", "CAOS and Valley Meats video ads"], "next": ["Swap in real matchups and photos", "Scoreboard after the races"], "facts": [["Event", "Sat Oct 31, Calpulalpan"], ["Gran Final", "Sat Nov 28"], ["Cuadras", "23"], ["Site", "Public, hidden from Google"]], "link": ["Open Gran Maturity G2", "../events/gran-maturity-g2-oct31/"], "asks": [{"q": "Add Gran Maturity to your main flyer page so people can find it?"}]}, {"id": "ads", "name": "Ads", "color": "#ffb000", "st": "needs", "needs": ["The CAOS hat special and its price", "Your final CAOS logo file"], "now": "Two video ads are running inside the race page.", "done": ["CAOS hat video ad (after race 4)", "Valley Meats video from your poster (after race 8)", "HipIQ price-guess videos in English and Spanish"], "next": ["Real CAOS special on the ad", "Order link for Valley Meats once ordering is live"], "facts": [["Ads in race page", "2"], ["Tap an ad", "Opens the full video or poster"], ["Valley Meats phone", "970-704-9614"]], "asks": [{"q": "Keep the Valley Meats ad in the race page until race day?"}]}, {"id": "hipiq", "name": "HipIQ", "color": "#18a873", "st": "run", "needs": ["Fall sale photos (after Oct 30)", "OK to remove the last 3 AI-looking details"], "now": "Price guesses for the Heritage Place Fall Mixed Sale.", "done": ["Sort from cheapest to highest", "Price guesses section with how close it lands", "Removed the generic AI look"], "next": ["Add photos when they come out", "Check guesses against real results after Nov 7"], "facts": [["Sale", "Nov 5 to 7"], ["Photos", "After Oct 30"], ["Results", "After Nov 7"], ["Online", "Not yet"]], "asks": [{"q": "Remove the last 3 AI-looking details (blue glow, giant hip number, gradient backgrounds)?", "clears": "OK to remove the last 3 AI-looking details"}]}, {"id": "valley", "name": "Valley Meats", "color": "#c62828", "st": "needs", "needs": ["The real menu, prices and hours", "A working way to receive orders (text, email or POS)"], "now": "The voice ordering site is built and tested, but only with test data.", "done": ["Ordering and checkout that reads the order back first", "Swipe menu", "Design cleanup"], "next": ["Load the real menu", "Go live and print the QR"], "facts": [["Address", "774 State Route 133, Carbondale"], ["Phone", "970-704-9614"], ["Payment", "In person or a secure link, never by voice"], ["Online ordering", "Not live yet"]], "asks": [{"q": "Hide the order button until the real menu is loaded?"}]}, {"id": "results", "name": "Results", "color": "#2f6fe8", "st": "run", "job": "results", "needs": ["Your OK: picks lock when each race starts", "The tiebreak rule", "A small server so everyone's picks are collected"], "now": "On race day, tap each winner here and I score the picks saved on this phone.", "done": ["Winner board for the 12 Gran Maturity races", "Scores the picks made on this phone"], "next": ["Collect everyone's picks (needs a server)", "Public scoreboard"], "facts": [["Race day", "Sat Oct 31"], ["Scores", "Picks on this phone only, for now"]], "asks": [{"q": "Lock each race's picks when that race starts?", "clears": "Your OK: picks lock when each race starts"}, {"q": "Tiebreak: whoever finished their picks first wins?", "clears": "The tiebreak rule"}]}, {"id": "money", "name": "Money", "color": "#1f7a4d", "st": "run", "job": "money", "needs": ["What each sponsor and ad spot costs", "Who has paid so far"], "now": "Tracking sponsor and ad payments you add here.", "done": ["Payment list with paid and owed totals"], "next": ["Send reminders to whoever still owes"], "facts": [["Saved", "On this phone only"]], "asks": [{"q": "Track amounts in pesos (MXN)?"}]}, {"id": "caos", "name": "CAOS", "color": "#2a2a2e", "st": "idle", "needs": ["Final CAOS logo file", "Which shirt ideas you like"], "now": "Waiting to start the shirt designs.", "done": ["Hat video placed in the race page"], "next": ["Original shirt art (not copied)"], "facts": [["Brand line", "Built different · Run different"], ["Products", "Hats now, shirts next"]], "asks": [{"q": "Start the shirts with original art inspired by the GOAT horse idea (not copied)?"}]}]};
 </script>
 </body>
 </html>
