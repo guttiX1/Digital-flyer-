@@ -198,6 +198,13 @@ button{font:inherit;color:inherit}
 .reveal.red{background:#fdecea;color:#b0402f}
 .more{animation:mo .35s cubic-bezier(.2,1,.3,1)}.more .row1{margin-bottom:6px}.more .acts{justify-content:center}.more .hint2{text-align:center}
 @keyframes mo{from{opacity:0;transform:translateY(-8px)}}
+.setb{margin-top:10px;border:0;background:none;color:var(--dim);font-weight:600;font-size:15px;cursor:pointer;padding:6px 10px}
+#setS .set button{font-size:16px}#setS .set button span,#setS .set button em{margin-left:auto;color:var(--dim);font-style:normal;font-size:14.5px}
+.agset details{border-top:1px solid var(--line)}.agset summary{display:flex;align-items:center;gap:10px;padding:12px 4px;font-size:16.5px;font-weight:600;cursor:pointer;list-style:none}
+.agset summary::-webkit-details-marker{display:none}.agset summary .dot{width:26px;height:26px;border-radius:50%}.agset summary span{margin-left:auto;color:var(--dim);transition:transform .2s}
+.agset details[open] summary span{transform:rotate(90deg)}.agset .set{padding:0 0 8px 36px}
+.hero .eye{width:min(34vw,150px)!important;transition:width .4s cubic-bezier(.3,1.4,.5,1)}.hero .eye.big{width:min(58vw,250px)!important}
+.pick{grid-template-columns:repeat(4,1fr)!important;gap:4px!important}.pick button{font-size:11px!important;padding:2px 1px 6px!important}
 </style>
 </head>
 <body>
@@ -342,13 +349,20 @@ const nextDL=a=>DL.find(d=>d.ag===a.id&&!d.wait&&daysTo(d.date)>0);
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
  <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="sub" id="oMood" style="margin-top:2px"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
  <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em id="who-${i}"></em></button>`).join('')}</div>
- <div class="sm"><button id="newBtn">+ New agent</button><button id="ordBtn">Reorder</button><button id="sfxBtn"></button><button id="pinBtn"></button><button id="homeBtn">Add to home screen</button></div></section>`;
+ <button class="setb" id="setBtn">⚙ Settings</button>
+ <div class="ns" id="setS" role="dialog" aria-label="Settings"><h3><span>Settings</span><button id="setX" aria-label="Close">✕</button></h3>
+  <div class="set"><button id="newBtn"><b>+ New agent</b><span>›</span></button><button id="ordBtn"><b>Reorder agents</b><span>›</span></button>
+  <button id="sfxBtn"></button><button id="vcBtn"></button><button id="pinBtn"></button><button id="homeBtn"><b>Add to home screen</b><span>›</span></button></div>
+  <p class="lbl">Each agent</p><div class="agset">${AG.map((a,i)=>`<details><summary><i class="dot" style="background:${dotBg(a.color)}"></i>${esc(a.name)}<span>›</span></summary>
+   <div class="set"><button data-pick="${i}"><b>Eye style</b><span id="sn-${i}">${STY_NAME[styleOf(a)]}</span></button><button data-edit="${i}"><b>Name & color</b><span>${esc(a.name)}</span></button>
+   <button data-voice="${i}"><b>Hear my voice</b><span>▶</span></button><button data-snz="${i}"><b>Snooze</b><span id="sz-${i}"></span></button><button data-share="${i}"><b>Share this card</b><span>WhatsApp</span></button>
+   ${a.mine?`<button data-edit="${i}"><b style="color:var(--red)">Delete this agent</b><span>›</span></button>`:''}</div></details>`).join('')}</div></div></section>`;
 html+=`<section class="card huddle" id="huddle"><p class="lbl" style="margin:0 0 4px">Huddle</p><h2>Everyone together</h2><p class="sub">Tap one and the others turn to watch it. Shake your phone to wake them all. Swipe down on an eye to snooze it.</p>
  <div class="hud">${AG.map((a,i)=>`<div class="hu"><span data-hud="${i}">${eyeSVG({color:a.color,style:styleOf(a)})}</span><b>${esc(a.name)}</b><small id="hs-${i}"></small></div>`).join('')}</div></section>`;
 html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;const d=nextDL(a);
  return `<section class="card ag" style="--c:${a.color}" data-i="${i}">
  <div class="meta"><span>Agent ${i+1} of ${AG.length}</span><span>${lbl}</span></div>
- <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button><button>History</button><button>Files</button><button>Calendar</button><button>Stats</button><button>Ideas</button><button>Settings</button></div>
+ <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button><button>History</button><button>Files</button><button>Calendar</button><button>Stats</button><button>Ideas</button></div>
  <div class="strip">
   <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}<i class="crown" id="cr-${i}" hidden><svg viewBox="0 0 64 40"><path d="M4 36 L8 10 L22 24 L32 4 L42 24 L56 10 L60 36 Z" fill="#f2b531" stroke="#a8740c" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="4" r="4" fill="#e5432d"/></svg></i></span><h2>${a.name}</h2><div class="row1"><span class="chip" id="ch-${i}" style="background:${col}">${lbl}</span><span class="cd lv" id="lv-${i}"></span></div>
    <button class="reveal" data-rev="${i}" id="rv-${i}">Tap to see more ▾</button></div>
@@ -370,13 +384,6 @@ html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul cl
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div><p class="lbl">Calendar</p><div id="ca-${i}"></div></div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div><p class="lbl">Stats</p><div id="st-${i}"></div></div>
   <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div><p class="lbl">${a.name} could do next</p><div id="id-${i}"></div></div>
-  <div class="panel"><div class="mini"><i style="background:${dotBg(a.color)}"></i><h3>${a.name}</h3></div><p class="lbl">Settings</p>
-   <div class="set"><button data-pick="${i}"><b>Eye style</b><span id="sn-${i}">${STY_NAME[styleOf(a)]}</span></button>
-   <button data-edit="${i}"><b>Name & color</b><span>${esc(a.name)}</span></button>
-   <button data-voice="${i}"><b>Hear my voice</b><span>▶</span></button>
-   <button data-snz="${i}"><b>Snooze</b><span id="sz-${i}"></span></button>
-   <button data-share="${i}"><b>Share this card</b><span>WhatsApp</span></button>
-   ${a.mine?`<button data-edit="${i}"><b style="color:var(--red)">Delete this agent</b><span>›</span></button>`:''}</div></div>
  </div></section>`}).join('');
 html+=`<section class="card today" id="today"><p class="lbl" style="margin-top:0">Done today</p><h2 id="tdH"></h2><div id="tdL"></div></section>`;
 feed.innerHTML=html;
@@ -482,8 +489,8 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
   if(dy>50&&dxx<60&&dy>.72*E.path){E.y0=null;snoozeEye(E);return}
   const r=E.svg.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.45,an=Math.atan2(e.clientY-cy,e.clientX-cx);
   if(Math.hypot(e.clientX-cx,e.clientY-cy)>r.width*.12&&E.an!=null){let d=an-E.an;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;if(Math.abs(d)<1.1){E.rub=(E.rub||0)+Math.abs(d);if(E.rub>Math.PI*2.6&&E.path>r.width*1.2){E.rub=0;E.path=0;purr(E)}}}E.an=an});
- svg.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep)holdStart(E,e)});
- ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E)}));
+ svg.addEventListener('pointerdown',e=>{grow(E,true);E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep)holdStart(E,e)});
+ ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E);setTimeout(()=>{if(!(chA&&chE===E)&&!E.listening)grow(E,false)},700)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
 let ptr=null,lastPtr=-1e9;
@@ -572,7 +579,7 @@ function addMsg(who,text,isH){const d=document.createElement('div');d.className=
 function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chI=i;if(i>=0){S.talk[a.id]=todayKey();save()}chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
  $('#chName').textContent=a.name;const o=i<0?[]:openNeeds(a);$('#chSub').textContent=i<0?'sees all your agents':o.length?`needs ${o.length} thing${o.length>1?'s':''} from you`:'all clear';
  const card=i<0?$('#intro'):agCard(i);goCard(card);const st=card.querySelector('.strip');if(st)st.scrollTo({left:0,behavior:'smooth'});
- chE=eyes.find(E=>E.svg.closest('.card')===card);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
+ chE=eyes.find(E=>E.svg.closest('.card')===card);if(chE)grow(chE,true);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
  msgs.innerHTML='';const h=hist[a.id];
  if(h)h.forEach(([w,t,isH])=>{const d=document.createElement('div');d.className='m '+w;if(isH)d.innerHTML=t;else d.textContent=t;msgs.appendChild(d)});
  else{hist[a.id]=[];addMsg('a',reply(a,'hi'))}
@@ -587,7 +594,7 @@ function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;if
 msgs.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;e.preventDefault();copy(decodeURIComponent(c.dataset.q),c)});
 $('#askOracle').addEventListener('click',()=>openChat(-1));
 document.querySelectorAll('[data-talk]').forEach(b=>b.addEventListener('click',()=>openChat(+b.dataset.talk)));
-$('#chX').addEventListener('click',()=>{if(synth)synth.cancel();chat.classList.remove('on');chA=null;feed.style.overflowY='';if(chE){chE.look=null;chE.lidT=0}});
+$('#chX').addEventListener('click',()=>{if(chE)grow(chE,false);if(synth)synth.cancel();chat.classList.remove('on');chA=null;feed.style.overflowY='';if(chE){chE.look=null;chE.lidT=0}});
 $('#chForm').addEventListener('submit',e=>{e.preventDefault();const t=chQ.value;chQ.value='';send(t)});
 chQ.addEventListener('focus',()=>{if(chE)chE.look=[0,.9]});chQ.addEventListener('blur',()=>{if(chE)chE.look=[0,.7]});
 
@@ -627,7 +634,8 @@ function speak(a,text,E=chE){if(!synth||!voiceOn)return;synth.cancel();
  if(voices.length){const idx=Object.keys(VO).indexOf(a.id);u.voice=voices[Math.max(0,idx)%voices.length]}
  u.onstart=()=>{if(E){E.talking=true;E.put=.5}};u.onboundary=()=>{if(E){E.sv-=.05;E.put=.42+Math.random()*.16}};
  u.onend=u.onerror=()=>{if(E){E.talking=false;E.put=E.pu0}};synth.speak(u)}
-function paintSnd(){$('#snd').textContent=voiceOn?'🔊':'🔇'}
+function paintSnd(){$('#snd').textContent=voiceOn?'🔊':'🔇';const v=$('#vcBtn');if(v)v.innerHTML=`<b>Agent voices</b><em>${voiceOn?'on':'off'}</em>`}
+$('#vcBtn').addEventListener('click',()=>{voiceOn=!voiceOn;S.voice=voiceOn;save();paintSnd();if(!voiceOn&&synth)synth.cancel()});
 $('#snd').addEventListener('click',()=>{voiceOn=!voiceOn;S.voice=voiceOn;save();paintSnd();if(!voiceOn&&synth)synth.cancel()});paintSnd();
 if(!synth)$('#snd').hidden=true;
 
@@ -689,7 +697,7 @@ let AC=null;
 function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(_){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
 function tone(f0,f1,dur,type='sine',vol=.15,delay=0){if(S.sfx===false)return;const a=ac();if(!a)return;const t=a.currentTime+delay;const o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+dur);
  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(a.destination);o.start(t);o.stop(t+dur+.05)}
-function paintSfx(){$('#sfxBtn').textContent=S.sfx===false?'Sounds off':'Sounds on'}
+function paintSfx(){$('#sfxBtn').innerHTML=`<b>Sounds</b><em>${S.sfx===false?'off':'on'}</em>`}
 $('#sfxBtn').addEventListener('click',()=>{S.sfx=S.sfx===false;save();paintSfx();if(S.sfx!==false)SFX.pop()});paintSfx();
 
 /* ---------- acariciar el ojo: círculos con el dedo ---------- */
@@ -767,6 +775,15 @@ function applyStyle(i,st){const a=AG[i];saved[a.id]=st;saveStyles();logE(a,'New 
  slots.forEach(sl=>{const old=sl.querySelector('svg.eye');eyes=eyes.filter(E=>E.svg!==old);const tmp=document.createElement('div');tmp.innerHTML=eyeSVG({color:a.color,style:st});const nw=tmp.firstElementChild;old.replaceWith(nw);const E=mountEye(nw,'card');E.sq=.8;E.sv=.6});
  $('#eb-'+i).textContent=`Eye: ${STY_NAME[st]} ›`;const sn=$('#sn-'+i);if(sn)sn.textContent=STY_NAME[st];SFX.pop();paint()}
 
+/* ---------- ajustes en el Oráculo ---------- */
+$('#setBtn').addEventListener('click',()=>{SFX.pop();$('#setS').classList.add('on')});
+$('#setX').addEventListener('click',()=>$('#setS').classList.remove('on'));
+['ordBtn','newBtn','pinBtn','homeBtn'].forEach(id=>$('#'+id).addEventListener('click',()=>$('#setS').classList.remove('on')));
+document.querySelectorAll('#setS [data-pick],#setS [data-edit],#setS [data-share]').forEach(b=>b.addEventListener('click',()=>$('#setS').classList.remove('on')));
+/* ---------- el ojo crece solo cuando lo presionas o hablas con él ---------- */
+const heroOf=E=>E.svg.closest('.hero');
+function grow(E,on){if(heroOf(E))E.svg.classList.toggle('big',on)}
+
 /* ---------- PIN (oculta el tablero en este teléfono; no es seguridad de banco) ---------- */
 const hash=async p=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('agents:'+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 let lockMode='open',firstPin='';
@@ -782,7 +799,7 @@ $('#lkGo').addEventListener('click',async()=>{const v=$('#lkIn').value.trim();
  S.pin=await hash(v);save();$('#lock').classList.remove('on');paintPinBtn();say('PIN set ✓')});
 $('#lkIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#lkGo').click()});
 $('#lkX').addEventListener('click',()=>$('#lock').classList.remove('on'));
-function paintPinBtn(){$('#pinBtn').textContent=S.pin?'Remove PIN':'Set a PIN'}
+function paintPinBtn(){$('#pinBtn').innerHTML=S.pin?'<b>Remove PIN</b><em>on</em>':'<b>Set a PIN</b><em>off</em>'}
 $('#pinBtn').addEventListener('click',()=>{if(S.pin){S.pin='';save();paintPinBtn();say('PIN removed')}else showLock('set')});
 paintPinBtn();if(S.pin)showLock('open');
 $('#homeBtn').addEventListener('click',()=>say(/iphone|ipad/i.test(navigator.userAgent)?'In Safari: tap Share, then "Add to Home Screen".':'In Chrome: tap ⋮, then "Add to Home screen".',5000));
