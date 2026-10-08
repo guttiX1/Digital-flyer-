@@ -230,6 +230,7 @@ svg.m3>:not(.m3img){opacity:0}svg.m3.live>.m3img{opacity:0}canvas.m3c{position:a
 .obar #oTalk.rec{background:var(--red);color:#fff}
 body:not(.clean) .ob{display:none!important}
 .m3tip{font-size:12px;color:#8a8a90;margin-top:2px;text-align:center}
+.pick .rn{grid-column:1/-1;display:flex;gap:8px}.pick .rn input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:500 16px Fredoka,sans-serif}.pick .rn button{border:0;border-radius:12px;padding:0 16px;background:var(--ink);color:#fff;font-weight:600;font-size:15px}
 .pick .pkh{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--dim);margin:10px 2px 0}.pick .pkh small{font-weight:500}
 .pick img{width:100%;display:block;aspect-ratio:400/430;object-fit:contain}
 .pick .sw{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 2px}.pick .sw button{width:34px;height:34px;border-radius:50%;padding:0;font-size:10px;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
@@ -299,8 +300,10 @@ const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',
 const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
-const CHARS=[['Creatures',[['mochi','Mochi'],['blob','Blob'],['fuzz','Fuzz'],['boo','Boo'],['pip','Pip'],['tako','Tako'],['rex','Rex'],['byte','Byte']]],
- ['Business',[['mega','Mega · Marketing'],['pixel','Pixel · Ads'],['buzz','Buzz · Social'],['deal','Deal · Sales'],['cash','Cash · Books'],['ink','Ink · Writer'],['arty','Arty · Design'],['plan','Plan · Planner']]],
+const CHARS=[['Business · Gadgets',[['horn','Horn · Marketing'],['target','Bullseye · Ads'],['phone','Ping · Social'],['brief','Case · Sales'],['calc','Calc · Books'],['pencil','Scribble · Writer'],['bucket','Splash · Design'],['cal','Cal · Planner']]],
+ ['Business · Animals',[['fox','Foxy · Marketing'],['peacock','Strut · Ads'],['bee','Bee · Social'],['shark','Finn · Sales'],['piggy','Penny · Books'],['penguin','Quill · Writer'],['chameleon','Hue · Design'],['beaver','Chip · Planner']]],
+ ['Business · Basic',[['mega','Mega · Marketing'],['pixel','Pixel · Ads'],['buzz','Buzz · Social'],['deal','Deal · Sales'],['cash','Cash · Books'],['ink','Ink · Writer'],['arty','Arty · Design'],['plan','Plan · Planner']]],
+ ['Creatures',[['mochi','Mochi'],['blob','Blob'],['fuzz','Fuzz'],['boo','Boo'],['pip','Pip'],['tako','Tako'],['rex','Rex'],['byte','Byte']]],
  ['Mascots',[['toro','Toro'],['hoot','Hoot']]],['Office',[['clip','Clip'],['boss','Boss'],['tech','Tech'],['hardy','Hardy']]],
  ['Magic',[['merlo','Merlo'],['sage','Sage'],['fae','Fae'],['genie','Genie']]],['Halloween',[['jack','Jack'],['nyx','Nyx'],['wrap','Wrap'],['hex','Hex']]]];
 const CHAR=new Map(CHARS.flatMap(([,l])=>l));
@@ -812,11 +815,13 @@ feed.addEventListener('click',e=>{const t=e.target;let b;
 });
 /* ---------- elegir estilo de ojo (con vista previa) ---------- */
 let spI=0;
-function openPicker(i){spI=i;const a=AG[i],cur=styleOf(a);$('#spT').textContent=`${a.name}: pick an eye`;
+function openPicker(i){spI=i;const a=AG[i],cur=styleOf(a);$("#spT").textContent=`${a.name}: name, look, color`;
  const cc=charCol[a.id]||'';
- $('#spG').innerHTML=`<p class="pkh">Character color <small>for 3D characters</small></p><div class="sw">${['',...CCOL].map(c=>`<button data-cc="${c}" class="${c===cc?'on':''}" style="${c?'background:'+c:''}" aria-label="${c||'Original'}">${c?'':'Orig'}</button>`).join('')}</div>`+
+ $('#spG').innerHTML=`<p class="pkh">Name</p><form class="rn" id="rnF"><input id="rnI" maxlength="24" value="${esc(a.name)}" aria-label="Agent name"><button>Save</button></form>`+`<p class="pkh">Character color <small>for 3D characters</small></p><div class="sw">${['',...CCOL].map(c=>`<button data-cc="${c}" class="${c===cc?'on':''}" style="${c?'background:'+c:''}" aria-label="${c||'Original'}">${c?'':'Orig'}</button>`).join('')}</div>`+
   CHARS.map(([set,l])=>`<p class="pkh">${set}</p>`+l.map(([k,n])=>`<button data-st="${k}" class="${k===cur?'on':''}"><img src="chars/${k}.png" alt="">${n}</button>`).join('')).join('')+
   `<p class="pkh">Eyes</p>`+STYLES.map(st=>`<button data-st="${st}" class="${st===cur?'on':''}">${eyeSVG({color:a.color,style:st})}${STY_NAME[st]}</button>`).join('');$('#sp').classList.add('on')}
+$('#spG').addEventListener('submit',e=>{e.preventDefault();const a=AG[spI],n=$('#rnI').value.replace(/[<>]/g,'').trim();if(!n||n===a.name)return;
+ if(a.mine)S.mine=S.mine.map(x=>x.id===a.id?Object.assign(x,{name:n}):x);else S.custom[a.id]=Object.assign({},S.custom[a.id]||{},{name:n,color:a.color});save();logE(a,'Renamed to '+n);location.reload()});
 const CCOL=['#ff7a59','#ff5a8a','#e2452b','#ffc22e','#ff8a1f','#3fbf6f','#2fb5c8','#4a86f5','#2fae7d','#c98a4b','#a0a4ad','#2a2a2e'];
 $('#spX').addEventListener('click',()=>$('#sp').classList.remove('on'));
 $('#spG').addEventListener('click',e=>{const c=e.target.closest('[data-cc]');if(c){const a=AG[spI];if(c.dataset.cc)charCol[a.id]=c.dataset.cc;else delete charCol[a.id];saveCharCol();SFX.pop();
