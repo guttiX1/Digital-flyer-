@@ -398,7 +398,7 @@ let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
  <button class="setb" id="setBtn">⚙ Settings</button>
  <div class="ns" id="setS" role="dialog" aria-label="Settings"><h3><span>Settings</span><button id="setX" aria-label="Close">✕</button></h3>
   <div class="set"><button id="newBtn"><b>+ New agent</b><span>›</span></button><button id="ordBtn"><b>Reorder agents</b><span>›</span></button>
-  <button id="sfxBtn"></button><button id="vcBtn"></button><button id="pinBtn"></button><button id="homeBtn"><b>Add to home screen</b><span>›</span></button></div>
+  <button id="sfxBtn"></button><button id="vcBtn"></button><button id="handBtn"><b>Hands-free (camera)</b><em>off</em></button><button id="pinBtn"></button><button id="homeBtn"><b>Add to home screen</b><span>›</span></button></div>
   <p class="lbl">Each agent</p><div class="agset">${AG.map((a,i)=>`<details><summary><i class="dot" style="background:${dotBg(a.color)}"></i>${esc(a.name)}<span>›</span></summary>
    <div class="set"><button data-pick="${i}"><b>Eye style</b><span id="sn-${i}">${STY_NAME[styleOf(a)]}</span></button><button data-edit="${i}"><b>Name & color</b><span>${esc(a.name)}</span></button>
    <button data-voice="${i}"><b>Hear my voice</b><span>▶</span></button><button data-snz="${i}"><b>Snooze</b><span id="sz-${i}"></span></button><button data-share="${i}"><b>Share this card</b><span>WhatsApp</span></button>
@@ -542,7 +542,7 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E);setTimeout(()=>{if(!(chA&&chE===E)&&!E.listening)grow(E,false)},700)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
-let ptr=null,lastPtr=-1e9;
+let ptr=null,lastPtr=-1e9;window.__airPoint=(x,y)=>{ptr={x,y};lastPtr=performance.now()};
 addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 
@@ -886,6 +886,24 @@ function oracleTap(E){oBar();if(oRec){try{oRec.stop()}catch(_){}return}
 $('#oTalk').addEventListener('click',()=>{const E=oEye();if(E)oracleTap(E)});
 $('#oChat').addEventListener('click',()=>{if(oRec){try{oRec.abort()}catch(_){}}$('#oBar').classList.remove('on');$('#oBub').classList.remove('on');openChat(-1)});
 $('#oAll').addEventListener('click',()=>{if(oRec){try{oRec.abort()}catch(_){}}$('#oBar').classList.remove('on');$('#oBub').classList.remove('on');toggleClean()});
+/* ---------- manos libres: la cámara ve tu mano (solo en este teléfono) ---------- */
+let HM=null;
+function curCard(){const i=Math.round(feed.scrollTop/innerHeight);return cards[Math.max(0,Math.min(cards.length-1,i))]}
+function handGesture(g){const c=curCard();if(!c)return;
+ if(g==='palm'){if(synth)synth.cancel();if(oRec)try{oRec.abort()}catch(_){}say('✋ Stopped.');return}
+ if(g==='up'||g==='down'){feed.scrollBy({top:(g==='up'?1:-1)*innerHeight,behavior:'smooth'});return}
+ if(g==='left'||g==='right'){const st=c.querySelector('.strip');if(st)st.scrollBy({left:(g==='left'?1:-1)*st.clientWidth,behavior:'smooth'});return}
+ if(g==='thumbs'){const i=c.dataset.i!==undefined?+c.dataset.i:-1;const a=AG[i];
+  if(!a){say('👍');eyes.forEach(E=>{E.happyT=1;setTimeout(()=>E.happyT=0,900)});return}
+  const t=openNeeds(a)[0];if(!t){say(`👍 ${a.name} has nothing waiting.`);return}
+  S.done[nk(a,t)]={at:new Date().toISOString(),note:'Thumbs up'};logE(a,'Cleared with a thumbs up: '+t);save();SFX.done();paint();
+  eyesOf(i).forEach(E=>{E.sv-=.16;E.happyT=1;setTimeout(()=>E.happyT=0,1200)});say(`👍 Done: ${t}`,3500)}}
+function paintHand(st){const b=$('#handBtn');if(b)b.innerHTML=`<b>Hands-free (camera)</b><em>${st==='on'?'on':st==='loading'?'starting…':'off'}</em>`}
+$('#handBtn').addEventListener('click',async()=>{HM=HM||await import('./hands.js');
+ if(HM.handsOn()){HM.stopHands();return}
+ HM.startHands({onPoint:(x,y)=>window.__airPoint(x,y),onGesture:handGesture,onState:(st,e)=>{paintHand(st);
+  if(st==='on')say('✋ Hands-free on. Point and they look. Thumbs up = done. Open hand = stop. Wave to move.',6000);
+  if(st==='error')say(e&&e.name==='NotAllowedError'?'The camera is blocked. Allow it in your browser settings.':'Hands-free could not start on this phone.',5000)}})});
 /* ---------- huddle en círculo: los agentes giran despacio alrededor del Oráculo ---------- */
 const ringEl=document.querySelector('.hud.ring');let ringA=0,ringHold=false;
 if(ringEl){ringEl.addEventListener('pointerdown',()=>ringHold=true);addEventListener('pointerup',()=>ringHold=false);addEventListener('pointercancel',()=>ringHold=false);

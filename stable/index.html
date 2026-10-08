@@ -270,7 +270,7 @@ const isHomeVisible=()=>{const h=$('#home');if(!h)return false;const r=h.getBoun
 
 /* ---------- characters: tiny eye engine that the 3D characters follow ---------- */
 let EYES=[];window.__eyes=()=>EYES;window.__charColor=E=>E.color||null;
-let ptr=null,lastPtr=-1e9;addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
+let ptr=null,lastPtr=-1e9;window.__airPoint=(x,y)=>{ptr={x,y};lastPtr=performance.now()};addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 function charHTML(sty){return `<div class="chr"><div class="anc" data-sty="${sty}"><img src="../agents-mochi/chars/${sty}.png" alt=""></div></div>`}
 function mount(el,sty,color,opts={}){const anc=el.querySelector('.anc');const E={svg:anc,sty,color,ex:Math.random()*400,sq:1,sv:0,b:0,blink:-1,nb:1+Math.random()*3,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null,moved:false,dragX:0,dragY:0,...opts};
@@ -407,9 +407,12 @@ function openSettings(){sheet(`<h3>⚙ Settings${X}</h3><form id="sf"><label cla
   <label class="f"><span>Remind me if a horse has not worked in (days)</span><input name="gap" inputmode="numeric" value="${DB.workGap}"></label>
   <p class="note">These are common schedules. Your vet and farrier know your horses best, so change them to match.</p>
   <div class="row"><button class="btn dark" style="flex:1">Save</button></div></form>
+  <div class="row"><button class="btn ${HM&&HM.handsOn()?'green':''}" id="handBtn">✋ Hands-free: ${HM&&HM.handsOn()?'on':'off'}</button></div>
+  <p class="note">Hands-free uses the front camera on this phone only. Point and the helpers look at your finger. Thumbs up marks the top to-do done. Open hand stops talking. Swipe your hand in the air to move.</p>
   <div class="row"><button class="btn" id="expBtn">Save a backup file</button>${DB.sample?'<button class="btn" id="clrBtn" style="color:var(--red)">Remove sample horses</button>':''}</div>
   <p class="note">Everything is saved on this phone only. Make a backup now and then.</p>`);
  $('#sf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));DB.name=f.name.replace(/[<>]/g,'').trim()||'My stable';DUE.forEach(k=>{const v=parseInt(f['e_'+k]);if(v>0)DB.every[k]=v});const g=parseInt(f.gap);if(g>0)DB.workGap=g;save();closeSheet();build();toast('Saved.')});
+ $('#handBtn').addEventListener('click',toggleHands);
  $('#expBtn').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(DB,null,1)],{type:'application/json'}));a.download='stable-backup-'+iso(today())+'.json';a.click()});
  $('#clrBtn')?.addEventListener('click',()=>{if(!confirm('Remove the sample horses?'))return;const keep=DB.horses.filter(h=>!h.sample);const ids=new Set(keep.map(h=>h.id));DB.horses=keep;DB.events=DB.events.filter(e=>ids.has(e.h));DB.races=DB.races.filter(r=>ids.has(r.h));DB.sample=false;save();closeSheet();build()})}
 function loadSample(){const t=iso(today()),A=n=>addD(t,-n);
@@ -423,6 +426,19 @@ function loadSample(){const t=iso(today()),A=n=>addD(t,-n);
  DB.races.push({id:uid(),h:c.id,d:addD(t,4),track:'Sample track',race:'5',dist:'350 yd'},{id:uid(),h:r.id,d:A(6),track:'Sample track',race:'3',dist:'400 yd'});
  save();build();toast('Sample horses loaded. Remove them in Settings.')}
 
+/* ---------- hands-free: the camera sees your hand (this phone only) ---------- */
+let HM=null;
+const curCard=()=>{const cs=[...feed.querySelectorAll('.card')];return cs[Math.max(0,Math.min(cs.length-1,Math.round(feed.scrollTop/innerHeight)))]};
+function handGesture(g){const c=curCard();if(!c)return;
+ if(g==='palm'){if(synth)synth.cancel();if(rec)try{rec.abort()}catch(_){}toast('✋ Stopped.');return}
+ if(g==='up'||g==='down'){feed.scrollBy({top:(g==='up'?1:-1)*innerHeight,behavior:'smooth'});return}
+ if(g==='left'||g==='right'){const st=c.querySelector('.strip');if(st)st.scrollBy({left:(g==='left'?1:-1)*st.clientWidth,behavior:'smooth'});return}
+ if(g==='thumbs'){const h=c.dataset.h&&H(c.dataset.h);const l=(h?todos(h,false).filter(x=>!x.hide):allTodos()).filter(x=>x.act&&(DUE.includes(x.k)||x.k==='paid'));
+  if(!l.length){toast('👍 Nothing to mark done here.');return}const x=l[0];doTodo(x);speak(`Done. ${x.h.name}: ${x.text}.`)}}
+async function toggleHands(){HM=HM||await import('../agents-mochi/hands.js');if(HM.handsOn()){HM.stopHands();return}
+ HM.startHands({onPoint:(x,y)=>window.__airPoint(x,y),onGesture:handGesture,onState:(st,e)=>{const b=$('#handBtn');if(b){b.textContent='✋ Hands-free: '+(st==='on'?'on':st==='loading'?'starting…':'off');b.classList.toggle('green',st==='on')}
+  if(st==='on'){closeSheet();toast('✋ Hands-free on. Thumbs up = done.')}
+  if(st==='error')toast(e&&e.name==='NotAllowedError'?'The camera is blocked. Allow it in your browser settings.':'Hands-free could not start on this phone.')}})}
 build();
 import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
 window.__ready=true;
