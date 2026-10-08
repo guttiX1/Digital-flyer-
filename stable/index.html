@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#ffffff">
+<title>Stable</title>
+<script type="importmap">{"imports":{"three":"../agents-mochi/vendor/three.module.min.js"}}</script>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Stable">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#17171a;--dim:#77777d;--soft:#f3f3f1;--line:rgba(0,0,0,.09);--red:#e5432d;--green:#1d9e6a;--amber:#b7791f}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:Fredoka,system-ui,sans-serif;overflow:hidden;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit}
+#feed{height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain}
+.card{height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;align-items:center;padding:max(18px,env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));overflow:hidden}
+.chr{position:relative;width:min(58vw,250px);aspect-ratio:400/430;flex:none}
+.chr .anc{position:absolute;inset:0;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:pointer}
+.chr .anc img{width:100%;height:100%;display:block;pointer-events:none;transition:opacity .2s}
+.chr .anc.live img{opacity:0}
+canvas.m3c{position:absolute;pointer-events:none;z-index:1}
+h1,h2{font-weight:700;line-height:1;text-align:center}
+h1{font-size:clamp(34px,10vw,46px)}h2{font-size:clamp(34px,10vw,46px)}
+.sub{color:var(--dim);font-size:14.5px;text-align:center;margin-top:6px}
+.chip{display:inline-block;padding:5px 11px;border-radius:11px;font-weight:600;font-size:13.5px;color:#fff;background:var(--ink)}
+.chip.red{background:var(--red)}.chip.green{background:var(--green)}.chip.amber{background:#f3e1b8;color:#6b4a0f}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;border-radius:22px;padding:11px 17px;font-weight:600;font-size:15px;background:var(--soft);cursor:pointer}
+.btn.dark{background:var(--ink);color:#fff}.btn.red{background:var(--red);color:#fff}.btn.green{background:var(--green);color:#fff}
+.bub{max-width:min(340px,88vw);margin:12px auto 0;padding:11px 15px;border-radius:18px;background:#f4f1e8;font-size:15.5px;line-height:1.3;text-align:center;white-space:pre-line;display:none}
+.bub.on{display:block}.bub.ear{background:#fde9e6;color:#8a2a1a}
+/* home */
+#home{justify-content:center}
+.today{width:min(420px,100%);margin-top:16px;max-height:34dvh;overflow-y:auto}
+.item{display:flex;align-items:center;gap:10px;padding:10px 2px;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .t{flex:1;min-width:0;font-size:15.5px;line-height:1.25}.item .t small{display:block;color:var(--dim);font-size:12.5px}
+.item .t b{font-weight:600}
+.item .late{color:var(--red)}
+.item button{flex:none;border:0;border-radius:14px;padding:8px 12px;font-weight:600;font-size:13.5px;background:var(--ink);color:#fff;cursor:pointer}
+.item button.soft{background:var(--soft);color:var(--ink)}
+.empty{color:var(--dim);text-align:center;font-size:15px;padding:12px}
+.hint{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom));text-align:center;color:#b5b5ba;font-size:13px;pointer-events:none}
+/* horse card */
+.hc{padding-top:max(30px,calc(env(safe-area-inset-top) + 18px))}
+.hc .head{display:flex;flex-direction:column;align-items:center;flex:none}
+.hc .chr{width:min(44vw,190px)}
+.hc .photo{position:absolute;right:-6px;top:6px;width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:2;pointer-events:none}
+.hc .meta{color:var(--dim);font-size:13.5px;margin-top:4px;text-align:center}
+.tabs{display:flex;gap:4px;margin-top:10px;border-bottom:1px solid var(--line);width:min(440px,100%);overflow-x:auto;scrollbar-width:none;flex:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1;border:0;background:none;padding:8px 6px;font-weight:600;font-size:14.5px;color:var(--dim);border-bottom:2.5px solid transparent;white-space:nowrap;cursor:pointer}
+.tabs button.on{color:var(--ink);border-color:var(--ink)}
+.tabs button i{font-style:normal;display:inline-block;min-width:18px;height:18px;line-height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;margin-left:4px}
+.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;width:min(440px,100%);flex:1;min-height:0;scrollbar-width:none;overscroll-behavior-x:contain}
+.strip::-webkit-scrollbar{display:none}
+.pane{flex:0 0 100%;scroll-snap-align:start;overflow-y:auto;padding:8px 2px 30px}
+.logs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.logs button{border:0;border-radius:16px;padding:14px 10px;background:var(--soft);font-weight:600;font-size:15.5px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.logs button small{font-weight:500;color:var(--dim);font-size:12px}
+.logs button:active{transform:scale(.97)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}.kv dt{color:var(--dim)}.kv dd{font-weight:500;word-break:break-word}
+.tl{list-style:none}.tl li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}.tl li:first-child{border-top:0}
+.tl .d{flex:none;width:62px;color:var(--dim);font-size:13px;padding-top:2px}.tl .w{flex:1}.tl .w small{display:block;color:var(--dim);font-size:12.5px}
+.tl button{border:0;background:none;color:#b5b5ba;font-size:13px;cursor:pointer}
+.note{color:var(--dim);font-size:12.5px;margin-top:10px;line-height:1.35}
+/* team */
+#team{justify-content:center}
+.ring{position:relative;width:min(94vw,430px);aspect-ratio:1;margin-top:6px}
+.ring .mem{position:absolute;width:25%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center}
+.ring .mem .chr{width:100%}
+.ring .mem b{font-size:13.5px;margin-top:-6px}.ring .mem small{font-size:11.5px;color:var(--dim)}
+.ring .mem small.red{color:var(--red);font-weight:600}
+.ring .mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-weight:600;font-size:14px;color:var(--dim);width:30%}
+/* add */
+#add{justify-content:center;gap:10px}
+.big{font-size:clamp(28px,8vw,38px);font-weight:700;text-align:center}
+/* sheets */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;background:#fff;border-radius:26px 26px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.12);padding:16px 18px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .35s cubic-bezier(.2,1.05,.3,1);max-height:90dvh;overflow-y:auto}
+.sheet.on{transform:none}
+.sheet h3{font-weight:700;font-size:17px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.sheet h3 button{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);font-size:16px;cursor:pointer}
+.f{display:block;margin-top:10px}.f span{display:block;font-size:13px;color:var(--dim);font-weight:600;margin-bottom:4px}
+.f input,.f textarea,.f select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:500 16px Fredoka,sans-serif;background:#fff;color:var(--ink)}
+.f textarea{min-height:70px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.coats{display:flex;flex-wrap:wrap;gap:8px}.coats button{width:40px;height:40px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer}.coats button.on{box-shadow:0 0 0 3px var(--ink)}
+.tools li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}.tools li:first-child{border-top:0}
+.tools .s{flex:none;font-size:12px;font-weight:600;padding:3px 8px;border-radius:9px}
+.tools .s.on{background:#dcf3e8;color:#11643f}.tools .s.setup{background:#f3e1b8;color:#6b4a0f}.tools .s.off{background:var(--soft);color:var(--dim)}
+.tools small{display:block;color:var(--dim);font-size:12.5px}
+/* bar to type */
+.ask{position:fixed;left:0;right:0;bottom:0;z-index:32;background:#fff;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;transform:translateY(110%);transition:transform .25s}
+.ask.on{transform:none}
+.ask input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:22px;padding:11px 14px;font:500 16px Fredoka,sans-serif}
+.ask button{border:0;border-radius:22px;padding:0 16px;background:var(--ink);color:#fff;font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:40;background:var(--ink);color:#fff;border-radius:18px;padding:10px 14px;font-size:15px;display:flex;gap:12px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:92vw}
+.toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast button{border:0;background:none;color:#ffd27a;font-weight:600;cursor:pointer}
+.listen{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);z-index:41;background:var(--red);color:#fff;border-radius:16px;padding:9px 16px;font-weight:600;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.listen.on{opacity:1}
+.sample{position:absolute;top:max(12px,env(safe-area-inset-top));left:12px;font-size:12px;font-weight:600;color:#6b4a0f;background:#f3e1b8;border-radius:9px;padding:4px 9px}
+</style>
+</head>
+<body>
+<main id="feed"></main>
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="sh"><div id="shBody"></div></section>
+<form class="ask" id="ask"><input id="askIn" placeholder="Canelo got shod today" autocomplete="off" enterkeyhint="send"><button>Send</button></form>
+<div class="toast" id="toast"><span id="toastT"></span><button id="toastU">Undo</button></div>
+<div class="listen" id="listen">Listening…</div>
+<script type="module">
+/* ============ Stable: a race stable run by little helpers ============
+   Everything is saved on this phone (localStorage). Nothing is sent anywhere. */
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),lerp=(a,b,t)=>a+(b-a)*t;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- what the helpers know: care types and how often (common schedules, the vet decides) ---------- */
+const CARE={
+ farrier:{label:'Farrier',icon:'🔨',did:'shod',words:['shod','shoe','shoes','farrier','herrer','herraj','herrar','herrad','herraron','casco']},
+ deworm:{label:'Deworming',icon:'💊',did:'dewormed',words:['deworm','wormed','wormer','desparasit','parasit']},
+ vaccine:{label:'Shots',icon:'💉',did:'got shots',words:['shot','vaccin','vacun','inyecc']},
+ dental:{label:'Teeth',icon:'🦷',did:'had teeth done',words:['teeth','dental','dentist','floated','dientes','dentista','muelas']},
+ vet:{label:'Vet visit',icon:'🩺',did:'saw the vet',words:['vet','veterinari','doctor']},
+ work:{label:'Workout',icon:'🏇',did:'worked',words:['worked','work','breez','gallop','jog','trot','trabaj','galop','entren','brise','ejercit']},
+ race:{label:'Race',icon:'🏁',did:'raced',words:['raced','race','won','ran ','corri','gano','ganó','carrera','llegó','llego']},
+ note:{label:'Note',icon:'📝',did:'note',words:[]},
+ paid:{label:'Board paid',icon:'💵',did:'board paid',words:['paid','pago','pagó','payment']},
+ update:{label:'Owner update',icon:'📲',did:'owner updated',words:[]}};
+const DUE=['farrier','deworm','vaccine','dental'];
+const COATS=[['Bay','#8a4b26'],['Chestnut','#b5622d'],['Black','#2b2522'],['Gray','#a9a9a6'],['Palomino','#d9a94e'],['White','#ece8e0'],['Dark bay','#5a321c'],['Roan','#9b8476']];
+
+/* ---------- saved data ---------- */
+const SK='stable-1';
+const blank=()=>({name:'My stable',horses:[],events:[],races:[],every:{farrier:42,deworm:60,vaccine:180,dental:365},workGap:4,sample:false});
+let DB;try{DB=Object.assign(blank(),JSON.parse(localStorage.getItem(SK)||'{}'))}catch(e){DB=blank()}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(DB))}catch(e){toast('This phone is out of space. Remove some photos.')}};
+const uid=()=>Math.random().toString(36).slice(2,9);
+const today=()=>{const d=new Date();d.setHours(12,0,0,0);return d};
+const iso=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const day=s=>new Date(s+'T12:00:00');
+const diff=(a,b)=>Math.round((day(a)-day(b))/864e5);
+const addD=(s,n)=>{const d=day(s);d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>day(s).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+const ago=n=>n===0?'today':n===1?'yesterday':n>0?`${n} days ago`:`in ${-n} days`;
+const H=id=>DB.horses.find(h=>h.id===id);
+const evOf=(h,t)=>DB.events.filter(e=>e.h===h.id&&(!t||e.t===t)).sort((a,b)=>a.d<b.d?1:-1);
+const last=(h,t)=>evOf(h,t)[0];
+const monthKey=s=>s.slice(0,7);
+const monthName=s=>day(s+'-15').toLocaleDateString('en-US',{month:'long'});
+
+/* ---------- the helpers (template: race stable) ---------- */
+const TEAM=[
+ {id:'health',name:'Doc',job:'Vet & health',sty:'doc',col:'#2fae7d',types:['deworm','vaccine','dental','vet'],
+  tools:[['Reminders on this phone','Shows what is due and late','on'],['Google Calendar','Puts vet days on your calendar','setup'],['Vet on WhatsApp','Sends the vet a message for you','setup']]},
+ {id:'farrier',name:'Smithy',job:'Farrier',sty:'smith',col:'#ffb38a',types:['farrier'],
+  tools:[['Reminders on this phone','Every 6 weeks by default','on'],['Farrier on WhatsApp','Books the next visit','setup']]},
+ {id:'training',name:'Coach',job:'Trainer',sty:'coach',col:'#ff7a1a',types:['work'],
+  tools:[['Workout log','Times, distance and notes','on'],['Stopwatch','Time a workout from your phone','off']]},
+ {id:'races',name:'Flash',job:'Jockey & races',sty:'jockey',col:'#e2452b',types:['race'],
+  tools:[['Race calendar','Upcoming races and results','on'],['Race page maker','Makes a race page like Gran Maturity','setup']]},
+ {id:'feed',name:'Lupe',job:'Groom & feed',sty:'groom',col:'#ff7a59',types:[],
+  tools:[['Feed plan per horse','Morning and evening','on'],['Feed store order','Reorders feed when low','off']]},
+ {id:'owners',name:'Don',job:'Owners & money',sty:'owner',col:'#ff9fb5',types:['paid','update'],
+  tools:[['WhatsApp updates','Sends owners a summary with one tap','on'],['Board billing','Tracks who paid this month','on'],['Card payments','Stripe or Square payment links','off']]}];
+
+/* ---------- what needs doing ---------- */
+function todos(h,all){const t=iso(today()),out=[];
+ for(const k of DUE){const l=last(h,k),every=DB.every[k];
+  if(!l){if(all)out.push({h,k,team:k==='farrier'?'farrier':'health',days:999,text:`No ${CARE[k].label.toLowerCase()} on record`,sub:'Tap Done if it was done today, or log the date',act:'Done today'});continue}
+  const due=addD(l.d,every),n=diff(due,t);
+  if(n<=7||all)out.push({h,k,team:k==='farrier'?'farrier':'health',days:n,late:n<0,text:n<0?`${CARE[k].label} is ${-n} day${n===-1?'':'s'} late`:n===0?`${CARE[k].label} is due today`:`${CARE[k].label} due in ${n} day${n===1?'':'s'}`,sub:`Last: ${fmt(l.d)} (${ago(diff(t,l.d))})`,act:'Done today',hide:n>7})}
+ if(h.status!=='resting'){const w=last(h,'work'),n=w?diff(t,w.d):null;
+  if(n==null||n>=DB.workGap)out.push({h,k:'work',team:'training',days:n==null?998:-n+DB.workGap,late:n!=null,text:n==null?'No workouts logged yet':`Not worked in ${n} days`,sub:'Log today\'s work',act:'Log work'})}
+ for(const r of DB.races.filter(r=>r.h===h.id)){const n=diff(r.d,t);
+  if(n>=0&&n<=7)out.push({h,k:'raceday',team:'races',days:n,text:n===0?`Races today${r.track?' at '+r.track:''}`:`Races in ${n} day${n===1?'':'s'}${r.track?' at '+r.track:''}`,sub:[r.race&&('Race '+r.race),r.dist].filter(Boolean).join(' · ')||fmt(r.d),act:null,race:r});
+  if(n<0&&!r.res)out.push({h,k:'result',team:'races',days:n,late:true,text:`Add the result for ${fmt(r.d)}`,sub:r.track||'',act:'Add result',race:r})}
+ if(!h.feed&&all)out.push({h,k:'feed',team:'feed',days:997,text:'No feed plan yet',sub:'Write what it eats and when',act:'Set feed'});
+ if(h.owner&&+h.board>0){const mk=monthKey(t),paid=DB.events.some(e=>e.h===h.id&&e.t==='paid'&&e.m===mk);
+  if(!paid)out.push({h,k:'paid',team:'owners',days:Math.max(0,10-today().getDate()),text:`Collect ${monthName(mk)} board: $${(+h.board).toLocaleString('en-US')}`,sub:`From ${h.owner}`,act:'Paid'})}
+ if(h.owner){const u=last(h,'update'),n=u?diff(t,u.d):99;if(n>=14)out.push({h,k:'update',team:'owners',days:20,text:`Send ${h.owner} an update`,sub:u?`Last one ${ago(n)}`:'No updates sent yet',act:'Send'})}
+ return out.sort((a,b)=>a.days-b.days)}
+const allTodos=()=>DB.horses.flatMap(h=>todos(h,false).filter(x=>!x.hide));
+
+/* ---------- actions ---------- */
+let undoFn=null,toastT=0;
+function toast(t,undo){$('#toastT').textContent=t;undoFn=undo||null;$('#toastU').hidden=!undo;$('#toast').classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').classList.remove('on'),4200)}
+$('#toastU').addEventListener('click',()=>{if(undoFn)undoFn();undoFn=null;$('#toast').classList.remove('on')});
+function addEv(h,t,o={}){const e=Object.assign({id:uid(),h:h.id,t,d:iso(today())},o);DB.events.push(e);save();
+ const n=t in DB.every?` Next one around ${fmt(addD(e.d,DB.every[t]))}.`:'';
+ toast(`${h.name}: ${CARE[t].label.toLowerCase()} saved for ${fmt(e.d)}.`,()=>{DB.events=DB.events.filter(x=>x.id!==e.id);save();paint()});
+ cheer(h);paint();return {e,next:n}}
+function doTodo(x){const h=x.h;
+ if(DUE.includes(x.k))return addEv(h,x.k);
+ if(x.k==='work')return openLog(h,'work');
+ if(x.k==='result')return openResult(x.race);
+ if(x.k==='feed')return openHorse(h);
+ if(x.k==='paid')return addEv(h,'paid',{m:monthKey(iso(today())),amt:+h.board});
+ if(x.k==='update')return sendUpdate(h)}
+function updateText(h){const t=iso(today());const lines=[`Update on ${h.name} (${fmt(t)}):`];
+ const w=last(h,'work');if(w)lines.push(`Last workout: ${fmt(w.d)}${w.n?' · '+w.n:''}`);
+ for(const k of DUE){const l=last(h,k);if(l)lines.push(`${CARE[k].label}: ${fmt(l.d)}`)}
+ const r=DB.races.filter(r=>r.h===h.id&&diff(r.d,t)>=0).sort((a,b)=>a.d<b.d?-1:1)[0];if(r)lines.push(`Next race: ${fmt(r.d)}${r.track?' at '+r.track:''}`);
+ lines.push(`Sent from ${DB.name}`);return lines.join('\n')}
+function sendUpdate(h){const txt=updateText(h),ph=(h.phone||'').replace(/[^0-9]/g,'');
+ window.open(`https://wa.me/${ph}?text=${encodeURIComponent(txt)}`,'_blank');addEv(h,'update')}
+
+/* ---------- talk: "Canelo got shod today" ---------- */
+const norm=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function findHorse(t){const n=norm(t);return DB.horses.slice().sort((a,b)=>b.name.length-a.name.length).find(h=>new RegExp('(^|[^a-z])'+norm(h.name).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'($|[^a-z])').test(n))}
+function findType(t){const n=' '+norm(t)+' ';let best=null,pos=1e9;for(const [k,c] of Object.entries(CARE))for(const w of c.words){const i=n.indexOf(norm(w));if(i>=0&&i<pos){pos=i;best=k}}return best}
+function findDate(t){const n=norm(t);const d=today();
+ if(/yesterday|ayer/.test(n)){d.setDate(d.getDate()-1);return iso(d)}
+ const m=n.match(/(\d+)\s*(days?|dias?)\s*(ago)?/)||n.match(/hace\s*(\d+)\s*dias?/);if(m){d.setDate(d.getDate()-+m[1]);return iso(d)}
+ return iso(d)}
+function think(text,hint){const t=text.trim();if(!t)return {say:"I didn't catch that."};const n=norm(t);
+ const h=findHorse(t)||hint;
+ // questions first
+ if(/what('?s| is)? (due|next)|to do|todo|pendiente|que toca|que hay|que sigue|what do i|que hago/.test(n)){const l=(h?todos(h,false).filter(x=>!x.hide):allTodos());
+  return {say:l.length?(h?h.name+': ':'')+l.slice(0,5).map(x=>(h?'':x.h.name+': ')+x.text).join('\n'):`Nothing is due${h?' for '+h.name:''}. All good.`}}
+ if(/when|cuando|last|ultim/.test(n)&&h){const k=findType(t);if(k){const l=last(h,k);return {say:l?`${h.name}: last ${CARE[k].label.toLowerCase()} was ${fmt(l.d)} (${ago(diff(iso(today()),l.d))}).`:`I have no ${CARE[k].label.toLowerCase()} for ${h.name} yet.`}}}
+ const k=findType(t);
+ if(k&&h){const d=findDate(t);const o={d,n:t};
+  if(k==='race'){const p=/\bwon\b|gano|primer|1st|first/.test(n)?1:/second|segund|2nd/.test(n)?2:/third|tercer|3rd/.test(n)?3:null;if(p)o.p=p;
+   const r=DB.races.filter(r=>r.h===h.id&&!r.res&&Math.abs(diff(r.d,d))<=1)[0];if(r&&p){r.res=p===1?'Won':p+(p===2?'nd':'rd');save()}}
+  if(k==='paid'){const a=n.match(/\$?\s*(\d[\d,]*)/);o.m=monthKey(d);o.amt=a?+a[1].replace(/,/g,''):+h.board||0}
+  const e=Object.assign({id:uid(),h:h.id,t:k},o);DB.events.push(e);save();cheer(h);paint();
+  toast(`${h.name}: ${CARE[k].label.toLowerCase()} saved for ${fmt(d)}.`,()=>{DB.events=DB.events.filter(x=>x.id!==e.id);save();paint()});
+  const nx=k in DB.every?` Next one around ${fmt(addD(d,DB.every[k]))}.`:'';
+  return {say:`Saved. ${h.name} ${CARE[k].did} ${diff(iso(today()),d)===0?'today':'on '+fmt(d)}.${nx}`,ok:true}}
+ if(k&&!h)return {say:DB.horses.length?`Which horse? Say the name, like "${DB.horses[0].name} ${CARE[k].did} today".`:'Add a horse first, then tell me what it did.'};
+ if(h){const l=todos(h,false).filter(x=>!x.hide);return {say:`${h.name}: ${l.length?l.map(x=>x.text).join('\n'):'nothing due. All good.'}`}}
+ if(/hi|hello|hola|hey|buenas/.test(n))return {say:`Hi! Tell me what happened, like "${DB.horses[0]?.name||'Canelo'} got shod today". Or ask "what's due?"`};
+ return {say:`Try: "${DB.horses[0]?.name||'Canelo'} got shod today", "${DB.horses[0]?.name||'Canelo'} worked 4 furlongs", or "what's due?"`}}
+
+/* ---------- voice ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;const synth=window.speechSynthesis;
+let rec=null;
+function speak(t){if(!synth)return;try{synth.cancel();const u=new SpeechSynthesisUtterance(t.replace(/\n/g,'. '));u.lang=/[áéíóúñ¿¡]|\b(ya|hoy|ayer)\b/i.test(t)?'es-MX':(navigator.language||'en-US');u.rate=1.05;
+ u.onstart=()=>talkers.forEach(E=>E.talking=true);u.onend=u.onerror=()=>talkers.forEach(E=>E.talking=false);synth.speak(u)}catch(_){}}
+let talkers=[];
+function listen(E,hint,onDone){if(rec){try{rec.stop()}catch(_){}return}
+ if(!SR){openAsk(hint);return}
+ let txt='';try{rec=new SR()}catch(_){openAsk(hint);return}
+ rec.lang=navigator.language||'es-MX';rec.interimResults=true;rec.continuous=false;
+ if(E){E.listening=true;E.look=[0,-.08];E.put=.62;E.sv-=.08}$('#listen').textContent=hint?`Listening… about ${hint.name}`:'Listening…';$('#listen').classList.add('on');if('vibrate' in navigator)navigator.vibrate(15);
+ rec.onresult=ev=>{txt=[...ev.results].map(r=>r[0].transcript).join(' ');$('#listen').textContent='“'+txt+'”'};
+ rec.onerror=ev=>{if(ev.error==='not-allowed'||ev.error==='service-not-allowed')txt='\u0000'};
+ rec.onend=()=>{rec=null;$('#listen').classList.remove('on');if(E){E.listening=false;E.look=null;E.put=.36}
+  if(txt==='\u0000'){onDone({say:'The microphone is blocked. Allow it in your browser settings, or type instead.'});return}
+  if(!txt.trim()){onDone({say:"I didn't hear anything. Tap and talk, or type."});return}
+  const r=think(txt,hint);r.heard=txt;onDone(r)};
+ try{rec.start()}catch(_){rec=null;$('#listen').classList.remove('on');openAsk(hint)}}
+let askHint=null;
+function openAsk(hint){askHint=hint||null;$('#askIn').placeholder=hint?`${hint.name} got shod today`:(DB.horses[0]?`${DB.horses[0].name} got shod today`:'Canelo got shod today');$('#ask').classList.add('on');$('#askIn').focus()}
+$('#ask').addEventListener('submit',e=>{e.preventDefault();const t=$('#askIn').value;$('#askIn').value='';$('#ask').classList.remove('on');$('#askIn').blur();const r=think(t,askHint);r.heard=t;answer(r)});
+document.addEventListener('pointerdown',e=>{if($('#ask').classList.contains('on')&&!e.target.closest('#ask')&&!e.target.closest('[data-type]'))$('#ask').classList.remove('on')});
+function answer(r){const b=$('#bub');if(b){b.textContent=(r.heard?'“'+r.heard+'”\n':'')+r.say;b.classList.remove('ear');b.classList.add('on')}else toast(r.say);if(!b||!isHomeVisible())toast(r.say);speak(r.say)}
+const isHomeVisible=()=>{const h=$('#home');if(!h)return false;const r=h.getBoundingClientRect();return r.top>-innerHeight/2&&r.top<innerHeight/2};
+
+/* ---------- characters: tiny eye engine that the 3D characters follow ---------- */
+let EYES=[];window.__eyes=()=>EYES;window.__charColor=E=>E.color||null;
+let ptr=null,lastPtr=-1e9;addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
+addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
+function charHTML(sty){return `<div class="chr"><div class="anc" data-sty="${sty}"><img src="../agents-mochi/chars/${sty}.png" alt=""></div></div>`}
+function mount(el,sty,color,opts={}){const anc=el.querySelector('.anc');const E={svg:anc,sty,color,ex:Math.random()*400,sq:1,sv:0,b:0,blink:-1,nb:1+Math.random()*3,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null,moved:false,dragX:0,dragY:0,...opts};
+ let hold=0;
+ anc.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.dragX=E.dragY=0;try{anc.setPointerCapture(e.pointerId)}catch(_){}
+  if(E.onHold)hold=setTimeout(()=>{hold=0;E.held=true;E.onHold(E)},420)});
+ anc.addEventListener('pointermove',e=>{if(E.y0==null)return;const dx=e.clientX-E.x0,dy=e.clientY-E.y0;if(!E.moved&&Math.hypot(dx,dy)>12){E.moved=true;clearTimeout(hold);hold=0}if(E.moved&&!E.listening){E.dragX=dx;E.dragY=dy}});
+ const up=()=>{if(E.y0==null)return;E.y0=null;clearTimeout(hold);if(E.held){E.held=false;if(rec)try{rec.stop()}catch(_){}return}if(!E.moved){poke(E);if(E.onTap)E.onTap(E)}};
+ anc.addEventListener('pointerup',up);anc.addEventListener('pointercancel',()=>{E.y0=null;clearTimeout(hold)});anc.addEventListener('contextmenu',e=>e.preventDefault());
+ EYES.push(E);return E}
+function poke(E){E.sv-=.12;E.happyT=1;E.put=.5;setTimeout(()=>{E.happyT=0;E.put=.36},1100);if('vibrate' in navigator)navigator.vibrate(10);pop()}
+function step(E,dt,T,now){const r=E.svg.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight||!r.width)return;
+ const cx=r.left+r.width/2,cy=r.top+r.height*.45;
+ if(E.look){E.tx=E.look[0];E.ty=E.look[1]}else if(E.lookAt){E.tx=(E.lookAt.x-cx)/(r.width*.9);E.ty=(E.lookAt.y-cy)/(r.width*.9)}
+ else if(ptr&&now-lastPtr<2500){E.tx=(ptr.x-cx)/(r.width*1.2);E.ty=(ptr.y-cy)/(r.width*1.2)}
+ else if(T>E.ns){E.ns=T+.9+Math.random()*2.3;E.tx=(Math.random()-.5)*1.3;E.ty=(Math.random()-.5)*.9}
+ const m=Math.hypot(E.tx,E.ty);if(m>1){E.tx/=m;E.ty/=m}
+ E.vx+=(260*(E.tx-E.gx)-26*E.vx)*dt;E.vy+=(260*(E.ty-E.gy)-26*E.vy)*dt;E.gx+=E.vx*dt;E.gy+=E.vy*dt;
+ E.sv+=(-230*(E.sq-1)-9*E.sv)*dt;E.sq+=E.sv*dt;E.pu=lerp(E.pu,E.put,dt*7);E.happy=lerp(E.happy,E.happyT,dt*8);
+ if(T>E.nb&&E.blink<0){E.blink=0;E.dbl=Math.random()<.25;E.nb=T+2.4+Math.random()*4}
+ let b=0;if(E.blink>=0){E.blink+=dt;const D=.15;if(E.blink<D)b=Math.sin(E.blink/D*Math.PI);else if(E.dbl&&E.blink>D+.08&&E.blink<2*D+.08)b=Math.sin((E.blink-D-.08)/D*Math.PI);if(E.blink>(E.dbl?2*D+.1:D))E.blink=-1;b=reduce?0:Math.max(0,b)}E.b=b}
+let t0=performance.now(),lastT=t0;
+function frame(now){const dt=Math.min(.05,(now-lastT)/1000);lastT=now;const T=(now-t0)/1000;EYES=EYES.filter(E=>E.svg.isConnected);EYES.forEach(E=>step(E,dt,T,now));if(window.mochiFrame)window.mochiFrame(dt,T);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+function cheer(h){EYES.filter(E=>E.horse===h.id||E.home).forEach(E=>{E.sv-=.16;E.happyT=1;setTimeout(()=>E.happyT=0,1200)});ding()}
+let AC=null;const ac=()=>{try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();return AC}catch(_){return null}};
+function tone(f1,f2,d,type,v,at=0){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+at;o.type=type;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d)}
+const pop=()=>tone(520,880,.12,'sine',.15),ding=()=>[660,990].forEach((f,i)=>tone(f,f,.12,'sine',.13,i*.08));
+
+/* ---------- build the feed ---------- */
+const feed=$('#feed');
+function build(){EYES=[];const hs=DB.horses;
+ let h=`<section class="card" id="home">${DB.sample?'<span class="sample">Sample horses</span>':''}${charHTML('coach')}<h1 id="stName">${esc(DB.name)}</h1><p class="sub" id="homeSub"></p>
+  <div class="bub" id="bub"></div>
+  <div class="row"><button class="btn red" id="hTalk">🎤 Talk</button><button class="btn" data-type="1" id="hType">⌨ Type</button></div>
+  <div class="today" id="today"></div>
+  ${hs.length?'':'<p class="hint">Scroll down to add your first horse</p>'}</section>`;
+ for(const x of hs)h+=`<section class="card hc" data-h="${x.id}"><div class="head"><div style="position:relative">${charHTML('pony')}${x.photo?`<img class="photo" src="${x.photo}" alt="">`:''}</div><h2>${esc(x.name)}</h2><p class="meta" data-meta></p><div class="row" style="margin-top:6px" data-chip></div></div>
+  <nav class="tabs"><button data-tab="0" class="on">To do<i data-n hidden></i></button><button data-tab="1">Log</button><button data-tab="2">History</button><button data-tab="3">Races</button><button data-tab="4">Info</button></nav>
+  <div class="strip"><div class="pane" data-p="todo"></div><div class="pane" data-p="log"></div><div class="pane" data-p="hist"></div><div class="pane" data-p="races"></div><div class="pane" data-p="info"></div></div></section>`;
+ h+=`<section class="card" id="add"><div class="big">${hs.length?'Another horse?':'Add your first horse'}</div><p class="sub">Name, owner and coat color. The rest can wait.</p><div class="row"><button class="btn dark" id="addBtn">+ Add a horse</button></div>
+  ${hs.length?'':'<div class="row"><button class="btn" id="sampleBtn">Try with sample horses</button></div>'}</section>`;
+ h+=`<section class="card" id="team"><h2 style="font-size:clamp(28px,8vw,38px)">Your helpers</h2><p class="sub">Tap one to see its list and the tools it uses.</p><div class="ring" id="ring"><div class="mid">${esc(DB.name)}</div>${TEAM.map(m=>`<div class="mem" data-m="${m.id}">${charHTML(m.sty)}<b>${m.name}</b><small data-mc></small></div>`).join('')}</div>
+  <div class="row"><button class="btn" id="setBtn">⚙ Settings</button></div></section>`;
+ feed.innerHTML=h;
+ // characters
+ const home=mount($('#home .chr'),'coach',null,{home:true,onTap:E=>listen(E,null,answer),onHold:E=>listen(E,null,answer)});talkers=[home];
+ document.querySelectorAll('.hc').forEach(c=>{const x=H(c.dataset.h);mount(c.querySelector('.chr'),'pony',x.coat||'#8a4b26',{horse:x.id,onTap:()=>toast(`Hold ${x.name} to talk about it`),onHold:E=>{talkers=[E];listen(E,x,r=>{toast(r.say);speak(r.say);talkers=[home]})}})});
+ document.querySelectorAll('#ring .mem').forEach(el=>{const m=TEAM.find(t=>t.id===el.dataset.m);mount(el.querySelector('.chr'),m.sty,null,{onTap:()=>openTeam(m)})});
+ ringPlace();paint()}
+function ringPlace(){const ms=[...document.querySelectorAll('#ring .mem')];ms.forEach((el,k)=>{const a=k/ms.length*Math.PI*2-Math.PI/2;el.style.left=(50+Math.cos(a)*36)+'%';el.style.top=(50+Math.sin(a)*36)+'%'})}
+
+/* ---------- paint the parts that change ---------- */
+function itemHTML(x,showHorse){return `<div class="item"><div class="t"><b class="${x.late?'late':''}">${showHorse?esc(x.h.name)+': ':''}${esc(x.text)}</b><small>${esc(x.sub||'')}</small></div>${x.act?`<button data-do="${x.h.id}|${x.k}|${x.race?x.race.id:''}">${x.act}</button>`:''}</div>`}
+function paint(){const all=allTodos(),t=iso(today());
+ const hs=$('#homeSub');if(hs)hs.innerHTML=DB.horses.length?(all.length?`<span class="chip red">${all.length} to do</span>`:'<span class="chip green">All good</span>')+`&nbsp; ${DB.horses.length} horse${DB.horses.length>1?'s':''}`:'Your race stable, run by little helpers. Tap Coach and talk.';
+ const td=$('#today');if(td)td.innerHTML=DB.horses.length?(all.length?all.slice(0,8).map(x=>itemHTML(x,true)).join(''):'<p class="empty">Nothing due this week. Tap Coach and say what happened today.</p>'):'';
+ document.querySelectorAll('.hc').forEach(c=>{const h=H(c.dataset.h);if(!h)return;const l=todos(h,true),due=l.filter(x=>!x.hide);
+  c.querySelector('[data-meta]').textContent=[h.sex,h.year&&(new Date().getFullYear()-h.year)+' yrs',h.owner&&'Owner: '+h.owner].filter(Boolean).join(' · ')||'Tap Info to add details';
+  const top=due[0];c.querySelector('[data-chip]').innerHTML=top?`<span class="chip ${top.late?'red':'amber'}">${esc(top.text)}</span>`:'<span class="chip green">All good</span>';
+  const ni=c.querySelector('[data-n]');ni.hidden=!due.length;ni.textContent=due.length;
+  c.querySelector('[data-p="todo"]').innerHTML=(due.length?due.map(x=>itemHTML(x)).join(''):'<p class="empty">Nothing due this week.</p>')+(l.some(x=>x.hide)?`<p class="note" style="margin-top:14px">Coming up later</p>`+l.filter(x=>x.hide).map(x=>itemHTML(Object.assign({},x,{act:null}))).join(''):'')+`<p class="note">Hold ${esc(h.name)} and talk, like "${esc(h.name)} got shod today".</p>`;
+  c.querySelector('[data-p="log"]').innerHTML=`<div class="logs">${['farrier','deworm','vaccine','dental','vet','work','race','note'].map(k=>`<button data-log="${h.id}|${k}">${CARE[k].icon} ${CARE[k].label}<small>${k in DB.every?(last(h,k)?'last '+fmt(last(h,k).d):'never'):k==='work'?(last(h,'work')?'last '+ago(diff(t,last(h,'work').d)):'none yet'):'add details'}</small></button>`).join('')}</div><p class="note">Tap once and it is saved for today. You can undo.</p>`;
+  const ev=evOf(h).slice(0,60);c.querySelector('[data-p="hist"]').innerHTML=ev.length?`<ul class="tl">${ev.map(e=>`<li><span class="d">${fmt(e.d)}</span><span class="w">${CARE[e.t].icon} ${CARE[e.t].label}${e.amt?' $'+(+e.amt).toLocaleString('en-US'):''}${e.p?` (${e.p===1?'won':'#'+e.p})`:''}${e.n&&e.t!=='paid'?`<small>${esc(e.n)}</small>`:''}</span><button data-del="${e.id}" aria-label="Delete">✕</button></li>`).join('')}</ul>`:'<p class="empty">Nothing yet. Use Log or talk to the horse.</p>';
+  const rs=DB.races.filter(r=>r.h===h.id).sort((a,b)=>a.d<b.d?1:-1);c.querySelector('[data-p="races"]').innerHTML=`<div class="row" style="margin:0 0 8px"><button class="btn dark" data-race="${h.id}">+ Add a race</button></div>`+(rs.length?`<ul class="tl">${rs.map(r=>`<li><span class="d">${fmt(r.d)}</span><span class="w">${esc(r.track||'Race')}${r.race?' · R'+esc(r.race):''}${r.dist?' · '+esc(r.dist):''}<small>${r.res?'Result: '+esc(r.res):diff(r.d,t)>=0?ago(diff(t,r.d)):'<a href="#" data-res="'+r.id+'">Add result</a>'}</small></span><button data-rdel="${r.id}" aria-label="Delete">✕</button></li>`).join('')}</ul>`:'<p class="empty">No races yet.</p>');
+  const coat=(COATS.find(c=>c[1]===h.coat)||['',''])[0];
+  c.querySelector('[data-p="info"]').innerHTML=`<dl class="kv"><dt>Owner</dt><dd>${esc(h.owner||'·')}</dd><dt>Phone</dt><dd>${esc(h.phone||'·')}</dd><dt>Sex</dt><dd>${esc(h.sex||'·')}</dd><dt>Born</dt><dd>${esc(h.year||'·')}</dd><dt>Coat</dt><dd>${esc(coat||'·')}</dd><dt>Board</dt><dd>${+h.board?'$'+(+h.board).toLocaleString('en-US')+' / month':'·'}</dd><dt>Feed</dt><dd>${esc(h.feed||'·')}</dd><dt>Notes</dt><dd>${esc(h.notes||'·')}</dd></dl>
+   <div class="row"><button class="btn dark" data-edit="${h.id}">Edit</button>${h.owner?`<button class="btn green" data-upd="${h.id}">Send update to owner</button>`:''}</div>`});
+ document.querySelectorAll('#ring .mem').forEach(el=>{const n=all.filter(x=>x.team===el.dataset.m).length;const s=el.querySelector('[data-mc]');s.textContent=n?`${n} to do`:'all good';s.className=n?'red':''})}
+
+/* ---------- taps ---------- */
+feed.addEventListener('click',e=>{const b=e.target.closest('button,a');if(!b)return;
+ if(b.id==='hTalk')return listen(EYES.find(E=>E.home),null,answer);
+ if(b.id==='hType')return openAsk(null);
+ if(b.id==='addBtn')return openHorse(null);
+ if(b.id==='sampleBtn')return loadSample();
+ if(b.id==='setBtn')return openSettings();
+ if(b.dataset.tab!=null){const c=b.closest('.card'),st=c.querySelector('.strip');st.scrollTo({left:st.clientWidth*+b.dataset.tab,behavior:reduce?'auto':'smooth'});return}
+ if(b.dataset.do){const [hid,k,rid]=b.dataset.do.split('|');const h=H(hid);const x=todos(h,true).find(x=>x.k===k&&(!rid||(x.race&&x.race.id===rid)));if(x)doTodo(x);return}
+ if(b.dataset.log){const [hid,k]=b.dataset.log.split('|');const h=H(hid);if(['work','race','vet','note'].includes(k))return openLog(h,k);return addEv(h,k)}
+ if(b.dataset.del){const ev=DB.events.find(x=>x.id===b.dataset.del);DB.events=DB.events.filter(x=>x!==ev);save();paint();toast('Deleted.',()=>{DB.events.push(ev);save();paint()});return}
+ if(b.dataset.race)return openRace(H(b.dataset.race));
+ if(b.dataset.rdel){const r=DB.races.find(x=>x.id===b.dataset.rdel);DB.races=DB.races.filter(x=>x!==r);save();paint();toast('Race deleted.',()=>{DB.races.push(r);save();paint()});return}
+ if(b.dataset.res){e.preventDefault();return openResult(DB.races.find(r=>r.id===b.dataset.res))}
+ if(b.dataset.edit)return openHorse(H(b.dataset.edit));
+ if(b.dataset.upd)return sendUpdate(H(b.dataset.upd))});
+feed.addEventListener('scroll',e=>{},{passive:true});
+document.addEventListener('scroll',e=>{const st=e.target;if(!st.classList||!st.classList.contains('strip'))return;const i=Math.round(st.scrollLeft/st.clientWidth);st.closest('.card').querySelectorAll('.tabs button').forEach((b,j)=>b.classList.toggle('on',i===j))},{capture:true,passive:true});
+$('#stName')?.addEventListener('click',()=>openSettings());
+
+/* ---------- sheets ---------- */
+function sheet(html){$('#shBody').innerHTML=html;$('#sh').classList.add('on');$('#scrim').classList.add('on')}
+function closeSheet(){$('#sh').classList.remove('on');$('#scrim').classList.remove('on')}
+$('#scrim').addEventListener('click',closeSheet);
+$('#shBody').addEventListener('click',e=>{if(e.target.closest('[data-x]'))closeSheet()});
+const X='<button type="button" data-x aria-label="Close">✕</button>';
+function openHorse(h){let coat=h?.coat||COATS[0][1],photo=h?.photo||'';
+ sheet(`<h3>${h?'Edit '+esc(h.name):'New horse'}${X}</h3><form id="hf">
+  <label class="f"><span>Name</span><input name="name" required maxlength="30" value="${esc(h?.name||'')}" placeholder="Canelo"></label>
+  <div class="two"><label class="f"><span>Owner</span><input name="owner" maxlength="40" value="${esc(h?.owner||'')}"></label><label class="f"><span>Owner WhatsApp</span><input name="phone" inputmode="tel" maxlength="20" value="${esc(h?.phone||'')}" placeholder="52 55 1234 5678"></label></div>
+  <div class="two"><label class="f"><span>Sex</span><select name="sex">${['','Colt','Filly','Mare','Stallion','Gelding'].map(s=>`<option ${h?.sex===s?'selected':''}>${s}</option>`).join('')}</select></label><label class="f"><span>Year born</span><input name="year" inputmode="numeric" maxlength="4" value="${esc(h?.year||'')}"></label></div>
+  <label class="f"><span>Coat color</span><div class="coats" id="coats">${COATS.map(([n,c])=>`<button type="button" data-coat="${c}" class="${c===coat?'on':''}" style="background:${c}" aria-label="${n}" title="${n}"></button>`).join('')}</div></label>
+  <div class="two"><label class="f"><span>Board per month ($)</span><input name="board" inputmode="decimal" value="${esc(h?.board||'')}"></label><label class="f"><span>Status</span><select name="status"><option value="training" ${h?.status!=='resting'?'selected':''}>In training</option><option value="resting" ${h?.status==='resting'?'selected':''}>Resting</option></select></label></div>
+  <label class="f"><span>Feed plan</span><input name="feed" maxlength="120" value="${esc(h?.feed||'')}" placeholder="AM 4 kg oats, PM 3 kg + hay"></label>
+  <label class="f"><span>Notes</span><textarea name="notes" maxlength="400">${esc(h?.notes||'')}</textarea></label>
+  <label class="f"><span>Photo</span><input type="file" accept="image/*" id="ph"></label>${photo?'<p class="note">Has a photo. Pick a new one to replace it.</p>':''}
+  <div class="row"><button class="btn dark" style="flex:1">Save</button>${h?'<button type="button" class="btn" id="hDel" style="color:var(--red)">Remove horse</button>':''}</div></form>`);
+ $('#coats').addEventListener('click',e=>{const b=e.target.closest('[data-coat]');if(!b)return;coat=b.dataset.coat;$('#coats').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+ $('#ph').addEventListener('change',async e=>{const f=e.target.files[0];if(f)photo=await shrink(f)});
+ $('#hDel')?.addEventListener('click',()=>{if(!confirm(`Remove ${h.name} and all its history?`))return;DB.horses=DB.horses.filter(x=>x!==h);DB.events=DB.events.filter(x=>x.h!==h.id);DB.races=DB.races.filter(x=>x.h!==h.id);save();closeSheet();build()});
+ $('#hf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));const name=f.name.replace(/[<>]/g,'').trim();if(!name)return;
+  const o={name,owner:f.owner.trim(),phone:f.phone.trim(),sex:f.sex,year:f.year.replace(/\D/g,''),board:f.board.replace(/[^0-9.]/g,''),status:f.status,feed:f.feed.trim(),notes:f.notes.trim(),coat,photo};
+  if(h)Object.assign(h,o);else{DB.horses.push(Object.assign({id:uid()},o));if(DB.sample){}}save();closeSheet();build();
+  const c=document.querySelector(`.hc[data-h="${h?h.id:DB.horses[DB.horses.length-1].id}"]`);if(c)setTimeout(()=>c.scrollIntoView({behavior:reduce?'auto':'smooth'}),60);toast(h?'Saved.':`${name} is in your barn.`)})}
+function shrink(file){return new Promise(res=>{const img=new Image();img.onload=()=>{const s=Math.min(1,360/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=img.width*s;c.height=img.height*s;c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72));URL.revokeObjectURL(img.src)};img.onerror=()=>res('');img.src=URL.createObjectURL(file)})}
+function openLog(h,k){const ph={work:'4 furlongs in 48.2, easy',race:'Ran 2nd, closed well',vet:'Checked left front, all fine',note:'Ate everything, looks happy'}[k];
+ sheet(`<h3>${CARE[k].icon} ${esc(h.name)}: ${CARE[k].label}${X}</h3><form id="lf"><label class="f"><span>What happened</span><input name="n" maxlength="140" placeholder="${ph}"></label>
+  <label class="f"><span>Date</span><input type="date" name="d" value="${iso(today())}" max="${iso(today())}"></label>${k==='race'?`<label class="f"><span>Finish</span><select name="p"><option value="">·</option><option value="1">Won</option><option value="2">2nd</option><option value="3">3rd</option><option value="4">Out of the top 3</option></select></label>`:''}
+  <div class="row"><button class="btn dark" style="flex:1">Save</button></div></form>`);
+ $('#lf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));const o={d:f.d||iso(today()),n:f.n.trim()};if(f.p)o.p=+f.p;closeSheet();
+  const ev=Object.assign({id:uid(),h:h.id,t:k},o);DB.events.push(ev);save();cheer(h);paint();toast(`${h.name}: ${CARE[k].label.toLowerCase()} saved.`,()=>{DB.events=DB.events.filter(x=>x!==ev);save();paint()})})}
+function openRace(h){sheet(`<h3>🏁 ${esc(h.name)}: new race${X}</h3><form id="rf"><div class="two"><label class="f"><span>Date</span><input type="date" name="d" required value="${iso(today())}"></label><label class="f"><span>Race #</span><input name="race" maxlength="6" inputmode="numeric"></label></div>
+  <div class="two"><label class="f"><span>Track</span><input name="track" maxlength="40"></label><label class="f"><span>Distance</span><input name="dist" maxlength="20" placeholder="400 yd"></label></div><div class="row"><button class="btn dark" style="flex:1">Save</button></div></form>`);
+ $('#rf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));DB.races.push({id:uid(),h:h.id,d:f.d,race:f.race.trim(),track:f.track.trim(),dist:f.dist.trim()});save();closeSheet();paint();toast('Race added.')})}
+function openResult(r){const h=H(r.h);sheet(`<h3>🏁 ${esc(h.name)}: result for ${fmt(r.d)}${X}</h3><div class="row">${['Won','2nd','3rd','Out of the top 3','Scratched'].map(x=>`<button class="btn" data-pick="${x}">${x}</button>`).join('')}</div>`);
+ $('#shBody').querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{r.res=b.dataset.pick;const p={Won:1,'2nd':2,'3rd':3}[r.res];if(r.res!=='Scratched')DB.events.push({id:uid(),h:h.id,t:'race',d:r.d,n:[r.track,r.race&&'R'+r.race,r.res].filter(Boolean).join(' · '),...(p?{p}:{})});save();closeSheet();if(p===1)cheer(h);paint();toast(`${h.name}: ${r.res.toLowerCase()}.`)}))}
+function openTeam(m){const l=allTodos().filter(x=>x.team===m.id);
+ sheet(`<h3>${esc(m.name)} · ${esc(m.job)}${X}</h3>${l.length?l.map(x=>itemHTML(x,true)).join(''):'<p class="empty">Nothing to do right now.</p>'}
+  <p class="note" style="font-weight:600;color:var(--ink);margin-top:16px">Tools ${esc(m.name)} can use</p><ul class="tools">${m.tools.map(([n,d,s])=>`<li><span class="s ${s}">${s==='on'?'on':s==='setup'?'needs setup':'off'}</span><span>${esc(n)}<small>${esc(d)}</small></span></li>`).join('')}</ul>
+  <p class="note">"Needs setup" tools are not connected yet. Everything else works on this phone.</p>`);
+ $('#shBody').querySelectorAll('[data-do]').forEach(b=>b.addEventListener('click',()=>{closeSheet();const [hid,k,rid]=b.dataset.do.split('|');const x=todos(H(hid),true).find(x=>x.k===k&&(!rid||(x.race&&x.race.id===rid)));if(x)doTodo(x)}))}
+function openSettings(){sheet(`<h3>⚙ Settings${X}</h3><form id="sf"><label class="f"><span>Stable name</span><input name="name" maxlength="40" value="${esc(DB.name)}"></label>
+  <p class="note" style="color:var(--ink);font-weight:600;margin-top:14px">How often (days)</p><div class="two">${DUE.map(k=>`<label class="f"><span>${CARE[k].label}</span><input name="e_${k}" inputmode="numeric" value="${DB.every[k]}"></label>`).join('')}</div>
+  <label class="f"><span>Remind me if a horse has not worked in (days)</span><input name="gap" inputmode="numeric" value="${DB.workGap}"></label>
+  <p class="note">These are common schedules. Your vet and farrier know your horses best, so change them to match.</p>
+  <div class="row"><button class="btn dark" style="flex:1">Save</button></div></form>
+  <div class="row"><button class="btn" id="expBtn">Save a backup file</button>${DB.sample?'<button class="btn" id="clrBtn" style="color:var(--red)">Remove sample horses</button>':''}</div>
+  <p class="note">Everything is saved on this phone only. Make a backup now and then.</p>`);
+ $('#sf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));DB.name=f.name.replace(/[<>]/g,'').trim()||'My stable';DUE.forEach(k=>{const v=parseInt(f['e_'+k]);if(v>0)DB.every[k]=v});const g=parseInt(f.gap);if(g>0)DB.workGap=g;save();closeSheet();build();toast('Saved.')});
+ $('#expBtn').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(DB,null,1)],{type:'application/json'}));a.download='stable-backup-'+iso(today())+'.json';a.click()});
+ $('#clrBtn')?.addEventListener('click',()=>{if(!confirm('Remove the sample horses?'))return;const keep=DB.horses.filter(h=>!h.sample);const ids=new Set(keep.map(h=>h.id));DB.horses=keep;DB.events=DB.events.filter(e=>ids.has(e.h));DB.races=DB.races.filter(r=>ids.has(r.h));DB.sample=false;save();closeSheet();build()})}
+function loadSample(){const t=iso(today()),A=n=>addD(t,-n);
+ const hs=[{id:uid(),name:'Canelo',owner:'Juan',phone:'',sex:'Colt',year:String(new Date().getFullYear()-3),coat:'#b5622d',board:'4500',status:'training',feed:'AM 4 kg oats, PM 3 kg + alfalfa',notes:'Likes to break fast',sample:true},
+  {id:uid(),name:'La Güera',owner:'Rosa',phone:'',sex:'Filly',year:String(new Date().getFullYear()-2),coat:'#d9a94e',board:'4500',status:'training',feed:'',notes:'',sample:true},
+  {id:uid(),name:'Relámpago',owner:'Juan',phone:'',sex:'Gelding',year:String(new Date().getFullYear()-5),coat:'#2b2522',board:'',status:'training',feed:'AM 5 kg, PM 4 kg',notes:'',sample:true}];
+ DB.horses.push(...hs);DB.sample=true;const [c,g,r]=hs;
+ DB.events.push({id:uid(),h:c.id,t:'farrier',d:A(40)},{id:uid(),h:c.id,t:'deworm',d:A(65)},{id:uid(),h:c.id,t:'vaccine',d:A(30)},{id:uid(),h:c.id,t:'work',d:A(1),n:'3 furlongs easy'},
+  {id:uid(),h:g.id,t:'farrier',d:A(20)},{id:uid(),h:g.id,t:'deworm',d:A(10)},{id:uid(),h:g.id,t:'work',d:A(5),n:'Gate practice'},
+  {id:uid(),h:r.id,t:'farrier',d:A(44)},{id:uid(),h:r.id,t:'vaccine',d:A(178)},{id:uid(),h:r.id,t:'dental',d:A(200)},{id:uid(),h:r.id,t:'work',d:A(0),n:'400 yd in 21.9'},{id:uid(),h:r.id,t:'update',d:A(3)});
+ DB.races.push({id:uid(),h:c.id,d:addD(t,4),track:'Sample track',race:'5',dist:'350 yd'},{id:uid(),h:r.id,d:A(6),track:'Sample track',race:'3',dist:'400 yd'});
+ save();build();toast('Sample horses loaded. Remove them in Settings.')}
+
+build();
+import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
+window.__ready=true;
+</script>
+</body>
+</html>

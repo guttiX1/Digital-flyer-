@@ -43,6 +43,7 @@ function bean(r,o={}){const sx=.95,sy=1.05,sz=.9;r.body.add(M(SPH(1,64,48),o.mat
  if(!o.float)feet(r,[[-.42,-.92,.12],[.42,-.92,.12]],o.feetMat);else r.float=true;
  return {sx,sy,sz}}
 function hand(r,x,y,z){r.body.add(M(SPH(.14,20,14),r.skin(-.05),[x,y,z]))}
+function shirt(r,o,c,from=.6){r.body.add(M(new THREE.SphereGeometry(1.025,56,32,0,Math.PI*2,Math.PI*from,Math.PI*(1-from)),mat(c,{roughness:.5}),null,[o.sx,o.sy,o.sz]))}
 function glasses(parent,ex,ey,ez,rr,c='#1b1b1f'){const m=mat(c,{roughness:.3});[-ex,ex].forEach(x=>parent.add(M(new THREE.TorusGeometry(rr,.035,10,36),m,[x,ey,ez])));
  parent.add(M(new THREE.CylinderGeometry(.025,.025,ex*2-rr*2,8),m,[0,ey+.02,ez],null,[0,0,Math.PI/2]))}
 function tie(r,y,z,c='#d93a3a'){const m=mat(c);r.body.add(M(SPH(.075,16,12),m,[0,y,z+.03],[1,.8,.6]));
@@ -157,6 +158,45 @@ const B={
   cb.add(M(new THREE.BoxGeometry(.42,.54,.01),matte('#ffffff'),[0,-.03,.03]));cb.add(M(new THREE.BoxGeometry(.2,.08,.05),mat('#b0b5bd',{metalness:.6}),[0,.32,.03]));
   for(let i=0;i<4;i++){cb.add(M(new THREE.BoxGeometry(.05,.05,.01),basic(i<2?'#1d9e6a':'#c8ccd2'),[-.14,.13-i*.12,.04]));cb.add(M(new THREE.BoxGeometry(.22,.025,.01),basic('#c8ccd2'),[.04,.13-i*.12,.04]))}
   r.body.add(M(SPH(.08,12,10),mat('#1d1d22'),[.93,.1,.15]));return r},
+ pony:()=>{const r=rig('#9a5a2e');r.body.add(M(SPH(1,56,40),r.skin(0),null,[.85,1.12,.88]));
+  r.body.add(M(SPH(.62,40,28),r.skin(.22),[0,-.55,.5],[.9,.6,.75]));[-.17,.17].forEach(x=>r.body.add(M(SPH(.075,14,10),mat('#2a1a12'),[x,-.48,.95],[1,1.4,.5])));
+  const mn=r.skin(-.62);[-1,1].forEach(s=>{r.body.add(M(new THREE.ConeGeometry(.16,.55,20),r.skin(0),[s*.36,1.12,-.08],null,[0,0,-s*.22]));r.body.add(M(new THREE.ConeGeometry(.08,.34,14),matte('#f0c9b8'),[s*.35,1.08,.03],null,[0,0,-s*.22]))});
+  for(let k=0;k<6;k++){const t=k/5;r.body.add(M(SPH(.21,20,14),mn,[.18+.62*t,1.02-.95*t,-.28],[.8,1,.9]))}
+  const fl=new THREE.Group();fl.position.set(0,1.0,.45);r.body.add(fl);r.sway=fl;fl.add(M(SPH(.16,20,14),mn,[.07,-.12,.12],[.75,1.5,.55],[0,0,-.35]));fl.add(M(SPH(.14,20,14),mn,[-.08,-.08,.1],[.75,1.4,.55],[0,0,.35]));
+  r.body.add(M(new THREE.OctahedronGeometry(.1),matte('#ffffff'),[0,.58,.75],[1,1.5,.4]));
+  eye(r,r.body,-.36,.3,.67,.17);eye(r,r.body,.36,.3,.67,.17);mouth(r,r.body,0,-.75,.87,.9);
+  feet(r,[[-.38,-1.0,.12],[.38,-1.0,.12]],mat('#2a2a2e'));return r},
+ // stable crew: cute horse people (body color = skin tone)
+ coach:()=>{const r=rig('#e0ac82');const o=bean(r,{my:-.22,feetMat:mat('#5a3a22')});shirt(r,o,'#3b6fb5');
+  const hm=mat('#8a5a35',{roughness:.55});r.body.add(M(new THREE.CylinderGeometry(1.25,1.25,.05,48),hm,[0,.72,0],[1,1,.85]));r.body.add(M(new RoundedBoxGeometry(1.1,.55,.95,4,.2),hm,[0,1.0,-.02]));r.body.add(M(new THREE.CylinderGeometry(.57,.57,.1,32),mat('#3a2414'),[0,.78,0],[1,1,.85]));
+  const mu=mat('#5b3a1e',{roughness:.6});[-1,1].forEach(s=>r.body.add(M(new THREE.CapsuleGeometry(.05,.16,6,12),mu,[s*.11,-.08,.88],null,[0,0,s*1.2])));
+  hand(r,.85,-.25,.4);const sw=new THREE.Group();sw.position.set(.98,-.18,.5);r.body.add(sw);r.sway=sw;sw.add(M(new THREE.CylinderGeometry(.17,.17,.07,28),mat('#c8ccd2',{metalness:.6,roughness:.25}),null,null,[Math.PI/2,0,0]));
+  sw.add(M(new THREE.CircleGeometry(.14,28),basic('#ffffff'),[0,0,.036]));sw.add(M(new THREE.BoxGeometry(.015,.1,.01),basic('#e2452b'),[.02,.03,.04],null,[0,0,-.4]));sw.add(M(new THREE.CylinderGeometry(.04,.04,.07,12),mat('#c8ccd2',{metalness:.6}),[0,.2,0]));return r},
+ jockey:()=>{const r=rig('#c98a5e');const o=bean(r,{my:-.2,feetMat:mat('#1d1d22')});const sk=mat('#e2452b'),wt=mat('#ffffff');shirt(r,o,'#e2452b');
+  [[-.35,-.55],[.35,-.55],[0,-.78]].forEach(([x,y])=>r.body.add(M(new THREE.OctahedronGeometry(.1),wt,[x,y,zOn(x,y,o.sx,o.sy,o.sz)+.02],[1,1.3,.3])));
+  r.body.add(M(new THREE.SphereGeometry(.9,48,24,0,Math.PI*2,0,Math.PI*.5),sk,[0,.42,0],[1.08,1.05,1.02]));r.body.add(M(new THREE.SphereGeometry(.9,48,24,0,Math.PI*2,0,Math.PI*.5),wt,[0,.425,0],[.25,1.06,1.03]));
+  r.body.add(M(new THREE.CylinderGeometry(.42,.42,.04,32,1,false,-Math.PI*.5,Math.PI),mat('#1d1d22'),[0,.46,.7],[1,1,.7]));
+  const gm=mat('#1d1d22');[-.22,.22].forEach(x=>r.body.add(M(new THREE.TorusGeometry(.13,.035,8,24),gm,[x,1.0,.55],null,[-.5,0,0])));r.body.add(M(new THREE.TorusGeometry(.98,.025,8,48),gm,[0,.9,0],null,[Math.PI/2,0,0]));
+  hand(r,.85,-.3,.4);const wh=new THREE.Group();wh.position.set(.92,-.25,.45);wh.rotation.z=-.6;r.body.add(wh);r.sway=wh;wh.add(M(new THREE.CylinderGeometry(.02,.012,1.0,8),mat('#1d1d22'),[0,.45,0]));wh.add(M(new THREE.BoxGeometry(.06,.12,.02),mat('#1d1d22'),[0,.98,0]));return r},
+ groom:()=>{const r=rig('#8d5a3b');const o=bean(r,{my:-.2,feetMat:mat('#3a3a3a')});shirt(r,o,'#3f9a5a');
+  const cp=mat('#ffb000',{roughness:.5});r.body.add(M(new THREE.SphereGeometry(.92,48,24,0,Math.PI*2,0,Math.PI*.45),cp,[0,.45,0],[1.05,1,1]));r.body.add(M(new THREE.CylinderGeometry(.45,.45,.04,32,1,false,-Math.PI*.5,Math.PI),cp,[0,.68,.62],[1,1,.9],[.15,0,0]));
+  hand(r,-.85,-.3,.4);const br=new THREE.Group();br.position.set(-.95,-.3,.5);br.rotation.set(.2,0,.4);r.body.add(br);r.sway=br;br.add(new THREE.Mesh(new RoundedBoxGeometry(.42,.16,.24,3,.06),mat('#8a5a35',{roughness:.5})));
+  for(let i=0;i<5;i++)br.add(M(new THREE.BoxGeometry(.05,.1,.18),matte('#e9d8b0'),[-.16+i*.08,-.12,0]));
+  r.body.add(M(new THREE.CylinderGeometry(.28,.24,.4,24),mat('#4a86f5',{roughness:.4}),[.95,-.7,.2]));r.body.add(M(new THREE.TorusGeometry(.27,.02,8,24,Math.PI),mat('#6b7078'),[.95,-.5,.2]));return r},
+ doc:()=>{const r=rig('#e3b08a');const o=bean(r,{my:-.2,feetMat:mat('#2a2a2e')});shirt(r,o,'#eaf2f8',.6);
+  r.body.add(M(new THREE.SphereGeometry(1.0,48,24,0,Math.PI*2,0,Math.PI*.3),mat('#5b3a1e',{roughness:.6}),[0,.05,0],[o.sx*1.02,o.sy*1.02,o.sz*1.02]));
+  glasses(r.body,.3,.2,.9,.2,'#2f6fe8');const st=mat('#2a2a2e',{roughness:.4});r.body.add(tube([[-.42,-.45,.62],[-.2,-.7,.78],[0,-.62,.85],[.2,-.7,.78],[.42,-.45,.62]],.03,st));
+  r.body.add(tube([[.1,-.66,.84],[.15,-.85,.82],[.1,-.98,.72]],.025,st));r.body.add(M(new THREE.CylinderGeometry(.08,.08,.04,20),mat('#c8ccd2',{metalness:.6}),[.1,-1.0,.7],null,[Math.PI/2,0,0]));
+  r.body.add(M(new THREE.BoxGeometry(.18,.18,.03),basic('#e2452b'),[-.4,-.5,.72],null,[0,-.4,0]));r.body.add(M(new THREE.BoxGeometry(.06,.14,.035),basic('#ffffff'),[-.4,-.5,.735],null,[0,-.4,0]));r.body.add(M(new THREE.BoxGeometry(.14,.06,.035),basic('#ffffff'),[-.4,-.5,.735],null,[0,-.4,0]));return r},
+ smith:()=>{const r=rig('#b07a55');const o=bean(r,{my:-.2,feetMat:mat('#3a2414')});shirt(r,o,'#5b6470');
+  r.body.add(M(new THREE.SphereGeometry(1.03,48,24,-Math.PI*.35,Math.PI*.7,Math.PI*.55,Math.PI*.45),mat('#7a4a2a',{roughness:.6,side:THREE.DoubleSide}),null,[o.sx,o.sy,o.sz]));
+  r.body.add(M(new THREE.TorusGeometry(.98,.07,10,48),mat('#e2452b',{roughness:.6}),[0,.62,0],[.98,1,.95],[Math.PI/2,0,0]));
+  const mu=mat('#2a1a10',{roughness:.7});[-1,1].forEach(s=>r.body.add(M(new THREE.CapsuleGeometry(.05,.16,6,12),mu,[s*.11,-.08,.88],null,[0,0,s*1.2])));
+  hand(r,.85,-.3,.4);const hm=new THREE.Group();hm.position.set(.95,-.25,.45);hm.rotation.z=-.5;r.body.add(hm);r.sway=hm;hm.add(M(new THREE.CylinderGeometry(.035,.035,.7,10),mat('#8a6a4a'),[0,.3,0]));hm.add(M(new THREE.BoxGeometry(.32,.12,.12),mat('#6b7078',{metalness:.6,roughness:.3}),[0,.68,0]));
+  r.body.add(M(new THREE.TorusGeometry(.18,.05,8,24,Math.PI*1.2),mat('#9aa3ad',{metalness:.6}),[-.95,-.62,.25],null,[0,0,-.3]));return r},
+ owner:()=>{const r=rig('#e8b48f');const o=bean(r,{my:-.22,feetMat:mat('#1d1d22')});shirt(r,o,'#1f2a44');tie(r,-.44,.78,'#f2c230');
+  const hm=mat('#d8c39a',{roughness:.6});r.body.add(M(new THREE.CylinderGeometry(1.15,1.15,.05,48),hm,[0,.74,0],[1,1,.9]));r.body.add(M(new THREE.CylinderGeometry(.58,.64,.5,32),hm,[0,.98,0],[1,1,.9]));r.body.add(M(new THREE.CylinderGeometry(.645,.645,.12,32),mat('#1d1d22'),[0,.8,0],[1,1,.9]));
+    hand(r,.85,-.35,.4);r.body.add(M(new RoundedBoxGeometry(.4,.22,.06,3,.03),mat('#3fbf6f'),[.98,-.32,.5],null,[0,-.3,-.2]));return r},
  // business crew, gadget style: the tools themselves come alive
  horn:()=>{const r=rig('#ff6b4a');const sk=r.skin(0,{side:THREE.DoubleSide});r.body.add(M(new THREE.CylinderGeometry(.88,.38,1.75,56,1,true),sk));
   r.body.add(M(new THREE.CircleGeometry(.84,48),mat('#2a2a2e',{side:THREE.DoubleSide}),[0,.8,0],null,[-Math.PI/2,0,0]));const w=mat('#ffffff');
