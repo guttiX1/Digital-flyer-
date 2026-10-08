@@ -187,7 +187,7 @@ footer{padding:40px 16px calc(40px + env(safe-area-inset-bottom));border-top:1px
  <p class="lede">More than 50 characters, in any color. They blink, follow you, squish when you poke them, and talk back. Meet the sample team and ask them what they need.</p>
  <div class="studio">
   <div class="stage"><div class="slot" id="sslot"><div class="anc"><img src="../agents-mochi/chars/fox.png" alt=""></div></div><div class="tag" id="stag">Foxy<small>Marketing · poke me</small></div><div class="sbub" id="sbub"></div></div>
-  <div class="pick"><h4>Talk to it</h4><div class="ask" id="askRow"><button data-q="What do you need?">What do you need?</button><button data-q="What are you doing?">What are you doing?</button><button data-q="What's next?">What's next?</button><button class="mic" id="mic">🎤 Hold to talk</button></div>
+  <div class="pick"><h4>Talk to it</h4><div class="ask" id="askRow"><button data-q="What do you need?">What do you need?</button><button data-q="What are you doing?">What are you doing?</button><button data-q="What's next?">What's next?</button><button class="mic" id="mic">🎤 Hold to talk</button><button id="zzb">😴 Sleep</button></div>
    <form class="tin" id="tin"><input id="tq" placeholder="Or type a question" autocomplete="off"><button>Ask</button></form><h4>Character</h4><div class="chars" id="chars"></div><h4>Color</h4><div class="cols" id="cols"></div></div>
  </div></div>
  <div class="wall" id="wall"></div></section>
@@ -244,13 +244,12 @@ addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=perform
 const anc=$('#sslot .anc');const E={svg:anc,sty:'fox',ex:1,sq:1,sv:0,b:0,blink:-1,nb:2,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null};
 let started=false;new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;EYES=[E];import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(()=>{})}},{rootMargin:'300px'}).observe($('#crew'));
 let downY=null;anc.addEventListener('pointerdown',e=>downY=e.clientY);
-anc.addEventListener('pointerup',e=>{const dy=downY==null?0:e.clientY-downY;downY=null;
- if(dy>60){E.sleep=true;$('#stag small').textContent='Asleep. Tap to wake.';return}
- if(E.sleep){E.sleep=false;E.sv-=.25;$('#stag small').textContent='Poke me';return}
+anc.addEventListener('pointerup',e=>{const dy=downY==null?0:Math.abs(e.clientY-downY);downY=null;if(dy>12)return;
+ if(E.sleep){E.sleep=false;E.sv-=.25;$('#zzb').textContent='😴 Sleep';return}
  E.sv-=.18;E.happyT=1;setTimeout(()=>E.happyT=0,1000);if('vibrate' in navigator)navigator.vibrate(10)});
 const LIST=[['fox','Foxy','marketing'],['bee','Bee','social'],['peacock','Strut','ads'],['shark','Finn','sales'],['piggy','Penny','accounting'],['phone','Ping','support'],['mochi','Mochi'],['coach','Coach'],['tako','Tako'],['hoot','Hoot'],['byte','Byte'],['pony','Pony']];
 $('#chars').innerHTML=LIST.map(([k,n],i)=>`<button data-k="${k}" class="${i?'':'on'}"><img src="${CH(k)}" alt="">${n}</button>`).join('');let CUR=LIST[0];
-$('#chars').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;$$('#chars button').forEach(x=>x.classList.toggle('on',x===b));E.sty=b.dataset.k;anc.querySelector('img').src=CH(E.sty);anc.classList.remove('live');E.sv-=.3;E.happyT=1;setTimeout(()=>E.happyT=0,900);E.sleep=false;
+$('#chars').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;$$('#chars button').forEach(x=>x.classList.toggle('on',x===b));E.sty=b.dataset.k;anc.querySelector('img').src=CH(E.sty);anc.classList.remove('live');E.sv-=.3;E.happyT=1;setTimeout(()=>E.happyT=0,900);E.sleep=false;$('#zzb').textContent='😴 Sleep';
  CUR=LIST.find(x=>x[0]===E.sty);const role=CUR[2]&&AGD&&AGD.find(a=>a.id===CUR[2]);$('#stag').innerHTML=`${CUR[1]}<small>${role?role.name+' · ':''}poke me</small>`;$('#sbub').classList.remove('on');paintCols()});
 /* talk to the character: it answers from the sample team, out loud */
 let AGD=null;fetch('app/agents.json').then(r=>r.json()).then(d=>AGD=d.agents).catch(()=>{});
@@ -265,7 +264,8 @@ function answer(q){const t=q.toLowerCase(),n=CUR[1],a=CUR[2]&&AGD&&AGD.find(x=>x
  const b=$('#sbub');b.textContent=r;b.classList.add('on');E.look=null;E.sv-=.1;
  const s=window.speechSynthesis;if(s){try{s.cancel();const u=new SpeechSynthesisUtterance(r.replace(/•/g,'').replace(/\n/g,'. '));const [pi,ra]=VO[E.sty]||[1.2,1.05];u.pitch=pi;u.rate=ra;u.onstart=()=>E.talking=true;u.onend=u.onerror=()=>{E.talking=false};s.speak(u)}catch(_){}}
  clearTimeout(answer.t);answer.t=setTimeout(()=>b.classList.remove('on'),9000)}
-$('#askRow').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)answer(b.dataset.q)});
+$('#askRow').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b){E.sleep=false;$('#zzb').textContent='😴 Sleep';answer(b.dataset.q)}});
+$('#zzb').addEventListener('click',()=>{E.sleep=!E.sleep;$('#zzb').textContent=E.sleep?'☀️ Wake up':'😴 Sleep';if(!E.sleep)E.sv-=.25;$('#sbub').classList.remove('on')});
 $('#tin').addEventListener('submit',e=>{e.preventDefault();const q=$('#tq').value.trim();$('#tq').value='';$('#tq').blur();if(q)answer(q)});
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,heard='',recT=0;const mic=$('#mic');
 function stopRec(){if(!rec)return;try{rec.stop()}catch(_){}clearTimeout(recT);recT=setTimeout(finishRec,1500)}

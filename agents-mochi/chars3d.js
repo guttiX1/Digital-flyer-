@@ -367,7 +367,8 @@ function zzz(ctx,T){ctx.save();ctx.fillStyle='#5d6470';ctx.textAlign='center';
  ctx.restore()}
 
 const live=new Set();
-function frame(dt,T){
+let lastT=0;
+function frame(dt,T){lastT=T;
  tilt.tx*=1-dt*.8;tilt.ty*=1-dt*.8;tilt.vx+=(160*(tilt.tx-tilt.x)-18*tilt.vx)*dt;tilt.x+=tilt.vx*dt;tilt.y=lerp(tilt.y,tilt.ty,dt*4);
  const list=(window.__eyes?window.__eyes():[]).filter(E=>B[E.sty]&&E.svg.isConnected);
  for(const E of list){const s=stateOf(E);
@@ -403,6 +404,7 @@ function init(opts={}){
  shadow=new THREE.Mesh(new THREE.CircleGeometry(1,48),new THREE.MeshBasicMaterial({color:'#000',transparent:true,opacity:.12}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-1.12;scene.add(shadow)}
 
 export function start(){try{init()}catch(e){console.warn('no WebGL',e);return}
+ window.__throw=E=>{const s=stateOf(E);if(s.fly)return;s.fly=lastT;s.flyX=s.ox;s.flyY=s.oy;if('vibrate' in navigator)navigator.vibrate([12,30,12]);window.__onThrow&&window.__onThrow(E)};
  addEventListener('pointerdown',askTilt,{once:true});window.mochiFrame=frame}
 
 // still picture of one character (for previews and mockups)
