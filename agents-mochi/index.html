@@ -509,10 +509,10 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);
   if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}
   if(E.lx!=null)E.path+=Math.hypot(e.clientX-E.lx,e.clientY-E.ly);E.lx=e.clientX;E.ly=e.clientY;
-  if(dy>50&&dxx<60&&dy>.72*E.path){E.y0=null;snoozeEye(E);return}
+  const rh=E.svg.getBoundingClientRect().height;if(dy>Math.max(80,rh*.33)&&dxx<45&&dy>.88*E.path&&performance.now()-E.tDown<800){E.y0=null;snoozeEye(E);return}
   const r=E.svg.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.45,an=Math.atan2(e.clientY-cy,e.clientX-cx);
   if(Math.hypot(e.clientX-cx,e.clientY-cy)>r.width*.12&&E.an!=null){let d=an-E.an;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;if(Math.abs(d)<1.1){E.rub=(E.rub||0)+Math.abs(d);if(E.rub>Math.PI*2.6&&E.path>r.width*1.2){E.rub=0;E.path=0;purr(E)}}}E.an=an});
- svg.addEventListener('pointerdown',e=>{grow(E,true);E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep)holdStart(E,e)});
+ svg.addEventListener('pointerdown',e=>{grow(E,true);E.tDown=performance.now();E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep)holdStart(E,e)});
  ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E);setTimeout(()=>{if(!(chA&&chE===E)&&!E.listening)grow(E,false)},700)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}

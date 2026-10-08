@@ -35,7 +35,12 @@ function build(){
 
 /* tilt the phone: Mochi leans and rolls toward the low side */
 const tilt={x:0,y:0,vx:0,tx:0,ty:0,on:false};
-function onTilt(e){if(e.gamma==null)return;tilt.on=true;tilt.tx=clamp(e.gamma/35,-1,1);tilt.ty=clamp(((e.beta||45)-45)/40,-1,1)}
+// only the change counts: however you hold the phone, Mochi drifts back to the middle
+const base={g:null,b:null};
+function onTilt(e){if(e.gamma==null)return;const g=e.gamma,bt=e.beta||0;
+ if(base.g==null){base.g=g;base.b=bt}
+ base.g+=(g-base.g)*.03;base.b+=(bt-base.b)*.03;
+ tilt.on=true;tilt.tx=clamp((g-base.g)/25,-1,1);tilt.ty=clamp((bt-base.b)/30,-1,1)}
 function askTilt(){const D=window.DeviceOrientationEvent;if(!D)return;
  if(typeof D.requestPermission==='function')D.requestPermission().then(p=>{if(p==='granted')addEventListener('deviceorientation',onTilt)}).catch(()=>{});
  else addEventListener('deviceorientation',onTilt)}
@@ -49,7 +54,8 @@ function place(E,s){const svg=E.svg,par=svg.parentElement;if(!par)return false;
  if(s.cv.parentElement!==par)par.appendChild(s.cv);
  const r=svg.getBoundingClientRect(),pr=par.getBoundingClientRect();
  if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth||!r.width)return false;
- const st=s.cv.style;st.left=(r.left-pr.left)+'px';st.top=(r.top-pr.top)+'px';st.width=r.width+'px';st.height=r.height+'px';return true}
+ const k=pr.width?par.offsetWidth/pr.width:1; // undo any CSS scale on the parent
+ const st=s.cv.style;st.left=((r.left-pr.left)*k)+'px';st.top=((r.top-pr.top)*k)+'px';st.width=(r.width*k)+'px';st.height=(r.height*k)+'px';return true}
 
 function pose(E,s,dt,T){
  const b=clamp(E.b||0,0,1),sleep=!!E.sleep&&!E.talking&&!E.listening,happy=E.happy||0;
@@ -88,7 +94,7 @@ function zzz(ctx,T){ctx.save();ctx.fillStyle='#5d6470';ctx.textAlign='center';
  ctx.restore()}
 
 function frame(dt,T){
- tilt.vx+=(160*(tilt.tx-tilt.x)-18*tilt.vx)*dt;tilt.x+=tilt.vx*dt;tilt.y=lerp(tilt.y,tilt.ty,dt*4);
+ tilt.tx*=1-dt*.8;tilt.ty*=1-dt*.8;tilt.vx+=(160*(tilt.tx-tilt.x)-18*tilt.vx)*dt;tilt.x+=tilt.vx*dt;tilt.y=lerp(tilt.y,tilt.ty,dt*4);
  const list=(window.__eyes?window.__eyes():[]).filter(E=>E.sty==='mochi'&&E.svg.isConnected);
  for(const E of list){const s=stateOf(E);if(!place(E,s))continue;
   pose(E,s,dt,T);R.render(scene,cam);
