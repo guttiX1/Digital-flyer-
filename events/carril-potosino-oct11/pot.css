@@ -1,0 +1,87 @@
+/* Carril Potosino: versión oscura, colores del cartel (rojo, dorado, tierra) */
+:root{--bg:#0a0a0a;--ink:#f4efe6;--dim:#9a948a;--soft:#17140f;--gold:#f2b705;--line:rgba(255,255,255,.12);--a:#d62718;--b:#1f5fd6}
+.top{background:#0a0a0a;border-bottom-color:rgba(255,255,255,.08)}
+.top b{color:var(--gold)}
+.top span{background:var(--gold);color:#111}
+.rail i{background:rgba(255,255,255,.25);box-shadow:none}.rail i.on{background:var(--gold)}.rail i.done{background:#7a5c10}
+/* intro: carrera de fondo */
+.intro{justify-content:flex-end;padding:0}
+.bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:drift 9s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.3) translateX(-4%)}}
+.shade{position:absolute;inset:0;background:linear-gradient(rgba(10,10,10,.65),rgba(10,10,10,.1) 28%,rgba(10,10,10,.35) 50%,rgba(10,10,10,.96) 82%)}
+.intro .htx{position:relative;z-index:2;flex:none;padding:0 20px 18px}
+.intro .kick{color:var(--gold)}
+.intro h1{margin:4px 0 6px}
+.intro h1 .c{font-size:clamp(34px,11vw,64px);color:var(--gold);animation-delay:.25s;letter-spacing:.04em}
+.intro h1 .m{font-size:clamp(66px,21.5vw,140px);color:#fff;animation-delay:.4s;line-height:.86}
+.date{display:flex;align-items:center;gap:12px;margin:2px 0 12px;animation:up .7s .6s both}
+.date b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:84px;line-height:.85;color:var(--a);animation:slam .5s 1s cubic-bezier(.3,1.6,.5,1) both}
+.date span{font-family:Anton,Impact,sans-serif;font-size:30px;line-height:.95;text-transform:uppercase;color:#fff}
+.facts{color:#fff}.facts b{color:var(--gold)}
+.go{background:var(--gold);color:#111}
+.intro .tick{position:relative;z-index:2;flex:0 0 40px;background:var(--a);margin-bottom:env(safe-area-inset-bottom)}
+.intro .tick div b{color:#111}
+/* programa */
+.prog{justify-content:flex-start;padding-top:calc(var(--top) + 22px);background:radial-gradient(120% 60% at 50% 110%,#3a2410,#0a0a0a 70%)}
+.prog .lbl{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(44px,13vw,72px);letter-spacing:.02em;color:#fff;margin-bottom:8px;line-height:1}
+.pl button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 0;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);text-align:left;cursor:pointer;font:500 15px Barlow,sans-serif;opacity:0;transform:translateX(-30px);transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.prog.live .pl button{opacity:1;transform:none}
+.pl button:nth-child(2){transition-delay:.06s}.pl button:nth-child(3){transition-delay:.12s}.pl button:nth-child(4){transition-delay:.18s}.pl button:nth-child(5){transition-delay:.24s}.pl button:nth-child(6){transition-delay:.3s}.pl button:nth-child(7){transition-delay:.36s}
+.pl i{font-style:normal;font-family:Anton,Impact,sans-serif;font-size:19px;background:var(--a);color:#fff;border-radius:7px;padding:4px 7px;min-width:62px;text-align:center}
+.pl button.done i{background:var(--gold);color:#111}
+.pl span{flex:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 7px;line-height:1.15}
+.pl span b{font-weight:700;font-size:16px;text-transform:uppercase}
+.pl em{font-style:normal;color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+.pl small{color:var(--dim);font-weight:700;font-size:12.5px;white-space:nowrap}
+/* carrera */
+.race .meta{color:var(--gold)}
+.tabs{color:var(--dim)}.tabs button.on{color:#fff;border-bottom-color:var(--gold)}
+.half{background:#17140f}
+.hb{border-top:3px solid #0a0a0a}
+
+.who em{display:block;font-style:normal;font-weight:700;font-size:13px;color:#fff;opacity:.8;text-transform:uppercase;letter-spacing:.1em}
+.half::before{content:"";position:absolute;z-index:1;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.race .vs{background:var(--gold);color:#111;box-shadow:0 0 0 4px #0a0a0a}
+.race>.strip .panel>.ph-note{z-index:6;right:12px;top:10px}
+.picks{background:#0a0a0a}
+.bt button{background:var(--c)}
+.bt.picked button{opacity:.25}
+/* entrada: los nombres llegan, el VS cae */
+.race .who b,.race .who small{transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .55s}
+.race:not(.live) .who b{transform:translateX(-40px);opacity:0}
+.race:not(.live) .who small{transform:translateX(-20px);opacity:0}
+.race.live .hb .who b,.race.live .q1 .who b,.race.live .q3 .who b{transition-delay:.12s}
+.race.live .vs{animation:slam .45s .25s cubic-bezier(.3,1.6,.5,1) both}
+.race .ph img{transition:transform 6s ease-out}.race.live .ph img{transform:scale(1.08)}
+/* carrera de cuatro */
+.quad{position:absolute;left:0;right:0;top:0;bottom:178px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;background:#0a0a0a}
+.quad .half{position:relative;height:auto}
+.quad .who{left:12px;right:8px;bottom:9px}
+.quad .who b{font-size:clamp(22px,6.6vw,36px)}
+.quad .who small{font-size:10.5px}
+.race .vs4{right:auto;left:50%;top:calc((100% - 178px)/2);transform:translate(-50%,-50%)}
+.race.live .vs4{animation:slam4 .45s .25s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes slam4{from{transform:translate(-50%,-50%) scale(2.4);opacity:0}}
+.four .picks{height:178px}
+.four .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.four .bt button{padding:11px 6px;font-size:14px}
+/* paneles */
+.pad{background:#0a0a0a}
+.rows dd small{display:block;font-weight:500;color:var(--dim);font-size:13px}
+.lec{border-top-color:var(--gold)}
+.btn{border-color:var(--gold);color:var(--gold)}
+.lbl{color:var(--gold)}
+/* finales */
+.aviso{background:var(--a)}
+.aviso p span{display:block}.aviso p .y{color:var(--gold)}
+.aviso p span{transition:transform .5s cubic-bezier(.3,1.6,.5,1),opacity .4s}
+.aviso:not(.live) p span{transform:scale(1.6);opacity:0}.aviso.live p .y{transition-delay:.15s}
+.tel{color:#fff}
+.soc{color:var(--ink)}
+.ml button{color:var(--ink)}
+.ml b{background:#1d1a14}.ml b.on{color:#fff}
+.mine{background:#0a0a0a}
+.lb{background:#0a0a0a}.lb p b{color:#fff}.lb button{background:var(--gold);color:#111}
+.vwb a+a{background:#333}
+.who small{color:#fff!important;filter:none;opacity:.8}
+.race .vs4{width:50px;height:50px;font-size:21px}
