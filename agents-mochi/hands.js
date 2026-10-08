@@ -1,10 +1,11 @@
 // Hands-free: the front camera watches your hand (on this phone only, nothing is sent anywhere).
-// Point and the characters look at your fingertip. Thumbs up = done. Open palm = stop talking.
-// Swipe your hand left/right/up/down in the air to move between cards.
+// It works like a mouse in the air: a dot follows your finger (and the characters look at it).
+// Pinch (thumb + index together) = tap. Pinch, move, let go = swipe (scroll cards or tabs).
+// Thumbs up = done. Open hand = stop talking.
 // Uses Google's MediaPipe hand tracker (Apache-2.0), hosted next to this file.
 const BASE=new URL('./vendor/mediapipe/',import.meta.url).href;
-let lm=null,video=null,stream=null,timer=0,bubble=null,running=false,stateCb=null;
-const hist=[];let lastG=0,hold={g:null,t:0},lastSeen=0;
+let lm=null,video=null,stream=null,timer=0,bubble=null,running=false,stateCb=null,cur=null;
+let lastG=0,hold={g:null,t:0},lastSeen=0;
 
 const d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function fingers(p){const w=p[0];const ext=(tip,pip)=>d(w,p[tip])>d(w,p[pip])*1.18;
@@ -28,25 +29,35 @@ export async function startHands({onPoint,onGesture,onState}={}){if(running)retu
   stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:480},height:{ideal:360}},audio:false});
   video=document.createElement('video');video.playsInline=true;video.muted=true;video.srcObject=stream;await video.play();
   bubble=makeBubble();onState&&onState('on');lastSeen=performance.now();
+  cur=document.createElement('div');cur.style.cssText='position:fixed;left:0;top:0;z-index:70;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:3px solid #17171a;background:rgba(255,255,255,.55);pointer-events:none;transition:width .12s,height .12s,margin .12s,background .12s;display:none';document.body.appendChild(cur);
+  let cx=-1,cy=-1,pinched=false,start=null,lostAt=0;
   const tick=()=>{if(!running)return;const now=performance.now();
    if(video.readyState>=2){const r=lm.detectForVideo(video,now);const p=r.landmarks&&r.landmarks[0];
-    if(p){lastSeen=now;const tip=p[8];
-     // mirror x (selfie view) and stretch a little so a small move reaches the screen edges
-     const x=Math.min(1,Math.max(0,.5+((1-tip.x)-.5)*1.5)),y=Math.min(1,Math.max(0,.5+(tip.y-.5)*1.5));
-     onPoint&&onPoint(x*innerWidth,y*innerHeight);
-     const g=pose(p);
-     if(g==='thumbs'||g==='palm'){if(hold.g!==g){hold={g,t:now}}else if(now-hold.t>550&&now-lastG>1200){lastG=now;hold={g:null,t:0};onGesture&&onGesture(g)}}else hold={g:null,t:0};
-     // swipes: a fast move of the whole hand
-     hist.push({t:now,x:1-p[9].x,y:p[9].y});while(hist.length&&now-hist[0].t>320)hist.shift();
-     if(hist.length>3&&now-lastG>900){const a=hist[0],b=hist[hist.length-1],dx=b.x-a.x,dy=b.y-a.y;
-      if(Math.abs(dx)>.3&&Math.abs(dx)>2*Math.abs(dy)){lastG=now;hist.length=0;onGesture&&onGesture(dx>0?'right':'left')}
-      else if(Math.abs(dy)>.3&&Math.abs(dy)>2*Math.abs(dx)){lastG=now;hist.length=0;onGesture&&onGesture(dy>0?'down':'up')}}}
+    if(p){lastSeen=now;lostAt=0;
+     // the "pinch point" between thumb and index tip, mirrored (selfie view) and stretched so small moves reach the edges
+     const mx=1-(p[4].x+p[8].x)/2,my=(p[4].y+p[8].y)/2;
+     const tx=Math.min(1,Math.max(0,.5+(mx-.5)*1.6))*innerWidth,ty=Math.min(1,Math.max(0,.5+(my-.5)*1.6))*innerHeight;
+     if(cx<0){cx=tx;cy=ty}else{cx+=(tx-cx)*.55;cy+=(ty-cy)*.55}
+     cur.style.display='block';cur.style.transform=`translate(${cx}px,${cy}px)`;onPoint&&onPoint(cx,cy);
+     const size=d(p[0],p[9])||.1,gap=d(p[4],p[8])/size;
+     if(!pinched&&gap<.28){pinched=true;start={x:cx,y:cy,t:now};cur.style.background='#17171a';cur.style.width=cur.style.height='22px';cur.style.margin='-11px 0 0 -11px';if('vibrate' in navigator)navigator.vibrate(8)}
+     else if(pinched&&gap>.42){pinched=false;cur.style.background='rgba(255,255,255,.55)';cur.style.width=cur.style.height='30px';cur.style.margin='-15px 0 0 -15px';
+      const dx=cx-start.x,dy=cy-start.y;
+      if(Math.hypot(dx,dy)<45)tapAt(start.x,start.y);
+      else if(Math.abs(dy)>Math.abs(dx))onGesture&&onGesture(dy<0?'up':'down',start);
+      else onGesture&&onGesture(dx<0?'left':'right',start);start=null}
+     if(!pinched){const g=pose(p);
+      if(g==='thumbs'||g==='palm'){if(hold.g!==g){hold={g,t:now}}else if(now-hold.t>550&&now-lastG>1200){lastG=now;hold={g:null,t:0};onGesture&&onGesture(g)}}else hold={g:null,t:0}}}
+    else{if(!lostAt)lostAt=now;if(now-lostAt>400){cur.style.display='none';pinched=false;start=null}}
     // no hand for 5 minutes: switch off to save battery
     if(now-lastSeen>300000){stopHands();return}}
-   timer=setTimeout(tick,66)};tick();
+   timer=setTimeout(tick,50)};tick();
   document.addEventListener('visibilitychange',vis);
  }catch(e){running=false;cleanup();onState&&onState('error',e);}}
+function tapAt(x,y){const el=document.elementFromPoint(x,y);if(!el)return;const o={bubbles:true,clientX:x,clientY:y,pointerId:99,isPrimary:true};
+ el.dispatchEvent(new PointerEvent('pointerdown',o));el.dispatchEvent(new PointerEvent('pointerup',o));
+ const c=el.closest('button,a,input,select,textarea,label,[data-tab]');if(c){if(/INPUT|TEXTAREA|SELECT/.test(c.tagName))c.focus();else c.click()}else el.dispatchEvent(new MouseEvent('click',o))}
 function vis(){if(document.hidden)stopHands()}
-function cleanup(){clearTimeout(timer);if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;if(bubble)bubble.remove();bubble=null;video=null;document.removeEventListener('visibilitychange',vis)}
+function cleanup(){clearTimeout(timer);if(cur)cur.remove();cur=null;if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;if(bubble)bubble.remove();bubble=null;video=null;document.removeEventListener('visibilitychange',vis)}
 export function stopHands(){const was=running;running=false;cleanup();if(was&&stateCb)stateCb('off')}
 export const handsOn=()=>running;

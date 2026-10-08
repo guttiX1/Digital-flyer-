@@ -902,7 +902,7 @@ function paintHand(st){const b=$('#handBtn');if(b)b.innerHTML=`<b>Hands-free (ca
 $('#handBtn').addEventListener('click',async()=>{HM=HM||await import('./hands.js');
  if(HM.handsOn()){HM.stopHands();return}
  HM.startHands({onPoint:(x,y)=>window.__airPoint(x,y),onGesture:handGesture,onState:(st,e)=>{paintHand(st);
-  if(st==='on')say('✋ Hands-free on. Point and they look. Thumbs up = done. Open hand = stop. Wave to move.',6000);
+  if(st==='on')say('✋ Hands-free on. A dot follows your finger. Pinch to tap. Pinch and drag to scroll. Thumbs up = done. Open hand = stop.',7000);
   if(st==='error')say(e&&e.name==='NotAllowedError'?'The camera is blocked. Allow it in your browser settings.':'Hands-free could not start on this phone.',5000)}})});
 /* ---------- huddle en círculo: los agentes giran despacio alrededor del Oráculo ---------- */
 const ringEl=document.querySelector('.hud.ring');let ringA=0,ringHold=false;

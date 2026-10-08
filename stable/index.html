@@ -105,8 +105,8 @@ h1{font-size:clamp(34px,10vw,46px)}h2{font-size:clamp(34px,10vw,46px)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:40;background:var(--ink);color:#fff;border-radius:18px;padding:10px 14px;font-size:15px;display:flex;gap:12px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:92vw}
 .toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .toast button{border:0;background:none;color:#ffd27a;font-weight:600;cursor:pointer}
-.listen{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);z-index:41;background:var(--red);color:#fff;border-radius:16px;padding:9px 16px;font-weight:600;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
-.listen.on{opacity:1}
+.listen{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);z-index:41;cursor:pointer;background:var(--red);color:#fff;border-radius:16px;padding:9px 16px;font-weight:600;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.listen.on{opacity:1;pointer-events:auto}
 .sample{position:absolute;top:max(12px,env(safe-area-inset-top));left:12px;font-size:12px;font-weight:600;color:#6b4a0f;background:#f3e1b8;border-radius:9px;padding:4px 9px}
 </style>
 </head>
@@ -249,18 +249,25 @@ let rec=null;
 function speak(t){if(!synth)return;try{synth.cancel();const u=new SpeechSynthesisUtterance(t.replace(/\n/g,'. '));u.lang=/[áéíóúñ¿¡]|\b(ya|hoy|ayer)\b/i.test(t)?'es-MX':(navigator.language||'en-US');u.rate=1.05;
  u.onstart=()=>talkers.forEach(E=>E.talking=true);u.onend=u.onerror=()=>talkers.forEach(E=>E.talking=false);synth.speak(u)}catch(_){}}
 let talkers=[];
-function listen(E,hint,onDone){if(rec){try{rec.stop()}catch(_){}return}
+// Some phones never send "end" after listening, so every path has a timer that finishes for sure.
+let recStop=null;
+function listen(E,hint,onDone){if(rec){recStop&&recStop();return}
  if(!SR){openAsk(hint);return}
- let txt='';try{rec=new SR()}catch(_){openAsk(hint);return}
- rec.lang=navigator.language||'es-MX';rec.interimResults=true;rec.continuous=false;
- if(E){E.listening=true;E.look=[0,-.08];E.put=.62;E.sv-=.08}$('#listen').textContent=hint?`Listening… about ${hint.name}`:'Listening…';$('#listen').classList.add('on');if('vibrate' in navigator)navigator.vibrate(15);
- rec.onresult=ev=>{txt=[...ev.results].map(r=>r[0].transcript).join(' ');$('#listen').textContent='“'+txt+'”'};
- rec.onerror=ev=>{if(ev.error==='not-allowed'||ev.error==='service-not-allowed')txt='\u0000'};
- rec.onend=()=>{rec=null;$('#listen').classList.remove('on');if(E){E.listening=false;E.look=null;E.put=.36}
+ let txt='',done=false,t1=0,t2=0;try{rec=new SR()}catch(_){openAsk(hint);return}
+ const R=rec;R.lang=navigator.language||'es-MX';R.interimResults=true;R.continuous=false;
+ if(E){E.listening=true;E.look=[0,-.08];E.put=.62;E.sv-=.08}$('#listen').textContent=(hint?`Listening… about ${hint.name}`:'Listening…')+'  ✕';$('#listen').classList.add('on');if('vibrate' in navigator)navigator.vibrate(15);
+ const finish=()=>{if(done)return;done=true;clearTimeout(t1);clearTimeout(t2);if(rec===R)rec=null;recStop=null;try{R.abort()}catch(_){}
+  $('#listen').classList.remove('on');if(E){E.listening=false;E.look=null;E.put=.36}
   if(txt==='\u0000'){onDone({say:'The microphone is blocked. Allow it in your browser settings, or type instead.'});return}
   if(!txt.trim()){onDone({say:"I didn't hear anything. Tap and talk, or type."});return}
   const r=think(txt,hint);r.heard=txt;onDone(r)};
- try{rec.start()}catch(_){rec=null;$('#listen').classList.remove('on');openAsk(hint)}}
+ recStop=()=>{try{R.stop()}catch(_){}clearTimeout(t2);t2=setTimeout(finish,1500)};
+ R.onresult=ev=>{txt=[...ev.results].map(r=>r[0].transcript).join(' ');$('#listen').textContent='“'+txt+'”  ✕';if(ev.results[ev.results.length-1].isFinal){clearTimeout(t2);t2=setTimeout(finish,1200)}};
+ R.onerror=ev=>{if(ev.error==='not-allowed'||ev.error==='service-not-allowed')txt='\u0000';finish()};
+ R.onend=finish;
+ t1=setTimeout(recStop,9000);
+ try{R.start()}catch(_){done=true;rec=null;recStop=null;$('#listen').classList.remove('on');if(E)E.listening=false;openAsk(hint)}}
+$('#listen').addEventListener('click',()=>{if(recStop)recStop()});
 let askHint=null;
 function openAsk(hint){askHint=hint||null;$('#askIn').placeholder=hint?`${hint.name} got shod today`:(DB.horses[0]?`${DB.horses[0].name} got shod today`:'Canelo got shod today');$('#ask').classList.add('on');$('#askIn').focus()}
 $('#ask').addEventListener('submit',e=>{e.preventDefault();const t=$('#askIn').value;$('#askIn').value='';$('#ask').classList.remove('on');$('#askIn').blur();const r=think(t,askHint);r.heard=t;answer(r)});
@@ -278,7 +285,7 @@ function mount(el,sty,color,opts={}){const anc=el.querySelector('.anc');const E=
  anc.addEventListener('pointerdown',e=>{E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.dragX=E.dragY=0;try{anc.setPointerCapture(e.pointerId)}catch(_){}
   if(E.onHold)hold=setTimeout(()=>{hold=0;E.held=true;E.onHold(E)},420)});
  anc.addEventListener('pointermove',e=>{if(E.y0==null)return;const dx=e.clientX-E.x0,dy=e.clientY-E.y0;if(!E.moved&&Math.hypot(dx,dy)>12){E.moved=true;clearTimeout(hold);hold=0}if(E.moved&&!E.listening){E.dragX=dx;E.dragY=dy}});
- const up=()=>{if(E.y0==null)return;E.y0=null;clearTimeout(hold);if(E.held){E.held=false;if(rec)try{rec.stop()}catch(_){}return}if(!E.moved){poke(E);if(E.onTap)E.onTap(E)}};
+ const up=()=>{if(E.y0==null)return;E.y0=null;clearTimeout(hold);if(E.held){E.held=false;if(recStop)recStop();return}if(!E.moved){poke(E);if(E.onTap)E.onTap(E)}};
  anc.addEventListener('pointerup',up);anc.addEventListener('pointercancel',()=>{E.y0=null;clearTimeout(hold)});anc.addEventListener('contextmenu',e=>e.preventDefault());
  EYES.push(E);return E}
 function poke(E){E.sv-=.12;E.happyT=1;E.put=.5;setTimeout(()=>{E.happyT=0;E.put=.36},1100);if('vibrate' in navigator)navigator.vibrate(10);pop()}
@@ -313,13 +320,17 @@ function build(){EYES=[];const hs=DB.horses;
   <div class="strip"><div class="pane" data-p="todo"></div><div class="pane" data-p="log"></div><div class="pane" data-p="hist"></div><div class="pane" data-p="races"></div><div class="pane" data-p="info"></div></div></section>`;
  h+=`<section class="card" id="add"><div class="big">${hs.length?'Another horse?':'Add your first horse'}</div><p class="sub">Name, owner and coat color. The rest can wait.</p><div class="row"><button class="btn dark" id="addBtn">+ Add a horse</button></div>
   ${hs.length?'':'<div class="row"><button class="btn" id="sampleBtn">Try with sample horses</button></div>'}</section>`;
- h+=`<section class="card" id="team"><h2 style="font-size:clamp(28px,8vw,38px)">Your helpers</h2><p class="sub">Tap one to see its list and the tools it uses.</p><div class="ring" id="ring"><div class="mid">${esc(DB.name)}</div>${TEAM.map(m=>`<div class="mem" data-m="${m.id}">${charHTML(m.sty)}<b>${m.name}</b><small data-mc></small></div>`).join('')}</div>
+ h+=`<section class="card" id="team"><h2 style="font-size:clamp(28px,8vw,38px)">Your helpers</h2><p class="sub">Tap one to open its card. Scroll down to see them all.</p><div class="ring" id="ring"><div class="mid">${esc(DB.name)}</div>${TEAM.map(m=>`<div class="mem" data-m="${m.id}">${charHTML(m.sty)}<b>${m.name}</b><small data-mc></small></div>`).join('')}</div>
   <div class="row"><button class="btn" id="setBtn">⚙ Settings</button></div></section>`;
+ for(const m of TEAM)h+=`<section class="card hc tm" data-m="${m.id}"><div class="head">${charHTML(m.sty)}<h2>${m.name}</h2><p class="meta">${esc(m.job)}</p><div class="row" style="margin-top:6px" data-chip></div></div>
+  <nav class="tabs"><button data-tab="0" class="on">To do<i data-n hidden></i></button><button data-tab="1">${m.id==='feed'?'Feed plans':m.id==='owners'?'This month':'Recent'}</button><button data-tab="2">Tools</button><button data-tab="3">How it works</button></nav>
+  <div class="strip"><div class="pane" data-p="todo"></div><div class="pane" data-p="recent"></div><div class="pane" data-p="tools"></div><div class="pane" data-p="how"></div></div></section>`;
  feed.innerHTML=h;
  // characters
  const home=mount($('#home .chr'),'coach',null,{home:true,onTap:E=>listen(E,null,answer),onHold:E=>listen(E,null,answer)});talkers=[home];
- document.querySelectorAll('.hc').forEach(c=>{const x=H(c.dataset.h);mount(c.querySelector('.chr'),'pony',x.coat||'#8a4b26',{horse:x.id,onTap:()=>toast(`Hold ${x.name} to talk about it`),onHold:E=>{talkers=[E];listen(E,x,r=>{toast(r.say);speak(r.say);talkers=[home]})}})});
- document.querySelectorAll('#ring .mem').forEach(el=>{const m=TEAM.find(t=>t.id===el.dataset.m);mount(el.querySelector('.chr'),m.sty,null,{onTap:()=>openTeam(m)})});
+ document.querySelectorAll('.hc:not(.tm)').forEach(c=>{const x=H(c.dataset.h);mount(c.querySelector('.chr'),'pony',x.coat||'#8a4b26',{horse:x.id,onTap:()=>toast(`Hold ${x.name} to talk about it`),onHold:E=>{talkers=[E];listen(E,x,r=>{toast(r.say);speak(r.say);talkers=[home]})}})});
+ document.querySelectorAll('#ring .mem').forEach(el=>{const m=TEAM.find(t=>t.id===el.dataset.m);mount(el.querySelector('.chr'),m.sty,null,{onTap:()=>{const c=document.querySelector(`.tm[data-m="${m.id}"]`);if(c)c.scrollIntoView({behavior:reduce?'auto':'smooth'})}})});
+ document.querySelectorAll('.tm').forEach(c=>{const m=TEAM.find(t=>t.id===c.dataset.m);mount(c.querySelector('.chr'),m.sty,null,{helper:m.id,onTap:()=>toast(`Hold ${m.name} to talk`),onHold:E=>{talkers=[E];listen(E,null,r=>{toast(r.say);speak(r.say);talkers=[EYES.find(x=>x.home)]})}})});
  ringPlace();paint()}
 function ringPlace(){const ms=[...document.querySelectorAll('#ring .mem')];ms.forEach((el,k)=>{const a=k/ms.length*Math.PI*2-Math.PI/2;el.style.left=(50+Math.cos(a)*36)+'%';el.style.top=(50+Math.sin(a)*36)+'%'})}
 
@@ -328,7 +339,7 @@ function itemHTML(x,showHorse){return `<div class="item"><div class="t"><b class
 function paint(){const all=allTodos(),t=iso(today());
  const hs=$('#homeSub');if(hs)hs.innerHTML=DB.horses.length?(all.length?`<span class="chip red">${all.length} to do</span>`:'<span class="chip green">All good</span>')+`&nbsp; ${DB.horses.length} horse${DB.horses.length>1?'s':''}`:'Your race stable, run by little helpers. Tap Coach and talk.';
  const td=$('#today');if(td)td.innerHTML=DB.horses.length?(all.length?all.slice(0,8).map(x=>itemHTML(x,true)).join(''):'<p class="empty">Nothing due this week. Tap Coach and say what happened today.</p>'):'';
- document.querySelectorAll('.hc').forEach(c=>{const h=H(c.dataset.h);if(!h)return;const l=todos(h,true),due=l.filter(x=>!x.hide);
+ document.querySelectorAll('.hc:not(.tm)').forEach(c=>{const h=H(c.dataset.h);if(!h)return;const l=todos(h,true),due=l.filter(x=>!x.hide);
   c.querySelector('[data-meta]').textContent=[h.sex,h.year&&(new Date().getFullYear()-h.year)+' yrs',h.owner&&'Owner: '+h.owner].filter(Boolean).join(' · ')||'Tap Info to add details';
   const top=due[0];c.querySelector('[data-chip]').innerHTML=top?`<span class="chip ${top.late?'red':'amber'}">${esc(top.text)}</span>`:'<span class="chip green">All good</span>';
   const ni=c.querySelector('[data-n]');ni.hidden=!due.length;ni.textContent=due.length;
@@ -339,6 +350,22 @@ function paint(){const all=allTodos(),t=iso(today());
   const coat=(COATS.find(c=>c[1]===h.coat)||['',''])[0];
   c.querySelector('[data-p="info"]').innerHTML=`<dl class="kv"><dt>Owner</dt><dd>${esc(h.owner||'·')}</dd><dt>Phone</dt><dd>${esc(h.phone||'·')}</dd><dt>Sex</dt><dd>${esc(h.sex||'·')}</dd><dt>Born</dt><dd>${esc(h.year||'·')}</dd><dt>Coat</dt><dd>${esc(coat||'·')}</dd><dt>Board</dt><dd>${+h.board?'$'+(+h.board).toLocaleString('en-US')+' / month':'·'}</dd><dt>Feed</dt><dd>${esc(h.feed||'·')}</dd><dt>Notes</dt><dd>${esc(h.notes||'·')}</dd></dl>
    <div class="row"><button class="btn dark" data-edit="${h.id}">Edit</button>${h.owner?`<button class="btn green" data-upd="${h.id}">Send update to owner</button>`:''}</div>`});
+ document.querySelectorAll('.tm').forEach(c=>{const m=TEAM.find(x=>x.id===c.dataset.m),mine=all.filter(x=>x.team===m.id);
+  c.querySelector('[data-chip]').innerHTML=mine.length?`<span class="chip ${mine.some(x=>x.late)?'red':'amber'}">${mine.length} to do</span>`:'<span class="chip green">All good</span>';
+  const ni=c.querySelector('[data-n]');ni.hidden=!mine.length;ni.textContent=mine.length;
+  c.querySelector('[data-p="todo"]').innerHTML=(mine.length?mine.map(x=>itemHTML(x,true)).join(''):'<p class="empty">Nothing to do right now.</p>')+`<p class="note">Hold ${esc(m.name)} and talk, like "${esc(DB.horses[0]?.name||'Canelo')} ${m.id==='farrier'?'got shod today':m.id==='health'?'got dewormed today':m.id==='training'?'worked 4 furlongs':m.id==='races'?'won today':m.id==='owners'?'paid board':'ate everything'}".</p>`;
+  let rc='';
+  if(m.id==='feed')rc=DB.horses.length?`<ul class="tl">${DB.horses.map(h=>`<li><span class="w"><b>${esc(h.name)}</b><small>${esc(h.feed||'No feed plan yet')}</small></span><button data-edit="${h.id}" style="color:var(--ink);font-weight:600">Edit</button></li>`).join('')}</ul>`:'<p class="empty">Add a horse first.</p>';
+  else if(m.id==='owners'){const mk=monthKey(t);const hs=DB.horses.filter(h=>h.owner);
+   rc=hs.length?`<p class="note" style="color:var(--ink);font-weight:600;margin:0 0 6px">${monthName(mk)} board</p><ul class="tl">${hs.map(h=>{const p=DB.events.find(e=>e.h===h.id&&e.t==='paid'&&e.m===mk);return `<li><span class="w"><b>${esc(h.owner)}</b> · ${esc(h.name)}<small>${+h.board?'$'+(+h.board).toLocaleString('en-US'):'No board set'}${p?' · paid '+fmt(p.d):''}</small></span>${+h.board&&!p?`<button data-do="${h.id}|paid|" style="color:var(--ink);font-weight:600">Paid</button>`:p?'<span style="color:var(--green);font-weight:600">✓</span>':''}</li>`}).join('')}</ul>`:'<p class="empty">No owners yet. Add them in each horse\'s Info.</p>'}
+  else{const ev=DB.events.filter(e=>m.types.includes(e.t)).sort((a,b)=>a.d<b.d?1:-1).slice(0,40);
+   rc=ev.length?`<ul class="tl">${ev.map(e=>{const h=H(e.h);return `<li><span class="d">${fmt(e.d)}</span><span class="w">${CARE[e.t].icon} ${esc(h?h.name:'')} · ${CARE[e.t].label}${e.p?` (${e.p===1?'won':'#'+e.p})`:''}${e.n?`<small>${esc(e.n)}</small>`:''}</span></li>`}).join('')}</ul>`:'<p class="empty">Nothing logged yet.</p>'}
+  c.querySelector('[data-p="recent"]').innerHTML=rc;
+  c.querySelector('[data-p="tools"]').innerHTML=`<ul class="tools">${m.tools.map(([n,d,st])=>`<li><span class="s ${st}">${st==='on'?'on':st==='setup'?'needs setup':'off'}</span><span>${esc(n)}<small>${esc(d)}</small></span></li>`).join('')}</ul><p class="note">"Needs setup" tools are not connected yet. Everything marked on works on this phone.</p>`;
+  const how={health:`Doc reminds you about deworming every ${DB.every.deworm} days, shots every ${DB.every.vaccine} days and teeth every ${DB.every.dental} days. Vet visits are logged when you tell Doc.`,
+   farrier:`Smithy reminds you every ${DB.every.farrier} days after the last shoeing.`,training:`Coach reminds you when a horse in training has not worked in ${DB.workGap} days. Say the work, like "4 furlongs in 48.2".`,
+   races:`Flash shows races coming up this week and asks for the result after race day.`,feed:'Lupe keeps each horse\'s feed plan. Edit it in the horse\'s Info.',owners:'Don asks you to collect board each month and to send owners an update every 2 weeks, by WhatsApp with one tap.'}[m.id];
+  c.querySelector('[data-p="how"]').innerHTML=`<p style="font-size:16px;line-height:1.4">${how}</p><p class="note">These are common schedules. Change them in Settings to match your vet and farrier.</p><div class="row"><button class="btn" data-settings="1">⚙ Settings</button></div>`});
  document.querySelectorAll('#ring .mem').forEach(el=>{const n=all.filter(x=>x.team===el.dataset.m).length;const s=el.querySelector('[data-mc]');s.textContent=n?`${n} to do`:'all good';s.className=n?'red':''})}
 
 /* ---------- taps ---------- */
@@ -347,7 +374,7 @@ feed.addEventListener('click',e=>{const b=e.target.closest('button,a');if(!b)ret
  if(b.id==='hType')return openAsk(null);
  if(b.id==='addBtn')return openHorse(null);
  if(b.id==='sampleBtn')return loadSample();
- if(b.id==='setBtn')return openSettings();
+ if(b.id==='setBtn'||b.dataset.settings)return openSettings();
  if(b.dataset.tab!=null){const c=b.closest('.card'),st=c.querySelector('.strip');st.scrollTo({left:st.clientWidth*+b.dataset.tab,behavior:reduce?'auto':'smooth'});return}
  if(b.dataset.do){const [hid,k,rid]=b.dataset.do.split('|');const h=H(hid);const x=todos(h,true).find(x=>x.k===k&&(!rid||(x.race&&x.race.id===rid)));if(x)doTodo(x);return}
  if(b.dataset.log){const [hid,k]=b.dataset.log.split('|');const h=H(hid);if(['work','race','vet','note'].includes(k))return openLog(h,k);return addEv(h,k)}
@@ -359,7 +386,7 @@ feed.addEventListener('click',e=>{const b=e.target.closest('button,a');if(!b)ret
  if(b.dataset.upd)return sendUpdate(H(b.dataset.upd))});
 feed.addEventListener('scroll',e=>{},{passive:true});
 document.addEventListener('scroll',e=>{const st=e.target;if(!st.classList||!st.classList.contains('strip'))return;const i=Math.round(st.scrollLeft/st.clientWidth);st.closest('.card').querySelectorAll('.tabs button').forEach((b,j)=>b.classList.toggle('on',i===j))},{capture:true,passive:true});
-$('#stName')?.addEventListener('click',()=>openSettings());
+
 
 /* ---------- sheets ---------- */
 function sheet(html){$('#shBody').innerHTML=html;$('#sh').classList.add('on');$('#scrim').classList.add('on')}
@@ -408,7 +435,7 @@ function openSettings(){sheet(`<h3>⚙ Settings${X}</h3><form id="sf"><label cla
   <p class="note">These are common schedules. Your vet and farrier know your horses best, so change them to match.</p>
   <div class="row"><button class="btn dark" style="flex:1">Save</button></div></form>
   <div class="row"><button class="btn ${HM&&HM.handsOn()?'green':''}" id="handBtn">✋ Hands-free: ${HM&&HM.handsOn()?'on':'off'}</button></div>
-  <p class="note">Hands-free uses the front camera on this phone only. Point and the helpers look at your finger. Thumbs up marks the top to-do done. Open hand stops talking. Swipe your hand in the air to move.</p>
+  <p class="note">Hands-free uses the front camera on this phone only. It works like a mouse in the air: a dot follows your finger. Pinch (thumb and finger together) to tap. Pinch, drag up or down and let go to change cards; drag sideways to change tabs. Thumbs up marks the top to-do done. Open hand stops talking.</p>
   <div class="row"><button class="btn" id="expBtn">Save a backup file</button>${DB.sample?'<button class="btn" id="clrBtn" style="color:var(--red)">Remove sample horses</button>':''}</div>
   <p class="note">Everything is saved on this phone only. Make a backup now and then.</p>`);
  $('#sf').addEventListener('submit',e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));DB.name=f.name.replace(/[<>]/g,'').trim()||'My stable';DUE.forEach(k=>{const v=parseInt(f['e_'+k]);if(v>0)DB.every[k]=v});const g=parseInt(f.gap);if(g>0)DB.workGap=g;save();closeSheet();build();toast('Saved.')});
@@ -430,14 +457,14 @@ function loadSample(){const t=iso(today()),A=n=>addD(t,-n);
 let HM=null;
 const curCard=()=>{const cs=[...feed.querySelectorAll('.card')];return cs[Math.max(0,Math.min(cs.length-1,Math.round(feed.scrollTop/innerHeight)))]};
 function handGesture(g){const c=curCard();if(!c)return;
- if(g==='palm'){if(synth)synth.cancel();if(rec)try{rec.abort()}catch(_){}toast('✋ Stopped.');return}
+ if(g==='palm'){if(synth)synth.cancel();if(recStop)recStop();toast('✋ Stopped.');return}
  if(g==='up'||g==='down'){feed.scrollBy({top:(g==='up'?1:-1)*innerHeight,behavior:'smooth'});return}
  if(g==='left'||g==='right'){const st=c.querySelector('.strip');if(st)st.scrollBy({left:(g==='left'?1:-1)*st.clientWidth,behavior:'smooth'});return}
  if(g==='thumbs'){const h=c.dataset.h&&H(c.dataset.h);const l=(h?todos(h,false).filter(x=>!x.hide):allTodos()).filter(x=>x.act&&(DUE.includes(x.k)||x.k==='paid'));
   if(!l.length){toast('👍 Nothing to mark done here.');return}const x=l[0];doTodo(x);speak(`Done. ${x.h.name}: ${x.text}.`)}}
 async function toggleHands(){HM=HM||await import('../agents-mochi/hands.js');if(HM.handsOn()){HM.stopHands();return}
  HM.startHands({onPoint:(x,y)=>window.__airPoint(x,y),onGesture:handGesture,onState:(st,e)=>{const b=$('#handBtn');if(b){b.textContent='✋ Hands-free: '+(st==='on'?'on':st==='loading'?'starting…':'off');b.classList.toggle('green',st==='on')}
-  if(st==='on'){closeSheet();toast('✋ Hands-free on. Thumbs up = done.')}
+  if(st==='on'){closeSheet();toast('✋ Hands-free on. Pinch to tap, pinch and drag to scroll.')}
   if(st==='error')toast(e&&e.name==='NotAllowedError'?'The camera is blocked. Allow it in your browser settings.':'Hands-free could not start on this phone.')}})}
 build();
 import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
