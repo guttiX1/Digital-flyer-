@@ -1,13 +1,13 @@
 /* ---------- programa (tal como viene en el cartel del 11 de octubre) ---------- */
 // [caballo, cuadra, foto]. Fotos = imágenes del cartel hasta tener fotos reales.
 const RACES=[
- {time:'10:40',dist:'350 yds',h:[['EL JOCKER','C. FE','w1'],['EL CAÑERO','C. Cañeros','w3m']]},
- {time:'11:20',dist:'250 yds',h:[['EL MACHETE','C. Don Chuy','w2'],['EL HUEVOS DE ORO','C. FE','w4m']]},
- {time:'12:00',dist:'200 yds',h:[['EL MAL EJEMPLO','C. Tilichas','w4'],['EL ROJO','C. Cañeros','w1m']]},
- {time:'12:40',dist:'400 yds',h:[['LA KORITA','C. Tilichas','w3'],['EL ALQAEDA','C. Ramírez','w2m']]},
- {time:'1:20',dist:'200 yds',c:['#d62718','#e8710c','#7b3fc4','#1f5fd6'],h:[['EL VOLCÁN','C. Rancho Viejo','v1'],['EL INVASOR','C. Jerusalem','v2'],['EL PATAS BLANCAS','C. Hernández','v4'],['LA EMMA','C. Venzor','v3']]},
- {time:'2:00',dist:'350 yds',h:[['LA DRAMÁTICA','C. Tilichas','w2',' (blanco)'],['EL VIEJITO','C. Ramírez','w3m']]},
- {time:'2:40',dist:'225 o 250 yds',h:[['LA MEDIA NOCHE','C. RO','w1'],['LA TORMENTA','C. Jerusalem','w4m']]},
+ {time:'10:40',dist:'350 yds',h:[['EL JOCKER','C. FE','h01'],['EL CAÑERO','C. Cañeros','h02']]},
+ {time:'11:20',dist:'250 yds',h:[['EL MACHETE','C. Don Chuy','h03'],['EL HUEVOS DE ORO','C. FE','h04']]},
+ {time:'12:00',dist:'200 yds',h:[['EL MAL EJEMPLO','C. Tilichas','h05'],['EL ROJO','C. Cañeros','h06']]},
+ {time:'12:40',dist:'400 yds',h:[['LA KORITA','C. Tilichas','h07'],['EL ALQAEDA','C. Ramírez','h08']]},
+ {time:'1:20',dist:'200 yds',c:['#d62718','#e8710c','#7b3fc4','#1f5fd6'],h:[['EL VOLCÁN','C. Rancho Viejo','h09'],['EL INVASOR','C. Jerusalem','h10'],['EL PATAS BLANCAS','C. Hernández','h11'],['LA EMMA','C. Venzor','h12']]},
+ {time:'2:00',dist:'350 yds',h:[['LA DRAMÁTICA','C. Tilichas','h13',' (blanco)'],['EL VIEJITO','C. Ramírez','h14']]},
+ {time:'2:40',dist:'225 o 250 yds',h:[['LA MEDIA NOCHE','C. RO','h15'],['LA TORMENTA','C. Jerusalem','h16']]},
 ].map((r,i)=>({...r,n:i+1}));
 const NR=RACES.length;
 // del cartel del 9 de agosto (mismo carril): quién ya corrió aquí
@@ -24,7 +24,7 @@ $('#tick').innerHTML=[...ALL,...ALL].map(h=>h[0]).join('<b>/</b>');
 $('#pl').innerHTML=RACES.map(r=>`<button data-go="${r.n}"><i>${r.time}</i><span>${r.h.map(h=>`<b>${tc(h[0])}</b>`).join('<em>vs</em>')}</span><small>${r.dist}</small></button>`).join('');
 
 /* ---------- tarjetas de carrera ---------- */
-const img=k=>`img/${k}.jpg?v=1`;
+const img=k=>`../gran-maturity-g2-oct31/img/${k}.jpg?v=5`;
 function datos(r){
   const rows=r.h.map(h=>{const otros=byCuadra[h[1]].filter(x=>x!==h[0]);return `<div><dt>${tc(h[0])}</dt><dd>${h[1]}${otros.length?`<small>también corre ${otros.map(tc).join(' y ')}</small>`:''}</dd></div>`}).join('');
   const ya=r.h.filter(h=>AGO9[h[0]]).map(h=>`<div><dt>${tc(h[0])}</dt><dd>${AGO9[h[0]]}<small>resultado sin capturar</small></dd></div>`).join('');
@@ -42,7 +42,7 @@ $('#races').innerHTML=RACES.map(r=>{const four=r.h.length>2;
    <div class="panel">
     ${four?`<div class="quad">${r.h.map((h,i)=>face(r,i,'q q'+i)).join('')}</div><div class="vs vs4">VS</div>`
           :`${face(r,0,'ha')}${face(r,1,'hb')}<div class="vs">VS</div>`}
-    <span class="ph-note">Imagen del cartel · toca para ver</span>
+    <span class="ph-note">Foto de ejemplo · toca para ver</span>
     <div class="picks"><div class="q">¿Quién gana?<span>cambia tu pick antes de la carrera</span></div>
      <div class="bt">${r.h.map((h,i)=>`<button data-p="${i}" style="--c:${COL(r)[i]}">${tc(h[0])}</button>`).join('')}</div></div>
    </div>
@@ -97,7 +97,7 @@ const goRace=e=>{const b=e.target.closest('[data-go]');if(b)goCard(document.quer
 $('#ml').addEventListener('click',goRace);$('#pl').addEventListener('click',goRace);
 $('#pk').addEventListener('click',()=>goCard($('#mine')));
 const lb=$('#lb');
-document.querySelectorAll('.half .ph').forEach(btn=>{const h=btn.closest('.half'),im=btn.querySelector('img');btn.addEventListener('click',()=>{lb.querySelector('img').src=im.src;lb.querySelector('b').textContent=h.querySelector('.who b').textContent;lb.querySelector('small').textContent=h.querySelector('.who small').textContent+' · imagen del cartel';lb.classList.add('open')})});
+document.querySelectorAll('.half .ph').forEach(btn=>{const h=btn.closest('.half'),im=btn.querySelector('img');btn.addEventListener('click',()=>{lb.querySelector('img').src=im.src;lb.querySelector('b').textContent=h.querySelector('.who b').textContent;lb.querySelector('small').textContent=h.querySelector('.who small').textContent+' · foto de ejemplo';lb.classList.add('open')})});
 lb.addEventListener('click',()=>lb.classList.remove('open'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
 
