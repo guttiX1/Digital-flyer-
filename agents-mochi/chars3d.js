@@ -42,6 +42,7 @@ function bean(r,o={}){const sx=.95,sy=1.05,sz=.9;r.body.add(M(SPH(1,64,48),o.mat
  if(!o.noCheeks)cheeks(r,r.body,[[-.52,-.05,zOn(.52,-.05,sx,sy,sz)-.06],[.52,-.05,zOn(.52,-.05,sx,sy,sz)-.06]]);
  if(!o.float)feet(r,[[-.42,-.92,.12],[.42,-.92,.12]],o.feetMat);else r.float=true;
  return {sx,sy,sz}}
+function hand(r,x,y,z){r.body.add(M(SPH(.14,20,14),r.skin(-.05),[x,y,z]))}
 function glasses(parent,ex,ey,ez,rr,c='#1b1b1f'){const m=mat(c,{roughness:.3});[-ex,ex].forEach(x=>parent.add(M(new THREE.TorusGeometry(rr,.035,10,36),m,[x,ey,ez])));
  parent.add(M(new THREE.CylinderGeometry(.025,.025,ex*2-rr*2,8),m,[0,ey+.02,ez],null,[0,0,Math.PI/2]))}
 function tie(r,y,z,c='#d93a3a'){const m=mat(c);r.body.add(M(SPH(.075,16,12),m,[0,y,z+.03],[1,.8,.6]));
@@ -125,6 +126,37 @@ const B={
   r.body.add(M(SPH(.2,24,16),r.skin(-.3),[0,1.08,0]));r.body.add(M(new THREE.CylinderGeometry(.22,.22,.08,24),mat('#f2c230',{metalness:.4}),[0,.96,0]));
   r.body.add(M(new THREE.TorusGeometry(.1,.025,8,24),mat('#f2c230',{metalness:.5,roughness:.2}),[.93,-.12,.05],null,[0,Math.PI/2,0]));
   const mu=mat('#1d1d22');[-1,1].forEach(s=>r.body.add(M(new THREE.CapsuleGeometry(.04,.2,6,12),mu,[s*.14,-.06,.86],null,[0,0,s*1.3])));return r},
+ // business crew
+ mega:()=>{const r=rig('#ff6b4a');bean(r);hand(r,.88,-.15,.4);const w=matte('#ffffff'),o=mat('#ff8a1f');
+  const mg=new THREE.Group();mg.position.set(1.05,.0,.45);mg.rotation.set(0,-.5,-.35);r.body.add(mg);
+  mg.add(M(new THREE.CylinderGeometry(.09,.3,.55,32,1,true),mat('#ffffff',{side:THREE.DoubleSide}),[0,.28,0]));mg.add(M(new THREE.TorusGeometry(.3,.03,8,32),o,[0,.56,0],null,[Math.PI/2,0,0]));mg.add(M(new THREE.CylinderGeometry(.1,.1,.12,20),o,[0,-.02,0]));
+  const sw=new THREE.Group();sw.position.set(1.25,.45,.6);r.body.add(sw);r.sway=sw;[0,1,2].forEach(i=>sw.add(M(new THREE.TorusGeometry(.12+i*.1,.022,8,24,Math.PI*.7),o,[i*.05,i*.06,0],null,[0,0,-.6])));return r},
+ pixel:()=>{const r=rig('#e84393');bean(r);hand(r,.85,-.1,.35);
+  const sg=new THREE.Group();sg.position.set(.95,-.05,.35);r.body.add(sg);r.sway=sg;sg.add(M(new THREE.CylinderGeometry(.03,.03,1.1,10),mat('#8a6a4a',{roughness:.6}),[0,.5,0]));
+  const bd=new THREE.Group();bd.position.set(0,1.15,0);sg.add(bd);['#e2452b','#ffffff','#e2452b','#ffffff','#e2452b'].forEach((c,i)=>bd.add(M(new THREE.CylinderGeometry(.34-i*.068,.34-i*.068,.04+i*.012,40),matte(c),[0,0,0],null,[Math.PI/2,0,0])));
+  return r},
+ buzz:()=>{const r=rig('#2fb5c8');bean(r);hand(r,.82,-.2,.45);
+  r.body.add(M(new RoundedBoxGeometry(.38,.66,.06,4,.06),mat('#1d1d22',{roughness:.2}),[.92,.0,.5],null,[0,-.4,-.15]));r.body.add(M(new RoundedBoxGeometry(.32,.56,.02,4,.04),basic('#ffd84a'),[.935,.0,.535],null,[0,-.4,-.15]));
+  const ht=new THREE.Group();ht.position.set(-.6,1.15,.3);r.body.add(ht);r.sway=ht;const hm=mat('#ff3b5c');ht.add(M(SPH(.13,24,16),hm,[-.09,0,0]));ht.add(M(SPH(.13,24,16),hm,[.09,0,0]));ht.add(M(new THREE.ConeGeometry(.18,.24,24),hm,[0,-.14,0],null,[Math.PI,0,0]));return r},
+ deal:()=>{const r=rig('#4a86f5');bean(r);tie(r,-.42,.8,'#ffb000');hand(r,.82,-.55,.3);
+  const bc=new THREE.Group();bc.position.set(1.0,-.75,.25);r.body.add(bc);bc.add(new THREE.Mesh(new RoundedBoxGeometry(.6,.42,.18,4,.05),mat('#7a4a2a',{roughness:.45})));bc.add(M(new THREE.TorusGeometry(.1,.025,8,20,Math.PI),mat('#3a2414'),[0,.22,0]));bc.add(M(new THREE.BoxGeometry(.08,.05,.02),mat('#f2c230',{metalness:.5}),[0,.08,.1]));
+  r.body.add(M(SPH(.62,32,16,0,Math.PI*2,0,Math.PI*.3),mat('#4a2e1a',{roughness:.55}),[0,.42,0],[1.4,1.2,1.3]));return r},
+ cash:()=>{const r=rig('#3fbf6f');bean(r,{ey:.15});const g=mat('#1f9a5a',{transparent:true,opacity:.85});
+  r.body.add(M(new THREE.TorusGeometry(.86,.05,8,48),mat('#1d1d22'),[0,.52,0],[1,.95,1],[Math.PI/2,0,0]));r.body.add(M(new THREE.CylinderGeometry(.6,.6,.03,32,1,false,-Math.PI*.5,Math.PI),g,[0,.5,.5],[1,1,1.1]));
+  hand(r,.6,-.55,.6);const cl=new THREE.Group();cl.position.set(.45,-.55,.85);cl.rotation.set(-.5,-.2,0);r.body.add(cl);cl.add(new THREE.Mesh(new RoundedBoxGeometry(.42,.56,.08,4,.05),mat('#e9edf2')));
+  cl.add(M(new THREE.BoxGeometry(.32,.12,.02),basic('#9ee6b8'),[0,.16,.045]));for(let i=0;i<3;i++)for(let j=0;j<3;j++)cl.add(M(new THREE.BoxGeometry(.08,.06,.03),mat(i===2&&j===2?'#ff8a1f':'#3a3f48'),[-.1+j*.1,-.02-i*.1,.045]));return r},
+ ink:()=>{const r=rig('#ffc22e');bean(r);glasses(r.body,.3,.2,.86,.21);hand(r,.85,-.1,.4);
+  const pc=new THREE.Group();pc.position.set(1.0,.1,.4);pc.rotation.z=-.5;r.body.add(pc);r.sway=pc;pc.add(M(new THREE.CylinderGeometry(.07,.07,.9,6),mat('#ffb000'),[0,0,0]));pc.add(M(new THREE.ConeGeometry(.07,.18,6),mat('#f3d6a8',{roughness:.6}),[0,-.54,0],null,[Math.PI,0,0]));
+  pc.add(M(new THREE.ConeGeometry(.025,.06,6),mat('#2a2a2e'),[0,-.62,0],null,[Math.PI,0,0]));pc.add(M(new THREE.CylinderGeometry(.075,.075,.08,12),mat('#b0b5bd',{metalness:.5}),[0,.48,0]));pc.add(M(new THREE.CylinderGeometry(.07,.07,.1,12),mat('#ff8fa3'),[0,.57,0]));return r},
+ arty:()=>{const r=rig('#ff9ccf');bean(r);const be=mat('#d93a3a',{roughness:.6});r.body.add(M(SPH(.62,32,20),be,[.12,.95,0],[1.25,.38,1.15],[0,0,-.2]));r.body.add(M(new THREE.CylinderGeometry(.03,.03,.12,8),be,[.1,1.18,0]));
+  hand(r,-.85,-.25,.4);const pl=new THREE.Group();pl.position.set(-.95,-.3,.45);pl.rotation.set(1.1,0,.3);r.body.add(pl);pl.add(M(SPH(.36,32,16),matte('#e6c79a'),null,[1.2,1,.12]));
+  ['#e2452b','#ffb000','#3fbf6f','#4a86f5','#ffffff'].forEach((c,i)=>{const a=i/5*Math.PI*1.4-.3;pl.add(M(SPH(.06,12,10),mat(c),[Math.cos(a)*.26,Math.sin(a)*.2,.04],[1,1,.4]))});
+  const br=new THREE.Group();br.position.set(.95,.05,.4);br.rotation.z=-.7;r.body.add(br);r.sway=br;hand(r,.85,-.1,.4);br.add(M(new THREE.CylinderGeometry(.03,.03,.7,8),mat('#8a6a4a'),[0,0,0]));br.add(M(new THREE.ConeGeometry(.06,.16,10),mat('#4a86f5'),[0,.42,0]));return r},
+ plan:()=>{const r=rig('#2fae7d');bean(r);hand(r,-.62,-.5,.6);
+  const cb=new THREE.Group();cb.position.set(-.48,-.42,.85);cb.rotation.set(-.35,.25,.12);r.body.add(cb);cb.add(new THREE.Mesh(new RoundedBoxGeometry(.5,.66,.05,3,.03),mat('#a0754a',{roughness:.5})));
+  cb.add(M(new THREE.BoxGeometry(.42,.54,.01),matte('#ffffff'),[0,-.03,.03]));cb.add(M(new THREE.BoxGeometry(.2,.08,.05),mat('#b0b5bd',{metalness:.6}),[0,.32,.03]));
+  for(let i=0;i<4;i++){cb.add(M(new THREE.BoxGeometry(.05,.05,.01),basic(i<2?'#1d9e6a':'#c8ccd2'),[-.14,.13-i*.12,.04]));cb.add(M(new THREE.BoxGeometry(.22,.025,.01),basic('#c8ccd2'),[.04,.13-i*.12,.04]))}
+  r.body.add(M(SPH(.08,12,10),mat('#1d1d22'),[.93,.1,.15]));return r},
  // Halloween crew
  jack:()=>{const r=rig('#ff8a1f');const g=SPH(1,72,48),p=g.attributes.position;
   for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),a=Math.atan2(z,x),k=1-.07*Math.pow(Math.abs(Math.sin(a*4)),.6);p.setXYZ(i,x*k,y,z*k)}g.computeVertexNormals();

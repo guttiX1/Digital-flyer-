@@ -213,7 +213,7 @@ button{font:inherit;color:inherit}
 .t-on{background:#e5f6ec;color:#14532d}.t-setup{background:#fff4d6;color:#7a5200}.t-off{background:var(--soft);color:var(--dim)}
 /* modo limpio: solo los ojos y sus nombres */
 body.clean .top,body.clean .rail,body.clean .home,body.clean .tabs,body.clean .meta,body.clean .row1,body.clean .reveal,body.clean .more,body.clean .say{display:none!important}
-body.clean #intro>*:not(svg.eye):not(h1){display:none!important}
+body.clean #intro>*:not(svg.eye):not(h1):not(.ob){display:none!important}
 body.clean #intro{justify-content:center;padding-bottom:12vh}
 body.clean .strip{top:0}
 body.clean .huddle .lbl,body.clean .huddle .sub,body.clean .huddle h2,body.clean .hu small{display:none}
@@ -223,6 +223,12 @@ body:not(.clean) .cleanhint{opacity:0}
 #intro>*,.ag .row1,.ag .reveal,.tabs,.meta{animation:fadeup .4s cubic-bezier(.2,1,.3,1) both}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}}
 svg.m3>:not(.m3img){opacity:0}svg.m3.live>.m3img{opacity:0}canvas.m3c{position:absolute;pointer-events:none;z-index:1}
+.ob#oBub{max-width:min(330px,86vw);margin:10px auto 0;padding:10px 15px;border-radius:18px;background:#f4f1e8;color:var(--ink);font-size:15.5px;line-height:1.3;text-align:center;white-space:pre-line;display:none}
+.ob#oBub.on{display:block}.ob#oBub.ear{background:#fde9e6;color:#8a2a1a}
+.obar{display:none;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}.obar.on{display:flex}
+.obar button{border:0;border-radius:22px;padding:10px 16px;font:600 15px Fredoka,sans-serif;background:var(--soft);color:var(--ink);cursor:pointer}
+.obar #oTalk.rec{background:var(--red);color:#fff}
+body:not(.clean) .ob{display:none!important}
 .m3tip{font-size:12px;color:#8a8a90;margin-top:2px;text-align:center}
 .pick .pkh{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--dim);margin:10px 2px 0}.pick .pkh small{font-weight:500}
 .pick img{width:100%;display:block;aspect-ratio:400/430;object-fit:contain}
@@ -294,6 +300,7 @@ const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
 const CHARS=[['Creatures',[['mochi','Mochi'],['blob','Blob'],['fuzz','Fuzz'],['boo','Boo'],['pip','Pip'],['tako','Tako'],['rex','Rex'],['byte','Byte']]],
+ ['Business',[['mega','Mega · Marketing'],['pixel','Pixel · Ads'],['buzz','Buzz · Social'],['deal','Deal · Sales'],['cash','Cash · Books'],['ink','Ink · Writer'],['arty','Arty · Design'],['plan','Plan · Planner']]],
  ['Mascots',[['toro','Toro'],['hoot','Hoot']]],['Office',[['clip','Clip'],['boss','Boss'],['tech','Tech'],['hardy','Hardy']]],
  ['Magic',[['merlo','Merlo'],['sage','Sage'],['fae','Fae'],['genie','Genie']]],['Halloween',[['jack','Jack'],['nyx','Nyx'],['wrap','Wrap'],['hex','Hex']]]];
 const CHAR=new Map(CHARS.flatMap(([,l])=>l));
@@ -382,7 +389,7 @@ const feed=$('#feed');
 const dotBg=c=>`radial-gradient(circle at 38% 32%,${shade(c,.42)},${c} 60%,${shade(c,-.38)})`;
 const nextDL=a=>DL.find(d=>d.ag===a.id&&!d.wait&&daysTo(d.date)>0);
 let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
- <h1>The Oracle</h1><p class="sub" id="oSub"></p><p class="sub" id="oMood" style="margin-top:2px"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
+ <h1>The Oracle</h1><div class="ob" id="oBub"></div><div class="ob obar" id="oBar"><button id="oTalk">🎤 Talk</button><button id="oChat">💬 Chat</button><button id="oAll">Show everything</button></div><p class="sub" id="oSub"></p><p class="sub" id="oMood" style="margin-top:2px"></p><p class="dl">${DL.map(d=>`<span><b>${daysTo(d.date)}</b> days${d.wait?' till':' to'} ${d.what}</span>`).join('')}</p><button class="ask" id="askOracle">Ask the Oracle</button>
  <div class="who">${AG.map((a,i)=>`<button data-go="${i}"><i class="dot" style="background:${dotBg(a.color)}"></i>${a.name}<em id="who-${i}"></em></button>`).join('')}</div>
  <button class="setb" id="setBtn">⚙ Settings</button>
  <div class="ns" id="setS" role="dialog" aria-label="Settings"><h3><span>Settings</span><button id="setX" aria-label="Close">✕</button></h3>
@@ -527,7 +534,7 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
   const rh=E.svg.getBoundingClientRect().height;if(dy>Math.max(80,rh*.33)&&dxx<45&&dy>.88*E.path&&performance.now()-E.tDown<800){E.y0=null;snoozeEye(E);return}
   const r=E.svg.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.45,an=Math.atan2(e.clientY-cy,e.clientX-cx);
   if(Math.hypot(e.clientX-cx,e.clientY-cy)>r.width*.12&&E.an!=null){let d=an-E.an;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;if(Math.abs(d)<1.1){E.rub=(E.rub||0)+Math.abs(d);if(E.rub>Math.PI*2.6&&E.path>r.width*1.2){E.rub=0;E.path=0;purr(E)}}}E.an=an});
- svg.addEventListener('pointerdown',e=>{grow(E,true);E.tDown=performance.now();E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep)holdStart(E,e)});
+ svg.addEventListener('pointerdown',e=>{grow(E,true);E.tDown=performance.now();E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep&&!(E.svg.closest('#intro')&&document.body.classList.contains('clean')))holdStart(E,e)});
  ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E);setTimeout(()=>{if(!(chA&&chE===E)&&!E.listening)grow(E,false)},700)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
@@ -583,7 +590,7 @@ requestAnimationFrame(frame);
 
 
 function poke(E){SFX.pop();if(CHAR.has(E.sty)&&'vibrate' in navigator)navigator.vibrate(12);E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
- const c=E.svg.closest('.card');if(!c||chA)return;if(c.id==='intro'||c.dataset.i!==undefined)toggleClean()}
+ const c=E.svg.closest('.card');if(!c||chA)return;if(c.id==='intro'&&document.body.classList.contains('clean')){oracleTap(E);return}if(c.id==='intro'||c.dataset.i!==undefined)toggleClean()}
 function toggleClean(){const on=document.body.classList.toggle('clean');if(!on){setTimeout(()=>say(prophecy(),5000),400)}else $('#say').classList.remove('on');setTimeout(rail,50)}
 document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 
@@ -849,6 +856,30 @@ $('#pinBtn').addEventListener('click',()=>{if(S.pin){S.pin='';save();paintPinBtn
 paintPinBtn();if(S.pin)showLock('open');
 $('#homeBtn').addEventListener('click',()=>say(/iphone|ipad/i.test(navigator.userAgent)?'In Safari: tap Share, then "Add to Home Screen".':'In Chrome: tap ⋮, then "Add to Home screen".',5000));
 
+/* ---------- Oráculo: tocar = voz primero, luego chat, luego todo ---------- */
+let oRec=null,oBarT=0;
+const oEye=()=>eyes.find(x=>x.svg.closest('#intro'));
+function oSay(t,ear){const b=$('#oBub');b.textContent=t;b.classList.toggle('ear',!!ear);b.classList.add('on')}
+function oBar(){$('#oBar').classList.add('on');clearTimeout(oBarT);oBarT=setTimeout(()=>{if(!oRec&&!chA){$('#oBar').classList.remove('on');$('#oBub').classList.remove('on')}},20000)}
+function oracleTap(E){oBar();if(oRec){try{oRec.stop()}catch(_){}return}
+ if(!SR){oSay("Voice doesn't work in this browser. Use Chat.");return}
+ let txt='';try{oRec=new SR()}catch(_){oRec=null;oSay('Use Chat to talk to me.');return}
+ oRec.lang=navigator.language||'es-MX';oRec.interimResults=true;oRec.continuous=false;
+ E.listening=true;E.look=[0,-.08];E.put=.62;E.sv-=.08;$('#oTalk').classList.add('rec');$('#oTalk').textContent='■ Stop';oSay('Listening… talk to me. Say an agent\'s name to ask them.',true);if('vibrate' in navigator)navigator.vibrate(15);
+ oRec.onresult=ev=>{txt=[...ev.results].map(r=>r[0].transcript).join(' ');oSay('“'+txt+'”',true)};
+ oRec.onerror=ev=>{if(ev.error==='not-allowed'||ev.error==='service-not-allowed')txt='\u0000blocked'};
+ oRec.onend=()=>{oRec=null;E.listening=false;E.look=null;E.put=E.pu0;$('#oTalk').classList.remove('rec');$('#oTalk').textContent='🎤 Talk';oBar();
+  const t=txt.trim();if(t==='\u0000blocked'){oSay('The microphone is blocked. Allow it in your browser settings, or tap Chat.');return}
+  if(!t){oSay("I didn't hear anything. Tap me and talk, or tap Chat.");return}
+  const low=t.toLowerCase(),a=AG.find(x=>low.includes(x.name.toLowerCase()));
+  let r=a?(reply(a,low.split(a.name.toLowerCase()).join(' '))||reply(a,'what do you need')):oracle(low);
+  if(!r)r="I can't think on my own yet. Tap Chat and I'll help you copy this for Claude.";
+  const who=a||ORACLE,clean=r.replace(/<[^>]+>/g,'');oSay((a?a.name+': ':'')+clean);E.sv-=.1;E.happyT=1;setTimeout(()=>E.happyT=0,900);
+  (hist[who.id]=hist[who.id]||[]).push(['u',t,false],['a',r,r.includes('<a ')]);speak(who,clean,E)};
+ try{oRec.start()}catch(_){oRec=null;E.listening=false;oSay('Use Chat to talk to me.')}}
+$('#oTalk').addEventListener('click',()=>{const E=oEye();if(E)oracleTap(E)});
+$('#oChat').addEventListener('click',()=>{if(oRec){try{oRec.abort()}catch(_){}}$('#oBar').classList.remove('on');$('#oBub').classList.remove('on');openChat(-1)});
+$('#oAll').addEventListener('click',()=>{if(oRec){try{oRec.abort()}catch(_){}}$('#oBar').classList.remove('on');$('#oBub').classList.remove('on');toggleClean()});
 /* ---------- huddle en círculo: los agentes giran despacio alrededor del Oráculo ---------- */
 const ringEl=document.querySelector('.hud.ring');let ringA=0,ringHold=false;
 if(ringEl){ringEl.addEventListener('pointerdown',()=>ringHold=true);addEventListener('pointerup',()=>ringHold=false);addEventListener('pointercancel',()=>ringHold=false);
