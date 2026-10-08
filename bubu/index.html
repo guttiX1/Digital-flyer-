@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Bubu · Your AI agents, alive</title>
+<meta name="description" content="Bubu turns your AI agents into a crew of little characters. Scroll them like a feed, swipe to see what they're doing, talk to them, and throw them to any screen.">
+<meta property="og:title" content="Bubu · Your AI agents, alive">
+<meta property="og:description" content="Scroll. Swipe. Talk. Throw. Your AI crew, in your pocket.">
+<meta property="og:image" content="media/og.jpg">
+<meta name="theme-color" content="#ffd23f">
+<script type="importmap">{"imports":{"three":"../agents-mochi/vendor/three.module.min.js"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#141416;--dim:#5d5d66;--sun:#ffd23f;--coral:#ff5a36;--mint:#18a873;--sky:#2f6fe8;--cream:#fffaf2;--line:rgba(20,20,22,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+.disp{font-family:Fredoka,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;line-height:.92}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:16px 26px;font:600 18px Fredoka,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.ink{background:var(--ink);color:#fff}.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2.5px var(--ink)}
+.chip{display:inline-block;padding:6px 12px;border-radius:12px;font:600 14px Fredoka,sans-serif;background:var(--ink);color:#fff}
+.chip.soon{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+/* nav */
+nav{position:fixed;z-index:50;top:0;left:0;right:0;padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;transition:background .3s}
+nav.solid{background:rgba(255,250,242,.94);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:8px;font:700 30px Fredoka,sans-serif;text-decoration:none;letter-spacing:-.03em}
+.logo img{width:34px;height:36px}
+nav .btn{padding:10px 18px;font-size:15px}
+/* hero */
+#hero{min-height:100svh;background:var(--sun);position:relative;overflow:hidden;display:flex;align-items:center;padding:96px 0 40px}
+#hero .wrap{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
+#hero h1{font-size:clamp(58px,15vw,150px)}
+#hero h1 .w{display:inline-block;opacity:0;transform:translateY(60px) rotate(4deg)}
+#hero h1 .coral{color:var(--coral)}
+#hero p.lead{font-size:clamp(18px,4.6vw,23px);max-width:520px;margin-top:16px;line-height:1.35;opacity:0}
+#hero .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;opacity:0}
+.crew{position:relative;width:100%;aspect-ratio:1/1;max-width:620px;margin:0 auto}
+.slot{position:absolute;transform:translate(-50%,-50%);aspect-ratio:400/430;height:auto}
+.anc{position:absolute;inset:0;cursor:pointer;touch-action:manipulation}
+.anc img{width:100%;height:100%;display:block;pointer-events:none;transition:opacity .2s}
+.anc.live img{opacity:0}
+canvas.m3c{position:absolute;pointer-events:none;z-index:1}
+.tapme{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);font:600 14px Fredoka,sans-serif;background:var(--ink);color:#fff;padding:7px 13px;border-radius:12px;white-space:nowrap;opacity:0;transition:opacity .4s}
+@media (min-width:900px){#hero .wrap{grid-template-columns:1.05fr 1fr;align-items:center}#hero h1{font-size:clamp(80px,9vw,150px)}}
+/* marquee */
+.marq{background:var(--ink);color:var(--sun);overflow:hidden;white-space:nowrap;padding:16px 0;border-top:3px solid var(--ink)}
+.marq .tr{display:inline-flex;gap:40px;animation:mq 22s linear infinite;font:700 clamp(34px,8vw,64px) Fredoka,sans-serif;letter-spacing:-.02em}
+.marq .tr span:nth-child(4n+2){color:#fff}.marq .tr span:nth-child(4n+3){color:var(--coral)}.marq .tr span:nth-child(4n){color:#7fd8b0}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{position:relative}
+.kick{font:700 15px Fredoka,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+h2.disp{font-size:clamp(44px,11vw,104px)}
+.lede{font-size:clamp(18px,4.4vw,22px);line-height:1.4;color:var(--dim);max-width:620px;margin-top:16px}
+/* dashboards are boring */
+#boring{padding:110px 0 90px;background:#fff}
+.vs{display:grid;grid-template-columns:1fr;gap:18px;margin-top:40px;align-items:center}
+.dash{background:#eef0f3;border-radius:22px;padding:16px;font-size:13px;color:#7a7f88;aspect-ratio:4/3;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:8px;filter:grayscale(1)}
+.dash i{background:#dde1e6;border-radius:8px;display:block}
+.dash i:nth-child(1){grid-column:span 4}.dash i:nth-child(6){grid-column:span 2;grid-row:span 2}
+.arrow{font:700 46px Fredoka,sans-serif;text-align:center}
+.minis{display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
+.minis img{width:22%;max-width:120px;animation:bob 2.4s ease-in-out infinite}
+.minis img:nth-child(2n){animation-delay:-.6s}.minis img:nth-child(3n){animation-delay:-1.2s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@media (min-width:900px){.vs{grid-template-columns:1fr auto 1fr}}
+/* sticky phone demo */
+#demo{height:520vh;background:var(--cream)}
+#demo .pin{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:1fr;align-items:center;justify-items:center;overflow:hidden;padding:70px 16px 16px}
+.phone{width:min(290px,62vw);aspect-ratio:9/19;border-radius:44px;background:var(--ink);padding:11px;box-shadow:0 30px 60px rgba(0,0,0,.18);position:relative}
+.phone .scr{position:absolute;inset:11px;border-radius:34px;background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.phone .nt{width:90px;height:24px;border-radius:12px;background:var(--ink);margin-top:10px;flex:none}
+.pslot{position:relative;width:78%;height:0;padding-bottom:83.85%;margin-top:14px;flex:none}
+.pname{font:700 30px Fredoka,sans-serif;margin-top:-4px}.pjob{font-size:13px;color:#77777d}
+.pchips{display:flex;gap:6px;margin-top:8px}.pchips span{font:600 12px Fredoka,sans-serif;padding:4px 9px;border-radius:9px;background:var(--coral);color:#fff}.pchips .lv{background:#fff4d6;color:#7a5200}
+.ptabs{display:flex;gap:12px;margin-top:12px;font:600 13px Fredoka,sans-serif;color:#9a9aa0}.ptabs b{color:var(--ink);border-bottom:2px solid var(--ink)}
+.plist{width:84%;margin-top:8px;font-size:13px}.plist div{padding:7px 0;border-top:1px solid #eee;display:flex;gap:8px;align-items:center}.plist div:first-child{border-top:0}
+.plist i{width:13px;height:13px;border-radius:50%;border:2px solid var(--coral);flex:none}
+.pbub{position:absolute;left:8%;right:8%;padding:10px 12px;border-radius:16px;font-size:13px;line-height:1.3;opacity:0;transition:opacity .3s,transform .3s;transform:translateY(8px)}
+.pbub.on{opacity:1;transform:none}.pbub.u{background:#f1f1ef;bottom:124px}.pbub.a{background:var(--ink);color:#fff;bottom:52px}
+.steps{display:none}
+.stepcap{position:absolute;left:16px;right:16px;top:74px;text-align:center}
+.stepcap h3{font-size:clamp(34px,9vw,60px)}
+.stepcap p{color:var(--dim);font-size:16px;margin-top:6px}
+.dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:6px}.dots i{width:24px;height:5px;border-radius:3px;background:rgba(0,0,0,.14)}.dots i.on{background:var(--ink)}
+@media (min-width:900px){#demo .pin{grid-template-columns:1fr 1fr;padding:0 6vw}.stepcap{position:static;text-align:left;order:-1}.phone{width:min(330px,30vw)}}
+@media (max-width:899px){#demo .pin{align-content:end;padding-bottom:56px}.stepcap{top:max(70px,8svh)}.phone{width:min(250px,56vw)}}
+/* throw */
+#throw{height:360vh;background:var(--ink);color:#fff}
+#throw .pin{position:sticky;top:0;height:100svh;overflow:hidden}
+#throw .cap{position:absolute;left:16px;right:16px;top:max(78px,9svh);text-align:center}
+#throw h2{font-size:clamp(44px,11vw,104px)}#throw h2 span{color:var(--sun)}
+#throw .cap p{color:#c8c8cc;font-size:17px;margin-top:10px}
+.mini-phone{position:absolute;left:8%;bottom:9%;width:min(140px,26vw);aspect-ratio:9/19;border-radius:26px;background:#2b2b30;padding:7px}
+.mini-phone div{width:100%;height:100%;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font:600 12px Fredoka,sans-serif;color:#9a9aa0;padding:6px}
+.laptop{position:absolute;right:5%;top:40%;width:min(520px,56vw)}
+.laptop .lid{aspect-ratio:16/10;background:#2b2b30;border-radius:16px;padding:10px}
+.laptop .lid div{width:100%;height:100%;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font:600 clamp(11px,1.6vw,18px) Fredoka,sans-serif;color:#b5b5ba}
+.laptop .base{height:14px;background:#3a3a40;border-radius:0 0 14px 14px;margin:0 -6%}
+#flyer{position:absolute;width:min(170px,30vw);height:calc(min(170px,30vw) * 1.075);left:0;top:0;transform-origin:50% 60%}
+#throw .soon{position:absolute;left:50%;bottom:4%;transform:translateX(-50%)}
+/* hands */
+#hands{background:var(--mint);color:#fff;padding:100px 0;overflow:hidden}
+#hands .grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:center}
+#hands h2 span{color:var(--sun)}#hands .lede{color:#e4fff2}
+.handstage{position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto}
+.handstage .slot{left:50%;top:58%;width:56%}
+#fing{position:absolute;width:24%;left:0;top:0;pointer-events:none}
+.gest{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.gest span{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 14px;font:600 16px Fredoka,sans-serif}
+@media (min-width:900px){#hands .grid{grid-template-columns:1fr 1fr}}
+/* crew wall */
+#wall{padding:100px 0 70px;background:#fff;overflow:hidden}
+.rows{margin-top:40px;display:flex;flex-direction:column;gap:6px}
+.row{display:flex;width:max-content;animation:mq 50s linear infinite}
+.row.rev{animation-direction:reverse;animation-duration:60s}
+.row img{width:clamp(96px,22vw,150px);aspect-ratio:400/430;transition:transform .2s}
+.row img:hover{transform:scale(1.15) rotate(-4deg)}
+.sets{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.sets span{border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font:600 15px Fredoka,sans-serif}
+/* templates */
+#work{padding:100px 0;background:var(--cream)}
+.tl{margin-top:36px;border-top:2.5px solid var(--ink)}
+.tlr{display:grid;grid-template-columns:76px 1fr auto;gap:14px;align-items:center;padding:18px 0;border-bottom:1.5px solid var(--line)}
+.tlr img{width:76px}
+.tlr h3{font:700 clamp(24px,5.5vw,34px) Fredoka,sans-serif}.tlr p{color:var(--dim);font-size:15.5px;margin-top:2px}
+/* video */
+#watch{padding:100px 0;background:var(--sun)}
+#watch .grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
+.vphone{width:min(300px,72vw);aspect-ratio:9/16;border-radius:34px;overflow:hidden;background:var(--ink);margin:0 auto;box-shadow:0 30px 60px rgba(0,0,0,.2);position:relative;border:8px solid var(--ink)}
+.vphone video{width:100%;height:100%;object-fit:cover;display:block}
+.vphone button{position:absolute;right:10px;bottom:10px;border:0;border-radius:999px;background:#fff;padding:8px 12px;font:600 13px Fredoka,sans-serif}
+@media (min-width:900px){#watch .grid{grid-template-columns:1fr 1fr}}
+/* byo */
+#byo{padding:100px 0;background:#fff}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:34px;font:700 clamp(22px,5vw,36px) Fredoka,sans-serif}
+.flow .box{border:2.5px solid var(--ink);border-radius:20px;padding:12px 18px}.flow .box.hot{background:var(--coral);border-color:var(--coral);color:#fff}
+.flow .ar{color:var(--coral)}
+/* final */
+#final{background:var(--coral);color:#fff;padding:110px 0 70px;text-align:center;overflow:hidden}
+#final h2{font-size:clamp(56px,14vw,140px)}
+#final .btn.ink{margin-top:28px}
+#final .strip{display:flex;justify-content:center;margin-top:40px}
+#final .strip img{width:clamp(70px,16vw,120px);margin:0 -8px;animation:bob 2.2s ease-in-out infinite}
+#final .strip img:nth-child(2n){animation-delay:-.7s}
+footer{background:var(--ink);color:#b5b5ba;padding:28px 16px calc(28px + env(safe-area-inset-bottom));font-size:14px;text-align:center;line-height:1.5}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.marq .tr,.row,.minis img,#final .strip img{animation:none}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><a class="logo" href="#hero"><img src="../agents-mochi/chars/mochi.png" alt="">bubu</a><a class="btn ink" href="../agents-mochi/">Try the demo</a></nav>
+
+<section id="hero"><div class="wrap">
+ <div><h1 class="disp" id="h1"><span class="w">Your</span> <span class="w">AI</span> <span class="w">agents,</span><br><span class="w coral">alive.</span></h1>
+  <p class="lead" id="lead">Bubu turns your AI agents into a crew of little characters. Scroll them like a feed. Swipe to see what they're doing. Talk to them. Throw them to any screen.</p>
+  <div class="ctas" id="ctas"><a class="btn ink" href="../agents-mochi/">Try the demo</a><a class="btn ghost" href="#watch">Watch the video</a></div></div>
+ <div class="crew" id="crew"><span class="tapme" id="tapme">Poke them</span></div>
+</div></section>
+
+<div class="marq" aria-hidden="true"><div class="tr" id="mq"></div></div>
+
+<section id="boring"><div class="wrap">
+ <p class="kick rv">The problem</p><h2 class="disp rv">Dashboards<br>are boring.</h2>
+ <p class="lede rv">AI agents do real work, but they live in tables and chat logs built for computers. You live on your phone.</p>
+ <div class="vs"><div class="dash rv"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="arrow rv">→</div>
+  <div class="minis rv"><img src="../agents-mochi/chars/fox.png" alt=""><img src="../agents-mochi/chars/bee.png" alt=""><img src="../agents-mochi/chars/byte.png" alt=""><img src="../agents-mochi/chars/coach.png" alt=""><img src="../agents-mochi/chars/tako.png" alt=""><img src="../agents-mochi/chars/pony.png" alt=""><img src="../agents-mochi/chars/hoot.png" alt=""><img src="../agents-mochi/chars/calc.png" alt=""></div></div>
+</div></section>
+
+<section id="demo"><div class="pin">
+ <div class="stepcap"><p class="kick" id="sk">How it works</p><h3 class="disp" id="sh">Scroll your crew.</h3><p id="sp">Every agent gets a face. Scroll through them like your feed.</p></div>
+ <div class="phone"><div class="scr"><div class="nt"></div>
+  <div class="pslot" id="pslot"><div class="anc"><img src="../agents-mochi/chars/mochi.png" alt=""></div></div>
+  <div class="pname" id="pname">Mochi</div><div class="pjob" id="pjob">Marketing agent</div><div class="pchips"><span id="pst">needs you</span><span class="lv" id="plv">Lv 3</span></div>
+  <div class="ptabs" id="ptabs"><b>Needs</b><span>Doing</span><span>Important</span></div>
+  <div class="plist" id="plist"></div>
+  <div class="pbub u" id="pu">"What do you need from me?"</div><div class="pbub a" id="pa">Two things. Approve today's post, then send Rosa her invoice.</div>
+ </div></div>
+ <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
+</div></section>
+
+<section id="throw"><div class="pin">
+ <div class="cap"><p class="kick" style="color:var(--sun)">Throw</p><h2 class="disp">Flick it to<br><span>any screen.</span></h2><p>Get to your desk, flick your agent to the big screen and keep talking. Your phone is free.</p></div>
+ <div class="mini-phone"><div id="mpTxt"></div></div>
+ <div class="laptop"><div class="lid"><div id="lapTxt">Waiting for an agent…</div></div><div class="base"></div></div>
+ <div id="flyer"><div class="anc"><img src="../agents-mochi/chars/mochi.png" alt=""></div></div>
+ <span class="chip soon" style="background:var(--sun);box-shadow:none">Coming soon</span>
+</div></section>
+
+<section id="hands"><div class="wrap grid">
+ <div><p class="kick rv" style="color:var(--sun)">Hands-free</p><h2 class="disp rv">Hands busy?<br><span>Just point.</span></h2>
+  <p class="lede rv">Eating tacos. Brushing a horse. Driving. Turn on hands-free and your crew watches your finger through the front camera. Nothing leaves your phone.</p>
+  <div class="gest rv"><span>☝️ Point and they look</span><span>🤏 Pinch to tap</span><span>👍 Thumbs up = done</span><span>✋ Open hand = stop</span></div></div>
+ <div class="handstage" id="hst"><div class="slot" id="hslot"><div class="anc"><img src="../agents-mochi/chars/bee.png" alt=""></div></div>
+  <svg id="fing" viewBox="-60 -10 200 470"><rect x="-28" y="-6" width="56" height="190" rx="28" fill="#e8b48f"/><rect x="-60" y="140" width="190" height="180" rx="70" fill="#e8b48f"/><rect x="-46" y="130" width="70" height="60" rx="30" fill="#cf9670" opacity=".5"/><rect x="-40" y="300" width="170" height="160" rx="30" fill="#141416"/></svg></div>
+</div></section>
+
+<section id="wall"><div class="wrap"><p class="kick rv">Pick your crew</p><h2 class="disp rv">50+ characters.<br>Any color.</h2>
+ <p class="lede rv">Creatures, mascots, a business crew, a stable crew, wizards, Halloween. Pick one for each agent, rename it, recolor it.</p>
+ <div class="sets rv"><span>Business</span><span>Stable crew</span><span>Creatures</span><span>Mascots</span><span>Office</span><span>Magic</span><span>Halloween</span></div></div>
+ <div class="rows" id="rows"></div></section>
+
+<section id="work"><div class="wrap"><p class="kick rv">Templates</p><h2 class="disp rv">Ready for<br>real work.</h2>
+ <p class="lede rv">Pick a template and your crew already knows the job: the helpers, the schedules and the tools.</p>
+ <div class="tl rv">
+  <div class="tlr"><img src="../agents-mochi/chars/pony.png" alt=""><div><h3>Race stable</h3><p>Farrier, vet, feed, workouts, races and owner billing. Say "Canelo got shod today" and it's saved.</p></div><a class="chip" href="../stable/" style="text-decoration:none">Live demo</a></div>
+  <div class="tlr"><img src="../agents-mochi/chars/fox.png" alt=""><div><h3>Small business</h3><p>Marketing, ads, social, sales, books and planning in one crew.</p></div><span class="chip soon">Soon</span></div>
+  <div class="tlr"><img src="../agents-mochi/chars/toro.png" alt=""><div><h3>Restaurant</h3><p>Orders, menus, reviews and specials.</p></div><span class="chip soon">Soon</span></div>
+  <div class="tlr"><img src="../agents-mochi/chars/merlo.png" alt=""><div><h3>Your own</h3><p>Build a template and share it with people in your line of work.</p></div><span class="chip soon">Soon</span></div>
+ </div></div></section>
+
+<section id="watch"><div class="wrap grid">
+ <div><p class="kick rv">Watch</p><h2 class="disp rv">15 seconds.<br>You'll get it.</h2><p class="lede rv" style="color:#4a3f10">Concept video. Hands-free works today; throw-to-screen is coming soon.</p>
+  <div class="ctas rv" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px"><a class="btn ink" href="media/bubu-30s.mp4">Watch the 30s cut</a></div></div>
+ <div class="vphone rv"><video id="vid" src="media/bubu-15s.mp4" poster="media/poster-15s.jpg" muted loop playsinline preload="metadata"></video><button id="snd" type="button">🔊 Sound</button></div>
+</div></section>
+
+<section id="byo"><div class="wrap"><p class="kick rv">Bring your agents</p><h2 class="disp rv">Already have<br>agents? Bring them.</h2>
+ <p class="lede rv">Bubu is a home for the agents you already use. Connect them, pick a character for each, and see your whole crew in one swipe.</p>
+ <div class="flow rv"><span class="box">Your agents</span><span class="ar">→</span><span class="box">Pick characters</span><span class="ar">→</span><span class="box hot">Your crew, alive</span></div>
+ <p class="lede rv" style="font-size:15px">Connectors are in the works. The demo runs on sample agents today.</p></div></section>
+
+<section id="final"><div class="wrap"><h2 class="disp rv">Your crew<br>is waiting.</h2><a class="btn ink rv" href="../agents-mochi/">Try the demo</a>
+ <div class="strip rv"><img src="../agents-mochi/chars/tako.png" alt=""><img src="../agents-mochi/chars/fox.png" alt=""><img src="../agents-mochi/chars/mochi.png" alt=""><img src="../agents-mochi/chars/coach.png" alt=""><img src="../agents-mochi/chars/bee.png" alt=""></div></div></section>
+<footer>bubu · 2026 · Concept product. Some features shown are coming soon.<br>Characters made for Bubu. Hand tracking by MediaPipe (Apache-2.0).</footer>
+
+<script type="module">
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),lerp=(a,b,t)=>a+(b-a)*t,E3=x=>1-Math.pow(1-clamp(x,0,1),3);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CH=k=>`../agents-mochi/chars/${k}.png`;
+
+/* ---------- tiny eye engine the 3D characters follow ---------- */
+let EYES=[];window.__eyes=()=>EYES.filter(E=>E.on!==false);
+let ptr=null,lastPtr=-1e9;
+addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
+addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
+function mount(slot,sty,o={}){const anc=slot.querySelector('.anc');const E=Object.assign({svg:anc,sty,ex:Math.random()*400,sq:1,sv:0,b:0,blink:-1,nb:1+Math.random()*3,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null},o);
+ anc.addEventListener('click',()=>poke(E));EYES.push(E);return E}
+function poke(E){E.sv-=.16;E.happyT=1;E.put=.5;setTimeout(()=>{E.happyT=0;E.put=.36},1100);pop();if('vibrate' in navigator)navigator.vibrate(10)}
+function step(E,dt,T,now){const r=E.svg.getBoundingClientRect();if(r.bottom<-50||r.top>innerHeight+50||!r.width)return;
+ const cx=r.left+r.width/2,cy=r.top+r.height*.45;
+ if(E.look){E.tx=E.look[0];E.ty=E.look[1]}else if(E.lookAt){const p=E.lookAt();E.tx=(p.x-cx)/(r.width*.9);E.ty=(p.y-cy)/(r.width*.9)}
+ else if(ptr&&now-lastPtr<3000){E.tx=(ptr.x-cx)/(r.width*1.4);E.ty=(ptr.y-cy)/(r.width*1.4)}
+ else if(T>E.ns){E.ns=T+.9+Math.random()*2.3;E.tx=(Math.random()-.5)*1.3;E.ty=(Math.random()-.5)*.9}
+ const m=Math.hypot(E.tx,E.ty);if(m>1){E.tx/=m;E.ty/=m}
+ E.vx+=(260*(E.tx-E.gx)-26*E.vx)*dt;E.vy+=(260*(E.ty-E.gy)-26*E.vy)*dt;E.gx+=E.vx*dt;E.gy+=E.vy*dt;
+ E.sv+=(-230*(E.sq-1)-9*E.sv)*dt;E.sq+=E.sv*dt;E.pu=lerp(E.pu,E.put,dt*7);E.happy=lerp(E.happy,E.happyT,dt*8);
+ if(T>E.nb&&E.blink<0){E.blink=0;E.nb=T+2.4+Math.random()*4}let b=0;if(E.blink>=0){E.blink+=dt;if(E.blink<.15)b=Math.sin(E.blink/.15*Math.PI);else E.blink=-1}E.b=reduce?0:b}
+let AC=null;function pop(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(880,t+.12);g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.12);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+.13)}catch(_){}}
+
+/* ---------- hero crew: drops in, floats, watches you ---------- */
+const CREW=[['mochi',50,56,46],['tako',17,34,27],['hoot',83,32,27],['pony',20,80,25],['byte',81,79,25],['bee',50,13,20]];
+const crewEl=$('#crew');const drops=[];
+CREW.forEach(([k,x,y,w],i)=>{const s=document.createElement('div');s.className='slot';s.style.cssText=`left:${x}%;top:${y}%;width:${w}%`;s.innerHTML=`<div class="anc"><img src="${CH(k)}" alt=""></div>`;crewEl.appendChild(s);
+ const E=mount(s,k);drops.push({s,E,y:reduce?0:-900-i*120,v:0,at:.35+i*.14,i,done:false})});
+// headline
+$$('#h1 .w').forEach((w,i)=>setTimeout(()=>{w.style.transition='opacity .6s, transform .7s cubic-bezier(.2,1.4,.3,1)';w.style.opacity=1;w.style.transform='none'},120+i*110));
+setTimeout(()=>{['#lead','#ctas'].forEach((s,i)=>{const el=$(s);el.style.transition='opacity .7s';setTimeout(()=>el.style.opacity=1,i*150)})},650);
+setTimeout(()=>$('#tapme').style.opacity=1,2600);setTimeout(()=>$('#tapme').style.opacity=0,7600);
+
+/* ---------- marquee + crew wall ---------- */
+const words=['Scroll.','Swipe.','Talk.','Throw.','Scroll.','Swipe.','Talk.','Throw.'];$('#mq').innerHTML=[...words,...words].map(w=>`<span>${w}</span>`).join('');
+const ALL=['mochi','fox','bee','coach','tako','hoot','pony','byte','piggy','jockey','horn','phone','calc','pencil','merlo','fae','jack','nyx','hex','wrap','toro','shark','penguin','chameleon','beaver','doc','smith','groom','owner','blob','fuzz','boo','pip','rex','clip','boss','tech','hardy','sage','genie','mega','pixel','buzz','deal','cash','ink','arty','plan','target','brief','bucket','cal','peacock'];
+const rowsEl=$('#rows');for(let r=0;r<3;r++){const pick=ALL.filter((_,i)=>i%3===r);const html=[...pick,...pick].map(k=>`<img src="${CH(k)}" alt="" loading="lazy">`).join('');rowsEl.insertAdjacentHTML('beforeend',`<div class="row ${r%2?'rev':''}">${html}</div>`)}
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
+addEventListener('scroll',()=>$('#nav').classList.toggle('solid',scrollY>40),{passive:true});
+
+/* ---------- sticky phone demo ---------- */
+const PE=mount($('#pslot'),'mochi');
+const AG=[['mochi','Mochi','Marketing agent'],['tako','Tako','Ads agent'],['byte','Byte','Results agent'],['pony','Canelo','Stable agent']];
+const STEPS=[['How it works','Scroll your crew.','Every agent gets a face. Scroll through them like your feed.'],['Swipe','See what they\'re doing.','Swipe a card for Needs, Doing and Important. Red means it needs you.'],['Talk','Just ask.','Hold your agent and talk. It answers out loud.'],['Level up','Watch them grow.','Clear what they need and they level up. Poke them, pet them, put them to sleep.']];
+const LISTS=[['Approve today\'s post','Send Rosa her invoice','Pick next week\'s ad'],['Posting the race flyer','Answering 4 comments','Drafting Friday\'s story'],['Race day: Oct 31','Budget: $300 left','Best post: Tuesday 7 pm']];
+let lastStep=-1,lastAg=-1,lastTab=-1;
+function demo(){const el=$('#demo'),r=el.getBoundingClientRect(),p=clamp(-r.top/(r.height-innerHeight),0,1);if(r.bottom<0||r.top>innerHeight)return;
+ const st=Math.min(3,Math.floor(p*4)),sp=p*4-st;
+ if(st!==lastStep){lastStep=st;$('#sk').textContent=STEPS[st][0];$('#sh').textContent=STEPS[st][1];$('#sp').textContent=STEPS[st][2];$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===st));
+  const cap=$('.stepcap');cap.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
+ const ag=st===0?Math.min(3,Math.floor(sp*4)):st===3?3:0;
+ if(ag!==lastAg){lastAg=ag;const [k,n,j]=AG[ag];PE.sty=k;PE.svg.querySelector('img').src=CH(k);PE.svg.classList.remove('live');$('#pname').textContent=n;$('#pjob').textContent=j;PE.sv-=.2;$('#pslot').animate([{transform:'translateY(40px)',opacity:.2},{transform:'none',opacity:1}],{duration:380,easing:'cubic-bezier(.2,1.3,.3,1)'})}
+ const tab=st===1?Math.min(2,Math.floor(sp*3)):0;
+ if(tab!==lastTab||st===0){lastTab=tab;$('#ptabs').innerHTML=['Needs','Doing','Important'].map((t,i)=>i===tab?`<b>${t}</b>`:`<span>${t}</span>`).join('');$('#plist').innerHTML=LISTS[tab].map(t=>`<div><i style="${tab?'border-color:#c8c8cc':''}"></i>${t}</div>`).join('')}
+ const talk=st===2;$('#pu').classList.toggle('on',talk&&sp>.12);$('#pa').classList.toggle('on',talk&&sp>.4);$('#plist').style.opacity=talk?0:1;PE.talking=talk&&sp>.4&&sp<.85;PE.look=talk&&sp<.4?[0,.6]:null;
+ const lv=st===3?3+Math.floor(sp*3):3;const t=`Lv ${lv}`;if($('#plv').textContent!==t){$('#plv').textContent=t;if(st===3){PE.sv-=.18;PE.happyT=1;setTimeout(()=>PE.happyT=0,700)}}
+ $('#pst').textContent=st===3&&sp>.6?'all set':'needs you';$('#pst').style.background=st===3&&sp>.6?'#1d9e6a':''}
+
+/* ---------- throw section: scroll moves the agent from the phone to the laptop ---------- */
+const FE=mount($('#flyer'),'mochi');
+function throwScene(){const el=$('#throw'),r=el.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;const p=clamp(-r.top/(r.height-innerHeight),0,1);
+ const ph=$('.mini-phone').getBoundingClientRect(),lp=$('.laptop .lid').getBoundingClientRect(),f=$('#flyer'),fw=f.offsetWidth,fh=f.offsetHeight;
+ const x0=ph.left+ph.width/2-fw/2,y0=ph.top+ph.height*.42-fh/2,x1=lp.left+lp.width*.5-fw/2,y1=lp.top+lp.height*.5-fh/2;
+ const q=E3((p-.2)/.5),cx=(x0+x1)/2,cy=Math.min(y0,y1)-innerHeight*.28;
+ const x=(1-q)*(1-q)*x0+2*(1-q)*q*cx+q*q*x1,y=(1-q)*(1-q)*y0+2*(1-q)*q*cy+q*q*y1;
+ const sc=lerp(.62,1.15,q);f.style.transform=`translate(${x}px,${y}px) scale(${sc})`;
+ const flying=q>0&&q<1;FE.held=flying;FE.look=flying?[-.3,-.4]:null;
+ $('#mpTxt').textContent=q>.02?'Mochi is on your big screen':'';$('#lapTxt').textContent=q>=1?'':'Waiting for an agent…';
+ if(q>=1&&!FE.landed){FE.landed=true;FE.sv-=.35;FE.happyT=1;setTimeout(()=>FE.happyT=0,1200)}if(q<1)FE.landed=false}
+
+/* ---------- hands: the bee follows a finger moving in the air ---------- */
+const HE=mount($('#hslot'),'bee');const fing=$('#fing');let fx=0,fy=0;
+HE.lookAt=()=>{const r=fing.getBoundingClientRect();return {x:r.left+r.width*.3,y:r.top+r.height*.03}};
+function hands(T){const st=$('#hst').getBoundingClientRect();if(st.bottom<0||st.top>innerHeight)return;const w=st.width;
+ fx=w*(.38+.3*Math.sin(T*.9));fy=w*(.06+.12*Math.sin(T*1.7+1));fing.style.transform=`translate(${fx}px,${fy}px) rotate(${-10+8*Math.sin(T*.9)}deg)`}
+
+/* ---------- loop ---------- */
+let t0=performance.now(),last=t0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;
+ for(const d of drops){if(T<d.at){d.s.style.transform=`translate(-50%,calc(-50% + ${d.y}px))`;continue}
+  if(!d.done){d.v+=3200*dt;d.y+=d.v*dt;if(d.y>=0){d.y=0;if(d.v>250){d.E.sv-=Math.min(.4,d.v/3500);d.v*=-.3}else{d.v=0;d.done=true}}}
+  const fl=d.done&&!reduce?Math.sin(T*1.6+d.i)*6:0;d.s.style.transform=`translate(-50%,calc(-50% + ${d.y+fl}px))`}
+ demo();throwScene();hands(T);
+ EYES.forEach(E=>step(E,dt,T,now));if(window.mochiFrame)window.mochiFrame(dt,T);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+
+/* ---------- video ---------- */
+const vid=$('#vid');new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?vid.play().catch(()=>{}):vid.pause()),{threshold:.4}).observe(vid);
+$('#snd').addEventListener('click',()=>{vid.muted=!vid.muted;$('#snd').textContent=vid.muted?'🔊 Sound':'🔇 Mute';if(!vid.muted){vid.currentTime=0;vid.play()}});
+
+import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
+window.__ready=true;
+</script>
+</body>
+</html>
