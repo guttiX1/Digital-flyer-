@@ -229,6 +229,7 @@ svg.m3>:not(.m3img){opacity:0}svg.m3.live>.m3img{opacity:0}canvas.m3c{position:a
 .obar button{border:0;border-radius:22px;padding:10px 16px;font:600 15px Fredoka,sans-serif;background:var(--soft);color:var(--ink);cursor:pointer}
 .obar #oTalk.rec{background:var(--red);color:#fff}
 body:not(.clean) .ob{display:none!important}
+.thrown{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);white-space:nowrap;font-weight:600;font-size:16px;color:#77777d;opacity:0;transition:opacity .4s;pointer-events:none}.thrown.on{opacity:1}
 .m3tip{font-size:12px;color:#8a8a90;margin-top:2px;text-align:center}
 .pick .rn{grid-column:1/-1;display:flex;gap:8px}.pick .rn input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:500 16px Fredoka,sans-serif}.pick .rn button{border:0;border-radius:12px;padding:0 16px;background:var(--ink);color:#fff;font-weight:600;font-size:15px}
 .pick .pkh{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--dim);margin:10px 2px 0}.pick .pkh small{font-weight:500}
@@ -533,12 +534,12 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>{if(E.held){E.held=false;return}if(E.sleep){wakeAgent(E);return}if(E.svg.closest('[data-hud]')){hudTap(E);return}poke(E)});
  svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);
-  if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}E.dragX=e.clientX-E.x0;E.dragY=dy;
+  if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}E.dragX=e.clientX-E.x0;E.dragY=dy;if(E.pt!=null){const v=(dy-E.pdy)/Math.max(1,e.timeStamp-E.pt)*1000;E.flickV=E.flickV*.4+v*.6}E.pt=e.timeStamp;E.pdy=dy;
   if(E.lx!=null)E.path+=Math.hypot(e.clientX-E.lx,e.clientY-E.ly);E.lx=e.clientX;E.ly=e.clientY;
   const rh=E.svg.getBoundingClientRect().height;if(dy>Math.max(80,rh*.33)&&dxx<45&&dy>.88*E.path&&performance.now()-E.tDown<800){E.y0=null;snoozeEye(E);return}
   const r=E.svg.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.45,an=Math.atan2(e.clientY-cy,e.clientX-cx);
   if(Math.hypot(e.clientX-cx,e.clientY-cy)>r.width*.12&&E.an!=null){let d=an-E.an;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;if(Math.abs(d)<1.1){E.rub=(E.rub||0)+Math.abs(d);if(E.rub>Math.PI*2.6&&E.path>r.width*1.2){E.rub=0;E.path=0;purr(E)}}}E.an=an});
- svg.addEventListener('pointerdown',e=>{grow(E,true);E.tDown=performance.now();E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep&&!(E.svg.closest('#intro')&&document.body.classList.contains('clean')))holdStart(E,e)});
+ svg.addEventListener('pointerdown',e=>{grow(E,true);E.tDown=performance.now();E.flickV=0;E.pt=null;E.y0=e.clientY;E.x0=e.clientX;E.moved=false;E.an=null;E.rub=0;E.path=0;E.lx=null;try{svg.setPointerCapture(e.pointerId)}catch(_){}if(!E.sleep&&!(E.svg.closest('#intro')&&document.body.classList.contains('clean')))holdStart(E,e)});
  ['pointerup','pointercancel','pointerleave'].forEach(t=>svg.addEventListener(t,()=>{E.y0=null;E.an=null;holdEnd(E);setTimeout(()=>{if(!(chA&&chE===E)&&!E.listening)grow(E,false)},700)}));
  svg.addEventListener('contextmenu',e=>e.preventDefault());
  eyes.push(E);return E}
@@ -911,6 +912,8 @@ if(ringEl){ringEl.addEventListener('pointerdown',()=>ringHold=true);addEventList
  (function ring(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!ringHold&&!reduce)ringA+=dt*Math.PI*2/90;
   const n=items.length;items.forEach((el,k)=>{const an=ringA+k/n*Math.PI*2-Math.PI/2;el.style.left=(50+Math.cos(an)*37)+'%';el.style.top=(50+Math.sin(an)*37)+'%'});requestAnimationFrame(ring)})(lt)}
 paint();booted=true;window.__eyes=()=>eyes;window.__say=say;
+window.__onThrow=E=>{const i=agentOfEye(E),a=AG[i];if(!a)return;SFX.cheer();const c=E.svg.closest('.eyeslot,[data-hud]');if(c){let m=c.querySelector('.thrown');if(!m){m=document.createElement('div');m.className='thrown';c.appendChild(m)}m.textContent=`${a.name} is on your big screen`;m.classList.add('on');setTimeout(()=>m.classList.remove('on'),6500)}logE(a,'Thrown to the big screen')};
+window.__onReturn=E=>{SFX.pop()};
 window.__charColor=E=>{const i=agentOfEye(E);return i>=0&&AG[i]?charCol[AG[i].id]:null};
 import('./chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
 

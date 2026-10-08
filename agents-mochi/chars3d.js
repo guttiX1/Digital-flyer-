@@ -372,10 +372,21 @@ function frame(dt,T){
  const list=(window.__eyes?window.__eyes():[]).filter(E=>B[E.sty]&&E.svg.isConnected);
  for(const E of list){const s=stateOf(E);
   // pick up: follow the finger, then spring back with a bounce
-  const drag=E.y0!=null&&E.moved&&!E.listening,tx=drag?clamp(E.dragX||0,-150,150):0,ty=drag?clamp(E.dragY||0,-170,90):0;
-  if(drag&&!s.held){s.held=true}if(!drag&&s.held){s.held=false;if(Math.hypot(s.ox,s.oy)>30){E.sv-=.14;if('vibrate' in navigator)navigator.vibrate(10)}}
-  const kS=drag?520:170,kD=drag?40:9,n=Math.ceil(dt/.006),h=dt/n;for(let j=0;j<n;j++){s.vx+=(kS*(tx-s.ox)-kD*s.vx)*h;s.vy+=(kS*(ty-s.oy)-kD*s.vy)*h;s.ox+=s.vx*h;s.oy+=s.vy*h}
-  if(!place(E,s))continue;const r=getRig(E.sty);use(r);tint(r,(window.__charColor&&window.__charColor(E))||r.def);
+  const drag=E.y0!=null&&E.moved&&!E.listening&&!s.fly,tx=drag?clamp(E.dragX||0,-150,150):0,ty=drag?clamp(E.dragY||0,-170,90):0;
+  // finger speed while dragging (for the flick)
+  if(drag){const dy=(E.dragY||0)-(s.pdy??0);s.fvy=lerp(s.fvy||0,dy/Math.max(dt,.001),.5);s.pdy=E.dragY||0}else s.pdy=0;
+  if(drag&&!s.held){s.held=true}
+  if(!drag&&s.held){s.held=false;
+   // flick up fast = throw it off the top of the phone (it comes back after a few seconds)
+   if((E.flickV??s.fvy??0)<-900&&(s.ly||0)<-40&&!s.fly){s.fly=T;s.flyX=s.ox;s.flyY=s.oy;if('vibrate' in navigator)navigator.vibrate([12,30,12]);window.__onThrow&&window.__onThrow(E)}
+   else if(Math.hypot(s.ox,s.oy)>30){E.sv-=.14;if('vibrate' in navigator)navigator.vibrate(10)}}
+  s.ly=E.dragY||0;
+  if(s.fly){const ft=T-s.fly;
+   if(ft<.6){const q=ft/.6;s.ox=s.flyX+q*40;s.oy=s.flyY-q*q*(innerHeight+500);s.vx=s.vy=0}
+   else if(ft<7){s.oy=-innerHeight-600}
+   else{s.fly=0;s.oy=-innerHeight*.8;s.vy=0;s.ox=0;E.sv-=.25;window.__onReturn&&window.__onReturn(E)}}
+  else{const kS=drag?520:170,kD=drag?40:9,n=Math.ceil(dt/.006),h=dt/n;for(let j=0;j<n;j++){s.vx+=(kS*(tx-s.ox)-kD*s.vx)*h;s.vy+=(kS*(ty-s.oy)-kD*s.vy)*h;s.ox+=s.vx*h;s.oy+=s.vy*h}}
+  if(!place(E,s))continue;if(s.fly&&T-s.fly>.6){s.cv.style.opacity=0;continue}s.cv.style.opacity=1;const r=getRig(E.sty);use(r);tint(r,(window.__charColor&&window.__charColor(E))||r.def);
   pose(r,E,s,dt,T);R.render(scene,cam);
   s.ctx.clearRect(0,0,W,H);s.ctx.drawImage(R.domElement,0,0);
   if(E.sleep&&!E.talking&&!E.listening)zzz(s.ctx,T);

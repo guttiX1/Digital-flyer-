@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Big screen</title>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17171a;--dim:#77777d;--red:#e5432d;--green:#1d9e6a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#fff;color:var(--ink);font-family:Fredoka,system-ui,sans-serif;overflow:hidden;cursor:default}
+#wait{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(22px,3vw,40px);font-weight:500;color:#b5b5ba;transition:opacity .4s}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;gap:4vw;padding:4vw}
+.chr{position:relative;width:min(36vw,62vh);aspect-ratio:400/430;flex:none}
+.anc{position:absolute;inset:0}
+canvas.m3c{position:absolute;pointer-events:none}
+#side{max-width:44vw;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+#side.on{opacity:1;transform:none}
+#side h1{font-size:clamp(48px,7vw,110px);line-height:1;font-weight:700}
+#side .jb{color:var(--dim);font-size:clamp(18px,2vw,30px);margin-top:6px}
+.chip{display:inline-block;margin-top:14px;padding:6px 14px;border-radius:14px;background:var(--red);color:#fff;font-weight:600;font-size:clamp(16px,1.6vw,24px)}
+ul{list-style:none;margin-top:2.4vw}
+li{display:flex;align-items:center;gap:14px;padding:1vw 0;border-top:2px solid #eee;font-size:clamp(18px,2vw,32px);font-weight:500;opacity:0;transform:translateX(20px);transition:opacity .5s,transform .5s}
+li:first-child{border-top:0}li.on{opacity:1;transform:none}
+li b{width:1.4em;height:1.4em;border-radius:50%;border:3px solid var(--red);flex:none}
+#bub{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);max-width:70vw;padding:16px 26px;border-radius:30px;background:var(--ink);color:#fff;font-size:clamp(18px,2vw,30px);font-weight:500;opacity:0;transition:opacity .3s;text-align:center}
+#bub.on{opacity:1}
+#help{position:fixed;right:16px;bottom:12px;font-size:13px;color:#c8c8cc;transition:opacity 1s}
+</style>
+</head>
+<body>
+<div id="wait">Waiting for an agent…</div>
+<div id="stage"><div class="chr" id="chr"><div class="anc"></div></div><div id="side"><h1 id="nm"></h1><p class="jb" id="jb"></p><span class="chip" id="chip"></span><ul id="list"></ul></div></div>
+<div id="bub"></div>
+<div id="help">Press any key or tap to bring the agent in · R to reset · F for full screen</div>
+<script type="module">
+/* The "big screen" for the throw demo. It does not talk to the phone yet: you bring the agent in
+   with a key press, a tap, or a timer (?auto=8), so it can be filmed for the concept ad. */
+const $=s=>document.querySelector(s);const Q=new URLSearchParams(location.search);
+const STY=Q.get('a')||'mochi',NAME=Q.get('n')||'Mochi',ID=Q.get('id')||'flyers',AUTO=+Q.get('auto')||0,TALK=Q.get('talk')!=='0';
+let D=null;try{D=await (await fetch('../agents-reel/agents.json?t='+Date.now(),{cache:'no-store'})).json()}catch(e){}
+const ag=D&&D.agents.find(a=>a.id===ID);const needs=(ag?ag.needs:['Approve today\'s post','Call the vet back','Send Rosa her invoice']).slice(0,4);
+$('#nm').textContent=NAME;$('#jb').textContent=(ag?ag.name:'Your')+' agent';$('#chip').textContent=`${needs.length} things need you`;
+$('#list').innerHTML=needs.map(t=>`<li><b></b>${t.replace(/[<>]/g,'')}</li>`).join('');
+setTimeout(()=>$('#help').style.opacity=0,6000);
+/* a tiny eye engine the 3D character follows */
+const E={svg:$('.anc'),sty:STY,ex:120,sq:1,sv:0,b:0,blink:-1,nb:2,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null};
+let EY=[];window.__eyes=()=>EY;
+let landed=false,drop=null;
+function step(dt,T){if(T>E.ns){E.ns=T+1+Math.random()*2.5;E.tx=(Math.random()-.5)*1.2;E.ty=(Math.random()-.5)*.7}
+ if(E.look){E.tx=E.look[0];E.ty=E.look[1]}
+ E.vx+=(260*(E.tx-E.gx)-26*E.vx)*dt;E.vy+=(260*(E.ty-E.gy)-26*E.vy)*dt;E.gx+=E.vx*dt;E.gy+=E.vy*dt;
+ E.sv+=(-230*(E.sq-1)-9*E.sv)*dt;E.sq+=E.sv*dt;E.pu+=(E.put-E.pu)*dt*7;E.happy+=(E.happyT-E.happy)*dt*8;
+ if(T>E.nb&&E.blink<0){E.blink=0;E.nb=T+2.4+Math.random()*4}let b=0;if(E.blink>=0){E.blink+=dt;if(E.blink<.15)b=Math.sin(E.blink/.15*Math.PI);else E.blink=-1}E.b=b;
+ // falling in from the top of the screen, with a bounce
+ if(drop){drop.v+=2600*dt;drop.y+=drop.v*dt;if(drop.y>=0){drop.y=0;if(drop.v>300){E.sv-=Math.min(.45,drop.v/2600);drop.v*=-.32;if('vibrate' in navigator)navigator.vibrate(10)}else{drop.v=0;if(!landed){landed=true;arrived()}}}
+  $('#chr').style.transform=`translateY(${drop.y}px)`}}
+let t0=performance.now(),last=t0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;if(EY.length)step(dt,T);if(window.mochiFrame)window.mochiFrame(dt,T);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+$('#chr').style.transform=`translateY(-120vh)`;
+function bringIn(){if(drop)return;$('#wait').style.opacity=0;EY=[E];drop={y:-innerHeight*1.2,v:600};E.look=[0,-.6]}
+function arrived(){E.look=null;E.happyT=1;setTimeout(()=>E.happyT=0,1600);$('#side').classList.add('on');
+ [...document.querySelectorAll('li')].forEach((li,i)=>setTimeout(()=>li.classList.add('on'),500+i*260));
+ if(TALK)setTimeout(()=>say(`Hi! I made it. ${needs.length} things need you. First: ${needs[0]}.`),900)}
+function say(t){$('#bub').textContent=t;$('#bub').classList.add('on');setTimeout(()=>$('#bub').classList.remove('on'),6500);
+ const s=window.speechSynthesis;if(!s)return;try{s.cancel();const u=new SpeechSynthesisUtterance(t);u.pitch=1.35;u.rate=1.08;u.onstart=()=>E.talking=true;u.onend=u.onerror=()=>E.talking=false;s.speak(u)}catch(_){}}
+function reset(){drop=null;landed=false;EY=[];$('#chr').style.transform='translateY(-120vh)';$('#side').classList.remove('on');document.querySelectorAll('li').forEach(l=>l.classList.remove('on'));$('#wait').style.opacity=1;$('#bub').classList.remove('on')}
+addEventListener('keydown',e=>{if(e.key==='r'||e.key==='R')return reset();if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();return}bringIn()});
+addEventListener('pointerdown',()=>{landed?say(`${needs.length} things need you. First: ${needs[0]}.`):bringIn()});
+if(AUTO)setTimeout(bringIn,AUTO*1000);
+import('./chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
+window.__ready=true;
+</script>
+</body>
+</html>
