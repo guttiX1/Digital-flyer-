@@ -139,6 +139,43 @@
     "Post a countdown story every day until Oct 31",
     "Make a WhatsApp invite with the race page link",
     "Add a 'Revancha' card when rematches are announced"
+   ],
+   "tools": [
+    {
+     "n": "GitHub + your flyer site",
+     "d": "Publishes race pages live",
+     "s": "on"
+    },
+    {
+     "n": "Photo tools",
+     "d": "Crop, clean up and shrink photos",
+     "s": "on"
+    },
+    {
+     "n": "3D and animation",
+     "d": "Moving titles, scroll effects",
+     "s": "on"
+    },
+    {
+     "n": "Video maker",
+     "d": "Turns posters into short videos",
+     "s": "on"
+    },
+    {
+     "n": "QR codes",
+     "d": "Makes the QR for each page",
+     "s": "on"
+    },
+    {
+     "n": "Web search",
+     "d": "Looks up tracks and events",
+     "s": "on"
+    },
+    {
+     "n": "Higgsfield",
+     "d": "AI video shots",
+     "s": "off"
+    }
    ]
   },
   {
@@ -202,6 +239,33 @@
     "Sell a third ad spot between races 10 and 11",
     "Make a 10-second vertical CAOS ad for TikTok",
     "Add a race-day discount code for Valley Meats"
+   ],
+   "tools": [
+    {
+     "n": "Video maker",
+     "d": "Edits and shrinks ads for phones",
+     "s": "on"
+    },
+    {
+     "n": "Image design",
+     "d": "Posters and price-guess ads",
+     "s": "on"
+    },
+    {
+     "n": "Your flyer site",
+     "d": "Places ads between races",
+     "s": "on"
+    },
+    {
+     "n": "Higgsfield",
+     "d": "AI video shots",
+     "s": "off"
+    },
+    {
+     "n": "Meta / TikTok ads (Windsor.ai)",
+     "d": "Run and track paid ads",
+     "s": "setup"
+    }
    ]
   },
   {
@@ -252,6 +316,33 @@
     "Send a 'top 10 best value horses' list before the sale",
     "Compare our guesses with the real prices after Nov 7",
     "Add photos as soon as Heritage posts them"
+   ],
+   "tools": [
+    {
+     "n": "GitHub",
+     "d": "HipIQ app code and data",
+     "s": "on"
+    },
+    {
+     "n": "Heritage Place catalog",
+     "d": "Sale lists and results",
+     "s": "on"
+    },
+    {
+     "n": "Price model",
+     "d": "Price guesses from past sales",
+     "s": "on"
+    },
+    {
+     "n": "Vercel",
+     "d": "Puts the app online",
+     "s": "setup"
+    },
+    {
+     "n": "Firecrawl",
+     "d": "Reads sale websites automatically",
+     "s": "off"
+    }
    ]
   },
   {
@@ -313,6 +404,33 @@
     "Film the first 60-second dish video",
     "Print the order QR for the counter",
     "Add a 'reorder my last order' button"
+   ],
+   "tools": [
+    {
+     "n": "Claude AI",
+     "d": "Talks to customers and takes orders",
+     "s": "setup"
+    },
+    {
+     "n": "Text messages (Twilio)",
+     "d": "Sends orders to the shop",
+     "s": "setup"
+    },
+    {
+     "n": "Payment link (Stripe)",
+     "d": "Secure card payments, never by voice",
+     "s": "setup"
+    },
+    {
+     "n": "Vercel",
+     "d": "Puts the site online",
+     "s": "setup"
+    },
+    {
+     "n": "Order checker",
+     "d": "Reads the order back before placing it",
+     "s": "on"
+    }
    ]
   },
   {
@@ -366,6 +484,28 @@
     "Show a live scoreboard on race day",
     "Send each player their score by WhatsApp",
     "Give a CAOS hat to the top scorer"
+   ],
+   "tools": [
+    {
+     "n": "Picks on this phone",
+     "d": "Reads the picks from the race page",
+     "s": "on"
+    },
+    {
+     "n": "Winner board",
+     "d": "You tap each winner",
+     "s": "on"
+    },
+    {
+     "n": "Picks server",
+     "d": "Collects everyone's picks",
+     "s": "off"
+    },
+    {
+     "n": "WhatsApp",
+     "d": "Sends scores to players",
+     "s": "on"
+    }
    ]
   },
   {
@@ -401,6 +541,23 @@
     "Remind sponsors 3 days before race day",
     "Make a simple sponsor price sheet",
     "Track race-day cash and card separately"
+   ],
+   "tools": [
+    {
+     "n": "Payment list on this phone",
+     "d": "Paid and owed totals",
+     "s": "on"
+    },
+    {
+     "n": "Google Drive",
+     "d": "Could export to a spreadsheet",
+     "s": "setup"
+    },
+    {
+     "n": "Stripe",
+     "d": "Get paid by card",
+     "s": "off"
+    }
    ]
   },
   {
@@ -446,6 +603,28 @@
     "Sketch 3 original shirt designs",
     "Put a hat link on every race page",
     "Draw an original running-horse logo for shirts"
+   ],
+   "tools": [
+    {
+     "n": "Image design",
+     "d": "Original shirt and hat art",
+     "s": "on"
+    },
+    {
+     "n": "Video maker",
+     "d": "Hat and shirt ads",
+     "s": "on"
+    },
+    {
+     "n": "Shopify",
+     "d": "Could open a CAOS online store",
+     "s": "setup"
+    },
+    {
+     "n": "Your flyer site",
+     "d": "Hat ads in race pages",
+     "s": "on"
+    }
    ]
   }
  ]
