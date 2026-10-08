@@ -1,0 +1,368 @@
+{
+ "updated": "2026-10-08",
+ "sample": "Sunny Side Coffee (sample business)",
+ "deadlines": [
+  {
+   "what": "Fall menu launch",
+   "date": "2026-10-20",
+   "ag": "marketing"
+  },
+  {
+   "what": "Month-end close",
+   "date": "2026-10-31",
+   "ag": "accounting"
+  },
+  {
+   "what": "Holiday gift card ads",
+   "date": "2026-11-15",
+   "ag": "ads"
+  }
+ ],
+ "races": [],
+ "agents": [
+  {
+   "id": "marketing",
+   "name": "Marketing",
+   "color": "#ff7a1a",
+   "st": "needs",
+   "needs": [
+    "Approve the fall menu launch plan",
+    "Pick a photo for the new latte",
+    "Say yes or no to the student discount"
+   ],
+   "now": "Planning the fall menu launch for Oct 20: posts, a short video and a sign for the window.",
+   "done": [
+    "Wrote the fall menu announcement",
+    "Made 3 window sign designs",
+    "Set up the launch week calendar"
+   ],
+   "next": [
+    "Film a 15-second latte video",
+    "Email the regulars list"
+   ],
+   "facts": [
+    [
+     "Launch",
+     "Mon Oct 20"
+    ],
+    [
+     "Budget",
+     "$400"
+    ],
+    [
+     "Goal",
+     "120 new visits in launch week"
+    ]
+   ],
+   "asks": [
+    {
+     "q": "Run a free cookie with every fall latte on launch day?",
+     "clears": "Approve the fall menu launch plan"
+    }
+   ],
+   "files": [],
+   "ideas": [
+    "Latte art contest with customers",
+    "Fall playlist in the shop and on Spotify",
+    "Team up with the bakery next door"
+   ],
+   "tools": [
+    {
+     "n": "Website editor",
+     "d": "Updates the menu page",
+     "s": "on"
+    },
+    {
+     "n": "Email list",
+     "d": "Sends to 1,800 regulars",
+     "s": "on"
+    },
+    {
+     "n": "Canva",
+     "d": "Makes signs and posts",
+     "s": "setup"
+    },
+    {
+     "n": "Google Analytics",
+     "d": "Counts visits",
+     "s": "off"
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "name": "Social",
+   "color": "#ffc22e",
+   "st": "needs",
+   "needs": [
+    "Answer 3 comments that need a human",
+    "Approve tomorrow's post"
+   ],
+   "now": "Posting every day at 8 am and answering comments. Instagram grew by 64 followers this week.",
+   "done": [
+    "Posted 6 times this week",
+    "Answered 41 comments",
+    "Found 2 local creators who love the shop"
+   ],
+   "next": [
+    "Reel: how we make cold brew",
+    "Story poll: pumpkin or maple?"
+   ],
+   "facts": [
+    [
+     "Instagram",
+     "3,240 followers"
+    ],
+    [
+     "TikTok",
+     "1,120 followers"
+    ],
+    [
+     "Best time",
+     "8 am weekdays"
+    ]
+   ],
+   "asks": [
+    {
+     "q": "Invite the 2 local creators for a free tasting?"
+    }
+   ],
+   "files": [],
+   "ideas": [
+    "Behind the counter Fridays",
+    "Customer of the week",
+    "Duets with the latte video"
+   ],
+   "tools": [
+    {
+     "n": "Instagram",
+     "d": "Posts and answers comments",
+     "s": "on"
+    },
+    {
+     "n": "TikTok",
+     "d": "Posts videos",
+     "s": "setup"
+    },
+    {
+     "n": "Scheduler",
+     "d": "Queues posts for 8 am",
+     "s": "on"
+    }
+   ]
+  },
+  {
+   "id": "ads",
+   "name": "Ads",
+   "color": "#1f8fd1",
+   "st": "run",
+   "needs": [
+    "Raise the weekend ad budget from $20 to $35?"
+   ],
+   "now": "Running 2 small ads near the shop. The latte ad is winning: 3x more clicks than the muffin ad.",
+   "done": [
+    "Turned off the weak muffin ad",
+    "Moved budget to mornings"
+   ],
+   "next": [
+    "Holiday gift card ad on Nov 15"
+   ],
+   "facts": [
+    [
+     "Spent this month",
+     "$212 of $300"
+    ],
+    [
+     "Best ad",
+     "Fall latte"
+    ],
+    [
+     "Cost per visit",
+     "$1.40"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Ad for remote workers: free refill after 2 hours"
+   ],
+   "tools": [
+    {
+     "n": "Meta Ads",
+     "d": "Instagram and Facebook ads",
+     "s": "on"
+    },
+    {
+     "n": "Google Ads",
+     "d": "Search ads",
+     "s": "off"
+    }
+   ]
+  },
+  {
+   "id": "sales",
+   "name": "Sales",
+   "color": "#6b8fb5",
+   "st": "needs",
+   "needs": [
+    "Call back the office that wants coffee for 40 people",
+    "Confirm the catering price list"
+   ],
+   "now": "Following up with 5 offices nearby about coffee catering for meetings.",
+   "done": [
+    "Sent 12 catering emails",
+    "Booked 2 tastings"
+   ],
+   "next": [
+    "Tasting at Pine Street office on Thursday"
+   ],
+   "facts": [
+    [
+     "Open deals",
+     "5"
+    ],
+    [
+     "Biggest",
+     "40 people, weekly"
+    ],
+    [
+     "Won this month",
+     "$1,850"
+    ]
+   ],
+   "asks": [
+    {
+     "q": "Offer 10% off the first catering order?"
+    }
+   ],
+   "files": [],
+   "ideas": [
+    "Coffee subscription for offices"
+   ],
+   "tools": [
+    {
+     "n": "Email",
+     "d": "Sends follow-ups",
+     "s": "on"
+    },
+    {
+     "n": "CRM",
+     "d": "Tracks deals",
+     "s": "setup"
+    },
+    {
+     "n": "Calendar",
+     "d": "Books tastings",
+     "s": "on"
+    }
+   ]
+  },
+  {
+   "id": "accounting",
+   "name": "Accounting",
+   "color": "#ff9fb5",
+   "st": "needs",
+   "needs": [
+    "Upload 4 receipts from the milk supplier",
+    "Approve the September payroll"
+   ],
+   "now": "Closing September. Sales were $28,400, up 9% from August.",
+   "done": [
+    "Matched 212 card payments",
+    "Paid 3 supplier bills"
+   ],
+   "next": [
+    "Month-end report on Oct 31",
+    "Quarterly tax estimate"
+   ],
+   "facts": [
+    [
+     "September sales",
+     "$28,400"
+    ],
+    [
+     "Costs",
+     "$19,900"
+    ],
+    [
+     "Cash on hand",
+     "$12,300"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Switch milk supplier: save about $180 a month"
+   ],
+   "tools": [
+    {
+     "n": "Bank feed",
+     "d": "Reads payments",
+     "s": "on"
+    },
+    {
+     "n": "QuickBooks",
+     "d": "Books and reports",
+     "s": "setup"
+    },
+    {
+     "n": "Receipt scanner",
+     "d": "Photo to expense",
+     "s": "on"
+    }
+   ]
+  },
+  {
+   "id": "support",
+   "name": "Support",
+   "color": "#2fb5c8",
+   "st": "run",
+   "needs": [],
+   "now": "Answering messages and reviews. 2 new 5-star reviews today.",
+   "done": [
+    "Answered 18 messages",
+    "Replied to 6 reviews",
+    "Fixed a mixed-up online order"
+   ],
+   "next": [
+    "Ask happy customers for a review"
+   ],
+   "facts": [
+    [
+     "Rating",
+     "4.8 stars"
+    ],
+    [
+     "Avg reply",
+     "6 minutes"
+    ],
+    [
+     "Open messages",
+     "0"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Auto-reply with today's hours"
+   ],
+   "tools": [
+    {
+     "n": "Google reviews",
+     "d": "Reads and replies",
+     "s": "on"
+    },
+    {
+     "n": "WhatsApp",
+     "d": "Answers customers",
+     "s": "setup"
+    },
+    {
+     "n": "Online orders",
+     "d": "Checks order problems",
+     "s": "on"
+    }
+   ]
+  }
+ ]
+}

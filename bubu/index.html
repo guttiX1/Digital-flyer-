@@ -73,6 +73,15 @@ nav .btn{margin-left:auto;padding:10px 18px;font-size:14.5px}
 .up{opacity:0;transform:translateY(60px) rotate(var(--r,0deg));transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1.1s cubic-bezier(.2,.8,.2,1)}
 .up.in{opacity:1;transform:none}
 /* characters */
+#harness{padding:100px 0;border-top:1px solid var(--line)}
+#harness h2{font-size:clamp(42px,10vw,92px)}#harness h2 em{font-style:normal;color:var(--coral)}
+.hgrid{display:grid;grid-template-columns:1fr;gap:30px;margin-top:36px;align-items:center}
+.lede2{color:#4a4a50;font-size:clamp(17px,4.4vw,20px);max-width:540px}
+.hl{list-style:none;margin-top:20px;border-top:1px solid var(--line);max-width:540px}.hl li{padding:12px 0;border-bottom:1px solid var(--line)}
+.code{background:var(--ink);color:#e9e9ee;border-radius:22px;padding:22px;font:500 clamp(13px,3.4vw,16px)/1.6 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre}
+.code .k{color:#ffb08f}.code .v{color:#9fe3c2}.code .cm{color:#8a8a93}
+.soonnote{margin-top:22px;color:var(--dim);font-size:14.5px}
+@media (min-width:960px){.hgrid{grid-template-columns:1fr 1fr}}
 #crew{padding:110px 0 70px;background:var(--ink);color:#fff;overflow:hidden}
 #crew .kick{color:#9a9aa3}
 #crew h2{font-size:clamp(52px,13vw,120px)}
@@ -86,6 +95,10 @@ nav .btn{margin-left:auto;padding:10px 18px;font-size:14.5px}
 .anc img{width:100%;height:100%;display:block;pointer-events:none}
 .anc.live img{opacity:0}
 canvas.m3c{position:absolute;pointer-events:none;z-index:1}
+.sbub{position:absolute;left:16px;right:16px;top:16px;background:#fff;color:var(--ink);border-radius:18px;padding:12px 14px;font-size:15px;line-height:1.35;opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s;white-space:pre-line;z-index:3}
+.sbub.on{opacity:1;transform:none}
+.ask{display:flex;flex-wrap:wrap;gap:8px}.ask button{border:0;border-radius:999px;background:#26262b;color:#fff;padding:10px 14px;font:600 14px "DM Sans",sans-serif;cursor:pointer}.ask .mic{background:var(--coral);touch-action:none;-webkit-user-select:none;user-select:none}.ask .mic.rec{background:#fff;color:var(--ink)}
+.tin{display:flex;gap:8px;margin-top:10px}.tin input{flex:1;min-width:0;border:0;border-radius:999px;background:#26262b;color:#fff;padding:12px 16px;font:500 16px "DM Sans",sans-serif}.tin button{border:0;border-radius:999px;background:#fff;color:var(--ink);padding:0 18px;font-weight:700}
 .pick h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#9a9aa3;margin:18px 0 10px}
 .chars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .chars button{border:0;border-radius:18px;background:#1b1b1f;padding:6px 4px 8px;color:#fff;font:600 12.5px "DM Sans",sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1.5px transparent;transition:box-shadow .2s,transform .15s}
@@ -123,7 +136,7 @@ footer{padding:40px 16px calc(40px + env(safe-area-inset-bottom));border-top:1px
   <h1 class="d" style="margin-top:14px">Scroll your agents like a <em>feed.</em></h1>
   <p class="lead">Bubu turns every AI agent into a character you can scroll, swipe and talk to. It feels like your favorite app, not a dashboard.</p>
   <div class="ctas"><a class="btn ink" href="#try">Try it live</a><a class="btn line" href="#scroll">See how it works</a></div>
-  <p class="note">Real app, recorded on a phone screen. Early preview.</p></div>
+  <p class="note">Real app, recorded on a phone screen. The demo runs a sample coffee shop team.</p></div>
  <div class="trio" id="trio">
   <div class="iph p2" id="p2"><div class="bz"><div class="sc"><div class="sb"><span>9:41</span><b></b></div><img class="shot" src="media/app-swipe.jpg" alt="An agent's card in Bubu"><div class="di"></div></div></div><div class="gl"></div></div>
   <div class="iph p3" id="p3"><div class="bz"><div class="sc"><div class="sb"><span>9:41</span><b></b></div><img class="shot" src="media/app-talk.jpg" alt="Chatting with an agent in Bubu"><div class="di"></div></div></div><div class="gl"></div></div>
@@ -154,25 +167,41 @@ footer{padding:40px 16px calc(40px + env(safe-area-inset-bottom));border-top:1px
  <div class="ph"><div class="iph up" style="--r:4deg"><div class="bz"><div class="sc"><div class="sb"><span>9:41</span><b></b></div><video src="media/app-talk.mp4" poster="media/app-talk.jpg" muted loop playsinline preload="none"></video><div class="di"></div></div></div><div class="gl"></div></div></div>
 </div></section>
 
+<section id="harness"><div class="wrap">
+ <p class="kick">Keep your stack</p><h2 class="d">Your agents stay where they are.<br><em>Bubu is the face.</em></h2>
+ <div class="hgrid">
+  <div><p class="lede2">Your agents keep running on your laptop, your server or the tools you already use. Bubu is the layer on top: each agent sends a tiny status, and you get the scroll, the swipe and the talk on your phone.</p>
+   <ul class="hl"><li><b>Status in.</b> What it needs, what it's doing, what matters.</li><li><b>Messages out.</b> When you talk to it, your words go straight to your agent.</li><li><b>Nothing to rebuild.</b> Simple things on your phone, the heavy work stays where it is.</li></ul></div>
+  <pre class="code"><span class="cm">// what an agent sends to Bubu</span>
+{
+  <span class="k">"name"</span>: <span class="v">"Marketing"</span>,
+  <span class="k">"needs"</span>: [<span class="v">"Approve the launch plan"</span>],
+  <span class="k">"doing"</span>: <span class="v">"Planning the fall menu launch"</span>,
+  <span class="k">"important"</span>: { <span class="k">"Launch"</span>: <span class="v">"Oct 20"</span> }
+}</pre>
+ </div>
+ <p class="soonnote">Connectors are being built. The demo runs on a sample team.</p>
+</div></section>
+
 <section id="crew"><div class="wrap"><p class="kick">Characters</p><h2 class="d">A face for<br>every agent.</h2>
- <p class="lede">More than 50 characters, in any color. They blink, follow you, squish when you poke them and fall asleep when you swipe down. Try it.</p>
+ <p class="lede">More than 50 characters, in any color. They blink, follow you, squish when you poke them, and talk back. Meet the sample team and ask them what they need.</p>
  <div class="studio">
-  <div class="stage"><div class="slot" id="sslot"><div class="anc"><img src="../agents-mochi/chars/mochi.png" alt=""></div></div><div class="tag" id="stag">Mochi<small>Poke me</small></div></div>
-  <div class="pick"><h4>Character</h4><div class="chars" id="chars"></div><h4>Color</h4><div class="cols" id="cols"></div></div>
+  <div class="stage"><div class="slot" id="sslot"><div class="anc"><img src="../agents-mochi/chars/fox.png" alt=""></div></div><div class="tag" id="stag">Foxy<small>Marketing · poke me</small></div><div class="sbub" id="sbub"></div></div>
+  <div class="pick"><h4>Talk to it</h4><div class="ask" id="askRow"><button data-q="What do you need?">What do you need?</button><button data-q="What are you doing?">What are you doing?</button><button data-q="What's next?">What's next?</button><button class="mic" id="mic">🎤 Hold to talk</button></div>
+   <form class="tin" id="tin"><input id="tq" placeholder="Or type a question" autocomplete="off"><button>Ask</button></form><h4>Character</h4><div class="chars" id="chars"></div><h4>Color</h4><div class="cols" id="cols"></div></div>
  </div></div>
  <div class="wall" id="wall"></div></section>
 
 <section id="work"><div class="wrap"><p class="kick">Templates</p><h2 class="d">Ready for real work.</h2>
  <div class="tl">
+  <div class="tlr"><img src="../agents-mochi/chars/fox.png" alt=""><div><h3>Sample business</h3><p>A coffee shop team: marketing, social, ads, sales, accounting and support.</p></div><a class="pill go" href="app/">Live demo</a></div>
   <div class="tlr"><img src="../agents-mochi/chars/pony.png" alt=""><div><h3>Race stable</h3><p>Farrier, vet, feed, workouts, races and owner billing.</p></div><a class="pill go" href="../stable/">Live demo</a></div>
-  <div class="tlr"><img src="../agents-mochi/chars/fox.png" alt=""><div><h3>Small business</h3><p>Marketing, ads, social, sales, books and planning.</p></div><span class="pill soon">Soon</span></div>
-  <div class="tlr"><img src="../agents-mochi/chars/toro.png" alt=""><div><h3>Restaurant</h3><p>Orders, menus, reviews and specials.</p></div><span class="pill soon">Soon</span></div>
-  <div class="tlr"><img src="../agents-mochi/chars/byte.png" alt=""><div><h3>Bring your own</h3><p>Connect the agents you already run and give each one a character.</p></div><span class="pill soon">Soon</span></div>
- </div></div></section>
+    <div class="tlr"><img src="../agents-mochi/chars/toro.png" alt=""><div><h3>Restaurant</h3><p>Orders, menus, reviews and specials.</p></div><span class="pill soon">Soon</span></div>
+   </div></div></section>
 
 <section id="try"><div class="wrap grid">
  <div><p class="kick">No download</p><h2 class="d">Try it live.</h2><p style="color:#4a4a50;margin-top:16px;max-width:460px">This is the real app. Scroll it, tap a character, poke it. It works best on your own phone, where you can add it to your home screen.</p>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn ink" href="../agents-mochi/">Open the app</a></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn ink" href="app/">Open the demo</a></div>
   <div class="qr"><img src="media/qr-demo.png" alt="QR code to open the demo"><span style="color:var(--dim);font-size:15px">Scan to open it<br>on your phone.</span></div></div>
  <div><div class="iph" id="live"><div class="bz"><div class="sc"><div class="sb"><span>9:41</span><b></b></div><img class="shot" src="media/app-scroll.jpg" alt="" id="liveShot"><div class="di"></div></div></div></div></div>
 </div></section>
@@ -205,24 +234,46 @@ const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isInt
 
 /* the real app inside the last phone (computers only: on a phone the frame would trap your scrolling) */
 if(matchMedia('(min-width:960px)').matches){const lv=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;lv.disconnect();
-  const sc=$('#live .sc'),W=sc.clientWidth,H=sc.clientHeight,top=H*.064,s=W/390;const f=document.createElement('iframe');f.src='../agents-mochi/';f.title='Bubu live demo';
+  const sc=$('#live .sc'),W=sc.clientWidth,H=sc.clientHeight,top=H*.064,s=W/390;const f=document.createElement('iframe');f.src='app/';f.title='Bubu live demo';
   f.style.top=top+'px';f.style.width='390px';f.style.height=((H-top)/s)+'px';f.style.transform=`scale(${s})`;sc.appendChild(f);f.addEventListener('load',()=>{const i=$('#liveShot');if(i)i.remove()})},{rootMargin:'300px'});lv.observe($('#live'))}
 
 /* character studio: live 3D, pick a character and a color */
 let EYES=[];window.__eyes=()=>EYES;const COL={};window.__charColor=E=>COL[E.sty]||null;
 let ptr=null,lastPtr=-1e9;addEventListener('pointermove',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
 addEventListener('pointerdown',e=>{ptr={x:e.clientX,y:e.clientY};lastPtr=performance.now()},{passive:true});
-const anc=$('#sslot .anc');const E={svg:anc,sty:'mochi',ex:1,sq:1,sv:0,b:0,blink:-1,nb:2,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null};
+const anc=$('#sslot .anc');const E={svg:anc,sty:'fox',ex:1,sq:1,sv:0,b:0,blink:-1,nb:2,gx:0,gy:0,vx:0,vy:0,tx:0,ty:0,ns:0,pu:.36,put:.36,happy:0,happyT:0,y0:null};
 let started=false;new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;EYES=[E];import('../agents-mochi/chars3d.js').then(m=>m.start()).catch(()=>{})}},{rootMargin:'300px'}).observe($('#crew'));
 let downY=null;anc.addEventListener('pointerdown',e=>downY=e.clientY);
 anc.addEventListener('pointerup',e=>{const dy=downY==null?0:e.clientY-downY;downY=null;
  if(dy>60){E.sleep=true;$('#stag small').textContent='Asleep. Tap to wake.';return}
  if(E.sleep){E.sleep=false;E.sv-=.25;$('#stag small').textContent='Poke me';return}
  E.sv-=.18;E.happyT=1;setTimeout(()=>E.happyT=0,1000);if('vibrate' in navigator)navigator.vibrate(10)});
-const LIST=[['mochi','Mochi'],['fox','Foxy'],['bee','Bee'],['coach','Coach'],['tako','Tako'],['hoot','Hoot'],['byte','Byte'],['pony','Pony'],['phone','Ping'],['jockey','Flash'],['merlo','Merlo'],['jack','Jack']];
-$('#chars').innerHTML=LIST.map(([k,n],i)=>`<button data-k="${k}" class="${i?'':'on'}"><img src="${CH(k)}" alt="">${n}</button>`).join('');
+const LIST=[['fox','Foxy','marketing'],['bee','Bee','social'],['peacock','Strut','ads'],['shark','Finn','sales'],['piggy','Penny','accounting'],['phone','Ping','support'],['mochi','Mochi'],['coach','Coach'],['tako','Tako'],['hoot','Hoot'],['byte','Byte'],['pony','Pony']];
+$('#chars').innerHTML=LIST.map(([k,n],i)=>`<button data-k="${k}" class="${i?'':'on'}"><img src="${CH(k)}" alt="">${n}</button>`).join('');let CUR=LIST[0];
 $('#chars').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;$$('#chars button').forEach(x=>x.classList.toggle('on',x===b));E.sty=b.dataset.k;anc.querySelector('img').src=CH(E.sty);anc.classList.remove('live');E.sv-=.3;E.happyT=1;setTimeout(()=>E.happyT=0,900);E.sleep=false;
- $('#stag').innerHTML=`${b.textContent}<small>Poke me</small>`;paintCols()});
+ CUR=LIST.find(x=>x[0]===E.sty);const role=CUR[2]&&AGD&&AGD.find(a=>a.id===CUR[2]);$('#stag').innerHTML=`${CUR[1]}<small>${role?role.name+' · ':''}poke me</small>`;$('#sbub').classList.remove('on');paintCols()});
+/* talk to the character: it answers from the sample team, out loud */
+let AGD=null;fetch('app/agents.json').then(r=>r.json()).then(d=>AGD=d.agents).catch(()=>{});
+const VO={fox:[1.1,1.05],bee:[1.5,1.15],peacock:[1.2,1],shark:[.8,.95],piggy:[1.3,1.05],phone:[1.1,1.1]};
+function answer(q){const t=q.toLowerCase(),n=CUR[1],a=CUR[2]&&AGD&&AGD.find(x=>x.id===CUR[2]);let r;
+ if(!a)r=/need|necesit/.test(t)?`Nothing yet. I'm ${n}, and I'm free. Give me a job in Bubu and I'll get to work.`:/doing|haces/.test(t)?`Right now? Watching you. Hook me up to an agent and I'll show what it's doing.`:`I'm ${n}. Pick one of the team, like Foxy or Penny, and ask them what they need.`;
+ else if(/need|necesit|falta/.test(t))r=a.needs.length?`I need ${a.needs.length} thing${a.needs.length>1?'s':''}:\n`+a.needs.map(x=>'• '+x).join('\n'):`Nothing right now. All clear.`;
+ else if(/doing|haces|working|status/.test(t))r=a.now;
+ else if(/next|sigue|despues|después/.test(t))r='Up next:\n'+a.next.map(x=>'• '+x).join('\n');
+ else if(/hi|hello|hola|hey/.test(t))r=`Hey! I'm ${n}, your ${a.name.toLowerCase()} agent. Ask me what I need.`;
+ else r=a.facts.map(([k,v])=>`${k}: ${v}`).join('\n');
+ const b=$('#sbub');b.textContent=r;b.classList.add('on');E.look=null;E.sv-=.1;
+ const s=window.speechSynthesis;if(s){try{s.cancel();const u=new SpeechSynthesisUtterance(r.replace(/•/g,'').replace(/\n/g,'. '));const [pi,ra]=VO[E.sty]||[1.2,1.05];u.pitch=pi;u.rate=ra;u.onstart=()=>E.talking=true;u.onend=u.onerror=()=>{E.talking=false};s.speak(u)}catch(_){}}
+ clearTimeout(answer.t);answer.t=setTimeout(()=>b.classList.remove('on'),9000)}
+$('#askRow').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)answer(b.dataset.q)});
+$('#tin').addEventListener('submit',e=>{e.preventDefault();const q=$('#tq').value.trim();$('#tq').value='';$('#tq').blur();if(q)answer(q)});
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,heard='',recT=0;const mic=$('#mic');
+function stopRec(){if(!rec)return;try{rec.stop()}catch(_){}clearTimeout(recT);recT=setTimeout(finishRec,1500)}
+function finishRec(){if(!rec&&!mic.classList.contains('rec'))return;try{rec&&rec.abort()}catch(_){}rec=null;mic.classList.remove('rec');mic.textContent='🎤 Hold to talk';E.listening=false;if(heard.trim())answer(heard);else{$('#sbub').textContent="I didn't hear anything. Hold the button and talk.";$('#sbub').classList.add('on')}}
+mic.addEventListener('pointerdown',e=>{e.preventDefault();if(!SR){$('#sbub').textContent='Voice does not work in this browser. Tap a question or type instead.';$('#sbub').classList.add('on');return}
+ heard='';try{rec=new SR()}catch(_){return}rec.lang=navigator.language||'en-US';rec.interimResults=true;rec.onresult=ev=>{heard=[...ev.results].map(r=>r[0].transcript).join(' ');$('#sbub').textContent='“'+heard+'”';$('#sbub').classList.add('on')};
+ rec.onend=finishRec;rec.onerror=finishRec;try{rec.start()}catch(_){rec=null;return}mic.classList.add('rec');mic.textContent='Listening… let go';E.listening=true;E.look=[0,-.1];recT=setTimeout(stopRec,9000)});
+['pointerup','pointerleave','pointercancel'].forEach(t=>mic.addEventListener(t,stopRec));
 const SW=['','#ff7a59','#ff5a8a','#e2452b','#ffc22e','#3fbf6f','#2fb5c8','#4a86f5','#a0a4ad','#2a2a2e'];
 function paintCols(){$('#cols').innerHTML=SW.map(c=>`<button data-c="${c}" class="${(COL[E.sty]||'')===c?'on':''}" style="background:${c||'conic-gradient(#ff7a59,#ffc22e,#3fbf6f,#4a86f5,#ff7a59)'}" aria-label="${c||'Original color'}"></button>`).join('')}paintCols();
 $('#cols').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;if(b.dataset.c)COL[E.sty]=b.dataset.c;else delete COL[E.sty];paintCols();E.sv-=.15});
