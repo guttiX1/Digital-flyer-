@@ -223,7 +223,15 @@ body:not(.clean) .cleanhint{opacity:0}
 #intro>*,.ag .row1,.ag .reveal,.tabs,.meta{animation:fadeup .4s cubic-bezier(.2,1,.3,1) both}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}}
 svg.m3>:not(.m3img){opacity:0}svg.m3.live>.m3img{opacity:0}canvas.m3c{position:absolute;pointer-events:none;z-index:1}
-.m3tip{font-size:12px;color:#8a8a90;margin-top:2px}
+.m3tip{font-size:12px;color:#8a8a90;margin-top:2px;text-align:center}
+.pick .pkh{grid-column:1/-1;font-size:13px;font-weight:700;color:var(--dim);margin:10px 2px 0}.pick .pkh small{font-weight:500}
+.pick img{width:100%;display:block;aspect-ratio:400/430;object-fit:contain}
+.pick .sw{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 2px}.pick .sw button{width:34px;height:34px;border-radius:50%;padding:0;font-size:10px;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
+.pick .sw button.on{box-shadow:0 0 0 2.5px var(--ink)}
+.hud.ring{display:block;position:relative;width:min(94vw,440px);aspect-ratio:1;margin:8px auto 0}
+.hud.ring .hu{position:absolute;width:25%;transform:translate(-50%,-50%)}
+.hud.ring .hc{position:absolute;left:50%;top:50%;width:30%;transform:translate(-50%,-50%)}.hud.ring .hc .eye{width:100%;display:block}
+.hud.ring .hu b{font-size:13px}
 </style>
 </head>
 <body class="clean">
@@ -285,12 +293,19 @@ const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',
 const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
-const STYLES=['mochi','duo','bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
-const STY_NAME={mochi:'Mochi (3D)',duo:'Two eyes',bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
-const DEF={flyers:'mochi',ads:'nazar',hipiq:'horus',valley:'googly',results:'odin',money:'duo',caos:'buddha'};
+const CHARS=[['Creatures',[['mochi','Mochi'],['blob','Blob'],['fuzz','Fuzz'],['boo','Boo'],['pip','Pip'],['tako','Tako'],['rex','Rex'],['byte','Byte']]],
+ ['Mascots',[['toro','Toro'],['hoot','Hoot']]],['Office',[['clip','Clip'],['boss','Boss'],['tech','Tech'],['hardy','Hardy']]],
+ ['Magic',[['merlo','Merlo'],['sage','Sage'],['fae','Fae'],['genie','Genie']]],['Halloween',[['jack','Jack'],['nyx','Nyx'],['wrap','Wrap'],['hex','Hex']]]];
+const CHAR=new Map(CHARS.flatMap(([,l])=>l));
+const STYLES=['duo','bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
+const STY_NAME={duo:'Two eyes',bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
+const DEF={flyers:'mochi',ads:'tako',hipiq:'hoot',valley:'toro',results:'byte',money:'boss',caos:'merlo'};
+CHAR.forEach((n,k)=>STY_NAME[k]=n);
 let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles-mochi')||'{}')}catch(e){}
 const styleOf=a=>saved[a.id]||DEF[a.id]||'duo';
 const saveStyles=()=>{try{localStorage.setItem('agent-eye-styles-mochi',JSON.stringify(saved))}catch(e){}};
+let charCol={};try{charCol=JSON.parse(localStorage.getItem('agent-char-colors')||'{}')}catch(e){}
+const saveCharCol=()=>{try{localStorage.setItem('agent-char-colors',JSON.stringify(charCol))}catch(e){}};
 const toHex=c=>c[0]==='#'?c:'#'+c.match(/\d+/g).map(v=>(+v).toString(16).padStart(2,'0')).join('');
 const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
 
@@ -343,7 +358,7 @@ function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.st
   over='';deco='';o.orbit=`<g class="rg2" data-spin="5" data-cx="200" data-cy="200"><circle cx="200" cy="200" r="178" fill="none" stroke="#b8892b" stroke-width="1.5"/>${marks}${glyph}</g>`;
   white=''}
  const fill0=ora?'#fff':shade(o.color,.42),fill1=ora?'#f4efe2':o.color,fill2=ora?'#cbbd97':shade(o.color,-.38);
- const m3=sty==='mochi';
+ const m3=CHAR.has(sty);
  return `<svg class="eye${m3?' m3':''}" viewBox="${ora?'-10 -10 420 450':'0 0 400 430'}" data-sty="${sty}" data-ex="${ex}" data-dx="${dx}" data-ey="${ey}" data-er="${er}" data-mr="${ora?60:sty==='googly'?0:34}">
  <defs><radialGradient id="bd${k}" cx=".38" cy=".3" r=".78"><stop offset="0" stop-color="${fill0}"/><stop offset=".6" stop-color="${fill1}"/><stop offset="1" stop-color="${fill2}"/></radialGradient>
  <radialGradient id="ew${k}" cx=".42" cy=".36" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".8" stop-color="#f1f2f4"/><stop offset="1" stop-color="#cfd3da"/></radialGradient>
@@ -359,7 +374,7 @@ function eyeSVG(o){const k=EID++;const ora=!!o.ball;const sty=ora?'oracle':(o.st
   ${sty==='googly'?`<ellipse cx="${ex-34}" cy="${ey-46}" rx="30" ry="16" fill="#fff" opacity=".75" transform="rotate(-30 ${ex-34} ${ey-46})"/><circle cx="${ex}" cy="${ey}" r="${er}" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="3"/>`:''}
   ${sty==='lashes'?`<g class="lash">${[-62,-38,-12,14,40,64].map(x=>{const rx=er*1.45,ry=er*1.15,y=ry*(Math.sqrt(1-(x/rx)**2)-1);return `<line x1="${200+x}" y1="${y.toFixed(1)}" x2="${(200+x*1.3).toFixed(1)}" y2="${(y-26).toFixed(1)}" stroke="#1b1b1f" stroke-width="7" stroke-linecap="round"/>`}).join('')}</g>`:''}
   <ellipse cx="135" cy="105" rx="62" ry="36" fill="#fff" opacity="${ora?.75:.38}" transform="rotate(-35 135 105)"/>
-  <path d="M90 275 A150 150 0 0 0 310 275" fill="none" stroke="#fff" stroke-opacity="${ora?.55:.25}" stroke-width="7" stroke-linecap="round"/></g>${m3?'<image class="m3img" href="mochi.png" x="20" y="10" width="360" height="360"/>':''}</svg>`}
+  <path d="M90 275 A150 150 0 0 0 310 275" fill="none" stroke="#fff" stroke-opacity="${ora?.55:.25}" stroke-width="7" stroke-linecap="round"/></g>${m3?`<image class="m3img" href="chars/${sty}.png" x="0" y="0" width="400" height="430"/>`:''}</svg>`}
 
 
 /* ---------- tarjetas ---------- */
@@ -378,13 +393,13 @@ let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
    <button data-voice="${i}"><b>Hear my voice</b><span>▶</span></button><button data-snz="${i}"><b>Snooze</b><span id="sz-${i}"></span></button><button data-share="${i}"><b>Share this card</b><span>WhatsApp</span></button>
    ${a.mine?`<button data-edit="${i}"><b style="color:var(--red)">Delete this agent</b><span>›</span></button>`:''}</div></details>`).join('')}</div></div></section>`;
 html+=`<section class="card huddle" id="huddle"><p class="lbl" style="margin:0 0 4px">Huddle</p><h2>Everyone together</h2><p class="sub">Tap one and the others turn to watch it. Shake your phone to wake them all. Swipe down on an eye to snooze it.</p>
- <div class="hud">${AG.map((a,i)=>`<div class="hu"><span data-hud="${i}">${eyeSVG({color:a.color,style:styleOf(a)})}</span><b>${esc(a.name)}</b><small id="hs-${i}"></small></div>`).join('')}</div></section>`;
+ <div class="hud ring"><div class="hc">${eyeSVG({ball:true})}</div>${AG.map((a,i)=>`<div class="hu"><span data-hud="${i}">${eyeSVG({color:a.color,style:styleOf(a)})}</span><b>${esc(a.name)}</b><small id="hs-${i}"></small></div>`).join('')}</div></section>`;
 html+=AG.map((a,i)=>{const [lbl,col]=ST[a.st];const li=(x,cls)=>x.length?`<ul class="${cls}">${x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:`<p class="clear">Nothing yet</p>`;const d=nextDL(a);
  return `<section class="card ag" style="--c:${a.color}" data-i="${i}">
  <div class="meta"><span>Agent ${i+1} of ${AG.length}</span><span>${lbl}</span></div>
  <div class="tabs"><button class="on">Needs<b id="bd-${i}"></b></button><button>Doing</button><button>Important</button><button>Tools</button><button>History</button><button>Files</button><button>Calendar</button><button>Stats</button><button>Ideas</button></div>
  <div class="strip">
-  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}<i class="crown" id="cr-${i}" hidden><svg viewBox="0 0 64 40"><path d="M4 36 L8 10 L22 24 L32 4 L42 24 L56 10 L60 36 Z" fill="#f2b531" stroke="#a8740c" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="4" r="4" fill="#e5432d"/></svg></i></span><h2>${a.name}</h2>${styleOf(a)==='mochi'?'<p class="m3tip">Poke it, tilt your phone, hold to talk, swipe down to sleep</p>':''}<div class="row1"><span class="chip" id="ch-${i}" style="background:${col}">${lbl}</span><span class="cd lv" id="lv-${i}"></span></div>
+  <div class="panel"><div class="hero"><span class="eyeslot">${eyeSVG({color:a.color,style:styleOf(a)})}<i class="crown" id="cr-${i}" hidden><svg viewBox="0 0 64 40"><path d="M4 36 L8 10 L22 24 L32 4 L42 24 L56 10 L60 36 Z" fill="#f2b531" stroke="#a8740c" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="4" r="4" fill="#e5432d"/></svg></i></span><h2>${a.name}</h2>${CHAR.has(styleOf(a))?'<p class="m3tip">Poke, pick up, tilt, hold to talk, swipe down to sleep</p>':''}<div class="row1"><span class="chip" id="ch-${i}" style="background:${col}">${lbl}</span><span class="cd lv" id="lv-${i}"></span></div>
    <button class="reveal" data-rev="${i}" id="rv-${i}">Tap to see more ▾</button></div>
    <div class="more" id="mo-${i}" hidden><div class="row1">${d?`<span class="cd ${daysTo(d.date)<=7?'hot':''}">${daysTo(d.date)} days to ${d.what}</span>`:''}<span class="cd zzc" id="zz-${i}" hidden>💤 snoozed · tap the eye to wake</span></div>
    <p class="hint2">Tap the eye to chat · hold it to talk · swipe down to snooze</p><div class="acts"><button class="talk" data-talk="${i}">Talk</button><button class="sty" data-pick="${i}" id="eb-${i}">Eye: ${STY_NAME[styleOf(a)]} ›</button></div>
@@ -507,7 +522,7 @@ function mountEye(svg,owner){const E={svg,owner,sty:svg.dataset.sty,ir:svg.query
  if(E.sty==='cat')E.irR=62;
  svg.addEventListener('click',()=>{if(E.held){E.held=false;return}if(E.sleep){wakeAgent(E);return}if(E.svg.closest('[data-hud]')){hudTap(E);return}poke(E)});
  svg.addEventListener('pointermove',e=>{if(E.y0==null||E.listening)return;const dy=e.clientY-E.y0,dxx=Math.abs(e.clientX-E.x0);
-  if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}
+  if(Math.hypot(dy,dxx)>12&&!E.moved){E.moved=true;E.held=true;cancelHold(E)}E.dragX=e.clientX-E.x0;E.dragY=dy;
   if(E.lx!=null)E.path+=Math.hypot(e.clientX-E.lx,e.clientY-E.ly);E.lx=e.clientX;E.ly=e.clientY;
   const rh=E.svg.getBoundingClientRect().height;if(dy>Math.max(80,rh*.33)&&dxx<45&&dy>.88*E.path&&performance.now()-E.tDown<800){E.y0=null;snoozeEye(E);return}
   const r=E.svg.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.45,an=Math.atan2(e.clientY-cy,e.clientX-cx);
@@ -567,7 +582,7 @@ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now
 requestAnimationFrame(frame);
 
 
-function poke(E){SFX.pop();if(E.sty==='mochi'&&'vibrate' in navigator)navigator.vibrate(12);E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
+function poke(E){SFX.pop();if(CHAR.has(E.sty)&&'vibrate' in navigator)navigator.vibrate(12);E.sv-=.1;E.put=.5;E.happyT=1;E.pvx+=(Math.random()-.5)*600;E.pvy-=500;setTimeout(()=>{E.put=E.pu0;E.happyT=0},1300);
  const c=E.svg.closest('.card');if(!c||chA)return;if(c.id==='intro'||c.dataset.i!==undefined)toggleClean()}
 function toggleClean(){const on=document.body.classList.toggle('clean');if(!on){setTimeout(()=>say(prophecy(),5000),400)}else $('#say').classList.remove('on');setTimeout(rail,50)}
 document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
@@ -791,9 +806,15 @@ feed.addEventListener('click',e=>{const t=e.target;let b;
 /* ---------- elegir estilo de ojo (con vista previa) ---------- */
 let spI=0;
 function openPicker(i){spI=i;const a=AG[i],cur=styleOf(a);$('#spT').textContent=`${a.name}: pick an eye`;
- $('#spG').innerHTML=STYLES.map(st=>`<button data-st="${st}" class="${st===cur?'on':''}">${eyeSVG({color:a.color,style:st})}${STY_NAME[st]}</button>`).join('');$('#sp').classList.add('on')}
+ const cc=charCol[a.id]||'';
+ $('#spG').innerHTML=`<p class="pkh">Character color <small>for 3D characters</small></p><div class="sw">${['',...CCOL].map(c=>`<button data-cc="${c}" class="${c===cc?'on':''}" style="${c?'background:'+c:''}" aria-label="${c||'Original'}">${c?'':'Orig'}</button>`).join('')}</div>`+
+  CHARS.map(([set,l])=>`<p class="pkh">${set}</p>`+l.map(([k,n])=>`<button data-st="${k}" class="${k===cur?'on':''}"><img src="chars/${k}.png" alt="">${n}</button>`).join('')).join('')+
+  `<p class="pkh">Eyes</p>`+STYLES.map(st=>`<button data-st="${st}" class="${st===cur?'on':''}">${eyeSVG({color:a.color,style:st})}${STY_NAME[st]}</button>`).join('');$('#sp').classList.add('on')}
+const CCOL=['#ff7a59','#ff5a8a','#e2452b','#ffc22e','#ff8a1f','#3fbf6f','#2fb5c8','#4a86f5','#2fae7d','#c98a4b','#a0a4ad','#2a2a2e'];
 $('#spX').addEventListener('click',()=>$('#sp').classList.remove('on'));
-$('#spG').addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b)return;applyStyle(spI,b.dataset.st);$('#sp').classList.remove('on')});
+$('#spG').addEventListener('click',e=>{const c=e.target.closest('[data-cc]');if(c){const a=AG[spI];if(c.dataset.cc)charCol[a.id]=c.dataset.cc;else delete charCol[a.id];saveCharCol();SFX.pop();
+  $('#spG').querySelectorAll('[data-cc]').forEach(x=>x.classList.toggle('on',x===c));eyesOf(spI).forEach(E=>{E.sv-=.15;E.happyT=1;setTimeout(()=>E.happyT=0,900)});return}
+ const b=e.target.closest('[data-st]');if(!b)return;applyStyle(spI,b.dataset.st);$('#sp').classList.remove('on')});
 function applyStyle(i,st){const a=AG[i];saved[a.id]=st;saveStyles();logE(a,'New eye: '+STY_NAME[st]);
  const slots=[agCard(i).querySelector('.eyeslot'),document.querySelector(`[data-hud="${i}"]`)].filter(Boolean);
  slots.forEach(sl=>{const old=sl.querySelector('svg.eye');eyes=eyes.filter(E=>E.svg!==old);const tmp=document.createElement('div');tmp.innerHTML=eyeSVG({color:a.color,style:st});const nw=tmp.firstElementChild;old.replaceWith(nw);const E=mountEye(nw,'card');E.sq=.8;E.sv=.6});
@@ -828,8 +849,15 @@ $('#pinBtn').addEventListener('click',()=>{if(S.pin){S.pin='';save();paintPinBtn
 paintPinBtn();if(S.pin)showLock('open');
 $('#homeBtn').addEventListener('click',()=>say(/iphone|ipad/i.test(navigator.userAgent)?'In Safari: tap Share, then "Add to Home Screen".':'In Chrome: tap ⋮, then "Add to Home screen".',5000));
 
+/* ---------- huddle en círculo: los agentes giran despacio alrededor del Oráculo ---------- */
+const ringEl=document.querySelector('.hud.ring');let ringA=0,ringHold=false;
+if(ringEl){ringEl.addEventListener('pointerdown',()=>ringHold=true);addEventListener('pointerup',()=>ringHold=false);addEventListener('pointercancel',()=>ringHold=false);
+ const items=[...ringEl.querySelectorAll('.hu')];let lt=performance.now();
+ (function ring(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!ringHold&&!reduce)ringA+=dt*Math.PI*2/90;
+  const n=items.length;items.forEach((el,k)=>{const an=ringA+k/n*Math.PI*2-Math.PI/2;el.style.left=(50+Math.cos(an)*37)+'%';el.style.top=(50+Math.sin(an)*37)+'%'});requestAnimationFrame(ring)})(lt)}
 paint();booted=true;window.__eyes=()=>eyes;window.__say=say;
-import('./mochi3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
+window.__charColor=E=>{const i=agentOfEye(E);return i>=0&&AG[i]?charCol[AG[i].id]:null};
+import('./chars3d.js').then(m=>m.start()).catch(e=>console.warn('3D off',e));
 
 window.__ready=true;
 </script>
