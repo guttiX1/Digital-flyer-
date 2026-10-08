@@ -87,7 +87,125 @@
      "d": "Counts visits",
      "s": "off"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "launch",
+      "icon": "🚀",
+      "n": "Launch week plan",
+      "st": "proven",
+      "tag": "+$530",
+      "metric": "+96 lattes in launch week, about +$530",
+      "src": "Square",
+      "chart": {
+       "labels": [
+        "Sep 15",
+        "Sep 22",
+        "Sep 29",
+        "Oct 6",
+        "Launch"
+       ],
+       "vals": [
+        152,
+        164,
+        158,
+        166,
+        256
+       ]
+      },
+      "unit": "fall lattes per week",
+      "sure": 3,
+      "checks": [
+       "Real sales, not the agent's word",
+       "Not just the season: same week last year +4%",
+       "Only the promoted drink jumped"
+      ]
+     },
+     {
+      "id": "post",
+      "icon": "✍️",
+      "n": "Launch post",
+      "st": "testing",
+      "demo": {
+       "tag": "2x saves",
+       "metric": "Launch posts got 2x more saves than usual",
+       "src": "Instagram",
+       "chart": {
+        "labels": [
+         "Post 1",
+         "Post 2",
+         "Post 3",
+         "Post 4",
+         "Launch"
+        ],
+        "vals": [
+         48,
+         52,
+         45,
+         50,
+         104
+        ]
+       },
+       "unit": "saves per post",
+       "sure": 3,
+       "checks": [
+        "Counted from Instagram, not guessed",
+        "Compared with the last 4 normal posts",
+        "Posted at the usual time, so time isn't the reason"
+       ]
+      }
+     },
+     {
+      "id": "weekly",
+      "icon": "📅",
+      "n": "Weekly plan",
+      "st": "testing"
+     },
+     {
+      "id": "cookie",
+      "icon": "🍪",
+      "n": "Free cookie promo",
+      "st": "nope",
+      "tag": "no change",
+      "metric": "Sales didn't change, so it was retired",
+      "src": "Square",
+      "chart": {
+       "labels": [
+        "Wk 1",
+        "Wk 2",
+        "Wk 3",
+        "Wk 4",
+        "Promo"
+       ],
+       "vals": [
+        150,
+        158,
+        149,
+        161,
+        155
+       ]
+      },
+      "unit": "orders per week",
+      "sure": 3,
+      "checks": [
+       "Real sales from Square",
+       "Promo week was inside the normal range"
+      ]
+     }
+    ],
+    "mem": [
+     "Owner likes short posts",
+     "Best time: 8 am",
+     "Never the old logo",
+     "Regulars love oat milk"
+    ],
+    "know": [
+     "📄 Fall menu",
+     "🎨 Brand guide",
+     "💲 Price list"
+    ]
+   }
   },
   {
    "id": "social",
@@ -149,7 +267,89 @@
      "d": "Queues posts for 8 am",
      "s": "on"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "daily",
+      "icon": "📸",
+      "n": "Daily 8 am post",
+      "st": "proven",
+      "tag": "+64 followers",
+      "metric": "+64 followers this week, double the usual",
+      "src": "Instagram",
+      "chart": {
+       "labels": [
+        "Wk 1",
+        "Wk 2",
+        "Wk 3",
+        "Wk 4",
+        "This wk"
+       ],
+       "vals": [
+        30,
+        28,
+        34,
+        31,
+        64
+       ]
+      },
+      "unit": "new followers per week",
+      "sure": 3,
+      "checks": [
+       "Counted from Instagram",
+       "Same number of posts as before, only the time changed"
+      ]
+     },
+     {
+      "id": "reply1h",
+      "icon": "💬",
+      "n": "Reply within 1 hour",
+      "st": "testing",
+      "demo": {
+       "tag": "+30% comments",
+       "metric": "Comments went up 30% after fast replies",
+       "src": "Instagram",
+       "chart": {
+        "labels": [
+         "Wk 1",
+         "Wk 2",
+         "Wk 3",
+         "Wk 4",
+         "Fast"
+        ],
+        "vals": [
+         40,
+         44,
+         42,
+         43,
+         56
+        ]
+       },
+       "unit": "comments per week",
+       "sure": 2,
+       "checks": [
+        "Counted from Instagram",
+        "Only 2 weeks of data, so medium proof"
+       ]
+      }
+     },
+     {
+      "id": "reels",
+      "icon": "🎥",
+      "n": "Behind the counter reels",
+      "st": "testing"
+     }
+    ],
+    "mem": [
+     "Customers love latte art",
+     "Pumpkin beats maple in polls"
+    ],
+    "know": [
+     "🎨 Brand guide",
+     "📸 Photo checklist"
+    ]
+   }
   },
   {
    "id": "ads",
@@ -197,7 +397,81 @@
      "d": "Search ads",
      "s": "off"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "morning",
+      "icon": "☀️",
+      "n": "Morning-only budget",
+      "st": "proven",
+      "tag": "$2.10→$1.40",
+      "metric": "Cost per visit dropped from $2.10 to $1.40",
+      "src": "Meta Ads",
+      "chart": {
+       "labels": [
+        "Wk 1",
+        "Wk 2",
+        "Wk 3",
+        "Wk 4",
+        "Mornings"
+       ],
+       "vals": [
+        2.1,
+        2.2,
+        2.0,
+        2.1,
+        1.4
+       ]
+      },
+      "unit": "cost per visit ($), lower is better",
+      "sure": 3,
+      "checks": [
+       "Numbers from Meta Ads",
+       "Same budget, only the hours changed"
+      ]
+     },
+     {
+      "id": "gift",
+      "icon": "🎁",
+      "n": "Gift card ad",
+      "st": "testing"
+     },
+     {
+      "id": "muffin",
+      "icon": "🥐",
+      "n": "Muffin ad",
+      "st": "nope",
+      "tag": "few clicks",
+      "metric": "Few clicks for the money, turned off",
+      "src": "Meta Ads",
+      "chart": {
+       "labels": [
+        "Wk 1",
+        "Wk 2",
+        "Wk 3"
+       ],
+       "vals": [
+        12,
+        9,
+        10
+       ]
+      },
+      "unit": "clicks per $10",
+      "sure": 3,
+      "checks": [
+       "Numbers from Meta Ads"
+      ]
+     }
+    ],
+    "mem": [
+     "Weekend budget is $20",
+     "Latte ad wins"
+    ],
+    "know": [
+     "💲 Price list"
+    ]
+   }
   },
   {
    "id": "sales",
@@ -255,7 +529,52 @@
      "d": "Books tastings",
      "s": "on"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "tasting",
+      "icon": "🏢",
+      "n": "Office tasting",
+      "st": "proven",
+      "tag": "+$1,850",
+      "metric": "2 of 2 tastings became weekly orders, +$1,850",
+      "src": "Bank deposits",
+      "chart": {
+       "labels": [
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct"
+       ],
+       "vals": [
+        0,
+        0,
+        900,
+        1850
+       ]
+      },
+      "unit": "catering sales per month ($)",
+      "sure": 3,
+      "checks": [
+       "Checked against real deposits",
+       "Both new orders came from tasting offices"
+      ]
+     },
+     {
+      "id": "follow",
+      "icon": "📧",
+      "n": "Follow up after 3 days",
+      "st": "testing"
+     }
+    ],
+    "mem": [
+     "Offices order on Mondays"
+    ],
+    "know": [
+     "💲 Catering prices"
+    ]
+   }
   },
   {
    "id": "accounting",
@@ -310,7 +629,77 @@
      "d": "Photo to expense",
      "s": "on"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "scan",
+      "icon": "🧾",
+      "n": "Receipt photo scan",
+      "st": "proven",
+      "tag": "3 days faster",
+      "metric": "September closed 3 days faster than August",
+      "src": "Books",
+      "chart": {
+       "labels": [
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+       ],
+       "vals": [
+        9,
+        8,
+        9,
+        6
+       ]
+      },
+      "unit": "days to close the month, lower is better",
+      "sure": 3,
+      "checks": [
+       "Dates from the books",
+       "Same number of receipts as before"
+      ]
+     },
+     {
+      "id": "milk",
+      "icon": "🥛",
+      "n": "Supplier price check",
+      "st": "testing",
+      "demo": {
+       "tag": "-$180/mo",
+       "metric": "New milk supplier saves about $180 a month",
+       "src": "Bank",
+       "chart": {
+        "labels": [
+         "Jul",
+         "Aug",
+         "Sep",
+         "Oct"
+        ],
+        "vals": [
+         1420,
+         1440,
+         1410,
+         1240
+        ]
+       },
+       "unit": "milk cost per month ($), lower is better",
+       "sure": 3,
+       "checks": [
+        "From real bills",
+        "Same amount of milk bought"
+       ]
+      }
+     }
+    ],
+    "mem": [
+     "Payroll on the 1st and 15th"
+    ],
+    "know": [
+     "📊 Last year's books"
+    ]
+   }
   },
   {
    "id": "support",
@@ -362,7 +751,103 @@
      "d": "Checks order problems",
      "s": "on"
     }
-   ]
+   ],
+   "loadout": {
+    "skills": [
+     {
+      "id": "reviews",
+      "icon": "⭐",
+      "n": "Reply to reviews",
+      "st": "proven",
+      "tag": "4.6→4.8",
+      "metric": "Rating went from 4.6 to 4.8 in 6 weeks",
+      "src": "Google reviews",
+      "chart": {
+       "labels": [
+        "Aug 1",
+        "Aug 15",
+        "Sep 1",
+        "Sep 15",
+        "Oct 1"
+       ],
+       "vals": [
+        4.6,
+        4.6,
+        4.7,
+        4.7,
+        4.8
+       ]
+      },
+      "unit": "star rating",
+      "sure": 2,
+      "checks": [
+       "Ratings from Google",
+       "More reviews too, so it's a real trend"
+      ]
+     },
+     {
+      "id": "fast",
+      "icon": "⏱️",
+      "n": "6-minute replies",
+      "st": "proven",
+      "tag": "0 open",
+      "metric": "No messages left waiting this month",
+      "src": "WhatsApp",
+      "chart": {
+       "labels": [
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct"
+       ],
+       "vals": [
+        14,
+        9,
+        3,
+        0
+       ]
+      },
+      "unit": "messages left waiting, lower is better",
+      "sure": 3,
+      "checks": [
+       "Counted from the inbox"
+      ]
+     }
+    ],
+    "mem": [
+     "Hours: 6 am to 4 pm"
+    ],
+    "know": [
+     "❓ Common questions"
+    ]
+   }
+  }
+ ],
+ "library": [
+  {
+   "id": "photo",
+   "icon": "📸",
+   "n": "Product photo checklist",
+   "from": "Social"
+  },
+  {
+   "id": "onestar",
+   "icon": "💬",
+   "n": "Answer a 1-star review",
+   "from": "Support"
+  },
+  {
+   "id": "adreport",
+   "icon": "📊",
+   "n": "Weekly ad report",
+   "from": "Ads"
+  },
+  {
+   "id": "launch",
+   "icon": "🚀",
+   "n": "Launch week plan",
+   "from": "Marketing",
+   "proven": "+$530 for Marketing"
   }
  ]
 }

@@ -404,6 +404,7 @@ function init(opts={}){
  shadow=new THREE.Mesh(new THREE.CircleGeometry(1,48),new THREE.MeshBasicMaterial({color:'#000',transparent:true,opacity:.12}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-1.12;scene.add(shadow)}
 
 export function start(){try{init()}catch(e){console.warn('no WebGL',e);return}
+ window.__still=still;
  window.__throw=E=>{const s=stateOf(E);if(s.fly)return;s.fly=lastT;s.flyX=s.ox;s.flyY=s.oy;if('vibrate' in navigator)navigator.vibrate([12,30,12]);window.__onThrow&&window.__onThrow(E)};
  addEventListener('pointerdown',askTilt,{once:true});window.mochiFrame=frame}
 
