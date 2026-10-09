@@ -2,11 +2,11 @@
 // [caballo, cuadra, foto de ejemplo, nota]
 const RACES=[
  {time:'10:40',h24:'10:40',dist:'350 yds',y:350,h:[['EL JOCKER','C. FE','h01'],['EL CAÑERO','C. Cañeros','h02']]},
- {time:'11:20',h24:'11:20',dist:'250 yds',y:250,h:[['EL MACHETE','C. Don Chuy','h03'],['EL HUEVOS DE ORO','C. FE','h04']]},
+ {time:'11:20',h24:'11:20',dist:'250 yds',y:250,h:[['EL MACHETE','C. Don Chuy','h09'],['EL HUEVOS DE ORO','C. FE','h04']]},
  {time:'12:00',h24:'12:00',dist:'200 yds',y:200,h:[['EL MAL EJEMPLO','C. Tilichas','h05'],['EL ROJO','C. Cañeros','h06']]},
  {time:'12:40',h24:'12:40',dist:'400 yds',y:400,h:[['LA KORITA','C. Tilichas','h07'],['EL ALQAEDA','C. Ramírez','h08']]},
- {time:'1:20',h24:'13:20',dist:'200 yds',y:200,c:['#d62718','#e8710c','#7b3fc4','#1f5fd6'],h:[['EL VOLCÁN','C. Rancho Viejo','h09'],['EL INVASOR','C. Jerusalem','h10'],['EL PATAS BLANCAS','C. Hernández','h11'],['LA EMMA','C. Venzor','h12']]},
- {time:'2:00',h24:'14:00',dist:'350 yds',y:350,h:[['LA DRAMÁTICA','C. Tilichas','h13','caballo blanco'],['EL VIEJITO','C. Ramírez','h14']]},
+ {time:'1:20',h24:'13:20',dist:'200 yds',y:200,c:['#d62718','#e8710c','#7b3fc4','#1f5fd6'],h:[['EL VOLCÁN','C. Rancho Viejo','h10'],['EL INVASOR','C. Jerusalem','h14'],['EL PATAS BLANCAS','C. Hernández','h03'],['LA EMMA','C. Venzor','h12']]},
+ {time:'2:00',h24:'14:00',dist:'350 yds',y:350,h:[['LA DRAMÁTICA','C. Tilichas','h13','caballo blanco'],['EL VIEJITO','C. Ramírez','h21']]},
  {time:'2:40',h24:'14:40',dist:'225 o 250 yds',y:250,h:[['LA MEDIA NOCHE','C. RO','h15'],['LA TORMENTA','C. Jerusalem','h16']]},
 ].map((r,i)=>({...r,n:i+1,at:new Date(`2026-10-11T${r.h24}:00-06:00`)}));
 const NR=RACES.length;
