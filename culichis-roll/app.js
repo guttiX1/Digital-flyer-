@@ -88,6 +88,20 @@ function fly(img){const r=img.getBoundingClientRect(),b=$('#bagBtn').getBounding
 const io=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('live',e.isIntersecting);if(e.isIntersecting){const id=e.target.id;document.body.classList.toggle('onintro',id==='intro');document.querySelectorAll('#dots i').forEach(i=>i.classList.toggle('on',i.dataset.go===id))}}),{threshold:.55});
 document.querySelectorAll('.card').forEach(c=>io.observe(c));
 $('#dots').addEventListener('click',e=>{const i=e.target.closest('[data-go]');if(i)$('#'+i.dataset.go).scrollIntoView({behavior:'smooth'})});
+/* portada: carrusel 3D de los 5 platillos */
+(()=>{const ring=$('#ring'),N=MENU.length;let k=0,t=null;
+ ring.innerHTML=MENU.map((d,i)=>`<button class="rf" data-i="${i}" type="button" aria-label="${d.name}"><img src="food/${d.img}.webp" alt="" draggable="false"></button>`).join('');
+ $('#hbars').innerHTML=MENU.map(()=>'<i><u></u></i>').join('');
+ const els=[...ring.children],bars=[...$('#hbars').children];
+ function show(n){k=(n+N)%N;els.forEach((e,i)=>{let o=((i-k)%N+N)%N;if(o>N/2)o-=N;e.dataset.o=o});
+  const d=MENU[k];const g=$('#hghost');g.textContent=d.ghost;g.classList.remove('in');void g.offsetWidth;g.classList.add('in');fitHero();
+  $('#hname').textContent=d.name;$('#hprice').textContent=d.price;['#hname','#hprice'].forEach(s=>{const e=$(s);e.classList.remove('in');void e.offsetWidth;e.classList.add('in')});
+  bars.forEach((b,i)=>b.className=i<k?'done':i===k?'on':'');clearTimeout(t);t=setTimeout(()=>show(k+1),3200)}
+ function fitHero(){const g=$('#hghost');g.style.fontSize='100px';g.style.fontSize=Math.min(innerHeight*.15,100*innerWidth*.94/(g.scrollWidth||1))+'px'}
+ els.forEach(e=>e.addEventListener('click',()=>{const o=+e.dataset.o;if(o)show(k+o);else $('#d-'+MENU[k].id).scrollIntoView({behavior:'smooth'})}));
+ let x0=null;ring.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+ ring.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(k+(dx<0?1:-1));x0=null});
+ document.fonts.ready.then(()=>show(0));addEventListener('resize',fitHero)})();
 $('#goMenu').addEventListener('click',()=>$('#dishes .card').scrollIntoView({behavior:'smooth'}));
 
 /* ---------- la orden ---------- */

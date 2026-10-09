@@ -10,7 +10,7 @@
 <meta property="og:description" content="Rollos, horneados, super papas y charolas. Ordena y recoge en Rifle, CO.">
 <meta property="og:image" content="og.jpg">
 <link rel="icon" href="logo.webp">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <header class="top">
@@ -22,12 +22,12 @@
 
 <main class="feed" id="feed">
   <section class="card intro" id="intro">
-    <div class="ghostrow" aria-hidden="true"><span>CULIACÁN · RIFLE · CULIACÁN · RIFLE · </span><span>CULIACÁN · RIFLE · CULIACÁN · RIFLE · </span></div>
-    <img class="biglogo" src="logo.webp" alt="Culichi's Roll · Sushi estilo Culiacán">
-    <h1>Sushi estilo Culiacán.<br><em>Aquí en Rifle.</em></h1>
-    <p class="sub">Solo para recoger · <a href="tel:+19704046638">970-404-6638</a></p>
-    <div class="cta2"><button class="b-red" id="goMenu" type="button">Ver el menú ↓</button><button class="b-ink" id="introTalk" type="button">🎤 Pregúntale</button></div>
-    <p class="hint">Desliza hacia arriba · de lado para ver qué lleva</p>
+    <div class="hk"><img src="logo.webp" alt="Culichi's Roll"><span>Sushi estilo Culiacán<br><b>Rifle, Colorado</b></span></div>
+    <div class="hstage"><div class="hghost" id="hghost" aria-hidden="true">HORNEADO</div><div class="ring" id="ring"></div></div>
+    <div class="hinfo"><h1 id="hname">Horneado Boneless</h1><p id="hprice">$23</p></div>
+    <div class="hbars" id="hbars"></div>
+    <div class="cta2"><a class="b-red" href="tel:+19704046638">📞 Llamar y ordenar</a><button class="b-ink" id="goMenu" type="button">Ver el menú ↓</button></div>
+    <p class="hint">Solo para recoger · 970-404-6638 · <button id="introTalk" type="button">🎤 Pregúntale</button></p>
   </section>
 
   <div id="dishes"></div>
@@ -58,6 +58,6 @@
 
 <div class="vw" id="vw"><video id="vwv" src="anuncio.mp4" playsinline controls preload="none"></video><button type="button" id="vwx">Cerrar</button></div>
 <div class="toast" id="toast"></div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>
