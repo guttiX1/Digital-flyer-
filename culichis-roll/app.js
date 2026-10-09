@@ -5,23 +5,23 @@ const MENU=[
  {id:'horneado',img:'horneado',ghost:'HORNEADO',name:'Horneado Boneless',price:'$23',
   blurb:'Gratinado con queso chihuahua y boneless en salsa BBQ, con cebollín. Uno de los favoritos de la casa.',
   has:['Queso chihuahua gratinado','Boneless en salsa BBQ','Cebollín'],
-  opts:[{n:'Horneado Boneless',p:23}],keys:['horneado','boneless','gratinado','bbq']},
+  opts:[{n:'Horneado Boneless',p:23}],rm:['Cebollín'],keys:['horneado','boneless','gratinado','bbq']},
  {id:'res',img:'rollo_res',ghost:'ROLLOS',name:'Rollo de Res',price:'desde $22',
   blurb:'Res, aguacate y queso philadelphia por dentro. Cortado al momento, con ensalada y salsa de la casa.',
   has:['Res','Aguacate','Queso philadelphia','Ensalada y salsa de la casa al lado'],
-  opts:[{n:'Rollo de Res',p:22,from:true}],keys:['res','carne','rollo de res','philadelphia','rollo']},
+  opts:[{n:'Rollo de Res',p:22,from:true}],rm:['Aguacate','Queso philadelphia','Ensalada'],keys:['res','carne','rollo de res','philadelphia','rollo']},
  {id:'papas',img:'papas',ghost:'PAPAS',name:'Super Papas',price:'$20',
   blurb:'Papas fritas con res, pollo o mixtas, aguacate, queso para nachos, queso gratinado, aderezo de chipotle y cebollín.',
   has:['Res, pollo o mixtas','Aguacate','Queso para nachos','Queso gratinado','Aderezo de chipotle','Cebollín'],
-  opts:[{n:'Super Papas de res',p:20},{n:'Super Papas de pollo',p:20},{n:'Super Papas mixtas',p:20}],keys:['papas','papa','fries','super papas']},
+  opts:[{n:'Super Papas de res',p:20,l:'Res'},{n:'Super Papas de pollo',p:20,l:'Pollo'},{n:'Super Papas mixtas',p:20,l:'Mixtas'}],pick:'Carne',rm:['Aguacate','Queso para nachos','Chipotle','Cebollín'],keys:['papas','papa','fries','super papas']},
  {id:'especial',img:'especial',ghost:'ESPECIAL',name:'Rollos Especiales',price:'desde $23',
   blurb:'Aguacate, salsa de anguila, spicy mayo y ajonjolí encima. Sushi estilo Culiacán, hecho al momento.',
   has:['Aguacate','Salsa de anguila','Spicy mayo','Ajonjolí'],
-  opts:[{n:'Rollo Especial',p:23,from:true}],keys:['especial','especiales','anguila','spicy','picante','pica']},
+  opts:[{n:'Rollo Especial',p:23,from:true}],rm:['Aguacate','Spicy mayo','Salsa de anguila','Ajonjolí'],keys:['especial','especiales','anguila','spicy','picante','pica']},
  {id:'charola',img:'charola',ghost:'CHAROLA',name:'Charolas',price:'$60 · $70 · $100',
   blurb:'3 rollos por $60 o 5 rollos por $100. La Charola Familiar trae 2 rollos, 8 alitas o boneless y papas por $70.',
   has:['3 rollos: $60','5 rollos: $100','Familiar: 2 rollos + 8 alitas o boneless + papas: $70'],
-  opts:[{n:'Charola de 3 rollos',p:60},{n:'Charola Familiar',p:70},{n:'Charola de 5 rollos',p:100}],keys:['charola','charolas','familiar','familia','compartir','alitas','3 rollos','5 rollos','tres rollos','cinco rollos']},
+  opts:[{n:'Charola de 3 rollos',p:60,l:'3 rollos'},{n:'Charola Familiar',p:70,l:'Familiar',sub:['8 alitas','8 boneless']},{n:'Charola de 5 rollos',p:100,l:'5 rollos'}],pick:'Tamaño',rm:[],keys:['charola','charolas','familiar','familia','compartir','alitas','3 rollos','5 rollos','tres rollos','cinco rollos']},
 ];
 const $=s=>document.querySelector(s);
 const feed=$('#feed');
@@ -32,24 +32,30 @@ const buzz=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
 
 /* ---------- tarjetas de platillo ---------- */
 $('#dishes').innerHTML=MENU.map((d,i)=>`<section class="card dish" data-i="${i}" id="d-${d.id}">
- <div class="ghostrow" aria-hidden="true"><span>${(d.ghost+' ').repeat(4)}</span><span>${(d.ghost+' ').repeat(4)}</span></div>
+ <div class="ghost" aria-hidden="true">${d.ghost}</div>
  <div class="strip">
   <div class="panel p0">
    <div class="stage"><div class="pool"></div><img class="food" src="food/${d.img}.webp" alt="${d.name}" draggable="false"></div>
    <div class="sticker"><small>${d.price.startsWith('desde')?'desde':d.opts.length>1&&d.id==='charola'?'desde':'solo'}</small><b>${d.id==='charola'?'$60':d.price.replace('desde ','')}</b></div>
    <div class="txt"><h2>${d.name}</h2><p class="bl">${d.blurb}</p>
-    <div class="acts"><button class="add" type="button">+ Agregar</button><button class="more" type="button">Qué lleva →</button></div></div>
+    <div class="acts"><button class="add" type="button">+ Agregar</button><button class="more" type="button">Personalizar →</button></div></div>
   </div>
   <div class="panel p1"><div class="pad">
-   <p class="lbl">${d.name}</p><h3>Qué lleva</h3>
-   <ul class="has">${d.has.map(h=>`<li>${h}</li>`).join('')}</ul>
-   <p class="lbl" style="margin-top:22px">${d.opts.length>1?'Elige':'Agregar'}</p>
-   <div class="opts">${d.opts.map((o,j)=>`<button type="button" data-o="${j}"><span>${o.n}</span><b>${o.from?'desde ':''}${money(o.p)}</b><i>+</i></button>`).join('')}</div>
+   <p class="lbl">Personaliza</p><h3>${d.name}</h3>
+   <p class="lleva">Lleva: ${d.has.join(' · ')}</p>
+   ${d.opts.length>1?`<p class="gl">${d.pick}</p><div class="seg" data-g="o">${d.opts.map((o,j)=>`<button type="button" data-v="${j}" class="${j?'':'on'}"><span>${o.l}</span><b>${money(o.p)}</b></button>`).join('')}</div>`:''}
+   ${d.opts.some(o=>o.sub)?`<div class="subw"><p class="gl">Con</p><div class="seg" data-g="s">${d.opts.find(o=>o.sub).sub.map((x,j)=>`<button type="button" data-v="${j}" class="${j?'':'on'}"><span>${x}</span></button>`).join('')}</div></div>`:''}
+   ${d.rm.length?`<p class="gl">Sin… <small>toca para quitar</small></p><div class="tg">${d.rm.map(x=>`<button type="button" data-x="${x}">${x}</button>`).join('')}</div>`:''}
+   <p class="gl">Nota para la cocina</p><input class="nota" maxlength="80" placeholder="Ej. salsa aparte">
+   <div class="qrow"><div class="stp"><button type="button" data-q="-1" aria-label="Menos">−</button><b class="qn">1</b><button type="button" data-q="1" aria-label="Más">+</button></div>
+    <button class="go" type="button">Agregar · <span class="gp"></span></button></div>
    <button class="back" type="button">← Volver al platillo</button>
   </div></div>
  </div></section>`).join('');
 $('#dots').innerHTML=['intro',...MENU.map(d=>'d-'+d.id),'info'].map(id=>`<i data-go="${id}"></i>`).join('');
 
+function fitGhosts(){document.querySelectorAll('.ghost').forEach(g=>{g.style.fontSize='100px';const w=g.scrollWidth||1;g.style.fontSize=Math.min(innerHeight*.13,100*innerWidth*.9/w)+'px'})}
+document.fonts.ready.then(fitGhosts);addEventListener('resize',fitGhosts);
 /* inclinación: la comida sigue tu dedo o el teléfono */
 document.querySelectorAll('.dish').forEach(c=>{const st=c.querySelector('.stage'),f=c.querySelector('.food');
   let tx=0,ty=0;const set=()=>f.style.setProperty('--rx',ty+'deg')||f.style.setProperty('--ry',tx+'deg');
@@ -60,7 +66,15 @@ document.querySelectorAll('.dish').forEach(c=>{const st=c.querySelector('.stage'
   c.querySelector('.back').addEventListener('click',()=>strip.scrollTo({left:0,behavior:'smooth'}));
   const d=MENU[c.dataset.i];
   c.querySelector('.add').addEventListener('click',()=>{if(d.opts.length>1)strip.scrollTo({left:strip.clientWidth,behavior:'smooth'});else{add(d,0);fly(f)}});
-  c.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{add(d,+b.dataset.o);b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),600)}));
+  const cs={o:0,s:0,x:new Set(),q:1};const p1=c.querySelector('.p1');
+  const price=()=>{const o=d.opts[cs.o];p1.querySelector('.gp').textContent=(o.from?'desde ':'')+money(o.p*cs.q);const sw=p1.querySelector('.subw');if(sw)sw.style.display=o.sub?'':'none'};
+  p1.querySelectorAll('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));cs[g.dataset.g]=+b.dataset.v;price()}));
+  p1.querySelectorAll('.tg button').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('off');b.classList.contains('off')?cs.x.add(b.dataset.x):cs.x.delete(b.dataset.x)}));
+  p1.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>{cs.q=Math.max(1,Math.min(20,cs.q+ +b.dataset.q));p1.querySelector('.qn').textContent=cs.q;price()}));
+  p1.querySelector('.go').addEventListener('click',()=>{const o=d.opts[cs.o];const mods=[];if(o.sub)mods.push('con '+o.sub[cs.s]);cs.x.forEach(x=>mods.push('sin '+x.toLowerCase()));const nt=p1.querySelector('.nota').value.trim();if(nt)mods.push('"'+nt+'"');
+    add(d,cs.o,cs.q,mods.join(', '));fly(f);strip.scrollTo({left:0,behavior:'smooth'});
+    cs.q=1;cs.x.clear();p1.querySelector('.qn').textContent=1;p1.querySelectorAll('.tg button').forEach(b=>b.classList.remove('off'));p1.querySelector('.nota').value='';price()});
+  price();
 });
 addEventListener('deviceorientation',e=>{if(e.gamma==null)return;document.querySelectorAll('.dish.live .food').forEach(f=>{f.style.setProperty('--ry',Math.max(-14,Math.min(14,e.gamma*.5))+'deg');f.style.setProperty('--rx',Math.max(-10,Math.min(10,(e.beta-50)*-.3))+'deg')})});
 
@@ -79,11 +93,11 @@ $('#goMenu').addEventListener('click',()=>$('#dishes .card').scrollIntoView({beh
 /* ---------- la orden ---------- */
 const KEY='culichis-order';let bag=[];try{bag=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(bag))}catch(e){}};
-function add(d,j,q=1){const o=d.opts[j];const it=bag.find(x=>x.n===o.n);if(it)it.q+=q;else bag.push({n:o.n,p:o.p,from:!!o.from,q});save();paintBag();buzz(18);
+function add(d,j,q=1,m=''){const o=d.opts[j];const it=bag.find(x=>x.n===o.n&&(x.m||'')===m);if(it)it.q+=q;else bag.push({n:o.n,p:o.p,from:!!o.from,q,m});save();paintBag();buzz(18);
   const b=$('#bagBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');toast(`✓ ${q>1?q+' × ':''}${o.n}`);return o}
 function paintBag(){const n=bag.reduce((a,x)=>a+x.q,0),tot=bag.reduce((a,x)=>a+x.p*x.q,0),from=bag.some(x=>x.from);$('#bagN').textContent=n;$('#bagBtn').classList.toggle('has',n>0);
-  const txt=`Hola Culichi's Roll, quiero ordenar para recoger:\n${bag.map(x=>`${x.q} × ${x.n}`).join('\n')}\nTotal aprox: ${money(tot)}\nNombre: `;
-  $('#bagBody').innerHTML=n?`<ul class="lines">${bag.map((x,i)=>`<li><span class="q"><button data-m="${i}" aria-label="Quitar uno">−</button><b>${x.q}</b><button data-p="${i}" aria-label="Agregar uno">+</button></span><span class="nm">${x.n}</span><b>${x.from?'desde ':''}${money(x.p*x.q)}</b></li>`).join('')}</ul>
+  const txt=`Hola Culichi's Roll, quiero ordenar para recoger:\n${bag.map(x=>`${x.q} × ${x.n}${x.m?' ('+x.m+')':''}`).join('\n')}\nTotal aprox: ${money(tot)}\nNombre: `;
+  $('#bagBody').innerHTML=n?`<ul class="lines">${bag.map((x,i)=>`<li><span class="q"><button data-m="${i}" aria-label="Quitar uno">−</button><b>${x.q}</b><button data-p="${i}" aria-label="Agregar uno">+</button></span><span class="nm">${x.n}${x.m?`<small>${x.m}</small>`:''}</span><b>${x.from?'desde ':''}${money(x.p*x.q)}</b></li>`).join('')}</ul>
    <p class="tot"><span>Total${from?' aprox.':''}</span><b>${money(tot)}</b></p>
    ${from?'<p class="note">Algunos rollos son "desde": el precio final te lo confirman al ordenar.</p>':''}
    <a class="b-red big" href="tel:${PHONE}">📞 Llamar para ordenar</a>
@@ -114,7 +128,7 @@ function pickOpt(d,t){if(d.id==='papas'){if(t.includes('mixt'))return 2;if(t.inc
 function qty(t){t=t.replace(/(\d+|tres|cinco)\s+rollos?/g,' ');const m=t.match(/\b(\d+)\b/);if(m&&+m[1]<20)return +m[1];for(const w of t.split(/\s+/))if(NUM[w])return NUM[w];return 1}
 function answer(raw){const t=' '+norm(raw)+' ';let d=findDish(t);
   if(/hola|buenas|hello|hi /.test(t)&&!d)return {a:'¡Hola! Pregúntame del menú: precios, qué lleva cada platillo, o dime qué quieres y te lo pongo en tu orden.'};
-  if(/horario|hora|abren|cierran|open|hours|direcci|donde|ubica|address|where/.test(t))return {a:`Están en Rifle y es solo para recoger. La dirección y el horario todavía no los tengo aquí: llama al ${PHONE_TXT} y te dicen.`};
+  if(/horario|hora|abren|cierran|open|hours|direcci|donde|ubica|address|where/.test(t))return {a:`Están en Rifle y es solo para recoger. Según Yelp abren fines de semana, más o menos de 11:45 a 6:30. La dirección no la tengo aquí. Confírmalo al ${PHONE_TXT}.`};
   if(/pago|tarjeta|card|cash|efectivo|pay/.test(t))return {a:'Pagas al recoger. Por aquí nunca te pido tu tarjeta.'};
   if(/delivery|domicilio|entrega|llevan|envian/.test(t))return {a:`Por ahora es solo para recoger en Rifle. Ordena al ${PHONE_TXT}.`};
   if(/como (ordeno|pido)|ordenar|how.*order/.test(t)&&!d)return {a:`Agrega lo que quieras aquí y luego toca "Llamar" o "Mandar por texto" al ${PHONE_TXT}. Pasas a recoger.`,act:'bag'};

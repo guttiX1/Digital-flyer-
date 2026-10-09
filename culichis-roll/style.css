@@ -142,3 +142,30 @@ body.listening .hold{background:var(--red);animation:rec 1s ease-in-out infinite
 .vw.open{display:flex}
 .vw video{flex:1;min-height:0;width:100%;object-fit:contain}
 .vw button{margin:12px 16px calc(12px + env(safe-area-inset-bottom));padding:14px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:16px}
+/* palabra de fondo: una sola, cabe completa y se lee */
+.ghost{position:absolute;z-index:0;left:0;right:0;top:calc(var(--top) + 1.5dvh);text-align:center;white-space:nowrap;font-family:Anton,Impact,sans-serif;line-height:1;color:var(--red);opacity:.92;pointer-events:none;transition:transform .7s var(--ez),opacity .6s}
+.dish:not(.live) .ghost{transform:translateY(-24px);opacity:0}
+/* personalizar */
+.lleva{font-size:14.5px;color:var(--dim);line-height:1.4;margin-bottom:6px}
+.gl{margin:16px 0 8px;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.gl small{font-weight:500;letter-spacing:0;text-transform:none;color:var(--dim);font-size:13px;margin-left:6px}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;padding:12px 6px;border-radius:13px;background:#fff;border:2px solid transparent;font-weight:700;font-size:16px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.seg button b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:20px}
+.seg button.on{border-color:var(--red);color:var(--red)}
+.tg{display:flex;flex-wrap:wrap;gap:8px}
+.tg button{padding:10px 14px;border-radius:999px;background:#fff;font-weight:700;font-size:15px}
+.tg button.off{background:var(--ink);color:#fff;text-decoration:line-through}
+.nota{width:100%;padding:13px;border-radius:13px;border:0;background:#fff;font:500 16px Barlow,sans-serif}
+.qrow{display:flex;gap:10px;margin-top:18px}
+.stp{display:flex;align-items:center;gap:4px;background:#fff;border-radius:14px;padding:4px}
+.stp button{width:42px;height:46px;border-radius:11px;font-size:22px;font-weight:700}
+.stp b{min-width:26px;text-align:center;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:22px}
+.go{flex:1;border-radius:14px;background:var(--red);color:#fff;font-weight:700;font-size:17px}
+.lines .nm small{display:block;font-weight:500;color:var(--dim);font-size:13px}
+/* palabra arriba, comida debajo: no se tapan */
+.dish .stage{top:calc(var(--top) + 15dvh);height:44dvh}
+.dish .sticker{top:calc(var(--top) + 44dvh)}
+/* micrófono en la barra */
+.mic{top:calc(max(8px,env(safe-area-inset-top)) + 6px);right:122px;width:36px;height:36px;font-size:17px;box-shadow:none;background:var(--red)}
+.rows dd small{display:block;font-weight:500;color:var(--dim);font-size:12.5px;text-align:right}
