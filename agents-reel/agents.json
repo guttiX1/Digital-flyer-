@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07",
+ "updated": "2026-10-11",
  "deadlines": [
   {
    "what": "Gran Maturity",
@@ -342,6 +342,226 @@
      "n": "Firecrawl",
      "d": "Reads sale websites automatically",
      "s": "off"
+    }
+   ]
+  },
+  {
+   "id": "hq-abeja",
+   "name": "La Abeja",
+   "color": "#c2185b",
+   "st": "run",
+   "needs": [
+    "Your OK before anything goes out (say \"launch\")"
+   ],
+   "now": "Drafting Instagram, Facebook and TikTok posts for the Fall Mixed Sale.",
+   "done": [
+    "2 sale posts drafted and fact-checked (test run)"
+   ],
+   "next": [
+    "Post calendar for sale week",
+    "Reel scripts"
+   ],
+   "facts": [
+    [
+     "Team",
+     "HipIQ, boss El Caporal"
+    ],
+    [
+     "Job",
+     "Social posts and Reels"
+    ],
+    [
+     "Posting",
+     "Drafts only for now"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "A countdown post every day of sale week",
+    "A Reel of the top 5 best-value hips"
+   ],
+   "tools": [
+    {
+     "n": "HipIQ catalog data",
+     "d": "Facts for every post",
+     "s": "on"
+    },
+    {
+     "n": "Instagram / Facebook / TikTok",
+     "d": "Post for you",
+     "s": "off"
+    }
+   ]
+  },
+  {
+   "id": "hq-zorro",
+   "name": "El Zorro",
+   "color": "#e07a12",
+   "st": "run",
+   "needs": [
+    "Your OK before anything goes out (say \"launch\")"
+   ],
+   "now": "Drafting the emails for before, during and after the sale.",
+   "done": [
+    "1 sale email drafted and fact-checked (test run)"
+   ],
+   "next": [
+    "Countdown email",
+    "Thank-you email after Nov 7"
+   ],
+   "facts": [
+    [
+     "Team",
+     "HipIQ, boss El Caporal"
+    ],
+    [
+     "Job",
+     "Email list and replies"
+    ],
+    [
+     "Sending",
+     "Drafts only for now"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Welcome email for new sign-ups",
+    "\"Top 10 best value\" email before the sale"
+   ],
+   "tools": [
+    {
+     "n": "HipIQ catalog data",
+     "d": "Facts for every email",
+     "s": "on"
+    },
+    {
+     "n": "Email service",
+     "d": "Sends to your list",
+     "s": "off"
+    }
+   ]
+  },
+  {
+   "id": "hq-tiburon",
+   "name": "El Tiburón",
+   "color": "#2b3a67",
+   "st": "idle",
+   "needs": [
+    "Ad budget (only after you say \"launch\")"
+   ],
+   "now": "Ready to plan paid ads on Meta and TikTok. Not started.",
+   "done": [],
+   "next": [
+    "Ad plan with estimated costs"
+   ],
+   "facts": [
+    [
+     "Team",
+     "HipIQ, boss El Caporal"
+    ],
+    [
+     "Job",
+     "Paid ads"
+    ],
+    [
+     "Spending",
+     "Nothing without your OK"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Small test ad before the sale",
+    "Retarget people who opened the reel"
+   ],
+   "tools": [
+    {
+     "n": "Meta / TikTok ads (Windsor.ai)",
+     "d": "Run and track paid ads",
+     "s": "setup"
+    }
+   ]
+  },
+  {
+   "id": "hq-celular",
+   "name": "El Celular",
+   "color": "#e8875a",
+   "st": "idle",
+   "needs": [],
+   "now": "Keeps the HipIQ site and reel working and easy to find. Not started.",
+   "done": [],
+   "next": [
+    "Check every link and page before the sale",
+    "Make sure the catalog is fresh"
+   ],
+   "facts": [
+    [
+     "Team",
+     "HipIQ, boss El Caporal"
+    ],
+    [
+     "Job",
+     "Site, reel and search"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Check the reel on a slow phone",
+    "Page titles for Google and AI search"
+   ],
+   "tools": [
+    {
+     "n": "GitHub",
+     "d": "HipIQ site code",
+     "s": "on"
+    },
+    {
+     "n": "Vercel",
+     "d": "Puts the app online",
+     "s": "setup"
+    }
+   ]
+  },
+  {
+   "id": "hq-vet",
+   "name": "El Veterinario",
+   "color": "#2e7d4f",
+   "st": "run",
+   "needs": [],
+   "now": "Checks every draft against the real HipIQ data before you see it.",
+   "done": [
+    "Checked the test-run posts and email"
+   ],
+   "next": [
+    "Check each new draft"
+   ],
+   "facts": [
+    [
+     "Team",
+     "HipIQ, boss El Caporal"
+    ],
+    [
+     "Job",
+     "Tries to prove every draft wrong"
+    ],
+    [
+     "Edits",
+     "Never, only marks"
+    ]
+   ],
+   "asks": [],
+   "files": [],
+   "ideas": [
+    "Plant a wrong number to test him again"
+   ],
+   "tools": [
+    {
+     "n": "HipIQ catalog data",
+     "d": "The truth he checks against",
+     "s": "on"
     }
    ]
   },
