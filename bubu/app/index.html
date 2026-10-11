@@ -980,7 +980,7 @@ function renderLo(){const a=AG[loI];if(!a)return;const L=a.loadout||{mem:[],know
  const head=`<div class="lot"><button data-loback>‹ Loadout</button><b>Skill proof</b><span></span></div>`;
  if(k.st==='testing'){b.innerHTML=`${head}<div class="lopf"><h3>${k.icon} ${esc(k.n)}</h3><p class="mt">Not proven yet. ${esc(chName(a))} is using it, and Bubu is waiting for real numbers.</p>${k.proven?`<div class="lchips"><span class="ok">✓ Proven elsewhere: ${esc(k.proven)}</span></div>`:''}
   <ul class="lchk" id="chk"><li class="wait"><b>○</b>Pull real numbers</li><li class="wait"><b>○</b>Compare with before</li><li class="wait"><b>○</b>Rule out the season and luck</li></ul>
-  <button class="lbtn" data-check>Check real results (demo)</button><p class="lokey" style="padding:10px 0 0">In the real app this runs by itself, using your connected sales, ads or reviews.</p></div>`;return}
+  <button class="lbtn l" disabled aria-disabled="true" style="cursor:default">Coming soon · version 2</button><p class="lokey" style="padding:10px 0 0">Checking a skill with real numbers comes in version 2. Until then, skills you equip stay as testing.</p></div>`;return}
  b.innerHTML=`${head}<div class="lopf"><h3>${k.icon} ${esc(k.n)}</h3><p class="mt">${esc(pf.metric)}</p>${chartHTML(pf,k.st==='nope')}
   <div class="lchips"><span class="ok">✓ Verified with ${esc(pf.src)}</span>${k.st==='nope'?'<span class="gr">Retired</span>':''}</div>
   <p class="lokey" style="padding:10px 0 0;text-transform:uppercase;letter-spacing:.1em;font-weight:700">How sure</p><div class="lmeter">${[0,1,2,3].map(j=>`<i class="${j<(pf.sure||2)?'on':''}"></i>`).join('')}</div>
