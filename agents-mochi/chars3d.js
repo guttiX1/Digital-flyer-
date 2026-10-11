@@ -303,32 +303,6 @@ const B={
   r.body.add(M(new THREE.BoxGeometry(.18,.16,.05),mat('#f2c230',{metalness:.4}),[0,.94,.67]));
   const hat=new THREE.Group();hat.position.set(0,.9,0);r.body.add(hat);r.sway=hat;hat.add(M(new THREE.ConeGeometry(.64,1.25,40),k,[0,.7,0]));hat.add(M(new THREE.ConeGeometry(.2,.5,20),k,[.28,1.42,0],null,[0,0,-.9]));
   r.body.add(M(SPH(.1,16,12),r.skin(-.15),[0,.02,.9],[1,1,1.3]));return r},
- // El Caporal (HipIQ boss) in real 3D: purple fur, floppy ears, cowboy hat, bandana, whistle and lasso
- 'vq3-caporal':()=>{const r=rig('#9a7fd8');const sx=1,sy=.95,sz=.92;r.body.add(M(SPH(1,64,48),r.skinMatte(0),null,[sx,sy,sz]));
-  let sd=7;const rnd=()=>{sd=(sd*16807)%2147483647;return sd/2147483647};
-  const fm=r.skinMatte(0),cg=new THREE.ConeGeometry(.085,.17,7),N=1500,im=new THREE.InstancedMesh(cg,fm,N),o=new THREE.Object3D(),up=new THREE.Vector3(0,1,0);let n=0;
-  for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;const d=new THREE.Vector3(Math.cos(a)*rr,y,Math.sin(a)*rr);
-   if(d.z>.5&&d.y>-.5&&d.y<.55&&Math.abs(d.x)<.62&&rnd()>.12)continue;
-   o.position.set(d.x*sx*.97,d.y*sy*.97,d.z*sz*.97);const t=d.clone().add(new THREE.Vector3((rnd()-.5)*.5,-.35-rnd()*.3,(rnd()-.5)*.5)).normalize();
-   o.quaternion.setFromUnitVectors(up,t);o.scale.set(1,.7+rnd()*.8,1);o.updateMatrix();im.setMatrixAt(n++,o.matrix)}
-  im.count=n;r.body.add(im);
-  const ez=zOn(.3,.16,sx,sy,sz)-.12;eye(r,r.body,-.3,.16,ez,.24);eye(r,r.body,.3,.16,ez,.24);
-  r.body.add(M(SPH(.07,20,14),mat('#e88aa6'),[0,-.04,zOn(0,-.04,sx,sy,sz)+.02],[1.2,.8,.7]));mouth(r,r.body,0,-.17,zOn(0,-.17,sx,sy,sz)-.01,.75);
-  const ears=new THREE.Group();ears.position.set(0,.55,-.1);r.body.add(ears);r.sway=ears;
-  [-1,1].forEach(s=>{const e=new THREE.Group();e.position.set(s*.42,.3,0);e.rotation.set(-.2,0,-s*.5);ears.add(e);
-   e.add(M(SPH(1,32,24),r.skinMatte(0),[0,.55,0],[.22,.7,.13]));e.add(M(SPH(1,24,18),matte('#c98fb0'),[0,.52,.07],[.12,.5,.06]))});
-  const felt=mat('#5f5a3a',{roughness:.85,clearcoat:0}),band=mat('#4a2e18',{roughness:.6});const hat=new THREE.Group();hat.position.set(.04,.86,.02);hat.rotation.set(-.12,0,-.08);r.body.add(hat);
-  hat.add(lathe([[0,0],[.9,0],[1.08,.06],[1.2,.2],[1.17,.24],[1.02,.12],[.85,.06],[0,.06]],felt));
-  hat.add(M(SPH(1,40,28),felt,[0,.3,0],[.5,.42,.4]));hat.add(M(new THREE.TorusGeometry(.16,.05,10,30),felt,[0,.66,0],[1.3,1,1],[Math.PI/2,0,0]));
-  hat.add(M(new THREE.CylinderGeometry(.53,.53,.1,32),band,[0,.12,0],[1,1,.82]));
-  const bm=mat('#b26a32',{roughness:.7});r.body.add(M(new THREE.ConeGeometry(.42,.6,3),bm,[0,-.45,zOn(0,-.45,sx,sy,sz)-.02],[1.35,1,.25],[Math.PI,0,0]));
-  r.body.add(M(new THREE.TorusGeometry(.78,.07,10,40,Math.PI),bm,[0,-.22,.05],[1,.45,1],[Math.PI/2.3,0,Math.PI]));
-  r.body.add(tube([[-.25,-.3,.78],[-.05,-.62,.86],[.12,-.3,.8]],.012,mat('#6b4a2a')));
-  r.body.add(M(new THREE.CylinderGeometry(.05,.06,.18,16),mat('#c8ccd2',{metalness:.7,roughness:.2}),[-.05,-.68,.88],null,[0,0,Math.PI/2]));
-  hand(r,-.86,-.3,.35);hand(r,.86,-.32,.38);
-  const rope=mat('#a7834f',{roughness:.8});[.3,.25,.2].forEach((rad,i)=>r.body.add(M(new THREE.TorusGeometry(rad,.035,8,40),rope,[1.0+i*.03,-.5,.45],null,[.3,.9,0])));
-  r.body.add(tube([[1.0,-.75,.45],[1.05,-.95,.4],[.9,-1.05,.5]],.03,rope));
-  feet(r,[[-.4,-.9,.15],[.4,-.9,.15]],r.skinMatte(-.12));return r},
 };
 // photo characters (the owner's cowboy creatures): a cut-out picture on a card, so they get the same
 // poke, pick up, tilt, throw and sleep as the 3D ones. Added to B once each picture has loaded.
