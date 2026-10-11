@@ -39,6 +39,12 @@ message you with answer buttons. There is no other server.
    Any language works: `POST /v1/identity` once for a token, then
    `POST /v1/database/<db>/call/agent_push` with body `["<key>", "<report json>"]`
    and `.../call/agent_pull` with `["<key>"]`. Both answer with JSON text.
+   **MCP agents (Claude Code, Claude Desktop, Cursor, ...):** add `bubu-mcp.mjs` as an MCP server
+   with the same three settings. The agent gets 5 tools: `bubu_doing`, `bubu_done`, `bubu_ask`,
+   `bubu_say`, `bubu_check`. Claude Code:
+   ```
+   claude mcp add bubu -e BUBU_URL=... -e BUBU_DB=bubu -e BUBU_AGENT_KEY=bubu_... -- node /path/to/bubu-mcp.mjs
+   ```
 4. Lost or leaked key: `spacetime call bubu revoke_agent_key juez`, then make a new one.
 
 ## Run it
