@@ -304,7 +304,7 @@ const fmtD=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',
 const ORACLE={id:'oracle',name:'The Oracle',color:'#b8892b',needs:[],st:'run'};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* ---------- estilos de ojo ---------- */
-const CHARS=[['HipIQ · Vaqueros',[['vq-caporal','Caporal · Boss'],['vq-abeja','Abeja · Social'],['vq-zorro','Zorro · Email'],['vq-tiburon','Tiburón · Ads'],['vq-celular','Celular · Site'],['vq-vet','Veterinario · Checker'],['vq-libreta','Libreta · Memory'],['vq-teal','Vaquero']]],
+const CHARS=[['HipIQ · Vaqueros',[['vq3-caporal','Caporal 3D'],['vq-caporal','Caporal · Boss'],['vq-abeja','Abeja · Social'],['vq-zorro','Zorro · Email'],['vq-tiburon','Tiburón · Ads'],['vq-celular','Celular · Site'],['vq-vet','Veterinario · Checker'],['vq-libreta','Libreta · Memory'],['vq-teal','Vaquero']]],
  ['Business · Gadgets',[['horn','Horn · Marketing'],['target','Bullseye · Ads'],['phone','Ping · Social'],['brief','Case · Sales'],['calc','Calc · Books'],['pencil','Scribble · Writer'],['bucket','Splash · Design'],['cal','Cal · Planner']]],
  ['Business · Animals',[['fox','Foxy · Marketing'],['peacock','Strut · Ads'],['bee','Bee · Social'],['shark','Finn · Sales'],['piggy','Penny · Books'],['penguin','Quill · Writer'],['chameleon','Hue · Design'],['beaver','Chip · Planner']]],
  ['Business · Basic',[['mega','Mega · Marketing'],['pixel','Pixel · Ads'],['buzz','Buzz · Social'],['deal','Deal · Sales'],['cash','Cash · Books'],['ink','Ink · Writer'],['arty','Arty · Design'],['plan','Plan · Planner']]],
@@ -315,7 +315,7 @@ const CHARS=[['HipIQ · Vaqueros',[['vq-caporal','Caporal · Boss'],['vq-abeja',
 const CHAR=new Map(CHARS.flatMap(([,l])=>l));
 const STYLES=['duo','bubble','cat','robot','googly','lashes','horus','nazar','mexica','buddha','odin'];
 const STY_NAME={duo:'Two eyes',bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'Googly',lashes:'Lashes',horus:'Horus (Egypt)',nazar:'Nazar (Greece)',mexica:'Mexica (Aztec)',buddha:'Buddha (Nepal)',odin:'Odin (Norse)'};
-const DEF={flyers:'mochi',ads:'tako',hipiq:'vq-caporal','hq-abeja':'vq-abeja','hq-zorro':'vq-zorro','hq-tiburon':'vq-tiburon','hq-celular':'vq-celular','hq-vet':'vq-vet',valley:'toro',results:'byte',money:'boss',caos:'merlo'};
+const DEF={flyers:'mochi',ads:'tako',hipiq:'vq3-caporal','hq-abeja':'vq-abeja','hq-zorro':'vq-zorro','hq-tiburon':'vq-tiburon','hq-celular':'vq-celular','hq-vet':'vq-vet',valley:'toro',results:'byte',money:'boss',caos:'merlo'};
 CHAR.forEach((n,k)=>STY_NAME[k]=n);
 let saved={};try{saved=JSON.parse(localStorage.getItem('agent-eye-styles-mochi')||'{}')}catch(e){}
 const styleOf=a=>saved[a.id]||DEF[a.id]||'duo';
