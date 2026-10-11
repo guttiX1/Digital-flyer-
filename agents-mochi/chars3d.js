@@ -304,6 +304,13 @@ const B={
   const hat=new THREE.Group();hat.position.set(0,.9,0);r.body.add(hat);r.sway=hat;hat.add(M(new THREE.ConeGeometry(.64,1.25,40),k,[0,.7,0]));hat.add(M(new THREE.ConeGeometry(.2,.5,20),k,[.28,1.42,0],null,[0,0,-.9]));
   r.body.add(M(SPH(.1,16,12),r.skin(-.15),[0,.02,.9],[1,1,1.3]));return r},
 };
+// photo characters (the owner's cowboy creatures): a cut-out picture on a card, so they get the same
+// poke, pick up, tilt, throw and sleep as the 3D ones. Added to B once each picture has loaded.
+const PHOTOS=['vq-caporal','vq-abeja','vq-zorro','vq-tiburon','vq-celular','vq-vet','vq-libreta','vq-teal'];
+function photoRig(tex){const r=rig('#ffffff');r.flat=true;const h=2.3,w=h*tex.image.width/tex.image.height;
+ const m=new THREE.MeshBasicMaterial({map:tex,transparent:true,alphaTest:.03,side:THREE.DoubleSide,toneMapped:false});
+ r.body.add(M(new THREE.PlaneGeometry(w,h),m,[0,h/2,0]));return r}
+function loadPhotos(){const L=new THREE.TextureLoader();PHOTOS.forEach(k=>L.load('chars/'+k+'.png',t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;B[k]=()=>photoRig(t)}))}
 export const CHAR_KEYS=Object.keys(B);
 export const DEF_COLOR=Object.fromEntries(CHAR_KEYS.map(k=>[k,null]));
 
@@ -347,7 +354,8 @@ function pose(r,E,s,dt,T){
  r.root.position.set(tilt.x*.22+jit,bob+hop-(sleep?.06:0)+(held?.12:0),0);
  const up=held?1.07:1;r.root.scale.set(up/sq,up*sq,up/sq);
  s.lean=lerp(s.lean,E.listening?.22:0,dt*6);
- r.root.rotation.set(E.gy*.22+s.lean+tilt.y*.12,E.gx*.4+tilt.x*.35,-tilt.x*.32+(sleep?.12:0)-clamp(s.vx*.0016,-.6,.6));
+ const rk=r.flat?.35:1; // a flat picture only leans a little, or it looks paper-thin
+ r.root.rotation.set((E.gy*.22+s.lean+tilt.y*.12)*rk,(E.gx*.4+tilt.x*.35)*rk,-tilt.x*.32+(sleep?.12:0)-clamp(s.vx*.0016,-.6,.6));
  const lookX=clamp(E.gx+tilt.x*.8,-1,1),lookY=clamp(E.gy,-1,1);
  r.eyes.forEach(e=>{const shut=(sleep||happy>.6)&&!held;e.open.visible=!shut;e.shut.visible=shut;
   if(shut){e.shut.rotation.z=sleep?Math.PI:0;e.shut.position.y=sleep?.02:-.03}
@@ -404,6 +412,7 @@ function init(opts={}){
  shadow=new THREE.Mesh(new THREE.CircleGeometry(1,48),new THREE.MeshBasicMaterial({color:'#000',transparent:true,opacity:.12}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-1.12;scene.add(shadow)}
 
 export function start(){try{init()}catch(e){console.warn('no WebGL',e);return}
+ loadPhotos();
  window.__still=still;
  window.__throw=E=>{const s=stateOf(E);if(s.fly)return;s.fly=lastT;s.flyX=s.ox;s.flyY=s.oy;if('vibrate' in navigator)navigator.vibrate([12,30,12]);window.__onThrow&&window.__onThrow(E)};
  addEventListener('pointerdown',askTilt,{once:true});window.mochiFrame=frame}
