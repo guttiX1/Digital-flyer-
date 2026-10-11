@@ -274,7 +274,7 @@
    "color": "#18a873",
    "st": "run",
    "needs": [
-    "Fall sale photos (after Oct 30)",
+    "Keep HipIQ synced to the official Fall Mixed catalog",
     "OK to remove the last 3 AI-looking details"
    ],
    "now": "Price guesses for the Heritage Place Fall Mixed Sale.",
@@ -284,7 +284,7 @@
     "Removed the generic AI look"
    ],
    "next": [
-    "Add photos when they come out",
+    "Add new official photos/videos as they are posted",
     "Check guesses against real results after Nov 7"
    ],
    "facts": [
@@ -294,7 +294,7 @@
     ],
     [
      "Photos",
-     "After Oct 30"
+     "4 catalog photos listed; no usable video URLs"
     ],
     [
      "Results",
@@ -315,7 +315,7 @@
    "ideas": [
     "Send a 'top 10 best value horses' list before the sale",
     "Compare our guesses with the real prices after Nov 7",
-    "Add photos as soon as Heritage posts them"
+    "Add new official photos/videos as Heritage posts them"
    ],
    "tools": [
     {
