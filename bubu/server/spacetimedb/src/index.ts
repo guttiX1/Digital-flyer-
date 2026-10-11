@@ -4,6 +4,7 @@
 import { schema, table, t, SenderError, type InferSchema, type ReducerCtx } from 'spacetimedb/server';
 import { ScheduleAt } from 'spacetimedb';
 import { readUpdates, keyboard, looksLikeBotToken } from './telegram';
+import { LIMITS, parseReport, sha256Hex, looksLikeAgentKey, looksLikeHash } from './plug';
 
 const POLL_EVERY_MICROS = 2_000_000n;
 const TELEGRAM_API = 'https://api.telegram.org';
@@ -52,6 +53,53 @@ const ask = table(
     answeredVia: t.option(t.string()),
     telegramMessageId: t.option(t.i64()),
     createdAt: t.timestamp(),
+    // the agent has picked up the answer
+    answerSent: t.bool(),
+  }
+);
+
+// ---------- agent plug tables (private)
+
+// One secret key per agent. Only its SHA-256 hash is kept; the owner makes the key on their own device.
+const agentKey = table(
+  { name: 'agent_key' },
+  {
+    agentId: t.string().primaryKey(),
+    keyHash: t.string().unique(),
+  }
+);
+
+// What each agent says it is doing right now.
+const agentStatus = table(
+  { name: 'agent_status' },
+  {
+    agentId: t.string().primaryKey(),
+    doing: t.string(),
+    updatedAt: t.timestamp(),
+  }
+);
+
+// Things an agent finished (newest kept, LIMITS.events per agent).
+const agentDone = table(
+  { name: 'agent_done' },
+  {
+    id: t.u64().primaryKey().autoInc(),
+    agentId: t.string().index('btree'),
+    text: t.string(),
+    createdAt: t.timestamp(),
+  }
+);
+
+// Talk between the owner and an agent. pickedUp: the agent has read an owner message.
+const chat = table(
+  { name: 'chat' },
+  {
+    id: t.u64().primaryKey().autoInc(),
+    agentId: t.string().index('btree'),
+    from: t.string(),
+    text: t.string(),
+    createdAt: t.timestamp(),
+    pickedUp: t.bool(),
   }
 );
 
@@ -63,12 +111,17 @@ const pollTimer = table(
   }
 );
 
-const spacetimedb = schema({ owner, telegram, agent, ask, pollTimer });
+const spacetimedb = schema({ owner, telegram, agent, ask, pollTimer, agentKey, agentStatus, agentDone, chat });
 export default spacetimedb;
 
 type Ctx = ReducerCtx<InferSchema<typeof spacetimedb>>;
 
 function isOwner(ctx: Ctx): boolean {
+  const o = ctx.db.owner.id.find(0);
+  return !!o && o.identity.equals(ctx.sender);
+}
+
+function isOwnerView(ctx: { db: any; sender: any }): boolean {
   const o = ctx.db.owner.id.find(0);
   return !!o && o.identity.equals(ctx.sender);
 }
@@ -118,7 +171,7 @@ export const createAsk = spacetimedb.reducer(
     ctx.db.ask.insert({
       id: 0n, agentId, text, options,
       answer: undefined, answeredVia: undefined, telegramMessageId: undefined,
-      createdAt: ctx.timestamp,
+      createdAt: ctx.timestamp, answerSent: false,
     });
   }
 );
@@ -133,6 +186,110 @@ export const answerAsk = spacetimedb.reducer(
     if (a.answer !== undefined) return;
     ctx.db.ask.id.update({ ...a, answer, answeredVia: 'app' });
   }
+);
+
+// ---------- agent plug: owner side
+
+// The owner makes a key on their own device (bubu-agent.mjs new-key) and sends only its hash.
+export const setAgentKey = spacetimedb.reducer(
+  { agentId: t.string(), keyHash: t.string() },
+  (ctx, { agentId, keyHash }) => {
+    requireOwner(ctx);
+    if (!ctx.db.agent.id.find(agentId)) throw new SenderError('unknown agent');
+    if (!looksLikeHash(keyHash)) throw new SenderError('that is not a key hash');
+    const other = ctx.db.agentKey.keyHash.find(keyHash);
+    if (other && other.agentId !== agentId) throw new SenderError('that key belongs to another agent');
+    if (ctx.db.agentKey.agentId.find(agentId)) ctx.db.agentKey.agentId.update({ agentId, keyHash });
+    else ctx.db.agentKey.insert({ agentId, keyHash });
+  }
+);
+
+export const revokeAgentKey = spacetimedb.reducer(
+  { agentId: t.string() },
+  (ctx, { agentId }) => {
+    requireOwner(ctx);
+    ctx.db.agentKey.agentId.delete(agentId);
+  }
+);
+
+// The owner talks to an agent (from the app's talk button). The agent gets it on its next pull.
+export const sayToAgent = spacetimedb.reducer(
+  { agentId: t.string(), text: t.string() },
+  (ctx, { agentId, text }) => {
+    requireOwner(ctx);
+    if (!ctx.db.agent.id.find(agentId)) throw new SenderError('unknown agent');
+    const s = text.trim();
+    if (!s || s.length > LIMITS.text) throw new SenderError(`say 1 to ${LIMITS.text} characters`);
+    ctx.db.chat.insert({ id: 0n, agentId, from: 'owner', text: s, createdAt: ctx.timestamp, pickedUp: false });
+  }
+);
+
+// ---------- agent plug: agent side
+// Any program can call these with its agent key. They return JSON text.
+
+function agentOf(tx: any, key: string): string | undefined {
+  if (!looksLikeAgentKey(key)) return undefined;
+  const row = tx.db.agentKey.keyHash.find(sha256Hex(key));
+  return row ? row.agentId : undefined;
+}
+
+// An agent reports what it is doing, what it finished, what it needs and what it wants to say.
+export const agentPush = spacetimedb.procedure(
+  { key: t.string(), report: t.string() },
+  t.string(),
+  (ctx, { key, report }) => {
+    let r;
+    try { r = parseReport(report); } catch (e) { return JSON.stringify({ ok: false, error: String(e instanceof Error ? e.message : e) }); }
+    return ctx.withTx(tx => {
+      const agentId = agentOf(tx, key);
+      if (!agentId) return JSON.stringify({ ok: false, error: 'unknown agent key' });
+      const open = [...tx.db.ask.agentId.filter(agentId)].filter(a => a.answer === undefined).length;
+      if (open + r.asks.length > LIMITS.openAsks)
+        return JSON.stringify({ ok: false, error: `too many open asks (max ${LIMITS.openAsks}); wait for answers` });
+      if (r.doing !== undefined) {
+        const row = { agentId, doing: r.doing, updatedAt: tx.timestamp };
+        if (tx.db.agentStatus.agentId.find(agentId)) tx.db.agentStatus.agentId.update(row);
+        else tx.db.agentStatus.insert(row);
+      }
+      for (const d of r.done) tx.db.agentDone.insert({ id: 0n, agentId, text: d, createdAt: tx.timestamp });
+      const dones = [...tx.db.agentDone.agentId.filter(agentId)].sort((a, b) => (a.id < b.id ? -1 : 1));
+      for (const old of dones.slice(0, Math.max(0, dones.length - LIMITS.events))) tx.db.agentDone.id.delete(old.id);
+      const askIds: string[] = [];
+      for (const a of r.asks) {
+        const row = tx.db.ask.insert({
+          id: 0n, agentId, text: a.text, options: a.options,
+          answer: undefined, answeredVia: undefined, telegramMessageId: undefined,
+          createdAt: tx.timestamp, answerSent: false,
+        });
+        askIds.push(String(row.id));
+      }
+      if (r.say !== undefined) tx.db.chat.insert({ id: 0n, agentId, from: 'agent', text: r.say, createdAt: tx.timestamp, pickedUp: true });
+      return JSON.stringify({ ok: true, askIds });
+    });
+  }
+);
+
+// An agent picks up the owner's answers and messages it has not seen yet.
+export const agentPull = spacetimedb.procedure(
+  { key: t.string() },
+  t.string(),
+  (ctx, { key }) => ctx.withTx(tx => {
+    const agentId = agentOf(tx, key);
+    if (!agentId) return JSON.stringify({ ok: false, error: 'unknown agent key' });
+    const answers = [];
+    for (const a of [...tx.db.ask.agentId.filter(agentId)]) {
+      if (a.answer === undefined || a.answerSent) continue;
+      answers.push({ askId: String(a.id), question: a.text, answer: a.answer, via: a.answeredVia ?? '' });
+      tx.db.ask.id.update({ ...a, answerSent: true });
+    }
+    const messages = [];
+    for (const m of [...tx.db.chat.agentId.filter(agentId)]) {
+      if (m.from !== 'owner' || m.pickedUp) continue;
+      messages.push({ text: m.text, at: m.createdAt.toDate().toISOString() });
+      tx.db.chat.id.update({ ...m, pickedUp: true });
+    }
+    return JSON.stringify({ ok: true, answers, messages });
+  })
 );
 
 // ---------- what the owner's app can see
@@ -164,6 +321,31 @@ export const myAgents = spacetimedb.view(
     if (!o || !o.identity.equals(ctx.sender)) return [];
     return [...ctx.db.agent.iter()];
   }
+);
+
+export const myStatus = spacetimedb.view(
+  { name: 'my_status', public: true },
+  t.array(agentStatus.rowType),
+  ctx => (isOwnerView(ctx) ? [...ctx.db.agentStatus.iter()] : [])
+);
+
+export const myDone = spacetimedb.view(
+  { name: 'my_done', public: true },
+  t.array(agentDone.rowType),
+  ctx => (isOwnerView(ctx) ? [...ctx.db.agentDone.iter()] : [])
+);
+
+export const myChat = spacetimedb.view(
+  { name: 'my_chat', public: true },
+  t.array(chat.rowType),
+  ctx => (isOwnerView(ctx) ? [...ctx.db.chat.iter()] : [])
+);
+
+// Which agents have a key (never the key or its hash).
+export const myAgentKeys = spacetimedb.view(
+  { name: 'my_agent_keys', public: true },
+  t.array(t.object('AgentWithKey', { agentId: t.string() })),
+  ctx => (isOwnerView(ctx) ? [...ctx.db.agentKey.iter()].map(k => ({ agentId: k.agentId })) : [])
 );
 
 export const myAsks = spacetimedb.view(
