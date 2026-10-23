@@ -6,6 +6,7 @@
 //   BUBU_AGENT_KEY  this agent's secret key (from `node bubu-agent.mjs new-key`)
 //
 //   node bubu-agent.mjs new-key                     make a key; prints the key and its hash
+//   node bubu-agent.mjs pair-code                   make a one-time code to link the Bubu app on your phone
 //   node bubu-agent.mjs doing "Writing the flyer"
 //   node bubu-agent.mjs done "Checked the dates"
 //   node bubu-agent.mjs ask "Is race 3 confirmed?" "Yes" "Not yet"
@@ -22,6 +23,14 @@ if (cmd === 'new-key') {
   const key = 'bubu_' + randomBytes(32).toString('base64').replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
   const hash = createHash('sha256').update(key, 'utf8').digest('hex');
   console.log(`Key (secret, give it only to the agent):\n${key}\n\nHash (send this to Bubu):\n${hash}`);
+  process.exit(0);
+}
+
+if (cmd === 'pair-code') {
+  const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const code = [...randomBytes(8)].map(b => abc[b % abc.length]).join('');
+  const hash = createHash('sha256').update(code, 'utf8').digest('hex');
+  console.log(`Code (type it in the Bubu app, works once, 15 minutes):\n${code}\n\nThen run:\nspacetime call bubu set_pair_code ${hash}`);
   process.exit(0);
 }
 

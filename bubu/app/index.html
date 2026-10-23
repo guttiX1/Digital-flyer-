@@ -310,8 +310,23 @@ body:not(.clean) .ob{display:none!important}
 <div class="msgs" id="msgs"></div><div class="quick" id="quick"></div>
 <form class="ch-in" id="chForm" autocomplete="off"><button type="button" class="mic" id="mic" aria-label="Talk">🎤</button><input id="chQ" placeholder="Message" enterkeyhint="send"><button aria-label="Send">↑</button></form></div>
 <script type="module">
+/* Live: when this phone is linked to the owner's Bubu server, the agents come from there. */
+const LINK_K='bubu-link';let LINK=null;try{LINK=JSON.parse(localStorage.getItem(LINK_K)||'null')}catch(e){}
+async function bubuCall(name,args,link=LINK){const r=await fetch(`${link.url}/v1/database/${encodeURIComponent(link.db)}/call/${name}`,{method:'POST',headers:{authorization:'Bearer '+link.token,'content-type':'application/json'},body:JSON.stringify(args)});
+ const t=await r.text();if(!r.ok)throw new Error(t||('HTTP '+r.status));return t}
+async function snapshot(){const o=JSON.parse(JSON.parse(await bubuCall('owner_snapshot',[])));if(!o.ok)throw new Error(o.error);return o}
+const LIVE_COLORS=['#ff7a1a','#3b82f6','#16a34a','#e5432d','#8b5cf6','#0ea5a4','#d97706','#db2777'];
+function liveAgents(o){return o.agents.map((g,k)=>{const st=o.status.find(x=>x.agentId===g.id);const by=x=>x.agentId===g.id;
+ const asks=o.asks.filter(by).map(x=>({q:x.text,opts:x.options,srv:x.id,answer:x.answer}));
+ const done=o.done.filter(by).sort((a,b)=>a.at<b.at?1:-1).map(x=>x.text);
+ const open=asks.filter(x=>x.answer==null).length;
+ return {id:g.id,name:g.name,color:LIVE_COLORS[k%LIVE_COLORS.length],character:g.character,live:true,
+  st:open?'needs':st?'run':'idle',needs:[],now:st?st.doing:'Waiting for its first report.',done,next:[],
+  facts:[['Job',g.job||'Agent'],['Last report',st?new Date(st.at).toLocaleString():'none yet']],asks,files:[],ideas:[],tools:[]}})}
+let LIVE=null,LIVE_ERR='';
+if(LINK){try{LIVE=await snapshot()}catch(e){LIVE_ERR=String(e.message||e)}}
 /* Datos: agents.json (lo actualizo yo); si falla, se usa la copia de abajo. */
-let D;try{const r=await fetch('agents.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=FALLBACK}
+let D;if(LIVE)D={updated:new Date().toISOString().slice(0,10),sample:'',deadlines:[],races:[],agents:liveAgents(LIVE)};else try{const r=await fetch('agents.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=FALLBACK}
 const AG0=D.agents;const DL=D.deadlines.slice().sort((a,b)=>a.date<b.date?-1:1);const RACES=D.races||[];
 const ST={needs:['needs you','#e5432d'],run:['working','#17171a'],idle:['not started','#9a9aa0']};
 const $=s=>document.querySelector(s);const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const lerp=(a,b,t)=>a+(b-a)*t;
@@ -327,6 +342,7 @@ if(Array.isArray(S.order)){const pos=id=>{const k=S.order.indexOf(id);return k<0
 const isSnoozed=a=>(S.snooze[a.id]||0)>Date.now();
 const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
 const nk=(a,t)=>a.id+'|'+t;
+AG.forEach(a=>(a.asks||[]).forEach(x=>{if(x.srv&&x.answer!=null&&!S.asks[nk(a,x.q)])S.asks[nk(a,x.q)]={v:x.answer,at:new Date().toISOString()}}));
 const openNeeds=a=>a.needs.filter(t=>!S.done[nk(a,t)]);
 const doneByYou=a=>a.needs.filter(t=>S.done[nk(a,t)]);
 const openAsks=a=>(a.asks||[]).filter(x=>!S.asks[nk(a,x.q)]);
@@ -356,7 +372,7 @@ const STY_NAME={duo:'Two eyes',bubble:'Bubble',cat:'Cat',robot:'Robot',googly:'G
 const DEF={marketing:'fox',social:'bee',ads:'peacock',sales:'shark',accounting:'piggy',support:'phone'};
 CHAR.forEach((n,k)=>STY_NAME[k]=n);
 let saved={};try{saved=JSON.parse(localStorage.getItem('bubu-demo-styles')||'{}')}catch(e){}
-const styleOf=a=>saved[a.id]||DEF[a.id]||'duo';
+const styleOf=a=>saved[a.id]||(a.character&&STY_NAME[a.character]?a.character:null)||DEF[a.id]||'duo';
 const saveStyles=()=>{try{localStorage.setItem('bubu-demo-styles',JSON.stringify(saved))}catch(e){}};
 let charCol={};try{charCol=JSON.parse(localStorage.getItem('bubu-demo-colors')||'{}')}catch(e){}
 const saveCharCol=()=>{try{localStorage.setItem('bubu-demo-colors',JSON.stringify(charCol))}catch(e){}};
@@ -441,7 +457,10 @@ let html=`<section class="card intro" id="intro">${eyeSVG({ball:true})}
  <button class="setb" id="setBtn">⚙ Settings</button>
  <div class="ns" id="setS" role="dialog" aria-label="Settings"><h3><span>Settings</span><button id="setX" aria-label="Close">✕</button></h3>
   <div class="set"><button id="newBtn"><b>+ New agent</b><span>›</span></button><button id="ordBtn"><b>Reorder agents</b><span>›</span></button>
-  <button id="sfxBtn"></button><button id="vcBtn"></button><button id="handBtn"><b>Hands-free (camera)</b><em>off</em></button><button id="pinBtn"></button><button id="homeBtn"><b>Add to home screen</b><span>›</span></button></div>
+  <button id="sfxBtn"></button><button id="vcBtn"></button><button id="handBtn"><b>Hands-free (camera)</b><em>off</em></button><button id="pinBtn"></button><button id="homeBtn"><b>Add to home screen</b><span>›</span></button><button id="linkBtn"><b>${LIVE?'Live: linked to your Bubu':'Connect my Bubu'}</b><span>${LIVE?'unlink':LIVE_ERR?'error':'›'}</span></button></div>
+  <form id="linkF" hidden autocomplete="off"><p class="lbl">Server</p><input id="lkUrl" class="edin" value="https://maincloud.spacetimedb.com"><p class="lbl">Bubu name</p><input id="lkDb" class="edin" value="bubu">
+  <p class="lbl">Link code</p><input id="lkCode" class="edin" maxlength="12" placeholder="From: node bubu-agent.mjs pair-code" autocapitalize="characters">
+  <div class="row"><button class="ok" id="lkGo2">Link this phone</button></div><p class="tip" id="lkMsg">${LIVE_ERR?esc('Could not read your Bubu: '+LIVE_ERR):'Your agents will show here instead of the sample.'}</p></form>
   <p class="lbl">Each agent</p><div class="agset">${AG.map((a,i)=>`<details><summary><i class="dot" style="background:${dotBg(a.color)}"></i>${esc(a.name)}<span>›</span></summary>
    <div class="set"><button data-pick="${i}"><b>Eye style</b><span id="sn-${i}">${STY_NAME[styleOf(a)]}</span></button><button data-edit="${i}"><b>Name & color</b><span>${esc(a.name)}</span></button>
    <button data-voice="${i}"><b>Hear my voice</b><span>▶</span></button><button data-snz="${i}"><b>Snooze</b><span id="sz-${i}"></span></button><button data-share="${i}"><b>Share this card</b><span>WhatsApp</span></button>
@@ -507,8 +526,8 @@ function paint(){const tot=totalOpen();moodRing(tot);
   const w=$('#who-'+i);if(w){w.className=oc?'n':'';w.textContent=oc?`${oc} need you`:'all clear'}
   const b=$('#bd-'+i);b.textContent=oc||'';b.style.display=oc?'':'none';
   const said=(a.asks||[]).filter(x=>S.asks[nk(a,x.q)]);
-  $('#ask-'+i).innerHTML=(qs.length?`<p class="lbl">${a.name} asks</p><div class="asks">${qs.map(x=>`<div class="ask"><p>${esc(x.q)}</p><div class="yn"><button class="y" data-ask="${i}" data-q="${esc(x.q)}" data-v="Yes">Yes</button><button class="n" data-ask="${i}" data-q="${esc(x.q)}" data-v="No">No</button></div></div>`).join('')}</div>`:'')
-   +(said.length?`<ul class="said">${said.map(x=>`<li><span>${esc(x.q)} <b>${S.asks[nk(a,x.q)].v}</b></span><button data-unask="${i}" data-q="${esc(x.q)}">change</button></li>`).join('')}</ul>`:'');
+  $('#ask-'+i).innerHTML=(qs.length?`<p class="lbl">${a.name} asks</p><div class="asks">${qs.map(x=>`<div class="ask"><p>${esc(x.q)}</p><div class="yn">${(x.opts&&x.opts.length?x.opts:['Yes','No']).map((v,k)=>`<button class="${k?'n':'y'}" data-ask="${i}" data-q="${esc(x.q)}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}</div></div>`).join('')}</div>`:'')
+   +(said.length?`<ul class="said">${said.map(x=>`<li><span>${esc(x.q)} <b>${S.asks[nk(a,x.q)].v}</b></span>${x.srv?'<small>sent</small>':`<button data-unask="${i}" data-q="${esc(x.q)}">change</button>`}</li>`).join('')}</ul>`:'');
   const L=levelOf(a);$('#lv-'+i).textContent=`Lv ${L}`;$('#cr-'+i).hidden=L<5;
   if(S.lv[a.id]&&L>S.lv[a.id]&&booted){logE(a,`Reached level ${L}`);say(`Level up! ${a.name} is level ${L}${L>=5?' 👑':''}`);SFX.cheer();eyesOf(i).forEach(E=>{E.sv-=.2;E.happyT=1;setTimeout(()=>E.happyT=0,1500)})}
   if(S.lv[a.id]!==L){S.lv[a.id]=L;save()}
@@ -522,7 +541,7 @@ function paint(){const tot=totalOpen();moodRing(tot);
 
 /* contestar una necesidad */
 let nsCur=null;
-feed.addEventListener('click',e=>{const q=e.target.closest('[data-ask]');if(q){const i=+q.dataset.ask,a=AG[i],x=a.asks.find(z=>z.q===q.dataset.q);S.asks[nk(a,x.q)]={v:q.dataset.v,at:new Date().toISOString()};logE(a,`You said ${q.dataset.v}: ${x.q}`);
+feed.addEventListener('click',e=>{const q=e.target.closest('[data-ask]');if(q){const i=+q.dataset.ask,a=AG[i],x=a.asks.find(z=>z.q===q.dataset.q);if(x.srv&&LIVE)bubuCall('answer_ask',[+x.srv,q.dataset.v]).catch(e=>say('Not sent: '+(e.message||e),5000));S.asks[nk(a,x.q)]={v:q.dataset.v,at:new Date().toISOString()};logE(a,`You said ${q.dataset.v}: ${x.q}`);
   if(x.clears&&a.needs.includes(x.clears))S.done[nk(a,x.clears)]={at:new Date().toISOString(),note:`You said ${q.dataset.v}: ${x.q}`};save();SFX.done();paint();
   eyesOf(i).forEach(E=>{E.sv-=.12;E.happyT=1;setTimeout(()=>E.happyT=0,1100)});say(`${a.name}: got it, ${q.dataset.v.toLowerCase()}.`);return}
  const uq=e.target.closest('[data-unask]');if(uq){const a=AG[+uq.dataset.unask],x=a.asks.find(z=>z.q===uq.dataset.q);delete S.asks[nk(a,x.q)];if(x.clears)delete S.done[nk(a,x.clears)];save();paint();return}
@@ -632,7 +651,7 @@ function step(E,dt,T,now){if(!E.svg.isConnected)return;
  const bob=reduce?0:Math.sin(T*(E.night?.8:1.6)+E.ex)*6;const jit=E.nervous&&!reduce?Math.sin(T*47)*1.6:0;
  E.bd.setAttribute('transform',`translate(200 ${200+bob}) scale(${1/E.sq} ${E.sq}) translate(-200 -200) translate(${E.gx*5+jit} ${E.gy*4})`);
  E.sh.setAttribute('rx',(115-bob*2).toFixed(1))}
-function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;eyes=eyes.filter(E=>E.svg.isConnected);eyes.forEach(E=>step(E,dt,T,now));if(window.mochiFrame)window.mochiFrame(dt,T);requestAnimationFrame(frame)}
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;const T=(now-t0)/1000;eyes=eyes.filter(E=>E.svg.isConnected);eyes.forEach(E=>step(E,dt,T,now));if(window.mochiFrame&&!document.getElementById('lo').classList.contains('on'))window.mochiFrame(dt,T);requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
 
 
@@ -679,7 +698,8 @@ function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chI=i;if(i>=0){S.talk[a.id]=
  $('#quick').innerHTML=(i<0?['What should I do first?','Deadlines','Who needs me?','Done today']:['What do you need?','What are you doing?','What\'s next?','Important info']).map(q=>`<button>${q}</button>`).join('');
  $('#quick').querySelectorAll('button').forEach(b=>b.onclick=()=>send(b.textContent));
  chat.classList.add('on');msgs.scrollTop=msgs.scrollHeight}
-function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;if(chE){chE.look=[0,.9];chE.lidT=.3}
+function send(text){if(!text.trim()||!chA)return;addMsg('u',text);const a=chA;
+ if(a.live&&LIVE){bubuCall('say_to_agent',[a.id,text.trim()]).then(()=>addMsg('a',`Sent to ${a.name}. It reads it on its next check and answers here.`)).catch(e=>addMsg('a','Not sent: '+(e.message||e)));return}if(chE){chE.look=[0,.9];chE.lidT=.3}
  setTimeout(()=>{if(chE){chE.look=[0,.7];chE.lidT=0;chE.sv-=.1;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}const r=reply(a,text);
   if(r){addMsg('a',r,r.includes('<a '));speak(a,r)}
   else{const q=encodeURIComponent(`[${a.name}] ${text}\n\nContext: ${a.now||'Oracle overview'}\nOpen needs: ${(a.id==='oracle'?AG.flatMap(x=>openNeeds(x).map(t=>x.name+': '+t)):openNeeds(a)).join('; ')}`);
@@ -879,6 +899,21 @@ function applyStyle(i,st){const a=AG[i];saved[a.id]=st;saveStyles();logE(a,'New 
 
 /* ---------- ajustes en el Oráculo ---------- */
 $('#setBtn').addEventListener('click',()=>{SFX.pop();$('#setS').classList.add('on')});
+$('#linkBtn').addEventListener('click',()=>{if(LIVE){try{localStorage.removeItem(LINK_K)}catch(e){}location.reload();return}$('#linkF').hidden=!$('#linkF').hidden});
+$('#linkF').addEventListener('submit',async e=>{e.preventDefault();const m=$('#lkMsg');m.textContent='Linking…';
+ try{const url=$('#lkUrl').value.trim().replace(/\/+$/,''),db=$('#lkDb').value.trim(),code=$('#lkCode').value.trim();
+  const r=await fetch(url+'/v1/identity',{method:'POST'});if(!r.ok)throw new Error('server not reachable (HTTP '+r.status+')');
+  const link={url,db,token:(await r.json()).token};await bubuCall('pair_device',[code],link);
+  try{localStorage.setItem(LINK_K,JSON.stringify(link))}catch(_){}m.textContent='Linked. Loading your agents…';location.reload()}
+ catch(err){m.textContent='Not linked: '+(err.message||err)}});
+if(LIVE)setInterval(async()=>{let o;try{o=await snapshot()}catch(e){return}
+ const fresh=liveAgents(o);if(fresh.map(a=>a.id).join()!==AG.filter(a=>a.live).map(a=>a.id).join()){location.reload();return}
+ const sig=JSON.stringify(o.status)+JSON.stringify(o.asks)+o.done.length+o.chat.length;if(sig===window.__liveSig)return;window.__liveSig=sig;
+ const newChat=o.chat.filter(m=>m.from==='agent'&&!(LIVE.chat||[]).some(x=>x.at===m.at&&x.text===m.text));LIVE=o;
+ fresh.forEach(f=>{const a=AG.find(x=>x.id===f.id);if(!a)return;Object.assign(a,{st:f.st,now:f.now,done:f.done,facts:f.facts,asks:f.asks});
+  f.asks.forEach(x=>{if(x.answer!=null&&!S.asks[nk(a,x.q)])S.asks[nk(a,x.q)]={v:x.answer,at:new Date().toISOString()}})});
+ newChat.forEach(m=>{const a=AG.find(x=>x.id===m.agentId);if(!a)return;if(chA===a)addMsg('a',m.text);else say(`${a.name}: ${m.text}`,5000)});
+ paint()},8000);
 $('#setX').addEventListener('click',()=>$('#setS').classList.remove('on'));
 ['ordBtn','newBtn','pinBtn','homeBtn'].forEach(id=>$('#'+id).addEventListener('click',()=>$('#setS').classList.remove('on')));
 document.querySelectorAll('#setS [data-pick],#setS [data-edit],#setS [data-share]').forEach(b=>b.addEventListener('click',()=>$('#setS').classList.remove('on')));

@@ -18,8 +18,11 @@ message you with answer buttons. There is no other server.
 - You talk to an agent with `say_to_agent`; the agent gets it on its next `pull`.
 - The owner's app reads `my_status`, `my_done`, `my_chat`, `my_asks`, `my_agent_keys`. Strangers see nothing.
 
+- **Your phone:** the Bubu app links to your Bubu with a one-time code and then shows your
+  real agents, their questions with answer buttons, and sends what you type to the agent.
+  Not linked, it shows the sample business.
+
 ## Not built yet
-- The Bubu app showing this live (it still reads its own demo file).
 - The Telegram setup screen inside the Bubu app.
 - WhatsApp and SMS.
 
@@ -45,7 +48,11 @@ message you with answer buttons. There is no other server.
    ```
    claude mcp add bubu -e BUBU_URL=... -e BUBU_DB=bubu -e BUBU_AGENT_KEY=bubu_... -- node /path/to/bubu-mcp.mjs
    ```
-4. Lost or leaked key: `spacetime call bubu revoke_agent_key juez`, then make a new one.
+4. Link the app on your phone: run `node bubu-agent.mjs pair-code`, then the
+   `spacetime call bubu set_pair_code <hash>` line it prints. In the app open
+   Settings → Connect my Bubu and type the code (works once, for 15 minutes).
+   Lost phone: `spacetime call bubu unlink_all_devices`.
+5. Lost or leaked key: `spacetime call bubu revoke_agent_key juez`, then make a new one.
 
 ## Run it
 ```

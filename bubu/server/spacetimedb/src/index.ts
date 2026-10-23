@@ -2,7 +2,7 @@
 // Holds the agents, the things they need from the owner ("asks"), and the
 // Telegram link that lets agents message the owner with answer buttons.
 import { schema, table, t, SenderError, type InferSchema, type ReducerCtx } from 'spacetimedb/server';
-import { ScheduleAt } from 'spacetimedb';
+import { ScheduleAt, Timestamp } from 'spacetimedb';
 import { readUpdates, keyboard, looksLikeBotToken } from './telegram';
 import { LIMITS, parseReport, sha256Hex, looksLikeAgentKey, looksLikeHash } from './plug';
 
@@ -103,6 +103,25 @@ const chat = table(
   }
 );
 
+// Phones and computers the owner linked with a one-time code. They act as the owner.
+const ownerDevice = table(
+  { name: 'owner_device' },
+  {
+    identity: t.identity().primaryKey(),
+    addedAt: t.timestamp(),
+  }
+);
+
+// One pending link code at a time. Only its SHA-256 hash is kept; it works once and expires.
+const pairCode = table(
+  { name: 'pair_code' },
+  {
+    id: t.u32().primaryKey(),
+    codeHash: t.string(),
+    expiresAt: t.timestamp(),
+  }
+);
+
 const pollTimer = table(
   { name: 'poll_timer' },
   {
@@ -111,19 +130,24 @@ const pollTimer = table(
   }
 );
 
-const spacetimedb = schema({ owner, telegram, agent, ask, pollTimer, agentKey, agentStatus, agentDone, chat });
+const spacetimedb = schema({ owner, telegram, agent, ask, pollTimer, agentKey, agentStatus, agentDone, chat, ownerDevice, pairCode });
 export default spacetimedb;
 
 type Ctx = ReducerCtx<InferSchema<typeof spacetimedb>>;
 
+// The owner, or a device the owner linked with a code.
+function ownerOrDevice(db: any, sender: any): boolean {
+  const o = db.owner.id.find(0);
+  if (o && o.identity.equals(sender)) return true;
+  return !!db.ownerDevice.identity.find(sender);
+}
+
 function isOwner(ctx: Ctx): boolean {
-  const o = ctx.db.owner.id.find(0);
-  return !!o && o.identity.equals(ctx.sender);
+  return ownerOrDevice(ctx.db, ctx.sender);
 }
 
 function isOwnerView(ctx: { db: any; sender: any }): boolean {
-  const o = ctx.db.owner.id.find(0);
-  return !!o && o.identity.equals(ctx.sender);
+  return ownerOrDevice(ctx.db, ctx.sender);
 }
 
 function requireOwner(ctx: Ctx) {
@@ -224,6 +248,58 @@ export const sayToAgent = spacetimedb.reducer(
   }
 );
 
+// ---------- linking the owner's phone (the Bubu app)
+
+const PAIR_MINUTES = 15n;
+
+// The owner makes a code on their own device (bubu-agent.mjs pair-code) and sends only its hash.
+export const setPairCode = spacetimedb.reducer(
+  { codeHash: t.string() },
+  (ctx, { codeHash }) => {
+    requireOwner(ctx);
+    if (!looksLikeHash(codeHash)) throw new SenderError('that is not a code hash');
+    const row = { id: 0, codeHash, expiresAt: new Timestamp(ctx.timestamp.microsSinceUnixEpoch + PAIR_MINUTES * 60_000_000n) };
+    if (ctx.db.pairCode.id.find(0)) ctx.db.pairCode.id.update(row);
+    else ctx.db.pairCode.insert(row);
+  }
+);
+
+// The app sends the code once; its identity becomes one of the owner's devices.
+export const pairDevice = spacetimedb.reducer(
+  { code: t.string() },
+  (ctx, { code }) => {
+    const p = ctx.db.pairCode.id.find(0);
+    const c = code.trim().toUpperCase();
+    if (!p || p.expiresAt.microsSinceUnixEpoch < ctx.timestamp.microsSinceUnixEpoch || sha256Hex(c) !== p.codeHash)
+      throw new SenderError('that code is wrong or expired; make a new one');
+    ctx.db.pairCode.id.delete(0);
+    if (!ctx.db.ownerDevice.identity.find(ctx.sender)) ctx.db.ownerDevice.insert({ identity: ctx.sender, addedAt: ctx.timestamp });
+  }
+);
+
+// The owner removes every linked device (lost phone).
+export const unlinkAllDevices = spacetimedb.reducer(ctx => {
+  requireOwner(ctx);
+  for (const d of [...ctx.db.ownerDevice.iter()]) ctx.db.ownerDevice.identity.delete(d.identity);
+});
+
+// Everything the app shows, in one call over plain HTTP. Strangers get ok:false.
+export const ownerSnapshot = spacetimedb.procedure(
+  t.string(),
+  ctx => ctx.withTx(tx => {
+    if (!ownerOrDevice(tx.db, ctx.sender)) return JSON.stringify({ ok: false, error: 'not linked to this Bubu' });
+    const iso = (ts: any) => ts.toDate().toISOString();
+    return JSON.stringify({
+      ok: true,
+      agents: [...tx.db.agent.iter()],
+      status: [...tx.db.agentStatus.iter()].map(s => ({ agentId: s.agentId, doing: s.doing, at: iso(s.updatedAt) })),
+      done: [...tx.db.agentDone.iter()].map(d => ({ agentId: d.agentId, text: d.text, at: iso(d.createdAt) })),
+      chat: [...tx.db.chat.iter()].map(m => ({ agentId: m.agentId, from: m.from, text: m.text, at: iso(m.createdAt) })),
+      asks: [...tx.db.ask.iter()].map(a => ({ id: String(a.id), agentId: a.agentId, text: a.text, options: a.options, answer: a.answer ?? null, at: iso(a.createdAt) })),
+    });
+  })
+);
+
 // ---------- agent plug: agent side
 // Any program can call these with its agent key. They return JSON text.
 
@@ -305,8 +381,7 @@ export const myTelegram = spacetimedb.view(
   { name: 'my_telegram', public: true },
   t.option(TelegramStatus),
   ctx => {
-    const o = ctx.db.owner.id.find(0);
-    if (!o || !o.identity.equals(ctx.sender)) return undefined;
+    if (!isOwnerView(ctx)) return undefined;
     const tg = ctx.db.telegram.id.find(0);
     if (!tg) return { connected: false, botUsername: '', linkCode: '', linked: false };
     return { connected: true, botUsername: tg.botUsername, linkCode: tg.linkCode, linked: tg.chatId !== undefined };
@@ -317,8 +392,7 @@ export const myAgents = spacetimedb.view(
   { name: 'my_agents', public: true },
   t.array(agent.rowType),
   ctx => {
-    const o = ctx.db.owner.id.find(0);
-    if (!o || !o.identity.equals(ctx.sender)) return [];
+    if (!isOwnerView(ctx)) return [];
     return [...ctx.db.agent.iter()];
   }
 );
@@ -352,8 +426,7 @@ export const myAsks = spacetimedb.view(
   { name: 'my_asks', public: true },
   t.array(ask.rowType),
   ctx => {
-    const o = ctx.db.owner.id.find(0);
-    if (!o || !o.identity.equals(ctx.sender)) return [];
+    if (!isOwnerView(ctx)) return [];
     return [...ctx.db.ask.iter()];
   }
 );
