@@ -1,23 +1,15 @@
 {
-  "name": "CarrerasOS · Campeón de Campeones 2026",
-  "short_name": "CarrerasOS",
-  "description": "Campeón de Campeones 2026 · Red Springs Training Center · 188 Jockey Ln, Red Springs NC · Sábado 5 de Diciembre 2026 · 23 títulos · +$165,000 en bolsas · Info (706) 461-2079.",
-  "start_url": "./",
+  "name": "Campeón de Campeones 2026",
+  "short_name": "Campeones26",
+  "description": "23 campeonatos · $165,000 en premios · Red Springs NC · 5 de Diciembre",
+  "start_url": "./landing.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0806",
-  "theme_color": "#FF6B00",
+  "background_color": "#07060A",
+  "theme_color": "#07060A",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "art/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "art/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]
 }
