@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Campeón de Campeones 2026 · Mundo 3D</title>
+<meta name="description" content="Campeón de Campeones 2026 · Red Springs Training Center · 188 Jockey Ln, Red Springs NC · Sábado 5 de Diciembre 2026 · 23 títulos · +$165,000 en bolsas.">
+<meta name="theme-color" content="#06040a">
+<style>
+:root{
+  --gold:#F5C518; --gold2:#FFE9A8; --goldD:#9C6E05;
+  --ember:#FF7A1A; --crim:#8C0C16; --ink:#06040a; --paper:#FFF6DC;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:#fff;overflow-x:hidden;
+  font-family:"Arial Black","Arial Narrow",Arial,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.disp{font-family:"Arial Black",Impact,Haettenschweiler,Arial,sans-serif;font-weight:900;
+  text-transform:uppercase;line-height:.92;letter-spacing:-.5px}
+
+/* ═══ PRELOADER ═══ */
+#pre{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;transition:opacity .8s var(--ease),visibility .8s}
+#pre.gone{opacity:0;visibility:hidden}
+#pre svg{width:66px;height:66px;fill:var(--gold);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.12);opacity:1}}
+.preTxt{font-weight:900;letter-spacing:7px;font-size:11px;color:var(--gold)}
+.preBar{width:170px;height:3px;background:rgba(245,197,24,.18);border-radius:2px;overflow:hidden}
+.preBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ember),var(--gold));
+  animation:fill 1.5s var(--ease) forwards}
+@keyframes fill{to{width:100%}}
+
+/* ═══ 3D WORLD ═══ */
+#world{position:fixed;inset:0;z-index:0;display:block;background:
+  radial-gradient(130% 95% at 50% 4%,#2a1d03 0%,#140c02 38%,#06040a 74%)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 3px)}
+.vign{position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 300px 110px rgba(0,0,0,.92)}
+.beams{position:fixed;inset:-25%;z-index:1;pointer-events:none;opacity:.38;
+  background:conic-gradient(from 205deg at 50% 0%,transparent 0deg,rgba(245,197,24,.14) 13deg,transparent 24deg,
+    transparent 40deg,rgba(255,122,26,.11) 50deg,transparent 62deg);
+  animation:sweep 20s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+
+/* ═══ CHROME ═══ */
+.rail{position:fixed;left:0;top:0;height:3px;width:0%;z-index:80;
+  background:linear-gradient(90deg,var(--crim),var(--ember),var(--gold));
+  box-shadow:0 0 16px rgba(245,197,24,.8)}
+.hud{position:fixed;top:10px;right:10px;z-index:80;display:flex;gap:5px;align-items:baseline;
+  background:rgba(6,4,10,.74);border:1px solid rgba(245,197,24,.3);border-radius:99px;
+  padding:5px 12px;backdrop-filter:blur(8px);opacity:.93}
+.hud b{font-size:14px;color:var(--gold);font-family:"Arial Black",sans-serif;line-height:1}
+.hud span{font-size:8px;letter-spacing:1.4px;color:rgba(255,255,255,.6);font-weight:900}
+.cue{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:80;
+  display:flex;flex-direction:column;align-items:center;gap:5px;transition:opacity .5s;pointer-events:none}
+.cue span{font-size:9.5px;letter-spacing:4px;color:var(--gold);font-weight:900}
+.cue i{width:15px;height:15px;border-right:2.5px solid var(--gold);border-bottom:2.5px solid var(--gold);
+  transform:rotate(45deg);animation:bob 1.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.5}50%{transform:rotate(45deg) translate(4px,4px);opacity:1}}
+
+/* ═══ ACTS ═══ */
+main{position:relative;z-index:2}
+.act{min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:78px 20px;perspective:1500px;perspective-origin:50% 48%}
+.stage{transform-style:preserve-3d;width:100%;max-width:900px;text-align:center;position:relative}
+.plate{--p:0;will-change:transform,opacity}
+
+.kick{font-weight:900;letter-spacing:7px;font-size:clamp(10px,2.7vw,13px);color:var(--gold);
+  display:inline-block;padding:7px 16px;border:1px solid rgba(245,197,24,.4);border-radius:99px;
+  background:rgba(245,197,24,.07);backdrop-filter:blur(4px)}
+.mega{font-size:clamp(40px,11.5vw,116px);line-height:.98;padding-top:.08em;
+  background:linear-gradient(178deg,#FFF9E2 26%,#F3DFA6 58%,#AE8411 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 5px 0 rgba(0,0,0,.6)) drop-shadow(0 16px 34px rgba(0,0,0,.8));
+  transform:translateZ(calc(var(--p)*400px)) rotateX(calc(var(--p)*-12deg));
+  opacity:calc(1 - var(--p)*.85)}
+.mega .g{background:linear-gradient(178deg,var(--gold2) 18%,var(--gold) 52%,var(--goldD) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.mega .f{background:linear-gradient(178deg,#FFC58A 16%,var(--ember) 50%,#8f3400 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-weight:900;letter-spacing:2.5px;font-size:clamp(12px,3.2vw,18px);color:rgba(255,255,255,.84);
+  margin-top:16px;transform:translateZ(calc(var(--p)*170px));opacity:calc(1 - var(--p))}
+.mini{font-weight:900;letter-spacing:3px;font-size:clamp(10px,2.6vw,12px);color:rgba(255,255,255,.52);margin-top:10px}
+
+.split .ch{display:inline-block;opacity:0;transform:translateY(.5em) rotateX(-70deg) scale(.85);
+  transform-origin:50% 100%;transition:opacity .6s var(--ease),transform .75s var(--ease)}
+.split.in .ch{opacity:1;transform:none}
+.split .sp{display:inline-block;width:.28em}
+
+.pill{display:inline-block;margin-top:24px;padding:13px 30px;border-radius:14px;
+  background:linear-gradient(150deg,var(--crim),#4d0309);color:#fff;font-weight:900;letter-spacing:1.5px;
+  font-size:clamp(15px,4.3vw,28px);border:2px solid var(--gold);
+  box-shadow:0 14px 46px rgba(140,12,22,.5),inset 0 1px 0 rgba(255,255,255,.22);
+  transform:translateZ(calc(var(--p)*290px)) scale(calc(1 - var(--p)*.14))}
+
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.3s}.d4{transition-delay:.42s}.d5{transition-delay:.55s}
+
+/* countdown */
+.cd{display:flex;gap:8px;justify-content:center;margin-top:28px}
+.cd .u{min-width:clamp(58px,17vw,88px);padding:12px 6px;border-radius:14px;
+  background:linear-gradient(170deg,rgba(245,197,24,.14),rgba(6,4,10,.86));
+  border:1px solid rgba(245,197,24,.32);backdrop-filter:blur(6px)}
+.cd .u b{display:block;font-family:"Arial Black",sans-serif;font-size:clamp(22px,6.4vw,38px);
+  color:var(--gold);line-height:1;text-shadow:0 0 22px rgba(245,197,24,.5)}
+.cd .u span{display:block;font-size:8.5px;letter-spacing:2px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:900}
+
+/* ═══ COUNTERS (act 2) ═══ */
+.stats{display:flex;flex-direction:column;gap:14px;margin-top:26px}
+.stat{padding:22px 16px;border-radius:18px;
+  background:linear-gradient(165deg,rgba(245,197,24,.13),rgba(6,4,10,.88));
+  border:1.5px solid rgba(245,197,24,.4);box-shadow:0 18px 44px rgba(0,0,0,.55)}
+.stat b{display:block;font-family:"Arial Black",sans-serif;line-height:1;
+  font-size:clamp(42px,13vw,86px);
+  background:linear-gradient(178deg,var(--gold2) 18%,var(--gold) 52%,var(--goldD) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}
+.stat span{display:block;font-size:clamp(10px,2.8vw,13px);letter-spacing:5px;
+  color:rgba(255,255,255,.75);margin-top:10px;font-weight:900}
+
+/* ═══ CHAMPIONSHIP PLATE (act 3) ═══ */
+.champ{position:relative;width:100%;max-width:520px;margin:26px auto 0;padding:30px 20px 24px;border-radius:20px;
+  background:linear-gradient(168deg,rgba(44,30,3,.95),rgba(9,6,2,.96));
+  border:3px solid var(--gold);box-shadow:0 0 60px rgba(245,197,24,.26),0 26px 60px rgba(0,0,0,.8);
+  transform:rotateX(calc((.5 - var(--p))*7deg))}
+.champ .no{position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(160deg,#FFF0B8,var(--gold));color:#1b1204;font-size:13px;letter-spacing:2px;
+  font-weight:900;padding:6px 20px;border-radius:99px;box-shadow:0 8px 20px rgba(0,0,0,.6);white-space:nowrap}
+.champ .ttl{font-size:clamp(28px,8vw,52px);line-height:.95;margin-top:8px}
+.champ .sub2{font-size:clamp(10px,2.8vw,13px);letter-spacing:5px;color:rgba(255,255,255,.8);margin-top:12px;font-weight:900}
+.champ .nums{display:flex;gap:10px;margin-top:20px}
+.champ .nums div{flex:1;padding:14px 4px;border-radius:13px;background:rgba(245,197,24,.1);
+  border:1.5px solid rgba(245,197,24,.45)}
+.champ .nums b{display:block;font-family:"Arial Black",sans-serif;font-size:clamp(20px,6vw,30px);color:var(--gold2);line-height:1}
+.champ .nums span{display:block;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.7);margin-top:6px;font-weight:900}
+
+/* ═══ PURSE PODIUM (act 4) ═══ */
+.podium{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.pod{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;text-align:left;
+  padding:14px 14px;border-radius:14px;
+  background:linear-gradient(100deg,rgba(245,197,24,.12),rgba(6,4,10,.86));
+  border:1px solid rgba(245,197,24,.3)}
+.pod .rk{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:"Arial Black",sans-serif;font-size:14px;color:#1b1204;
+  background:linear-gradient(160deg,#FFF0B8,var(--gold))}
+.pod .nm{min-width:0}
+.pod .nm b{display:block;font-size:clamp(12.5px,3.5vw,17px);line-height:1.18;overflow-wrap:anywhere}
+.pod .nm small{display:block;color:rgba(255,255,255,.52);font-weight:700;font-size:10.5px;letter-spacing:1px;margin-top:3px}
+.pod .pz{font-family:"Arial Black",sans-serif;font-size:clamp(16px,4.6vw,24px);color:var(--gold);white-space:nowrap}
+.pod.top{border-color:var(--gold);box-shadow:0 0 30px rgba(245,197,24,.2);
+  background:linear-gradient(100deg,rgba(60,42,4,.95),rgba(12,8,2,.95))}
+
+/* ═══ PROGRAM (act 5) ═══ */
+.prog{width:100%;max-width:760px;margin:24px auto 0;display:flex;flex-direction:column;gap:8px}
+.rc{display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:11px;text-align:left;
+  background:linear-gradient(100deg,rgba(26,18,4,.92),rgba(8,5,2,.92));
+  border:1px solid rgba(245,197,24,.18);border-radius:13px;padding:11px 13px;
+  transition:border-color .3s,transform .3s,box-shadow .3s}
+.rc:hover{border-color:rgba(245,197,24,.55);transform:translateX(4px);box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.rc .tm{font-family:"Arial Black",sans-serif;font-size:15px;color:#1b1204;text-align:center;line-height:1;
+  background:linear-gradient(160deg,var(--gold2),var(--gold));border-radius:9px;padding:8px 3px}
+.rc .mt{min-width:0}
+.rc .mt b{display:block;font-size:clamp(12.5px,3.5vw,17px);color:#fff;line-height:1.18;overflow-wrap:anywhere}
+.rc .mt small{color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.8px;font-size:10.5px}
+.rc .yd{font-family:"Arial Black",sans-serif;color:var(--gold);font-size:clamp(11px,3vw,15px);white-space:nowrap;text-align:right}
+.rc.feat{border-color:var(--gold);background:linear-gradient(100deg,rgba(58,40,4,.95),rgba(13,9,3,.95));
+  box-shadow:0 0 30px rgba(245,197,24,.16)}
+.rc.king{border-width:2px;box-shadow:0 0 44px rgba(245,197,24,.3)}
+
+/* marquee */
+.mq{position:relative;width:100vw;left:50%;margin-left:-50vw;overflow:hidden;padding:16px 0;
+  border-top:1px solid rgba(245,197,24,.25);border-bottom:1px solid rgba(245,197,24,.25);
+  background:linear-gradient(90deg,rgba(245,197,24,.05),rgba(140,12,22,.08));margin-top:34px}
+.mqIn{display:flex;gap:34px;width:max-content;animation:slide 30s linear infinite}
+.mqIn span{font-weight:900;letter-spacing:3px;font-size:clamp(13px,3.4vw,19px);color:rgba(255,255,255,.72);white-space:nowrap}
+.mqIn span i{color:var(--gold);font-style:normal;margin-right:34px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* promoters */
+.promos{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.pm{padding:18px 14px;border-radius:15px;background:linear-gradient(100deg,rgba(245,197,24,.1),rgba(6,4,10,.86));
+  border:1.5px solid rgba(245,197,24,.38)}
+.pm b{display:block;font-size:clamp(15px,4.4vw,24px);letter-spacing:.5px}
+.pm span{display:block;font-size:10px;letter-spacing:4px;color:var(--gold);margin-top:7px;font-weight:900}
+
+/* CTA */
+.qr{margin:24px auto 0;width:min(58vw,210px);background:var(--paper);padding:15px;border-radius:22px;
+  box-shadow:0 26px 60px rgba(0,0,0,.8),0 0 0 3px var(--gold),0 0 50px rgba(245,197,24,.3)}
+.qr img{width:100%;display:block;border-radius:9px}
+.btn{display:inline-block;margin-top:22px;padding:18px 40px;border-radius:17px;
+  background:linear-gradient(150deg,var(--gold2),var(--gold) 55%,#c99a0a);color:#1b1204;font-weight:900;
+  letter-spacing:1.5px;font-size:clamp(15px,4.2vw,21px);text-decoration:none;
+  box-shadow:0 16px 50px rgba(245,197,24,.4),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .25s var(--ease),box-shadow .25s}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.btn:active{transform:scale(.97)}
+.btn.alt{background:linear-gradient(150deg,#2b2112,#15100a);color:var(--gold);
+  box-shadow:0 12px 34px rgba(0,0,0,.6),inset 0 0 0 1px rgba(245,197,24,.4);margin-left:8px}
+.tel{display:inline-block;margin-top:18px;padding:13px 28px;border-radius:13px;
+  background:linear-gradient(160deg,var(--crim),#4d0309);border:2px solid var(--gold);
+  font-size:clamp(17px,5vw,26px);font-weight:900;letter-spacing:1px;color:#fff;text-decoration:none;
+  box-shadow:0 12px 30px rgba(140,12,22,.5)}
+.foot{margin-top:30px;font-weight:900;letter-spacing:3px;font-size:10.5px;color:rgba(255,255,255,.44);line-height:2}
+
+@media (max-width:420px){.cd .u{min-width:0;flex:1}.rc{grid-template-columns:44px 1fr auto;gap:8px}}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+  .plate,.champ{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="pre">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 6h24v6h8v10c0 7-5 12-11 13-2 4-5 6-8 7v8h7v6H24v-6h7v-8c-3-1-6-3-8-7-6-1-11-6-11-13V12h8V6zm-8 12v4c0 4 2 7 6 8-.6-2-1-4-1-6v-6h-5zm40 0h-5v6c0 2-.4 4-1 6 4-1 6-4 6-8v-4z"/></svg>
+  <div class="preTxt">CAMPEÓN DE CAMPEONES 2026</div>
+  <div class="preBar"><i></i></div>
+</div>
+
+<canvas id="world"></canvas>
+<div class="beams"></div><div class="grain"></div><div class="vign"></div>
+<div class="rail" id="rail"></div>
+<div class="hud"><b id="hudD">—</b><span>DÍAS PARA LA FINAL</span></div>
+<div class="cue" id="cue"><span>DESLIZA</span><i></i></div>
+
+<main>
+  <!-- ACT 1 · HERO -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">★ RED SPRINGS TRAINING CENTER · NC ★</span></div>
+      <div class="plate mega disp split reveal d1" data-split>CAMPEÓN</div>
+      <div class="plate mega disp split reveal d2" data-split data-g>DE CAMPEONES</div>
+      <div class="plate pill reveal d3">SÁBADO 5 DE DICIEMBRE 2026</div>
+      <div class="cd reveal d4">
+        <div class="u"><b id="cdD">0</b><span>DÍAS</span></div>
+        <div class="u"><b id="cdH">0</b><span>HORAS</span></div>
+        <div class="u"><b id="cdM">0</b><span>MIN</span></div>
+        <div class="u"><b id="cdS">0</b><span>SEG</span></div>
+      </div>
+      <div class="plate sub reveal d5">La final de la temporada · 23 títulos en juego</div>
+    </div>
+  </section>
+
+  <!-- ACT 2 · THE NUMBERS -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">LA FINAL EN NÚMEROS</span></div>
+      <div class="plate mega disp reveal d1" style="font-size:clamp(28px,8vw,68px);margin-top:14px">
+        TODO <span class="f">EN JUEGO</span>
+      </div>
+      <div class="stats">
+        <div class="stat reveal d2"><b data-count="165000" data-prefix="$" data-suffix="+">$0</b><span>EN BOLSAS</span></div>
+        <div class="stat reveal d3"><b data-count="23">0</b><span>TÍTULOS</span></div>
+        <div class="stat reveal d4"><b data-count="350" data-suffix=" YDS">0</b><span>EL EVENTO PRINCIPAL</span></div>
+      </div>
+      <div class="mini reveal d5">BOLSAS DESDE $2,000 HASTA $20,000</div>
+    </div>
+  </section>
+
+  <!-- ACT 3 · MAIN EVENT -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">★ EL EVENTO PRINCIPAL ★</span></div>
+      <div class="plate champ reveal d1">
+        <div class="no">CARRERA 16</div>
+        <div class="ttl disp"><span class="g" style="background:linear-gradient(178deg,#FFE9A8 18%,#F5C518 52%,#9C6E05 100%);-webkit-background-clip:text;background-clip:text;color:transparent">CAMPEÓN DE CAMPEONES</span></div>
+        <div class="sub2">EL TÍTULO MÁXIMO DE LA TEMPORADA</div>
+        <div class="nums">
+          <div><b>$15K</b><span>BOLSA</span></div>
+          <div><b>350</b><span>YARDAS</span></div>
+          <div><b>1</b><span>DENTRO</span></div>
+        </div>
+      </div>
+      <div class="mini reveal d3">UN SOLO CABALLO SE LLEVA LA CORONA</div>
+    </div>
+  </section>
+
+  <!-- ACT 4 · TOP PURSES -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">LAS BOLSAS MAYORES</span></div>
+      <div class="plate mega disp reveal d1" style="font-size:clamp(28px,8vw,66px);margin-top:14px">
+        DONDE ESTÁ <span class="g">EL DINERO</span>
+      </div>
+      <div class="podium" id="podium"></div>
+      <div class="mini reveal d5">+$165,000 REPARTIDOS EN 23 TÍTULOS</div>
+    </div>
+  </section>
+
+  <!-- ACT 5 · PROGRAM -->
+  <section class="act" data-act style="align-items:flex-start;padding-top:92px">
+    <div class="stage">
+      <div class="reveal"><span class="kick">EL PROGRAMA COMPLETO · 23 TÍTULOS</span></div>
+      <div class="plate mega disp reveal d1" style="font-size:clamp(28px,8vw,68px);margin:12px 0 4px">
+        LOS <span class="g">23 TÍTULOS</span>
+      </div>
+      <div class="prog" id="prog"></div>
+      <div class="mq"><div class="mqIn" id="mq"></div></div>
+    </div>
+  </section>
+
+  <!-- ACT 6 · PROMOTERS -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">PRESENTAN</span></div>
+      <div class="plate mega disp reveal d1" style="font-size:clamp(28px,8vw,62px);margin-top:14px">
+        LOS <span class="g">PROMOTORES</span>
+      </div>
+      <div class="promos">
+        <div class="pm reveal d2"><b class="disp">PELAVACAS PROMOTIONS</b><span>PROMOTORA OFICIAL</span></div>
+        <div class="pm reveal d3"><b class="disp">HALCÓN PROMOTIONS</b><span>EL NIDO DEL HALCÓN</span></div>
+        <div class="pm reveal d4"><b class="disp">RED SPRINGS TRAINING CENTER</b><span>SEDE OFICIAL</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 7 · CTA -->
+  <section class="act" data-act>
+    <div class="stage">
+      <div class="reveal"><span class="kick">HAZ TUS PICKS · GRATIS</span></div>
+      <div class="plate mega disp reveal d1" style="font-size:clamp(34px,10.5vw,86px);margin-top:12px">
+        ¿QUIÉN SE<br>LLEVA <span class="g">LA CORONA</span>?
+      </div>
+      <div class="plate qr reveal d2"><img src="qr.png" alt="Escanea para hacer tus picks"></div>
+      <div class="reveal d3" style="margin-top:4px">
+        <a class="btn" href="./">📲 ENTRAR A LA APP</a>
+        <a class="btn alt" href="flyer.jpg">📋 FLYER</a>
+      </div>
+      <div class="reveal d4"><a class="tel" href="tel:+17064612079">📞 (706) 461-2079</a></div>
+      <div class="plate foot reveal d5">
+        188 JOCKEY LN · RED SPRINGS, NC<br>
+        SÁBADO 5 DE DICIEMBRE 2026 · 🐎
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+'use strict';
+var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── data: the 23 titles ── */
+var T=[
+ [1,'REY DEL BRINCO','5 YDS',3,0],
+ [2,'REY DE LAS 25 YDS','25 YDS',5,0],
+ [3,'CAMPEONA DE LAS 100 YDS · NO CRISTO REY','100 YDS',5,0,'1 dentro'],
+ [4,'CAMPEONA DE LAS 125 YDS','125 YDS',5,0],
+ [5,'REY DE LAS 250 YDS','250 YDS',5,0],
+ [6,'CAMPEÓN DE LAS 200 YDS','200 YDS',15,1],
+ [7,'CAMPEÓN 4 AÑERO LIBRE','250 YDS',10,1],
+ [8,'CAMPEÓN 2 AÑERO','300 YDS',3,0,'2 dentro'],
+ [9,'CAMPEÓN MAIDEN 2 AÑERO','250 YDS',5,0,'2 dentro'],
+ [10,'CAMPEÓN 3 AÑERO','300 YDS',3,0],
+ [11,'CAMPEÓN 3 AÑERO','250 YDS',3,0],
+ [12,'CAMPEÓN 3 AÑERO MAIDEN','200 YDS',3,0],
+ [13,'CAMPEÓN NO GANADORES DE ABIERTA','400 YDS',10,1,'2 dentro'],
+ [14,'CAMPEÓN 4 AÑEROS','250 YDS',5,0],
+ [15,'MINI CAMPEÓN DE CUADRAS CHICAS','250 YDS',2,0],
+ [16,'CAMPEÓN DE CAMPEONES','350 YDS',15,2,'1 dentro'],
+ [17,'ABIERTA LIBRE','350 YDS',20,1],
+ [18,'CAMPEÓN MAIDEN','300 YDS',15,1],
+ [19,'CAMPEÓN DE CABALLOS VIEJOS 7 O MÁS','200 YDS',3,0,'1 dentro'],
+ [20,'CAMPEÓN 4 AÑEROS DE CONDICIÓN','250 YDS',null,0,'1 dentro'],
+ [21,'CAMPEÓN GANADORES DE 1','275 YDS',5,0],
+ [22,'CAMPEONA DE LAS 200 YDS','200 YDS',15,1],
+ [23,'CAMPEÓN NO GANADORES DE ABIERTAS','330 YDS',10,1,'2 dentro']
+];
+
+/* ── program list ── */
+var prog=document.getElementById('prog');
+T.forEach(function(r){
+  var d=document.createElement('div');
+  d.className='rc reveal'+(r[4]?' feat':'')+(r[4]===2?' king':'');
+  var purse=r[3]?('$'+r[3]+'K'):'—';
+  d.innerHTML='<div class="tm">'+String(r[0]).padStart(2,'0')+'</div>'+
+              '<div class="mt"><b></b><small></small></div>'+
+              '<div class="yd">'+purse+'<br><span style="font-size:10px;color:rgba(255,255,255,.55)">'+r[2]+'</span></div>';
+  d.querySelector('b').textContent=r[1];
+  d.querySelector('small').textContent=r[5]?('Condición: '+r[5]):(r[4]===2?'El título máximo':'Título de campeón');
+  prog.appendChild(d);
+});
+
+/* ── podium: top purses ── */
+var pod=document.getElementById('podium');
+T.filter(function(r){return r[3];}).sort(function(a,b){return b[3]-a[3]||a[0]-b[0];}).slice(0,6)
+.forEach(function(r,i){
+  var d=document.createElement('div');
+  d.className='pod reveal'+(i===0?' top':'');
+  d.style.transitionDelay=(0.1+i*0.09)+'s';
+  d.innerHTML='<div class="rk">'+(i+1)+'</div>'+
+    '<div class="nm"><b></b><small>CARRERA '+String(r[0]).padStart(2,'0')+' · '+r[2]+'</small></div>'+
+    '<div class="pz">$'+r[3]+'K</div>';
+  d.querySelector('b').textContent=r[1];
+  pod.appendChild(d);
+});
+
+/* ── marquee ── */
+var mq=document.getElementById('mq');
+var words=['CAMPEÓN DE CAMPEONES','ABIERTA LIBRE $20K','REY DEL BRINCO','REY DE LAS 250','CAMPEÓN MAIDEN',
+  'MINI CAMPEÓN','NO GANADORES DE ABIERTA','CABALLOS VIEJOS 7+','CAMPEONA 200 YDS','4 AÑERO LIBRE',
+  'PELAVACAS PROMOTIONS','HALCÓN PROMOTIONS','RED SPRINGS TRAINING CENTER'];
+var html=words.map(function(w){return '<i>★</i>'+w;}).join('');
+mq.innerHTML='<span>'+html+'</span><span>'+html+'</span>';
+
+/* ── split text ── */
+document.querySelectorAll('[data-split]').forEach(function(el){
+  var isG=el.hasAttribute('data-g');
+  var txt=el.textContent.trim();el.textContent='';
+  var f=document.createDocumentFragment();
+  txt.split('').forEach(function(c,i){
+    if(c===' '){var s=document.createElement('span');s.className='sp';f.appendChild(s);return;}
+    var sp=document.createElement('span');sp.className='ch'+(isG?' g':'');sp.textContent=c;
+    sp.style.transitionDelay=(i*0.042)+'s';f.appendChild(sp);
+  });
+  el.appendChild(f);el.classList.add('split');
+});
+
+/* ── reveal + counters ── */
+function runCount(el){
+  var target=parseFloat(el.getAttribute('data-count'))||0;
+  var pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'';
+  if(RM){el.textContent=pre+target.toLocaleString('en-US')+suf;return;}
+  var t0=performance.now(), DUR=1500;
+  (function step(now){
+    var p=Math.min(1,(now-t0)/DUR), e=1-Math.pow(1-p,3);
+    var v=Math.round(target*e/(target>1000?500:1))*(target>1000?500:1);
+    el.textContent=pre+(p>=1?target:v).toLocaleString('en-US')+suf;
+    if(p<1)requestAnimationFrame(step);
+  })(t0);
+}
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    var c=e.target.querySelector?e.target.querySelector('[data-count]'):null;
+    if(c&&!c.dataset.done){c.dataset.done='1';runCount(c);}
+    io.unobserve(e.target);
+  });
+},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,[data-split]').forEach(function(el){io.observe(el);});
+
+/* ── countdown ── */
+var TARGET=new Date(2026,11,5,10,0,0).getTime();
+var eD=document.getElementById('cdD'),eH=document.getElementById('cdH'),
+    eM=document.getElementById('cdM'),eS=document.getElementById('cdS'),hD=document.getElementById('hudD');
+function tick(){
+  var t=TARGET-Date.now();if(t<0)t=0;
+  var d=Math.floor(t/864e5),h=Math.floor(t/36e5)%24,m=Math.floor(t/6e4)%60,s=Math.floor(t/1e3)%60;
+  eD.textContent=d;eH.textContent=('0'+h).slice(-2);eM.textContent=('0'+m).slice(-2);eS.textContent=('0'+s).slice(-2);
+  hD.textContent=d;
+}
+tick();setInterval(tick,1000);
+
+/* ── scroll engine ── */
+var acts=[].slice.call(document.querySelectorAll('[data-act]'));
+var rail=document.getElementById('rail'),cue=document.getElementById('cue');
+var targetScroll=0;
+function onScroll(){
+  var vh=innerHeight,mid=vh*0.5;
+  for(var i=0;i<acts.length;i++){
+    var a=acts[i],r=a.getBoundingClientRect();
+    var p=(mid-r.top)/(r.height||vh);
+    p=Math.max(0,Math.min(1,(p-0.12)/0.88));
+    var pl=a.querySelectorAll('.plate');
+    for(var j=0;j<pl.length;j++)pl[j].style.setProperty('--p',p.toFixed(3));
+  }
+  var sc=window.pageYOffset||document.documentElement.scrollTop;
+  var hgt=(document.documentElement.scrollHeight-vh)||1;
+  targetScroll=sc/hgt;
+  rail.style.width=(100*targetScroll)+'%';
+  cue.style.opacity=sc>vh*0.45?'0':'.9';
+}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',onScroll);onScroll();
+
+/* ═══ 3D WORLD — perspective engine ═══ */
+var cv=document.getElementById('world'),cx=cv.getContext('2d');
+var W=0,H=0,DPR=Math.min(devicePixelRatio||1,2);
+var motes=[],rings=[],streaks=[];
+var camZ=0,pointerX=0,pointerY=0,pTX=0,pTY=0;
+var FOV=560,DEPTH=2600;
+function resize(){W=innerWidth;H=innerHeight;cv.width=Math.floor(W*DPR);cv.height=Math.floor(H*DPR);
+  cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}
+resize();addEventListener('resize',resize);
+function rnd(a,b){return a+Math.random()*(b-a);}
+function build(){
+  motes=[];rings=[];streaks=[];
+  var n=W<600?130:255;
+  for(var i=0;i<n;i++)motes.push({x:rnd(-1400,1400),y:rnd(-900,900),z:rnd(1,DEPTH),
+    s:rnd(.7,2.6),t:Math.random()<.24?1:0,ph:Math.random()*6.28});
+  for(var k=0;k<16;k++)rings.push({z:(k/16)*DEPTH+40,r:rnd(430,560)});
+  for(var q=0;q<15;q++)streaks.push({x:rnd(-1200,1200),y:rnd(-700,700),z:rnd(1,DEPTH),len:rnd(90,300),sp:rnd(5,16)});
+}
+build();addEventListener('resize',build);
+addEventListener('pointermove',function(e){pTX=(e.clientX/W-.5)*2;pTY=(e.clientY/H-.5)*2;},{passive:true});
+function proj(x,y,z){var f=FOV/z;return [W/2+x*f+pointerX*38*(1-z/DEPTH),H/2+y*f+pointerY*28*(1-z/DEPTH),f];}
+var last=0;
+function frame(ts){
+  requestAnimationFrame(frame);
+  var dt=Math.min((ts-last)/16.67||1,3);last=ts;
+  camZ+=((targetScroll*DEPTH*2.15)-camZ)*0.055*dt;
+  pointerX+=(pTX-pointerX)*0.05*dt;pointerY+=(pTY-pointerY)*0.05*dt;
+  cx.clearRect(0,0,W,H);
+  var mix=Math.min(1,targetScroll*1.25);
+  var R=Math.round(245+(255-245)*mix),G=Math.round(197+(122-197)*mix),B=Math.round(24+(26-24)*mix);
+  cx.lineWidth=1.4;
+  for(var i=0;i<rings.length;i++){
+    var rz=rings[i].z-(camZ%DEPTH);if(rz<=8)rz+=DEPTH;
+    var f=FOV/rz,rad=rings[i].r*f;
+    if(rad<2||rad>Math.max(W,H)*2.4)continue;
+    var a=Math.max(0,(1-rz/DEPTH))*0.26;
+    var px=W/2+pointerX*40*(1-rz/DEPTH),py=H/2+pointerY*30*(1-rz/DEPTH);
+    cx.strokeStyle='rgba('+R+','+G+','+B+','+a.toFixed(3)+')';
+    cx.beginPath();cx.ellipse(px,py,rad,rad*0.62,0,0,6.2832);cx.stroke();
+  }
+  var vpx=W/2+pointerX*40,vpy=H/2+pointerY*30;
+  cx.strokeStyle='rgba('+R+','+G+','+B+',0.13)';cx.lineWidth=1;
+  for(var r2=0;r2<8;r2++){var ang=(r2/8)*6.2832;
+    cx.beginPath();cx.moveTo(vpx,vpy);cx.lineTo(vpx+Math.cos(ang)*W*1.3,vpy+Math.sin(ang)*H*1.3);cx.stroke();}
+  for(var s=0;s<streaks.length;s++){
+    var st=streaks[s];st.z-=st.sp*dt*(0.6+targetScroll*3.2);
+    if(st.z<6){st.z=DEPTH;st.x=rnd(-1200,1200);st.y=rnd(-700,700);}
+    var p1=proj(st.x,st.y,st.z),p2=proj(st.x,st.y,st.z+st.len);
+    var al=Math.max(0,(1-st.z/DEPTH))*0.45;
+    cx.strokeStyle='rgba(255,'+Math.round(170+70*(1-mix))+',70,'+al.toFixed(3)+')';
+    cx.lineWidth=Math.max(.6,p1[2]*1.6);
+    cx.beginPath();cx.moveTo(p1[0],p1[1]);cx.lineTo(p2[0],p2[1]);cx.stroke();
+  }
+  for(var m=0;m<motes.length;m++){
+    var o=motes[m];o.z-=(0.55+targetScroll*5.5)*dt*1.5;
+    if(o.z<6){o.z=DEPTH;o.x=rnd(-1400,1400);o.y=rnd(-900,900);}
+    var pp=proj(o.x,o.y,o.z);
+    if(pp[0]<-60||pp[0]>W+60||pp[1]<-60||pp[1]>H+60)continue;
+    var sz=Math.max(.4,o.s*pp[2]*1.9),al2=Math.max(0,(1-o.z/DEPTH));
+    var tw=0.62+0.38*Math.sin(ts*0.003+o.ph);
+    cx.fillStyle=o.t?('rgba(255,'+Math.round(140+60*(1-mix))+',50,'+(al2*0.85*tw).toFixed(3)+')')
+                    :('rgba('+R+','+G+','+B+','+(al2*0.7*tw).toFixed(3)+')');
+    cx.beginPath();cx.arc(pp[0],pp[1],sz,0,6.2832);cx.fill();
+    if(sz>2.1){cx.globalAlpha=0.16*al2;cx.beginPath();cx.arc(pp[0],pp[1],sz*3.2,0,6.2832);cx.fill();cx.globalAlpha=1;}
+  }
+  var g=cx.createRadialGradient(vpx,vpy,0,vpx,vpy,Math.max(W,H)*0.62);
+  g.addColorStop(0,'rgba('+R+','+G+','+B+',0.09)');g.addColorStop(1,'rgba(0,0,0,0)');
+  cx.fillStyle=g;cx.fillRect(0,0,W,H);
+}
+if(!RM)requestAnimationFrame(frame);
+
+/* ── preloader ── */
+function done(){setTimeout(function(){document.getElementById('pre').classList.add('gone');onScroll();},420);}
+if(document.readyState==='complete')done();else addEventListener('load',done);
+setTimeout(done,2600);
+})();
+</script>
+</body>
+</html>

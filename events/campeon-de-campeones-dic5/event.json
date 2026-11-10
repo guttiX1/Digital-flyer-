@@ -1,0 +1,339 @@
+{
+  "slug": "campeon-de-campeones-dic5",
+  "page_title": "CarrerasOS · Campeón de Campeones 2026",
+  "page_description": "Campeón de Campeones 2026 · Red Springs Training Center · 188 Jockey Ln, Red Springs NC · Sábado 5 de Diciembre 2026 · 23 títulos · +$165,000 en bolsas · Info (706) 461-2079.",
+  "countdown": "2026-12-05T10:00",
+  "event": {
+    "org": "CAMPEÓN DE CAMPEONES",
+    "titleTop": "CAMPEÓN",
+    "titleBottom": "DE CAMPEONES",
+    "tagline": "23 TÍTULOS · +$165,000 EN BOLSAS",
+    "stars": "LA FINAL DE LA TEMPORADA 2026",
+    "dayName": "SÁBADO",
+    "dayNum": "5",
+    "month": "DE DICIEMBRE",
+    "year": "2026",
+    "location": "Red Springs, North Carolina",
+    "address": "188 Jockey Ln, Red Springs, NC",
+    "phones": [
+      "(706) 461-2079"
+    ],
+    "sponsors": [
+      {
+        "name": "PELAVACAS PROMOTIONS",
+        "cat": "Promotora Oficial"
+      },
+      {
+        "name": "HALCÓN PROMOTIONS · EL NIDO DEL HALCÓN",
+        "cat": "Promotora Oficial"
+      },
+      {
+        "name": "RED SPRINGS TRAINING CENTER",
+        "cat": "Sede"
+      }
+    ],
+    "counts": "23 títulos · +$165,000 en bolsas"
+  },
+  "field": [],
+  "races": [
+    {
+      "id": 1,
+      "time": "#01",
+      "dist": "5 YDS",
+      "type": "open",
+      "category": "REY DEL BRINCO",
+      "entryNote": "$3K",
+      "entries": [
+        "Bolsa $3K"
+      ]
+    },
+    {
+      "id": 2,
+      "time": "#02",
+      "dist": "25 YDS",
+      "type": "open",
+      "category": "REY DE LAS 25 YDS",
+      "entryNote": "$5K",
+      "entries": [
+        "Bolsa $5K"
+      ]
+    },
+    {
+      "id": 3,
+      "time": "#03",
+      "dist": "100 YDS",
+      "type": "open",
+      "category": "CAMPEONA DE LAS 100 YDS · NO CRISTO REY",
+      "entryNote": "$5K · 1 dentro",
+      "entries": [
+        "Bolsa $5K",
+        "1 dentro"
+      ]
+    },
+    {
+      "id": 4,
+      "time": "#04",
+      "dist": "125 YDS",
+      "type": "open",
+      "category": "CAMPEONA DE LAS 125 YDS",
+      "entryNote": "$5K",
+      "entries": [
+        "Bolsa $5K"
+      ]
+    },
+    {
+      "id": 5,
+      "time": "#05",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "REY DE LAS 250 YDS",
+      "entryNote": "$5K",
+      "entries": [
+        "Bolsa $5K"
+      ]
+    },
+    {
+      "id": 6,
+      "time": "#06",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "CAMPEÓN DE LAS 200 YDS",
+      "entryNote": "$15K",
+      "entries": [
+        "Bolsa $15K"
+      ],
+      "featured": "BOLSA MAYOR · $15K"
+    },
+    {
+      "id": 7,
+      "time": "#07",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 4 AÑERO LIBRE",
+      "entryNote": "$10K",
+      "entries": [
+        "Bolsa $10K"
+      ]
+    },
+    {
+      "id": 8,
+      "time": "#08",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 2 AÑERO",
+      "entryNote": "$3K · 2 dentro",
+      "entries": [
+        "Bolsa $3K",
+        "2 dentro"
+      ]
+    },
+    {
+      "id": 9,
+      "time": "#09",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CAMPEÓN MAIDEN 2 AÑERO",
+      "entryNote": "$5K · 2 dentro",
+      "entries": [
+        "Bolsa $5K",
+        "2 dentro"
+      ]
+    },
+    {
+      "id": 10,
+      "time": "#10",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 3 AÑERO",
+      "entryNote": "$3K",
+      "entries": [
+        "Bolsa $3K"
+      ]
+    },
+    {
+      "id": 11,
+      "time": "#11",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 3 AÑERO",
+      "entryNote": "$3K",
+      "entries": [
+        "Bolsa $3K"
+      ]
+    },
+    {
+      "id": 12,
+      "time": "#12",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 3 AÑERO MAIDEN",
+      "entryNote": "$3K",
+      "entries": [
+        "Bolsa $3K"
+      ]
+    },
+    {
+      "id": 13,
+      "time": "#13",
+      "dist": "400 YDS",
+      "type": "open",
+      "category": "CAMPEÓN NO GANADORES DE ABIERTA",
+      "entryNote": "$10K · 2 dentro",
+      "entries": [
+        "Bolsa $10K",
+        "2 dentro"
+      ]
+    },
+    {
+      "id": 14,
+      "time": "#14",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 4 AÑEROS",
+      "entryNote": "$5K",
+      "entries": [
+        "Bolsa $5K"
+      ]
+    },
+    {
+      "id": 15,
+      "time": "#15",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "MINI CAMPEÓN DE CUADRAS CHICAS",
+      "entryNote": "$2K",
+      "entries": [
+        "Bolsa $2K"
+      ]
+    },
+    {
+      "id": 16,
+      "time": "#16",
+      "dist": "350 YDS",
+      "type": "open",
+      "category": "CAMPEÓN DE CAMPEONES",
+      "entryNote": "$15K · 1 dentro",
+      "entries": [
+        "Bolsa $15K",
+        "1 dentro"
+      ],
+      "featured": "★ CAMPEÓN DE CAMPEONES · EL TÍTULO MÁXIMO ★",
+      "section": "EL EVENTO PRINCIPAL"
+    },
+    {
+      "id": 17,
+      "time": "#17",
+      "dist": "350 YDS",
+      "type": "open",
+      "category": "ABIERTA LIBRE",
+      "entryNote": "$20K",
+      "entries": [
+        "Bolsa $20K"
+      ],
+      "featured": "BOLSA MAYOR · $20K"
+    },
+    {
+      "id": 18,
+      "time": "#18",
+      "dist": "300 YDS",
+      "type": "open",
+      "category": "CAMPEÓN MAIDEN",
+      "entryNote": "$15K",
+      "entries": [
+        "Bolsa $15K"
+      ],
+      "featured": "BOLSA MAYOR · $15K"
+    },
+    {
+      "id": 19,
+      "time": "#19",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "CAMPEÓN DE CABALLOS VIEJOS 7 O MÁS",
+      "entryNote": "$3K · 1 dentro",
+      "entries": [
+        "Bolsa $3K",
+        "1 dentro"
+      ]
+    },
+    {
+      "id": 20,
+      "time": "#20",
+      "dist": "250 YDS",
+      "type": "open",
+      "category": "CAMPEÓN 4 AÑEROS DE CONDICIÓN",
+      "entryNote": "Por definir · 1 dentro",
+      "entries": [
+        "Bolsa por definir",
+        "1 dentro"
+      ]
+    },
+    {
+      "id": 21,
+      "time": "#21",
+      "dist": "275 YDS",
+      "type": "open",
+      "category": "CAMPEÓN GANADORES DE 1",
+      "entryNote": "$5K",
+      "entries": [
+        "Bolsa $5K"
+      ]
+    },
+    {
+      "id": 22,
+      "time": "#22",
+      "dist": "200 YDS",
+      "type": "open",
+      "category": "CAMPEONA DE LAS 200 YDS",
+      "entryNote": "$15K",
+      "entries": [
+        "Bolsa $15K"
+      ],
+      "featured": "BOLSA MAYOR · $15K"
+    },
+    {
+      "id": 23,
+      "time": "#23",
+      "dist": "330 YDS",
+      "type": "open",
+      "category": "CAMPEÓN NO GANADORES DE ABIERTAS",
+      "entryNote": "$10K · 2 dentro",
+      "entries": [
+        "Bolsa $10K",
+        "2 dentro"
+      ]
+    }
+  ],
+  "ads": {
+    "16": {
+      "img": "images/img12.jpg",
+      "tag": "EL EVENTO PRINCIPAL",
+      "title": "CAMPEÓN DE CAMPEONES",
+      "tagline": "$15,000 en 350 yardas · el título máximo de la temporada",
+      "cta": "VER EL TÍTULO",
+      "special": {
+        "title": "$15K · 350 YDS",
+        "text": "Un solo caballo se lleva la corona de la temporada 2026",
+        "code": "CAMPEON16"
+      }
+    },
+    "23": {
+      "img": "images/img10.jpg",
+      "tag": "ESPACIO DISPONIBLE",
+      "title": "TU MARCA AQUÍ",
+      "tagline": "Anúnciate con CarrerasOS · toda la afición te ve el día de la final",
+      "cta": "QUIERO ESTE ESPACIO",
+      "special": {
+        "title": "SE VENDE ESTE ESPACIO",
+        "text": "Tu negocio frente a toda la raza fierrera · aparta tu lugar",
+        "code": "CARRERASOS"
+      }
+    }
+  },
+  "_image_map": {
+    "images/img11.jpg": "hero — caballo campeón del flyer",
+    "images/img09.jpg": "wide banner",
+    "images/img12.jpg": "Red Springs Training Center logo (ad slot)",
+    "note": "Fotos recortadas del flyer oficial Campeón de Campeones 2026."
+  }
+}
