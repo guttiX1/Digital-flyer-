@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Campeón de Campeones 2026 · Video Ad 30s · La Coronación</title>
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -12,7 +13,14 @@
    23 titles, championship plate, light beams, gold confetti burst.
    ═══════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:540px;height:960px;overflow:hidden;background:#000}
+html,body{width:100%;height:100vh;height:100dvh;margin:0;padding:0;overflow:hidden;background:#000}
+body{display:flex;align-items:center;justify-content:center}
+#stage{flex:0 0 auto;transform-origin:center center}
+#replay{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:none;
+  align-items:center;justify-content:center;padding:11px 22px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.32);background:rgba(0,0,0,.72);color:#fff;
+  font:700 12.5px/1 Arial,sans-serif;letter-spacing:2.5px;cursor:pointer;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #stage{position:relative;width:540px;height:960px;overflow:hidden;background:#06040a;
   font-family:"Arial Black",Impact,Arial,sans-serif;color:#fff}
 
@@ -85,8 +93,8 @@ canvas#fx{position:absolute;inset:0;z-index:7;pointer-events:none}
 .sp{display:inline-block;width:.26em}
 
 /* laurel */
-.laurel{display:flex;align-items:center;justify-content:center;gap:14px}
-.laurel svg{width:40px;height:62px;fill:#F5C518;opacity:0;animation:fade .5s .9s both}
+.laurel{display:flex;align-items:center;justify-content:center;gap:10px}
+.laurel svg{width:32px;height:50px;flex:0 0 auto;fill:#F5C518;opacity:0;animation:fade .5s .9s both}
 .laurel svg.r{transform:scaleX(-1)}
 @keyframes fade{to{opacity:.95}}
 @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
@@ -97,8 +105,8 @@ canvas#fx{position:absolute;inset:0;z-index:7;pointer-events:none}
 .b1 .t3{font-size:11.5px;letter-spacing:5px;color:rgba(255,255,255,.72);margin-top:12px;opacity:0;animation:up .6s 2.4s both}
 
 /* B2 */
-.b2 .l1{font-size:56px}
-.b2 .l2{font-size:56px;margin-top:2px}
+.b2 .l1{font-size:46px;white-space:nowrap}
+.b2 .l2{font-size:46px;margin-top:2px;white-space:nowrap}
 .b2 .yr{font-size:76px;margin-top:10px;opacity:0;animation:up .6s 1.5s both}
 .b2 .tag{font-size:12px;letter-spacing:6px;color:#FFE07A;margin-top:16px;opacity:0;animation:up .6s 1.8s both}
 
@@ -287,11 +295,12 @@ var T0=performance.now();
 
 /* ── letter-slam titles ── */
 document.querySelectorAll('[data-ltr]').forEach(function(el,gi){
+  var grad=el.classList.contains('g')?' g':(el.classList.contains('crim')?' crim':'');
   var txt=el.textContent.trim(); el.textContent='';
   var f=document.createDocumentFragment();
   txt.split('').forEach(function(c,i){
     if(c===' '){var s=document.createElement('span');s.className='sp';f.appendChild(s);return;}
-    var sp=document.createElement('span');sp.className='ltr';sp.textContent=c;
+    var sp=document.createElement('span');sp.className='ltr'+grad;sp.textContent=c;
     sp.style.animationDelay=(0.18+gi*0.34+i*0.042)+'s';
     f.appendChild(sp);
   });
@@ -385,6 +394,23 @@ requestAnimationFrame(odoTick);
     }
   }
   requestAnimationFrame(loop);
+})();
+</script>
+
+<div id="replay">↻ VER DE NUEVO</div>
+<script>
+(function(){
+  var st=document.getElementById('stage');
+  function fit(){ if(!st)return;
+    var s=Math.min(window.innerWidth/540, window.innerHeight/960);
+    st.style.transform = (s===1?'none':'scale('+s+')');
+  }
+  fit();
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',function(){setTimeout(fit,120);});
+  var rp=document.getElementById('replay');
+  if(rp){ setTimeout(function(){rp.style.display='flex';},30300);
+          rp.addEventListener('click',function(){location.reload();}); }
 })();
 </script>
 </body>

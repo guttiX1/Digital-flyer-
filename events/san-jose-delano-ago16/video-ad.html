@@ -2,10 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Carril San José Delano · Video Ad 30s</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:540px;height:960px;overflow:hidden;background:#000}
+html,body{width:100%;height:100vh;height:100dvh;margin:0;padding:0;overflow:hidden;background:#000}
+body{display:flex;align-items:center;justify-content:center}
+#stage{flex:0 0 auto;transform-origin:center center}
+#replay{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:none;
+  align-items:center;justify-content:center;padding:11px 22px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.32);background:rgba(0,0,0,.72);color:#fff;
+  font:700 12.5px/1 Arial,sans-serif;letter-spacing:2.5px;cursor:pointer;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #stage{position:relative;width:540px;height:960px;overflow:hidden;font-family:Arial,sans-serif;color:#fff}
 
 /* ── VIDEO BACKGROUND ── */
@@ -187,6 +195,23 @@ function fitAll(){
 }
 fitAll();
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll)}
+</script>
+
+<div id="replay">↻ VER DE NUEVO</div>
+<script>
+(function(){
+  var st=document.getElementById('stage');
+  function fit(){ if(!st)return;
+    var s=Math.min(window.innerWidth/540, window.innerHeight/960);
+    st.style.transform = (s===1?'none':'scale('+s+')');
+  }
+  fit();
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',function(){setTimeout(fit,120);});
+  var rp=document.getElementById('replay');
+  if(rp){ setTimeout(function(){rp.style.display='flex';},30300);
+          rp.addEventListener('click',function(){location.reload();}); }
+})();
 </script>
 </body>
 </html>
