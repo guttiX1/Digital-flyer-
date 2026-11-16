@@ -310,7 +310,7 @@ const PHOTOS=['vq-caporal','vq-abeja','vq-zorro','vq-tiburon','vq-celular','vq-v
 function photoRig(tex){const r=rig('#ffffff');r.flat=true;const h=2.3,w=h*tex.image.width/tex.image.height;
  const m=new THREE.MeshBasicMaterial({map:tex,transparent:true,alphaTest:.03,side:THREE.DoubleSide,toneMapped:false});
  r.body.add(M(new THREE.PlaneGeometry(w,h),m,[0,h/2,0]));return r}
-function loadPhotos(){const L=new THREE.TextureLoader();PHOTOS.forEach(k=>L.load('chars/'+k+'.png',t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;B[k]=()=>photoRig(t)}))}
+function loadPhotos(){const L=new THREE.TextureLoader();PHOTOS.forEach(k=>L.load(new URL('chars/'+k+'.png',import.meta.url).href,t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;B[k]=()=>photoRig(t)}))}
 export const CHAR_KEYS=Object.keys(B);
 export const DEF_COLOR=Object.fromEntries(CHAR_KEYS.map(k=>[k,null]));
 
