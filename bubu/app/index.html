@@ -347,6 +347,7 @@ const openNeeds=a=>a.needs.filter(t=>!S.done[nk(a,t)]);
 const doneByYou=a=>a.needs.filter(t=>S.done[nk(a,t)]);
 const openAsks=a=>(a.asks||[]).filter(x=>!S.asks[nk(a,x.q)]);
 const openCount=a=>openNeeds(a).length+openAsks(a).length;
+const openAll=a=>[...openNeeds(a),...openAsks(a).map(x=>x.q)];
 const points=a=>doneByYou(a).length+(a.asks||[]).filter(x=>S.asks[nk(a,x.q)]).length;
 const levelOf=a=>1+Math.floor(points(a)/2);
 let booted=false;
@@ -506,7 +507,7 @@ document.querySelectorAll('.ag').forEach(c=>{const strip=c.querySelector('.strip
  tabs.forEach((t,i)=>t.addEventListener('click',()=>strip.scrollTo({left:i*strip.clientWidth,behavior:'smooth'})));
  let raf;strip.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const i=Math.round(strip.scrollLeft/strip.clientWidth);tabs.forEach((t,j)=>t.classList.toggle('on',i===j));const tb=c.querySelector('.tabs'),on=tabs[i];if(on)tb.scrollTo({left:on.offsetLeft-tb.clientWidth/2+on.clientWidth/2,behavior:'smooth'})})},{passive:true})});
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goCard(agCard(+b.dataset.go))));
-$('#pk').addEventListener('click',()=>{const i=AG.findIndex(a=>openNeeds(a).length);goCard(i<0?$('#today'):agCard(i))});
+$('#pk').addEventListener('click',()=>{const i=AG.findIndex(a=>openCount(a));goCard(i<0?$('#today'):agCard(i))});
 const railEl=$('#rail');railEl.innerHTML=cards.map(()=>'<i></i>').join('');
 function rail(){const y=feed.scrollTop+innerHeight*.4;let i=0;cards.forEach((c,j)=>{if(c.offsetTop<=y)i=j});[...railEl.children].forEach((m,j)=>m.classList.toggle('on',i===j));$('#home').classList.toggle('on',i>0)}
 /* volver al Oráculo desde cualquier agente */
@@ -520,7 +521,7 @@ let sayT;function say(t,ms=3200){const s=$('#say');s.textContent=t;s.classList.a
 /* ---------- pintar números y listas ---------- */
 function paint(){const tot=totalOpen();moodRing(tot);
  $('#pk').textContent=tot?`${tot} thing${tot>1?'s':''} need you`:'All clear ✓';$('#pk').style.background=tot?'':'#1d9e6a';
- $('#oSub').textContent=`Watches ${AG.length} agents · ${tot} things need you`;
+ $('#oSub').textContent=`Watches ${AG.length} agent${AG.length>1?'s':''} · ${tot} thing${tot===1?' needs':'s need'} you`;
  AG.forEach((a,i)=>{const o=openNeeds(a),dn=doneByYou(a);
   const oc=openCount(a),qs=openAsks(a);
   const w=$('#who-'+i);if(w){w.className=oc?'n':'';w.textContent=oc?`${oc} need you`:'all clear'}
@@ -664,20 +665,20 @@ document.querySelectorAll('svg.eye').forEach(s=>mountEye(s,'card'));
 const chat=$('#chat'),msgs=$('#msgs'),chQ=$('#chQ');let chA=null,chE=null,chI=0;const hist={};
 const list=x=>x.map(t=>'• '+t).join('\n');
 const hasW=(t,...w)=>w.some(x=>new RegExp('(^|[^a-záéíóúñü])'+x).test(t));
-function first(){const d=DL.find(x=>{const g=AG.find(a=>a.id===x.ag);return g&&!x.wait&&daysTo(x.date)>0&&!isSnoozed(g)&&openNeeds(g).length});if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>!isSnoozed(a)&&openNeeds(a).length);return a?{a,d:null}:null}
+function first(){const d=DL.find(x=>{const g=AG.find(a=>a.id===x.ag);return g&&!x.wait&&daysTo(x.date)>0&&!isSnoozed(g)&&openCount(g)});if(d)return {a:AG.find(a=>a.id===d.ag),d};const a=AG.find(a=>!isSnoozed(a)&&openCount(a));return a?{a,d:null}:null}
 function prophecy(){const tk=todayKey();if(tk===D.raceDay)return `Today is race day. Open Results to tap the winners as they come in.`;
  const f=first(),tot=totalOpen();if(!f)return `All clear. Nothing waits on you today.`;
- return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openCount(f.a)} thing${openCount(f.a)>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} things wait on you in all.`}
+ return f.d?`Today's sign: ${f.a.name}. ${f.d.what} is in ${daysTo(f.d.date)} days and ${openCount(f.a)} thing${openCount(f.a)>1?'s':''} still wait on you.`:`Today's sign: ${f.a.name}. ${tot} thing${tot>1?'s wait':' waits'} on you in all.`}
 function oracle(t){
- if(hasW(t,'hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch all ${AG.length} of your agents.\n${prophecy()}\nAsk me what to do first.`;
- if(hasW(t,'first','primero','urgent','priority','should','debo','hago','focus','today','hoy')){const f=first();return f?`${f.a.name} first.${f.d?` ${f.d.what} is in ${daysTo(f.d.date)} days.`:''} It still waits on you for:\n${list(openNeeds(f.a))}`:'Nothing waits on you. Rest.'}
+ if(hasW(t,'hi','hey','hello','hola','que onda','qué onda'))return `I am the Oracle. I watch ${AG.length>1?`all ${AG.length} of your agents`:'your agent'}.\n${prophecy()}\nAsk me what to do first.`;
+ if(hasW(t,'first','primero','urgent','priority','should','debo','hago','focus','today','hoy')){const f=first();return f?`${f.a.name} first.${f.d?` ${f.d.what} is in ${daysTo(f.d.date)} days.`:''} It still waits on you for:\n${list(openAll(f.a))}`:'Nothing waits on you. Rest.'}
  if(hasW(t,'deadline','date','fecha','cuando','cuándo','when','days','días','dias'))return 'The dates ahead:\n'+DL.map(d=>`• ${d.what}: ${daysTo(d.date)} days (${fmtD(d.date)})`).join('\n');
- if(hasW(t,'who','quien','quién','need','necesit','waiting'))return 'These agents wait on you:\n'+AG.filter(a=>openNeeds(a).length).map(a=>`• ${a.name}: ${openNeeds(a).length}`).join('\n');
+ if(hasW(t,'who','quien','quién','need','necesit','waiting'))return 'These agents wait on you:\n'+AG.filter(a=>openCount(a)).map(a=>`• ${a.name}: ${openCount(a)}`).join('\n');
  if(hasW(t,'done','hecho','cleared','listo'))return `Today: ${$('#tdH').textContent}.`;
- if(hasW(t,'status','estado','all','todo','how','como','cómo'))return AG.map(a=>`• ${a.name}: ${openNeeds(a).length?openNeeds(a).length+' need you':'all clear'}`).join('\n');
+ if(hasW(t,'status','estado','all','todo','how','como','cómo'))return AG.map(a=>`• ${a.name}: ${openCount(a)?openCount(a)+' need you':'all clear'}`).join('\n');
  if(hasW(t,'thank','gracias','cool','nice'))return 'The path is yours to walk. Come back when you finish one.';
  return null}
-function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);const o=openNeeds(a);
+function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);const o=openAll(a);
  if(hasW(t,'hi','hey','hello','hola','que onda','qué onda','sup'))return `Hey! I'm ${a.name}. ${o.length?`I'm waiting on ${o.length} thing${o.length>1?'s':''} from you.`:'Nothing pending from you.'} Ask me what I need, what I'm doing, or what's next.`;
  if(hasW(t,'need','necesit','waiting','espera','pending','pendiente','falta'))return o.length?`Here's what I need from you:\n${list(o)}\nTap one on my card to answer it.`:`Nothing right now.`;
  if(hasW(t,'doing','working','status','estado','haces','how','como va','cómo va','progress'))return `Right now: ${a.now}`;
@@ -689,7 +690,7 @@ function reply(a,t){t=t.toLowerCase();if(a.id==='oracle')return oracle(t);const 
  return null}
 function addMsg(who,text,isH){const d=document.createElement('div');d.className='m '+who;if(isH)d.innerHTML=text;else d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;(hist[chA.id]=hist[chA.id]||[]).push([who,text,!!isH])}
 function openChat(i){const a=i<0?ORACLE:AG[i];chA=a;chI=i;if(i>=0){S.talk[a.id]=todayKey();save()}chat.style.setProperty('--tint',shade(a.color,.82));chat.style.setProperty('--c',a.color);
- $('#chName').textContent=a.name;const o=i<0?[]:openNeeds(a);$('#chSub').textContent=i<0?'sees all your agents':o.length?`needs ${o.length} thing${o.length>1?'s':''} from you`:'all clear';
+ $('#chName').textContent=a.name;const o=i<0?[]:openAll(a);$('#chSub').textContent=i<0?'sees all your agents':o.length?`needs ${o.length} thing${o.length>1?'s':''} from you`:'all clear';
  const card=i<0?$('#intro'):agCard(i);goCard(card);const st=card.querySelector('.strip');if(st)st.scrollTo({left:0,behavior:'smooth'});
  chE=eyes.find(E=>E.svg.closest('.card')===card);if(chE)grow(chE,true);feed.style.overflowY='hidden';if(chE){chE.look=[0,.7];chE.sv-=.12;chE.happyT=1;setTimeout(()=>{chE.happyT=0},900)}
  msgs.innerHTML='';const h=hist[a.id];
